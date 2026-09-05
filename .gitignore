@@ -10,6 +10,9 @@
 /.qa/
 /.tmp.driveupload/
 /dist/
+/\.agents/
+/urls.txt
+/xinquyenhangloat.txt
 shops/**/.haravan-workflow-cache.json
 
 # Local ticket attachments and temporary Word lock files
