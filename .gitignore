@@ -10,7 +10,7 @@
 /.qa/
 /.tmp.driveupload/
 /dist/
-/\.agents/
+/.agents/
 /urls.txt
 /xinquyenhangloat.txt
 shops/**/.haravan-workflow-cache.json
