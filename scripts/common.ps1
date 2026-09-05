@@ -2142,11 +2142,6 @@ function Invoke-HaravanGitArchive {
         [switch]$SkipPush
     )
 
-    $settings = Get-HaravanGitSettings `
-        -RepositoryPathOverride $RepositoryPath `
-        -RemoteOverride $Remote `
-        -BranchOverride $Branch `
-        -CommitMessageOverride $CommitMessage
     $requestedPaths = @(
         $RelativePaths |
             ForEach-Object { ([string]$_ -replace '\\', '/').TrimStart('/') } |
@@ -2165,6 +2160,19 @@ function Invoke-HaravanGitArchive {
     if ($requestedPaths.Count -eq 0) {
         return [PSCustomObject]($baseResult + @{ Status = "NoPaths" })
     }
+
+    try {
+        $settings = Get-HaravanGitSettings `
+            -RepositoryPathOverride $RepositoryPath `
+            -RemoteOverride $Remote `
+            -BranchOverride $Branch `
+            -CommitMessageOverride $CommitMessage
+    } catch {
+        $detail = Get-HaravanGitFailureDetail -ErrorRecord $_
+        Write-Warning "Không đọc được cấu hình lưu Git; code Haravan vẫn đã push thành công. $detail"
+        return [PSCustomObject]($baseResult + @{ Status = "Failed"; Error = $detail })
+    }
+
     if (-not $settings.Enabled) {
         return [PSCustomObject]($baseResult + @{ Status = "Disabled" })
     }
