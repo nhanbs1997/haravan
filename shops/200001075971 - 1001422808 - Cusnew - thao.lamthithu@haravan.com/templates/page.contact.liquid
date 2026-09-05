@@ -1,0 +1,83 @@
+<div  class="layout-pageContact">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 col-sm-12 col-xs-12 box-heading-contact">
+				{% if settings.show_google_maps and settings.google_maps_code != blank %}
+				<div class="box-map">
+					{{ settings.google_maps_code }}
+				</div>
+				{% endif %}
+
+			</div>
+			<div class="col-md-6 col-sm-12 col-xs-12  wrapbox-content-page-contact">
+				<div class="header-page-contact clearfix">
+					<h1>{{ page.title }}</h1>
+				</div>
+				<div class="box-info-contact">
+					<ul class="list-info">
+						<li>
+							<p>Địa chỉ chúng tôi</p>
+							<p><strong>{{settings.footer_address}}</strong></p>
+						</li>
+						<li>
+							<p>Email chúng tôi</p>
+							<p><strong>{{settings.footer_email}}</strong></p>
+						</li>
+						<li>
+							<p>Điện thoại</p>
+							<p><strong>{{settings.footer_phone}}</strong></p>
+						</li>
+						<li>
+							<p>Thời gian làm việc</p>
+							<p><strong>{{settings.footer_time}}</strong></p>
+						</li>
+					</ul>
+				</div>
+				<div class="box-send-contact">
+					<h2>Gửi thắc mắc cho chúng tôi</h2>
+					<div id="col-left contactFormWrapper">
+						{% form 'contact' %}
+						{% if form.posted_successfully? %}
+						<div class="alert alert-success">
+							Cám ơn bạn đã liên hệ! Chúng tôi sẽ trả lời ngay khi có thể
+						</div>
+						{% endif %}
+						<div class="contact-form">
+							<div class="row">
+								<div class="col-sm-12 col-xs-12">
+									<div class="input-group">
+										<input required type="text" name="contact[name]" class="form-control" placeholder="Tên của bạn" aria-describedby="basic-addon1">
+									</div>
+								</div>
+								<div class="col-sm-6 col-xs-12">
+									<div class="input-group">
+										<input required type="text" name="contact[email]" class="form-control" placeholder="Email của bạn" aria-describedby="basic-addon1">
+									</div>
+								</div>
+								<div class="col-sm-6 col-xs-12">
+									<div class="input-group">
+										<input pattern="[0-9]{10,12}" required type="text" name="contact[phone]" class="form-control" placeholder="Số điện thoại của bạn" aria-describedby="basic-addon1">
+									</div>
+								</div>
+								<div class="col-sm-12 col-xs-12">
+									<div class="input-group">
+										<textarea name="contact[body]" required placeholder="Nội dung"></textarea>
+										<div class="sitebox-recaptcha" >
+											This site is protected by reCAPTCHA and the Google
+											<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> 
+											and <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a> apply.
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12">
+									<button class="button dark">Gửi cho chúng tôi</button>
+								</div>
+							</div>
+						</div>
+						{% endform %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

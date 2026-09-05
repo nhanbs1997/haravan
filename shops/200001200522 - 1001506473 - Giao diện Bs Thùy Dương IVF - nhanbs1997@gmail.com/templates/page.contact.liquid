@@ -1,0 +1,130 @@
+<div class="layout-pageContact">
+	<div class="hidden">
+		{%- include 'breadcrumb' -%}
+	</div>
+	<div class="wrapper-bodycontact">
+		<div class="heading-pageDetail d-none"><div class="container"><h1>{{ page.title }}</h1></div></div>
+		<div class="wrapbox-content-contact">
+			{% if settings.google_maps_show and settings.google_maps_code != blank %}
+			<div class="box-map-contact hrv-cf-google_maps_code" setting-id="google_maps_code" setting-type="textarea">
+				{{ settings.google_maps_code }}
+			</div>
+			{% endif %}
+			<div class="container">	
+				<div class="row widthContent contact-info">
+					<div class="col-lg-4 col-md-12 col-12 wrapbox-content-left">
+						<div class="box-info-contact">
+							{%if settings.contact_title != ''%}<h2 setting-id="contact_title" setting-type="text" class="hrv-cf-contact_title">{{settings.contact_title}}</h2>{%endif%}
+							<ul class="infoList-contact">
+								{%- if settings.contact_address != blank -%}
+								<li>
+									<p setting-id="contact_address" setting-type="text" class="hrv-cf-contact_address">{{settings.contact_address}}</p>
+								</li>
+								{%- endif -%}
+								{%- if settings.contact_email != blank -%}
+								<li class="email">
+									<p><a href="mailto:{{settings.contact_email}}" setting-id="contact_email" setting-type="text" class="hrv-cf-contact_email">{{settings.contact_email}}</a></p>
+								</li>
+								{%- endif -%}
+								{%- if settings.contact_phone != blank -%}
+								<li class="phone">
+									<p><a href="tel:{{settings.contact_phone  | replace: '.', ''| replace: ' ', ''}}" rel="noopener" setting-id="contact_phone" setting-type="text" class="hrv-cf-contact_phone">{{settings.contact_phone}}</a></p>
+								</li>
+								{%- endif -%}
+							</ul>
+							{%if settings.show_contact_social%}
+							<ul class="contact-social">
+								{%-if settings.social_link_facebook != blank -%}<li><a href="{{settings.social_link_facebook}}" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook" setting-id="social_link_facebook" class="hrv-cf-social_link_facebook"><i class="fa fa-facebook"></i></a></li>	{%-endif-%}
+								{%-if settings.social_link_youtube != blank -%}<li><a href="{{settings.social_link_youtube}}" target="_blank" rel="noopener" title="Youtube" aria-label="Youtube" setting-id="social_link_youtube" class="hrv-cf-social_link_youtube"><i class="fa fa-youtube-play"></i></a></li>	{%-endif-%}
+								{%-if settings.social_link_instagram != blank -%}<li><a href="{{settings.social_link_instagram}}" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram" setting-id="social_link_instagram" class="hrv-cf-social_link_instagram"><i class="fa fa-instagram"></i></a></li>	{%-endif-%}
+								{%-if settings.social_link_tiktok != blank -%}<li class="social-svg"><a href="{{settings.social_link_tiktok}}" target="_blank" rel="noopener" title="Tiktok" aria-label="Tiktok" setting-id="social_link_tiktok" class="hrv-cf-social_link_tiktok"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48"><path d="M 11.5 6 C 8.4802259 6 6 8.4802259 6 11.5 L 6 36.5 C 6 39.519774 8.4802259 42 11.5 42 L 36.5 42 C 39.519774 42 42 39.519774 42 36.5 L 42 11.5 C 42 8.4802259 39.519774 6 36.5 6 L 11.5 6 z M 11.5 9 L 36.5 9 C 37.898226 9 39 10.101774 39 11.5 L 39 36.5 C 39 37.898226 37.898226 39 36.5 39 L 11.5 39 C 10.101774 39 9 37.898226 9 36.5 L 9 11.5 C 9 10.101774 10.101774 9 11.5 9 z M 26.435547 13.023438 A 1.50015 1.50015 0 0 0 25 14.5 L 25 28 C 25 30.227598 23.227598 32 21 32 C 18.772402 32 17 30.227598 17 28 C 17 25.772402 18.772402 24 21 24 A 1.50015 1.50015 0 1 0 21 21 C 17.151598 21 14 24.151598 14 28 C 14 31.848402 17.151598 35 21 35 C 24.848402 35 28 31.848402 28 28 L 28 20.335938 C 29.268121 21.316987 30.78243 22 32.5 22 A 1.50015 1.50015 0 1 0 32.5 19 C 29.996501 19 28 17.003499 28 14.5 A 1.50015 1.50015 0 0 0 26.435547 13.023438 z"></path></svg></a></li>	{%-endif-%}
+								{%-if settings.social_link_shopee != blank -%}<li class="social-svg"><a href="{{settings.social_link_shopee}}" target="_blank" rel="noopener" title="Shopee" aria-label="Shopee" setting-id="social_link_shopee" class="hrv-cf-social_link_shopee"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="48" height="48" viewBox="0 0 48 48"><path d="M 24 1 C 19.015304 1 15.187203 5.491076 14.589844 11 L 5.5917969 11 A 1.50015 1.50015 0 0 0 4.09375 12.587891 L 5.7773438 41.234375 A 1.50015 1.50015 0 0 0 5.7773438 41.236328 C 5.901433 43.336252 7.6680925 45 9.7714844 45 L 38.228516 45 C 40.332664 45 42.096549 43.335805 42.220703 41.236328 A 1.50015 1.50015 0 0 0 42.220703 41.234375 L 43.90625 12.587891 A 1.50015 1.50015 0 0 0 42.408203 11 L 33.410156 11 C 32.812797 5.491076 28.984696 1 24 1 z M 24 4 C 27.044271 4 29.834574 6.9017187 30.392578 11 L 17.607422 11 C 18.165426 6.9017187 20.955729 4 24 4 z M 7.1816406 14 L 40.818359 14 L 39.226562 41.058594 C 39.194717 41.597117 38.768367 42 38.228516 42 L 9.7714844 42 C 9.2308762 42 8.8033952 41.598623 8.7714844 41.058594 L 7.1816406 14 z M 24.074219 17.011719 C 20.135219 17.011719 17.164063 19.515937 17.164062 22.835938 C 17.164062 26.625937 20.635828 27.892109 23.423828 28.912109 C 26.744828 30.126109 28.308594 30.929062 28.308594 33.039062 C 28.308594 34.694063 26.349453 36.041016 23.939453 36.041016 C 21.113453 36.041016 18.640234 33.938969 18.615234 33.917969 L 18.490234 33.802734 C 18.397234 33.717734 18.277344 33.671875 18.152344 33.671875 C 18.133344 33.671875 18.11375 33.671828 18.09375 33.673828 C 17.94975 33.690828 17.819281 33.770625 17.738281 33.890625 L 16.632812 35.519531 C 16.487813 35.733531 16.529469 36.0235 16.730469 36.1875 L 16.84375 36.279297 C 17.62975 36.916297 20.4575 38.988281 23.9375 38.988281 C 28.0415 38.988281 31.257813 36.376062 31.257812 33.039062 C 31.259813 28.637063 27.477453 27.254531 24.439453 26.144531 C 21.498453 25.069531 20.113281 24.392938 20.113281 22.835938 C 20.113281 21.169937 21.778219 19.960938 24.074219 19.960938 C 25.743219 19.960938 27.216312 20.620672 27.945312 21.013672 C 28.062313 21.076672 28.414281 21.287875 28.613281 21.421875 L 28.751953 21.513672 C 28.834953 21.569672 28.931297 21.597656 29.029297 21.597656 C 29.065297 21.597656 29.100719 21.594891 29.136719 21.587891 C 29.269719 21.558891 29.384078 21.475375 29.455078 21.359375 L 30.466797 19.714844 C 30.608797 19.484844 30.540453 19.181203 30.314453 19.033203 L 30.148438 18.925781 C 29.299437 18.353781 26.997219 17.011719 24.074219 17.011719 z"></path></svg></a></li>	{%-endif-%}
+								{%-if settings.social_link_lazada != blank -%}<li class="social-svg"><a href="{{settings.social_link_lazada}}" target="_blank" rel="noopener" title="Lazada" aria-label="Lazada" setting-id="social_link_lazada" class="hrv-cf-social_link_lazada"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 100 100"><path d="M 25.992188 17.001953 C 25.605279 17.001953 25.224109 17.108194 24.890625 17.314453 L 8.4648438 27.421875 C 7.5534844 27.982137 7 28.976035 7 30.044922 L 7 59.128906 C 7 60.190844 7.552998 61.183824 8.4550781 61.744141 L 48.417969 86.548828 C 48.749873 86.75509 49.118262 86.888512 49.5 86.953125 L 49.5 87 L 50 87 L 50.5 87 L 50.5 86.953125 C 50.881738 86.888512 51.250127 86.75509 51.582031 86.548828 L 91.544922 61.744141 C 92.447002 61.183824 92.998047 60.190844 92.998047 59.128906 L 92.998047 30.042969 C 92.998047 28.974082 92.444562 27.982137 91.533203 27.421875 L 75.109375 17.314453 C 74.777357 17.109101 74.394819 17.001953 74.007812 17.001953 C 73.617447 17.001953 73.23202 17.111022 72.900391 17.316406 L 72.898438 17.316406 L 57.544922 26.847656 C 55.276867 28.255608 52.667174 28.998047 49.998047 28.998047 C 47.32892 28.998047 44.72118 28.255608 42.453125 26.847656 L 27.099609 17.316406 C 26.766378 17.109573 26.382552 17.001953 25.992188 17.001953 z M 25.992188 19.001953 C 26.011817 19.001953 26.030152 19.008448 26.044922 19.017578 L 41.398438 28.546875 C 43.982382 30.150924 46.957174 30.998047 49.998047 30.998047 C 53.03892 30.998047 56.015664 30.150924 58.599609 28.546875 L 73.953125 19.017578 C 73.973495 19.004958 73.988173 19.001953 74.007812 19.001953 C 74.028802 19.001953 74.042661 19.005052 74.056641 19.013672 L 74.058594 19.015625 L 90.486328 29.125 C 90.522141 29.147016 90.551166 29.178616 90.583984 29.205078 L 50 51.429688 L 9.4160156 29.205078 C 9.4488802 29.17857 9.4778589 29.147016 9.5136719 29.125 L 25.941406 19.015625 C 25.953926 19.007925 25.973098 19.001953 25.992188 19.001953 z M 74.013672 22.949219 C 73.557725 22.950146 73.103028 23.075242 72.701172 23.324219 L 67.236328 26.716797 A 0.50005 0.50005 0 1 0 67.763672 27.566406 L 73.226562 24.175781 C 73.710851 23.875734 74.320245 23.873693 74.804688 24.171875 L 84.154297 29.925781 A 0.5002983 0.5002983 0 1 0 84.679688 29.074219 L 75.328125 23.320312 C 74.925346 23.072402 74.469619 22.948292 74.013672 22.949219 z M 65.318359 27.996094 A 0.50005 0.50005 0 0 0 65.048828 28.074219 L 63.4375 29.074219 A 0.50081172 0.50081172 0 0 0 63.964844 29.925781 L 65.576172 28.925781 A 0.50005 0.50005 0 0 0 65.318359 27.996094 z M 9 30.119141 L 49.5 52.296875 L 49.5 84.861328 C 49.491356 84.856307 49.481172 84.854901 49.472656 84.849609 L 9.5097656 60.044922 C 9.1818457 59.841238 9 59.514969 9 59.128906 L 9 30.119141 z M 90.998047 30.119141 L 90.998047 59.128906 C 90.998047 59.514969 90.818154 59.841238 90.490234 60.044922 L 50.527344 84.849609 C 50.518828 84.854901 50.508644 84.856307 50.5 84.861328 L 50.5 52.296875 L 90.998047 30.119141 z M 12.492188 34.992188 A 0.50005 0.50005 0 0 0 12 35.5 L 12 56.669922 C 12 57.533887 12.447481 58.33724 13.181641 58.792969 L 29.236328 68.757812 A 0.50005 0.50005 0 1 0 29.763672 67.908203 L 13.708984 57.943359 C 13.267144 57.669088 13 57.189957 13 56.669922 L 13 35.5 A 0.50005 0.50005 0 0 0 12.492188 34.992188 z M 36.478516 72.173828 A 0.50005 0.50005 0 0 0 36.236328 73.103516 L 40.236328 75.585938 A 0.50005 0.50005 0 1 0 40.763672 74.736328 L 36.763672 72.253906 A 0.50005 0.50005 0 0 0 36.478516 72.173828 z M 43.478516 76.519531 A 0.50005 0.50005 0 0 0 43.236328 77.447266 L 44.236328 78.068359 A 0.50005 0.50005 0 1 0 44.763672 77.21875 L 43.763672 76.597656 A 0.50005 0.50005 0 0 0 43.478516 76.519531 z"></path></svg></a></li>	{%-endif-%}
+							</ul>
+							{%endif%}
+						</div> 
+					</div>
+					<div class="col-lg-8 col-md-12 col-12 wrapbox-content-right">
+						<div class="box-send-contact">
+							<div id="col-left contactFormWrapper">
+								{% form 'contact' %}
+								{% if form.posted_successfully? %}
+								<div class="alert alert-success">
+									Cám ơn bạn đã liên hệ! Chúng tôi sẽ trả lời ngay khi có thể
+								</div>
+								{% endif %}
+								<div class="contact-form">
+									<div class="row">
+										<div class="col-sm-12 col-xs-12">
+											<div class="input-group">
+												<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM6 8a6 6 0 1 1 12 0A6 6 0 0 1 6 8zm2 10a3 3 0 0 0-3 3 1 1 0 1 1-2 0 5 5 0 0 1 5-5h8a5 5 0 0 1 5 5 1 1 0 1 1-2 0 3 3 0 0 0-3-3H8z" /></svg>
+												<input required type="text" name="contact[name]" class="form-control" placeholder="Tên của bạn" aria-describedby="basic-addon1">
+											</div>
+										</div>
+										<div class="col-sm-6 col-xs-12">
+											<div class="input-group">
+												<svg width="20px" height="20px" viewBox="0 0 36 36" version="1.1"  preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <title>email-line</title> <path class="clr-i-outline clr-i-outline-path-1" d="M32,6H4A2,2,0,0,0,2,8V28a2,2,0,0,0,2,2H32a2,2,0,0,0,2-2V8A2,2,0,0,0,32,6ZM30.46,28H5.66l7-7.24-1.44-1.39L4,26.84V9.52L16.43,21.89a2,2,0,0,0,2.82,0L32,9.21v17.5l-7.36-7.36-1.41,1.41ZM5.31,8H30.38L17.84,20.47Z"></path> <rect x="0" y="0" width="36" height="36" fill-opacity="0"/> </svg>
+												<input required type="text" name="contact[email]" class="form-control" placeholder="Email của bạn" aria-describedby="basic-addon1">
+											</div>
+										</div>
+										<div class="col-sm-6 col-xs-12">
+											<div class="input-group phone">
+												<svg width="20px" height="20px" viewBox="0 0 24 24" id="call" data-name="Line Color" xmlns="http://www.w3.org/2000/svg" class="icon line-color"><path id="secondary" d="M12,7a5,5,0,0,1,5,5" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="secondary-2" data-name="secondary" d="M11,3.06A8.26,8.26,0,0,1,12,3a9,9,0,0,1,9,9,8.26,8.26,0,0,1-.06,1" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary" d="M15,21a13.21,13.21,0,0,1-4.34-1.91l1.82-2.61a2,2,0,0,1,2.68-.51c.33.21.67.4,1,.59A2,2,0,0,1,17,19.38l-.62.95A1.17,1.17,0,0,1,15,21ZM3.67,7.67l1-.62a2,2,0,0,1,2.85.73c.19.36.38.7.59,1a2,2,0,0,1-.51,2.68L4.94,13.31A13.21,13.21,0,0,1,3,9,1.17,1.17,0,0,1,3.67,7.67Z" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path><path id="primary-2" data-name="primary" d="M4.94,13.31a17.72,17.72,0,0,0,2.58,3.17,17.72,17.72,0,0,0,3.17,2.58" style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></svg>
+												<input pattern="[0-9]{10,12}" required type="text" name="contact[phone]" class="form-control" placeholder="Số điện thoại của bạn" aria-describedby="basic-addon1">
+											</div>
+										</div>
+										<div class="col-sm-12 col-xs-12">
+											<div class="input-group">
+												<svg width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"> <title>pen</title> <path d="M31.25 7.003c0-0 0-0.001 0-0.001 0-0.346-0.14-0.659-0.365-0.886l-5-5c-0.227-0.226-0.539-0.366-0.885-0.366s-0.658 0.14-0.885 0.366v0l-20.999 20.999c-0.146 0.146-0.256 0.329-0.316 0.532l-0.002 0.009-2 7c-0.030 0.102-0.048 0.22-0.048 0.342 0 0.691 0.559 1.251 1.25 1.252h0c0.126-0 0.248-0.019 0.363-0.053l-0.009 0.002 6.788-2c0.206-0.063 0.383-0.17 0.527-0.311l-0 0 21.211-21c0.229-0.226 0.37-0.539 0.371-0.886v-0zM8.133 26.891l-4.307 1.268 1.287-4.504 14.891-14.891 3.219 3.187zM25 10.191l-3.228-3.196 3.228-3.228 3.229 3.228z"></path> </svg>
+												<textarea required name="contact[body]" placeholder="Nội dung"></textarea>
+												<div class="sitebox-recaptcha hidden" >
+													This site is protected by reCAPTCHA and the Google
+													<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> 
+													and <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a> apply.
+												</div>	
+											</div>
+										</div>
+										<div class="col-sm-12 col-xs-12 contact-bottom">
+											<button class="button dark cta-submitform">
+												<svg width="20px" height="20px" viewBox="0 -12 158 158" fill="none" xmlns="http://www.w3.org/2000/svg"> <g clip-path="url(#clip0)"> <path d="M6.72129 53.8326C5.22886 54.369 3.79008 55.0461 2.42414 55.8549C1.99492 56.0692 1.62306 56.3841 1.33985 56.7732C1.05664 57.1622 0.870351 57.614 0.796627 58.0907C0.728141 58.9623 1.18429 59.8347 2.14826 60.6823C2.95005 61.3417 3.81412 61.9203 4.72808 62.4099C5.42909 62.8132 6.14303 63.1944 6.85696 63.575C7.87906 64.1201 8.93607 64.6808 9.92071 65.3035C23.2735 73.7162 35.4245 81.1753 48.7508 87.2021C48.7223 87.6822 48.6907 88.1609 48.6584 88.6377C48.5679 89.9855 48.4749 91.3782 48.4729 92.7533C48.4699 94.8297 48.4618 96.9073 48.4484 98.9863C48.4141 105.578 48.3786 112.395 48.5989 119.098C48.6784 121.515 49.5403 123.243 51.0256 123.964C52.5872 124.719 54.5946 124.279 56.6783 122.719C57.4297 122.156 58.1998 121.524 59.032 120.785C62.6824 117.545 66.3277 114.298 70.0078 111.02L73.343 108.049C73.3682 108.068 73.3927 108.087 73.4153 108.107L76.4991 110.778C80.01 113.816 83.6397 116.957 87.1829 120.08C88.1921 120.967 89.2071 121.85 90.2279 122.727C93.3395 125.417 96.5596 128.198 99.4515 131.179C100.984 132.756 102.474 133.498 104.264 133.498C105.036 133.487 105.803 133.372 106.546 133.158C109.158 132.442 110.843 130.835 112.011 127.954C116.411 117.096 120.915 106.068 125.269 95.4041C128.844 86.644 132.416 77.8832 135.985 69.1212C143.674 50.3116 150.308 31.082 155.854 11.5231C156.526 9.25442 156.998 6.93056 157.266 4.57852C157.355 4.03355 157.322 3.47531 157.169 2.945C157.015 2.41468 156.745 1.92589 156.379 1.51476C155.937 1.11363 155.412 0.817045 154.841 0.646857C154.272 0.476668 153.671 0.437215 153.083 0.531243C152.306 0.62523 151.539 0.799482 150.796 1.05151L150.696 1.08216C149.028 1.58303 147.355 2.06949 145.682 2.5567C141.796 3.6879 137.778 4.85757 133.878 6.19107C105.715 15.8287 77.1517 26.3209 48.9821 37.3766C40.8575 40.564 32.5849 43.7787 24.5844 46.8861C18.6266 49.1966 12.6722 51.5121 6.72129 53.8326ZM60.3339 83.5438C61.8845 82.2395 63.3543 81.0069 64.863 79.8484C70.7773 75.3015 76.6975 70.7617 82.6228 66.2304C94.2653 57.3147 106.305 48.0953 118.081 38.9404C121.682 36.1433 125.099 32.9988 128.404 29.9637C129.539 28.9229 130.673 27.8776 131.816 26.8465C132.728 26.0243 134.254 24.6486 133.408 21.9607C133.38 21.8729 133.335 21.7918 133.275 21.7225C133.215 21.6532 133.141 21.5973 133.059 21.5582C132.976 21.5193 132.886 21.4978 132.794 21.4951C132.703 21.4924 132.612 21.5085 132.527 21.5424C132.174 21.6862 131.833 21.8131 131.504 21.9328C130.819 22.1684 130.152 22.4534 129.508 22.7856C107.655 34.7331 88.645 50.3999 70.2617 65.552C66.1042 68.9781 62.1856 72.5122 58.0409 76.2499C56.2809 77.8377 54.5032 79.432 52.7074 81.0335L11.7046 58.6697C11.9409 58.5229 12.189 58.3963 12.4463 58.2911C19.0407 55.791 25.6326 53.2819 32.2218 50.7636C48.3566 44.61 65.0432 38.2463 81.5231 32.1929C96.1997 26.8017 111.219 21.5788 125.743 16.5278C130.572 14.8487 135.401 13.1663 140.228 11.4807C142.099 10.8263 143.986 10.3144 145.986 9.77318C146.515 9.63008 147.047 9.48508 147.581 9.33807C139.534 35.016 129.269 60.2022 119.336 84.5728C114.116 97.3783 108.723 110.61 103.68 123.835C89.9733 112.724 76.6781 100.978 63.8163 89.6134C62.0792 88.077 60.3384 86.5399 58.5939 85.0022C59.187 84.5045 59.7653 84.0193 60.3319 83.5438H60.3339ZM67.952 103.131L56.1931 113.163L55.2608 91.3281L67.952 103.131Z"/> </g> <defs> <clipPath id="clip0"> <rect width="157" height="134" fill="white" transform="translate(0.777344)"/> </clipPath> </defs> </svg>
+												<span>Gửi cho chúng tôi</span>
+											</button>
+											{%if settings.contact_check != ''%}
+											<div class="check-form">
+												<input type="checkbox" id="contact-check" required />
+												<span setting-id="contact_check" setting-type="textarea" class="hrv-cf-contact_check">{{settings.contact_check}}</span>
+											</div>
+											{%endif%}
+										</div>
+									</div>
+								</div>
+								{% endform %}
+							</div>
+						</div>
+					</div>
+				</div>			
+			</div>
+			{%if settings.show_contact_about%}
+			<div class="contact-about">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-lg-6 col-12">
+							<div class="typing-container hrv-cf-contact_about_desc_1" setting-id="contact_about_desc_1" setting-type="textarea">
+								<h2 class="desc hrv-cf-contact_about_desc_3" setting-id="contact_about_desc_3" setting-type="textarea">{%if settings.contact_about_desc_1 != ''%}{{settings.contact_about_desc_1}}{%endif%} 
+									{%if settings.contact_about_desc_2 != ''%}{%if settings.contact_about_desc_2 contains ';'%}<u setting-id="contact_about_desc_2" setting-type="textarea" class="hrv-cf-contact_about_desc_2"><span typing-speed="70" typing-delay="1000" words="{{settings.contact_about_desc_2}}"></span></u>{%else%}{{settings.contact_about_desc_2}}{%endif%}{%endif%}{%if settings.contact_about_desc_3 != ''%}{{settings.contact_about_desc_3}}{%endif%}</h2>
+							</div>
+						</div>
+						{%if settings.contact_about_btn != ''%}
+						<div class="col-lg-3 offset-lg-3 col-12">
+							<div class="btn-more">
+								<a href="{{settings.contact_about_link}}" class="button hrv-cf-contact_about_btn" setting-id="contact_about_btn" setting-type="text" setting-bg-id="contact_about_btn">{{settings.contact_about_btn}}</a>
+							</div>
+						</div>
+						{%endif%}
+					</div>
+				</div>
+			</div>
+			{%endif%}
+		</div>
+	</div>
+</div>

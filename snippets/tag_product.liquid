@@ -1,0 +1,22 @@
+{%-if settings.ena_tag_label-%}
+{%-assign labelList = ''-%}
+{%-for tag in product.tags-%}
+	{%-if tag contains 'label'-%}
+		{%-assign labelList = tag | split: 'label' | last | join: ', '-%}
+		{%-break-%}
+	{%-endif-%}
+{%-endfor-%}
+
+{%-if labelList != ''-%}
+{%-assign labelArray = labelList | split: ','-%}
+	{%-for i in labelArray-%}
+		{%-capture label-%}label{{i}}{%-endcapture-%}
+		{%-capture label_img-%}label_img_{{i}}{%-endcapture-%}
+    {% assign labelImg = settings[label_img] %}
+		{%-capture label_con-%}label_con_{{i}}{%-endcapture-%}
+		<span class="label_tag {{label}} d-inline-block pr-2 text-white rounded-10">
+			<img width="20" height="20" alt="{{label_con}}" src="{{labelImg}}" class="mr-1">{{settings[label_con]}}
+		</span>
+	{%-endfor-%}
+{%-endif-%}
+{%-endif-%}

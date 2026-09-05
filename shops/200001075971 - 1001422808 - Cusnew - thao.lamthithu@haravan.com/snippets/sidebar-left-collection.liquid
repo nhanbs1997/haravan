@@ -1,0 +1,277 @@
+<div class="box_sidebar">
+	<div class="block left-module">
+		<div class=" filter_xs">
+			<div class="layered">
+				{% if  settings.collection_sidebar != blank and linklists[settings.collection_sidebar] and linklists[settings.collection_sidebar].links.size > 0  %}
+				<div class="group-menu">
+					<div class="title_block visible-sm visible-xs">
+						{{settings.title_list_col}}
+						<span><i class="fa fa-angle-down"></i></span>
+					</div>
+					<div class="block_content layered layered-category">
+						<div class="layered-content">
+							<ul class="tree-menu">
+								{% for link in linklists[settings.collection_sidebar].links limit: 10 %}
+								{% if linklists[link.handle] != empty %}
+								<li class="tree-menu-lv1{% if link.active %} active {% endif %} has-child {% if forloop.first %} menu-uncollap {% else %} menu-collap {% endif %}">
+									<a class="{% if link.active %} active {% endif %}" href="javascript:void(0)" title="{{ link.title }}" target="_self">
+										<span class="">{{ link.title }}</span>
+										<span class="icon-control"><i class="fa fa-minus"></i></span>
+									</a>
+									<ul class="tree-menu-sub">
+										{% for l in linklists[link.handle].links %}
+										<li>
+											<span></span>
+											<a href="{{ l.url }}"{% if l.active %} class="current"{% endif %} title="{{l.title}}">{{ l.title }}</a>
+										</li>
+										{% endfor %}
+									</ul>
+								</li>
+								{% else %}
+								<li class="{% if link.active %}active{% endif %}">
+									<span></span>
+									<a class="{% if link.active %} current{% endif %}" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+										{{link.title}}
+									</a>
+								</li>
+								{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+
+				{% if settings.show_collection_filter %}
+				<p class="title_block visible-sm visible-xs">
+					{{settings.filter_title}}
+					<span><i class="fa fa-angle-down"></i></span>
+				</p>
+				<div class="block_content">
+					<!-- ./filter brand -->
+					{% if settings.use_vendor_filter %}
+					<div class="group-filter" aria-expanded="true" >
+						<div class="layered_subtitle dropdown-filter"><span>{{settings.vendor_title}}</span><span class="icon-control"><i class="fa fa-minus"></i></span></div>
+						<div class="layered-content bl-filter filter-brand">
+							<ul class="check-box-list">
+								{% for vendor in collection.all_vendors limit: settings.vendor_limit%}	
+								<li>
+									<input type="checkbox" id="data-brand-p{{forloop.index}}" value="{{vendor}}" name="brand-filter" data-vendor="(vendor:product={{vendor}})"/>
+									<label for="data-brand-p{{forloop.index}}">{{vendor}}</label>   
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+					{% endif %}
+					<!-- ./filter price -->
+					{% if settings.use_price_filter %}
+					<div class="group-filter" aria-expanded="true" >
+						<div class="layered_subtitle dropdown-filter"><span>{{settings.title_tag_3}}</span><span class="icon-control"><i class="fa fa-minus"></i></span></div>
+						<div class="layered-content bl-filter filter-price">
+							<ul class="check-box-list">
+								<li>
+									<input type="checkbox" id="p1" name="cc" data-price="(price:product<={{ settings.1_price_to }})" />
+									<label for="p1">
+										<span>Dưới</span> {{ settings.1_price_to | money }}
+									</label>   
+								</li>
+								<li>
+									<input type="checkbox" id="p2" name="cc" data-price="((price:product>{{ settings.2_price_from }})&amp;&amp;(price:product<={{ settings.2_price_to }}))"/>
+									<label for="p2">
+										{{ settings.2_price_from | money }} - {{ settings.2_price_to | money }}
+									</label>   
+								</li>
+								<li>
+									<input type="checkbox" id="p3" name="cc" data-price="((price:product>{{ settings.3_price_from }})&amp;&amp;(price:product<={{ settings.3_price_to }}))"/>
+									<label for="p3">
+										{{ settings.3_price_from | money }} - {{ settings.3_price_to | money }}
+									</label>   
+								</li>
+								<li>
+									<input type="checkbox" id="p4" name="cc" data-price="((price:product>{{ settings.4_price_from }})&amp;&amp;(price:product<={{ settings.4_price_to }}))"/>
+									<label for="p4">
+										{{ settings.4_price_from | money }} - {{ settings.4_price_to | money }}
+									</label>   
+								</li>
+								<li>
+									<input type="checkbox" id="p5" name="cc" data-price="(price:product>={{ settings.5_price_from }})"/>
+									<label for="p5">
+										<span>Trên</span> {{ settings.5_price_from | money }}
+									</label>   
+								</li>
+							</ul>
+						</div>
+					</div>
+					{% endif %}			
+					<!-- ./filter color -->
+					{% if settings.use_color_filter %}
+					<div class="group-filter" aria-expanded="true" >
+						<div class="layered_subtitle dropdown-filter"><span>{{settings.color_title}}</span><span class="icon-control"><i class="fa fa-minus"></i></span></div>
+						<div class="layered-content filter-color s-filter">
+							<ul class="check-box-list">
+								{% for i in (1..20) %}
+								{% capture use_color %}use_color_filter_{{i}}{% endcapture %}
+								{% capture color_name %}color_name_new_{{i}}{% endcapture %}
+								{% capture color_code %}color_code_new_{{i}}{% endcapture %}
+								{% capture value %}{{settings[color_name]}}{% endcapture %}
+								{% if settings[use_color]%}
+								<li>
+									<input type="checkbox" id="data-color-p{{forloop.index}}" value="{{value}}" name="color-filter" data-color="(variant:product**{{value}})"/>
+									<label for="data-color-p{{forloop.index}}" style="background-color: {{settings.[color_code]}}"></label>  
+								</li>
+								{% endif %}
+								{% endfor %}	
+							</ul>
+						</div>
+					</div>
+					{% endif %}
+					<!-- ./filter size -->
+					{% if settings.use_tag_custom_2 %}
+					<div class="group-filter" aria-expanded="true" >
+						<div class="layered_subtitle dropdown-filter"><span>{{settings.tag_title_custom_2}}</span><span class="icon-control"><i class="fa fa-minus"></i></span></div>
+						<div class="layered-content filter-size s-filter">
+							{% assign tags = settings.enter_tag_2 | split:"," %}
+							<ul class="check-box-list clearfix">
+								{% for tag in tags %}
+								<li>
+									<input type="checkbox" id="data-size-p{{forloop.index}}" value="{{tag}}" name="size-filter" data-size="(variant:product={{tag}})"/>
+									<label for="data-size-p{{forloop.index}}">{{tag}}</label>   
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+					{% endif%}
+				</div>
+				{% endif %}
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script>
+jQuery(document).ready(function(){
+	jQuery('.check-box-list li > input').click(function(){
+		//$('.custom-loader').show();
+		jQuery(this).parent().toggleClass('active');
+		Stringfilter();
+	})
+	str = "";
+	var Stringfilter = function(){
+		var q="", gia="",vendor="",color="", size="",total_page=0, cur_page=1;
+		var handle_coll = $('#coll-handle').val();
+		var str_url = 'filter=';
+		q = "("+handle_coll+")";
+		jQuery('.filter-price ul.check-box-list li.active').each(function(){
+			gia = gia + jQuery(this).find('input').data('price') + '||';
+		})
+		gia=gia.substring(0,gia.length -2);
+		if(gia != ""){
+			gia='('+gia+')';
+			q+='&&'+gia;
+		}
+		jQuery('.filter-brand ul.check-box-list li.active').each(function(){
+			vendor = vendor + jQuery(this).find('input').data('vendor') + '||';
+		})
+		vendor=vendor.substring(0,vendor.length -2);
+		if(vendor != ""){
+			vendor='('+vendor+')';
+			q+='&&'+vendor;
+		}
+		jQuery('.filter-color ul.check-box-list li.active').each(function(){
+			color = color + jQuery(this).find('input').data('color') + '||';
+			//size2 = size2 + jQuery(this).data('s') + '--';
+		})
+		color=color.substring(0,color.length -2);
+		if(color != ""){
+			color='('+color+')';
+			q+='&&'+color;
+		}
+		jQuery('.filter-size ul.check-box-list li.active').each(function(){
+			size = size + jQuery(this).find('input').data('size') + '||';
+		})
+		size=size.substring(0,size.length -2);
+		if(size != ""){
+			size='('+size+')';
+			q+='&&'+size;
+		}
+		console.log(str_url + q)
+		str_url += encodeURIComponent(q);
+		str = str_url;
+		jQuery.ajax({ // lấy tổng số trang của kết quả filter
+			url: "/search?q="+str_url+"&view=page",	
+			async: false,
+			success:function(data){
+				total_page = parseInt(data);
+			}
+		})
+		//console.log(total_page);
+		if(cur_page <= total_page){
+			jQuery('.pagi').show();
+			jQuery.ajax({
+				url : "/search?q="+str_url+"&view=filter",
+				success: function(data){
+					jQuery(".product-list.filter").html(data);
+					jQuery('.content-product-list img').imagesLoaded( function() {
+						jQuery(window).resize();
+					});
+					jQuery(".product-list.filter").removeClass('border');
+					jQuery(".alert-no-filter").hide(); 
+				}
+			})
+			jQuery.ajax({  // đoạn code 
+				url: "/search?q="+str_url+"&view=paginate",
+				async: false,
+				success:function(data){
+					//jQuery(".pagi-filter").html(data); // in phân trang
+					jQuery(".pagi").html(data); // in phân trang
+				}
+			})
+		} else {
+			if(jQuery('.alert-no').length > 0){
+				jQuery(".alert-no").html("<p>Không tìm thấy sản phẩm nào phù hợp!</p>");
+			}
+			else {
+				jQuery(".alert-no-filter").show().html("<p>Không tìm thấy sản phẩm nào phù hợp!</p>"); 
+			}
+			//jQuery(".product-list.filter").html("<div class='col-sm-12 col-xs-12 text-center no-product'><p>Không tìm thấy sản phẩm nào phù hợp!</p></div>");
+			jQuery(".product-list.filter").html('');			
+			jQuery(".product-list.filter").addClass('border');
+			jQuery('.pagi').hide();
+		}
+		jQuery('.pagi').on("click","a",function(){ // bắt sự kiện click các nút phân trang
+			var link = jQuery(this).attr("data-link");
+			if(link == 'm'){
+				link = cur_page - 1;
+			}
+			if(link == 'p'){
+				link = cur_page + 1;
+			}
+			link = parseInt(link);
+			jQuery.ajax({
+				url : "/search?q="+str+"&view=filter&page="+link, 
+				success: function(data){
+					jQuery(".product-list.filter").html(data);
+					cur_page = link;
+				}
+			})
+			//console.log("/search?q="+str+"&view=paginate&page="+link);
+			jQuery.ajax({ 
+				url: "/search?q="+str+"&view=paginate&page="+link,	
+				success:function(data){
+					//jQuery(".pagi-filter").html(data); // in phân trang
+					jQuery(".pagi").html(data); // in phân trang
+				}
+			})
+		});
+		var x = $('#collection-body').offset().top;
+		smoothScroll(x-100, 500);
+	}
+	})
+</script>
+
+
+

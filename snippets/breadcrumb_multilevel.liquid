@@ -1,0 +1,97 @@
+{%-assign breadbcrumbTitle = '' -%}
+{%-assign breadbcrumbLink = '' -%}
+<div class="breadcrumbs bg-white">
+	<div class="container position-relative">
+		<ul class="breadcrumb align-items-center m-0 pl-0 pr-0 small pt-2 pb-2 bg-white">				
+		<li class="home">
+			<a href="/" title="{{settings.breadcrumb_home}}">
+				<svg width="14" height="14">
+					<use href="#svg-home" />
+				</svg>	
+				{{settings.breadcrumb_home}}
+			</a>						
+			<span class="slash-divider ml-2 mr-2">
+				<svg width="4" height="8">
+					<use href="#svg-next-mini"/>
+				</svg>
+			</span>
+		</li>
+      {%-if template contains 'collection'-%}
+  			{%-if current_tags-%}		
+  				<li>
+  					<a href="{{ collection.url }}" title="{{ collection.title}}">
+  						<span>{{ collection.title}}</span>
+  					</a>
+            <span class="slash-divider ml-2 mr-2">
+              <svg width="4" height="8">
+                <use href="#svg-next-mini"/>
+              </svg>
+            </span>
+  				</li>					
+  				<li>
+  					<span>{{ current_tags | join: ', ' }}</span>
+  				</li>
+  			{%-else-%}
+    			{%include 'breadcrumb_collection' with menuBreadcrumb: settings.menu_breadcrumb, splitter: '^^'%}
+        {%-endif -%}
+      {%-elsif template contains 'product' -%}
+        {%-assign suffix = ''-%}
+        {%-for tag in product.tags %}
+          {%-if tag contains 'als_'%}
+            {%-assign suffix = tag | split: '_' | last | strip %}
+            {%-break-%}
+          {%-endif %}
+        {%-endfor %}
+        {%-if suffix != '' %}
+          {%-assign collection_first = suffix -%}
+        {%-elsif product.collections.size %}
+          {%-assign collection_first = product.collections.first.url -%}
+        {%-endif %}
+        {%-include 'breadcrumb_product' with menuBreadcrumb: settings.menu_breadcrumb, colCheck: collection_first, splitter: '^^'-%}
+      {%-elsif template == 'article'-%}
+			<li>
+				<a href="{{ blog.url }}" title="{{ blog.name | escape }}">
+					<span>{{ blog.name | escape }}</span>
+				</a>
+        <span class="slash-divider ml-2 mr-2">
+          <svg width="4" height="8">
+            <use href="#svg-next-mini"/>
+          </svg>
+        </span>
+			</li>
+			<li>{{ article.title | escape }}</li>
+			{% elsif template == 'blog' %}
+			{% if current_tags %}
+			<li>
+				<a href="{{ blog.url }}" title="{{ blog.name| escape }}">
+					<span>{{ blog.name| escape }}</span>
+				</a>
+			</li>
+			<li>{{current_tags}}</li>
+			{%else%}
+			<li>{{ blog.name | escape }}</li>
+			{%endif%}
+			{%- elsif template contains 'search' -%}
+  		<li>{{settings.breadcrumb_search}}</li>
+  		{%- elsif template == 'customers[register]' -%}
+  		<li>{{settings.breadcrumb_signup}}</li>
+  		{%- elsif template == 'customers[login]' -%}
+  		<li>{{settings.breadcrumb_login}}</li>
+  		{%- elsif template == 'customers[account]' -%}
+  		<li>{{settings.breadcrumb_customer}}</li>
+  		{%- elsif template == 'customers[addresses]' -%}
+  		<li>{{settings.breadcrumb_address_book}}</li>
+  		{%- elsif template == 'customers[order]' -%}
+  		<li>{{settings.breadcrumb_order_detail}}</li>
+  		{% elseif template contains "customers[reset_password]" %}
+  		<li>{{settings.breadcrumb_reset_password}}</li>
+  		{%- elsif template == '404' -%}
+  		<li>{{settings.breadcrumb_404}}</li>
+  		{%- elsif template == 'cart' -%}
+  		<li>{{settings.cartStringsTitle}}</li>
+  		{%- else -%}
+  		<li>{{page_title}}</li>
+  		{%- endif -%}
+    </ul>
+  </div>
+</div>

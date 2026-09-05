@@ -1,0 +1,321 @@
+<div id="article">
+	<div class="breadcrumb-shop">
+		<div class="container-fluid">
+			<div class="row">{%include 'breadcrumb'%}</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row wrapper-row pd-page">
+			<div class="col-md-3 col-sm-12 col-xs-12 ">
+				<div class="sidebar-blog">
+					{% assign check_size = 1 %}
+					{% if template == 'blog' %}
+					{% assign check_size = 0 %}
+					{% else %}
+					{% assign check_size = 1 %}
+					{% endif %}
+					{% if settings.news_recent_show and blogs[blog.handle].articles.size > check_size %}
+					<div class="news-latest  clearfix">
+						<div class="sidebarblog-title title_block">
+							<h2>{{ settings.news_recent_title }}<span class="fa fa-angle-down"></span></h2>
+						</div>
+						<div class="list-news-latest layered">
+							{% for a in blogs[blog.handle].articles limit: 7  %}
+							{% if a.image %}
+							{% comment %} Lấy hình Featured {% endcomment %}
+							{% assign imageUrl = a.image.src  | product_img_url : 'large' %}
+							{% else %}
+
+							{% comment %}Kiểm tra trích dẫn và content có hình hay ko{% endcomment %}
+							{% assign imageUrl = '' %}
+							{% if a.excerpt contains 'src=' %}
+							{% assign imageExcerptNotNull = true %}
+							{% else %}
+							{% assign imageExcerptNotNull = false %}
+							{% endif %}
+							{% if a.content contains 'src=' %}
+							{% assign imageContentNotNull = true %}
+							{% else %}
+							{% assign imageContentNotNull = false %}
+							{% endif %}
+
+							{% comment %}Nếu có Excerpt or Content cắt hình{% endcomment %}
+							{% if imageExcerptNotNull %}
+							{% assign arrayUrl = a.excerpt | split : 'src="' %}
+							{% else %}
+							{% if imageContentNotNull %}
+							{% assign arrayUrl = a.content | split : 'src="' %}
+							{% endif %}
+							{% endif %}
+
+							{% comment %}Truyền hình vào biến imageUrl{% endcomment %}
+							{% if imageExcerptNotNull == false and imageContentNotNull == false %}
+							{% assign imageUrl = 'blog_no_image.jpg' | asset_url %}
+							{% else %}
+							{% assign imageUrl = arrayUrl[1] | split : '"'%}
+							{% if imageUrl contains '//hstatic' %}
+							{% assign imageUrl = imageUrl.first | product_img_url : 'large' %}
+							{% else %}
+							{% assign imageUrl = imageUrl.first %}
+							{% endif %}
+							{% endif %}
+							{% endif %}	
+
+							{%if article %}
+							{%unless a.id == article.id%}
+							<div class="item-article clearfix abc">
+								{%if imageUrl !='' %}
+								<div class="post-image">
+									<a href="{{ a.url }}"><img src="{{imageUrl}}" alt="{{a.title}}"/></a>
+								</div>
+								{%endif%}
+								<div class="post-content">
+									<h3>
+										<a href="{{ a.url }}">{{ a.title }}</a>
+									</h3>
+									<span class="author">
+										<a href="{{ a.url }}">{{a.author}}</a>
+									</span>
+									<span class="date">
+										{{ a.published_at | date: '%d.%m.%Y' }}
+									</span>
+								</div>
+							</div>
+							{%endunless%}
+							{%else%}
+							<div class="item-article clearfix">
+								{%if imageUrl !='' %}
+								<div class="post-image">
+									<a href="{{ a.url }}"><img src="{{imageUrl}}" alt="{{a.title}}"/></a>
+								</div>
+								{%endif%}
+								<div class="post-content">
+									<h3>
+										<a href="{{ a.url }}">{{ a.title }}</a>
+									</h3>
+									<span class="author">
+										<a href="{{ a.url }}">{{a.author}}</a>
+									</span>
+									<span class="date">
+										{{ a.published_at | date: '%d.%m.%Y' }}
+									</span>
+								</div>
+							</div>
+							{%endif%}
+							{% endfor %}
+						</div>
+					</div>
+					{% endif %}
+					{% if settings.show_blog_menu %}
+					<div class="menu-blog">
+						<div class="group-menu">
+							<div class="sidebarblog-title title_block">
+								<h2>{{settings.title_blog_menu}}<span class="fa fa-angle-down"></span></h2>
+							</div>
+							<div class="layered layered-category">
+								<div class="layered-content">
+									<ul class="tree-menu">
+										{% for link in linklists[settings.blog_menu].links limit: 10 %}
+										{% if linklists[link.handle] != empty %}
+										<li class="tree-menu-lv1{% if link.active %} active {% endif %} has-child {% if forloop.first %} menu-uncollap {% else %} menu-collap {% endif %}">
+											<a class="{% if link.active %} active {% endif %}" href="javascript:void(0)" title="{{ link.title }}" target="_self">
+												<span class="">{{ link.title }}</span>
+												<span class="icon-control"><i class="fa fa-minus"></i></span>
+											</a>
+											<ul class="tree-menu-sub">
+												{% for l in linklists[link.handle].links %}
+												<li>
+													<span></span>
+													<a href="{{ l.url }}"{% if l.active %} class="current"{% endif %} title="{{l.title}}">{{ l.title }}</a>
+												</li>
+												{% endfor %}
+											</ul>
+										</li>
+										{% else %}
+										<li class="{% if link.active %}active{% endif %}">
+											<span></span>
+											<a class="{% if link.active %} current{% endif %}" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+												{{link.title}}
+											</a>
+										</li>
+										{% endif %}
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-md-9 col-sm-12 col-xs-12">
+				<div class="content-page">
+					<div class="article-content">
+						<div class="box-article-heading clearfix">		
+							{% assign no_image = false %}
+							{% if article.image %}
+							{% comment %} Lấy hình Featured {% endcomment %}
+							{% assign imageUrl = article.image.src | product_img_url : '1024x1024' %}
+							{% else %}
+
+							{% comment %}Kiểm tra trích dẫn và content có hình hay ko{% endcomment %}
+							{% assign imageUrl = '' %}
+							{% if article.excerpt contains 'src=' %}
+							{% assign imageExcerptNotNull = true %}
+							{% else %}
+							{% assign imageExcerptNotNull = false %}
+							{% endif %}
+							{% if article.content contains 'src=' %}
+							{% assign imageContentNotNull = true %}
+							{% else %}
+							{% assign imageContentNotNull = false %}
+							{% endif %}
+
+							{% comment %}Nếu có Excerpt or Content cắt hình{% endcomment %}
+							{% if imageExcerptNotNull %}
+							{% assign arrayUrl = article.excerpt | split : 'src="' %}
+							{% else %}
+							{% if imageContentNotNull %}
+							{% assign arrayUrl = article.content | split : 'src="' %}
+							{% endif %}
+							{% endif %}
+
+							{% comment %}Truyền hình vào biến imageUrl{% endcomment %}
+							{% if imageExcerptNotNull == false and imageContentNotNull == false %}
+							{% assign imageUrl = 'blog_no_image.jpg' | asset_url %}
+							{% else %}
+							{% assign imageUrl = arrayUrl[1] | split : '"'%}
+							{% if imageUrl contains '//hstatic' %}
+							{% assign imageUrl = imageUrl.first | product_img_url : '1024x1024' %}
+							{% else %}
+							{% assign imageUrl = imageUrl.first %}
+							{% endif %}
+							{% endif %}
+							{% endif %}
+							<div class="background-img">
+								<img src="{{ imageUrl }}" alt="{{ article.title }}" >
+							</div>
+							<h1 class="sb-title-article">{{article.title}}</h1>
+							<ul class="article-info-more">
+								<li> Người viết: {{article.author}} lúc <time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d.%m.%Y' }}</time></li>
+								<li><i class="fa fa-file-text-o"></i><a href="#"> {{blog.title}}</a> </li>
+								{% if blog.comments_enabled? %}
+								<li>- <i class="comment-icon fa fa-comment-o"></i>
+									<a href="{{ article.url }}#comments">
+										{{ article.comments_count }}<span> {{ article.comments_count | pluralize: 'Bình luận','Bình luận' }}</span>
+									</a>
+								</li>
+								{% endif %}	
+							</ul>								
+						</div>
+						<div class="article-pages">{{ article.content }}</div>
+						{%if article.tags.size > 0%}
+						<div class="meta-tags">
+							<span class="tags-title">Tags: </span> 
+							{% for tag in article.tags %}
+							<a class="tag" href="{{shop.url}}/blogs/all/tagged/{{ tag | handle }}">{{ tag }}</a>
+							{% endfor %}
+						</div>
+						{% endif %}
+						<div class="post-navigation">							
+							{% if blog.previous_article %}
+							<span class="left">{{ '&larr; Bài trước' | link_to: blog.previous_article }}</span>
+							{% endif %}
+							{% if blog.next_article %}
+							<span class="right">{{ 'Bài sau &rarr;' | link_to: blog.next_article }}</span>
+							{% endif %}							
+						</div>
+					</div>
+					{% if blog.comments_enabled? %}
+					<div role="tabpanel" class="article-comment">
+						<div class="title-bl">
+							<h2>
+								<a data-spy="scroll" data-target="#comment" href="#comment" aria-controls="comment" role="tab">Viết bình luận</a>
+							</h2>
+						</div>
+						<div id="comment">
+							<div id="comments" class="comments ">
+								<div class="comment_form">
+									{% form "new_comment", article %}
+									{% if form.posted_successfully? %}
+									{% if blog.moderated? %}
+									<p class="subtext success">Bình luận thành công! Tuy nhiên, lời bình cần được kiểm duyệt trước khi đăng lên</p>
+									{% else %}
+									<p class="subtext success">Bình luận của bạn đã được đăng lên</p>
+									{% endif %}
+									{% endif %}
+
+									{% if form.errors %}
+									<p class="subtext error">Thông tin bạn nhập chưa đầy đủ</p>
+									{% endif %}
+									<div class="row">
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">
+												<input required type="text" id="comment_author" name="comment[author]" size="40" class="text form-control" placeholder="Tên của bạn " required="required" />
+											</div>
+										</div>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div class="form-group">
+												<input required type="text" id="comment_email" name="comment[email]" size="40" class="text form-control" placeholder="Email của bạn" required="required"/>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">												
+										<textarea id="comment_body" name="comment[body]" cols="40" rows="5" class="text form-control" placeholder="Viết bình luận ..." required="required">{{form.body}}</textarea>
+										<div class="sitebox-recaptcha " >
+											This site is protected by reCAPTCHA and the Google
+											<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> 
+											and <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a> apply.
+										</div>	
+									</div>			
+									{{form.captcha_html}}
+									{% if blog.moderated? %}
+									<div class="notice">Bình luận của bạn sẽ được duyệt trước khi đăng lên</div>
+									{% endif %}
+									{%comment%}
+									<span class="pull-right">
+										<small>Tối thiểu 20 ký tự</small>
+									</span>
+									{%endcomment%}
+									<button type="submit" class="readmore btn-rb clear-fix" id="comment-submit" >Gửi bài viết</button>
+									{% endform %}
+								</div>
+							</div>
+						</div>
+						{% if article.comments.size > 0 or comment.created_at %}
+						<div class="title-bl">
+							<h2>Bình luận</h2>
+						</div>
+						<div id="binhluan">
+							{% if comment and comment.created_at %}
+							<div id="comment-{{ comment.id }}" class="comment-user border-bottom clearfix">
+								<h3 class="author">
+									<strong>{{ comment.author }}</strong>
+									<span class="date">{{ comment.created_at | date: '%d/%m/%Y' }}</span>
+								</h3>
+								<div>{{ comment.content }}</div>
+							</div>
+							{% endif %}
+
+							{% for comment in article.comments %}
+							<div id="comment-{{ comment.id }}" class="comment-user border-bottom clearfix">
+								<h3 class="author">
+									<strong>{{ comment.author }}</strong>
+									<span class="date">{{ comment.created_at | date: '%d/%m/%Y' }}</span>
+								</h3>
+								<div>{{ comment.content }}</div>
+							</div> <!-- /.comment -->
+							{% endfor %}
+						</div>
+						{% endif %}
+					</div>
+					{%endif%}
+				</div>
+			</div>   
+		</div>
+	</div>
+</div>
+
+
+
+

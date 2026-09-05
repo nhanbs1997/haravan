@@ -1,0 +1,20 @@
+{% include 'breadcrumb' %}
+<div class="com_info">
+	<div class="container mt-3 mb-4 mb-lg-5">
+		<div class="col-main page-title">
+      <div class="row">
+        <div class="col-12 col-lg-9 mb-3 mb-lg-0">
+    			<h1 class="font-weight-bold pt-2 pt-lg-0 mt-0 mb-3 page_name">
+    				{{page.title}}
+    			</h1>
+    			<div class="rte m-auto bg-white d-block">
+    				{{ page.content | default: settings.other_updating }}
+    			</div>
+        </div>
+  			<div class="col-12 col-lg-3">
+          {%include 'm_sidebar_blog'%}
+  			</div>
+      </div>
+		</div>
+	</div>
+</div>

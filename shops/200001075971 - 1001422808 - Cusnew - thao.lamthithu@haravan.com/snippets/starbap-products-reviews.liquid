@@ -1,0 +1,13 @@
+{% if customer %}
+<script>
+window.reviewAccount = { customer_id: '{{ customer.id }}', customer_name: '{{ customer.last_name }} {{ customer.first_name }}',
+customer_email: '{{ customer.email }}', customer_phone: '{{ customer.phone }}' }
+</script>
+{%endif%}
+{% if shop.metafields.starbap['starbaprv.settings'] %}
+<script>
+window.starbapSetting = {{ shop.metafields.starbap['starbaprv.settings'] }}
+</script>
+{% endif %}
+<script async src='https://review.starbap.app/assets/lib/starbap/review-app.js'></script>
+<link rel="stylesheet" type="text/css" media="all" href="https://review.starbap.app/assets/lib/starbap/review-app.css">

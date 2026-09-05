@@ -1,0 +1,56 @@
+<section data-tab class="m_tab text-center mb-4 mb-lg-5">
+  <div class="container">
+	<div class="mew_tab_main position-relative">
+		<div class="bg-light d-flex gap_8 mb-3 p-3 rounded-10 tab_link">
+			{% for link in linklists[settings.m_t_link_main].links%}
+      {%-if link.type == 'collection_link'-%}
+			<a href="{{ link.url }}" data-pos="{{forloop.index}}" title="{{ link.title }}" class="border rounded-10 font-weight-bold js-tab-title {%if forloop.first%}active{%endif%} px-3 py-2 d-flex flex-column align-items-center gap_8">
+				{%-if link.object.image.src-%}
+        <img class="lazy" decoding="async" src="{{'placeholder_1x1.png' | asset_url}}"  data-src="{{link.object.image.src}}" alt="icon-{{link.url}}">
+        {%-else-%}
+        <img alt="icon-{{link.url}}" src="{{settings.favicon | img_url: 'icon'}}">
+        {%-endif-%}
+				{{ link.title }}
+			</a>
+      {%-endif-%}
+			{% endfor %}
+		</div>
+		<div class="b_product position-relative">
+			{%-for link in linklists[settings.m_t_link_main].links-%}
+			<div class="mg_out">
+				<div class="{%if forloop.first%}mew_product_main active loaded{%endif%} swiper-container pb-3 pb-lg-2" data-pos-content="{{forloop.index}}">
+					{%-if forloop.first-%}
+					{%-assign col_alias = link.url | remove: '/collections/'-%}
+					{%-assign product_size = collections[col_alias].products_count-%}
+          {%-assign product_url = link.url-%}
+					{%-if product_size >= 1-%}
+					<div class="swiper-wrapper">
+						{%-for product in collections[col_alias].products limit:15-%}
+						<div class="swiper-slide box_padding">
+							{%-include 'product-grid-item'-%}
+						</div>
+						{%-endfor-%}
+					</div>
+					<span class="swiper-button-prev mm_prev"></span>
+					<span class="swiper-button-next mm_next"></span>
+					<div class="swiper-scrollbar sb_tm d-lg-none"></div>
+          {%unless product_size < 5%}
+          <div class="view_more text-center mt-3 position-relative">
+            <a href="{{product_url}}" title="{{settings.seemore_text}}" class="position-relative d-inline-block rounded-pill font-weight-bold py-2 px-4">
+              {{settings.seemore_text}}
+            </a>
+          </div>
+          {%endunless%}
+					{%-elsif product_size == 0-%}
+					<div class="mt-2 mb-2">
+						<p class="alert alert-warning mb-0">{{settings.emptyCollection}}</p>
+					</div>
+					{%-endif-%}
+					{%-endif-%}
+				</div>
+			</div>
+			{%-endfor-%}
+		</div>
+	</div>
+  </div>
+</section>

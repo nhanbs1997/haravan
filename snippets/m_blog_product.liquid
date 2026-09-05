@@ -1,0 +1,57 @@
+{%assign tagBlog = ''%}
+{%for tag in product.tags%}
+{%if tag contains "sptin_"%}
+{%assign tagBlog = tag | split: "sptin_" | last%}	
+{%break%}
+{%endif%}
+{%endfor%}
+
+{%if tagBlog != ''%}
+<div class="blog_pr">
+  <h3 class="special-content_title font-weight-bold d-block w-100 mb-3">
+    <a class="position-relative" href="/blogs/all/tagged/{{tagBlog|handle}}" title="{{settings.m_blog_rela_title}}">
+    {{settings.m_blog_rela_title}}
+    </a>
+  </h3>
+	<div class="b_blog position-relative js-tag-blog"></div>
+</div>
+<script type="mewscript" data-mew-type="text/javascript">
+let tagBlog = '{{tagBlog | handleize}}';
+if(tagBlog){
+MewServices.getProductHTMLByView(`/blogs/all/tagged/${tagBlog}`, 'product').then(data => {
+      Array.from(document.getElementsByClassName('js-tag-blog')).forEach(el => {
+        el.innerHTML = data;
+        let viewsMoreElement = el.querySelector('.views_more');
+        if (viewsMoreElement) {
+          viewsMoreElement.href = `/blogs/all/tagged/${tagBlog}`;
+        }
+        let arrImg = el.querySelectorAll('.lazy');
+        arrImg.forEach((v) => { io.observe(v);})
+      });	  
+});
+}
+</script>
+{%else%}
+<div class="blog_pr">
+  <h3 class="special-content_title font-weight-bold d-block w-100 mb-3">
+    <a class="position-relative" href="/blogs/{{settings.pr_blog}}" title="{{settings.pr_blog_tit}}">
+      {{settings.pr_blog_tit}}
+    </a>
+  </h3>
+  <div class="b_blog">
+    {%-assign article_size = blogs[settings.pr_blog].articles_count-%}
+    {%-if article_size > 0-%}
+    {% for article in blogs[settings.pr_blog].articles | limit: 5  %}
+    {%- include 'blog_item_list'-%}
+    {% endfor %}
+    {%-if article_size > 5-%}
+    <a href="/blogs/{{settings.pr_blog}}" title="{{settings.view_more_blogpr}}" class="font-weight-bold align-items-center d-flex flex-column h-100 justify-content-center mb-0 modal-open p-2 position-relative product-item rounded-10 views_more">
+      <span class="small">{{settings.view_more_blogpr}}</span>
+    </a>
+    {%-endif-%}
+    {%-else-%}
+    <p class="alert alert-warning">{{settings.other_updating}}</p>
+    {%-endif-%}
+  </div>
+</div>
+{%endif%}

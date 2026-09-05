@@ -1,0 +1,1 @@
+class MewStorage{static set(e,t,s){s?sessionStorage.setItem(`${e}`,"object"==typeof t?JSON.stringify(t):t):localStorage.setItem(`${e}`,"object"==typeof t?JSON.stringify(t):t)}static get(e,t,s){let m=s?sessionStorage.getItem(`${e}`):localStorage.getItem(`${e}`);return t?JSON.parse(m):m}static remove(e,t){t?sessionStorage.removeItem(`${e}`):localStorage.removeItem(`${e}`)}}

@@ -1,0 +1,84 @@
+<div class="searchPage" id="layout-search">
+	<div class="container-fluid">
+		<div class="row pd-page">
+			<div class="col-md-12 col-xs-12">
+				<div class="heading-page">
+					<h1>Tìm kiếm</h1>
+					{%- if search.results.size > 0 -%}
+					<p class="subtxt">Có <span>{{ search.results.size }} sản phẩm</span> cho tìm kiếm</p>
+					{%- endif -%}
+				</div>
+				<div class="wrapbox-content-page">
+
+					{% if search.performed %}
+					{% paginate search.results by 10 %}
+
+					{% if search.results.size == 0 %}
+					<div class="content-page" id="search">
+						<div class="expanded-message text-center">
+							<h2>Không tìm thấy nội dung bạn yêu cầu</h2>
+							<div class="subtext">
+								<span>Không tìm thấy  <strong>"{{ search.terms | escape |  split: "**" | last | replace: ')','' }}"</strong>. </span>
+								<span>Vui lòng kiểm tra chính tả, sử dụng các từ tổng quát hơn và thử lại!</span>
+							</div>
+							<div class="search-field">
+								<form class="search-page" action="/search">
+									<input type="submit" alt="Go" id="go"/>
+									<input type="hidden" name="type" value="product" />
+									<input type="text" name="q" class="search_box" placeholder="Tìm kiếm" value="{{ search.terms | escape | split: "**" | last | replace: ')','' }}"  />
+								</form>
+							</div>
+						</div>
+					</div>
+					{% else %}
+					<div class="content-page" id="search">					
+						<p class="subtext-result">	Kết quả tìm kiếm cho  <strong>"{{ search.terms | escape | split: "**" | last | replace: ')','' }}"</strong>.		</p>
+
+						<div class="results content-product-list ">
+							<div class=" search-list-results row">
+								<!-- Begin results -->
+								{% for product in search.results %}
+								{% assign on_sale = false %}
+								{% if product.available and product.compare_at_price > product.price %}
+								{% assign on_sale = true %}
+								{% endif %}
+
+								<div class="col-md-3 col-sm-6 col-xs-6 pro-loop">
+									{% include 'product-loop'%}
+								</div>
+
+								{% endfor %}
+							</div>
+						</div>	<!-- End results -->
+						<div class="row pagination-theme clearfix text-center">
+							{%include 'pagination-default'%}
+						</div>
+					</div>
+					{% endif %}
+
+					{% endpaginate %}
+					{% else %}
+					<div class="content-page clearfix" id="search">
+						<div class="expanded-message">
+							<div class="search-field">
+								<form class="search-page" action="/search">
+									<input type="hidden" name="type" value="product" />
+									<input type="submit" alt="Go" id="go"/>
+									<input type="text" name="q" class="search_box" placeholder="Tìm kiếm" value="{{ search.terms | escape | split: "**" | last | replace: ')','' }}"  />
+								</form>
+							</div>
+							<div class="message-txt clearfix">
+								<p>Rất tiếc, chúng tôi không tìm thấy kết quả cho từ khóa của bạn</p>
+								<p>Vui lòng kiểm tra chính tả, sử dụng các từ tổng quát hơn và thử lại!</p>
+							</div>
+						</div>
+					</div>
+					{% endif %}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

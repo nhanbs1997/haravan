@@ -1,0 +1,50 @@
+<script>
+window.location = '/collections/all';
+</script>
+<div id="collection">
+	{% paginate collections by  settings.pagination_limit %}
+	<!-- Begin collection info -->
+	<!-- Content--> 
+	<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="row">
+			<div class="main-content">
+				{%include 'breadcrumb1'%}
+				{% comment %}danh mục{% endcomment %}
+				<div class="col-md-12 col-sm-12 col-xs-12 ">
+					<div class="row">
+						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+							<h1>
+								Danh mục sản phẩm
+
+							</h1>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 col-sm-12 col-xs-12 product-list">
+					<div class="row content-product-list">
+						{% for collection in collections limit: settings.pagination_limit  %}
+						{% include 'collection-loop' %}
+						{% endfor %}	
+					</div>
+				</div>
+				<div class="col-md-12 col-sm-12 col-xs-12 ">
+					<div class="clearfix">
+						{%include 'pagination-default'%}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- End collection info -->
+	<!-- Begin no products -->
+	{% if collections.size == 0 %}
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12  expanded-message">
+			<p>Không tìm thấy danh mục!</p>
+		</div>
+	</div>
+	{% endif %}
+	{% endpaginate %}
+	<!-- End no products -->
+</div>

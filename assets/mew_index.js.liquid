@@ -1,0 +1,33 @@
+window.addEventListener('DOMContentLoaded', (event) => {
+	var swiperHomeSlider = new Swiper('.mew_slide', {
+		spaceBetween: 10,
+		navigation: {
+			nextEl: '.msl_next',
+			prevEl: '.msl_prev',
+		},
+		loop: true,
+		speed:1000,
+		autoplay: {
+			delay: 6000,
+			disableOnInteraction: true,
+		},
+    slidesPerView: 1,
+    effect: 'fade',
+    pagination: {
+      el: '.mew_slide_p',
+      clickable: true,
+    },
+	});
+  {%if settings.enable_text_fade%}
+	var mew_text_fade = new Swiper('.mew_text_fade', {
+		loop: true,
+		speed:800,
+		autoplay: {
+			delay: 3000,
+			disableOnInteraction: true,
+		},
+		slidesPerView: 1,
+		effect: 'fade'
+	});
+	{%endif%}
+});

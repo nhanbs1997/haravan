@@ -1,0 +1,48 @@
+{%-include 'setup_price_sn'-%}
+<div class="product-item position-relative rounded-10 bg-light h-100 border border-light">
+  {%-if on_sale and contact_item == false-%}
+    <span class="sale-label sale-top-right position-absolute font-weight-bold">{{settings.discount_txt}} {{discount}}%</span>
+  {%-endif-%}
+  {%-if settings.use_wishlist-%}
+  {%include 'wishlist_btn' with p: product%}
+  {%-endif-%}
+	<a href="{{ product.url}}" class="d-block modal-open position-relative rounded-10 thumb" title="{{ product.title }}">
+		<div class="position-relative w-100 m-0 ratio1by1 has-edge aspect zoom">
+			<img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ product.featured_image.src | product_img_url: 'large'}}" decoding="async" class="d-block img img-cover position-absolute lazy" alt="{{ product.title }}">
+		</div>
+    {%if khung != ''%}
+    {%-capture khung-%}product_image_overlay_{{khung}}{%-endcapture-%}
+    {% assign setkhung = settings[khung] %}  
+    <img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{setkhung}}" decoding="async" class="d-block img img-cover position-absolute lazy khung" alt="{{ product.title }}">
+    {%endif%}
+	</a>
+	<div class="item-info position-relative p-2 text-center">
+    {%-if product.vendor != null and product.vendor != ''-%}
+    <strong class="text-main">{{product.vendor}}</strong>
+    {%-endif-%}
+		<h3 class="item-title font-weight-normal m-0">
+			<a class="line_{{settings.line_tit_grid_pr}}" href="{{ product.url }}" title="{{ product.title }}">
+				{{ product.title | replace: '<', '&lt;'}}
+			</a>
+		</h3>
+		<div class="align-items-center d-flex item-price justify-content-center mt-1 position-relative">
+			{%-if contact_item == false-%}
+			{%-if on_sale-%}
+			<span class="special-price font-weight-bold position-relative mr-2">
+				{{ dq-price | money }}
+			</span>
+			<del class="old-price"> {{ dq-compare-price | money }}</del>
+			{%-else-%}
+			<span class="special-price font-weight-bold">{{ dq-price | money }}</span>
+			{%-endif-%}
+			{%-else-%}
+			<span class="special-price font-weight-bold">{{settings.noPrice}}</span> 
+			{%-endif-%}
+		</div>
+		{%-if settings.product_review-%}
+		<div class="haravan-product-reviews-badge" data-id="{{ product.id }}">{{ product.metafields.src.product_loop }}</div>
+		{%-endif-%}
+		{%include 'product-grid-item_buynow'%}
+		{%-include 'tag_product'-%}
+	</div>
+</div>

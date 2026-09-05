@@ -1,0 +1,119 @@
+window.Haravan || (window.Haravan = {});
+Haravan.SearchOperators = {OR: "OR", AND: "AND", NOT: "NOT"};
+Haravan.SearchField = function () {
+  function SearchField(name) {
+      this.name = name;
+      this.values = [];
+  }
+
+  SearchField.prototype.addValue = function (value, operator) {
+      this.values.push({value: value, operator: operator});
+  };
+  SearchField.prototype.deleteValue = function (value, operator) {
+      let index = this.values.findIndex(fieldValue => fieldValue.value === value && fieldValue.operator === operator);
+      if (index > -1) {  
+        this.values.splice(index, 1);
+      }
+  };
+  SearchField.prototype.deleteValuedqdt = function (value, operator) {
+      let index = this.values.findIndex(fieldValue => fieldValue.value === value && fieldValue.operator === operator);
+      if (index > -1) {
+          this.values.splice(index, 1);
+      }
+  };
+  SearchField.prototype.buildParam = function () {
+      let value = this.values.map((fieldValue, index) => {
+          if (index === 0) return fieldValue.value;
+          return this._buildValue(this.values[index]);
+      }).join('');
+      if (this.values.length > 1) {
+          return `(${value})`;
+      }
+      if (value !== "") {
+          return value;
+      }
+      return null;
+  };
+  SearchField.prototype._buildValue = function (value) {
+      switch (value.operator.toUpperCase()) {
+          case Haravan.SearchOperators.OR:
+              return ` || ${value.value}`;
+          case Haravan.SearchOperators.AND:
+              return ` && ${value.value}`;
+          case Haravan.SearchOperators.NOT:
+              return ` - ${value.value}`;
+          default:
+              return ` ${value.value}`;
+      }
+  };
+  SearchField.name = "SearchField";
+  return SearchField;
+}();
+Haravan.SearchFilter = function () {
+  function SearchFilter() {
+      this.fields = {};
+  }
+
+  SearchFilter.prototype.addValue = function (group, field, value, operator) {
+      let searchField = this.findOrCreateField(group, field);
+      return searchField.addValue(value, operator);
+  };
+  SearchFilter.prototype.findOrCreateField = function (group, field) {
+      let searchField = this.fields[group];
+      if (!searchField) {
+          searchField = new Haravan.SearchField(field);
+          this.fields[group] = searchField;
+      }
+      return searchField;
+  };
+  SearchFilter.prototype.deleteValue = function (group, field, value, operator) {
+      let searchField = this.findOrCreateField(group, field);
+      return searchField.deleteValue(value, operator);
+  };
+  SearchFilter.prototype.deleteValuedqdt = function (group, field, value, operator) {
+      let searchField = this.findOrCreateField("Khoảng giá", "price_min");
+      return searchField.deleteValue(value, "OR");
+  };
+  SearchFilter.prototype.deleteGroup = function (group) {
+      delete this.fields[group];
+  };
+  SearchFilter.prototype.search = function (settings = {}) {
+      let url = this.buildSearchUrl(settings);
+      return this._search(url, settings);
+  };
+  SearchFilter.prototype.buildSearchUrl = function (settings = {}) {
+      let url = this._buildSearchUrl();
+      if (settings.view) {
+          url += `&view=${settings.view}`;
+      }
+      if (settings.page) {
+          url += `&page=${settings.page}`;
+      }
+      if (settings.sortby) {
+          url += `&sortby=${settings.sortby}`;
+      }
+      return url;
+  };
+  SearchFilter.prototype._buildSearchUrl = function () {
+      let params = "";
+      for (let group in this.fields) {
+          let param = this.fields[group].buildParam();
+          if(param) params += `${param} &&`;
+      }
+      //if (params.length > 2) {
+          params = params.slice(0, -2);
+      //}
+      return `/search?q=filter=${params}`;
+  };
+  SearchFilter.prototype._search = function (url, callback) {
+      return fetch(`${url}`).then((response) => {
+          if (!response.clone().ok) throw new Error("Đã có lỗi xảy ra!");
+          return response.clone().text();
+      });
+  };
+  SearchFilter.containsOperator = function (value) {
+      return value.indexOf(Haravan.SearchOperators.OR) > 0 || value.indexOf(Haravan.SearchOperators.AND) > 0;
+  };
+  SearchFilter.name = "SearchFilter";
+  return SearchFilter;
+}();

@@ -1,0 +1,61 @@
+{%- if settings.popup_onload_enable -%}
+  <div
+    class="modal fade"
+    id="popupOnloadModal"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content border-0 bg-transparent">
+        <div class="modal-body p-0 text-center position-relative">
+          <button
+            type="button"
+            class="close position-absolute"
+            data-dismiss="modal"
+            aria-label="Close"
+            style="top: 10px; right: 10px; z-index: 10; opacity: 0.8; font-size: 2rem; color: #fff; text-shadow: 0 0 3px #000;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {%- if settings.popup_onload_url != blank -%}
+            <a href="{{ settings.popup_onload_url }}" title="Popup Promo">
+              <img
+                src="{{ settings.popup_onload_image }}"
+                alt="Popup Promo"
+                class="img-fluid rounded"
+                style="max-width: 100%; height: auto;" />
+            </a>
+          {%- else -%}
+            <img
+              src="{{ settings.popup_onload_image }}"
+              alt="Popup Promo"
+              class="img-fluid rounded"
+              style="max-width: 100%; height: auto;" />
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    
+
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('popupOnloadModal');
+  const closeBtn = document.querySelector('#popupOnloadModal .close');
+
+  // 1. Kiểm tra nếu chưa tắt popup thì mới hiển thị
+  if (!localStorage.getItem('popupClosed')) {
+    $('#popupOnloadModal').modal('show');
+  }
+
+  // 2. Xử lý khi bấm nút đóng
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function() {
+      $('#popupOnloadModal').modal('hide');
+      localStorage.setItem('popupClosed', 'true');
+    });
+  }
+});
+    
+  </script>
+{%- endif -%}

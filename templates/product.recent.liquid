@@ -1,0 +1,10 @@
+{%-layout none-%}
+<div class="swiper-slide">
+  <div class="product-item position-relative rounded-10 bg-white h-100 border">
+  	<a href="{{ product.url}}" class="d-block modal-open position-relative rounded-10 thumb" title="{{ product.title }}">
+  		<picture class="position-relative w-100 m-0 ratio1by1 has-edge aspect d-block zoom">
+  			<img src="{{ product.featured_image.src | product_img_url: 'large'}}" decoding="async" class="d-block img img-cover position-absolute" alt="{{ product.title }}">
+  		</picture>
+  	</a>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+<section data-tab2 class="m_product 2 mb-4 mb-lg-5">
+  <div class="container">
+    <div class="head_box px-2 d-flex align-items-center justify-content-center flex-column">
+      <h2 class="title text-uppercase font-weight-bold position-relative mb-3">
+          <span class="line-bottom position-relative">{{settings.m_product_2}}</span>
+      </h2>
+      {%-if settings.module_type_2 == 'tab'-%}
+      <div class="list_link_pr d-flex py-2 mb-2">
+        {%if settings.ena_all_product_2%}
+        <div class="item_tab_link">
+          <a href="{{ settings.m_all_product_2 }}" data-pos="0" title="{{ settings.m_all_tit_2 }}" class="js-tab-title active d-flex align-items-center flex-column justify-content-center p-2 px-3 border rounded-pill">
+            {{ settings.m_all_tit_2 }}
+          </a>
+        </div>
+        {%endif%}
+        {%-for link in linklists[settings.m_c_product_2].links-%}
+        {%-capture tab_image-%}tab_image_{{forloop.index}}.png{%-endcapture-%}
+        {%-capture tab_clt-%}cl_tit_tab_{{forloop.index}}{%-endcapture-%}
+        {%-capture tab_bgt-%}bg_tab_{{forloop.index}}{%-endcapture-%}
+        {%-if link.type == 'collection_link'-%}
+        <div class="item_tab_link">
+          <a href="{{ link.url }}" data-pos="{{forloop.index}}" title="{{ link.title }}" class="js-tab-title {%unless settings.ena_all_product_2%}{%if forloop.first%}active{%endif%}{%endunless%} d-flex align-items-center flex-column justify-content-center p-2 px-3 border rounded-pill">
+            {{ link.title }}
+          </a>
+        </div>
+        {%-endif-%}
+        {%-endfor-%}
+      </div>
+      {%-endif-%}
+    </div>
+    {%if settings.ena_all_product_2 or settings.module_type_2 == 'normal'%}
+    <div class="mg_out {%if settings.module_type_2 != 'tab'%}mt-3{%endif%}">
+      <div class="mew_product_tab active loaded swiper-container pb-3 pb-lg-2" data-pos-content="0">
+        {%-assign product_size = collections[settings.m_all_product_2].products_count-%}
+        {%-assign product_url = collections[settings.m_all_product_2].url-%}
+        {%-if product_size >= 1-%}
+        <div class="swiper-wrapper">
+          {%-for product in collections[settings.m_all_product_2].products limit:11-%}
+          <div class="swiper-slide box_padding">
+            {%-include 'product-grid-item'-%}
+          </div>
+          {%-endfor-%}
+        </div>
+        <span class="swiper-button-prev mm_prev"></span>
+        <span class="swiper-button-next mm_next"></span>
+        <div class="swiper-scrollbar sb_tm d-lg-none"></div>
+        {%unless product_size < 5%}
+        <div class="view_more text-center mt-3 position-relative">
+          <a href="{{product_url}}" title="{{settings.seemore_text}}" class="position-relative d-inline-block rounded-pill font-weight-bold py-2 px-4">
+            {{settings.seemore_text}}
+          </a>
+        </div>
+        {%endunless%}
+        {%-elsif product_size == 0-%}
+        <div class="mt-2 mb-2">
+          <p class="alert alert-warning mb-0">{{settings.emptyCollection}}</p>
+        </div>
+        {%-endif-%}
+      </div>
+    </div>
+    {%endif%}
+    {%-if settings.module_type_2 == 'tab'-%}
+    {%-for link in linklists[settings.m_c_product_2].links-%}
+    <div class="mg_out">
+      <div class="{%unless settings.ena_all_product_2%}{%if forloop.first%}mew_product_tab active loaded{%endif%}{%endunless%} swiper-container pb-3 pb-lg-2" data-pos-content="{{forloop.index}}">
+        {%unless settings.ena_all_product_2%}
+        {%-if forloop.first-%}
+        {%-if link.type == 'collection_link'-%}
+        {%-assign col_alias = link.url | remove: '/collections/'-%}
+        {%-assign product_url = link.url-%}
+        {%-assign product_size = collections[col_alias].products_count-%}
+        {%-if product_size >= 1-%}
+        <div class="swiper-wrapper">
+          {%-for product in collections[col_alias].products limit:11-%}
+          <div class="swiper-slide box_padding">
+            {%-include 'product-grid-item'-%}
+          </div>
+          {%-endfor-%}
+        </div>
+        <span class="swiper-button-prev mm_prev"></span>
+        <span class="swiper-button-next mm_next"></span>
+        <div class="swiper-scrollbar sb_tm d-lg-none"></div>
+        {%unless product_size < 5%}
+        <div class="view_more text-center mt-3 position-relative">
+          <a href="{{product_url}}" title="{{settings.seemore_text}}" class="position-relative d-inline-block rounded-pill font-weight-bold py-2 px-4">
+            {{settings.seemore_text}}
+          </a>
+        </div>
+        {%endunless%}
+        {%-elsif product_size == 0-%}
+        <div class="mt-2 mb-2">
+          <p class="alert alert-warning mb-0">{{settings.emptyCollection}}</p>
+        </div>
+        {%-endif-%}
+        {%else%}
+        <p class="alert alert-warning">{{settings.waring_tab_module}}</p>
+        {%-endif-%}
+        {%-endif-%}
+        {%endunless%}
+      </div>
+    </div>
+    {%-endfor-%}
+    {%-endif-%}
+  </div>
+</section>

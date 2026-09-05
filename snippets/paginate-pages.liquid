@@ -1,0 +1,39 @@
+<ul class="pagination d-flex justify-content-center clearfix mt-4 mb-3">
+	{%- if paginate.previous -%}
+	<li class="page-item mx-1">
+		<a class="d-flex align-items-center justify-content-center page-link rounded-10 text-center" href="{{ paginate.previous.url }}" title="{{ paginate.previous.title }}">
+			<svg width="20" height="20">
+				<use href="#svg-prev" />
+			</svg>
+		</a>
+	</li>               
+	{%- endif -%}
+	{%- for part in paginate.parts -%}
+	{%- if part.is_link -%}
+	<li class="page-item mx-1">
+		<a class="d-flex align-items-center justify-content-center page-link rounded-10 text-center" href="{{ part.url }}">
+			{{ part.title }}
+		</a>
+	</li>
+	{%- else -%}
+	{%- if part.title == paginate.current_page -%}
+	<li class="page-item active disabled mx-1">
+		<a class="d-flex align-items-center justify-content-center page-link rounded-10 text-center" href="#" style="pointer-events:none">
+			{{ part.title }}
+		</a>
+	</li>
+	{%- else -%}
+	<li><a href="{{ part.url }}">{{ part.title }}</a></li>
+	{%- endif -%}
+	{%- endif -%}
+	{%- endfor -%}                
+	{%- if paginate.next -%}
+	<li class="page-item mx-1">
+		<a class="d-flex align-items-center justify-content-center page-link rounded-10 text-center" href="{{ paginate.next.url }}" title="{{ paginate.next.title }}">
+			<svg width="20" height="20">
+				<use href="#svg-next" />
+			</svg>
+		</a>
+	</li>
+	{%- endif -%}                  
+</ul>

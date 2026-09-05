@@ -1,0 +1,10 @@
+{%-if blog_image contains "<img" and blog_image.size > 0-%}
+{%-assign content-src = blog_image | split: 'src="'-%}
+{%-assign content-size = content-src.size | minus: 1-%}
+{%-for i in (1..1)-%}
+{%-assign src = content-src[i] | split: '"' | first | replace: '//cdn', 'http://cdn';;;; | replace: 'http:http://';;;;, 'http://';;;; | remove: 'https:' %}
+	<img class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ src }}" alt="{{ alt | strip_html}}" />
+{%-endfor-%}
+{%-else-%}
+	<img class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ 'no_image.jpg' | asset_url }}" alt="{{ alt | strip_html}}" />	
+{%-endif-%}

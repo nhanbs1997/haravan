@@ -1,0 +1,316 @@
+<div class="menubar w-100 text-right d-flex d-lg-none position-fixed align-items-center scroll_down {%if template != 'index'%}bg_no_index{%endif%}">
+	<a href="/" title="{{ shop.name }}" class="mr-auto ml-3">
+		<img alt="{{ shop.name }}" src="{{settings.logo_mobi}}" class="img-fluid mb_logo">
+	</a>
+	<a href="{%-if settings.use_store-%}/pages/{{settings.store_url}}{%-else-%}{{settings.contact_url}}{%-endif-%}" class="mb_login ml-auto d-flex rounded-circle justify-content-center align-items-center" title="{{settings.store_title}}">
+		<svg width="32" height="32">
+			<use href="#svg-shopping-cart" />
+		</svg>
+	</a>
+</div>
+<div class="bg_head position-fixed w-100 scroll_down {%if template != 'index'%}d-none{%endif%}"></div>
+<div class="col-left position-sticky d-flex flex-column pt-2 pb-2 pc w-100" id="header-pc">
+	<div class="container position-relative">
+		<div class="row align-items-center">
+			<div class="col-12 col-lg-2 d-none d-lg-block">
+				<a href="/" title="{{ shop.name }}" class="logo">
+          <picture class="position-relative w-100 m-0 ratio3by1 d-block aspect">
+					<img alt="{{ shop.name }}" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{settings.logo}}" class="img-fluid lazy d-block img position-absolute">
+          </picture>
+				</a>
+			</div>
+			<div class="col-12 col-lg-10">
+				<div class="d-lg-flex align-items-center position-static pr-menu">
+  				<a href="javascript:;" class="item d-none d-lg-flex flex-column align-items-center justify-content-center menu-toggle js-menu-toggle p-1" id="js-menu-pc">
+  					<svg width="30" height="30">
+  						<use href="#svg-menu" />
+  					</svg>
+  				</a>
+					<div class="search-block mr-3">
+						<form action="/search" method="get" class="js-search-form left-search position-relative mt-4 mt-lg-0 pt-2 pb-2 pt-lg-1 pb-lg-1">
+              <input type="hidden" name="type" value="product">
+							<input type="text" id="js-search-form" placeholder="{{settings.search_placeholder}}" value="{{search.terms}}" maxlength="70" name="q" class="form-control pl-2 pl-lg-3 pr-5 rounded-pill" autocomplete="off" required>
+							<input type="submit" class="border-0 position-absolute p-0">
+							{%-if settings.use_quick_search-%}
+							<div class="w-100 position-absolute rounded-10 searchResult d-none modal-open">
+                <div class="overflow-auto search-result-warpper px-2"></div>
+              </div>
+							{%-endif-%}
+						</form>
+					</div>
+          {%-if settings.use_store-%}
+          <div class="mr-3 level0 position-relative cls">
+          <a href="/pages/{{settings.store_url}}" title="{{settings.store_title}}" class="align-items-center d-flex head_svg">
+            <svg width="40" height="40" class="border rounded-circle p-xl-2 mr-2">
+              <use href="#svg-store"/>
+            </svg>
+            <small>
+              {{settings.store_title}}
+              <b class="d-block">{{settings.store_title_bold}}</b>
+            </small>
+          </a>
+          </div>
+          {%-endif-%}
+          {%-if settings.use_wishlist-%}
+					<div class="info-block mr-3 d-none d-lg-block">
+						<a href="/pages/{{settings.wishlist_page}}" title="{{settings.wisthlist_small_title}} {{settings.wisthlist_bold_title}}" class="align-items-center d-flex head_svg">
+							<span class="mr-2 b_ico_Cart position-relative">
+								<svg width="40" height="40" class="border rounded-circle p-xl-2">
+									<use href="#svg-wishlist" />
+								</svg>
+                <span class="wishlist-indicator position-absolute font-weight-bold text-center text-white"></span>
+							</span>
+							<b><small>{{settings.wishlist_small_title}}</small> <br>{{settings.wishlist_bold_title}}</b>
+						</a>
+					</div>
+          {%-else-%}
+					<div class="info-block mr-3 d-none d-lg-block">
+						<a href="tel:{{settings.top_phone_number | remove: ' ' | remove: '.'}}" title="{{settings.top_phone_number}}" class="align-items-center d-flex head_svg">
+							<span class="play0 mr-2">
+								<svg width="40" height="40" class="border rounded-circle p-xl-2">
+									<use href="#svg-phone" />
+								</svg>
+							</span>
+							<b><small>{{settings.txt_hotline}}</small> <br>{{settings.top_phone_number}}</b>
+						</a>
+					</div>
+          {%-endif-%}
+          <div class="navigation-bottom mt-auto mt-lg-0">
+						<div class="b_use d-none d-lg-flex align-items-stretch">
+							{% if customer %}
+							<div id="js-login-toggle" class="btn-account d-none d-lg-flex align-items-center justify-content-center mr-3 head_svg">
+								<svg width="40" height="40" class="border rounded-circle p-xl-2 mr-2">
+									<use href="#svg-account"/>
+								</svg>
+								<div id="m_login" class="pop_login">
+									<a href="/account" class="item_login d-block font-weight-bold small" title="{{settings.account_order_greeting | append: ', '}}{{ customer.first_name }}">{{settings.account_order_greeting | append: ', '}}{{ customer.first_name }}</a>
+									<a href="/account/logout" class="item_login d-block font-weight-bold small" title="{{settings.account_logout}}">{{settings.account_logout}}</a>
+								</div>
+							</div>
+              <div class="cart-info d-inline-flex position-relative">
+  							<a class="btn-cart position-relative d-inline-flex head_svg align-items-center" title="{{settings.cartStringsTitle}}" href="/cart">
+  								<span class="b_ico_Cart text-center d-flex justify-content-center align-items-center position-relative">
+  									<svg width="40" height="40" class="border rounded-circle p-xl-2 mr-2">
+  										<use href="#svg-shopping-cart" />
+  									</svg>
+  									<span class="btn-cart-indicator position-absolute d-none font-weight-bold text-center text-white"></span>
+  								</span>
+  								<small class="d-none d-xl-block ml-lg-1">{{settings.cartStringsTitle }}</small>
+  							</a>
+                {% if settings.free_shipping_enable and template != 'cart' %}
+                <div class="bg-white p-3 popup-free-ship position-absolute rounded-10 shadow-sm">
+                  {% include 'free_ship' %}
+                </div>
+                {% endif %}
+              </div>
+							{% else %}
+							<div id="js-login-toggle" class="btn-account d-none d-lg-flex align-items-center justify-content-center mr-3 head_svg">
+								<svg width="40" height="40" class="border rounded-circle p-xl-2 mr-2">
+									<use href="#svg-account"/>
+								</svg>
+								<div id="m_login" class="pop_login">
+									<a href="/account/login" class="item_login d-block font-weight-bold small" title="{{settings.login_text}}">{{settings.login_text}}</a>
+									<a href="/account/register" class="item_login d-block font-weight-bold small" title="{{settings.register_text}}">{{settings.register_text}}</a>
+								</div>
+							</div>
+              <div class="cart-info d-inline-flex position-relative">
+  							<a class="btn-cart position-relative d-inline-flex head_svg align-items-center" title="{{settings.cartStringsTitle}}" href="/cart">
+  								<span class="b_ico_Cart text-center d-flex justify-content-center align-items-center position-relative">
+  									<svg width="40" height="40" class="border rounded-circle p-xl-2 mr-2">
+  										<use href="#svg-shopping-cart" />
+  									</svg>
+                    
+  									<span class="btn-cart-indicator position-absolute d-none font-weight-bold text-center text-white"></span>
+  								</span>
+  								<small class="d-none d-xl-block ml-lg-1">{{settings.cartStringsTitle }}</small>
+  							</a>
+                {% if settings.free_shipping_enable and template != 'cart' %}
+                <div class="bg-white p-3 popup-free-ship position-absolute rounded-10 shadow-sm">
+                  {% include 'free_ship' %}
+                </div>
+                {% endif %}
+              </div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="navigation-block mr-lg-auto d-none d-lg-block">
+	<div class="container">
+		<div class="d-flex justify-content-between position-relative{%if settings.menu_long_scroll%} main_fade{%endif%}">
+			<ul id="menu_pc" class="m-0 list-unstyled position-static d-lg-inline-flex{%if settings.menu_long_scroll%} pr-4{%endif%}">
+				{%-for link in linklists[settings.menu_site].links -%}
+				{%- if settings.display_megamenu -%}
+				{%- assign items_list = settings.megamenu_items | split:"," -%}
+				{%- endif -%}
+				{%- assign test = link.title | downcase -%}
+				<li class="level0 cls pt-1 pt-lg-2 pb-lg-2 pb-1 {% if settings.display_megamenu and items_list contains test %}mega{%else%}not-mega{%endif%}">
+					<a href="{{link.url}}" title="{{link.title}}" class="d-block py-1 {%unless forloop.first%}pl-lg-3{%endunless%} {%if linklists[link.handle] != empty%}pr-4 js-checkMenu{%else%}pr-lg-3 pr-2{%endif%} position-relative {%if link.active%}active{%endif%}">
+						{{link.title}}
+						{%-if linklists[link.handle] != empty-%}
+						<i class="down_icon align-items-center justify-content-center position-absolute d-none d-lg-block mg"></i>
+						{%-endif-%}
+					</a>
+					{%-if linklists[link.handle] != empty-%}
+					<i class="js-submenu down_icon d-flex align-items-center justify-content-center position-absolute d-lg-none"></i>
+					<ul class="lvdiv lv1 list-group p-0 list-unstyled rounded-10 py-lg-2">
+						{%-for childlink in linklists[link.handle].links-%}
+						<li class="{% unless settings.display_megamenu and items_list contains test %}no{%endunless%} level1 pr-lg-2 {% if settings.display_megamenu and items_list contains test %}pb-lg-2{%endif%} pl-2 position-relative cls">
+							<a href="{{ childlink.url }}" class="py-1 py-lg-2 pr-5 position-relative {%if childlink.active%}active{%endif%} js-checkMenu" title="{{ childlink.title }}">
+								{{ childlink.title }}
+								{% unless settings.display_megamenu and items_list contains test %}
+								{%-if linklists[childlink.handle] != empty-%}
+								<i class="right_icon align-items-center justify-content-center position-absolute d-none d-lg-flex mg"></i>
+								{%-endif-%}
+								{%endunless%}
+							</a>
+							{%-if linklists[childlink.handle] != empty-%}
+							<i class="js-submenu down_icon d-flex align-items-center justify-content-center position-absolute d-lg-none"></i>
+							<ul class="lv2 list-group p-0 list-unstyled rounded-10 {% unless settings.display_megamenu and items_list contains test %}py-lg-2{%endunless%}">
+								{%-for childlink2 in linklists[childlink.handle].links-%}
+								<li class="level2 {% if settings.display_megamenu and items_list contains test %}px-2 px-lg-0{%else%}px-2{%endif%}"> 
+									<a href="{{ childlink2.url }}" class="py-1 {% unless settings.display_megamenu and items_list contains test %}py-lg-2{%endunless%} position-relative {%if childlink2.active%}active{%endif%}" title="{{ childlink2.title }}">{{ childlink2.title }}</a>
+								</li>
+								{%-endfor-%}
+							</ul>
+							{%-endif-%}
+						</li>
+						{%-endfor-%}
+					</ul>
+					{%-endif-%}
+				</li>
+				{%-endfor-%}
+			</ul>
+      {%-if settings.enable_mn_blog_head-%}
+      <div class="blog-block">
+        <div class="align-items-center blog_head d-flex py-2 text-center">
+          {% for link in linklists[settings.blog_head].links limit: 2 %}
+          <a class="pl-2 pl-xl-3 pr-2 pr-xl-3 d-inline-block position-relative py-1" href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      {%-endif-%}
+		</div>
+	</div>
+</div>
+<div class="col-mobile position-fixed d-flex flex-column pt-lg-2 pb-lg-2 pt-0 pb-0" id="col-left-mew">
+  {%include 'menu_mobile'%}
+</div>
+{%if settings.menu_long_scroll%}
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		let vW = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+		if(vW > 991){
+			const slider = document.getElementById('menu_pc');
+			const dropDownMenus = document.querySelectorAll('.lvdiv');
+			const preventClick = (e) => {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+			}
+			let isDown = false;
+			let isDragged = false;
+			let startX;
+			let scrollLeft;
+			let shouldScroll = slider.offsetWidth < slider.scrollWidth;
+			slider.addEventListener("mousedown", e => {
+				isDown = true;
+				slider.classList.add("active");
+				startX = e.pageX - slider.offsetLeft;
+				scrollLeft = slider.scrollLeft;
+			});
+			slider.addEventListener("mouseleave", () => {
+				isDown = false;
+				slider.classList.remove("active");
+			});
+			slider.addEventListener("mouseup", (e) => {
+				isDown = false;
+				const elements = slider.querySelectorAll("a");
+				if(isDragged){
+					for(let i = 0; i<elements.length; i++){
+						elements[i].addEventListener("click", preventClick);
+					}
+				}
+				else{
+					for(let i = 0; i<elements.length; i++){
+						elements[i].removeEventListener("click", preventClick);
+					}
+				}
+				slider.classList.remove("active");
+				isDragged =  false;
+				slider.querySelectorAll('.not-mega').forEach(function(item){
+					item.querySelectorAll('.lvdiv').forEach(el => {
+						el.style.left = item.getBoundingClientRect().left - slider.getBoundingClientRect().left  +'px';
+					});
+				});
+			});
+			let leftFirst = null;
+			dropDownMenus.forEach((menu) => {
+				const menuItem = menu.parentElement;
+				const menuItemLeft = menuItem.getBoundingClientRect().left;
+				leftFirst = Math.round(menuItemLeft);
+			});
+			slider.addEventListener("mousemove", e => {
+				if (!isDown) return;
+				isDragged =  true;
+				e.preventDefault();
+				const x = e.pageX - slider.offsetLeft;
+				const walk = (x - startX) * 2;
+				slider.scrollLeft = scrollLeft - walk;
+				let leftC = null;
+				dropDownMenus.forEach((menu) => {
+					const menuItem = menu.parentElement;
+					const menuItemLeft = menuItem.getBoundingClientRect().left;
+					const leftLast = Math.round(menuItemLeft);
+					leftC = leftLast - leftFirst;
+					slider.style.left = leftC;
+				});
+				slider.querySelectorAll('.not-mega').forEach(function(item){
+					item.querySelectorAll('.lvdiv').forEach(el => {
+						el.style.left = item.getBoundingClientRect().left - slider.getBoundingClientRect().left  +'px';
+					});
+				});
+			});
+			slider.addEventListener("wheel", (e) => {
+				if (!shouldScroll) return;
+				if (e.target.closest('.mega .lvdiv')) {
+					return;
+				}
+				e.preventDefault();
+				const delta = e.wheelDelta/120 || -e.deltaY/3;
+				const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+
+				// Check if the slider is at the beginning or end of the menu
+				if (delta < 0 && slider.scrollLeft === maxScrollLeft) {
+					// If scrolling down and at the end of the menu, continue scrolling the page
+					e.stopPropagation();
+					window.scrollBy({ top: 50, behavior: 'smooth' });
+				} else if (delta > 0 && slider.scrollLeft === 0) {
+					// If scrolling up and at the beginning of the menu, continue scrolling the page
+					e.stopPropagation();
+					window.scrollBy({ top: -50, behavior: 'smooth' });
+				} else {
+					// If scrolling within the menu, continue scrolling the menu
+					isDragged = true;
+					slider.scrollLeft -= delta * 30;
+				}
+				let leftC = null;
+				dropDownMenus.forEach((menu) => {
+					const menuItem = menu.parentElement;
+					const menuItemLeft = menuItem.getBoundingClientRect().left;
+					const leftLast = Math.round(menuItemLeft);
+					leftC = leftLast - leftFirst;
+					slider.style.left = leftC;
+				});
+				slider.querySelectorAll('.not-mega').forEach(function(item){
+					item.querySelectorAll('.lvdiv').forEach(el => {
+						el.style.left = item.getBoundingClientRect().left - slider.getBoundingClientRect().left + parseInt(getComputedStyle(item).paddingLeft, 10) +'px';
+					});
+				});
+			});
+		}
+	});
+</script>
+{%endif%}

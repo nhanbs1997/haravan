@@ -1,0 +1,17 @@
+{%- layout none -%}
+{%- paginate search.results by settings.collection_results_per_page -%}
+{%- if search.results_count > 0 -%}
+<div class="row slider-items">
+	{%- for product in search.results -%}
+	<div class="col-xxl-2 col-md-3 col-sm-6 col-6 product-grid-item-lm mb-3">
+		{%- include 'product-grid-item' -%}         
+	</div>
+	{%- endfor -%}
+</div>
+{%- else -%}
+<p class="text-center alert alert-warning">{{settings.emptyCollection}}</p>
+{%- endif %}
+{%- if paginate.pages > 1 -%}
+{%- include 'collection-paginate-pages' -%}
+{%- endif -%}
+{%- endpaginate -%}

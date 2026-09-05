@@ -1,0 +1,16 @@
+<div class="layout-pageDetail">
+	{%- include 'breadcrumb' -%}
+	<div class="container pd-top">
+		<div class="row">
+			<div class="col-lg-9 col-md-8 col-12">
+				<div class="wrapper-pageDetail">
+					<div class="heading-pageDetail"><h1>{{ page.title }}</h1></div>
+					<div class="content-pageDetail typeList-style">{{ page.content }}</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-12">
+				{% include 'sidebar-page' %}
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,81 @@
+<div class="mew-product-review-details mt-3 mb-4" id="main_info_details">
+  {% assign mycontent = mainContent | split:'<h6>' %}
+  <div class="product-tab e-tabs not-dqtab position-relative">
+    <div class="tabs tabs-title clearfix box-menu" id="box-menu">
+      <div class="container">
+        <div class="content-tab pb-1 pb-lg-0">
+          {% for part in mycontent %}
+          {% assign fp = part | append: " " | split: "</h6>" | last %}
+          {% assign p = part | append: " " | split: "</h6>" | last | strip_html | replace: "&nbsp;", "" | replace: " ", "" | strip_newlines %}
+          {% if forloop.index0 == 0 %}
+          <a class="tab-link font-weight-bold px-3 py-2 active" data-category="tab-1" rel="#tab-1" href="#tab-1">
+            <span>{{settings.product_content_title}}</span>
+          </a>	
+          {% else %}
+          <a class="tab-link font-weight-bold px-3 py-2 {%if forloop.first%}active{%endif%}" data-category="tab-{{ forloop.index }}" rel="#tab-{{ forloop.index }}" href="#tab-{{ forloop.index }}">
+            <span>{{ part | split: "</h6>" | first | strip_html }}</span>
+          </a>
+          {% endif %}
+          {% endfor %}
+          {%-if settings.product_review-%}
+          <a class="tab-link d-inline-block font-weight-bold px-3 py-2" data-category="tab-review"  rel="#tab-review" href="#tab-review">
+            <span>{{settings.product_review_title}}</span>
+          </a>																	
+          {%endif%}
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="descriptons" id="box-product-category" >
+      {% assign a = mainContent | size %}
+      {% if a > 0 %}
+        {% assign mycontent = mainContent | split:'<h6>' %}
+        {% for part in mycontent %}
+        {% assign fp = part | append: " " | split: "</h6>" | last %}
+        {% assign p = part | append: " " | split: "</h6>" | last | strip_html | replace: "&nbsp;", "" | replace: " ", "" | strip_newlines %}
+        {% if forloop.index0 == '0' %}
+        <div id="tab-1" class="js-tab-content item-product-category border rounded-10 p-3 mb-3 text-center">
+          <expandable-content data-expand="{{settings.seemore_text}}" data-clollapse="{{settings.seeless_text}}" data-maxheight="380"  style="--maxHeight: 380px;">
+            <div class="expandable-content text-left rte">
+              {{ part  | remove: '["' | remove: '"]'}}
+            </div>
+            <button class="expandable-content-toggle pt-2 pb-2 pl-4 pr-4 modal-open position-relative btn rounded-10 box_shadow font-weight-bold">
+              <span class="toggle-text">{{settings.seemore_text}}</span>
+              <svg width="5" height="10"><use href="#svg-next-mini"/></svg>
+            </button>
+          </expandable-content>
+        </div>
+        {% else %}
+        <div id="tab-{{ forloop.index }}"  class=" js-tab-content item-product-category border rounded-10 p-3 mb-3 text-center" >
+          <span class="title-header d-inline-block mb-3 font-weight-bold  d-block text-left">{{ part | split: "</h6>" | first | strip_html }}</span>
+          <expandable-content data-expand="{{settings.seemore_text}}" data-clollapse="{{settings.seeless_text}}" data-maxheight="380"  style="--maxHeight: 380px;">
+            <div class="expandable-content text-left rte">
+              {{ part | split: "</h6>" | last | replace: "<div", "<span" | replace: "</div", "</span" | remove: '["' | remove: '"]'}}
+            </div>
+            <button class="expandable-content-toggle pt-2 pb-2 pl-4 pr-4 modal-open position-relative btn rounded-10 box_shadow font-weight-bold">
+              <span class="toggle-text">{{settings.seemore_text}}</span>
+              <svg width="5" height="10"><use href="#svg-next-mini"/></svg>
+            </button>
+          </expandable-content>
+        </div>
+        {% endif %}
+        {% endfor %}	
+      {%-else-%}
+      <div id="tab-1" class="js-tab-content item-product-category border rounded-10 p-3 mb-3 text-center">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{settings.other_updating}}
+        </div>
+      </div>
+      {%-endif-%}
+      {%-if settings.product_review-%}
+      <div id="tab-review" class="js-tab-content tab-review-c item-product-category border rounded-10 p-3" >
+        <div class="rte">
+          <span class="title-review font-weight-bold  d-block mb-3">{{settings.product_review_title}}</span>
+          {% include 'product-reviews' %}
+        </div>
+      </div>	
+      {%endif%}
+    </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<button type="button" class="position-absolute rounded-circle shadow-sm wishlist-btn" data-alias="{{ p.id }}" title="{{settings.wishlist_btn_title}}"data-wishlist-item-infor='{"title": "{{ p.title | replace: '<', '&lt;' | replace: '"', "&quot;" | replace: "'", "&apos;"}}","url": "{{p.url}}"}'>
+  <svg width="22" height="19">
+    <use href="#svg-wishlist"/>
+  </svg>
+</button>

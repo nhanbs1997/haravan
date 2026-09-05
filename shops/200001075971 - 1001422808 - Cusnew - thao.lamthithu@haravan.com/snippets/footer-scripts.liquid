@@ -1,0 +1,117 @@
+{{ 'option_selection.js' | haravan_asset_url | script_tag }}
+{{ 'api.jquery.js' | haravan_asset_url | script_tag }}
+{%- if template contains 'customers' -%}
+{{ 'haravan_common.js' | haravan_asset_url | script_tag }}
+{{ 'customer_area.js'  | haravan_asset_url | script_tag }}
+{%- endif -%}
+{{ 'plugins.js'  | asset_url | script_tag }}
+
+{%-if settings.promotion_hrvapp_use-%}
+<!-- haravan app -->
+{%-if settings.promotion_hrvapp == 'appcombo'-%}
+{{ 'app-combo.js'  | asset_url | script_tag }}
+{%-elsif settings.promotion_hrvapp == 'appbuyxgety'-%}
+{{ 'app-buyxgety.js'  | asset_url | script_tag }}
+{%-include 'modal-buyxgety'-%}
+{%-endif-%}
+{%-endif-%}
+<!-- END - haravan app -->
+
+{{ 'scripts.js'  | asset_url | script_tag }}
+<!-- POPUP LOAD --> 
+{%- if template contains 'index' -%}
+{%- if settings.popup_contact_show -%}
+<script>
+	jQuery(document).ready(function(){
+		{%- if settings.popup_contact_time == '0'  -%}
+		{%- assign  time_show_popup = 100 -%}
+		{% else %}
+		{%- assign  time_show_popup = settings.popup_contact_time | times: 1000 -%}
+		{% endif %}
+		setTimeout(function(){
+			if(sessionStorage.mega_popup == null ){
+				$('#popup-contact').modal('show');
+			}
+		},{{time_show_popup}});
+		 if ($('.popupForm').length > 0){
+			 $('.popup-form-customer form.contact-form').submit(function(e){
+				 var self = $(this);
+				 if($(this)[0].checkValidity() == true){
+					 e.preventDefault();	
+					 grecaptcha.ready(function() {
+						 grecaptcha.execute('6Le047YqAAAAAKk-dTuIhf_F7L0m3Yp9hOkIxTn1', {action: 'submit'}).then(function(token) {
+							 self.find('input[name="g-recaptcha-response"]').val(token);
+							 $.ajax({
+								 type: 'POST',
+								 url:'/account/contact',
+								 data: $('.popup-form-customer form.contact-form').serialize(),
+								 success: function(data) {			
+									 if($(data).find('#error_customer').length == 0){
+										 $('.popup-form-customer .succes-popup').addClass('success').html('Cảm ơn bạn đã đăng ký email theo dõi!');
+										 setTimeout(function(){ 
+											 $('#popup-contact').modal('hide');
+											 location.reload();
+										 },2000);
+									 }
+									 else{
+										 $('.popup-form-customer .succes-popup').addClass('error').html($(data).find('#error_customer').html());
+									 }
+								 }
+							 })
+						 });
+					 });
+				 }
+				 if(sessionStorage.mega_popup == null ){
+					 sessionStorage.mega_popup = 'show' ;
+				 }
+			 });
+		 }
+		 else{
+			 $(document).on('click','.linkbanner-popup-contact', function(){
+				 $('#popup-contact').modal('hide');
+				 if(sessionStorage.mega_popup == null ){
+					 sessionStorage.mega_popup = 'show' ;
+				 }
+			 });
+		 }
+		 $(document).on('click','.modal-popupContact .close-popup-contact', function(e){
+			 e.preventDefault();
+			 $('#popup-contact').modal('hide');
+			 if(sessionStorage.mega_popup == null ){
+				 sessionStorage.mega_popup = 'show' ;
+			 }
+		 });
+		 $(".modal-popupContact").on('hidden.bs.modal', function(){
+			 if(sessionStorage.mega_popup == null ){
+				 sessionStorage.mega_popup = 'show' ;
+			 }
+		 });
+		});
+</script>
+{%- endif -%}{%- endif -%}
+<!--END *** POPUP LOAD =====================-->
+
+<script>
+	function animation_check(){
+		var scrollTop = $(window).scrollTop() - 300;
+		$('.animation-tran').each(function(){
+			if($(this).offset().top < scrollTop + $(window).height()){
+				$(this).addClass('active');
+			}
+		})
+	}
+	$(window).scroll(function(){
+		setTimeout(function(){
+			animation_check();
+		}, 100);
+	})
+</script>
+<script>
+	document.getElementById("site-header").classList.add("header-style");
+	document.documentElement.style.setProperty('--header-height', document.getElementById('site-header').offsetHeight + 'px');
+	window.addEventListener('resize', function(){
+		if(!document.getElementById('site-header').classList.contains('hSticky-nav') ){			 	 
+			document.documentElement.style.setProperty('--header-height', document.getElementById('site-header').offsetHeight + 'px');
+		}
+	});
+</script>

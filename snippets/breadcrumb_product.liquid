@@ -1,0 +1,46 @@
+{%-if suffix != '' and product.collections.size and colCheck != ''-%}
+  {%-for link in linklists[menuBreadcrumb].links-%}
+    {%-if link.url == colCheck-%}
+      {%-assign breadbcrumbTitle = link.title-%}
+      {%-assign breadbcrumbLink = link.url-%}
+      {%-break-%}
+    {%-endif-%}
+    {%-for childlink in linklists[link.handle].links-%}
+      {%-if childlink.url == colCheck-%}
+        {%-assign breadbcrumbTitle = link.title | append: splitter | append: childlink.title-%}
+        {%-assign breadbcrumbLink = link.url | append: splitter | append: childlink.url-%}
+        {%-break-%}
+      {%-endif-%}
+      {%-for childlink2 in linklists[childlink.handle].links-%}
+        {%-if childlink2.url == colCheck-%}
+          {%-assign breadbcrumbTitle = link.title | append: splitter | append: childlink.title |  append: splitter  | append: childlink2.title-%}
+          {%-assign breadbcrumbLink = link.url | append: splitter | append: childlink.url |  append: splitter | append: childlink2.url-%}
+          {%-break-%}
+        {%-endif-%}
+        {%-for childlink3 in linklists[childlink2.handle].links-%}
+          {%-if childlink3.url == colCheck-%}
+            {%-assign breadbcrumbTitle = link.title | append: splitter | append: childlink.title |  append: splitter  | append: childlink2.title | append: splitter | append: childlink3.title-%}
+            {%-assign breadbcrumbLink = link.url | append: splitter | append: childlink.url |  append: splitter | append: childlink2.url | append: splitter | append: childlink3.url-%}
+            {%-break-%}
+          {%-endif-%}
+        {%-endfor-%}
+      {%-endfor-%}
+    {%-endfor-%}
+  {%-endfor-%}
+{%-else-%}
+{%-endif-%}
+{%include 'breadcrumb_loop' with links: breadbcrumbLink, titles: breadbcrumbTitle, splitter: splitter%}
+{%-if suffix != '' %}
+  {%-assign suffix_url = suffix | remove:'/' %}
+  <li>
+    <a href="{{suffix}}" title="{{ collections[suffix_url].title }}">
+      <span>{{ breadbcrumbTitle | split: splitter | last | default: collections[suffix_url].title }}</span>
+    </a>
+  </li>
+{%-elsif product.collections.size > 0-%}
+<li>
+  <a href="{{product.collections.first.url}}" title="{{ product.collections.first.title }}">
+    <span>{{ product.collections.first.title }}</span>
+  </a>
+</li>
+{%-endif%}

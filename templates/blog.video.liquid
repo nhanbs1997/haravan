@@ -1,0 +1,62 @@
+{%- include 'breadcrumb' -%}
+{%- paginate blog.articles by settings.number_blogss -%}
+<section class="blog-layout" itemscope itemtype="http://schema.org/Blog">
+	<meta itemprop="name" content="{{ blog.title }}">
+	<meta itemprop="description" content="{{ blog.content | strip_html}}">
+	<div class="container mt-3 mb-3">
+		<div class="rounded p-3 bg-white col-main">
+			<h1 class="blog-name font-weight-bold pb-2 pt-2 pt-lg-0 mb-2">{{ blog.name }}</h1>
+			<div class="row">
+				<div class="col-12 col-md-9 col-lg-9">
+					{%- if blog.articles.size > 0 -%}
+					<article>
+						<div class="grid_article">
+							<div class="row">
+								{%- for article in blog.articles-%}
+								<div class="col-12 col-sm-6 col-md-6 col-lg-4">
+									{%- include 'blog_item_video' -%}
+								</div>
+								{%- endfor -%}
+							</div>
+						</div>
+					</article>
+					{%- else -%}
+					<p class="text-center alert alert-warning mb-0">{{settings.emptyBlog}}</p>
+					{%- endif -%}
+					{%- if paginate.pages > 1 -%}
+					{%- include 'paginate-pages' -%}
+					{%- endif -%}
+				</div>
+				<div class="col-12 col-md-3 col-lg-3">
+					<div class="position-sticky top_20px">
+						{%include 'aside-cate-blog'%}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="popup_video position-fixed w-100 h-100 justify-content-center align-items-center d-flex">
+		<div class="position-relative max-100">
+			<a href="javascript:;" class="close_video position-absolute d-flex m_white_bg_module justify-content-center align-items-center" title="{{settings.tit_close}}"><img alt="{{settings.tit_close}}" src="{{'close.png' | asset_url}}"></a>
+			<div class="b_video p-2 p-md-3 m_white_bg_module rounded m-auto"></div>
+		</div>
+	</div>
+</section>                 
+{%- endpaginate -%}
+<script>
+	let videos = document.querySelectorAll('.open_video');
+	let popupVideo = document.querySelector('.popup_video');
+	let close_vd = document.querySelectorAll('.close_video');
+	videos.forEach(v => v.addEventListener('click', function(e){
+		e.preventDefault();
+		popupVideo.classList.add('open');
+		popupVideo.querySelector('.b_video').innerHTML  = `<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/${e.target.dataset.video}?enablejsapi=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>`
+	}));
+	close_vd.forEach(v => v.addEventListener('click', function(e){
+		e.preventDefault();
+		popupVideo.classList.remove('open');
+		setTimeout(function(){
+			popupVideo.querySelector('.b_video').innerHTML  = ``
+		}, 500);
+	}))
+</script>

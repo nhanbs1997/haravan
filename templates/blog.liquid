@@ -1,0 +1,198 @@
+{%- include 'breadcrumb' -%}
+<section class="blog-layout" itemscope itemtype="http://schema.org/Blog">
+	<meta itemprop="name" content="{{ blog.title }}">
+	<meta itemprop="description" content="{{ blog.content | strip_html}}">
+  <div class="container mb-4 mb-lg-5 lastest-articles" style="--bgmodule: {{settings.bg_module}};">
+    <div class="row">
+      <div class="col-12 col-lg-9">
+        <div class="row align-items-center">
+          <div class="col-md-6 col-12">
+            <div class="mew_blog swiper-container position-relative">
+							<div class="swiper-wrapper">
+                {% for article in blogs.all.articles limit: 3  %}
+                <div class="swiper-slide">
+                  <div class="item_grid mb-0 position-relative rounded-10 modal-open index">
+                    <picture class="position-relative w-100 m-0 be_opa modal-open ratio3by2 aspect large-article rounded-10 d-block">
+                      {%- if article.image != null -%}
+                      <source media="(min-width: 1200px)" srcset="{{ article.image.src }}">
+                      <source media="(min-width: 992px)" srcset="{{ article.image.src }}">
+                      <source media="(max-width: 569px)" srcset="{{ article.image.src  | img_url:'large'}}">
+                      <source media="(max-width: 480px)" srcset="{{ article.image.src | img_url:'large' }}">
+                      <img src="{{ article.image.src}}" class=" d-block img img-cover position-absolute" alt="{{ article.title }}">
+                      {%- else -%}
+                      <img src="{{ 'no_image.jpg' | asset_url }}" alt="{{ article.title }}"  class="d-block img img-cover position-absolute"> 
+                      {%- endif -%} 
+                    </picture>
+                    <div class="cont position-absolute p-3 w-100">
+                      {%-if settings.enable_author_n_time-%}
+                      <small class="text-white">{{ article.published_at | date:'%d/%m/%y' }}</small>
+                      {%-endif-%}
+                      <h3 class="title_blo">
+                        <a class="text-white" href="{{ article.url }}" title="{{ article.title | replace: '"', '''}}">{{ article.title | replace: '"', '''}}</a>
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+							</div>
+							<div class="swiper-pagination mew_blog_p"></div>
+						</div>
+          </div>
+          <div class="col-12 col-md-6 d-none d-md-block">
+            {% for article in blogs.all.articles | offset: 3 | limit: 3  %}
+            {%- include 'blog_item_list' -%}
+            {% endfor %}
+          </div>
+        </div>
+        {%if linklists[settings.blogs_all_menu].links.size > 0%}
+				<div class="blog-list mew_cate_blogs swiper-container position-relative my-4">
+          <div class="b_item swiper-wrapper">
+            {%-for link in linklists[settings.blogs_all_menu].links-%}
+            <div class="swiper-slide item">
+              <div class="bg d-flex align-items-center position-relative py-2 px-3 rounded-pill h-100">
+                <div class="image mr-2 mr-lg-3 rounded modal-open rounded-circle">
+                  <a href="{{link.url}}" title="{{link.title}}">
+                    {%-include 'blog_image' with link.object.description, alt: link.title -%}
+                  </a>
+                </div>
+                <div class=text>
+                  <p class="font-weight-bold mb-0"><a href="{{link.url}}" title="{{link.title}}">{{link.title | strip_html}}</a></p>
+                  <span class="d-block">{{link.object.articles_count | append: settings.append_tit}}</span>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {%endif%}
+        {%-if blog.handle == 'all'-%}
+          {%-for link in linklists[settings.blogs_all_module].links-%}
+          {%-assign blog_alias = link.url | split: '/' | last-%}
+          {%-assign blog_size = blogs[blog_alias].articles_count-%}
+          {%-if blog_size > 0-%}
+          <article class="bg-box col-main p-3 rounded-10 {%unless forloop.last%}mb-4{%endunless%}">
+            <div class="head_box mb-3 d-flex justify-content-between align-items-baseline flex-row position-relative">
+              <h2 class="blog-name font-weight-bold m-0">{{ link.title }}</h2>
+              <a class="font-weight-bold more_view text-main py-1 d-none d-lg-inline-block" href="{{ link.url }}" title="{{settings.view_more_blog}}">
+                {{settings.view_more_blog}}
+              </a>
+            </div>
+            <div class="row">
+              {%- for article in blogs[blog_alias].articles limit:5 %}
+              <div class="mb_item item_art col-12 col-sm-12 {%if forloop.first%}one_item mb-3{%endif%} {%if forloop.index < 3%}col-lg-6 col-md-6 two_item mb-lg-3{%else%}col-lg-4 col-md-4{%endif%}">
+                {%include 'blog_item_grid'%}
+              </div>
+              {%- endfor -%}
+              <div class="col-12 d-lg-none text-center">
+                <a class="border border-main font-weight-bold more_view px-3 py-1 rounded-pill text-main d-inline-block" href="{{link.url}}" title="{{settings.view_more_blog}}">
+                  {{settings.view_more_blog}}
+                </a>
+              </div>
+            </div>
+          </article>
+          {%-endif-%}
+          {% endfor %}
+          {%-else-%}
+          <article class="bg-box col-main p-3 rounded-10">
+            <h1 class="blog-name font-weight-bold text-main mb-3">{{ blog.title }}</h1>
+            <div class="grid_article">
+              {%-if blog.articles.size > 0-%}
+              {%-paginate blog.articles by 12-%}
+              <div class="row" id="AjaxinateContainer">
+                {%- for article in blog.articles %}
+                <div class="col-12 col-sm-6 col-md-6 col-lg-4 its">
+                  {%include 'blog_item_grid'%}
+                </div>
+                {%- endfor -%}
+              </div>
+              <div id="AjaxinatePagination" class="text-center">
+                {% if paginate.next %}
+                <a href="{{ paginate.next.url }}" title="{{settings.load_text_blog}}" class="pt-2 pb-2 pr-4 pl-4 rounded-10 d-none">
+                  {{settings.load_text_blog}}
+                </a>
+                {% endif %}
+              </div>
+              {%-endpaginate-%}
+              {%-endif-%}
+            </div>
+          </article>
+        {%-endif-%}
+      </div>
+      <div class="col-12 col-lg-3">
+        {%include 'm_sidebar_blog'%}
+      </div>
+    </div>
+	</div>
+</section>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		var swiperBlogHome = new Swiper('.mew_blog', {
+			spaceBetween: 10,
+			navigation: false,
+			loop: false,
+			speed:1000,
+			autoplay: {
+				delay: 6000,
+				disableOnInteraction: true,
+			},
+			slidesPerView: 1,
+			pagination: {
+				el: '.mew_blog_p',
+				clickable: true,
+			},
+		});
+		var swiperBlogCate = new Swiper('.mew_cate_blogs', {
+			loop: false,
+			spaceBetween: 8,
+			speed: 1000,
+			autoplay: true,
+			slidesPerView: 2,
+			navigation: {
+				nextEl: '.mcb_next',
+				prevEl: '.mcb_prev',
+			},
+			freeMode: true,
+			scrollbar: {
+				el: ".sb_cb",
+				hide: false,
+			},
+			slidesPerView: 1.8,
+			breakpoints: {
+				375: {
+					slidesPerView: 1.8
+				},
+				768: {
+					slidesPerView: 2.5,
+				},
+				992: {
+					slidesPerView: 3.2,
+				},
+				1200: {
+					slidesPerView: 4.2,
+				},
+				1500: {
+					slidesPerView: 4.2,
+				}
+			}
+		});
+	})
+</script>
+{%-unless blog.handle == 'all'-%}
+{{ 'ajaxinate.js' | asset_url | script_tag }}
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		var endlessScroll = new Ajaxinate({    
+			container: '#AjaxinateContainer',    
+			pagination: '#AjaxinatePagination',    
+			method: 'scroll',    
+			offset: 400,
+			loadingText: '{{settings.load_text_blog}}',
+			callback: function(){
+			document.querySelectorAll('.lazy').forEach((v) => {
+			io.observe(v);
+		})
+		}
+    });
+	})
+</script>
+{%-endunless-%}

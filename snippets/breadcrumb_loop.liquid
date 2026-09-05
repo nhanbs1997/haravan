@@ -1,0 +1,18 @@
+{%-assign titlesArr = titles | split: splitter -%}
+{%-assign linksArr = links | split: splitter -%}
+{%-assign breadcrumbLength = linksArr | size | minus: 1 -%}
+{%-if breadcrumbLength > 0-%}
+  {%-for i in (1..breadcrumbLength)-%}
+    {%-assign index = i | minus: 1 -%}
+    <li>
+      <a href="{{ linksArr[index] }}" title="{{ titlesArr[index] }}">
+        <span>{{ titlesArr[index] }}</span>
+      </a>
+      <span class="slash-divider ml-2 mr-2">
+        <svg width="4" height="8">
+          <use href="#svg-next-mini"/>
+        </svg>
+      </span>
+    </li>
+  {%-endfor-%}
+{%-endif-%}

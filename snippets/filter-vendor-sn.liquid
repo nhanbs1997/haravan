@@ -1,0 +1,23 @@
+<aside class="aside-item filter-vendor mb-3 col-12 col-sm-4 col-lg-12">
+	<div class="h2 title-head m-0 pt-2 pb-2 font-weight-bold text-main">{{settings.filter_vendor_title}}</div>
+	<div class="aside-content filter-group">
+		<ul class="filter-vendor {%if collection.all_vendors.size > 0%}filter-grid{%endif%} list-unstyled m-0 pr-1">
+			{%- if collection.all_vendors.size > 0 -%}
+			{%- for vendor in collection.all_vendors -%}
+			{%- if vendor != ''-%}
+			<li class="filter-item filter-item--check-box  ">
+				<label class="d-flex align-items-baseline m-0 {{ vendor | handleize }}" data-filter="{{ vendor | downcase }}" for="filter-vendor-{{ vendor | handleize }}">
+					<input type="checkbox" id="filter-vendor-{{ vendor | handleize }}" class="d-none" onchange="toggleFilter(this)" data-group="vendor" data-field="vendor" value="(vendor:product**{{vendor}})" data-operator="OR">
+					<span class="fa2 px-2 py-1 rounded-10 border">{{ vendor }}</span>
+				</label>
+			</li>
+			{%- endif-%}
+			{%- endfor -%}
+			{%- else -%}
+			<li class="filter-item alert alert-warning w-100">
+				{{settings.other_updating}}
+			</li>
+			{%- endif -%}
+		</ul>
+	</div>
+</aside>

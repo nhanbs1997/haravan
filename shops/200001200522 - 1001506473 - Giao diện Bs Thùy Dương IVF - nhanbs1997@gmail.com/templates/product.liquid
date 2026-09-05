@@ -1,0 +1,523 @@
+{%- assign tabs = product.metafields.hrvptabs.tabs -%}
+{%- assign check_pro_tab = false -%}
+{%- if tabs -%}
+{%- assign check_pro_tab = true -%}
+{%- assign tabList = tabs | append: '' | split: '@@###@@' -%}
+{%- endif -%}
+{%- comment -%}<!-- BUTTON TRACKING PRODUCT -->{%- endcomment -%}
+{%- assign btnClassTrack = ''-%}
+{%- if settings.link_product_btn_bottom != blank -%}
+{%-if settings.link_product_btn_bottom contains '//zalo.me' -%}{%- assign btnClassTrack = 'cta-chatzalo'-%}
+{%-elsif settings.link_product_btn_bottom contains 'tel:' -%}  {%- assign btnClassTrack = 'cta-clicktocall'-%}
+{%-elsif settings.link_product_btn_bottom contains '//m.me'-%} {%- assign btnClassTrack = 'cta-chatmessager'-%} {%- endif -%}
+{%- endif -%}
+{%- comment -%}<!-- TAGS -->{%- endcomment -%}
+{%- assign checkgift = false -%}
+{%- for tag in product.tags -%}
+{%- if tag == 'giftbox' -%} {%- assign checkgift = true -%} {%- endif -%}
+{% endfor %}
+{%- comment -%}<!-- Check Price Zero -->{%- endcomment -%}
+{%- assign products_price_zero = false -%}
+{%- if  product.variants.first.price == 0 -%}
+{%- assign products_price_zero = true -%}
+{%- endif -%}
+{%- comment -%}<!-- Check Size -->{%- endcomment -%}
+{%-assign indsize = 0 | times: 1 -%}
+{%-assign check_sizeguide = false-%}
+{%-assign tagsize_1 =  settings.tagsize_1_tag | lstrip | rstrip -%}
+{%-assign tagsize_2 =  settings.tagsize_2_tag | lstrip | rstrip -%}
+{%-assign tagsize_3 =  settings.tagsize_3_tag | lstrip | rstrip -%}
+{%-assign tagsize_4 =  settings.tagsize_4_tag | lstrip | rstrip -%}
+{%-if settings.tagsize_show -%}  {%-assign check_sizeguide = true-%} {%-endif-%}
+{%-if product.tags contains tagsize_1 -%} {%-assign indsize = 1 | times: 1 -%} {%-endif-%}
+{%-if product.tags contains tagsize_2 -%} {%-assign indsize = 2 | times: 1 -%} {%-endif-%}
+{%-if product.tags contains tagsize_3 -%} {%-assign indsize = 3 | times: 1 -%} {%-endif-%}
+{%-if product.tags contains tagsize_4 -%} {%-assign indsize = 4 | times: 1 -%} {%-endif-%}
+<!-- end_size -->
+
+{%- assign is_collection_preorder = false -%}
+{%- for item in product.collections -%}
+{%- if item.handle == settings.collection_preorder -%}
+{%- assign is_collection_preorder = true -%}
+{%- break -%}
+{%- endif -%}
+{%- endfor -%}
+
+<script>
+	{%-if product.description contains '{' and product.description contains '}' and product.description contains '<hr>' -%}
+	let data_360 = {{ product.description | split: '<hr>' | last | strip_html | json | replace: '&nbsp;','' }};
+	data_360 = JSON.parse(data_360);
+	{%-else-%}
+	let data_360 = null;
+	 {%-endif-%}
+</script>	
+{% comment %}<!-- Check 360 -->{% endcomment %}
+{%-assign has_360 = false-%}
+{%-if product.description contains '{' and product.description contains '}' and product.description contains '<hr>' -%}
+{%-if product.description contains '"image360":'-%}{%-assign has_360 = true-%}{%-endif-%}
+{%-endif-%}
+{% comment %}<!-- Check Video -->{% endcomment %}
+{%- assign has_video = false -%}
+{%-if product.media.size > 0 -%}
+{%- for media in product.media -%}
+{%- if media.media_type == 'external_video' -%}
+{%- assign has_video = true -%}
+{%- endif -%}
+{%-endfor-%}
+{%- endif -%}
+{%- assign runSlide = false -%}
+{%- if product.images.size > 1 -%}{%- assign runSlide = true -%}{%- endif -%}
+{%- if product.images.size >= 1 and has_video -%}{%- assign runSlide = true -%}{%- endif -%}
+{%- if product.images.size == 0 and has_video -%}{%- assign runSlide = true -%}{%- endif -%}
+{%- if product.images.size >= 1 and has_360 -%}{%- assign runSlide = true -%}{%- endif -%}
+{%- if has_video and has_360 -%}{%- assign runSlide = true -%}{%- endif -%}
+
+<script>
+	var currentId = {{product.id}};
+	var check_variant_add = false;
+	var pro_template = "style_04";
+
+	var vrIdParam  = true,  current_id = {{ product.variants.first.id }};
+	{% if product.available %}
+	var selectedVariant = {
+		id: {{ product.selected_or_first_available_variant.id }},
+			option1: "{{ product.selected_or_first_available_variant.option1 }}",
+				option2: "{{ product.selected_or_first_available_variant.option2 }}",
+					option3: "{{ product.selected_or_first_available_variant.option3 }}"
+	};
+	{% else %}
+	var selectedVariant = {
+		id: {{ product.variants.first.id }},
+			option1: "{{ product.variants.first.option1 }}",
+				option2: "{{ product.variants.first.option2 }}",
+					option3: "{{ product.variants.first.option3 }}"	
+	}
+	{% endif %}
+
+</script>
+<div class="layout-productDetail layout-pageProduct">
+	<section class="section-breadcrumb text-center">
+		<div class="container breadcrumb-content">
+			<h1 class="title">{{ product.title }}</h1>
+			<a href="#btn-scroll" class="btn-scroll">
+				<svg xmlns="http://www.w3.org/2000/svg" width="14.626" height="8.639" viewBox="0 0 14.626 8.639"><g id="down-arrow" transform="translate(0 -70.698)"><g id="Group_8820" data-name="Group 8820" transform="translate(0 100.698)"><path id="Path_6507" data-name="Path 6507" d="M14.392,101.42l-.479-.482a.8.8,0,0,0-1.132,0L7.316,106.4l-5.472-5.472a.8.8,0,0,0-1.132,0l-.479.479a.8.8,0,0,0,0,1.131l6.515,6.538a.818.818,0,0,0,.567.257h0a.818.818,0,0,0,.566-.257l6.508-6.52a.808.808,0,0,0,.234-.571A.8.8,0,0,0,14.392,101.42Z" transform="translate(0 -130.698)"></path></g></g></svg>
+			</a>
+		</div>
+		<div class="hidden">
+			{%include 'breadcrumb'%}
+		</div>
+	</section>
+	<section class="productDetail-information productDetail_style__04" id="btn-scroll">
+		<div class="container container-pd0">
+			<div class="productDetail--main">
+				<div class="productDetail--gallery">
+					<div class="product-container-gallery stickyProduct-gallery">
+						<div class="wrapbox-gallery">
+
+							<div class="wrapbox-image">
+								{%- if runSlide -%}
+								{%- assign thumb_media = '' -%}
+								{%- assign thumb_img = '' -%}
+								<div class="productGallery_slider">	
+									<div class="productList-slider productCarousel-slider owl-carousel" id="productCarousel-slider">									
+										{%-if product.media.size > 0-%}
+										{%- for media in product.media -%}
+										{%- if media.media_type == 'external_video' -%}
+										{%- if media.host == 'youtube' -%}
+										<div class="product-gallery prod-video">
+											<div class="product-gallery__item boxlazy-img">  
+												<div class="boxlazy-img__insert lazy-img__prod">
+													<div class="boxlazy-img__aspect">
+														{{ media | external_video_url | external_video_tag }}
+													</div>
+												</div>
+											</div>
+										</div>
+										{%- capture temp_media -%}
+										<div class="product-thumb thumb_video">
+											<div class="product-thumb__item boxlazy-img">		
+												<div class="boxlazy-img__insert lazy-img__prod">
+													<span class="boxlazy-img__aspect">
+														<img alt="{%if media.alt != blank %}{{ media.alt | escape }}{%else%}{{product.title}}{%endif%}"
+																 src="{{ media.preview_image.src | product_img_url : 'compact' }}" data-image="{{ media.preview_image.src | product_img_url : 'master' }}"/>
+													</span>
+													<span class="boxlazy-img__aspect icon-play">
+														<img class="lazyload" data-src="https://file.hstatic.net/200000592359/file/icon_video_2d253ef605b0407da214e359ac3bdea5.png" 
+																 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="video"/>
+													</span>
+												</div>
+											</div>
+										</div>
+										{%- endcapture -%}
+										{%- assign thumb_media = thumb_media | append: temp_media -%}
+										{%- endif -%}
+										{%- endif -%}
+										{%-endfor-%}
+										{%-endif-%}
+
+										{%-if has_360-%}
+										<div class="product-gallery illusion_360" id="gallery-scroll-image360">
+											<div class="product-gallery__item boxlazy-img">  
+												<div class="boxlazy-img__insert lazy-img__prod">
+													<span class="boxlazy-img__aspect">
+														<div id="div_360"></div>
+													</span>
+												</div>
+											</div>
+										</div>
+										{%-endif-%}
+
+										{%- for thumb in product.images -%}
+										<div class="product-gallery boxlazy-img"  data-image="{{ thumb.src | product_img_url : 'master' }}">
+											<div class="boxlazy-img__insert lazy-img__prod">
+												<span class="boxlazy-img__aspect">
+													<a class="product-gallery__item" data-fancybox="gallery" href="{{ thumb.src | product_img_url : 'master' }}">	
+														<img src="{{ thumb.src | product_img_url : 'master' }}" alt="{% if product.images.alt.size >0 %}{{ product.images.alt  | strip_html | escape }} {% else%} {{product.title | strip_html | escape }} {% endif %}">
+													</a>	
+												</span>
+											</div>
+										</div>	
+										{%- capture tmp_img -%}
+										<div class="product-thumb" data-image="{{ thumb.src | product_img_url : 'compact' }}">
+											<div class="product-thumb__item boxlazy-img" >	
+												<div class="boxlazy-img__insert lazy-img__prod">
+													<span class="boxlazy-img__aspect">
+														<img src="{{ thumb.src | product_img_url : 'compact' }}" alt="{% if product.images.alt.size >0 %}{{ product.images.alt  | strip_html | escape }} {% else%} {{product.title | strip_html | escape }} {% endif %}">
+													</span>
+												</div>
+											</div>					
+										</div>
+										{%- endcapture -%}
+										{%-assign thumb_img = thumb_img | append: tmp_img -%}
+										{%- endfor -%}
+									</div>	
+								</div>
+								<div class="productGallery_thumb">
+									<div class="productList-thumb productCarousel-thumb owl-carousel" id="productCarousel-thumb">
+										{{ thumb_media }}
+										{%-if has_360-%}
+										<div class="product-thumb thumb_360">
+											<div class="product-thumb__item boxlazy-img" >
+												<div class="boxlazy-img__insert lazy-img__prod">
+													<span class="boxlazy-img__aspect">
+														<img class="lazyload" data-src="https://file.hstatic.net/200000592359/file/icon_spin_3_556d2cb6ff344907b916eeb57020e156.png" 
+																 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+																 alt="image 360"/>
+													</span>
+												</div>
+											</div>
+										</div>
+										{%-endif-%}
+										{{thumb_img}}
+									</div>		
+								</div>					
+								{% else %}
+								<div class="product-gallery">
+									<img src="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'master' }}{%else%}{{'no_image.jpg' | asset_url}}{%endif%}" 
+											 alt="{% if product.images.alt.size >0 %}{{ product.images.alt  | strip_html | escape }} {% else%} {{product.title | strip_html | escape }} {% endif %}"/>
+								</div>
+								{% endif %}
+							</div>
+
+							<div class="product-percent">
+								{%- if product.variants.first.compare_at_price > product.price -%}
+								<span class="pro-sale">-{{product.variants.first.compare_at_price | minus: product.variants.first.price | divided_by:product.variants.first.compare_at_price | times : 100 | round : 0}}%<br> OFF </span>
+								{%- endif -%}
+							</div>	
+						</div>
+						<div class="wrapbox-detail">
+							{%comment%}
+							{%- if settings.products_social_icons -%}
+							<div class="product-toshare">
+								<span class="pro-title">Chia sẻ: </span>
+								<a href="//www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ product.url }}" target="_blank" aria-label="facebook" class="tooltip-cs share-facebook">
+									<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 512 512"><g><g><path d="m512 256c0 127.78-93.62 233.69-216 252.89v-178.89h59.65l11.35-74h-71v-48.02c0-20.25 9.92-39.98 41.72-39.98h32.28v-63s-29.3-5-57.31-5c-58.47 0-96.69 35.44-96.69 99.6v56.4h-65v74h65v178.89c-122.38-19.2-216-125.11-216-252.89 0-141.38 114.62-256 256-256s256 114.62 256 256z" fill="#1877f2" data-original="#1877f2"></path><path d="m355.65 330 11.35-74h-71v-48.021c0-20.245 9.918-39.979 41.719-39.979h32.281v-63s-29.296-5-57.305-5c-58.476 0-96.695 35.44-96.695 99.6v56.4h-65v74h65v178.889c13.034 2.045 26.392 3.111 40 3.111s26.966-1.066 40-3.111v-178.889z" fill="#ffffff" data-original="#ffffff"></path></g></g></svg>
+									<span class="tooltip-hover">Facebook</span>
+								</a>
+								<a href="https://m.me/{{settings.code_messenger_mb}}" target="_blank" rel="noreferrer" aria-label="messenger" class="tooltip-cs share-messenger">
+									<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 28 28"><g fill="none" fill-rule="evenodd"><g><g><g><g><g><g transform="translate(-293.000000, -708.000000) translate(180.000000, 144.000000) translate(16.000000, 16.000000) translate(0.000000, 548.000000) translate(61.000000, 0.000000) translate(36.000000, 0.000000)"><circle cx="14" cy="14" r="14" fill="#0084FF"/><path fill="#FFF" d="M14.848 15.928l-1.771-1.9-3.457 1.9 3.802-4.061 1.815 1.9 3.414-1.9-3.803 4.061zM14.157 7.2c-3.842 0-6.957 2.902-6.957 6.481 0 2.04 1.012 3.86 2.593 5.048V21.2l2.368-1.308c.632.176 1.302.271 1.996.271 3.842 0 6.957-2.902 6.957-6.482S17.999 7.2 14.157 7.2z"/></g></g></g></g></g></g></g></svg>
+									<span class="tooltip-hover">Messenger</span>
+								</a>
+								{%comment%}
+								<a href="" target="_blank" class="tooltip-cs share-zalo">
+									<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 48 48" style=" fill:#000000;"><path fill="#2962ff" d="M15,36V6.827l-1.211-0.811C8.64,8.083,5,13.112,5,19v10c0,7.732,6.268,14,14,14h10	c4.722,0,8.883-2.348,11.417-5.931V36H15z"></path><path fill="#eee" d="M29,5H19c-1.845,0-3.601,0.366-5.214,1.014C10.453,9.25,8,14.528,8,19	c0,6.771,0.936,10.735,3.712,14.607c0.216,0.301,0.357,0.653,0.376,1.022c0.043,0.835-0.129,2.365-1.634,3.742	c-0.162,0.148-0.059,0.419,0.16,0.428c0.942,0.041,2.843-0.014,4.797-0.877c0.557-0.246,1.191-0.203,1.729,0.083	C20.453,39.764,24.333,40,28,40c4.676,0,9.339-1.04,12.417-2.916C42.038,34.799,43,32.014,43,29V19C43,11.268,36.732,5,29,5z"></path><path fill="#2962ff" d="M36.75,27C34.683,27,33,25.317,33,23.25s1.683-3.75,3.75-3.75s3.75,1.683,3.75,3.75	S38.817,27,36.75,27z M36.75,21c-1.24,0-2.25,1.01-2.25,2.25s1.01,2.25,2.25,2.25S39,24.49,39,23.25S37.99,21,36.75,21z"></path><path fill="#2962ff" d="M31.5,27h-1c-0.276,0-0.5-0.224-0.5-0.5V18h1.5V27z"></path><path fill="#2962ff" d="M27,19.75v0.519c-0.629-0.476-1.403-0.769-2.25-0.769c-2.067,0-3.75,1.683-3.75,3.75	S22.683,27,24.75,27c0.847,0,1.621-0.293,2.25-0.769V26.5c0,0.276,0.224,0.5,0.5,0.5h1v-7.25H27z M24.75,25.5	c-1.24,0-2.25-1.01-2.25-2.25S23.51,21,24.75,21S27,22.01,27,23.25S25.99,25.5,24.75,25.5z"></path><path fill="#2962ff" d="M21.25,18h-8v1.5h5.321L13,26h0.026c-0.163,0.211-0.276,0.463-0.276,0.75V27h7.5	c0.276,0,0.5-0.224,0.5-0.5v-1h-5.321L21,19h-0.026c0.163-0.211,0.276-0.463,0.276-0.75V18z"></path></svg>
+									<span class="tooltip-hover">Zalo</span>
+								</a>
+								{%endcomment%}
+								<a href="https://twitter.com/intent/tweet?text=optional%20promo%20text%20{{ shop.url }}{{ product.url }}" target="_blank" aria-label="twitter" class="tooltip-cs share-twitter">
+									<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 291.319 291.319"><g><g><path style="" d="M145.659,0c80.45,0,145.66,65.219,145.66,145.66c0,80.45-65.21,145.659-145.66,145.659 S0,226.109,0,145.66C0,65.219,65.21,0,145.659,0z" fill="#26a6d1" data-original="#26a6d1" class="hovered-path"></path><path style="" d="M236.724,98.129c-6.363,2.749-13.21,4.597-20.392,5.435c7.338-4.27,12.964-11.016,15.613-19.072 c-6.864,3.96-14.457,6.828-22.55,8.366c-6.473-6.691-15.695-10.87-25.909-10.87c-19.591,0-35.486,15.413-35.486,34.439 c0,2.704,0.31,5.335,0.919,7.857c-29.496-1.438-55.66-15.158-73.157-35.996c-3.059,5.089-4.807,10.997-4.807,17.315 c0,11.944,6.263,22.504,15.786,28.668c-5.826-0.182-11.289-1.721-16.086-4.315v0.437c0,16.696,12.235,30.616,28.476,33.784 c-2.977,0.783-6.109,1.211-9.35,1.211c-2.285,0-4.506-0.209-6.673-0.619c4.515,13.692,17.625,23.651,33.165,23.925	c-12.153,9.249-27.457,14.748-44.089,14.748c-2.868,0-5.69-0.164-8.476-0.482c15.722,9.777,34.367,15.485,54.422,15.485 c65.292,0,100.997-52.51,100.997-98.029l-0.1-4.461C225.945,111.111,231.963,105.048,236.724,98.129z" fill="#ffffff" data-original="#ffffff"></path></g></g></svg>
+									<span class="tooltip-hover">Twitter</span>
+								</a>
+								<a href="//pinterest.com/pin/create/link/?url={{ shop.url }}&media={{product.featured_image}}&description={{product.title}}" target="_blank" aria-label="pinterest" class="tooltip-cs share-pinterest">
+									<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 112.198 112.198"><g><g><circle cx="56.099" cy="56.1" r="56.098" fill="#cb2027" data-original="#cb2027"></circle><g><path style="" d="M60.627,75.122c-4.241-0.328-6.023-2.431-9.349-4.45c-1.828,9.591-4.062,18.785-10.679,23.588 c-2.045-14.496,2.998-25.384,5.34-36.941c-3.992-6.72,0.48-20.246,8.9-16.913c10.363,4.098-8.972,24.987,4.008,27.596 c13.551,2.724,19.083-23.513,10.679-32.047c-12.142-12.321-35.343-0.28-32.49,17.358c0.695,4.312,5.151,5.621,1.78,11.571 c-7.771-1.721-10.089-7.85-9.791-16.021c0.481-13.375,12.018-22.74,23.59-24.036c14.635-1.638,28.371,5.374,30.267,19.14 C85.015,59.504,76.275,76.33,60.627,75.122L60.627,75.122z" fill="#f1f2f2" data-original="#f1f2f2" class=""></path></g></g></g></svg>
+									<span class="tooltip-hover">Pinterest</span>
+								</a>
+								<a class="tooltip-cs share-link-js" name="copy-link" data-url="{{ shop.url }}{{ product.url }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 496.158 496.158"><g><path style="" d="M0,248.085C0,111.064,111.07,0.003,248.076,0.003c137.012,0,248.082,111.061,248.082,248.082 c0,137.002-111.07,248.07-248.082,248.07C111.07,496.155,0,385.087,0,248.085z" fill="#25b7d3" data-original="#25b7d3" class=""></path><g><path style="" d="M394.463,151.309l-49.615-49.614c-10.727-10.728-28.119-10.726-38.844,0l-76.631,76.63 c-10.726,10.728-10.727,28.119-0.001,38.847l49.615,49.614c10.727,10.727,28.119,10.726,38.845-0.002l76.631-76.63 C405.188,179.429,405.189,162.036,394.463,151.309z M312.59,235.423c-6.289,6.288-16.484,6.289-22.772,0.001l-29.084-29.084 c-6.288-6.288-6.287-16.483,0.001-22.772l50.511-50.511c6.287-6.287,16.482-6.288,22.771,0l29.084,29.085	c6.288,6.287,6.287,16.482,0,22.77L312.59,235.423z" fill="#ffffff" data-original="#ffffff" class=""></path><path style="" d="M266.786,278.986l-49.614-49.614c-10.727-10.727-28.119-10.726-38.845,0l-76.631,76.632 c-10.726,10.726-10.727,28.118,0,38.844l49.615,49.615c10.726,10.727,28.119,10.725,38.844,0l76.632-76.633 C277.511,307.105,277.513,289.713,266.786,278.986z M184.912,363.1c-6.288,6.288-16.482,6.29-22.771,0.001l-29.084-29.084 c-6.289-6.288-6.288-16.483,0-22.771l50.512-50.512c6.287-6.287,16.482-6.288,22.771,0l29.084,29.084 c6.288,6.289,6.287,16.484,0,22.771L184.912,363.1z" fill="#ffffff" data-original="#ffffff" class=""></path></g><path style="" d="M306.907,191.673l-2.42-2.421c-7.742-7.743-20.34-7.743-28.083,0l-87.151,87.151 c-7.742,7.742-7.742,20.34,0,28.082l2.42,2.421c7.742,7.741,20.34,7.741,28.083,0l87.151-87.152 C314.649,212.013,314.649,199.414,306.907,191.673z" fill="#48a1af" data-original="#48a1af"></path><path style="" d="M215.398,302.548c-5.348,5.348-14.02,5.349-19.368,0.001l-2.421-2.421 c-5.348-5.348-5.348-14.02,0-19.367l87.152-87.152c5.348-5.349,14.019-5.348,19.368,0.002l2.42,2.42 c5.347,5.348,5.349,14.019,0,19.366L215.398,302.548z" fill="#ffffff" data-original="#ffffff" class=""></path><g></g></g></svg>
+									<span class="tooltip-hover">Sao chép url</span>
+								</a>
+							</div>
+							{% endif %}
+							{%endcomment%}
+							{%- if settings.productreviews_hrvapp_use -%}
+							<div class="product-reviews">					
+								<div class="haravan-product-reviews-badge rating-star" data-id="{{ product.id }}"> 
+									{%-assign proreview = product.metafields.src.product_loop %}
+									{{ proreview }} 
+								</div>
+							</div>	
+							{%-endif-%}
+						</div>
+					</div>
+				</div>
+				<div class="productDetail--content">
+					<div class="wrapbox-inner">
+						<div class="wrapbox-detail">
+							<div class="product-heading">
+								<span class="pro-percent percent-heading">{% if product.variants.first.compare_at_price > product.price %}-{{product.variants.first.compare_at_price | minus: product.variants.first.price | divided_by:product.variants.first.compare_at_price | times : 100 | round : 0}}%{% endif %}</span>
+								<h2>{{ product.title }}</h2>
+								{%- if settings.productreviews_hrvapp_use -%}
+								<div class="product-reviews d-lg-none d-block">					
+									<div class="haravan-product-reviews-badge rating-star" data-id="{{ product.id }}"> 
+										{%-assign proreview = product.metafields.src.product_loop %}
+										{{ proreview }} 
+									</div>
+								</div>	
+								{%-endif-%}
+
+							</div>
+							<div class="product-price" {% unless products_price_zero %}id="price-preview" {% endunless %}>
+								{% unless products_price_zero %}
+								<span class="pro-title">Giá: </span>
+								<span class="pro-price">{{ product.variants.first.price | money }}</span>
+								{% if product.variants.first.compare_at_price > product.price %}		
+								<del>{{ product.variants.first.compare_at_price | money }}</del>
+								{%comment%}<span class="pro-percent">-{{product.variants.first.compare_at_price | minus: product.variants.first.price | divided_by:product.variants.first.compare_at_price | times : 100 | round : 0}}%</span>{%endcomment%}
+								{% endif %}
+								{% endunless%}
+							</div>
+							<div class="short-desc">
+								{{ product.description | strip_html | truncatewords: 40 }}
+							</div>
+							{%- assign hide_default_title = false -%}
+							{%- if product.variants.size == 1 and product.variants.first.title contains 'Default' and product.options.size == 1 -%}
+							{%- assign hide_default_title = true -%}
+							{%- endif -%}
+							<div class="product-variants {%if check_sizeguide and indsize > 0%}is-sizeguide{%endif%}" {% if hide_default_title %} style="display:none"{% endif %}>
+								<form id="add-item-form" action="/cart/add" method="post" class="variants clearfix">				
+									<div class="select clearfix"{% if hide_default_title %} style="display:none"{% endif %}>
+										<select id="product-select" name="id" style="display:none;">
+											{% for variant in product.variants %}
+											<option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+											{% endfor %}
+										</select>
+									</div>
+									<div class="select-swatch clearfix">
+										{% if product.available and product.variants.size > 1 %}
+										{% for option in product.options %}
+										{% include 'swatch' with option %}
+										{% endfor %}
+										{% endif %}
+									</div>
+								</form>
+								{%-if check_sizeguide and indsize > 0 and product.variants.size > 1 -%}
+								{%- unless hide_default_title -%}
+								<div class="size-guide">
+									<button type="button" class="btn-size-guide"><span>Hướng dẫn chọn size	</span></button>
+								</div>
+								{%- endunless -%}
+								{%-endif-%}
+							</div>
+
+							<div class="product-hrvpmo hrvpmo-minimum">
+								<div class="hrv-pmo-coupon" data-hrvpmo-layout="minimum"></div>
+								<div class="hrv-pmo-discount" data-hrvpmo-layout="minimum"></div>
+							</div>
+
+							{% if settings.promotion_hrvapp_use and settings.promotion_hrvapp == 'appbuyxgety' %}
+							<div class="product-buyxgety selector-buyxgety" id="detail-product">							
+								<div id="buyxgety-program" class="d-none">
+									<div class="buyxgety-heading">
+										<h3>Các sản phẩm được tặng kèm</h3>						
+										<p>Chọn 1 trong các loại quà tặng</p>
+									</div>							
+									<div id="buyxgety-product-list" data-id="{{product.id}}" data-title="{{product.title}}">
+										<div class="buyxgety_content clearfix">									
+											<div class="buyxgety_lists"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endif %}
+							<div class="product-actions">
+								{%-if checkgift-%}
+								<div class="select-actions clearfix">
+									<div class="addcart-area">	
+										<button type="button" disabled  class="disabled btn-product-gift button dark " name="add"> 
+											Hàng tặng không bán
+										</button>
+									</div>	
+								</div>
+								{%-elsif products_price_zero-%}
+								<div class="select-actions clearfix">
+									<div class="addcart-area">	
+										<a href="{{settings.prod_pricezero_link}}"  class="btn-product-contact button dark {{btnClassTrack}} hrv-cf-prod_pricezero_title" name="add" setting-id="prod_pricezero_title" setting-type="text" setting-bg-id="prod_pricezero_title"> 
+											{{settings.prod_pricezero_title}}	
+										</a>
+									</div>	
+								</div>
+								{%-elsif is_collection_preorder-%}
+								<div class="select-actions clearfix">
+									<div class="addcart-area">	
+										<button type="button" class="button btnred js-btn-preorder-detail" name="add"> 
+											{{settings.preorder_text_btn}}
+										</button>
+									</div>	
+								</div>
+								{%-else-%}
+								<div class="select-actions clearfix">
+									{%comment%}
+									<div class="quantity-area">
+										<div class="pro-qty d-flex align-items-center">
+											<div class="quantity-title">Số lượng:</div>
+											<button type="button" onclick="HRT.All.minusQuantity()" class="qty-btn">
+												<svg focusable="false" class="icon icon--minus " viewBox="0 0 10 2" role="presentation">
+													<path d="M10 0v2H0V0z"></path>
+												</svg>
+											</button>
+											<input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-input">
+											<button type="button" onclick="HRT.All.plusQuantity()" class="qty-btn">
+												<svg focusable="false" class="icon icon--plus " viewBox="0 0 10 10" role="presentation">
+													<path d="M6 4h4v2H6v4H4V6H0V4h4V0h2v4z"></path>
+												</svg>
+											</button>
+										</div>
+									</div>
+									{%endcomment%}
+									<div class="addcart-area">			
+										<div class="quantity-area">
+											<div class="pro-qty d-flex align-items-center">
+												<input type="number" id="quantity" name="quantity" value="1" min="1" class="quantity-input">
+											</div>
+										</div>
+										<button type="button" id="add-to-cart" {% unless product.available %}disabled{% endunless %}  class="{% unless product.available %}disabled{% endunless %} add-to-cartProduct button dark addtocart-modal" name="add"> 
+											{% if  product.available %}
+											<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M8.7351 14.0181C8.91085 13.6985 9.24662 13.5 9.61132 13.5H16.47C17.22 13.5 17.88 13.09 18.22 12.47L21.6008 6.33041C21.7106 6.13097 21.7448 5.91025 21.7129 5.70131C21.8904 5.52082 22 5.27321 22 5C22 4.44772 21.5523 4 21 4H6C5.96703 4 5.93443 4.0016 5.90228 4.00471L5.7317 3.64435C5.40095 2.94557 4.69708 2.5 3.92398 2.5H2.92004C2.36776 2.5 1.92004 2.94772 1.92004 3.5C1.92004 4.05228 2.36776 4.5 2.92004 4.5H3.14518C3.6184 4.5 4.04931 4.77254 4.25211 5.20011L7.08022 11.1627C7.35632 11.7448 7.33509 12.4243 7.02318 12.988L6.17004 14.53C5.44004 15.87 6.40004 17.5 7.92004 17.5H18.92C19.4723 17.5 19.92 17.0523 19.92 16.5C19.92 15.9477 19.4723 15.5 18.92 15.5H9.61131C8.85071 15.5 8.36855 14.6845 8.7351 14.0181ZM17.0408 10.4677L19.5108 6H6.84671L8.90839 10.3557C9.23914 11.0544 9.94301 11.5 10.7161 11.5H15.2905C16.0183 11.5 16.6886 11.1046 17.0408 10.4677Z"/> <path d="M7.92005 18.5C6.82005 18.5 5.93005 19.4 5.93005 20.5C5.93005 21.6 6.82005 22.5 7.92005 22.5C9.02005 22.5 9.92005 21.6 9.92005 20.5C9.92005 19.4 9.02005 18.5 7.92005 18.5Z"/> <path d="M17.9201 18.5C16.8201 18.5 15.9301 19.4 15.9301 20.5C15.9301 21.6 16.8201 22.5 17.9201 22.5C19.0201 22.5 19.9201 21.6 19.9201 20.5C19.9201 19.4 19.0201 18.5 17.9201 18.5Z"/> </svg>
+											<span>Thêm vào giỏ </span>
+											{% else %} Hết hàng {% endif %}
+										</button>
+										{%comment%}
+										{% if  product.available %}
+										<button type="button" id="buy-now" {% unless product.available %}disabled{% endunless %}  class="{% unless product.available %}disabled{% endunless %}  button dark btn-buynow btnred addtocart-modal" name="add"> 
+											Mua ngay
+										</button>
+										{% endif %}
+										{%endcomment%}
+									</div>
+								</div>
+								{%-endif-%}
+							</div>
+							<div class="group-status">
+								{% if product.variants[0].sku %}
+								<div id="pro_sku"><strong>Mã sản phẩm:</strong> <span>{{product.variants[0].sku}}</span></div>
+								{% endif %}
+								<span class="pro-soldold"><strong>Tình trạng:</strong>
+									<span>
+										{% if product.variants.first.available %}
+										Còn hàng
+										{%else%} 
+										Hết hàng
+										{%endif%}
+									</span>
+								</span>
+								{%- unless product.vendor == 'Khác' -%}
+								<span class="pro-vendor"><strong>Thương hiệu:</strong> {{product.vendor | link_to_vendor}}</span>
+								{%- endunless -%}
+							</div>
+
+							{%- if settings.promotion_hrvapp_use and settings.promotion_hrvapp == 'appcombo' -%}
+						<div class="product-container-bg productDetail--app-combo mb-10 d-none">
+							<div class="productDetailjs productDetail--box box-detail-app mg-top" id="detail-combo">
+								<div class="product-app combo-info combo-info--vertical d-none">
+									<h3 class="combo-info--title">THƯỜNG ĐƯỢC MUA CÙNG</h3>
+								</div>
+							</div>
+						</div>
+						{%-endif-%}
+						</div>
+					</div>
+				</div>
+				<div class="productDetail--navs mg-top">
+					<div class="nav tab-title" id="nav-tab" role="tablist">
+						<a class="nav-item active" id="nav-home-tab" data-toggle="tab" href="#nav-desc" role="tab">Mô tả sản phẩm</a>
+						{%- if settings.productreviews_hrvapp_use -%}
+						<a class="nav-item hrv-cf-title_review" id="nav-profile-tab" data-toggle="tab" href="#nav-comment" role="tab" setting-id="title_review" setting-type="text">{{settings.title_review}}</a>
+						{%- endif -%}
+					</div>
+					<div class="tab-content" id="nav-tabContent">
+						<div class="tab-pane fade show active" id="nav-desc" role="tabpanel">
+							<div class="product-description">							
+								<div class="description-content expandable-toggle opened">
+									{%- assign checkDescript = product.description | strip_html -%}  
+									{%- if checkDescript.size > 0 -%}
+									<div class="description-productdetail">
+										{%-if product.description contains '{' and product.description contains '}' and product.description contains '<hr>' -%}
+										{{ product.description | split: '<hr>' | first }}
+										{%-else-%}
+										{{ product.description }}
+										{%-endif-%}
+									</div>
+									<div class="description-btn">
+										<button class="expandable-content_toggle js_expandable_content">
+											<span class="expandable-content_toggle-icon"></span>
+											<span class="expandable-content_toggle-text">Xem thêm nội dung</span>
+										</button>
+									</div>
+									{%- else -%}
+									<p>Chưa có mô tả cho sản phẩm này</p>
+									{%- endif -%}
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="nav-comment" role="tabpanel">
+							{%- if settings.productreviews_hrvapp_use -%}
+							<div class="product-customer hrv-product-reviews" id="hrv-product-reviews"  data-id="{{ product.id }}"> 
+								<div class="product-customer-reviews">
+									<h2 class="hrv-product-reviews-heading d-none">Khách hàng nhận xét</h2>
+									<div class="hrv-product-reviews-summary" id="hrv-product-reviews-summary">
+										{{ product.metafields.src.productreviews }} 
+									</div> 
+									<div class="hrv-product-reviews-list" id="hrv-product-reviews-list">
+										{{ product.metafields.src.reviewlist_0 }}
+										{{ product.metafields.src.reviewlist_1 }}
+										{{ product.metafields.src.reviewlist_2 }}
+										{{ product.metafields.src.reviewlist_3 }}
+										{{ product.metafields.src.reviewlist_4 }}
+										{{ product.metafields.src.reviewlist_5 }}
+										{{ product.metafields.src.reviewlist_6 }}
+										{{ product.metafields.src.reviewlist_7 }}
+										{{ product.metafields.src.reviewlist_8 }}
+										{{ product.metafields.src.reviewlist_9 }}        
+									</div>
+								</div>
+							</div>
+							{%-endif-%}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{%- if settings.product_related_show -%}	<!-- related -->{% include 'listproduct-related' %}	{%- endif -%}
+	{%- if settings.product_viewed_show-%}    <!-- viewed -->{%- include 'product-viewed'-%}{%- endif -%}
+</div>
+{%- include 'modal-preorder' -%}
+{%- if check_sizeguide and indsize > 0 -%} {%-include 'modal-sizeguide' with ind: indsize -%} {%-endif-%}
+<div class="d-none">{{ htmlPopover }}</div>
+<div class="modal-coupon--backdrop"></div>
+
+<!-- JS PRODUCT -->{% include 'template-product-script'%}
+
+
+

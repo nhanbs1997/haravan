@@ -1,0 +1,40 @@
+{%-assign sl = ''-%}
+{%- if product.tags.size > 0 -%}
+{%- for tag in product.tags -%}
+{%- if tag contains 'sl_' -%}
+{%- assign sl = tag | remove:'sl_' | times:1 -%}
+{%- break -%}
+{%- endif -%}
+{%- endfor -%}
+{%- else -%}
+{%- assign sl = 0 -%}
+{%- endif -%}
+{%-if sl > 0-%}
+<div class="clearfix">
+  {%assign totalQty = 0%}
+  {%assign isManagement = false%}
+  {%for variant in product.variants%}
+  {%if variant.inventory_quantity > 0 and variant.inventory_management == 'haravan'%}
+  {%assign isManagement = true%}{%assign totalQty = totalQty | plus: variant.inventory_quantity%}
+  {%endif%}
+  {%endfor%}
+  {% assign sold = sl | minus:totalQty %}
+  {% assign width = totalQty | times:100 | divided_by:sl %}
+  {% assign sold_w = 100 | minus: width %}
+  <div class="sold-module d-flex w-100 position-relative text-left">
+    <img src="{{'hot-sale.png' | asset_url}}" decoding="async" class="position-absolute" alt="{{settings.runningOut}}">
+    {%-if sold_w > 0 and sold_w <= 70 -%}
+    <div class="d-flex align-items-center justify-content-center sold position-absolute h-100 w-100">{{settings.soldQuantity | append: ': '}}{{sold}}</div>
+    <div class="remain modal-open position-absolute h-100" style="width:{{ sold_w }}%"></div>
+    {%-elseif sold_w > 70  and sold_w <= 99-%}
+    <div class="d-flex align-items-center justify-content-center sold position-absolute h-100 w-100">{{settings.runningOut}}</div>
+    <div class="remain modal-open position-absolute h-100" style="width:{{ sold_w }}%"></div>
+    {%-elseif sold_w > 99 -%}
+    <div class="d-flex align-items-center justify-content-center sold position-absolute h-100 w-100">{{settings.soldOut}}</div>
+    <div class="remain modal-open position-absolute h-100" style="width:100%"></div>
+    {%-else-%}
+    <div class="d-flex align-items-center justify-content-center sold sd text-uppercase position-absolute h-100 w-100">{{settings.available}}</div>
+    {%- endif -%}
+  </div>
+</div>
+{%-endif-%}

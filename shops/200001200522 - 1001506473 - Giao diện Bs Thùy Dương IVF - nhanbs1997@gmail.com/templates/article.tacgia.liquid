@@ -1,0 +1,101 @@
+{% layout none %}
+{% assign profile_degree = '' %}
+{% for tag in article.tags %}
+	{% if tag contains 'trinhdo_' %}
+		{% assign profile_degree = tag | remove: 'trinhdo_' %}
+		{% break %}
+	{% endif %}
+{% endfor %}
+
+{% assign profile_image = settings.article_profile_image %}
+{% if profile_image == blank and article.image %}
+	{% assign profile_image = article.image.src %}
+{% endif %}
+{% if profile_image == blank %}
+	{% assign profile_image = settings.home_about_1_img_1 %}
+{% endif %}
+
+{% assign profile_name = settings.article_profile_name %}
+{% if profile_name == blank %}{% assign profile_name = article.title %}{% endif %}
+{% assign profile_role = settings.article_profile_role %}
+{% if profile_role == blank %}{% assign profile_role = profile_degree %}{% endif %}
+{% assign profile_link = settings.article_profile_link | default: '/pages/gioi-thieu' %}
+{% assign profile_link_text = settings.article_profile_link_text | default: 'Xem hồ sơ chuyên môn của bác sĩ' %}
+{% assign profile_verified_text = settings.article_profile_verified_text | default: 'Nội dung được bác sĩ Phạm Thị Thùy Dương kiểm duyệt' %}
+
+<section class="doctor-profile-card" aria-label="Thông tin chuyên môn {{ profile_name | escape }}">
+	<div class="doctor-profile-main">
+		<div class="doctor-profile-photo">
+			<img src="{{ profile_image }}" alt="{{ profile_name | escape }}" loading="lazy">
+		</div>
+		<div class="doctor-profile-content">
+			<h2 class="doctor-profile-name">{{ profile_name }}</h2>
+			{% if profile_role != blank %}<p class="doctor-profile-role">{{ profile_role }}</p>{% endif %}
+			{% if profile_verified_text != blank %}
+			<div class="doctor-profile-verified">
+				<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#2cab4d"></circle><path d="m7.2 12.2 3.1 3.1 6.6-7" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path></svg>
+				<span>{{ profile_verified_text }}</span>
+			</div>
+			{% endif %}
+			<div class="doctor-profile-bio">
+				{% if settings.article_profile_bio != blank %}
+					{{ settings.article_profile_bio | newline_to_br }}
+				{% else %}
+					{{ article.content }}
+				{% endif %}
+			</div>
+			{% if profile_link != blank and profile_link_text != blank %}
+			<a class="doctor-profile-link" href="{{ profile_link }}">
+				<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8c.7-3.2 3.3-5 7-5 1.1 0 2.1.2 3 .5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+				<span>{{ profile_link_text }}</span>
+				<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path></svg>
+			</a>
+			{% endif %}
+		</div>
+	</div>
+
+	<div class="doctor-profile-channels">
+		<p class="doctor-profile-channels-title">{{ settings.article_profile_channels_title | default: 'Kênh chính thức:' }}</p>
+		<div class="doctor-profile-channel-list">
+			{% assign channel_url = settings.article_profile_youtube_link %}
+			{% if channel_url != blank %}<a class="doctor-profile-channel" href="{{ channel_url }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube chính thức">{% else %}<span class="doctor-profile-channel is-disabled" aria-label="YouTube chưa thiết lập">{% endif %}
+				<span class="doctor-profile-channel-icon"><img src="{{ 'doctor-channel-youtube.png' | asset_url }}" alt="" width="34" height="34" loading="lazy" decoding="async" aria-hidden="true"></span><span class="doctor-profile-channel-label">YouTube</span>
+			{% if channel_url != blank %}</a>{% else %}</span>{% endif %}
+
+			{% assign channel_url = settings.article_profile_facebook_link %}
+			{% if channel_url != blank %}<a class="doctor-profile-channel" href="{{ channel_url }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook chính thức">{% else %}<span class="doctor-profile-channel is-disabled" aria-label="Facebook chưa thiết lập">{% endif %}
+				<span class="doctor-profile-channel-icon"><img src="{{ 'doctor-channel-facebook.png' | asset_url }}" alt="" width="34" height="34" loading="lazy" decoding="async" aria-hidden="true"></span><span class="doctor-profile-channel-label">Facebook</span>
+			{% if channel_url != blank %}</a>{% else %}</span>{% endif %}
+
+			{% assign channel_url = settings.article_profile_tiktok_link %}
+			{% if channel_url != blank %}<a class="doctor-profile-channel" href="{{ channel_url }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok chính thức">{% else %}<span class="doctor-profile-channel is-disabled" aria-label="TikTok chưa thiết lập">{% endif %}
+				<span class="doctor-profile-channel-icon"><img src="{{ 'doctor-channel-tiktok.png' | asset_url }}" alt="" width="34" height="34" loading="lazy" decoding="async" aria-hidden="true"></span><span class="doctor-profile-channel-label">TikTok</span>
+			{% if channel_url != blank %}</a>{% else %}</span>{% endif %}
+
+			{% assign channel_url = settings.article_profile_zalo_link %}
+			{% if channel_url != blank %}<a class="doctor-profile-channel" href="{{ channel_url }}" target="_blank" rel="noopener noreferrer" aria-label="Zalo chính thức">{% else %}<span class="doctor-profile-channel is-disabled" aria-label="Zalo chưa thiết lập">{% endif %}
+				<span class="doctor-profile-channel-icon"><img src="{{ 'doctor-channel-zalo.png' | asset_url }}" alt="" width="34" height="34" loading="lazy" decoding="async" aria-hidden="true"></span><span class="doctor-profile-channel-label">Zalo</span>
+			{% if channel_url != blank %}</a>{% else %}</span>{% endif %}
+
+			{% assign channel_url = settings.article_profile_instagram_link %}
+			{% if channel_url != blank %}<a class="doctor-profile-channel" href="{{ channel_url }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram chính thức">{% else %}<span class="doctor-profile-channel is-disabled" aria-label="Instagram chưa thiết lập">{% endif %}
+				<span class="doctor-profile-channel-icon"><img src="{{ 'doctor-channel-instagram.png' | asset_url }}" alt="" width="34" height="34" loading="lazy" decoding="async" aria-hidden="true"></span><span class="doctor-profile-channel-label">Instagram</span>
+			{% if channel_url != blank %}</a>{% else %}</span>{% endif %}
+
+			{% assign channel_url = settings.article_profile_threads_link %}
+			{% if channel_url != blank %}<a class="doctor-profile-channel" href="{{ channel_url }}" target="_blank" rel="noopener noreferrer" aria-label="Threads chính thức">{% else %}<span class="doctor-profile-channel is-disabled" aria-label="Threads chưa thiết lập">{% endif %}
+				<span class="doctor-profile-channel-icon"><img src="{{ 'doctor-channel-threads.png' | asset_url }}" alt="" width="34" height="34" loading="lazy" decoding="async" aria-hidden="true"></span><span class="doctor-profile-channel-label">Threads</span>
+			{% if channel_url != blank %}</a>{% else %}</span>{% endif %}
+
+			{% assign channel_url = settings.article_profile_linkedin_link %}
+			{% if channel_url != blank %}<a class="doctor-profile-channel" href="{{ channel_url }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn chính thức">{% else %}<span class="doctor-profile-channel is-disabled" aria-label="LinkedIn chưa thiết lập">{% endif %}
+				<span class="doctor-profile-channel-icon"><img src="{{ 'doctor-channel-linkedin.png' | asset_url }}" alt="" width="34" height="34" loading="lazy" decoding="async" aria-hidden="true"></span><span class="doctor-profile-channel-label">LinkedIn</span>
+			{% if channel_url != blank %}</a>{% else %}</span>{% endif %}
+
+			{% assign channel_url = settings.article_profile_maps_link %}
+			{% if channel_url != blank %}<a class="doctor-profile-channel" href="{{ channel_url }}" target="_blank" rel="noopener noreferrer" aria-label="Google Maps chính thức">{% else %}<span class="doctor-profile-channel is-disabled" aria-label="Google Maps chưa thiết lập">{% endif %}
+				<span class="doctor-profile-channel-icon"><img src="{{ 'doctor-channel-google-maps.png' | asset_url }}" alt="" width="34" height="34" loading="lazy" decoding="async" aria-hidden="true"></span><span class="doctor-profile-channel-label">Google Maps</span>
+			{% if channel_url != blank %}</a>{% else %}</span>{% endif %}
+		</div>
+	</div>
+</section>

@@ -1,0 +1,21 @@
+<article class="blog-item-list clearfix mb-2 row">
+	<div class="col-4">
+		<a href="{{ article.url }}" class=" d-block modal-open thumb_img_blog_list thumb rounded-10" title="{{ article.title | escape }}"> 
+			<span class="modal-open position-relative d-block w-100 m-0 ratio3by2 has-edge aspect zoom">
+				{% if article.image == null %}
+				<img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ 'no_image.jpg' | asset_url }}" decoding="async" alt="{{ article.title  | escape}}" class="lazy d-block img img-cover position-absolute">
+				{%else%}
+				<img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ article.image.src | img_url:'medium' }}" decoding="async" alt="{{ article.title  | escape}}" class="lazy d-block img img-cover position-absolute">
+				{%endif%}
+			</span>
+		</a>
+	</div>
+	<div class="blogs-rights col-8">
+		<h3 class="blog-item-name mb-1 title_blo line_2 h-auto">
+			<a href="{{ article.url }}" title="{{ article.title | escape }}">{{article.title}}</a>
+		</h3>
+    {%-if settings.enable_author_n_time-%}
+		<div class="post-time small d-none d-lg-block">{{ article.published_at | date: '%d/%m/%Y' }}</div>
+    {%endif%}
+	</div>
+</article>

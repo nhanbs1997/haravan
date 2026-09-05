@@ -1,0 +1,3 @@
+{% layout none %}
+{%- assign collection_tabs_size = settings.ldp_collection_limit -%}
+{% paginate collection.products by collection_tabs_size %}{{paginate.pages}}{%endpaginate%}

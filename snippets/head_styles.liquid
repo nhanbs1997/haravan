@@ -1,0 +1,97 @@
+<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css">
+<style>
+	:root {
+		--menuWidth: calc(100% - 20px);
+		--leftColBackground: #fff; 
+		--lightLeftColBackground: #f1f4f6; /*+5%*/
+		--darkLeftColBackground: #22272b; /*-5%*/
+		--mainColor: {{settings.main_color}};
+		--mainColor2: {{settings.main_color_2}};
+    --navColor: {{settings.nav_color}};
+    --navTextColor: {{settings.navtext_color}};
+		--menuHover: {{settings.menu_hover}};
+    --bgBottomTitle: url({{settings.bottomtitle}});
+    --footerBg: {{settings.footer_bg}};
+    --footerText: {{settings.footer_text}};
+    --footerTextHover: {{settings.footer_text_hv}};
+		--accentColor1: #929292;
+		--accentColor2: {{settings.accent_2}}; /*Màu giá*/
+		--textColor: #424242;
+		--toastSuccessBg: {{settings.toastSuccessBg | default: '#d1e7dd'}};
+		--toastSuccessCl: {{settings.toastSuccessCl | default: '#0f5132'}};
+		--toastWarningBg: {{settings.toastWarningBg | default: '#fff3cd'}};
+		--toastWarningCl: {{settings.toastWarningCl | default: '#664d03'}};
+		--toastErrorBg: {{settings.toastErrBg | default: '#f8d7da'}};
+		--toastErrorCl: {{settings.toastErrCl | default: '#842029'}};
+		--toastSystemBg: {{settings.toastSysBg | default: '#d3d3d4'}};
+		--toastSystemCl: {{settings.toastSysCl | default: '#141619'}};
+    --overlayimg: url({{settings.overlayimg}});
+	}
+</style>
+<link rel="preload" as="style" href="{{ 'swiper.scss.css' | asset_url }}" type="text/css">
+<link rel="preload" as="style" href="{{ 'mew_style_gb.scss.css' | asset_url }}" type="text/css">
+<link href="{{ 'swiper.scss.css' | asset_url }}" rel="stylesheet">
+<link href="{{ 'mew_style_gb.scss.css' | asset_url }}" rel="stylesheet">
+
+{%- if template == 'index' -%}
+<link rel="preload" as="style" href="{{ 'mew_style_index.scss.css' | asset_url }}" type="text/css">
+{{ 'mew_style_index.scss.css' | asset_url | stylesheet_tag }}
+<link rel="preload" as="style" href="{{ 'lookbook.scss.css' | asset_url }}" type="text/css">
+{{ 'lookbook.scss.css' | asset_url | stylesheet_tag }}  
+{%-else-%}
+<link rel="preload" as="style" href="{{ 'noindex.scss.css' | asset_url }}" type="text/css">
+{{ 'noindex.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'product' -%}
+<link rel="preload" as="style" href="{{ 'product_style.scss.css' | asset_url }}" type="text/css">
+{{ 'product_style.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'cart' -%}
+<link rel="preload" as="style" href="{{ 'cart_style.scss.css' | asset_url }}" type="text/css">
+{{ 'cart_style.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'collection' -%}
+<link rel="preload" as="style" href="{{ 'collection_style.scss.css' | asset_url }}" type="text/css">
+{{ 'collection_style.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'blog' or template contains 'article' or template contains 'search' -%}
+<link rel="preload" as="style" href="{{ 'mew_blog.scss.css' | asset_url }}" type="text/css">
+{{ 'mew_blog.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'article' -%}
+<link rel="preload" as="style" href="{{ 'mew_article.scss.css' | asset_url }}" type="text/css">
+{{ 'mew_article.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'page' -%}
+<link rel="preload" as="style" href="{{ 'pagestyle.scss.css' | asset_url }}" type="text/css">
+{{ 'pagestyle.scss.css' | asset_url | stylesheet_tag }}
+{% endif %}
+{%- if template contains 'hethong' -%}
+<link rel="preload" as="style" href="{{ 'hethong_style.scss.css' | asset_url }}" type="text/css">
+{{ 'hethong_style.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'search' -%}
+<link rel="preload" as="style" href="{{ 'mew_search.scss.css' | asset_url }}" type="text/css">
+{{ 'mew_search.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+
+<link rel="preload" href="{{ 'swatch_style.scss.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'swatch_style.scss.css' | asset_url }}"></noscript>
+
+<link rel="preload" href="{{ 'mew_noti.scss.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'mew_noti.scss.css' | asset_url }}"></noscript>
+{%-if template contains '404'-%}
+<link rel="preload" as="style" href="{{ 'error.scss.css' | asset_url }}" type="text/css">
+{{ 'error.scss.css' | asset_url | stylesheet_tag }}
+{%-endif-%}
+{%if template contains 'customers'%}
+<link rel="preload" as="style" href="{{ 'customer.scss.css' | asset_url }}" type="text/css">
+{{ 'customer.scss.css' | asset_url | stylesheet_tag }}
+{%endif%}
+{%-if settings.use_gift-%}
+{%- if template contains 'cart' or template contains 'product'-%}
+<link rel="preload" as="style" href="{{ 'mew_gift.scss.css' | asset_url }}" type="text/css">
+{{ 'mew_gift.scss.css' | asset_url | stylesheet_tag }}
+{%-endif-%}
+{%-endif-%}

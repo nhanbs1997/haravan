@@ -1,0 +1,33 @@
+{%- assign shopee = '' -%}
+{%- for tag in product.tags -%}
+{%- if tag contains 'shopee_' -%}
+{%- assign shopee = tag | split: 'shopee_' | last -%}
+{%- break -%}
+{%- endif -%}
+{%- endfor -%}
+<div class="box_follow_detail border rounded-10 p-2 p-lg-3 mb-3">
+  <div class="d-flex align-items-center">
+    <div class="avatar mr-2">
+      <picture class="aspect border d-block has-edge position-relative ratio1by1 rounded-circle">
+        <img class="img position-absolute p-1 lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ settings.logo_shopee}}" alt="logo shopee">
+      </picture>
+    </div>
+    <div class="info-shopee">
+      <p class="font-weight-bold text mb-2">{{settings.shopee_title}}</p>
+      <p class="text m-0">{{settings.shopee_online}}</p>
+    </div>
+  </div>
+  <div class="content d-flex mt-3 flex-column">
+    {%-if shopee != ''-%}
+    <a class="btn btn-outline-danger mb-2 btn-shopee" href="{{shopee}}" target="_blank">
+      {{settings.shopee_buy1_text}}
+    </a>
+    {%-endif-%}
+    <a class="btn btn-light btn-shopee" href="{{settings.shopee_buy2}}">
+      <svg width="15" height="15">
+        <use href="#svg-sto" />
+      </svg>
+      {{settings.shopee_buy2_text}}
+    </a>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+window.addEventListener('DOMContentLoaded', (event) => {
+	var mn_show = document.querySelectorAll('.show_full');
+	mn_show.forEach(item => item.addEventListener('click', (event) => {
+		const level0Items = document.querySelectorAll("#menu-mew .level0");
+		level0Items.forEach(function (item) {
+			item.classList.toggle("show");
+		});
+	}))
+});
+/*Back to Top*/
+var bg_top_mb = document.querySelector('.menubar');
+var bg_head_mb = document.querySelector('.bg_head');
+var f_search_mb = document.querySelector('.left-search');
+var goTopBtn = document.querySelector('.back_top');
+const closeSlogan = document.querySelectorAll('.js-close-slogan');
+function trackScroll() {
+	var scrolled = window.pageYOffset;
+	var coords = document.documentElement.clientHeight/3;
+	if (scrolled > 1) {
+		bg_head_mb.classList.add('min');
+		bg_top_mb.classList.add('min');
+		f_search_mb.classList.add('min');
+		closeSlogan.forEach(item => item.classList.remove('open_slogan'));
+	}
+	if (scrolled < 1) {
+		bg_head_mb.classList.remove('min');
+		bg_top_mb.classList.remove('min');
+		f_search_mb.classList.remove('min');
+		closeSlogan.forEach(item => item.classList.add('open_slogan'));
+	}
+	if (scrolled > coords) {
+		goTopBtn.classList.add('back_show');
+	}
+	if (scrolled < coords) {
+		goTopBtn.classList.remove('back_show');
+	}
+}
+
+window.addEventListener('scroll', trackScroll);
+function scrollToTop (duration) {
+	if (document.scrollingElement.scrollTop === 0) return;
+
+	const cosParameter = document.scrollingElement.scrollTop / 2;
+	let scrollCount = 0, oldTimestamp = null;
+
+	function step (newTimestamp) {
+		if (oldTimestamp !== null) {
+			scrollCount += Math.PI * (newTimestamp - oldTimestamp) / duration;
+			if (scrollCount >= Math.PI) return document.scrollingElement.scrollTop = 0;
+			document.scrollingElement.scrollTop = cosParameter + cosParameter * Math.cos(scrollCount);
+		}
+		oldTimestamp = newTimestamp;
+		window.requestAnimationFrame(step);
+	}
+	window.requestAnimationFrame(step);
+}
+{%if settings.use_popsale%}
+const delay = ms => new Promise(res => setTimeout(res, ms));
+async function showPopSale(){
+  let popsale = document.getElementById('popsale');
+  if (!popsale_cate.length) return;
+  if (typeof popsale === 'undefined') return;
+  let index = Math.floor(Math.random() * popsale_cate.length);
+  let time = `${Math.floor(Math.random() * 59) + 1} ${pmin}`;
+  popsale.innerHTML = `<a href='${popsale_cate[index].img_url}}' class='jas-sale-pop-img mr-3'>
+    <div class="position-relative w-100 m-0 ratio1by1 has-edge aspect">
+    <img class='d-block img img-cover position-absolute' src='${popsale_cate[index].img_url}' alt='${popsale_cate[index].title}'/>
+    </div>
+  </a>
+  <div class='jas-sale-pop-content'><p class='font-weight-bold mb-0'>${ptit}</p>
+    <h3 class='mb-1'>
+    <a href='${popsale_cate[index].url}' title='{{ product.name }}'>${popsale_cate[index].title}</a>
+    </h3>
+    <span class='jas-sale-pop-timeago small text-muted'>${pdes} ${time}</span>
+  </div>
+  <span class='btn btn-close position-absolute'></span>`;
+  popsale.classList.add('slideUp');
+  document.querySelectorAll('#popsale .btn-close').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      document.querySelector('#popsale').classList.remove('slideUp');
+    })
+  })
+  await delay(timeDelay);
+  popsale.classList.remove('slideUp');
+}
+window.addEventListener('load', function () {
+  setTimeout(() => {
+    showPopSale();
+    setInterval(showPopSale, timeSpace);
+  }, 5000);
+ 
+});
+{%endif%}

@@ -1,0 +1,63 @@
+{%- assign check11 = product.url -%}
+{%- assign productRelate = product.collections.first.handle -%}
+{%- assign productRelateCheck = collections[productRelate].products_count -%}
+{%- if productRelateCheck > 1 -%}
+<div class="m_product mb-3">
+  <div class="t1 align-items-center d-flex justify-content-between mb-3">
+    <h3 class="title font-weight-bold position-relative m-0 special-content_title">
+      <a class="position-relative" href="{{product.collections.first.url}}" title="{{settings.m_relate_title}}">{{settings.m_relate_title}}</a>
+    </h3>
+    <a class="font-weight-bold more_view" href="{{product.collections.first.url}}" title="{{settings.seemore_text_product}}">
+      {{settings.seemore_text_product}}
+      <svg width="6" height="12">
+        <use href="#svg-next-mini"/>
+      </svg>
+    </a>
+  </div>
+	<div class="relate_product swiper-container position-relative">
+		<div class="swiper-wrapper">
+			{%-for product in collections[productRelate]products limit:12-%}
+			{%-unless check11 == product.url-%}
+			<div class="swiper-slide">
+				{%-include 'product-list-item'-%}
+			</div>
+			{%-endunless-%}
+			{%-endfor-%}
+		</div>
+		<div class="swiper-button-prev mre_prev"></div>
+		<div class="swiper-button-next mre_next"></div>
+	</div>
+</div>
+{%- endif -%}
+<script>
+	window.addEventListener('DOMContentLoaded', (event) => {
+		var swiperRelateProduct = new Swiper('.relate_product', {
+			spaceBetween: 15,
+			loop: false,
+			speed: 1000,
+			navigation: {
+				nextEl: '.mre_next',
+				prevEl: '.mre_prev',
+			},
+			slidesPerColumnFill: 'row',
+			slidesPerColumn: 2,
+			breakpoints: {
+				320: {
+					slidesPerView: 1
+				},
+				576: {
+					slidesPerView: 1
+				},
+				768: {
+					slidesPerView: 1
+				},
+				992: {
+					slidesPerView: 2
+				},
+				1200: {
+					slidesPerView: 3
+				}
+			}
+		});
+	});
+</script>

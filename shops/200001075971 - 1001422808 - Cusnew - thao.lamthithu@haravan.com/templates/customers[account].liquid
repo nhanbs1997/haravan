@@ -1,0 +1,81 @@
+{% layout settings.customer_layout %}
+<div class="layout-info-account">
+	<div class="title-infor-account text-center">
+		<h1>Tài khoản của bạn </h1>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 sidebar-account">
+				{% include 'acc-sidebar' %}
+			</div>
+			<div class="col-xs-12 col-sm-9" >
+				<div class="row">
+					<div class="col-xs-12" id="customer_sidebar">
+						<p class="title-detail">Tông tin tài khoản</p>
+						{% if customer.default_address.first_name == empty and customer.default_address.last_name == empty %}
+						<h2 class="name_account" >{{ customer.last_name }} {{ customer.first_name }}</h2>
+						{% else %}
+						<h2 class="name_account">{{ customer.default_address.last_name }} {{ customer.default_address.first_name }}</h2>
+						{% endif %}
+						<p class="email ">{{ customer.email }}</p>
+						<div class="address ">
+							{% if customer.default_address != nil %}
+							<p>{{ customer.default_address.address1 }}</p>
+							{% if customer.default_address.address2 != "" %}
+							<p>{{ customer.default_address.address2 }}</p>
+							{% endif %}
+							<p>{{ customer.default_address.city}} {% if address.province_code %}{{customer.default_address.province_code}}, {% endif %}{{customer.default_address.country}}</p>
+							<p>{{ customer.default_address.phone }}</p>
+							{% endif %}
+							<a id="view_address" href="/account/addresses">Xem địa chỉ</a>
+						</div>
+					</div>
+					<div class="col-xs-12 customer-table-wrap" id="customer_orders">	
+						<div class="customer_order customer-table-bg">		
+							{% if customer.orders.size != 0 %}
+							<p class="title-detail">
+								Danh sách đơn hàng mới nhất
+							</p>
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th class="order_number text-center">Mã đơn hàng</th>
+											<th class="date text-center">Ngày đặt</th>
+											<th class="total text-right">Thành tiền</th>
+											<th class="payment_status text-center">Trạng thái thanh toán</th>
+											<th class="fulfillment_status text-center">Vận chuyển</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for order in customer.orders %}
+										<tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %}">
+											<td class="text-center">{{ order.name | link_to: order.customer_url }}</td>
+											<td class="text-center"><span>{{ order.created_at | date: '%d/%m/%Y' }}</span></td>
+											<td class="text-right"><span class="total money">{{ order.total_price | money }}</span></td>
+											{% if order.financial_status contains 'pending' -%}
+												<td class="text-center"><span class="status_{{ order.financial_status }}">{{ order.financial_status | replace: 'pending','Đang chờ xử lý' }}</span></td>
+											{% else %}
+												<td class="text-center"><span class="status_{{ order.financial_status }}">{{ order.financial_status | replace: 'paid','Đã hoàn tất' }}</span></td>
+											{% endif %}
+											{% if order.fulfillment_status contains 'not fulfilled' -%}
+												<td class="text-center"><span class="status_{{ order.fulfillment_status }}">{{ order.fulfillment_status | replace: 'not fulfilled','Chưa giao hàng' }}</span></td>
+											{% else %}
+												<td class="text-center"><span class="status_{{ order.fulfillment_status }}">{{ order.fulfillment_status | replace: 'fulfilled','Đã giao hàng' }}</span></td>
+											{% endif %}
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+							{% else %}
+							<p>Bạn chưa đặt mua sản phẩm.</p>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,10 @@
+{% layout none %}
+{%- assign collection_tabs_size = settings.ldp_collection_limit -%}
+{% paginate collection.products by collection_tabs_size %}
+
+{% for i in (1..collection_tabs_size) %}
+{% capture noimage %}no_image.jpg{% endcapture %}
+	{% include 'product-loop-ldpage-no'  %}
+{% endfor%}
+
+{% endpaginate %}

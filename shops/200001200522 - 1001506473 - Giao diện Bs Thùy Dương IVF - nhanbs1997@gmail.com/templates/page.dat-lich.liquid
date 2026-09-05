@@ -1,0 +1,235 @@
+<div id="datlich">
+<div class="container">
+        <h1>Đặt lịch khám</h1>
+        <p class="subtitle">Điền thông tin để đặt lịch khám nhanh chóng</p>
+  {% capture abc %}
+  {% form 'contact' %}
+								{% if form.posted_successfully? %}
+								<div class="alert alert-success">
+									<script>alert('Cám ơn bạn đã liên hệ! Chúng tôi sẽ trả lời ngay khi có thể')</script>
+								</div>
+								{% endif %}
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Họ và tên <span class="required">*</span></label>
+                    <input type="text" name="contact[name]" placeholder="Nhập họ và tên" required>
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại <span class="required">*</span></label>
+                    <input type="tel" name="contact[phone]" placeholder="Nhập số điện thoại" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Địa chỉ <span class="required">*</span></label>
+                    <input type="text" class="diachi" placeholder="Nhập địa chỉ" required>
+                </div>
+                <div class="form-group">
+                    <label>Giới tính <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="male"  value="nam" required>
+                            <label for="male">Nam</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="female"  value="nữ">
+                            <label for="female">Nữ</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group form-row full">
+                <div>
+                    <label>Mô tả triệu chứng, nhu cầu thăm khám <span class="required">*</span></label>
+                    <textarea class="trieuchung" placeholder="Mô tả chi tiết các triệu chứng hoặc nhu cầu khám của bạn..." required></textarea>
+                </div>
+            </div>
+  {% assign random = "now" | date: "%M" | times: 1 %}
+{% assign arrtext = "q,w,e,r,t,y,u,i,o,p,a,s,d,f,g,h,j,k,l,m,n,b,v,c,x,z,qq,ww,ee,rr,tt,yy,uu,ii,oo,pp,aa,ss,dd,ff,gg,hh,jj,kk,ll,mm,nn,bb,vv,cc,xx,zz,qw,qr,qt,at,ay,au,ai,ao,ab,nb,cm" | split: ','%}
+<input type="hidden" name="contact[email]" value="{{arrtext[random]}}mer{{ "now" | date: "%d-%m-%Y" }}@gmail.com">
+  <input type="hidden" name="contact[body]" class="noidung">
+            <button type="submit" class="datlich">Đặt lịch khám ngay</button>
+        {% endform %}
+  {% endcapture %}
+  {{ abc | replace: 'script', 'noscript' }}
+    </div>
+    </div>
+     <style>
+        
+
+        #datlich .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #datlich h1 {
+            color: #c94d8a;
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        #datlich .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        #datlich .form-group {
+            margin-bottom: 24px;
+        }
+
+        #datlich .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        #datlich .form-row.full {
+            grid-template-columns: 1fr;
+        }
+
+        #datlich label {
+            display: block;
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        #datlich .required {
+            color: #c94d8a;
+            margin-left: 4px;
+        }
+
+        #datlich input[type="text"],
+        #datlich input[type="email"],
+        #datlich input[type="tel"],
+        #datlich textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        #datlich input[type="text"]:focus,
+        #datlich input[type="email"]:focus,
+        #datlich input[type="tel"]:focus,
+        #datlich textarea:focus {
+            outline: none;
+            border-color: #c94d8a;
+            box-shadow: 0 0 0 3px rgba(201, 77, 138, 0.1);
+        }
+
+        #datlich textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        #datlich .radio-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        #datlich .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        #datlich input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #c94d8a;
+        }
+
+        #datlich .radio-option label {
+            margin-bottom: 0;
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        #datlich button {
+            background-color: #c94d8a;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        #datlich button:hover {
+            background-color: #b13d78;
+        }
+
+        #datlich button:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 600px) {
+           #datlich  .form-row {
+                grid-template-columns: 1fr;
+            }
+
+           #datlich  .container {
+                padding: 24px;
+            }
+
+           #datlich  h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+    <!--<script>
+      $(function(){
+        $('.datlich').on('click', function(e){
+          e.preventDefault();
+          $('.noidung').val('Địa chỉ: '+ $('.diachi').val() +'\nGiới tính: '+ document.querySelector('input[type="radio"]:checked').value +'\nTriệu chứng: ' + $('.trieuchung').val() )
+          $('#datlich form').submit();
+        })
+      })
+    </script>-->
+    <script>
+  $(window).ready(function(){
+    $('#datlich form.contact-form').submit(function(e){
+      
+      e.preventDefault();
+      var self = $(this);
+      var namee = self.find('input[name="contact[name]"]').val(),
+            phonee = self.find('input[name="contact[phone]"]').val(),
+            emaill = self.find('input[name="contact[email]"]').val(),
+            message = '';
+            message += "\nĐịa chỉ: "+ self.find('.diachi').val();
+            message += "\nGiới tính: "+ self.find('input[type="radio"]:checked').val();
+            message += "\nTriệu chứng: "+ self.find(".trieuchung").val();
+        grecaptcha.ready(function() {
+         grecaptcha.execute('6LchSLkqAAAAABVHBpeFgg8N-WgkYsr5fO6GUF_s', {action: 'submit'}).then(function(token) {
+          self.find('input[name="g-recaptcha-response"]').val(token);
+                $.ajax({
+           type: 'POST',
+           url:'/contact',
+           data: "form_type=contact&utf8=✓&__RequestVerificationToken="+self.find('input[name="__RequestVerificationToken"]').val()+"&utf8=✓&contact[name]="+namee+"&contact[phone]="+phonee+"&contact[email]="+emaill+"&contact[body]="+message+"&g-recaptcha-response="+self.find('input[name="g-recaptcha-response"]').val(),
+           success:function(data){
+            alert("Đăng ký thành công!");
+           }
+          })
+               })
+        })
+    })
+  })
+</script>

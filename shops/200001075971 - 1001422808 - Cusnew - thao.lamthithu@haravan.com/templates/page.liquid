@@ -1,0 +1,74 @@
+<div class="pageAbout-us page-layout">
+	<div class="breadcrumb-shop">
+		<div class="container-fluid">
+			<div class="row">{%include 'breadcrumb'%}</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row wrapper-row pd-page">
+			<div class="col-md-3 col-sm-12 col-xs-12">
+				<div class="sidebar-page">
+					{% if settings.show_page_menu %}
+					<div class="group-menu">
+						<div class="page_menu_title title_block">
+							<h2>{{settings.title_page_menu}}</h2>
+						</div>
+						<div class="layered layered-category">
+							<div class="layered-content">
+								<ul class="tree-menu">
+									{% for link in linklists[settings.page_menu].links limit: 10 %}
+									{% if linklists[link.handle] != empty %}
+									<li class="tree-menu-lv1{% if link.active %} active {% endif %} has-child {% if forloop.first %} menu-uncollap {% else %} menu-collap {% endif %}">
+										<a class="{% if link.active %} active {% endif %}" href="javascript:void(0)" title="{{ link.title }}" target="_self">
+											<span class="">{{ link.title }}</span>
+											<span class="icon-control"><i class="fa fa-minus"></i></span>
+										</a>
+										<ul class="tree-menu-sub">
+											{% for l in linklists[link.handle].links %}
+											<li>
+												<span></span>
+												<a href="{{ l.url }}"{% if l.active %} class="current"{% endif %} title="{{l.title}}">{{ l.title }}</a>
+											</li>
+											{% endfor %}
+										</ul>
+									</li>
+									{% else %}
+									<li class="{% if link.active %}active{% endif %}">
+										<span></span>
+										<a class="{% if link.active %} current{% endif %}" href="{{ link.url }}" title="{{ link.title }}" target="_self">
+											{{link.title}}
+										</a>
+									</li>
+									{% endif %}
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+					{% endif %}
+					{% if settings.show_page_banner %}
+					<div class="box_image visible-lg visible-md">
+						<div class="banner">
+							<a href="{{ settings.page_banner_link }}">
+								<img src="{{ 'page_banner.jpg'|asset_url }}" alt="{{shop.name}}">
+							</a>
+						</div>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-md-9 col-sm-12 col-xs-12">
+				<div class="page-wrapper">
+					<div class="heading-page">
+						<h1>{{ page.title }}</h1>
+					</div>
+					<div class="wrapbox-content-page">
+						<div class="content-page ">
+							{{ page.content }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

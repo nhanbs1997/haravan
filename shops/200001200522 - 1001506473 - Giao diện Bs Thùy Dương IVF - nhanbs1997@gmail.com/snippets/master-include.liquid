@@ -1,0 +1,224 @@
+{%- if settings.use_logo -%}<link rel="preload" href="{{ settings.logo }}" as="image"> {%- endif -%}
+{%- if template contains 'index' -%}
+{%- if settings.home_slider_show -%}
+<link rel="preload" href="{{ settings.slide_1_img }}" as="image" media="(min-width: 768px)">
+<link rel="preload" href="{{ 'slide_1_mb.jpg' | asset_url }}" as="image" media="(max-width: 767px)"> 
+{%- endif -%}
+{%if settings.show_home_form %}
+<link rel="preload" href="{{ 'load.gif' | asset_url }}" as="image"> 
+{%endif%}
+{%- endif -%} 
+
+{%- unless settings.base_font contains 'Arial' -%}
+{%- if settings.base_font -%}
+<link rel="preconnect" href="{{ '//fonts.googleapis.com/css?family=' | append: settings.base_font | append: '&display=swap'}}" crossorigin>
+<link rel="preload stylesheet" href="{{ '//fonts.googleapis.com/css?family=' | append: settings.base_font | append: '&display=swap' }}" as="style"> 
+{%- endif -%}
+{%- endunless -%}
+<!--+++++++++++++ CSS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+{%- include 'plugins-css' -%}
+<link rel="preload stylesheet" href="{{ 'animate.min.css' | asset_url }}" as="style">
+<link rel="preload stylesheet" href="{{ 'fullcalendar.css' | asset_url }}" as="style">
+<link rel="preload stylesheet" href="{{ 'style-all.scss.css' | asset_url }}" as="style">
+
+{%- if template contains 'customers' -%} <link rel="preload stylesheet" href="{{ 'customer-style.scss.css' | asset_url }}" as="style"> {%- endif -%}
+{%- if template == 'page.landing-page-01' -%} <link rel="preload stylesheet" href="{{ 'style-ldpage-01.scss.css' | asset_url }}" as="style"> {%- endif -%}
+{%if template == 'index'%}
+<link rel="preload stylesheet" href="{{ 'style-index.scss.css' | asset_url }}" as="style">
+{% elsif template == 'collection'%}
+<link rel="preload stylesheet" href="{{ 'style-collection.scss.css' | asset_url }}" as="style">
+{% elsif template == 'product'%}
+<link rel="preload stylesheet" href="{{ 'style-product.scss.css' | asset_url }}" as="style">
+{% elsif template == 'cart'%}
+<link rel="preload stylesheet" href="{{ 'style-cart.scss.css' | asset_url }}" as="style">
+{% elsif template == 'page.contact'%}
+<link rel="preload stylesheet" href="{{ 'style-contact.scss.css' | asset_url }}" as="style">
+{% elsif template contains 'blog' or template contains 'article'%}
+<link rel="preload stylesheet" href="{{ 'style-blog.scss.css' | asset_url }}" as="style">
+{% elsif template == 'page' or template contains 'search'%}
+<link rel="preload stylesheet" href="{{ 'style-page.scss.css' | asset_url }}" as="style">
+{% elsif template == 'page.about-us'%}
+<link rel="preload stylesheet" href="{{ 'style-about-us.scss.css' | asset_url }}" as="style">
+{% elsif template contains 'page.services'%}
+<link rel="preload stylesheet" href="{{ 'style-services.scss.css' | asset_url }}" as="style">
+<link rel="preload stylesheet" href="{{ 'style-faqs.scss.css' | asset_url }}" as="style">
+<link rel="preload stylesheet" href="{{ 'style-about-us.scss.css' | asset_url }}" as="style">
+{% elsif template == 'page.stores'%}
+<link rel="preload stylesheet" href="{{ 'style-stores.scss.css' | asset_url }}" as="style">
+{% elsif template == 'page.faqs'%}
+<link rel="preload stylesheet" href="{{ 'style-faqs.scss.css' | asset_url }}" as="style">
+{%endif%}
+<!--+++++++++++++ JS THEME ++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<link href="{{ 'api.jquery.js' | haravan_asset_url }}" rel="preload" as="script" type="text/javascript">
+<link href="{{ 'scripts.js' | asset_url }}" rel="preload" as="script" type="text/javascript">
+<link href="{{ 'jquery-3.5.1.min.js' | asset_url }}" rel="preload" as="script">
+<script type="text/javascript" src="{{ 'jquery-3.5.1.min.js' | asset_url }}"></script>
+<script>
+	/* recapcha */
+	setTimeout(function(){
+		!function(e,t,n){var a=t.getElementsByTagName(n)[0],c=t.createElement(n);c.async=true,c.src="https://www.google.com/recaptcha/api.js?render=6LchSLkqAAAAABVHBpeFgg8N-WgkYsr5fO6GUF_s",a.parentNode.insertBefore(c,a)}(window,document,"script");  
+	},5000);
+</script>
+{%-if settings.promotion_hrvapp_use-%}
+	{%-if settings.promotion_hrvapp == 'appcombo'-%}
+	<link href="{{ 'app-combo.js'  | asset_url }}" rel="preload" as="script" type="text/javascript">
+	{%-elsif settings.promotion_hrvapp == 'appbuyxgety'-%}
+	<link href="{{ 'app-buyxgety.js' | asset_url }}" rel="preload" as="script" type="text/javascript">	
+	{%-endif-%}
+{%-endif-%}
+
+<script setting-id="cart_total_min" setting-type="text" class="hrv-cf-cart_total_min">
+var formatMoney = '{{ shop.money_format }}';
+var template = "{{ template | strip_html | escape }}";
+var priceMin ='';
+{%- if settings.cart_total_min != blank -%}
+priceMin = {{ settings.cart_total_min | lstrip | rstrip }};
+{%-endif-%}
+
+var locationHeader = false;
+{%- if settings.header_inventory_default  -%}
+locationHeader = true;
+{%-endif-%}
+
+/* Fix app buyXgetY */
+var cartItem = {
+	{%-for item in cart.items-%}
+		"{{item.variant_id}}": {{item.quantity}}{%-unless forloop.last-%},{%-endunless-%}
+	{%-endfor-%}
+};
+
+var promotionApp = false,
+		promotionApp_name = '';
+	{%- if settings.promotion_hrvapp_use -%} 
+			promotionApp = {{ settings.promotion_hrvapp_use }};
+		{%- if settings.promotion_hrvapp == 'appcombo' -%} 		
+			promotionApp_name = 'app_combo';
+		{%- elsif settings.promotion_hrvapp == 'appbuyxgety'-%} 	
+			promotionApp_name = 'app_buyxgety';	
+		{%- else -%}
+			promotionApp_name = 'app_buy2get1';	
+		{%-endif-%}
+	{%-endif-%}	
+
+	window.shop = {
+  template:"{{ template | strip_html | escape }}",
+  promotionApp: {%- if settings.promotion_hrvapp_use -%}true{% else %}false{% endif %},
+  promotionApp_name: {%- if settings.promotion_hrvapp == 'appcombo' -%}"app_combo"{%- else -%}"app_buyxgety"{%-endif-%}
+ }
+
+var productReviewsApp = false;
+var productReviewsProloop = false;
+{%- if settings.productreviews_hrvapp_use -%}
+ productReviewsApp = true; 
+ {%- if settings.productreviews_hrvapp_proloop -%} 	productReviewsProloop = true;  {%-endif-%}
+{%-endif-%}
+
+/* product set item */
+var prodItem_desk = 5,
+		prodItem_mobile = 2;
+{%-if settings.product_grid_desktop == 'grid-desk-6'-%}    prodItem_desk = 6
+{%-elsif settings.product_grid_desktop == 'grid-desk-5'-%} prodItem_desk = 5
+{%-elsif settings.product_grid_desktop == 'grid-desk-4'-%} prodItem_desk = 4
+{%-elsif settings.product_grid_desktop == 'grid-desk-3'-%} prodItem_desk = 3
+{%- endif -%}
+
+{%-if settings.product_grid_mobile == 'grid-mb-3'-%}		prodItem_mobile = 3
+{%-elsif settings.product_grid_mobile == 'grid-mb-2'-%} prodItem_mobile = 2
+{%-elsif settings.product_grid_mobile == 'grid-mb-1'-%} prodItem_mobile = 1
+{%- endif -%}
+
+</script>
+
+<script>
+	var cartAttributes = {
+		{%-for attr in cart.attributes-%}
+		"{{attr.first}}": "{{attr.last}}"{%-unless forloop.last-%},{%-endunless-%}
+		{%-endfor-%}
+	};
+	
+	var store = [
+ {%-for store in shop.addresses -%}
+	{%- if store.is_shipping_add -%}
+   {% if store.location_name contains "(Hide)" %}
+	{% else %}
+   {
+    "name": "{{store.location_name}}",
+    "province": "{{store.province_name}}",
+    "district": "{{store.district_name}}"     
+   }{%-unless forloop.last-%},{%-endunless-%}
+ {%-endif-%}{%-endif-%}{%-endfor-%}
+];
+	
+store = store.sort((a, b) => a.district < b.district ? -1 : 1);
+	
+var newStore = {};
+store.map(x => {
+  if(!newStore.hasOwnProperty(x.province)){
+    newStore[x.province] = {};
+    if(!newStore[x.province].hasOwnProperty(x.district)){
+      newStore[x.province][x.district] = [];
+      newStore[x.province][x.district].push(x);
+    }
+  }
+  else{
+    if(!newStore[x.province].hasOwnProperty(x.district)){
+      newStore[x.province][x.district] = [];
+      newStore[x.province][x.district].push(x);
+    }
+    else{
+      newStore[x.province][x.district].push(x);
+    }
+  }
+});
+	
+	/* Get param nếu có */
+	function parseQueryString(url){
+		var str = url != undefined? '?'+url.split('?')[1] : window.location.search;
+		var objURL = {};
+		var count = 0;
+		if(str.indexOf("utm") > -1){
+			count = 1;
+		}
+		str.replace(
+			new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+			function($0, $1, $2, $3) {
+				objURL[$1] = decodeURIComponent($3);
+			}
+		);
+		return objURL;
+	};
+	var paramUrl = parseQueryString();
+</script>
+
+<script>
+{%-assign tags_frame = ""-%}
+{%-assign ico_frame = ""-%}
+{%-for i in (1..5)-%}
+	
+	{%-capture use_frame-%}use_frame_{{i}}{%-endcapture-%}
+	{%-capture tag_frame-%}tag_frame_{{i}}{%-endcapture-%}
+	{%-capture icon_frame-%}frame_{{i}}{%-endcapture-%}
+	
+		{%-if settings[use_frame] and settings[tags_frame] != ""-%}
+			{%-assign tags_frame = tags_frame | append: ',' | append: settings[tag_frame]-%}
+		{%-else-%}
+			{%-assign tags_frame = tags_frame | append: ',' | append: 'null'-%}
+		{%-endif-%}
+		
+		{%-if settings[use_frame] and settings[icon_frame] != ""-%}
+			{%-assign ico_frame = ico_frame | append: ',' | append: settings[icon_frame]-%}
+		{%-else-%}
+			{%-assign ico_frame = ico_frame | append: ',' | append: 'null'-%}
+		{%-endif-%}
+
+{%-endfor-%}		
+
+var prmt_icon = {
+	"frame": {
+		"tag": {{tags_frame | remove_first: ',' | json}},
+		"icon": {{ico_frame | remove_first: ',' | json}}
+	}
+};
+prmt_icon.frame.tag = prmt_icon.frame.tag.split(',');
+prmt_icon.frame.icon = prmt_icon.frame.icon.split(',');
+</script>

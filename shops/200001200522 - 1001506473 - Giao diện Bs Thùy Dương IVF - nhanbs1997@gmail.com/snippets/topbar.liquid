@@ -1,0 +1,63 @@
+{%- if settings.home_topbar_show -%}
+{%- if settings.topbar_select == 'topbarBanner' -%}
+<div class="topbar-banner text-center">
+	<a href="{{settings.topbar_banner_link}}">				
+		<picture>
+			<source media="(max-width: 767px)" srcset="{{ 'topbar_img_mb.jpg' | asset_url }}"/>
+			<source media="(min-width: 768px)" srcset="{{ 'topbar_img.jpg' | asset_url }}"/>
+			<img class="lazyload" data-src="{{ 'topbar_img.jpg' | asset_url }}" src="{{ 'topbar_img.jpg' | asset_url }}"
+					 alt="banner-topbar"/>
+		</picture>
+	</a>
+	<span class="close-icon">
+		<svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.81304 5.75263C6.52015 5.45974 6.04528 5.45974 5.75238 5.75263C5.45949 6.04552 5.45949 6.5204 5.75238 6.81329L10.8789 11.9398L5.75241 17.0663C5.45952 17.3592 5.45952 17.8341 5.75241 18.127C6.0453 18.4199 6.52018 18.4199 6.81307 18.127L11.9396 13.0005L17.0661 18.127C17.359 18.4199 17.8339 18.4199 18.1268 18.127C18.4196 17.8341 18.4196 17.3592 18.1268 17.0663L13.0002 11.9398L18.1268 6.81329C18.4197 6.5204 18.4197 6.04552 18.1268 5.75263C17.8339 5.45974 17.359 5.45974 17.0661 5.75263L11.9396 10.8792L6.81304 5.75263Z" fill="#ffffff"></path></svg>
+	</span>
+</div>
+{% else %}
+<div class="topbar">
+	<div class="container-fluid">
+		<div class="topbar-wrapper">
+			<div class="topbar-slideText owl-carousel">
+				{%- if settings.home_topbar_1_txt != blank -%}
+				<div class="discount"><div class="discount-txt">{{settings.home_topbar_1_txt}}	</div></div>
+				{%- endif -%}
+				{%- if settings.home_topbar_2_txt != blank -%}
+				<div class="discount"><div class="discount-txt">{{settings.home_topbar_2_txt}}</div></div>
+				{%- endif -%}
+				{%- if settings.home_topbar_3_txt != blank -%}
+				<div class="discount"><div class="discount-txt">{{settings.home_topbar_3_txt}}</div></div>
+				{%- endif -%}
+			</div>
+		</div>
+	</div>
+</div>
+{%- endif -%}
+{%- endif -%}
+{%- if settings.topbar_bottom_show -%}
+<div class="topbar-bottom">
+		<div class="container-fluid">
+		<div class="box-content d-flex align-items-center justify-content-between">
+			<div class="box-left d-flex flex-wrap align-items-center">
+				<div class="hotline">
+					<span>{{settings.topbar_text_txt1}}</span>
+				</div>
+				<div class="contact">
+					<a href="{{settings.topbar_text_link}}">{{settings.topbar_text_txt2}}</a>
+				</div>
+			</div>
+			<div class="box-right">
+				<div class="notify">
+					<div class="notify-title">
+						<span class="noti-tt">
+							<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 32 32"><g><g><path d="m29.39355 22.24194c0-1.85809-1.32587-3.40649-3.07745-3.76453v-7.15167c0-5.70001-4.62579-10.32574-10.3161-10.32574s-10.3161 4.62573-10.3161 10.32574v7.15167c-1.75159.35803-3.07745 1.90643-3.07745 3.76453 0 2.10968 1.7226 3.83221 3.84192 3.83221h19.10327c2.11932.00001 3.84191-1.72253 3.84191-3.83221z"></path><path d="m16 31c2.32263 0 4.32581-1.43231 5.15808-3.47424h-10.31616c.83227 2.04193 2.83545 3.47424 5.15808 3.47424z"></path></g></g></svg>
+							<span class="noti-numb"></span>{{settings.notify_title}}</span>
+					</div>
+					<div class="notify-container">
+						{%- include 'mini-notify' -%}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%- endif -%}

@@ -1,0 +1,76 @@
+{%- include 'breadcrumb' -%}
+<section class="acc_layout my-3">
+	<div class='container'>
+    <div class="row">
+        <div class="col-12 col-lg-8">
+          <div class="registered-users">
+            <div class="content">
+              {%- form 'customer_login' -%}
+              <h2 class="page_title mb-3">{{settings.login_text}}</h2>
+              <div class="form-group">
+                <label for="customer_email" class="col-form-label d-none">{{settings.login_mail}}<span class="text-danger">*</span></label>
+                <input type="email" placeholder="Nhập {{settings.login_mail}}" class=" mew-control rounded-10 border border-main" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="customer[email]" id="customer_email" required>
+              </div>
+              {% if form.password_needed %}
+              <div class="form-group">
+                <label for="customer_password" class="d-none col-form-label">{{settings.login_pass}}<span class="text-danger">*</span></label>
+                <input type="password" placeholder="{{settings.login_pass}}" class=" mew-control rounded-10 border border-main" name="customer[password]" id="customer_password" required>
+              </div>
+              {% endif %}
+              <div class="form-group d-flex justify-content-between align-items-center">
+                <button type="submit" class="btn btn-primary rounded-10 mew-control font-weight-bold btn_login ">{{settings.login_text}}</button>
+                <a href="#recover" class=" font-weight-bold" onclick="toggleRecoverPasswordForm();return false;" id="RecoverPassword">{{settings.login_forgot_pass}}</a>
+              </div>
+              {{ form.errors | default_errors }}
+              {%- endform -%}
+              
+              {%- form 'recover_customer_password' -%}
+              {%- if form.posted_successfully -%}
+              {%- assign reset_success = true -%}
+              <p class="passed alert-warning p-2 rounded-10">{{settings.forgot_pass_success_noti}}</p>
+              {%- endif -%}
+              <div id="recover_password" class="d-none">
+                <h3 class="font-weight-bold mb-3  text-center">{{settings.forgot_pass_title}}</h3>                     
+                <p class="line_cus  text-center">{{settings.forgot_pass_content}}</p>
+                <div class="form-error mb-4 text-danger" >
+                  {{ form.errors | default_errors }}
+                </div>
+                <div class="form-group">
+                  <label for="customer_email1" class="col-form-label d-none">{{settings.login_mail}}<span class="text-danger">*</span></label>
+                  <input type="email" class=" mew-control rounded-10 border border-main" placeholder="{{settings.login_mail}}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" id="customer_email1" required>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <button type="submit" class="btn btn-primary  mew-control btn_login rounded-10 font-weight-bold" title="{{settings.forgot_pass_submit}}">{{settings.forgot_pass_submit}}</button>
+                  <a href="#" class=" font-weight-bold" onclick="toggleRecoverPasswordForm();return false;" title="{{settings.forgot_pass_cancel}}">{{settings.forgot_pass_cancel}}</a>
+                </div>
+              </div>
+              {%- endform -%} 
+              
+              {% if shop.checkout.guest_login %}
+              <div id="guest" class="col-md-5">
+                <h2>Khách hàng đăng nhập</h2>
+                {% form 'guest_login' %}
+                <div class="action_bottom button dark">
+                  <input class="btn btn-primary rounded-10 mew-control font-weight-bold mb-2" type="submit" value="Đăng nhập tài khoản khách" />
+                </div>
+                {% endform %}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="new-users">
+            <h3 class="page_title mb-3">{{settings.register_text}}</h3>
+            <div class="content">
+              <p class="border border-main line_cus p-3 rounded-10 text-center  text-center">{{settings.register_content}}</p>
+              <div class="buttons-set text-center">
+                <button class="btn btn-primary rounded-10 mew-control font-weight-bold mb-2" onclick="window.location.href='/account/register'">{{settings.register_create}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+	</div>
+</section>
+<script src="{{'customer_login.js' | asset_url}}" defer></script>

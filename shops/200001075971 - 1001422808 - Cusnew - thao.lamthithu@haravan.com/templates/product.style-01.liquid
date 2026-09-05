@@ -1,0 +1,710 @@
+{%- assign checkgift = false -%}
+{%- for tag in product.tags -%}
+{%- if tag == 'giftbox' -%}
+{%- assign checkgift = true -%}
+{%- endif -%}
+{%- endfor -%}
+<div id="product" class="productDetail-page">
+	<div class="breadcrumb-shop">
+		<div class="container-fluid">
+			<div class="row">{%include 'breadcrumb'%}</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row product-detail-wrapper">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="row product-detail-main pr_style_01">
+					<div class="col-md-8 col-sm-12 col-xs-12">
+						{% if product.images.size > 0 %}
+						{% if product.images.size > 1 %}
+						<div class="product-gallery">
+							<div class="product-gallery__thumbs-container hidden-sm hidden-xs">
+								<div class="product-gallery__thumbs thumb-fix">
+									{% for image in product.images %}
+									<div class="product-gallery__thumb {%if forloop.first%}active{%endif%}">
+										<a class="product-gallery__thumb-placeholder" href="javascript:void(0);" data-image="{{ image.src | product_img_url : 'master' }}" data-zoom-image="{{ image.src | product_img_url : 'master' }}">
+											<img alt="{% if product.images.alt.size >0 %}{{ product.images.alt | escape }} {% else%} {{product.title}} {% endif %}" src="{{ image | product_img_url : 'compact' }}" data-image="{{ image.src | product_img_url : 'master' }}"/>
+										</a>
+									</div>
+									{% endfor %}
+								</div>
+							</div> 
+							<div class="product-image-detail box__product-gallery scroll">
+								<ul id="sliderproduct" class="site-box-content slide_product">
+									{% for thumb in product.images %}
+									<li class="product-gallery-item gallery-item">
+										<img class="product-image-feature" src="{{ thumb.src | product_img_url : 'master' }}" alt="{% if product.images.alt.size >0 %}{{ product.images.alt | escape }} {% else%} {{product.title}} {% endif %}">
+									</li>	
+									{% endfor %}
+								</ul>
+								<div class="product-image__button">
+									<div id="product-zoom-in" class="product-zoom icon-pr-fix " aria-label="Zoom in" title="Zoom in">
+										<span class="zoom-in" aria-hidden="true">
+											<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 36 36" style="enable-background:new 0 0 36 36; width: 30px; height: 30px;" xml:space="preserve"><polyline points="6,14 9,11 14,16 16,14 11,9 14,6 6,6 "/><polyline points="22,6 25,9 20,14 22,16 27,11 30,14 30,6 "/><polyline points="30,22 27,25 22,20 20,22 25,27 22,30 30,30 "/><polyline points="14,30 11,27 16,22 14,20 9,25 6,22 6,30 "/> </svg>
+										</span>
+									</div>		
+								</div>
+							</div>
+						</div>							
+						{% else %}
+						<div class="product-full-img box__product-gallery scroll">
+							<img class="product-image-feature" src="{{ product.featured_image | product_img_url : '1024x1024' }}" alt="{% if product.images.alt.size >0 %}{{ product.images.alt | escape }} {% else%} {{product.title}} {% endif %}">
+						</div>
+						{%endif%}
+						{%else%}
+						<div class="product-full-img">
+							<img class="product-image-feature no_image" src="{{'no_image.jpg' | asset_url}}" width="100%" alt="{{shop.name}}"/>
+						</div>
+						{%endif%}
+					</div>
+					<div class="col-md-4 col-sm-12 col-xs-12 product-content-desc" id="detail-product">
+						<div class="product-title">
+							<h1>{{ product.title }}</h1>
+							{% if product.variants[0].sku %}
+							<span id="pro_sku"><strong>SKU:</strong> {{product.variants[0].sku}}</span>
+							{% endif %}
+							{% unless product.available %}<span class="pro-soldold">Hết hàng</span>{% endunless %} 		
+						</div>
+            <div class="product-meta">
+              <div class="starbaprv-widget starbaprv-preview-badge starbaprv-preview-badge--with-link" data-id="{{product.id}}" data-url="{{product.handle}}">
+                {% if product.metafields.starbap['starbaprv.badge']%}
+                {{product.metafields.starbap['starbaprv.badge']}}
+                {% endif %}
+              </div>
+              <div class="product-sold">Đã bán: {{product.sold_quantity}}</div>
+            </div>
+						<div class="product-price" id="price-preview">
+							{% if product.compare_at_price > product.price %}
+							<span class="pro-sale">-{{product.compare_at_price | minus: product.price | divided_by:product.compare_at_price | times : 100 | round : 0}}% </span>
+							{% endif %}	
+							<span class="pro-price">{{ product.price | money }}</span>
+							{% if product.compare_at_price > product.price %}
+							<del>{{ product.compare_at_price | money }}</del>
+							{% endif %}
+						</div>
+						{% assign hide_default_title = false %}
+						{% if product.variants.size == 1 and product.variants.first.title contains 'Default' and product.options.size == 1 %}
+						{% assign hide_default_title = true %}
+						{% endif %}	
+						<form id="add-item-form" action="/cart/add" method="post" class="variants clearfix">				
+							<div class="select clearfix"{% if hide_default_title %} style="display:none"{% endif %}>
+								<select id="product-select" name="id" style="display:none;">
+									{% for variant in product.variants %}
+									<option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="select-swatch clearfix">
+								{% if product.available and product.variants.size > 1 %}
+								{% for option in product.options %}
+								{% include 'swatch' with option %}
+								{% endfor %}
+								{% endif %}
+							</div>
+							<div class="selector-actions">
+
+								{%- if checkgift -%}
+								<button type="button" disabled  class="disabled btn-product-gift button dark " name="add"> 
+									Hàng tặng không bán
+								</button>
+								{%- else -%}
+								<div class="quantity-area clearfix">
+									<input type="button" value="-" onclick="minusQuantity()" class="qty-btn">
+									<input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
+									<input type="button" value="+" onclick="plusQuantity()" class="qty-btn">
+								</div>
+								{%-assign className = ''-%}
+								{%-if settings.promotion_hrvapp_use-%}
+								{%-if settings.promotion_hrvapp == 'appbuyxgety'-%}
+								{%-assign className = 'loading'-%}
+								{%-endif-%}	
+								{%-endif-%}
+								<div class="wrap-addcart clearfix">						
+									<button type="button" id="add-to-cart" {% unless product.available %}disabled{% endunless %}  class="{% unless product.available %}disabled{% endunless %} add-to-cartProduct button dark btn-addtocart addtocart-modal {{className}}" name="add"> 
+										{% if  product.available %}	Thêm vào giỏ {% else %} Hết hàng {% endif %}
+									</button>
+									<button type="button" id="buy-now" {% unless product.available %}disabled{% endunless %}  class="{% unless product.available %}disabled{% endunless %} add-to-cartProduct button dark btn-addtocart addtocart-modal hidden {{className}}" name="add"> 
+										{% if  product.available %}	Mua ngay {% else %} Hết hàng {% endif %}
+									</button>
+								</div>	
+								{%- endif -%}
+							</div>
+							{% if settings.promotion_hrvapp_use and settings.promotion_hrvapp == 'appbuyxgety' %}
+							<div class="selector-buyxgety">							
+								<div id="buyxgety-program" class="hidden">
+									<div class="buyxgety-heading">
+										<h3>Các sản phẩm được tặng kèm</h3>								
+										<p>Chọn 1 trong các loại quà tặng</p>
+									</div>							
+									<div id="buyxgety-product-list" data-id="{{product.id}}" data-title="{{product.title}}">
+										<div class="buyxgety_content clearfix">									
+											<div class="buyxgety_lists"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endif %}
+							<div class="product-action-bottom visible-xs">
+								<div class="input-bottom">
+									<input id="quan-input" type="number" value="1" min="1">
+								</div>
+								<button type="button" id="add-to-cartbottom" {% unless product.available %}disabled{% endunless %}  class="{% unless product.available %}disabled{% endunless %} add-to-cartProduct add-cart-bottom button dark addtocart-modal" name="add"> 
+									{% if  product.available %}	Thêm vào giỏ {% else %} Hết hàng {% endif %}
+								</button>
+							</div>
+						</form>
+						<div class="product-description">	
+							<div class="title-bl">
+								<h2>Mô tả</h2>
+							</div>							
+							<div class="description-content">
+								{%- assign checkDescript = product.description | strip_html -%}
+								{%- if checkDescript.size != 0 -%}
+								<div class="description-productdetail">
+									{{ product.description }}
+								</div>
+								{%- else -%}
+								<p>Chưa có mô tả cho sản phẩm này</p>
+								{%- endif -%}
+							</div>
+						</div>
+					</div>
+				</div>						
+				{% if settings.productspg_related_products %}
+				<div class="list-productRelated clearfix">
+					<div class="heading-title text-center">
+						<h2>{{settings.productspg_related_title}}</h2>
+					</div>
+
+					{%assign cp = product%}
+					{% assign number_of_related_products_to_show = settings.productspg_featured_quantity %}
+
+					{% assign number_of_related_products_to_fetch = number_of_related_products_to_show %}
+
+					{% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+					{% assign found_a_collection = false %}
+					{% for c in product.collections %}
+					{% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+					{% assign found_a_collection = true %}
+					{% assign collection = c %}
+					{% endif %}
+					{% endfor %}
+					{% endif %}
+
+					{% if collection and collection.products_count > 1 %}
+					<div class="content-product-list row">
+						{% assign current_product = product %}
+						{% assign current_product_found = false %}
+						{% assign counter_p = 0 %}
+
+						{% for product in collection.products%}
+						{%if counter_p >= number_of_related_products_to_show%}
+						{%break%}
+						{%endif%}
+
+						{%if cp.handle != product.handle %}
+						<div class="col-md-3 col-sm-6 col-xs-6 pro-loop">
+							{% include 'product-loop' %}
+						</div>
+						{%assign counter_p =counter_p | plus : 1%}
+						{%endif%}
+						{% endfor %}
+					</div>
+					{%else%}
+					{%if collections.all.products.size > 0%}
+					<div class="content-product-list row">
+						{% for product in collections.all.products limit: number_of_related_products_to_fetch %}
+						{%if cp.handle != product.handle %}
+						<div class="col-md-3 col-sm-6 col-xs-6 pro-loop">
+							{% include 'product-loop' %}
+						</div>
+						{%endif%}
+						{% endfor %}
+					</div>
+					{%else%}
+					<p>Không tìm thấy sản phẩm nào</p>
+					{%endif%}
+					{% endif %}	
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+<div id="divzoom">
+	<div class="divzoom_main">
+		{% for thumb in product.images %}
+		<div class="product-thumb text-center">
+			<img class="product-image-feature" src="{{ thumb.src | product_img_url : 'master' }}" alt="{% if product.images.alt.size >0 %}{{ product.images.alt | escape }} {% else%} {{product.title}} {% endif %}">
+		</div>
+		{% endfor %}
+	</div>
+	<div id="positionButtonDiv" class="hidden">
+		<p> 
+			<span>
+				<button type="button" class="buttonZoomIn"><i></i></button>
+				<button type="button" class="buttonZoomOut"><i></i></button>			
+			</span>
+		</p>
+	</div>
+	<button id="closedivZoom"><i></i></button>
+</div>
+{%-if settings.promotion_hrvapp_use -%}
+{%-if settings.promotion_hrvapp == 'appcombo'-%}
+{%-include 'modal-appcombo'-%}
+<script>
+$(document).ready(function(){
+	$('#add-to-cart').click(function(e){	
+		e.preventDefault();
+		if(comboApp.checkCombo){
+			$('#combo-popup button').removeAttr('data-buynow');
+			$('#combo-popup').modal('show');
+		}
+		else{
+			$(this).addClass('clicked_buy');
+			add_item_show_modalCart($('#product-select').val());
+			getCartModal();
+		}
+	});
+	$('#buy-now').click(function(e){	
+		e.preventDefault();
+		if(comboApp.checkCombo){
+			$('#combo-popup button').attr('data-buynow','true');
+			$('#combo-popup').modal('show');
+		}
+		else{
+			$(this).addClass('clicked_buy');
+			add_item_show_modalCart($('#product-select').val(),'buy-now');
+		}
+	});
+	// Nút thêm tất cả vào giỏ
+	$('body').on('click', '#discount-promotion-combo-add-btn', function(e){
+		e.preventDefault();
+		var that = $(this);
+		var pid = $('#combo-program').data('id');
+		var vid = $('#product-select').val();
+		comboApp.comboAddCart(pid, vid, function(response){
+			if(response){
+				if(that.attr('data-buynow') != undefined){
+					window.location = "/checkout";
+				}
+				else{
+					$('#combo-popup').modal('hide');
+					getCartModal();					
+					jQuery('#myCart').modal('show');		
+					jQuery('.modal-backdrop').css({'height':jQuery(document).height(),'z-index':'99'});		
+					$('.addtocart-modal').removeClass('clicked_buy');
+				}
+			}
+			else{
+				alert('fail');
+			}
+		});
+	});
+	// Nút chỉ thêm sản phẩm hiện tại
+	$('body').on('click', '#discount-promotion-dismiss-btn', function(e){
+		e.preventDefault();
+		var that = $(this);
+		$.ajax({
+			type: 'POST',
+			async: false,
+			url:'/cart/add.js',
+			async:false,
+			data: $('form#add-item-form').serialize(),
+			success:function(line){	
+				if(that.attr('data-buynow') != undefined){
+					window.location = "/checkout";
+				}
+				else{
+					$('#combo-popup').modal('hide');
+					getCartModal();					
+					jQuery('#myCart').modal('show');		
+					jQuery('.modal-backdrop').css({'height':jQuery(document).height(),'z-index':'99'});		
+					$('.addtocart-modal').removeClass('clicked_buy');
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alert('Sản phẩm bạn vừa mua đã vượt quá tồn kho');
+			}
+		});
+	});
+});
+</script>
+{%-elsif settings.promotion_hrvapp == 'appbuyxgety'-%}
+<script>
+$(document).ready(function(){
+	$('#add-to-cart').click(function(e){	
+		e.preventDefault();
+		var variant_id = $('#product-select').val(),
+				quantity = $('#quantity').val();
+		buyXgetY.addCartBuyXGetY_detail(false,variant_id,quantity,function(){
+			getCartModal();
+		});
+	});
+
+	$('#buy-now').click(function(e){	
+		e.preventDefault();
+		var variant_id = $('#product-select').val(),
+				quantity = $('#quantity').val();
+		buyXgetY.addCartBuyXGetY_detail(false,variant_id,quantity,function(){
+			window.location = "/checkout";
+		});
+	});
+	// Nút chỉ thêm sản phẩm hiện tại
+	$('body').on('click', '#discount-promotion-dismiss-buyxgety', function(e){
+		e.preventDefault();
+		var variant_id = $('#product-select').val(),
+				quantity = $('#quantity').val();
+		buyXgetY.addCartBuyXGetY_detail(true,variant_id,quantity,function(){
+			$('#alert_km').modal('hide');
+			getCartModal();
+		});
+	});
+});
+</script>
+{%-endif-%}
+{%-else-%}
+<script>
+$(document).ready(function(){
+	$('#add-to-cart').click(function(e){	
+		e.preventDefault();
+		$(this).addClass('clicked_buy');
+		add_item_show_modalCart($('#product-select').val());
+		//getCartModal();
+	});
+});
+</script>
+{%-endif-%}
+
+
+
+
+<script>
+$(document).ready(function(){
+
+	$('#add-to-cartbottom').click(function(){	
+		$('#add-to-cart').trigger('click');
+	});
+	$('#quan-input').keyup(function(){
+		$('[name="quantity"]').val($(this).val());
+	})
+	$('[name="quantity"]').on('keyup change', function(){
+		$('#quan-input').val($(this).val());
+	})
+});
+$(document).on("click","#product-zoom-in",function(){
+	//	var indexThumb = $(this).index();
+	$("body").addClass("open_layer");
+	$("#divzoom").css({'opcaity':0,'visibility':'hidden'}).show();
+	$('.divzoom_main').flickity({
+		resize:true,
+		draggable: true,
+	});
+	if($(window).width() > 768){
+		var ncurrent = parseInt($(".gallery-index .current").html()) - 1;
+	}
+	else{
+		var ncurrent = parseInt($(".product-gallery-item.is-selected").index());
+	}
+	$('.divzoom_main').flickity('select',ncurrent);
+	setTimeout(function(){$("#divzoom").css({'opcaity': 1,'visibility':'visible'})},50);
+});
+$(document).on('click','#closedivZoom', function(event) {
+	$("#divzoom").hide();
+	$("body").removeClass("open_layer");
+	$('.divzoom_main').flickity('select',0);
+	//$('.divzoom_main').slick('unslick');
+});
+</script>
+<script>
+$(".product-gallery__thumb img").click(function(){
+	$(".product-gallery__thumb").removeClass('active');
+	$(this).parents('.product-gallery__thumb').addClass('active');
+	var img_thumb = $(this).data('image');
+	$('html, body').animate({
+		scrollTop: $("#sliderproduct img[src='"+img_thumb+"']").offset().top
+	}, 1000);
+});
+$(".product-gallery__thumb").first().addClass('active');
+var check_variant = true;
+var fIndex = false;
+var selectCallback = function(variant, selector) {
+	if (variant && variant.available) {
+		if(variant.featured_image != null) {
+			if ($(window).width()> 991){
+
+				var temp = $("#sliderproduct .product-gallery-item:eq(0) img").attr("src");
+				var imgVariant = Haravan.resizeImage(variant.featured_image.src,'master').replace('https:','');
+				var indexVariant = $(".product-gallery-item img[src='"+Haravan.resizeImage(variant.featured_image.src,'master').replace('https:','')+"']").parent().index();
+				$(".product-gallery-item:eq(0) img").attr("src",imgVariant);//Thế vị trí hình đầu tiên sau khi change
+				$(".product-gallery-item:eq("+indexVariant+") img").attr("src",temp);
+				$(".product-thumb:eq(0) img").attr("src",imgVariant);//Thế vị trí hình đầu tiên sau khi change
+				$(".product-thumb:eq("+indexVariant+") img").attr("src",temp);
+			} 
+			else {
+				setTimeout(function(){
+					var indexVariant = $(".product-gallery-item img[src='"+Haravan.resizeImage(variant.featured_image.src,'master').replace('https:','')+"']").parent().index();
+					$("#sliderproduct").flickity('select', indexVariant);
+				},500);
+			}
+
+		}
+		if (variant.sku != null ){
+			jQuery('#pro_sku').html('SKU: ' +variant.sku);
+		}
+		jQuery('#detail-product .add-to-cartProduct').removeAttr('disabled').removeClass('disabled').html("Thêm vào giỏ");
+
+
+		jQuery('#detail-product #buy-now').removeAttr('disabled').removeClass('disabled').html("Mua ngay").show();
+		jQuery('#detail-product .pro-soldold').addClass('hidden')
+		if(variant.price < variant.compare_at_price){
+			//jQuery('#price-preview').html("<span>" + Haravan.formatMoney(variant.price, "{{ shop.money_format }}") + "</span><del>" + Haravan.formatMoney(variant.compare_at_price, "{{ shop.money_format }}") + "</del>");
+			var pro_sold = variant.price ;
+			var pro_comp = variant.compare_at_price / 100;
+			var sale = 100 - (pro_sold / pro_comp) ;
+			var kq_sale = Math.round(sale);
+			var html = '<span class="pro-sale">-' + kq_sale + '%</span>';									
+			html += '<span class="pro-price">' + Haravan.formatMoney(pro_sold, "{{ shop.money_format }}") + '</span>';
+			html += '<del>' + Haravan.formatMoney(variant.compare_at_price, "{{ shop.money_format }}") + '</del>';
+			jQuery('#detail-product #price-preview').html(html);
+			jQuery('#detail-product .price-fixed-mb').html(html);
+		} else {
+			jQuery('#detail-product #price-preview').html("<span class='pro-price'>" + Haravan.formatMoney(variant.price, "{{ shop.money_format }}" + "</span>"));
+			jQuery('#detail-product .price-fixed-mb').html("<span class='pro-price'>" + Haravan.formatMoney(variant.price, "{{ shop.money_format }}" + "</span>"));
+		}
+		check_variant = true;
+	} else {
+		jQuery('#detail-product .add-to-cartProduct').addClass('disabled').attr('disabled', 'disabled').html("Hết hàng");
+
+		jQuery('#detail-product #buy-now').addClass('disabled').attr('disabled', 'disabled').html("Hết hàng").hide();
+		var message = variant ? "Hết hàng" : "Không có hàng";
+		jQuery('#detail-product .pro-soldold').removeClass('hidden')
+		jQuery('#detail-product .pro-soldold').text(message);
+		check_variant = false;
+	}
+	return check_variant;
+};
+jQuery(document).ready(function($){
+	{%if product.variants.size == 1 and product.variants.first.title contains 'Default'%}
+	{%else%}
+	new Haravan.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
+
+	 // Add label if only one product option and it isn't 'Title'.
+	 {% if product.options.size == 1 and product.options.first != 'Tiêu đề' %}
+	 $('#detail-product .selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
+		{% endif %} 
+
+		// Auto-select first available variant on page load.
+		{% assign found_one_in_stock = false %}
+		{% for variant in product.variants %}
+		{% if variant.available and found_one_in_stock == false %}
+		{% assign found_one_in_stock = true %}
+		{% for option in product.options %}
+		$('#detail-product .single-option-selector:eq({{ forloop.index0 }})').val({{ variant.options[forloop.index0] | json }}).trigger('change');
+		 {% endfor %}
+		 {% endif %}
+		 {% endfor %}
+		 $('#detail-product .selector-wrapper select').each(function(){
+			 $(this).wrap( '<span class="custom-dropdown custom-dropdown--white"></span>');
+			 $(this).addClass("custom-dropdown__select custom-dropdown__select--white");
+		 });
+			{%endif%}
+			});
+			</script>
+<script>
+var swatch_size = parseInt($('#add-item-form .select-swatch').children().size());
+jQuery(document).on('click','#add-item-form .swatch input', function(e) {  
+	e.preventDefault();
+	var $this = $(this);
+	var _available = '';
+	$this.parent().siblings().find('label').removeClass('sd');
+	$this.next().addClass('sd');
+	var name = $this.attr('name');
+	var value = $this.val();
+	$('#add-item-form select[data-option='+name+']').val(value).trigger('change');
+	if(swatch_size == 2){
+		if(name.indexOf('1') != -1){
+			$('#add-item-form #variant-swatch-1 .swatch-element').find('input').prop('disabled', false);
+			$('#add-item-form #variant-swatch-2 .swatch-element').find('input').prop('disabled', false);
+			$('#add-item-form #variant-swatch-1 .swatch-element label').removeClass('sd');
+			$('#add-item-form #variant-swatch-1 .swatch-element').removeClass('soldout');
+			$('#add-item-form .selector-wrapper .single-option-selector').eq(1).find('option').each(function(){
+				var _tam = $(this).val();
+				$(this).parent().val(_tam).trigger('change');
+				if(check_variant){
+					if(_available == '' ){
+						_available = _tam;
+					}
+				}else{
+					$('#add-item-form #variant-swatch-1 .swatch-element[data-value="'+_tam+'"]').addClass('soldout');
+					$('#add-item-form #variant-swatch-1 .swatch-element[data-value="'+_tam+'"]').find('input').prop('disabled', true);
+				}
+			})
+			$('#add-item-form .selector-wrapper .single-option-selector').eq(1).val(_available).trigger('change');
+			$('#add-item-form #variant-swatch-1 .swatch-element[data-value="'+_available+'"] label').addClass('sd');
+		}
+	}
+	else if (swatch_size == 3){
+		var _count_op2 = $('#add-item-form #variant-swatch-1 .swatch-element').size();
+		var _count_op3 = $('#add-item-form #variant-swatch-2 .swatch-element').size();
+		if(name.indexOf('1') != -1){
+			$('#add-item-form #variant-swatch-1 .swatch-element').find('input').prop('disabled', false);
+			$('#add-item-form #variant-swatch-2 .swatch-element').find('input').prop('disabled', false);
+			$('#add-item-form #variant-swatch-1 .swatch-element label').removeClass('sd');
+			$('#add-item-form #variant-swatch-1 .swatch-element').removeClass('soldout');
+			$('#add-item-form #variant-swatch-2 .swatch-element label').removeClass('sd');
+			$('#add-item-form #variant-swatch-2 .swatch-element').removeClass('soldout');
+			var _avi_op1 = '';
+			var _avi_op2 = '';
+			$('#add-item-form #variant-swatch-1 .swatch-element').each(function(ind,value){
+				var _key = $(this).data('value');
+				var _unavi = 0;
+				$('#add-item-form .single-option-selector').eq(1).val(_key).change();
+				$('#add-item-form #variant-swatch-2 .swatch-element label').removeClass('sd');
+				$('#add-item-form #variant-swatch-2 .swatch-element').removeClass('soldout');
+				$('#add-item-form #variant-swatch-2 .swatch-element').find('input').prop('disabled', false);
+				$('#add-item-form #variant-swatch-2 .swatch-element').each(function(i,v){
+					var _val = $(this).data('value');
+					$('#add-item-form .single-option-selector').eq(2).val(_val).change();
+					if(check_variant == true){
+						if(_avi_op1 == ''){
+							_avi_op1 = _key;
+						}
+						if(_avi_op2 == ''){
+							_avi_op2 = _val;
+						}
+						//console.log(_avi_op1 + ' -- ' + _avi_op2)
+					}else{
+						_unavi += 1;
+					}
+				})
+				if(_unavi == _count_op3){
+					$('#add-item-form #variant-swatch-1 .swatch-element[data-value = "'+_key+'"]').addClass('soldout');
+					setTimeout(function(){
+						$('#add-item-form #variant-swatch-1 .swatch-element[data-value = "'+_key+'"] input').attr('disabled','disabled');
+					})
+				}
+			})
+			$('#add-item-form #variant-swatch-1 .swatch-element[data-value="'+_avi_op1+'"] input').click();
+		}
+		else if(name.indexOf('2') != -1){
+			$('#add-item-form #variant-swatch-2 .swatch-element label').removeClass('sd');
+			$('#add-item-form #variant-swatch-2 .swatch-element').removeClass('soldout');
+			$('#add-item-form #variant-swatch-2 .swatch-element').find('input').prop('disabled', false);
+			$('#add-item-form .selector-wrapper .single-option-selector').eq(2).find('option').each(function(){
+				var _tam = $(this).val();
+				$(this).parent().val(_tam).trigger('change');
+				if(check_variant){
+					if(_available == '' ){
+						_available = _tam;
+					}
+				}else{
+					$('#add-item-form #variant-swatch-2 .swatch-element[data-value="'+_tam+'"]').addClass('soldout');
+					$('#add-item-form #variant-swatch-2 .swatch-element[data-value="'+_tam+'"]').find('input').prop('disabled', true);
+				}
+			})
+			$('#add-item-form .selector-wrapper .single-option-selector').eq(2).val(_available).trigger('change');
+			$('#add-item-form #variant-swatch-2 .swatch-element[data-value="'+_available+'"] label').addClass('sd');
+		}
+	}
+	else{
+
+	}
+})
+$(document).ready(function(){
+	var _chage = '';
+	$('#add-item-form .swatch-element[data-value="'+$('#add-item-form .selector-wrapper .single-option-selector').eq(0).val()+'"]').find('input').click();
+	$('#add-item-form .swatch-element[data-value="'+$('#add-item-form .selector-wrapper .single-option-selector').eq(1).val()+'"]').find('input').click();
+	if(swatch_size == 2){
+		var _avi_op1 = '';
+		var _avi_op2 = '';
+		var _count = $('#add-item-form #variant-swatch-1 .swatch-element').size();
+		$('#add-item-form #variant-swatch-0 .swatch-element').each(function(ind,value){
+			var _key = $(this).data('value');
+			var _unavi = 0;
+			$('#add-item-form .single-option-selector').eq(0).val(_key).change();
+			$('#add-item-form #variant-swatch-1 .swatch-element').each(function(i,v){
+				var _val = $(this).data('value');
+				$('#add-item-form .single-option-selector').eq(1).val(_val).change();
+				if(check_variant == true){
+					if(_avi_op1 == ''){
+						_avi_op1 = _key;
+					}
+					if(_avi_op2 == ''){
+						_avi_op2 = _val;
+					}
+				}else{
+					_unavi += 1;
+				}
+			})
+			if(_unavi == _count){
+				$('#add-item-form #variant-swatch-0 .swatch-element[data-value = "'+_key+'"]').addClass('soldout');
+				$('#add-item-form #variant-swatch-0 .swatch-element[data-value = "'+_key+'"]').find('input').attr('disabled','disabled');
+			}
+		})
+		$('#add-item-form #variant-swatch-1 .swatch-element[data-value = "'+_avi_op2+'"] input').click();
+		$('#add-item-form #variant-swatch-0 .swatch-element[data-value = "'+_avi_op1+'"] input').click();
+	}
+	else if(swatch_size == 3){
+		var _avi_op1 = '';
+		var _avi_op2 = '';
+		var _avi_op3 = '';
+		var _size_op2 = $('#add-item-form #variant-swatch-1 .swatch-element').size();
+		var _size_op3 = $('#add-item-form #variant-swatch-2 .swatch-element').size();
+
+		$('#add-item-form #variant-swatch-0 .swatch-element').each(function(ind,value){
+			var _key_va1 = $(this).data('value');
+			var _count_unavi = 0;
+			$('#add-item-form .single-option-selector').eq(0).val(_key_va1).change();
+			$('#add-item-form #variant-swatch-1 .swatch-element').each(function(i,v){
+				var _key_va2 = $(this).data('value');
+				var _unavi_2 = 0;
+				$('#add-item-form .single-option-selector').eq(1).val(_key_va2).change();
+				$('#add-item-form #variant-swatch-2 .swatch-element').each(function(j,z){
+					var _key_va3 = $(this).data('value');
+					$('#add-item-form .single-option-selector').eq(2).val(_key_va3).change();
+					if(check_variant == true){
+						if(_avi_op1 == ''){
+							_avi_op1 = _key_va1;
+						}
+						if(_avi_op2 == ''){
+							_avi_op2 = _key_va2;
+						}
+						if(_avi_op3 == ''){
+							_avi_op3 = _key_va3;
+						}
+					}else{
+						_unavi_2 += 1;
+					}
+				})
+				if(_unavi_2 == _size_op3){
+					_count_unavi += 1;
+				}
+			})
+			if(_size_op2 == _count_unavi){
+				$('#add-item-form #variant-swatch-0 .swatch-element[data-value = "'+_key_va1+'"]').addClass('soldout');
+				$('#add-item-form #variant-swatch-0 .swatch-element[data-value = "'+_key_va1+'"]').find('input').attr('disabled','disabled');
+			}
+		})
+		$('#add-item-form #variant-swatch-0 .swatch-element[data-value = "'+_avi_op1+'"] input').click();
+	}
+});
+$(document).ready(function(){
+	var vl = $('#add-item-form .swatch .color input').val();
+	$('#add-item-form .swatch .color input').parents(".swatch").find(".header span").html(vl);
+	$("#add-item-form .select-swap .color" ).hover(function() { 
+		var value = $( this ).data("value");
+		$(this).parents(".swatch").find(".header span").html( value );
+	},function(){
+		var value = $("#add-item-form .select-swap .color label.sd span").html();
+		$(this).parents(".swatch").find(".header span").html( value );
+	});
+});
+</script>
+
+
+
+
+
+
+

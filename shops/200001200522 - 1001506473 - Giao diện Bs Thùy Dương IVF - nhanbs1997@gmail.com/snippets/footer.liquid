@@ -1,0 +1,247 @@
+
+{%- if settings.toolbar_bottom_selected == 'toolbar_style_1' or settings.toolbar_bottom_selected == 'toolbar_style_2' -%}
+{%- assign classtoolbar = 'has-toolbar' -%}
+{%-endif-%}
+
+<footer class="mainFooter  {{classtoolbar }}">
+	<div class="container">
+		<div class="row row-title">
+			<div class="col-lg-6 col-12">
+				<div class="ft-logo">
+					{% if settings.show_logo_footer %}
+					<a href="{{shop.url}}"  itemprop="url">
+						<img itemprop="logo" src="{{ settings.logo-footer }}" alt="{{ shop.name }}" class="img-responsive logoimg lazyload hrv-cf-logo-footer" setting-id="logo-footer" setting-type="image" />
+					</a>	
+					{% else %}
+					<h2><a href="{{shop.url}}" itemprop="url">{{ shop.name }}</a></h2>
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				{% if settings.footer_title != '' %}
+				<h2 class="ft-title hrv-cf-footer_title" setting-id="footer_title" setting-type="textarea">{{settings.footer_title | newline_to_br}}</h2>
+				{%endif%}
+			</div>
+		</div>
+		<div class="row row-col">
+			<div class="col-lg-6 col-12">
+				<div class="footer-newsletter">
+					<div class="wrapbox-newsletter">
+						{%- if settings.home_newsletter_show %}
+						<div class="newsletter-block newsletter-widthAuto">
+							<div class="newsletter-title">
+								{%- if settings.home_newsletter_title != blank %}<h3 setting-id="home_newsletter_title" setting-type="text" class="hrv-cf-home_newsletter_title">{{settings.home_newsletter_title}}</h3>{%- endif -%}
+							</div>				
+							<div class="newsletter-content newsletter-form">
+								{%- capture formFooter -%}
+								{%- form 'customer' -%}
+								{%- if form.posted_successfully? -%}<p id="newsletter-success" class="d-none popup-form-success success">Cám ơn bạn đã đăng ký email theo dõi!</p>{% endif %}
+								<div class="form-group input-group">
+									<input type="hidden" id="newsletter-tags" name="contact[tags]" value="Đăng kí nhận tin" />     
+									<input required type="email" name="contact[email]" class="form-control newsletter-input" id="newsletter-email" 
+												 pattern="^(.)+@[A-Za-z0-9]([A-Za-z0-9.\-]*[A-Za-z0-9])?\.[A-Za-z]{1,13}$" placeholder="Nhập email của bạn" aria-label="Email Address">
+									<div class="input-group-btn"><button type="submit" class="cta-submitform newsletter-btn"><svg width="30px" height="30px" viewBox="0 0 24 24" id="right" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><path id="primary" d="M21.71,11.29l-7-7a1,1,0,0,0-1.42,1.42L18.59,11H3a1,1,0,0,0,0,2H18.59l-5.3,5.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l7-7A1,1,0,0,0,21.71,11.29Z" style="fill: rgb(0, 0, 0);"></path></svg></button></div>
+								</div>
+								{%if settings.home_newsletter_check != ''%}
+								<div class="check-form">
+									<input type="checkbox" id="newsletter-check" required />
+									<span setting-id="home_newsletter_check" setting-type="textarea" class="hrv-cf-home_newsletter_check">{{settings.home_newsletter_check}}</span>
+								</div>
+								{%endif%}
+								<div class="sitebox-recaptcha d-none" >
+									This site is protected by reCAPTCHA and the Google
+									<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> 
+									and <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a> apply.
+								</div>	
+								{%- endform -%}
+								{%- endcapture -%}
+								{{ formFooter | replace: 'script', 'noscript' | replace:'noscript src=', 'noscript data-src=' }}
+								<p class="newsletter-error"></p>
+							</div>
+						</div>
+						{%- endif -%}
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-12 ft-col">
+				<div class="footer-container">
+					<div class="footer-expand-collapsed ">
+						<div class="container-fluid">
+							<div class="row">
+								{% if settings.footer_social_show %}
+								<div class="col-lg-4 col-md-12 col-12 widget-footer">
+									<h4 class="title-footer hrv-cf-footer_social_title" setting-id="footer_social_title" setting-type="text">{{settings.footer_social_title}}</h4>
+									<div class="content-footer block-collapse">				
+										<ul class="footerNav-social">	
+											{%-if settings.social_link_facebook != blank -%}<li><a href="{{settings.social_link_facebook}}" target="_blank" rel="noopener" setting-id="social_link_facebook" class="hrv-cf-social_link_facebook">Facebook</a></li>	{%-endif-%}
+											{%-if settings.social_link_youtube != blank -%}<li><a href="{{settings.social_link_youtube}}" target="_blank" rel="noopener" setting-id="social_link_youtube" class="hrv-cf-social_link_youtube">Youtube</a></li>	{%-endif-%}
+											{%-if settings.social_link_instagram != blank -%}<li><a href="{{settings.social_link_instagram}}" target="_blank" rel="noopener" setting-id="social_link_instagram" class="hrv-cf-social_link_instagram">Instagram</a></li>	{%-endif-%}
+											{%-if settings.social_link_tiktok != blank -%}<li class="social-svg"><a href="{{settings.social_link_tiktok}}" target="_blank" rel="noopener" setting-id="social_link_tiktok" class="hrv-cf-social_link_tiktok">Tiktok</a></li>	{%-endif-%}
+											{%-if settings.social_link_shopee != blank -%}<li class="social-svg"><a href="{{settings.social_link_shopee}}" target="_blank" rel="noopener" setting-id="social_link_shopee" class="hrv-cf-social_link_shopee">Shopee</a></li>	{%-endif-%}
+											{%-if settings.social_link_lazada != blank -%}<li class="social-svg"><a href="{{settings.social_link_lazada}}" target="_blank" rel="noopener" setting-id="social_link_lazada" class="hrv-cf-social_link_lazada">Lazada</a></li>	{%-endif-%}
+										</ul>
+									</div>
+								</div>
+								{% endif %}
+								{% if settings.footer_linklist1_show %}
+								<div class="col-lg-4 col-md-12 col-12 widget-footer">
+									<h4 class="title-footer hrv-cf-footer_linklist1_title" setting-id="footer_linklist1_title" setting-type="text">{{settings.footer_linklist1_title}}</h4>
+									<div class="content-footer block-collapse">				
+										<ul class="footerNav-link">
+											{%for link in linklists[settings.footer_linklist1_menu].links%}
+											<li class="item">
+												<a href="{{link.url}}" title="{{link.title}}">{{link.title}}</a>
+											</li>
+											{%endfor%}	
+										</ul>		
+									</div>
+								</div>
+								{% endif %}
+								{% if settings.footer_about_show %}
+								<div class="col-lg-4 col-md-12 col-12 widget-footer">
+									<h4 class="title-footer hrv-cf-footer_about_title" setting-id="footer_about_title" setting-type="text">{{settings.footer_about_title}}</h4>
+									<div class="content-footer block-collapse row">
+										<div class="col-lg-12 col-md-12 col-12">
+											<div class="address-footer">
+												<ul>
+													{%- if settings.footer-address != empty -%}<li class="contact-1 hrv-cf-footer-address" setting-id="footer-address" setting-type="textarea">{{settings.footer-address}}</li>{%- endif -%}
+													{%- if settings.footer-tell != empty -%}<li class="contact-2 hrv-cf-footer-tell" setting-id="footer-tell" setting-type="text">{{settings.footer-tell}}</li>{%- endif -%}
+													{%- if settings.footer-email != empty -%}<li class="contact-4 hrv-cf-footer-email" setting-id="footer-email" setting-type="text">{{settings.footer-email}}</li>{%- endif -%}
+												</ul>
+											</div>
+											{% if settings.footer_logobct_show %}
+											<div class="logo-footer">
+												<a href="{{settings.footer_logobct_link}}" target="_blank" rel="noreferrer">
+													<img class="lazyload hrv-cf-footer_logobct_img" data-src="{{ settings.footer_logobct_img }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="{{settings.footer_logobct_alt}}" setting-id="footer_logobct_img" setting-type="image" />
+												</a>
+											</div>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+								{% endif %}
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+
+{% if settings.footer_signature_show and settings.footer_signature_text != blank %}
+		<div class="footer-signature" style="--footer-signature-color: {{ settings.footer_signature_color | default: '#e6a2d5' }};">
+			<div class="footer-signature-text" data-footer-signature aria-label="{{ settings.footer_signature_text | escape }}">{{ settings.footer_signature_text | escape }}</div>
+		</div>
+		{% endif %}
+  <div class="container">
+		<div class="footer-copyright">
+			{%if settings.ft_copyright != ''%}
+			<p setting-id="ft_copyright" setting-type="textarea" class="hrv-cf-ft_copyright">{{settings.ft_copyright}}</p>
+			{%else%}
+			<p setting-id="ft_copyright" setting-type="textarea" class="hrv-cf-ft_copyright">Copyright © {{ "now" | date: "%Y" }} <a href="{{ shop.url }}"> {{ shop.name }}</a>. 
+				<a target="_blank" href="https://coraptix.com">Design by Coraptix.com</a>
+			</p>
+			{%endif%}
+
+		</div>
+  </div>
+</footer>
+
+<style>
+	.mainFooter .footer-signature {
+		overflow: hidden;
+		padding: 34px 0 30px;
+		width: 100%;
+	}
+	.mainFooter .footer-signature-text {
+		align-items: flex-end;
+		color: var(--footer-signature-color);
+		display: flex;
+		font-size: clamp(68px, 16.4vw, 286px);
+		font-weight: 800;
+		justify-content: center;
+		
+		line-height: .78;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+	.mainFooter .footer-signature-char {
+		display: inline-block;
+		opacity: 0;
+		transform: translateY(72%);
+		transition: opacity .62s ease, transform .82s cubic-bezier(.22, 1, .36, 1);
+		transition-delay: calc(var(--footer-char-index) * 60ms);
+		will-change: opacity, transform;
+	}
+	.mainFooter .footer-signature-char.is-space {
+		width: .28em;
+	}
+	.mainFooter .footer-signature-text.is-visible .footer-signature-char {
+		opacity: .48;
+		transform: translateY(0);
+	}
+	@media (max-width: 767px) {
+		.mainFooter .footer-signature {
+			padding: 24px 0 8px;
+		}
+		.mainFooter .footer-signature-text {
+			font-size: clamp(54px, 17vw, 112px);
+			letter-spacing: -.065em;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.mainFooter .footer-signature-char {
+			opacity: .48;
+			transform: none;
+			transition: none;
+		}
+	}
+</style>
+
+<script>
+	(function () {
+		function initFooterSignature() {
+			var signatures = document.querySelectorAll('[data-footer-signature]');
+			for (var i = 0; i < signatures.length; i += 1) {
+				var signature = signatures[i];
+				if (signature.getAttribute('data-signature-ready') === 'true') continue;
+				var text = (signature.textContent || '').replace(/^\s+|\s+$/g, '');
+				signature.setAttribute('data-signature-ready', 'true');
+				signature.textContent = '';
+				for (var charIndex = 0; charIndex < text.length; charIndex += 1) {
+					var character = document.createElement('span');
+					var isSpace = text.charAt(charIndex) === ' ';
+					character.className = 'footer-signature-char' + (isSpace ? ' is-space' : '');
+					character.style.setProperty('--footer-char-index', charIndex);
+					character.setAttribute('aria-hidden', 'true');
+					character.textContent = isSpace ? '\u00a0' : text.charAt(charIndex);
+					signature.appendChild(character);
+				}
+
+				if ('IntersectionObserver' in window) {
+					(function (target) {
+						var observer = new IntersectionObserver(function (entries) {
+							if (entries[0] && entries[0].isIntersecting) {
+								target.classList.add('is-visible');
+								observer.disconnect();
+							}
+						}, { threshold: .2 });
+						observer.observe(target);
+					})(signature);
+				} else {
+					signature.classList.add('is-visible');
+				}
+			}
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initFooterSignature);
+		} else {
+			initFooterSignature();
+		}
+	})();
+</script>
+

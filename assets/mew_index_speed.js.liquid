@@ -1,0 +1,375 @@
+window.addEventListener('DOMContentLoaded', (event) => {
+	var swiperProductSaleSlider = new Swiper('.mew_flash', {
+		spaceBetween: 15,
+		loop: false,
+		speed: 1000,
+		autoplay: false,
+		navigation: {
+			nextEl: '.mf_next',
+			prevEl: '.mf_prev',
+		},
+		freeMode: true,
+		scrollbar: {
+			el: ".sb_flash",
+			hide: false,
+		},
+		breakpoints: {
+			320: {
+				slidesPerView: 2,
+			},
+			768: {
+				slidesPerView: 3,
+			},
+			992: {
+				slidesPerView: 4
+			},
+			1200: {
+				slidesPerView: 5
+			},
+			1500: {
+				slidesPerView: 5.6
+			}
+		}
+	});
+	var swiperProductSaleSlider = new Swiper('.mew_cate_sl1', {
+		spaceBetween: 15,
+		loop: false,
+		speed: 1000,
+		autoplay: false,
+		navigation: {
+			nextEl: '.mc1_next',
+			prevEl: '.mc1_prev',
+		},
+		freeMode: true,
+		scrollbar: {
+			el: ".sb_cate1",
+			hide: false,
+		},
+		breakpoints: {
+			320: {
+				slidesPerView: 3,
+			},
+			451: {
+				slidesPerView: 3.6,
+			},
+			768: {
+				slidesPerView: 6,
+			},
+			992: {
+				slidesPerView: 8
+			},
+			1200: {
+				slidesPerView: 9.6
+			},
+			1500: {
+				slidesPerView: 10
+			}
+		}
+	});
+	var mainProductSlider = new Swiper('.mew_product_main', {
+		loop: false,
+		spaceBetween: 15,
+		speed: 1000,
+		autoplay: false,
+		slidesPerView: 2,
+		slidesPerColumnFill: 'row',
+		slidesPerColumn: 2,
+		navigation: {
+			nextEl: '.mm_next',
+			prevEl: '.mm_prev',
+		},
+		freeMode: true,
+		scrollbar: {
+			el: ".sb_tm",
+			hide: false,
+		},
+		breakpoints: {
+			375: {
+				slidesPerView: 2
+			},
+			768: {
+				slidesPerView: 4,
+			},
+			992: {
+				slidesPerView: 5,
+			},
+			1200: {
+				slidesPerView: 6,
+			}
+		}
+	});
+	let mewTab = new MewTab({
+		tabContainer:"[data-tab]",
+		slideContainerClass:"swiper-container",
+		view:"ajaxtab",
+		noItem:"Không có sản phẩm nào trong danh mục này.",
+		useSlide:true,
+		slideConfig:{
+			loop: false,
+			spaceBetween: 15,
+			speed: 1000,
+			autoplay: false,
+			slidesPerView: 2,
+  		slidesPerColumnFill: 'row',
+  		slidesPerColumn: 2,
+			navigation: {
+				nextEl: '.mf_next',
+				prevEl: '.mf_prev',
+			},
+			freeMode: true,
+			scrollbar: {
+				el: ".sb_aj",
+				hide: false,
+			},
+			breakpoints: {
+				375: {
+					slidesPerView: 2
+				},
+				768: {
+					slidesPerView: 4,
+				},
+				992: {
+					slidesPerView: 5,
+				},
+				1200: {
+					slidesPerView: 6,
+				}
+			}
+		}
+	},function(target){
+		target.querySelectorAll('.js-addToCart').forEach(btn =>{
+			btn.removeEventListener('click', addToCart);
+			btn.addEventListener('click', addToCart);
+		});
+		target.querySelectorAll('.lazy').forEach((v) => {
+			io.observe(v);
+		});
+    wl.init();
+	});
+	mewTab.init();
+	var tabProductSlider = new Swiper('.mew_product_tab', {
+		loop: false,
+		spaceBetween: 15,
+		speed: 1000,
+		autoplay: false,
+		slidesPerView: 2,
+		navigation: {
+			nextEl: '.mm_next',
+			prevEl: '.mm_prev',
+		},
+		freeMode: true,
+		scrollbar: {
+			el: ".sb_tm",
+			hide: false,
+		},
+		breakpoints: {
+      375: {
+        slidesPerView: 2
+      },
+      768: {
+        slidesPerView: 3,
+      },
+      992: {
+        slidesPerView: 4,
+      },
+      1200: {
+        slidesPerView: 5,
+      }
+    }
+	});
+  let mewTab2 = new MewTab({
+		tabContainer:"[data-tab2]",
+		slideContainerClass:"swiper-container",
+		view:"ajaxtab",
+		noItem:"Không có sản phẩm nào trong danh mục này.",
+		useSlide:true,
+		slideConfig:{
+			loop: false,
+			spaceBetween: 15,
+			speed: 1000,
+			autoplay: false,
+			slidesPerView: 2,
+			navigation: {
+				nextEl: '.mf_next',
+				prevEl: '.mf_prev',
+			},
+			freeMode: true,
+			scrollbar: {
+				el: ".sb_aj",
+				hide: false,
+			},
+			breakpoints: {
+				375: {
+					slidesPerView: 2
+				},
+				768: {
+					slidesPerView: 3,
+				},
+				992: {
+					slidesPerView: 4,
+				},
+				1200: {
+					slidesPerView: 5,
+				}
+			}
+		}
+	},function(target){
+		target.querySelectorAll('.js-addToCart').forEach(btn =>{
+			btn.removeEventListener('click', addToCart);
+			btn.addEventListener('click', addToCart);
+		});
+		target.querySelectorAll('.lazy').forEach((v) => {
+			io.observe(v);
+		});
+    wl.init();
+	});
+	mewTab2.init();
+  
+  var swiperBnSlider = new Swiper('.mew_slide_banner', {
+		spaceBetween: 15,
+		loop: false,
+		speed:1200,
+		autoplay: {
+			delay: 5000,
+			disableOnInteraction: true,
+		},
+    breakpoints: {
+      576: {
+        slidesPerView: 1.8
+      },
+      768: {
+        slidesPerView: 2
+      },
+      992: {
+        slidesPerView: 2.6
+      },
+      1200: {
+        slidesPerView: 3
+      }
+    }
+	});
+  var swiperBlogSlider = new Swiper('.m_trending', {
+		spaceBetween: 15,
+		loop: false,
+		speed: 1000,
+		autoplay: false,
+		navigation: {
+			nextEl: '.mt_next',
+			prevEl: '.mt_prev',
+		},
+    slidesPerView: 1.3,
+		breakpoints: {
+			375: {
+				slidesPerView: 1.6
+			},
+			576: {
+				slidesPerView: 1.8
+			},
+			768: {
+				slidesPerView: 2
+			},
+			992: {
+				slidesPerView: 3
+			},
+			1200: {
+				slidesPerView: 4
+			}
+		}
+	});
+  var swiperHomeSlider = new Swiper('.m_people', {
+    spaceBetween: 10,
+    loop: false,
+    speed:1500,
+    slidesPerView: 1,
+    effect: 'fade',
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: true,
+    },
+    pagination: {
+      el: '.mew_peo_p',
+      clickable: true,
+    },
+  });
+	var swiperVideoSlider = new Swiper('.mew_video_index', {
+		spaceBetween: 15,
+		loop: false,
+		speed: 1000,
+		autoplay: false,
+		navigation: {
+			nextEl: '.mv_next',
+			prevEl: '.mv_prev',
+		},
+    freeMode: true,
+    slidesPerView: 1.6,
+    scrollbar: {
+      el: ".sb_video",
+      hide: false,
+    },
+		breakpoints: {
+			375: {
+				slidesPerView: 1.6
+			},
+			768: {
+				slidesPerView: 2.6
+			},
+			992: {
+				slidesPerView: 3,
+        slidesPerColumnFill: 'row',
+        slidesPerColumn: 2,
+			},
+			1200: {
+				slidesPerView: 4,
+        slidesPerColumnFill: 'row',
+        slidesPerColumn: 2,
+			}
+		}
+	});
+	let videos = document.querySelectorAll('.open_popup');
+	let popupVideo = document.querySelector('.popup_box');
+	let close_vd = document.querySelectorAll('.close_popup');
+	videos.forEach(v => v.addEventListener('click', function(e) {
+		e.preventDefault();
+		popupVideo.classList.add('open');
+		bodyOverlay.classList.remove("d-none");
+		let bVideoContainer = popupVideo.querySelector('.b_video');
+		if (bVideoContainer) {
+			bVideoContainer.innerHTML = `<div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/${v.dataset.video}?enablejsapi=1" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>`;
+		}
+	}));
+	close_vd.forEach(v => v.addEventListener('click', function(e) {
+		e.preventDefault();
+		popupVideo.classList.remove('open');
+		bodyOverlay.classList.add("d-none");
+		let bVideoContainer = popupVideo.querySelector('.b_video');
+		if (bVideoContainer) {
+			setTimeout(function() {
+				bVideoContainer.innerHTML = '';
+			}, 500);
+		}
+	}));
+  var swiperBlogSlider = new Swiper('.mew_blog', {
+		spaceBetween: 15,
+		loop: false,
+		speed: 1000,
+		autoplay: false,
+		navigation: {
+			nextEl: '.ml_next',
+			prevEl: '.ml_prev',
+		},
+		breakpoints: {
+			375: {
+				slidesPerView: 1
+			},
+			768: {
+				slidesPerView: 1.8
+			},
+			992: {
+				slidesPerView: 2
+			},
+			1200: {
+				slidesPerView: 3
+			}
+		}
+	});
+});

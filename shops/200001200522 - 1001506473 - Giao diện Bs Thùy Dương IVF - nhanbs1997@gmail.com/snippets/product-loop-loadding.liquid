@@ -1,0 +1,33 @@
+{%-if settings.product_grid_desktop == 'grid-desk-6'-%}
+	{%- assign width-desk = '2' -%}
+{%-elsif settings.product_grid_desktop == 'grid-desk-5'-%}
+	{%-assign width-desk = 'cus5' -%}
+{%-elsif settings.product_grid_desktop == 'grid-desk-4'-%}
+	{%-assign width-desk = '3'-%}
+{%-else-%}
+	{%-assign width-desk = '4'-%}
+{%- endif -%}
+
+{%-if settings.product_grid_mobile == 'grid-mb-3'-%}
+	{%- assign width-mb = '4' -%}
+{%-elsif settings.product_grid_mobile == 'grid-mb-2'-%}
+	{%-assign width-mb = '6' -%}
+{%-else-%}
+	{%-assign width-mb = '12'-%}
+{%- endif -%}
+
+{%- capture resizeImg -%}{{settings.prod_resize_img}}{%- endcapture -%}
+<div class="col-lg-{{width-desk | lstrip | rstrip}} col-md-{{width-mb | lstrip | rstrip}} col-{{width-mb | lstrip | rstrip}} product-loop product-loadding {% if settings.product_grid_mobile == 'grid-mb-3' %} prod-action-small {% elsif settings.product_grid_mobile == 'grid-mb-1' %} product-only{% endif %}">
+	<div class="product-inner loading-mask">
+		<div class="proloop-image loading-mask__image">
+			<div class="mask-line lazy-img"></div>
+		</div>          
+		<div class="proloop-detail loading-mask__detail">
+			<div class="mask-line"> </div>
+			<div class="mask-line"> </div>
+			<div class="mask-line"> </div>
+		</div>
+	</div>
+</div>
+
+

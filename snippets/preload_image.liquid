@@ -1,0 +1,15 @@
+{%if template == 'index'%}
+{%-for i in (1..5)-%}
+{%-capture enable_slide-%}display_slideshow_{{i}}{%-endcapture-%}
+{%-capture naviimage-%}slide-img{{i}}{%-endcapture-%}
+{% assign setImg = settings[naviimage] %}
+{%-if settings[enable_slide]-%}
+<link rel="preload" as="image" href="{{setImg | img_url: 'large'}}" media="screen and (max-width: 569px)">
+{%-endif-%}
+{%-endfor-%}
+{%elsif template == 'product'%}
+{%-for image in product.images-%}
+<link rel="preload" as="image" href="{{ image.src | product_img_url:'large' }}" media="screen and (max-width: 575px)">
+{%-endfor-%}
+{%endif%}
+

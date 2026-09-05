@@ -1,0 +1,141 @@
+{% if settings.display_top_phone_number %}
+<div class="fix-phone position-fixed d-flex flex-column bg-white p-2 px-lg-3 rounded-10" id="mb_bar">
+	<a class="align-items-center bg-main close_support d-flex justify-content-center position-absolute" href="javascript:;" title="{{settings.tit_close}}">
+		<svg width="12" height="12">
+			<use href="#svg-close"/>
+		</svg>
+	</a>
+	<div class="font-weight-bold p-2 border-bottom">
+		{{settings.titel_box_support}}
+	</div>
+	<div class="item phone">
+		<a href="tel:{{settings.a-text | remove: ' ' | remove: '.'}}" rel="nofollow" class="align-items-center border-bottom d-flex gap_5">
+			<span class="img">
+				<img alt="Hotline" class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{'hotline.png' | asset_url}}">
+			</span>
+			<div class="detail">{{settings.a-text}}</div>
+		</a>
+	</div>
+	<div class="item zalo">
+		<a target="_blank" href="https://m.me/{{settings.facebook_id}}" rel="nofollow" class="align-items-center border-bottom d-flex gap_5"> 
+			<span class="img">
+				<img alt="Chat Messenger" class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{'icon_mess.png' | asset_url}}">
+			</span>
+			<div class="detail">{{settings.tit_mess_bar}}</div>
+		</a>
+	</div>
+	<div class="item zalo">
+		<a target="_blank" href="https://zalo.me/{{settings.zalo_phone_number}}" rel="nofollow" class="align-items-center d-flex gap_5">
+			<span class="img">
+				<img alt="Chat Zalo" class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{'icon_zalo.png' | asset_url}}">
+			</span>
+			<div class="detail">{{settings.tit_zalo_bar}}</div>
+		</a>
+	</div>
+</div>
+{% endif %}
+<div class="js-contact-toggle out-circle position-fixed rounded-circle align-items-center justify-content-center {%unless settings.use_wishlist%}d-none d-lg-flex{%else%}d-flex{%endunless%}">
+	<div class="pregan element unsee"></div>
+	<div class="pregan element unsee"></div>
+	<div class="ser-icon align-items-center d-flex element flex-column font-weight-bold ser-icon text-white gap_2">
+		<svg width="22" height="22">
+			<use href="#svg-support" />
+		</svg>
+		<span class="tit d-block">{{settings.breadcrumb_support}}</span>
+	</div>
+</div>
+<div class="d-flex d-lg-none mew_mobi_bar position-fixed pt-2">
+  {%-if template contains 'collection'-%}
+	<a href="javascript:;" title="{{settings.breadcrumb_collection}}" class="js-menu-toggle {%if template contains 'collection'%}open {%endif%}item align-content-center d-flex flex-column h-100 justify-content-center">
+		<svg width="22" height="22">
+			<use href="#svg-menu" />
+		</svg>
+		<span class="tit d-block font-weight-bold text-center pr-1 pr-sm-2 pl-1 pl-sm-2 pt-1">{{settings.breadcrumb_collection}}</span>
+	</a>
+	{%else%}
+	<a href="/" title="{{settings.breadcrumb_home}}" class="{%if template == 'index' or template == 'cart'%}active {%endif%}item align-content-center d-flex flex-column h-100 justify-content-center">
+		<svg width="22" height="22">
+			<use href="#svg-home-bar"/>
+		</svg>
+		<span class="tit d-block font-weight-bold text-center pr-1 pr-sm-2 pl-1 pl-sm-2 pt-1">{{settings.breadcrumb_home}}</span>
+	</a>
+	{%endif%}
+	{%-unless template contains 'cart'-%}
+  {%-if settings.ena_icon_fl-%}
+	<a href="javascript:;" title="{{settings.breadcrumb_search}}" class="item js-search-toggle align-content-center d-flex flex-column h-100 justify-content-center {%if template contains 'search'%}active{%endif%}">
+		<svg width="22" height="22">
+			<use href="#svg-search" />
+		</svg>
+		<span class="tit d-block font-weight-bold text-center pr-1 pr-sm-2 pl-1 pl-sm-2 pt-1">{{settings.breadcrumb_search }}</span>
+	</a> 
+  {%-else-%}
+	<a href="{%- if customer -%}/account{%-else-%}/account/login{%-endif-%}" title="{{settings.breadcrumb_customer }}" class="item align-content-center d-flex flex-column h-100 justify-content-center {%if template contains 'customers'%}active{%endif%}">
+		<svg width="22" height="22">
+			<use href="#svg-user" />
+		</svg>
+		<span class="tit d-block font-weight-bold text-center pr-1 pr-sm-2 pl-1 pl-sm-2 pt-1">{%- if customer -%}{{settings.account_order_greeting | append: ', '}}{{ customer.first_name }}{%-else-%}{{settings.breadcrumb_customer }}{%-endif-%}</span>
+	</a> 
+  {%-endif-%}
+	{%endunless%}
+	{%-if template contains 'collection'-%}
+	<a href="javascript:;" title="{{settings.breadcrumb_fillter}}" class="item align-content-center d-flex flex-column h-100 justify-content-center open-filters" id="open-filters">
+		<svg width="22" height="22">
+			<use href="#svg-filter" />
+		</svg>
+		<span class="tit d-block font-weight-bold text-center pr-1 pr-sm-2 pl-1 pl-sm-2 pt-1">{{settings.breadcrumb_fillter | default: 'Lọc'}}</span>
+	</a>
+	{%else%}
+	<a href="javascript:;" title="{{settings.breadcrumb_collection}}" class="js-menu-toggle {%if template contains 'collection'%}open {%endif%}item align-content-center d-flex flex-column h-100 justify-content-center">
+		<svg width="22" height="22">
+			<use href="#svg-menu" />
+		</svg>
+		<span class="tit d-block font-weight-bold text-center pr-1 pr-sm-2 pl-1 pl-sm-2 pt-1">{{settings.breadcrumb_collection}}</span>
+	</a>
+	{%endif%}
+	{%-if template contains 'cart'-%}
+  {%-if settings.use_wishlist-%}
+	<a href="/pages/{{settings.wishlist_page}}" title="{{settings.wisthlist_small_title}} {{settings.wisthlist_bold_title}}" class="item align-content-center d-flex flex-column h-100 justify-content-center position-relative">
+		<svg width="22" height="22">
+      <use href="#svg-wishlist-mb" />
+    </svg>
+    <span class="tit d-block font-weight-bold text-center pr-1 pr-sm-2 pl-1 pl-sm-2 pt-1">{{settings.wisthlist_bold_title}}</span>
+    <span class="wishlist-indicator position-absolute text-center"></span>
+	</a>
+  {%-else-%}
+	<a href="javascript:;" title="{{settings.breadcrumb_support}}" class="item align-content-center d-flex flex-column h-100 justify-content-center js-contact-toggle">
+		<svg width="22" height="22">
+			<use href="#svg-support" />
+		</svg>
+		<span class="tit d-block font-weight-bold text-center pr-1 pr-sm-2 pl-1 pl-sm-2 pt-1">{{settings.breadcrumb_support}}</span>
+	</a>
+  {%-endif-%}
+	<a class="align-items-center btn btn-checkout d-flex font-weight-bold justify-content-center text-btn text-uppercase text-white" href="/checkout" role="button">
+		{{settings.cartStringsCheckout}}
+	</a>						
+	{%-else-%}
+  {%-if settings.use_wishlist-%}
+	<a href="/pages/{{settings.wishlist_page}}" title="{{settings.wisthlist_small_title}} {{settings.wisthlist_bold_title}}" class="item align-content-center d-flex flex-column h-100 justify-content-center position-relative">
+		<svg width="22" height="22">
+      <use href="#svg-wishlist-mb" />
+    </svg>
+    <span class="tit d-block font-weight-bold text-center pr-1 pr-sm-2 pl-1 pl-sm-2 pt-1">{{settings.wisthlist_bold_title}}</span>
+    <span class="wishlist-indicator position-absolute text-center"></span>
+	</a>
+  {%-else-%}
+	<a href="javascript:;" title="{{settings.breadcrumb_support}}" class="item align-content-center d-flex flex-column h-100 justify-content-center js-contact-toggle">
+		<svg width="22" height="22">
+			<use href="#svg-support" />
+		</svg>
+		<span class="tit d-block font-weight-bold text-center pr-1 pr-sm-2 pl-1 pl-sm-2 pt-1">{{settings.breadcrumb_support}}</span>
+	</a>
+  {%-endif-%}
+	<a class="item d-flex flex-column align-items-center justify-content-center btn-cart position-relative" title="{{settings.breadcrumb_cart}}" href="/cart">
+		<svg width="22" height="22">
+      <use href="#svg-shopping-cart" />
+    </svg>
+    <span class="tit d-block font-weight-bold text-center pr-1 pr-sm-2 pl-1 pl-sm-2 pt-1">{{settings.breadcrumb_cart}}</span>
+    <span class="btn-cart-indicator position-absolute d-none text-center"></span>
+		<div class="js-buy-alert position-absolute"></div>
+	</a>
+	{%endif%}
+</div>

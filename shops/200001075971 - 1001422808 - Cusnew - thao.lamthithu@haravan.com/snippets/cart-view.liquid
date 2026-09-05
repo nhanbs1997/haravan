@@ -1,0 +1,60 @@
+	<div class="site-nav-container-last">
+			<p class="title">Giỏ hàng</p>
+			<div class="cart-view clearfix">
+				<table id="clone-item-cart" class="table-clone-cart">
+					<tr class="item_2 hidden">
+						<td class="img"><a href="" title=""><img src="" alt="" /></a></td>
+						<td>
+							<a class="pro-title-view" href="" title=""></a>
+							<span class="variant"></span>	
+							<span class="pro-quantity-view"></span>
+							<span class="pro-price-view"></span>
+							<span class="remove_link remove-cart">					
+							</span>				
+						</td>
+					</tr>   
+				</table>
+				<table id="cart-view">
+					{% if cart.item_count > 0 %}
+					{% for item in cart.items %}
+					<tr>
+						<td class="img">
+							<a href="{{ item.product.url }}">
+								<img src="{% if item.variant.image == empty %} {{ item | img_url: 'small' }} {% else%} {{ item.variant.image | product_img_url : 'small'}}  {% endif %}" alt="{{ item.title }}" />
+							</a>
+						</td>
+						<td>
+							<a class="pro-title-view" href="{{ item.product.url }}" title="{{ item.title }}">{{ item.title }}</a>
+							<span class="variant">
+								{% unless item.variant.title contains 'Default Title' %}
+								{{ item.variant.title }}
+								{% endunless %}		
+							</span>	
+							<span class="pro-quantity-view">{{ item.quantity }}</span>
+							<span class="pro-price-view">{{ item.price | money }}</span>
+							<span class="remove_link remove-cart">
+								<a href='javascript:void(0);' onclick='deleteCart({{forloop.index}})' ><i class='fa fa-times'></i></a>
+							</span>				
+						</td>
+					</tr>
+					{% endfor %}
+					{% else %}
+					<tr>
+						<td>Hiện chưa có sản phẩm</td>								
+					</tr>
+					{% endif %}
+				</table>
+				<span class="line"></span>
+				<table class="table-total">
+					<tr>
+						<td class="text-left">TỔNG TIỀN:</td>
+						<td class="text-right" id="total-view-cart">{{cart.total_price | money}}</td>
+					</tr>
+					<tr>
+						<td><a href="/cart" class="linktocart button dark">Xem giỏ hàng</a></td>
+						<td><a href="/checkout" class="linktocheckout button dark">Thanh toán</a></td>
+					</tr>
+				</table>
+			</div>
+
+		</div>

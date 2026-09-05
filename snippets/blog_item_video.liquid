@@ -1,0 +1,26 @@
+{%- assign video = '' -%}
+{%- for tag in article.tags -%}
+{%- if tag contains 'video_' -%}
+{%- assign video = tag | split: 'video_' | last -%}
+{%- break -%}
+{%- endif -%}
+{%- endfor -%}
+<div class="item_grid mb-0">
+	<div class="img_thm position-relative rounded-10 modal-open">
+		{%- if article.image != null -%}
+		<a href="{%if video != ''%}javascript:;{%else%}{{ article.url }}{%endif%}" data-video="{{video}}" class="effect-ming {%if video != ''%}open_popup{%endif%}" title="{{ article.title }}">
+			<div class="position-relative w-100 m-0 be_opa modal-open ratio1by1 has-edge aspect">
+				<img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ article.image.src}}" class="d-block img-fit position-absolute lazy" alt="{{ article.title }}">
+				<div class="position-absolute w-100 h-100 {%if video != ''%}video_open{%else%}overlay{%endif%} lazy_bg" {%if video != ''%}data-video="{{video}}" data-background="url({{'play-button.png'|asset_url}})"{%endif%}></div>	
+			</div>
+		</a>
+		{%- else -%}
+		<a href="{%if video != ''%}javascript:;{%else%}{{ article.url }}{%endif%}" data-video="{{video}}" class="effect-ming {%if video != ''%}open_popup{%endif%}" title="{{ article.title }}">
+			<div class="position-relative w-100 m-0 be_opa modal-open ratio1by1 has-edge aspect">
+				<img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ 'no_image.jpg' | asset_url }}" alt="{{ article.title }}" class="d-block img-fit position-absolute lazy"> 
+				<div class="position-absolute w-100 h-100 {%if video != ''%}video_open{%else%}overlay{%endif%} lazy_bg" {%if video != ''%}data-video="{{video}}" data-background="url({{'play-button.png'|asset_url}})"{%endif%}></div>	
+			</div>
+		</a>                      
+		{%- endif -%}
+	</div>
+</div>

@@ -1,0 +1,44 @@
+{%-include 'setup_price_sn'-%}
+<div class="product-item position-relative p-2 bg-light rounded-10 h-100">
+	<div class="row">
+		<div class="col-4 pr-0">
+			{%-if on_sale and contact_item == false-%}
+        <span class="sale-label sale-top-right position-absolute font-weight-bold">-{{discount}}%</span>
+      {%-endif-%}
+			<a href="{{ product.url}}" class="thumb d-block modal-open" title="{{ product.title }}">
+				<div class="position-relative w-100 m-0 ratio1by1 has-edge aspect zoom">
+					<img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ product.featured_image.src | img_url: 'large'}}" decoding="async" class="d-block img img-cover position-absolute lazy" alt="{{ product.title }}">
+				</div>
+			</a>
+		</div>
+		<div class="item-info col-7 small">
+			<h3 class="item-title font-weight-normal">
+				<a class="modal-open h-auto line_2" href="{{ product.url }}" title="{{ product.title }}">
+					{{ product.title | replace: '<', '&lt;'}} 
+				</a>
+			</h3>
+			{%-if settings.product_review-%}
+    		<div class="haravan-product-reviews-badge" data-id="{{ product.id }}">{{ product.metafields.src.product_loop }}</div>
+  		{%-endif-%}
+			<div class="item-price mb-1">
+				{%-if contact_item == false-%}
+				{%-if on_sale-%}
+				<span class="special-price font-weight-bold">{{ dq-price | money }}</span>
+				<del class="old-price"> {{ dq-compare-price | money }}</del>
+				{%-else-%}
+				<span class="regular-price font-weight-bold">{{ dq-price | money }}</span>
+				{%-endif-%}
+				{%-else-%}
+				<span class="regular-price">{{settings.noPrice}}</span> 
+				{%-endif-%}
+			</div>
+			{%-if settings.enable_compare-%}
+			<label class="compare-label position-relative d-flex align-items-center m-0">
+				<input type="checkbox" class="compare-checkbox d-none" value="{{ product.url }}" data-type="{{product.type}}"> 
+				<span class="compare-checkbox mr-1 rounded-circle"></span>
+				{{settings.compare_tit}}
+			</label>
+			{%-endif-%}
+		</div>
+	</div>
+</div>

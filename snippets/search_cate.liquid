@@ -1,0 +1,9 @@
+<div class="search-cate d-flex mb-3 clearfix pb-1">
+	<a class="font-weight-bold js-tab-title p-1 position-relative mr-2 product js-search-cate active border rounded-pill px-3" href="/search?type=product&q={{search.terms}}" title="{{settings.search_cate_product}}">{{settings.search_cate_product}}</a>
+	{%if settings.use_quick_search_article%}
+	<a class="font-weight-bold js-tab-title p-1 position-relative mr-2 article js-search-cate border rounded-pill px-3" href="/search?q={{search.terms}}&type=article&view=articles" title="{{settings.search_cate_article}}">{{settings.search_cate_article}}</a>
+	{%endif%}
+	{%if settings.use_quick_search_page%}
+	<a class="font-weight-bold js-tab-title p-1 position-relative page js-search-cate border rounded-pill px-3" href="/search?q={{search.terms}}&type=page&view=pages" title="{{settings.search_cate_page}}">{{settings.search_cate_page}}</a>
+	{%endif%}
+</div>

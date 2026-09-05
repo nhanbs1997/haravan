@@ -1,0 +1,48 @@
+{%- assign combine_pretext = false -%}
+{%- assign description = collection.description -%}
+{%- if description contains "<h5>" -%}
+{%- assign tab_heads = '' -%}
+{%- assign tab_texts = '' -%}
+{%- assign pretext = '' -%}
+{%- assign chunks = description | strip | split: "<h5>" -%}
+{%- for c in chunks -%}
+{%- if c contains "</h5>" -%}
+{%- assign chunk = c | split: "</h5>" -%}
+{%- assign tab_heads = tab_heads | append: ",," | append: chunk.first -%}
+{%- assign tab_texts = tab_texts | append: ",," -%}
+{%- if pretext != blank and combine_pretext -%}
+{%- assign tab_texts = tab_texts | append: pretext | append: "<br>" -%}
+{%- assign pretext = '' -%}
+{%- endif -%}
+{%- assign tab_texts = tab_texts | append: chunk.last  -%}
+{%- elsif forloop.first -%}
+{%- assign pretext = c -%}
+{%- endif -%}
+{%- endfor -%}
+{%- assign tab_heads = tab_heads | remove_first: ",," | split: ",," -%}
+{%- assign tab_texts = tab_texts | remove_first: ",," | split: ",," -%}
+{%- assign index = 1  -%}
+{%- for head in tab_heads -%}
+<aside class="aside-item filter-tag-style-{{index}} tag-filtster mb-3 col-12 col-sm-4 col-lg-12">
+	<div class="h2 title-head m-0 pt-2 pb-2 font-weight-bold text-main">{{ head }}</div>
+	<div class="aside-content filter-group">
+		<ul class="d-flex flex-wrap gap_8 list-unstyled m-0 pr-1">
+			{%- assign tags = tab_texts[forloop.index0] |strip_html | split: ',' -%} 
+			{%- for t in tags -%}
+			{%- assign tag = t | strip -%}
+			{%- assign tag_value = tag | handleize -%}
+			{%- if tag != '' -%}
+			<li class="filter-item filter-item--check-box">
+				<label class="d-flex align-items-baseline m-0" for="filter-tag{{index}}-{{ tag | handleize }}">
+					<input type="checkbox" id="filter-tag{{index}}-{{ tag | handleize }}" class="d-none" onchange="toggleFilter(this)" data-group="tag{{- index -}}" data-field="tags" value="({{tag}})" data-operator="OR">
+					<span class="fa2 px-2 py-1 rounded-10 border">{{ tag }}</span>
+				</label>
+			</li>	
+			{%- endif -%}
+			{%- endfor -%}
+		</ul>
+	</div>
+</aside>
+{%- assign index = index | plus: 1  -%}
+{%- endfor -%}
+{%- endif -%}

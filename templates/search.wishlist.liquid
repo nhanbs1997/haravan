@@ -1,0 +1,11 @@
+{%-layout none-%}
+{%-if search.results.size > 0-%}
+{%-for product in search.results-%}
+<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6 product-grid-item-lm wishlist-item mb-3 ">
+  {%include 'wishlist_delete' with p: product%}
+	{%-include 'product-grid-item'-%}
+</div>
+{%-endfor-%}
+{%-else-%}
+<div class="p-2 alert alert-warning">{{settings.noItemText}}</div>
+{%endif%}

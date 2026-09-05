@@ -1,0 +1,212 @@
+{%- assign checkcarticon = false -%}
+{%- if settings.toolbar_bottom_selected == 'toolbar_style_1' and settings.sidebar_icon_cart_show -%}
+{%- assign checkcarticon = true -%}
+{%- endif -%}
+
+<div class="mainHeader--height">
+	<header class="mainHeader  mainHeader_temp02  {% if template contains 'product' %} mainHeader-product {% endif %}" id="site-header">
+		<div class="mainHeader-middle">
+			<div class="container-fluid">
+				<div class="flex-container-header {%if settings.toolbar_bottom_selected == 'toolbar_style_2' or settings.toolbar_bottom_selected == 'toolbar_style_3'%}hd-style2{%endif%}">
+					<div class="header-wrap-left">
+						<div class="header-wrap-logo hrv-cf-logo" setting-id="logo" setting-type="image">
+							<div class="wrap-logo" itemscope="" itemtype="http://schema.org/Organization">
+								{% if settings.use_logo %}
+								{% if template == 'index' %}
+								<a href="{{shop.url}}"  itemprop="url">
+									<img itemprop="logo" src="{{ settings.logo }}" alt="{{ shop.name }}" class="img-responsive logoimg lazyload hrv-cf-logo" setting-id="logo" setting-type="image" />
+								</a>			
+								<h1 style="display:none"><a href="{{shop.url}}" itemprop="url">{{ shop.name }}</a></h1>
+								{% else %}
+								<a href="{{shop.url}}"  itemprop="url">
+									<img itemprop="logo" src="{{ settings.logo }}" alt="{{ shop.name }}" class="img-responsive logoimg lazyload hrv-cf-logo" setting-id="logo" setting-type="image" />
+								</a>
+								{% endif %}
+								{% else %}
+								{% if template == 'index' %}	<h1><a href="{{shop.url}}" itemprop="url">{{ shop.name }}</a></h1>
+								{% else %}	<a href="{{shop.url}}" itemprop="url">{{ shop.name }}</a>{% endif %}
+								{% endif %}
+
+							</div>
+						</div>
+						<div class="header-wrap-menu d-none d-md-none d-lg-block">
+							{%- include 'menu' -%}
+						</div>	
+						<div class="header-action">		
+							<div class="header-action-item header-action_search">							
+								<div class="header-action_text">
+									<a class="header-action__link header-action_clicked"  href="#" id="site-search-handle"  aria-label="Tìm kiếm" title="Tìm kiếm">
+										<span class="box-icon">								
+											<svg class="svg-ico-search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 451 451" style="enable-background:new 0 0 451 451;" xml:space="preserve">
+												<g>
+													<path d="M447.05,428l-109.6-109.6c29.4-33.8,47.2-77.9,47.2-126.1C384.65,86.2,298.35,0,192.35,0C86.25,0,0.05,86.3,0.05,192.3   s86.3,192.3,192.3,192.3c48.2,0,92.3-17.8,126.1-47.2L428.05,447c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4   C452.25,441.8,452.25,433.2,447.05,428z M26.95,192.3c0-91.2,74.2-165.3,165.3-165.3c91.2,0,165.3,74.2,165.3,165.3   s-74.1,165.4-165.3,165.4C101.15,357.7,26.95,283.5,26.95,192.3z"></path>
+												</g>
+											</svg>
+											<span class="box-icon--close">
+												<svg  viewBox="0 0 19 19" role="presentation"><path d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z"  fill-rule="evenodd"></path></svg>
+											</span>											
+										</span>	
+									</a>
+									<span class="box-triangle">
+										<svg viewBox="0 0 20 9" role="presentation">
+											<path d="M.47108938 9c.2694725-.26871321.57077721-.56867841.90388257-.89986354C3.12384116 6.36134886 5.74788116 3.76338565 9.2467995.30653888c.4145057-.4095171 1.0844277-.40860098 1.4977971.00205122L19.4935156 9H.47108938z" fill="#ffffff"></path>
+										</svg>
+									</span>
+								</div>
+								<div class="header-action_dropdown">
+									<div class="header-dropdown_content">
+										<div class="sitenav-content sitenav-search">
+											<p class="boxtitle">Tìm kiếm</p>	
+											<div class="search-box wpo-wrapper-search">
+												<form action="/search" class="searchform searchform-categoris ultimate-search">
+													<div class="wpo-search-inner">
+														<input type="hidden" name="type" value="product" />
+														<input required id="inputSearchAuto" class="input-search" name="q" maxlength="40" autocomplete="off"  type="text" size="20" placeholder="Tìm kiếm sản phẩm...">
+													</div>
+													<button type="submit" class="btn-search btn" id="search-header-btn" aria-label="button search">
+														<svg version="1.1" class="svg search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 27" style="enable-background:new 0 0 24 27;" xml:space="preserve"><path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path><rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8"></rect></svg>
+													</button>
+												</form>
+												<div id="ajaxSearchResults" class="smart-search-wrapper ajaxSearchResults" style="display: none">
+													<div class="resultsContent"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="header-wrap-action">
+						<div class="header-action">		
+							{%if settings.header_hotline != ''%}
+							<div class="header-action-item header-action-hotline">
+								<a href="tel:{{settings.header_hotline | remove:' '}}" class="hotline">
+									<div class="icon">
+										<svg height="20px" width="20px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+												 viewBox="0 0 512 512"  xml:space="preserve"><g>
+											<path class="st0" d="M403.854,409.684c-17.68-14.106-72.76-41.247-86.349-44.375c-13.562-3.154-29.98,9.962-34.501,26.248
+																					 c-4.547,16.295-13.027,14.753-13.027,14.753s-32.67-12.003-92.429-71.534c-59.769-59.549-71.85-92.175-71.85-92.175
+																					 s-1.595-8.48,14.692-13.089c16.252-4.564,29.314-21.035,26.125-34.598c-3.171-13.562-30.532-68.563-44.69-86.165
+																					 c-14.192-17.601-41.606-8.524-47.633-4.135C48.13,108.987-15.581,149.49,3.58,224.072
+																					 c19.186,74.592,60.346,134.264,105.579,179.348c45.242,45.066,105.062,85.998,179.715,104.904
+																					 c74.644,18.915,114.919-44.944,119.274-51.006C412.51,451.273,421.481,423.816,403.854,409.684z"/>
+											<path class="st0" d="M247.023,189.177c9.9,4.854,25.644,13.86,43.893,32.1c18.25,18.25,27.247,33.993,32.1,43.884
+																					 c5.099,10.4,8.866,12.494,11.915,11.784c5.029-1.166,6.702-2.515,7.167-13.001c0.385-8.936-3.89-35.588-31.076-62.773
+																					 c-27.186-27.186-53.846-31.452-62.764-31.067c-10.496,0.447-11.828,2.129-12.992,7.175
+																					 C234.555,180.311,236.623,184.087,247.023,189.177z"/>
+											<path class="st0" d="M262.95,84.247c-12.808-0.009-16.042,7.92-16.428,10.995c-0.788,6.212,3.794,11.249,13.308,13.974
+																					 c10.881,3.11,53.986,16.935,90.099,53.048c36.122,36.113,49.956,79.226,53.057,90.107c2.716,9.506,7.744,14.08,13.964,13.3
+																					 c3.092-0.369,11.012-3.61,10.995-16.418c0.009-10.137-6.186-63.22-53.986-111.038C326.17,90.423,273.06,84.237,262.95,84.247z"/>
+											<path class="st0" d="M437.304,74.889C368.836,6.422,296.602,0.526,284.187,0.201c-15.157-0.385-21.167,6.414-21.158,13.387
+																					 c-0.009,5.94,6.08,12.046,15.139,14.377c13.597,3.486,67.495,11.976,130.784,75.266c63.307,63.29,71.78,117.197,75.284,130.803
+																					 c2.322,9.041,8.437,15.139,14.368,15.139c6.982,0,13.781-6.002,13.378-21.149C511.667,215.601,505.771,143.366,437.304,74.889z"/>
+											</g>
+										</svg>
+									</div>
+									<div class="title hrv-cf-header_hotline" setting-id="header_hotline" setting-type="text">
+										{{settings.header_hotline}}
+									</div>
+								</a>
+							</div>
+							{%endif%}
+							<div class="header-action-item header-action_account">							
+								<div class="header-action_text">
+									<a class="header-action__link {% unless template contains 'customers[login]'%} header-action_clicked {% endunless %}"  href="{% if template contains 'customers[login]'%}/account/login{%else%}#{%endif%}" id="site-account-handle"  aria-label="Tài khoản" title="Tài khoản">
+										<span class="box-icon">								
+											<svg class="svg-ico-account" viewBox="0 0 1024 1024" >
+												<path class="path1" d="M486.4 563.2c-155.275 0-281.6-126.325-281.6-281.6s126.325-281.6 281.6-281.6 281.6 126.325 281.6 281.6-126.325 281.6-281.6 281.6zM486.4 51.2c-127.043 0-230.4 103.357-230.4 230.4s103.357 230.4 230.4 230.4c127.042 0 230.4-103.357 230.4-230.4s-103.358-230.4-230.4-230.4z"></path>
+												<path class="path2" d="M896 1024h-819.2c-42.347 0-76.8-34.451-76.8-76.8 0-3.485 0.712-86.285 62.72-168.96 36.094-48.126 85.514-86.36 146.883-113.634 74.957-33.314 168.085-50.206 276.797-50.206 108.71 0 201.838 16.893 276.797 50.206 61.37 27.275 110.789 65.507 146.883 113.634 62.008 82.675 62.72 165.475 62.72 168.96 0 42.349-34.451 76.8-76.8 76.8zM486.4 665.6c-178.52 0-310.267 48.789-381 141.093-53.011 69.174-54.195 139.904-54.2 140.61 0 14.013 11.485 25.498 25.6 25.498h819.2c14.115 0 25.6-11.485 25.6-25.6-0.006-0.603-1.189-71.333-54.198-140.507-70.734-92.304-202.483-141.093-381.002-141.093z"></path>
+											</svg>
+											<span class="box-icon--close">
+												<svg  viewBox="0 0 19 19" role="presentation"><path d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z"  fill-rule="evenodd"></path></svg>
+											</span>											
+										</span>								
+									</a>
+									<span class="box-triangle">
+										<svg viewBox="0 0 20 9" role="presentation">
+											<path d="M.47108938 9c.2694725-.26871321.57077721-.56867841.90388257-.89986354C3.12384116 6.36134886 5.74788116 3.76338565 9.2467995.30653888c.4145057-.4095171 1.0844277-.40860098 1.4977971.00205122L19.4935156 9H.47108938z" fill="#ffffff"></path>
+										</svg>
+									</span>
+								</div>
+								{% unless template contains 'customers[login]' %}
+								<div class="header-action_dropdown {% if customer %}header-action_widthAuto {% endif %}">
+									<div class="header-dropdown_content">
+										{% include 'mini-account' %}
+									</div>
+								</div>
+								{% endunless %}
+							</div>
+							<div class="header-action-item header-action_cart activeCartChecked {%unless checkcarticon %}show-mb{%endunless%}">							
+								<div class="header-action_text">
+									<a class="header-action__link {% unless template == 'cart' %} header-action_clicked {% endunless %}"  href="{% if template == 'cart'%}/cart{%else%}#{%endif%}" id="site-cart-handle"  aria-label="Giỏ hàng" title="Giỏ hàng">				
+										<span class="box-icon">								
+											<svg class="svg-ico-cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 -13 456.75885 456" width="456pt">
+												<path d="m150.355469 322.332031c-30.046875 0-54.402344 24.355469-54.402344 54.402344 0 30.042969 24.355469 54.398437 54.402344 54.398437 30.042969 0 54.398437-24.355468 54.398437-54.398437-.03125-30.03125-24.367187-54.371094-54.398437-54.402344zm0 88.800781c-19 0-34.402344-15.402343-34.402344-34.398437 0-19 15.402344-34.402344 34.402344-34.402344 18.996093 0 34.398437 15.402344 34.398437 34.402344 0 18.996094-15.402344 34.398437-34.398437 34.398437zm0 0"></path>
+												<path d="m446.855469 94.035156h-353.101563l-7.199218-40.300781c-4.4375-24.808594-23.882813-44.214844-48.699219-48.601563l-26.101563-4.597656c-5.441406-.96875-10.632812 2.660156-11.601562 8.097656-.964844 5.441407 2.660156 10.632813 8.101562 11.601563l26.199219 4.597656c16.53125 2.929688 29.472656 15.871094 32.402344 32.402344l35.398437 199.699219c4.179688 23.894531 24.941406 41.324218 49.199219 41.300781h210c22.0625.066406 41.546875-14.375 47.902344-35.5l47-155.800781c.871093-3.039063.320312-6.3125-1.5-8.898438-1.902344-2.503906-4.859375-3.980468-8-4zm-56.601563 162.796875c-3.773437 12.6875-15.464844 21.367188-28.699218 21.300781h-210c-14.566407.039063-27.035157-10.441406-29.5-24.800781l-24.699219-139.398437h336.097656zm0 0"></path>
+												<path d="m360.355469 322.332031c-30.046875 0-54.402344 24.355469-54.402344 54.402344 0 30.042969 24.355469 54.398437 54.402344 54.398437 30.042969 0 54.398437-24.355468 54.398437-54.398437-.03125-30.03125-24.367187-54.371094-54.398437-54.402344zm0 88.800781c-19 0-34.402344-15.402343-34.402344-34.398437 0-19 15.402344-34.402344 34.402344-34.402344 18.996093 0 34.398437 15.402344 34.398437 34.402344 0 18.996094-15.402344 34.398437-34.398437 34.398437zm0 0"></path>
+											</svg>
+											<span class="box-icon--close">
+												<svg  viewBox="0 0 19 19" role="presentation"><path d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z"  fill-rule="evenodd"></path></svg>
+											</span>			
+											<span class="count-holder">
+												<span class="count">{{ cart.item_count }}</span>
+											</span>		
+										</span>							
+									</a>
+									<span class="box-triangle">
+										<svg viewBox="0 0 20 9" role="presentation">
+											<path d="M.47108938 9c.2694725-.26871321.57077721-.56867841.90388257-.89986354C3.12384116 6.36134886 5.74788116 3.76338565 9.2467995.30653888c.4145057-.4095171 1.0844277-.40860098 1.4977971.00205122L19.4935156 9H.47108938z" fill="#ffffff"></path>
+										</svg>
+									</span>
+								</div>
+							</div>
+							{%if settings.header_btn_title != ''%}
+							<div class="header-action-item header-action-btn">
+								<a href="{{settings.header_btn_link}}" class="button hrv-cf-header_btn_title" setting-id="header_btn_title" setting-type="text" setting-bg-id="header_btn_title">{{settings.header_btn_title}}</a>
+							</div>
+							{%endif%}
+						</div>
+					</div>
+					<div class="header-wrap-iconav header-wrap-action d-sm-block d-lg-none">
+						<div class="header-action">
+							<div class="header-action-item header-action_menu activeMenuChecked">							
+								<div class="header-action_text">
+									<a class="header-action__link" name="icon-menu-mobile" href="javascript:void(0)" aria-label="Menu" title="Menu">
+										<span class="box-icon">								
+											<span class="hamburger-menu"  aria-hidden="true">
+												<span class="bar"></span>
+											</span>
+											<span class="box-icon--close">
+												<svg  viewBox="0 0 19 19" role="presentation"><path d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z"  fill-rule="evenodd"></path></svg>
+											</span>											
+										</span>	
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{%comment%}
+		<div class="header-search-mobile ">
+			<div class=" search-box wpo-wrapper-search">
+				<form action="/search" class="searchform-mobile searchform-categoris ultimate-search">
+					<div class="wpo-search-inner">
+						<input type="hidden" name="type" value="product" />
+						<input required id="inputSearchAuto-mb" class="input-search" name="q" maxlength="40" autocomplete="off"  type="text" size="20" placeholder="Tìm kiếm sản phẩm...">
+					</div>
+					<button type="submit" class="btn-search btn" id="search-header-btn-mb" aria-label="button search">
+						<span class="search-icon"><svg version="1.1" class="svg search" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 27" style="enable-background:new 0 0 24 27;" xml:space="preserve"><path d="M10,2C4.5,2,0,6.5,0,12s4.5,10,10,10s10-4.5,10-10S15.5,2,10,2z M10,19c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7S13.9,19,10,19z"></path><rect x="17" y="17" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -9.2844 19.5856)" width="4" height="8"></rect></svg></span>	
+						<span class="search-close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></span>	
+					</button>
+				</form>
+				<div id="ajaxSearchResults-mb" class="smart-search-wrapper ajaxSearchResults" style="display: none">
+					<div class="resultsContent"></div>
+				</div>
+			</div>
+		</div>
+		{%endcomment%}
+	</header>
+</div>

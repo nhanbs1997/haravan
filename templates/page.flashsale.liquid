@@ -1,0 +1,79 @@
+<div class="com_info" style="--bg_cd_page: {{settings.bg_cd_page}};--cl_cd_page: {{settings.cl_cd_page}};--bg_cd_item: {{settings.bg_cd_item}};--bg_fl_1: {{settings.bg_fl_1}};--bg_fl_2: {{settings.bg_fl_2}};">
+  <div class="modal-open position-relative w-100 ratio4by1 has-edge aspect d-block">
+      <img class="d-block img img-cover position-absolute lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{settings.bn_flash_page}}" alt="{{page.title}}">
+  </div>
+  <div class="bg-clock cl-clock text-center py-3">
+    <countdown-timer data-time="{{settings.mtm_countdown_page}}" class="align-items-center countdown-time-wrapper d-flex flex-column flex-md-row font-weight-bold justify-content-center position-relative">
+      <div class="title font-coiny">{{settings.txtpage_title}}</div>
+      <div class="px-2 countdown-item rod position-relative rounded-10 d-inline-flex align-items-baseline justify-content-center modal-open">
+        <div class="days rounded-10 px-2 py-1 font-weight-bold mr-1 bg-item"></div>
+        <span class="mr-2">{{settings.txtpage_day}}</span>
+        <div class="hours rounded-10 px-2 py-1 font-weight-bold mr-1 bg-item"></div>
+        <span class="mr-2">{{settings.txtpage_h}}</span>
+        <div class="minutes rounded-10 px-2 py-1 font-weight-bold mr-1 bg-item"></div>
+        <span class="mr-2">{{settings.txtpage_m}}</span>
+        <div class="seconds rounded-10 px-2 py-1 font-weight-bold mr-1 bg-item"></div>
+        <span>{{settings.txtpage_s}}</span>
+      </div>
+    </countdown-timer>
+  </div>
+	<div class="container my-4 my-lg-5">
+    <div class="col-main page-title">
+      {%-for i in (1..5)-%}
+      {%-capture ena_md-%}ena_md_{{i}}{%-endcapture-%}
+      {%-capture img_md-%}img_md_{{i}}{%-endcapture-%}
+      {% assign setImg = settings[img_md] %}
+      {%-capture url_mds-%}url_md_{{i}}{%-endcapture-%}
+      {% assign url_md = settings[url_mds] %}
+      {%-capture alt_md-%}alt_md_{{i}}{%-endcapture-%}
+      {%-capture lim_md-%}lim_md_{{i}}{%-endcapture-%}
+      {%-if settings[ena_md]-%}
+      <div class="b_products mb-4 mb-lg-5 overflow-hidden">
+        <div class="modal-open position-relative w-100 ratio6by1 has-edge aspect d-block rounded-10 mb-3">
+          <img class="d-block img img-cover position-absolute lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{setImg}}" alt="{{settings[alt_md]}}">
+        </div>
+        {%-assign product_size = collections[url_md].products_count-%}
+        {%-assign product_url = collections[url_md].url-%}
+        {%-if product_size >= 1-%}
+        <div class="mew_flash_page swiper-container position-relative">
+          <div class="swiper-wrapper">
+            {%-for product in collections[url_md].products limit:settings[lim_md]%}
+            <div class="swiper-slide py-1">
+              {%-include 'product-grid-item-sale'-%}
+            </div>
+            {%-endfor-%}
+            {%unless product_size < settings[lim_md]%}
+            <div class="swiper-slide py-1 h-auto">
+              {%-include 'm_viewmore_card'-%}
+            </div>
+            {%endunless%}
+          </div>
+          <div class="swiper-button-prev mf_prev"></div>
+          <div class="swiper-button-next mf_next"></div>
+        </div>
+        {%-elsif product_size == 0-%}
+        <div class="col-12">
+          <p class="alert alert-warning">{{settings.emptyCollection}}</p>
+        </div>
+        {%-endif-%}
+  		</div>
+      {%-endif-%}
+      {%-endfor-%}
+      <div class="box-content-flashsale pl-2 pr-2 pl-lg-3 pr-lg-3 rounded-10"> 
+      <expandable-content data-expand="{{settings.seemore_text}}" data-clollapse="{{settings.seeless_text}}" data-maxheight="380"  style="--maxHeight: 380px;">
+        <h1 class="font-montserrat font-weight-bold mt-3 mb-0 page_name text-center">
+          {{page.title}}
+        </h1>
+        <div class="expandable-content text-left rte pt-3 pb-4 {%if article.content contains '<h2' or article.content contains '<h3' or article.content contains '<h4'%}article__content js-toc-content{%endif%}" data-content>
+          {{ page.content | default: settings.other_updating }}
+        </div>
+        <button class="bg-transparent border-0 expandable-content-toggle font-weight-bold modal-open pb-2 pl-4 position-relative pr-4 pt-2 w-100">
+          <span class="toggle-text">{{settings.seemore_text}}</span>
+          <svg width="5" height="10"><use href="#svg-next-mini"/></svg>
+        </button>
+      </expandable-content>
+      </div>
+    </div>
+	</div>
+</div>
+

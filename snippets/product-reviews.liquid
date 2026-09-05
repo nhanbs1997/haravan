@@ -1,0 +1,25 @@
+{%if product.metafields.src.productreviews != ''%}
+<div id="hrv-product-reviews" class="hrv-product-reviews" data-id="{{ product.id }}">
+<div id="hrv-product-reviews-sub" style="width:100%">
+ <div class="hrv-product-reviews-summary" id="hrv-product-reviews-summary">
+{{ product.metafields.src.productreviews }} 
+ </div> 
+ <div class="hrv-product-reviews-list" id="hrv-product-reviews-list">
+{{ product.metafields.src.reviewlist_0 }}
+{{ product.metafields.src.reviewlist_1 }}
+{{ product.metafields.src.reviewlist_2 }}
+{{ product.metafields.src.reviewlist_3 }}
+{{ product.metafields.src.reviewlist_4 }}
+{{ product.metafields.src.reviewlist_5 }}
+{{ product.metafields.src.reviewlist_6 }}
+{{ product.metafields.src.reviewlist_7 }}
+{{ product.metafields.src.reviewlist_8 }}
+{{ product.metafields.src.reviewlist_9 }}        
+ </div>
+</div>
+</div>
+{%else%}
+<p class="alert alert-warning mb-0">
+  Vui lòng cài đặt app đánh giá sản phẩm để sử dụng tính năng này.
+</p>
+{%endif%}

@@ -1,0 +1,76 @@
+<section class="mew_cate_2 mb-4 mb-lg-5">
+	<div class="container">
+    <div class="mew_bts_cate">
+  		<h3 class="title text-uppercase font-weight-bold position-relative mb-3 text-center">
+  			<span class="line-bottom position-relative">{{settings.menu_cate_tit_2}}</span>
+  		</h3>
+  		<div class="m_trending swiper-container position-relative swiper-overflow pt-2">
+  			<div class="swiper-wrapper">
+  				{%-for link in linklists[settings.menu_cate_2].links limit: 8-%}
+  				{%-assign col_mn = link.url | remove: '/collections/'-%}
+          {%-if link.type == 'collection_link'-%}
+  				<div class="swiper-slide">
+  					<div class="border border-main d-flex h-100 item_cate position-relative rounded-10 overflow-hidden">
+              <a href="{{link.url}}" title="{{link.title}}" class="align-items-center box_collection_item d-flex flex-column w-100 position-relative">
+                <picture class="position-relative w-100 m-0 ratio1by1 d-block aspect rounded-10 overflow-hidden">
+                  {%-if forloop.index < 3-%}
+                  <source media="(min-width: 1200px)" srcset="{{link.object.image.src}}">
+                  <source media="(min-width: 992px)" srcset="{{link.object.image.src }}">
+                  <source media="(max-width: 569px)" srcset="{{link.object.image.src | img_url:'medium'}}">
+                  <source media="(max-width: 480px)" srcset="{{link.object.image.src | img_url:'medium' }}">
+                  {%-endif-%}
+                  {%-if link.type == 'collection_link'-%}
+                  {%-if link.object.image.src -%}
+                  <img class="d-block img img-cover position-absolute {%if forloop.index > 2%}lazy{%endif%}" alt="{{link.title}}" src="{%if forloop.index > 2%}{{'placeholder_1x1.png' | asset_url}}" data-src="{%endif%}{{link.object.image.src}}">
+                  {%-else-%}
+                  <img class="d-block img img-cover position-absolute {%if forloop.index > 2%}lazy{%endif%}" alt="{{link.title}}" src="{%if forloop.index > 2%}{{'placeholder_1x1.png' | asset_url}}" data-src="{%endif%}{{'no_image.jpg' | asset_url}}">
+                  {%-endif-%}
+                  {%-else-%}
+                  {%-capture iconmenu-%}icon_cate_{{a}}{%-endcapture-%}
+                  {% assign a = a | plus: 1 %}
+                  {% assign seticon = settings[iconmenu] %}
+                  <img class="d-block img img-cover position-absolute lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{seticon}}" onError="this.src='{{settings.favicon}}'" alt="{{link.title}}">
+                  {%-endif-%}
+                </picture>
+    						<div class="b_inf p-2 text-center">
+    							<p class="tit m-0 font-weight-bold">
+    								{{link.title}}
+    							</p>
+    							<p class="tit m-0 text-muted">
+    								({{collections[col_mn].products_count}} sản phẩm)
+    							</p>
+    						</div>
+              </a>
+  						<div class="b_img d-flex flex-column justify-content-around">
+  							{%-if collections[col_mn].products_count < 1 or collections[col_mn].products_count == null-%}
+                <div class=" position-relative w-100 m-0 ratio1by1 has-edge aspect border-bottom border-main">
+                  <img class="lazy d-block img img-cover position-absolute rounded-10" alt="no name" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{'no_image.jpg' | asset_url}}">
+                </div>
+                <div class=" position-relative w-100 m-0 ratio1by1 has-edge aspect border-bottom border-main">
+                  <img class="lazy d-block img img-cover position-absolute rounded-10" alt="no name" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{'no_image.jpg' | asset_url}}">
+                </div>
+                <div class=" position-relative w-100 m-0 ratio1by1 has-edge aspect border-bottom border-main">
+                  <img class="lazy d-block img img-cover position-absolute rounded-10" alt="no name" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{'no_image.jpg' | asset_url}}">
+                </div>
+                <div class=" position-relative w-100 m-0 ratio1by1 has-edge aspect">
+                  <img class="lazy d-block img img-cover position-absolute rounded-10" alt="no name" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{'no_image.jpg' | asset_url}}">
+                </div>
+  							{%else%}
+  							{%-for product in collections[col_mn].products limit: 4-%}
+                <a class="position-relative w-100 m-0 ratio1by1 has-edge aspect d-flex {%unless forloop.last%}border-bottom border-main{%endunless%}" href="{{product.url}}" title="{{product.title}}">
+                  <img class="lazy d-block img img-cover position-absolute" alt="{{product.title}}" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{product.featured_image.src | product_img_url: 'large'}}">
+                </a>
+  							{%-endfor-%}
+  							{%-endif-%}
+  						</div>
+  					</div>
+  				</div>
+          {%-endif-%}
+  				{%-endfor-%}
+  			</div>
+        <span class="swiper-button-prev mt_prev"></span>
+        <span class="swiper-button-next mt_next"></span>
+  		</div>
+  	</div>
+  </div>
+</section>

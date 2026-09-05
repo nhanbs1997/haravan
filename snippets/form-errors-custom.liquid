@@ -1,0 +1,17 @@
+{%- if form.errors.size > 0 -%}
+  <div class="note form-error">
+    <ul class="disc">
+      {%- for field in form.errors -%}
+        {%- if field == 'form' -%}
+          <li class="text-danger mb-1">
+            {{ form.errors.messages[field] }}
+          </li>
+        {%- else -%}
+          <li class="text-danger mb-1">
+            {{ form.errors.messages[field] }}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+     </ul>
+  </div>
+{%- endif -%}

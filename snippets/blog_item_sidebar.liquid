@@ -1,0 +1,16 @@
+<div class="item_sidebar_bl p-2 rounded-10 h-100">
+	<div class="entry-content mb-2">
+		{%- if article.image != null -%}
+		<a href="{{ article.url }}" title="{{ article.title }}" class="effect-ming modal-open rounded-10 d-block">
+			<div class="position-relative w-100 m-0 aspect ratio3by2 be_opa">
+				<img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ article.image.src | img_url: 'large'}}" class="d-block img position-absolute lazy" alt="{{ article.title }}">
+			</div>
+		</a>
+		{%- else -%}
+		<a href="{{ article.url }}" title="{{ article.title }}"><img src="{{ 'no_image.jpg' | asset_url }}" alt="{{ article.title }}"> </a>                      
+		{%- endif -%}   
+	</div>
+	<h3 class="title_blo mb-0 font-weight-bold">
+		<a href="{{ article.url }}" title="{{ article.title }}">{{ article.title }}</a>
+	</h3>
+</div>

@@ -1,0 +1,34 @@
+{%layout none%}
+{%paginate search.results by settings.collection_pagination_limit %}
+{%- assign checkFilter = false -%}
+{%- if settings.collection_filter_show -%} {%- assign checkFilter = true -%} {%- endif -%}
+
+{%-if settings.product_grid_desktop == 'grid-desk-6'-%}
+	{%- assign width-desk = '2' -%}
+{%-elsif settings.product_grid_desktop == 'grid-desk-5'-%}
+	{%-assign width-desk = '5' -%}
+{%-elsif settings.product_grid_desktop == 'grid-desk-4'-%}
+	{%-assign width-desk = '3'-%}
+{%-else-%}
+	{%-assign width-desk = '4'-%}
+{%- endif -%}
+
+{%-if settings.product_grid_mobile == 'grid-mb-3'-%}
+	{%- assign width-mb = '4' -%}
+{%-elsif settings.product_grid_mobile == 'grid-mb-2'-%}
+	{%-assign width-mb = '6' -%}
+{%-else-%}
+	{%-assign width-mb = '12'-%}
+{%- endif -%}
+
+{% if search.results.size == 0 %}
+<div class="col-md-12 product-noloop">
+	<div class="collection-alert-no"><p>Không tìm thấy kết quả. Vui lòng thử lại!</p></div>
+</div>
+{% else%}
+	{% for product in search.results %}
+	{% include 'product-loop' with section:'search'%}
+	{% endfor %}
+{% endif %}
+{% endpaginate %}
+

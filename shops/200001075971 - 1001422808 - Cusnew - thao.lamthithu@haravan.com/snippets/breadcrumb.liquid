@@ -1,0 +1,135 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5 {%if article%}blog-breadcrumb{%endif%} ">
+	<ol class="breadcrumb breadcrumb-arrows" itemscope itemtype="http://schema.org/BreadcrumbList">
+		<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<a href="/" target="_self" itemprop="item"><span itemprop="name">Trang chủ</span></a>
+			<meta itemprop="position" content="1" />		
+		</li>
+		{% if template contains 'page' %}
+		<li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<span itemprop="item" content="{{shop.url}}{{page.url}}"><span itemprop="name">{{ page.title }}</span></span>
+			<meta itemprop="position" content="2" />
+		</li>
+		{% elseif template contains 'search' %}
+		<li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" >
+			<span itemprop="item" content="{{shop.url}}/search?&q={{search.terms}}"><span itemprop="name">Tìm kiếm</span></span>
+			<meta itemprop="position" content="2" />
+		</li>
+		{% elseif template contains 'blog' %}		
+		{% if current_tags %}
+		<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<a href="{{shop.url}}/blogs/all" itemprop="item">
+				<span itemprop="name">{{ blog.title }}</span>
+			</a>
+			<meta itemprop="position" content="2" />
+		</li>
+		<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			{% for tag in blog.all_tags %}
+			{%assign a = tag | handleize%}
+			{% if blog.current_tag == a %}
+			<span itemprop="item" content="{{shop.url}}/blogs/all/tagged/{{ tag }}"><span itemprop="name">{{ tag }}</span></span>
+			{%break%}
+			{% endif %}
+			{% endfor %}			
+			<meta itemprop="position" content="3" />
+		</li>
+		{% else %}
+		<li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<span itemprop="item" content="{{shop.url}}/blogs/{{ blog.handle }}"><span itemprop="name">{{ blog.title }}</span></span>
+			<meta itemprop="position" content="2" />
+		</li>
+		{% endif %}
+		{% elseif template contains 'article' %}
+		<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<a href="{{ blog.url }}" itemprop="item">
+				<span itemprop="name">{{ blog.title }}</span>
+			</a>
+			<meta itemprop="position" content="2" />
+		</li>
+		<li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<span itemprop="item" content="{{shop.url}}{{ article.url }}"><span itemprop="name">{{ article.title }}</span></span>
+			<meta itemprop="position" content="3" />
+		</li>
+		{% elseif template contains 'list-collections' %}
+		<li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<span itemprop="item" content="{{shop.url}}/collections"><span itemprop="name">Danh mục</span></span>
+			<meta itemprop="position" content="2" />
+		</li>
+		{% elseif template contains 'collection' and collection.handle %}
+		<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<a href="/collections" target="_self"  itemprop="item">
+				<span itemprop="name">Danh mục</span>
+			</a>
+			<meta itemprop="position" content="2" />
+		</li>
+		{% if current_tags %}
+		<li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<span itemprop="item" content="{{shop.url}}/collections/all/{{ current_tags | escape | handleize }}">	Tag: <span itemprop="name">"{{ current_tags.first | capitalize }}"</span></span>
+			<meta itemprop="position" content="3" />
+		</li>
+		{% else %}
+		{% if collection.handle == 'all' %}
+		<li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<span itemprop="item" content="{{shop.url}}/collections/{{collection.handle}}"><span itemprop="name">Tất cả sản phẩm</span></span>
+			<meta itemprop="position" content="3" />
+		</li>
+		{% else %}
+		<li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<span itemprop="item" content="{{shop.url}}/collections/{{collection.handle}}"><span itemprop="name">{{ collection.title }}</span></span>
+			<meta itemprop="position" content="3" />
+		</li>
+		{% endif %}
+		{% endif %}
+		{% elseif template contains 'product' %}
+		{% if collection.url %}
+		{% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+		<li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<a href="{{shop.url}}{{ url }}" target="_self" itemprop="item">
+				<span itemprop="name">{{ collection.title }}</span>
+			</a>
+			<meta itemprop="position" content="2" />
+		</li>
+		{% endif %}
+		<li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<span itemprop="item" content="{{shop.url}}{{ product.url }}">
+				<span itemprop="name">{{ product.title }}</span>
+			</span>
+			<meta itemprop="position" content="3" />
+		</li>
+		{% elseif template contains 'cart' %}
+		<li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" >
+			<span itemprop="item" content="{{shop.url}}/cart"><span itemprop="name">Giỏ hàng ({{ cart.item_count }})</span></span>
+			<meta itemprop="position" content="2" />
+		</li>
+		{% elseif template contains "404" %}
+		<li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+			<span itemprop="item" content="{{ canonical_url }}"><span itemprop="name">Lỗi 404</span></span>
+			<meta itemprop="position" content="2" />
+		</li>
+		{% elseif template contains "customers[account]" %}
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+		{% elseif template contains "customers[register]" %}
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+		<li class="active"><span>Ðăng ký</span></li>
+		{% elseif template contains "customers[login]" %}
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+		<li class="active"><span>Đăng nhập</span></li>
+		{% elseif template contains "customers[activate_account]" %}
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+		<li class="active"><span>Kích hoạt</span></li>
+		{% elseif template contains "customers[reset_password]" %}
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+		<li class="active"><span>Thiết lập lại mật khẩu</span></li>
+		{% elseif template contains "customers[addresses]" %}
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+		<li class="active"><span>Ðịa chỉ</span></li>
+		{% elseif template contains "customers[order]" %}
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+		<li><a href="/account" target="_self">Đơn hàng:</a></li>
+		<li class="active"><span>{{ order.name }}</span></li>
+		{% else %}		
+		<li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" >
+			<span itemprop="item" content=""><span itemprop="name">{{ page_title }}</span></span>
+			<meta itemprop="position" content="2" /></li>
+		{% endif %}
+	</ol>
+</div>

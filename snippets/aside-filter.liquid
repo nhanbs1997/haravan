@@ -1,0 +1,29 @@
+<div class="aside-filter mb-3 modal-open w-100 pr-0 pr-md-2 order-lg-3 clearfix">
+  <div class="heading d-none">
+  	<div class="h2 title-head font-weight-bold big text-uppercase mt-2 mb-0">
+  		{{ settings.aside_filter_title }}
+  	</div>
+  	<p class="font-italic pt-2 pb-2 mb-0">{{settings.aside_filter_content}}</p>
+  </div>
+	<div class="filter-container row">
+		{%- if settings.filter_price -%}
+		{%- include 'filter-price-sn' -%}
+		{%- endif-%}
+		{%- if settings.filter_vendor -%}
+		{%- include 'filter-vendor-sn' -%}
+		{%- endif-%}
+		{%- if settings.filter_type -%}
+		{%- include 'filter-type-sn' -%}
+		{%- endif-%}
+		{%- include 'filter-cate-col-sn' -%}
+	</div>
+</div>
+<div class="filter-container__selected-filter position-relative d-none order-lg-2 rounded-10 p-2 mb-3">
+	<div class="filter-container__selected-filter-header d-flex clearfix pt-1 pb-1">
+		<div class="filter-container__selected-filter-header-title position-relative">{{settings.aside_filter_by}}:</div>
+		{%comment%}
+		<a href="javascript:void(0)" onclick="clearAllFiltered()" class="filter-container__clear-all text-danger ml-auto" title="{{settings.aside_filter_clearall}}">{{settings.aside_filter_clearall}}</a>
+		{%endcomment%}
+	</div>
+	<ul class="filter-container__selected-filter-list pl-0 m-0 list-unstyled d-block w-100 position-relative clearfix"></ul>
+</div>

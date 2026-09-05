@@ -1,0 +1,101 @@
+{% layout none%}
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="no-js" lang="vi" >
+	<!--<![endif]-->
+	<head>		
+		<meta charset="utf-8" />
+		<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' /><![endif]-->
+		<!--[if lt IE 9]><script src="//hsta tic.net/0/0/global/design/theme-default/html5shiv.js"></script><![endif]-->
+		<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+		<meta name="revisit-after" content="1 day" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="HandheldFriendly" content="true">
+		<link rel="shortcut icon" href="{{ settings.favicon }}" type="image/png" />
+		<title>
+			{{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+		</title>
+		{%- if page_description -%}	<meta name="description" content="{{ page_description | strip_html | strip_newlines }}" />{%- endif -%}	
+		<link rel="canonical" href="{{ canonical_url }}" />
+		<link rel="amphtml" href="{{ canonical_url }}?view=amp">
+		<link rel="alternate" href="{{ canonical_url }}" hreflang="vi-vn" />	
+		<meta name="keywords" content="{{ shop.name }}">
+		{%if template contains 'search' %}	<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW" />
+		{% else %}<meta name="robots" content="index,follow,noodp">{%endif%} 
+		<meta http-equiv="x-dns-prefetch-control" content="on">
+		<link rel="dns-prefetch" href="{{shop.url}}">
+		<link rel="dns-prefetch" href="//hstatic.net">
+		<link rel="dns-prefetch" href="//theme.hstatic.net/">
+		<link rel="dns-prefetch" href="//file.hstatic.net/">
+		<link rel="dns-prefetch" href="//www.google-analytics.com/">
+		<link rel="dns-prefetch" href="//www.googletagmanager.com/">
+		{% include 'master-include' %}
+		{% include 'fb-open-graph-tags' %}
+		{% include 'seo_head' %}
+		<script type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","name":"{{shop.url | remove: 'https://' | remove: 'http://' }}","url":"{{shop.url}}","potentialAction":{"@type":"SearchAction","target":"{{shop.url}}/search?&q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+		
+		{%- capture capserverHead-%}{{ content_for_header }}{%-endcapture-%}
+  	{%- assign serverHead = capserverHead -%}
+		
+		{%- capture capsrcCombo1 -%}"https://combo-omni.haravan.com/js/script_tag_production.js?v=1576487994026"{%-endcapture-%}
+		{%- assign srcCombo1 = capsrcCombo1 -%}
+		{%- capture capsrcCombo2 -%}"https://combo-omni.haravan.com/js/script_tag_production.js?v=1576487994026",{%-endcapture-%}
+		{%- capture capsrcCombo3 -%},"https://combo-omni.haravan.com/js/script_tag_production.js?v=1576487994026"{%-endcapture-%}
+		{%- assign srcCombo2 = capsrcCombo2 -%}
+		{%- assign srcCombo3 = capsrcCombo3 -%}
+		
+		{%- capture capsrcBuyXY1 -%}"https://buyxgety-omni.haravan.com/js/script_tag_production.js?v=1576487994026"{%-endcapture-%}
+		{%- assign srcBuyXY1 = capsrcBuyXY1 -%}
+		{%- capture capsrcBuyXY2 -%}"https://buyxgety-omni.haravan.com/js/script_tag_production.js?v=1576487994026",{%-endcapture-%}
+		{%- capture capsrcBuyXY3 -%},"https://buyxgety-omni.haravan.com/js/script_tag_production.js?v=1576487994026"{%-endcapture-%}
+		{%- assign srcBuyXY2 = capsrcBuyXY2 -%}
+		{%- assign srcBuyXY3 = capsrcBuyXY3 -%}
+		
+		{%- capture capsrcCombo_final1 -%}"https://combo-omni.haravan.com/js/script_tag_production.js?v=1003"{%-endcapture-%}
+		{%- assign srcCombo_final1 = capsrcCombo_final1 -%}
+		
+		{%- capture capsrcBuyXY_final1 -%}"https://buyxgety-omni.haravan.com/js/script_tag_production.js?v=1002"{%-endcapture-%}
+		{%- assign srcBuyXY_final1 = capsrcBuyXY_final1 -%}
+		
+		{%- if settings.promotion_hrvapp_use -%}
+			{%-if settings.promotion_hrvapp == 'appcombo'-%}	
+				{%-capture srcHead -%}{{ serverHead | remove: srcBuyXY2 | remove: srcBuyXY3 }}{%- endcapture -%}
+    			{{ srcHead  }}
+			{%- elsif settings.promotion_hrvapp == 'appbuyxgety'-%}
+				{%-capture srcHead -%}{{ serverHead | remove: srcCombo2 | remove: srcCombo3 }}{%- endcapture -%}
+    			{{ srcHead }}
+			{%-endif-%}
+		{%-else-%}
+			 {{ serverHead | remove: srcBuyXY2 | remove: srcBuyXY3 | remove: srcCombo2 | remove: srcCombo3  }}
+		{%-endif-%}
+
+	</head>
+	<body id="{{shop.name | downcase }}" class="{{template | handle }}">  
+		<div class="main-body {% if settings.addthis_iconList_show %} layoutProduct_scroll {% endif %}">
+
+			{%include 'header-style-03'%}
+			<main class="mainContent-theme{% if template == 'index' %} main-index	{% endif %}">
+				{% include 'index' %}
+			</main>
+			{% include 'footer' %}
+			{%- include 'addthis-sharing' -%}
+			{%- if template contains 'index' -%}{%- include 'popup-contact' -%}{%- endif -%}
+			<div class="back-to-top hidden">
+				<a href="javascript:void(0);">
+					<div class="btt-back">
+						<span class="btt-label-back">back to top</span>
+						<span class="btt-icon-back"><i class="fa fa-long-arrow-up"></i></span>
+					</div>
+				</a>
+			</div>
+		</div>   
+		<div id="site-overlay" class="site-overlay"></div>
+		{% include 'footer-scripts' %}
+	</body>
+</html>
+
+

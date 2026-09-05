@@ -1,0 +1,26 @@
+{
+  "name": "haravan-theme-workflow",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Automated local workflow for Haravan theme development",
+  "scripts": {
+    "start": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/main.ps1",
+    "add:shop": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/add-shop.ps1 -Login",
+    "setup": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/setup.ps1",
+    "pull": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/pull-shop.ps1",
+    "pull:many": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/pull-many-shops.ps1",
+    "pull:watch": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/watch-pull-many.ps1",
+    "backup": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/backup-shop.ps1",
+    "restore": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/restore-shop.ps1",
+    "release": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/export-shop.ps1",
+    "clean": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/clean-shops.ps1",
+    "agent:push": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/agent-push.ps1",
+    "ticket:parse": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/ticket-workflow.ps1 -Action parse",
+    "ticket:prepare": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/ticket-workflow.ps1 -Action prepare",
+    "ticket:draft": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/ticket-workflow.ps1 -Action draft",
+    "ticket:status": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/ticket-workflow.ps1 -Action status"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

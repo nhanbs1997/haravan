@@ -1,0 +1,380 @@
+<style>
+  .print-page,
+  .print-page * {
+    box-sizing: border-box;
+  }
+
+  .print_qrcode img {
+    max-width: 80px;
+  }
+
+  .print-page {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 2px 8px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.3;
+    page-break-inside: auto;
+    break-inside: auto;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .print-page p {
+    margin: 5px 0 10px;
+  }
+
+  .print-page img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .print-page * {
+    overflow-wrap: anywhere;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .print-header,
+  .print-brand-row,
+  .print-customer {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .print-header__customer,
+  .print-header__waybill {
+    min-width: 0;
+    width: calc(50% - 6px);
+  }
+
+  .print-header__waybill {
+    padding: 5px 20px 5px 10px;
+    font-size: 14px;
+    text-align: right;
+    border: 1px solid #d9d9d9;
+  }
+
+  .print-header__waybill p {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .print-header__waybill .print_barcode {
+    display: block;
+    width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+  }
+
+  .print-brand-row {
+    margin-top: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #d9d9d9;
+  }
+
+  .print-brand {
+    flex: 1 1 60%;
+    min-width: 0;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .print-brand__name {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+  .print-brand__address {
+    font-size: 10px;
+  }
+
+  .print-invoice-meta {
+    flex: 0 0 38%;
+    min-width: 0;
+    text-align: right;
+  }
+
+  .print-invoice-meta__title {
+    margin: 0;
+    font-size: 26px;
+    line-height: 1.1;
+  }
+
+  .print-customer {
+    margin: 0.5em 0;
+    padding: 0.5em;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .print-customer__info {
+    flex: 1 1 65%;
+    min-width: 0;
+  }
+
+  .print-customer__payment {
+    flex: 1 1 35%;
+    min-width: 0;
+    text-align: right;
+  }
+
+  .print-items {
+    clear: both;
+  }
+
+  .print-items table {
+    width: 100%;
+    margin: 0 0 1em;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 10px;
+    border-top: 1px solid #0975bd;
+  }
+
+  .print-items thead {
+    display: table-header-group;
+  }
+
+  .print-items tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .print-items th,
+  .print-items td {
+    padding: 2px 0;
+    vertical-align: top;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .print-items th {
+    padding: 5px 0;
+    font-size: 11px;
+  }
+
+  .print-items td:first-child,
+  .print-items th:first-child {
+    padding-right: 10px;
+  }
+
+  .print-bottom {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    clear: both;
+  }
+
+  .print-summary {
+    flex: 0 0 38%;
+    min-width: 0;
+    padding: 0.5em;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .print-summary h3 {
+    margin: 0 0 1em;
+    font-size: 13px;
+  }
+
+  .print-summary table {
+    width: 100%;
+    margin: 0 0 0.1em;
+    font-size: 12px;
+  }
+
+  .print-summary td {
+    padding: 1px 0;
+    vertical-align: top;
+  }
+
+  .print-note {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 10px 10px 2px 0;
+    text-align: justify;
+  }
+
+  .print-note p {
+    margin: 0;
+    orphans: 3;
+    widows: 3;
+  }
+
+  @media print {
+    .print-page {
+      width: 100%;
+    }
+  }
+</style>
+
+<meta charset="UTF-8">
+
+<div class="print-page">
+  <div class="print-header">
+    <div class="print-header__customer">
+      <p>Đơn hàng: <strong>{{ order_name }}</strong></p>
+      <p>COD: {{ COD_amount | money }}</p>
+
+      <p>Quý khách: <strong>{{ shipping_address.name }}</strong></p>
+      {% if shipping_address.phone %}
+        <p>Điện thoại: <strong>{{ shipping_address.phone }}</strong></p>
+      {% endif %}
+      {% if shipping_address.address1 %}
+        <p>
+          {% if shipping_address.street %}{{ shipping_address.street }}{% endif %}
+          {% if shipping_address.ward %}, {{ shipping_address.ward }}{% endif %}
+          {% if shipping_address.district %}, {{ shipping_address.district }}{% endif %}
+          {% if shipping_address.province %}, {{ shipping_address.province }}{% endif %}
+          {% if shipping_address.country %}, {{ shipping_address.country }}{% endif %}
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="print-header__waybill">
+      <div style="text-align: center; line-height: 1.3; margin-bottom: 0;">Mã vận đơn</div>
+      {% if tracking_company == 'Giaohangtietkiem.vn' %}
+        <div style="text-align: center;">
+          <p><img class="print_barcode order" width="100%" style="max-height: 100px;" val="{{ tracking_number | split: '.' | last }}" /></p>
+        </div>
+      {% else %}
+        <div style="text-align: center;">
+          <p><img class="print_barcode order" width="100%" style="max-height: 100px;" val="{{ tracking_number }}" /></p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="print-brand-row">
+    <div class="print-brand">
+      <p class="print-brand__name"><strong>Babi.vn</strong></p>
+      <p class="print-brand__address">
+        <strong>Địa chỉ:</strong> 380/12B Nam Kỳ Khởi Nghĩa, Phường Xuân Hòa, TPHCM<br>
+        <strong>Điện thoại:</strong> 0906 899 552<br>
+        <strong>Website:</strong> www.babi.vn
+      </p>
+    </div>
+    <div class="print-invoice-meta">
+      <p class="print-invoice-meta__title"><strong>HÓA ĐƠN</strong></p>
+      <p>Mã ĐH: <strong>{{ order_name }}</strong></p>
+    </div>
+  </div>
+
+  {% if shipping_address %}
+    <div class="print-customer">
+      <div class="print-customer__info">
+        <p>
+          Quý khách hàng: <strong>{{ shipping_address.name }}</strong><br>
+          {% if shipping_address.address1 %}
+            {% if shipping_address.street %}{{ shipping_address.street }}{% endif %}
+            {% if shipping_address.ward %}, {{ shipping_address.ward }}{% endif %}
+            {% if shipping_address.district %}, {{ shipping_address.district }}{% endif %}
+            {% if shipping_address.province %}, {{ shipping_address.province }}{% endif %}
+            {% if shipping_address.country %}, {{ shipping_address.country }}{% endif %}
+            {% if shipping_address.phone %}<br>Điện thoại: {{ shipping_address.phone }}{% endif %}
+          {% endif %}
+        </p>
+      </div>
+      <div class="print-customer__payment">
+        <p>
+          Thanh toán: <strong>{{ gateway }}</strong>
+          {% for shipping_method in shipping_methods %}
+            <br>Vận chuyển: <strong>{{ shipping_method.title }}</strong>
+          {% endfor %}
+        </p>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="print-items">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 40%; text-align: left;">Sản phẩm</th>
+          <th style="width: 11%; text-align: left;">Barcode</th>
+          <th style="width: 11%; text-align: left;">Mã SP</th>
+          <th style="width: 7%; text-align: center;">SL</th>
+          <th style="width: 15%; text-align: right;">Giá</th>
+          <th style="width: 16%; text-align: right;">Thành tiền</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% assign totalQuantity = 0 %}
+        {% assign tongtien = 0 %}
+        {% for line_item in line_items %}
+          {% assign totalQuantity = totalQuantity | plus: line_item.quantity %}
+          {% assign tien = line_item.price | times: line_item.quantity %}
+          {% assign tongtien = tongtien | plus: tien %}
+          {% assign line_title = '' %}
+          {% if line_item.product.title %}
+            {% assign line_title = line_item.product.title %}
+          {% endif %}
+          <tr valign="top" style="border-top: 1px solid #d9d9d9;">
+            <td align="left">
+              <p style="margin-bottom: 0;">
+                {{ line_title }}. Chọn:
+                {% if line_item.variant.title != "Default Title" %}
+                  <strong>{{ line_item.variant.title }}</strong>
+                {% endif %}
+              </p>
+            </td>
+            <td align="left">{{ line_item.barcode }}</td>
+            <td align="left">{{ line_item.sku }}</td>
+            <td align="center">{{ line_item.quantity }}</td>
+            <td align="right">{{ line_item.price | money }}</td>
+            <td align="right">{{ line_item.price | times: line_item.quantity | money }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="print-bottom">
+    <div class="print-summary">
+      <h3>Thông tin thanh toán</h3>
+      <table>
+        <tr>
+          <td>Tổng số sản phẩm:</td>
+          <td style="text-align: right;">{{ totalQuantity }}</td>
+        </tr>
+        <tr>
+          <td>Sản phẩm:</td>
+          <td style="text-align: right;">{{ tongtien | money }}</td>
+        </tr>
+        <tr>
+          <td><strong>Tổng cộng:</strong></td>
+          <td style="text-align: right;"><strong>{{ COD_amount | money }}</strong></td>
+        </tr>
+        {% if total_paid != total_price %}
+          <tr>
+            <td><strong>Số tiền đã trả:</strong></td>
+            <td style="text-align: right;"><strong>{{ total_paid | money }}</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Tổng tiền phải trả:</strong></td>
+            <td style="text-align: right;"><strong>{{ total_price | minus: total_paid | money }}</strong></td>
+          </tr>
+        {% endif %}
+      </table>
+    </div>
+
+    <div class="print-note">
+      <p>
+        <strong>Cảm ơn quý khách đã chọn Babi.vn</strong><br>
+        * Nếu bé mặc rộng/chật hoặc sản phẩm bị lỗi, bạn có thể đổi hàng tại Shop trong vòng 7 ngày (sản phẩm còn nguyên vẹn, chưa qua sử dụng).<br>
+        * Vì lý do an toàn sức khỏe và vệ sinh cá nhân, sản phẩm đồ lót sẽ không áp dụng chính sách đổi trả. Rất mong quý khách thông cảm và kiểm tra kỹ size trước khi đặt.<br>
+        * Liên hệ hỗ trợ: gọi hoặc nhắn tin Zalo số 0906 899 552.
+      </p>
+    </div>
+  </div>
+</div>

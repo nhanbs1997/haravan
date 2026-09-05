@@ -1,0 +1,150 @@
+<footer>
+  <svg class="waves position-relative w-100" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+    <defs>
+      <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+    </defs>
+    <g class="parallax">
+      <use xlink:href="#gentle-wave" x="48" y="0" fill="var(--footerBg)" />
+      <use xlink:href="#gentle-wave" x="48" y="3" fill="var(--footerBg)" />
+      <use xlink:href="#gentle-wave" x="48" y="5" fill="var(--footerBg)" />
+      <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--footerBg)" />
+    </g>
+  </svg>
+  <div class="main-footer">
+  	<div class="foo_mid py-4">
+  		<div class="container">
+  			<div class="row">
+  				<div class="col-xl-6 col-lg-6 col-md-7 col-sm-12 col-12 footer-left mb-3 mb-md-0">
+            <a href="/" title="{{ shop.name }}" class="logo_foo d-block mb-3">
+              <img alt="{{ shop.name }}" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{settings.logo_foo}}" class="img-fluid lazy d-block">
+            </a>
+  					<address class="vcard mb-2">
+  						{%if settings.footer_address != null and settings.footer_address != ''%}
+  						<p class="adr"><b>{{settings.contact_add_1}} </b>{{settings.footer_address}}</p>
+  						{%else%}
+  						<p class="adr"><b>{{settings.contact_add_1}} </b>{{store.address}}</p>
+  						{%endif%}
+  						{%if settings.footer_phone != null and settings.footer_phone != ''%}
+  						<p><b>{{settings.contact_phone_1}} </b><a href="tel:{{settings.footer_phone | remove: ' ' | remove: '.'}}" title="{{settings.footer_phone}}">{{settings.footer_phone}}</a></p>
+  						{%else%}
+  						<p><b>{{settings.contact_phone_1}} </b><a href="tel:{{store.phone_number}}" title="{{store.phone_number}}">{{store.phone_number}}</a></p>
+  						{%endif%}
+  						{%if settings.footer_address_2 != null and settings.footer_address_2 != ''%}
+  						<p class="adr mt-2"><b>{{settings.contact_add_2}} </b>{{settings.footer_address_2}}</p>
+  						{%endif%}
+  						{%if settings.footer_phone_2 != null and settings.footer_phone_2 != ''%}
+  						<p><b>{{settings.contact_phone_2}} </b><a href="tel:{{settings.footer_phone_2 | remove: ' ' | remove: '.'}}" title="{{settings.footer_phone_2}}">{{settings.footer_phone_2}}</a></p>
+  						{%endif%}
+  						{%if settings.footer_email != null and settings.footer_email != ''%}
+  						<p><b>Email: </b><a href="mailto:{{settings.footer_email}}" title="{{settings.footer_email}}">{{settings.footer_email}}</a></p>
+  						{%else%}
+  						<p><b>Email: </b><a href="mailto:{{store.customer_email}}" title="{{store.customer_email}}">{{store.customer_email}}</a></p>
+  						{%endif%}
+  						{%if settings.mst != null and settings.mst != ''%}
+  						<p class="mt-2">{{settings.mst}}</p>
+  						{%endif%}
+  					</address>
+  					<div class="row">
+  						<div class="align-items-center col-8 col-sm-5 col-md-8 col-lg-4 d-flex gap_10">
+  							{%if settings.lg_bct_url.size > 0%}
+  							<a target="_blank" href="{{settings.lg_bct_url}}" title="{{settings.lg_bct_tit}}">
+  								<img class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{settings.logo_bct}}" alt="{{settings.lg_bct_tit}}">
+  							</a>
+  							{%endif%}
+  						</div>
+  					</div>
+  				</div>
+  				<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-12 footer-left">
+              <h3 class="footer-title mb-2 position-relative font-weight-bold">{{settings.col_foo_1}}</h3>
+              <ul class="links">
+                {% for link in linklists[settings.footer_linklist_1].links %}
+                <li><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+                {% endfor %}
+              </ul>
+  				</div>
+  				<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-12 footer-left">
+            <h3 class="footer-title mb-2 position-relative font-weight-bold">{{settings.col_foo_2}}</h3>
+            <ul class="links">
+              {% for link in linklists[settings.footer_linklist_2].links %}
+              <li><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  	<div class="container">
+      {%-if settings.enable_col_foo_3-%}
+  		<div class="foo_mid border-top pt-4 pb-4 footer-left">
+        <h3 class="footer-title mb-2 position-relative font-weight-bold">{{settings.col_foo_3}}</h3>
+  			<ul class="links_sm list-unstyled row mb-0">
+  				{% for link in linklists[settings.footer_linklist_3].links %}
+  				<li class="col-6 col-sm-4 col-md-3 col-lg-2 mb-1">
+            <a class="rounded-pill bg-foo py-1 px-2 d-inline-block" href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+          </li>
+  				{% endfor %}
+  			</ul>
+  		</div>
+      {%-endif-%}
+  		<div class="foo_mid border-top pt-4 pb-4 pb-lg-2">
+  			<div class="row">
+          <div class="col-12 col-lg-6">
+            <p class="mb-3 position-relative">{{settings.col_foo_1_1}}</p>
+            <div class="d-flex position-relative social mb-3">
+    						<a href="{{settings.link_fb}}" target="_blank" class="position-relative iso sitdown modal-open d-inline-block facebook mr-1" title="Facebook">
+    							<img class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ settings.facebook }}" alt="facebook" width=32 height=32>
+    						</a>
+    						<a href="{{settings.link_tw}}" target="_blank" class="position-relative iso sitdown modal-open d-inline-block twitter mr-1" title="Twitter">
+    							<img class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ settings.twitter }}" alt="twitter" width=32 height=32>
+    						</a>
+    						<a href="{{settings.link_ins}}" target="_blank" class="position-relative iso sitdown modal-open d-inline-block instagram mr-1" title="Instagram+">
+    							<img class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ settings.instagram }}" alt="instagram" width=32 height=32>
+    						</a>
+    						<a href="{{settings.link_yt}}" target="_blank" class="position-relative iso sitdown modal-open d-inline-block youtube mr-1" title="Youtube">
+    							<img class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ settings.youtube }}" alt="youtube" width=32 height=32>
+    						</a>
+    						<a href="{{settings.link_sp}}" target="_blank" class="position-relative iso sitdown modal-open d-inline-block shopee mr-1" title="Shopee">
+    							<img class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ settings.shopee }}" alt="Shopee" width=32 height=32>
+    						</a>
+    						<a href="{{settings.link_lz}}" target="_blank" class="position-relative iso sitdown modal-open d-inline-block lazada mr-1" title="Lazada">
+    							<img class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ settings.lazada }}" alt="Lazada" width=32 height=32>
+    						</a>
+    					</div>
+            </div>
+  					<div class="col-12 col-lg-6">
+    					<p class="mb-3 position-relative">{{settings.col_foo_1_2}}</p>
+    					<div class="footer-column-1">
+    						<div class="payment-accept">
+    							{% if settings.display_payment_method_1 %}
+    							<img class="first lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ settings.payment1 }}" alt="payment-1">
+    							{% endif %}
+    							{% if settings.display_payment_method_2 %}
+    							<img class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ settings.payment2 }}" alt="payment-2"> 
+    							{% endif %}
+    							{% if settings.display_payment_method_3 %}
+    							<img class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ settings.payment3 }}" alt="payment-3"> 
+    							{% endif %}
+    							{% if settings.display_payment_method_4 %}
+    							<img class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ settings.payment4 }}" alt="payment-4">
+    							{% endif %}
+    						</div>
+    					</div>
+  					</div>
+        </div>
+  		</div>
+  	</div>
+  	<div class="foo_bot">
+  		<div class="container">
+  			<div class="row bgk align-items-center">
+  				<div class="col-12 text-center border-top border-main py-2">
+  					{% if settings.custorm_bq %}
+  					<div class="coppyright">{% if settings.content_bq != null and settings.content_bq != '' %}{{settings.content_bq}}. {% endif %} {{ powered_by_link }}</div>
+  					{% else %}
+  					<div class="coppyright">{{settings.copyright_default}} <a rel="nofollow noopener" href="https://www.facebook.com/mewtheme/" title="MewTheme" target="_blank">MewTheme</a>. {{ powered_by_link }}</div>
+  					{% endif %}
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  </div>
+</footer>

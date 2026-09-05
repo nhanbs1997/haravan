@@ -1,0 +1,22 @@
+<div class="item_grid custom-article-item position-relative rounded-10 modal-open">
+	<a href="{{ relatearticle.url }}" title="{{ relatearticle.title }}" class="effect-ming">
+		<div class="position-relative w-100 m-0 be_opa modal-open ratio3by2 aspect rounded-10">
+			{%- if relatearticle.image != null -%}
+			<img src="{%if forloop.index > 3%}{{'placeholder_1x1.png' | asset_url}}" data-src="{%endif%}{{ relatearticle.image.src | img_url: 'grande'}}" class="{%if forloop.index > 3%}lazy {%endif%}d-block img img-cover position-absolute" alt="{{ relatearticle.title }}">
+			{%- else -%}
+			<img src="{{ 'no_image.jpg' | asset_url }}" alt="{{ relatearticle.title }}"  class="d-block img img-cover position-absolute"> 
+			{%- endif -%} 
+  		{%-if settings.enable_author_n_time-%}
+  		<small class="bg-main modified position-absolute px-2 py-1 text-white">{{ article.published_at | date:'%d/%m/%y' }}</small>
+  		{%- endif -%} 
+		</div>
+	</a>
+	<div class="custom-article-item_info mt-2">
+		<h3 class="title_blo mb-2">
+			<a class="line_2 font-weight-bold h-auto" href="{{ relatearticle.url }}" title="{{ relatearticle.title | replace: '"', '''}}">{{ relatearticle.title | replace: '"', '''}}</a>
+		</h3>
+    <p class="mb-2">
+      {{ relatearticle.content | strip_html | truncate: '80'}}
+    </p>
+	</div>
+</div>

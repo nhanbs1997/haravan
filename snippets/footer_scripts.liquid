@@ -1,0 +1,136 @@
+{%if settings.use_popsale%}
+<script>
+  const popsale_cate = [{%for product in collections[settings.popsale_cate].products%}{
+		"img_url": "{{product.featured_image.src}}",
+		"title": "{{product.title}}",
+		"url": "{{product.url}}",
+	}{%unless forloop.last%},{%endunless%}{%endfor%}];
+  let pmin = "{{settings.pmin}}";
+  let ptit = "{{settings.ptit}}";
+  let pdes = "{{settings.pdes}}";
+  const timeToShow = {{settings.ptime | times: 1000}};
+  const timeDelay = {{settings.pdelay | times: 1000}};
+  const timeSpace = {{settings.ptime | plus: settings.pdelay | times: 1000}};
+</script>
+{%endif%}
+{%if settings.free_shipping_enable%}
+<script>
+  let freeShip = "{{settings.free_shipping_text_1}}";
+  const orderShip = "{{settings.free_shipping_text_2}}";
+</script>
+{%endif%}
+{%-if template contains 'product' or template contains 'cart'-%}
+{%-if settings.use_gift and linklists[settings.gift_menu].links.size > 0-%}
+<script>
+	let giftList = [{%-for link in linklists[settings.gift_menu].links-%}
+		{ 
+			"entry": {{link.title | remove: '.'}},
+			"alias": "{{link.url | replace_first: '/', ''}}",
+			"id": {{link.object.variants[0].id}},
+			"name": "{{link.object.title}}",
+			"image": "{{link.object.featured_image.src | img_url: 'small' }}"
+		}{%unless forloop.last%},{%endunless%}
+		{%-endfor-%}];
+</script>
+<script src="{{'mew_gift.js' | asset_url}}" defer></script>
+{%endif%}
+{%-endif-%}
+<script src="{{'classmewservices.js' | asset_url}}" defer></script>
+<script src="{{'classinventory.js' | asset_url}}" defer></script>
+<script fetchpriority="low" src="{{'mew_cart2.js' | asset_url}}" defer></script>
+<script type="mewscript" data-mew-src="{{'mew_noti.js' | asset_url}}" defer></script>
+<script fetchpriority="low" src="{{'mew_plugin.js' | asset_url}}" defer></script>
+<script fetchpriority="low" src="{{'global.js' | asset_url}}" defer></script>
+<script fetchpriority="low" src="{{'mew_option_selectors.js' | asset_url}}" defer></script>
+{%-if settings.product_hide_variant_unavaiable_enable-%}
+<script fetchpriority="low" src="{{'mew_hide_unvaiable_option.js' | asset_url}}" defer></script>
+{%-endif-%}
+{%-if settings.color_file.size > 0-%}
+<script fetchpriority="low" src="{{'papa.js' | asset_url}}" defer></script>
+<script fetchpriority="low" src="{{'swatch_color.js' | asset_url}}" defer></script>
+{%-endif-%}
+<script type="mewscript" data-mew-src="{{'global_speed.js' | asset_url}}" defer></script>
+{%- if template == 'index' -%}
+<script fetchpriority="low" src="{{'mew_index.js' | asset_url}}" defer></script>
+<script type="mewscript" data-mew-src="{{'mew_index_speed.js' | asset_url}}" defer></script>
+<script type="mewscript" data-mew-src="{{'mewtab.js' | asset_url}}" defer></script>
+{%- endif -%}
+<script type="mewscript" data-mew-src="{{'mew_quickview.js' | asset_url}}" defer></script>
+<script src="{{'classmewstorage.js' | asset_url}}" defer></script>
+{%-if template contains 'product''-%}
+{%-if settings.enable_product_recents-%}
+<script src="{{'classrecent.js' | asset_url}}" defer></script>
+{%-endif-%}
+<script src="{{'mew_product.js' | asset_url}}" defer></script>
+{%-endif-%}
+{%-if template == 'article'-%}
+<script src="{{ 'table-of-contents.js' | asset_url }}"></script>
+<script src="{{ 'mew_article.js' | asset_url }}" defer></script>
+{%- if form.errors.size > 0 -%}
+<script>
+	window.location.hash = '#add-comment-title';
+</script>
+{%- endif -%}
+{%- if form.posted_successfully -%}
+<script>
+	window.location.hash = '#comments';
+</script>
+{%- endif -%}
+{%-endif-%}
+{%-if template contains 'article' or template contains 'product' or template contains 'page' or template contains 'collection'-%}
+<script src="{{'mew_content.js' | asset_url}}" defer></script>
+{%-endif-%}
+{%-if template contains 'hethong'-%}
+{%-if settings.hethong_type == "noapi"-%}
+{%-include 'sn_hethong_js'-%}
+{%-else-%}
+<script src="{{'papa.js' | asset_url}}" defer></script>
+<script src="{{'hethong.js' | asset_url}}" defer></script>
+{%-endif-%}
+{%-endif-%}
+{%-if template contains 'customers[addresses]'-%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js" integrity="sha512-7rusk8kGPFynZWu26OKbTeI+QPoYchtxsmPeBqkHIEXJxeun4yJ4ISYe7C6sz9wdxeE1Gk3VxsIWgCZTc+vX3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{%-endif-%}
+{%-if template contains 'search'-%}
+<script src="{{'search.js' | asset_url}}" defer></script>
+{%-endif-%}
+{%-if settings.use_wishlist-%}
+<script src="{{'classwishlist.js' | asset_url}}" defer></script>
+<script>
+  var wl;
+	window.addEventListener('load', () => {
+		wl = new Wishlist({
+        url: "{{pages[settings.wishlist_page].url}}",
+        notifyEmpty: "{{settings.wishlist_list_empty}}"
+    });
+		wl.init();
+    window.addEventListener('wishlist:rendered', () => {
+      let arrImg = document.querySelector('#wishlist-container').querySelectorAll('.lazy');
+      arrImg.forEach((v) => { io.observe(v);})
+    });
+    window.addEventListener('wishlist:added', (e) => {
+      createToast('success', '{{settings.wishlist_action_add}}', `{{settings.wishlist_action_add_content}}`.replace(/\[sp]/ig, e.detail.infor.title));  
+    });
+    window.addEventListener('wishlist:removed', (e) => {
+      createToast('warning', '{{settings.wishlist_action_remove}}', `{{settings.wishlist_action_remove_content}}`.replace(/\[sp]/ig, e.detail.infor.title)); 
+    });
+    window.addEventListener('wishlist:renderError', (e) => {
+      createToast('error', '{{settings.wishlist_action_error}}', `{{settings.wishlist_action_error_content}}`); 
+    });
+    window.addEventListener('wishlist:removedError', (e) => {
+      createToast('error', '{{settings.wishlist_action_error}}', `{{settinngs.wishlist_action_error_content}}`); 
+    });
+	});
+</script>
+{%-endif-%}
+{%- if template contains 'collection'-%} 
+<script src="{{'classfilter.js' | asset_url}}" defer></script>
+{%-if settings.enable_product_recents-%}
+<script src="{{'classrecent.js' | asset_url}}" defer></script>
+{%-endif-%}
+<script src="{{'mew_collections_script.js' | asset_url}}" defer></script>
+{%- endif -%}
+<script src="{{'wc_utils.js' | asset_url}}" defer></script>
+{%-if template contains 'page.flashsale'-%}
+<script src="{{'page_fl.js' | asset_url}}" defer></script>
+{%-endif-%}

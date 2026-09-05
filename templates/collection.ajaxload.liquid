@@ -1,0 +1,25 @@
+{% layout none %}
+<div>
+	{% if collection.products.size == 0 %}
+	<div class="col-xs-12">
+		<div class="fw bg-warning padding-15 noproduct" >
+			<div class="alert alert-warning fade in green-alert">
+				{{settings.emptyCollection}}
+			</div>
+		</div>
+	</div>
+	{% else %}
+	<div class="module-content">
+		<div class="box_ajax">
+			{% for product in collection.products limit: 12 %}
+			<div class="col-md-3 col-sm-4 col-xs-6 item_cl">
+				{% include 'product-grid-item' %}
+			</div>
+			{% endfor %}
+		</div>
+		<p class="view-more-product">
+			<a href="{{ collection.url }}" title="{{settings.seemore_text}}">{{settings.seemore_text}}</a>
+		</p>
+	</div>
+	{% endif %}
+</div>

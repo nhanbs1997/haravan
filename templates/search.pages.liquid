@@ -1,0 +1,65 @@
+{%-assign result_per_page = settings.search_result_per_page | default: 12-%}
+{%- include 'breadcrumb' -%}
+<section class="search-layout my-3">
+	<div class="container">
+    <div class="category-products position-relative b_search">
+        {%- if search.performed -%}   
+        {%-include 'search_cate'-%}
+        {%- paginate search.results by result_per_page -%}        
+        {%- if search.results.size == 0 -%}
+        <div class="text-center pt-4 pb-4">
+          {%-include 'noproduct_svg'-%}
+          <h2 class="search_0 font-weight-bold text-center">{{settings.search_no_result}}</h2>
+        </div>
+        <div class="cd_back_home text-danger text-center m-auto font-weight-bold">
+          <img src="{{'back.png' | asset_url}}" alt="{{settings.search_back_to_home}}">
+          <span>{{settings.search_back_to_home}} <span id="countdown-timer"></span></span>
+        </div>
+        <script>
+          var timeleft = 10;
+          var downloadTimer = setInterval(function(){
+            if(timeleft < 2){
+              clearInterval(downloadTimer);
+              window.location.href = '/'
+            }
+            document.getElementById('countdown-timer').innerHTML = timeleft;
+            timeleft -= 1;
+            console.log(timeleft);
+          }, 1000);
+        </script>
+        {%-else-%}
+
+        {%-capture search_count-%}{{ search.results_count }}{%-endcapture-%}
+        {%-capture search_keyword-%}{{ search.terms }}{%-endcapture-%}
+        <h2 class="h3 mb-3 t-search">{{settings.search_result_count | replace: '[count]', search_count | replace: '[keyword]', search_keyword}}</h2> 
+        <div class="row slider-items">
+          {%-for page in search.results-%}
+          {%-if page.object_type == 'page'-%}
+          <div class="col-12 col-sm-6 col-md-6 col-lg-4 its mb-3">
+            <div class="custom-page-item border modal-open rounded-10 h-100 p-2 p-lg-3">
+              <div class="custom-article-item_info">
+                <h3 class="title_blo font-weight-bold mb-2 line_2"><a href="{{ page.url }}" title="{{ page.title | replace: '"', '''}}">{{ page.title | replace: '"', '''}}</a></h3>
+                <span class="d-block text-gray small">{{ page.created_on | date: 'dd-MM-yyyy' }}</span>
+                <div class="sum line_1 line_2 h-auto text-justify">
+                  {{ page.content |strip_html | truncatewords: 100}}
+                </div>
+              </div>
+            </div>
+          </div>
+          {%-endif-%}
+          {%-endfor-%}
+        </div>
+        {%-endif-%}
+        {%-if paginate.pages > 1-%}
+        {%-include 'paginate-pages'-%}
+        {%-endif-%}
+        {%-endpaginate-%}
+        {%-else-%}
+        <div class="text-center pt-4 pb-4">
+          {%-include 'noproduct_svg'-%}
+          <h2 class="search_0 font-weight-bold text-center">{{settings.search_result_noti}}</h2>
+        </div>
+        {%- endif -%}
+      </div>
+	</div>
+</section>

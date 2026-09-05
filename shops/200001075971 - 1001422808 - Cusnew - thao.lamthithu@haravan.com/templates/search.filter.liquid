@@ -1,0 +1,21 @@
+{%layout none%}
+{%paginate search.results by settings.pagination_limit %}
+
+{%-assign check_menu = false-%}
+{%-if settings.collection_sidebar != "" and linklists[settings.collection_sidebar].links.size > 0-%}
+{%-assign check_menu = true-%}
+{%-endif-%}
+
+{%-if settings.show_collection_filter-%}
+{%-assign check_menu = true-%}
+{%-endif-%}
+
+{%if search.results.size > 0%}
+{%for product in search.results%}
+<div class="col-md-3 col-sm-6 col-xs-6 pro-loop animated zoomIn {% if check_menu %}col-4{%else%}col-5{%endif%}">
+	{% include 'product-loop' %}
+</div>
+{%endfor%}
+{%endif%}
+{%endpaginate%}
+

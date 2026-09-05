@@ -1,0 +1,368 @@
+<style>
+  #bunnyhill-location-selector[hidden] {
+    display: none !important;
+  }
+
+  html.bunnyhill-location-selector-open,
+  html.bunnyhill-location-selector-open body {
+    overflow: hidden;
+  }
+
+  .bunnyhill-location-selector {
+    position: fixed;
+    z-index: 2147483000;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.35);
+  }
+
+  .bunnyhill-location-selector__dialog {
+    position: relative;
+    width: min(100%, 500px);
+    overflow: hidden;
+    background: #fff;
+    color: #353535;
+    border: 1px solid #d9d9d9;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  }
+
+  .bunnyhill-location-selector__header,
+  .bunnyhill-location-selector__option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: 35px;
+    padding: 8px 48px 8px 16px;
+    border-bottom: 1px solid #d9d9d9;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .bunnyhill-location-selector__title {
+    margin: 0;
+    font: inherit;
+  }
+
+  .bunnyhill-location-selector__close {
+    position: absolute;
+    top: 6px;
+    right: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    border: 1px solid #cfcfcf;
+    background: #fff;
+    color: #b5b5b5;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    font-weight: 200;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .bunnyhill-location-selector__options {
+    display: block;
+    padding: 0;
+  }
+
+  .bunnyhill-location-selector__option {
+    padding-right: 16px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .bunnyhill-location-selector__option:last-child {
+    border-bottom: 0;
+  }
+
+  .bunnyhill-location-selector__option:hover,
+  .bunnyhill-location-selector__option:focus-visible {
+    background: #f6f6f6;
+    color: #111;
+  }
+
+  .bunnyhill-location-selector__close:hover {
+    color: #666;
+  }
+
+  .bunnyhill-location-selector__close:focus-visible,
+  .bunnyhill-location-selector__option:focus-visible {
+    outline: 2px solid #777;
+    outline-offset: -2px;
+  }
+
+  #site-header .flex-container-header {
+    position: relative;
+  }
+
+  #site-header .header-wrap-logo {
+    position: absolute;
+    top: 8px;
+    display: block !important;
+    left: 50%;
+    width: auto !important;
+    max-width: 45% !important;
+    height: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  #site-header .header-wrap-logo img,
+  #site-header .header-wrap-logo .logoimg {
+    display: block !important;
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  #site-header .header-wrap-logo .wrap-logo {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+  }
+
+  #site-header .header-wrap-logo .wrap-logo > a {
+    display: block !important;
+    width: 100%;
+    max-width: 180px;
+  }
+
+  #site-header .header-action_menu .header-action_text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #site-header .header-action_menu .header-translate-flag,
+  #site-header .mobile_nav .header-translate-flag,
+  .mobile_nav .header-translate-flag {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .mobile_nav {
+    position: relative;
+  }
+
+  .mobile_nav .header-translate-flag {
+    position: absolute;
+    left: 24px;
+    bottom: 28px;
+    width: 55px;
+    margin: 0;
+    z-index: 2;
+  }
+
+  .site-footer .footer-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: start;
+    gap: 28px;
+  }
+
+  .site-footer .contact-info,
+  .site-footer .address-text,
+  .site-footer .email-text,
+  .site-footer .copyright-text {
+    margin: 0;
+    line-height: 1.65;
+  }
+
+  .site-footer .footer-navigation {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 20px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 767px) {
+    #site-header .header-wrap-logo {
+      max-width: 45% !important;
+    }
+
+    #site-header .header-action_menu .header-action_text {
+      gap: 6px;
+    }
+
+    .site-footer .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      text-align: center;
+    }
+
+    .site-footer .footer-navigation {
+      width: 100%;
+      grid-template-columns: 1fr;
+      gap: 5px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .bunnyhill-location-selector {
+      padding: 10px;
+    }
+
+    .bunnyhill-location-selector__dialog {
+      width: 100%;
+    }
+  }
+</style>
+
+<div id="bunnyhill-location-selector" class="bunnyhill-location-selector" hidden aria-hidden="true">
+  <div class="bunnyhill-location-selector__dialog" role="dialog" aria-modal="true" aria-labelledby="bunnyhill-location-selector-title">
+    <div class="bunnyhill-location-selector__header">
+      <h2 id="bunnyhill-location-selector-title" class="bunnyhill-location-selector__title">SELECT YOUR LOCATION</h2>
+      <button type="button" class="bunnyhill-location-selector__close" aria-label="Close">×</button>
+    </div>
+    <div class="bunnyhill-location-selector__options">
+      <a class="bunnyhill-location-selector__option" href="https://bunnyhill.vn/" data-location-choice="vi">Vietnamese version</a>
+      <a class="bunnyhill-location-selector__option" href="https://bunnyhill.vn/?view=en" data-location-choice="en">International version</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var selector = document.getElementById('bunnyhill-location-selector');
+    var closeButton;
+    var locationChoices;
+    var storageKey = 'bunnyhill-location-choice';
+    var dismissedKey = 'bunnyhill-location-selector-dismissed';
+    var hasEnglishView = /(?:^|[?&])view=en(?:&|$)/i.test(window.location.search);
+
+    if (!selector || hasEnglishView) {
+      return;
+    }
+
+    function readStorage(storage, key) {
+      try {
+        return storage.getItem(key);
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function writeStorage(storage, key, value) {
+      try {
+        storage.setItem(key, value);
+      } catch (error) {
+        return false;
+      }
+      return true;
+    }
+
+    function hideSelector() {
+      selector.hidden = true;
+      selector.setAttribute('aria-hidden', 'true');
+      document.documentElement.classList.remove('bunnyhill-location-selector-open');
+    }
+
+    if (readStorage(window.localStorage, storageKey) || readStorage(window.sessionStorage, dismissedKey)) {
+      return;
+    }
+
+    selector.hidden = false;
+    selector.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('bunnyhill-location-selector-open');
+    closeButton = selector.querySelector('.bunnyhill-location-selector__close');
+    locationChoices = selector.querySelectorAll('[data-location-choice]');
+
+    closeButton.addEventListener('click', function () {
+      writeStorage(window.sessionStorage, dismissedKey, '1');
+      hideSelector();
+    });
+
+    Array.prototype.forEach.call(locationChoices, function (choice) {
+      choice.addEventListener('click', function () {
+        writeStorage(window.localStorage, storageKey, choice.getAttribute('data-location-choice'));
+      });
+    });
+  }());
+</script>
+
+<script>
+  (function () {
+    function getMobileNav() {
+      var mobileNavs = document.querySelectorAll('.mobile_nav');
+      var visibleNav = null;
+      var index;
+
+      for (index = 0; index < mobileNavs.length; index += 1) {
+        if (mobileNavs[index].offsetWidth || mobileNavs[index].offsetHeight) {
+          visibleNav = mobileNavs[index];
+        }
+      }
+
+      return visibleNav || mobileNavs[mobileNavs.length - 1] || null;
+    }
+
+    function placeLanguageFlagInMobileNav() {
+      var flag = document.querySelector('.header-translate-flag');
+      var mobileNav = getMobileNav();
+
+      if (flag && mobileNav && !mobileNav.contains(flag)) {
+        mobileNav.appendChild(flag);
+        return true;
+      }
+
+      return !!(flag && mobileNav && mobileNav.contains(flag));
+    }
+
+    function watchMobileNav() {
+      var attempts = 0;
+      function check() {
+        attempts += 1;
+
+        placeLanguageFlagInMobileNav();
+
+        if (attempts < 80) {
+          window.setTimeout(check, 250);
+        }
+      }
+
+      check();
+    }
+
+    function isMenuTrigger(target) {
+      while (target && target !== document) {
+        if ((' ' + (target.className || '') + ' ').indexOf(' header-action_menu ') !== -1) {
+          return true;
+        }
+        target = target.parentNode;
+      }
+
+      return false;
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', watchMobileNav);
+    } else {
+      watchMobileNav();
+    }
+
+    document.addEventListener('click', function (event) {
+      if (isMenuTrigger(event.target)) {
+        window.setTimeout(watchMobileNav, 0);
+      }
+    });
+  }());
+</script>

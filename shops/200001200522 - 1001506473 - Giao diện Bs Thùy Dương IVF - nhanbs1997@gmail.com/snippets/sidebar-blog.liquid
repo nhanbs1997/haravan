@@ -1,0 +1,43 @@
+<aside class="sidebar-blogs blogs-aside--sticky">
+	<!-- Bai viet moi nhat -->
+	{%- if settings.blogs_news_show -%}
+	<div class="group-sidebox">
+		<div class="sidebox-title ">
+			{%- if settings.blogs_news_title != '' -%}
+			<h3 class="htitle hrv-cf-blogs_news_title" setting-id="blogs_news_title" setting-type="text">{{ settings.blogs_news_title }}</h3>
+			{%- else -%}<h3 class="htitle">Bài viết mới nhất</h3>{%- endif -%}
+		</div>
+		<div class="sidebox-content sidebox-content-togged">
+			<div class="list-blogs-latest">	
+				{% for art in blogs.all.articles limit: 4 %}
+          {% unless art.url contains 'tac-gia' %}
+				{% include 'article-image' with article:art %}	
+				<div class="item-article clearfix ">
+					<div class="post-image">
+						<a href="{{ art.url }}">
+							<img class="lazyload" data-src="{{imageUrl | product_img_url : 'compact'}}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+									 alt="{{art.title}}"/></a>
+					</div>
+					<div class="post-content">
+						<p class="post-meta">
+							<span class="cate">{{ art.blog.title }}</span>
+							<span class="author d-none"><a href="{{ art.url }}">{{art.author}}</a></span>
+							<span class="date">- {{ art.published_at | date: '%d.%m.%Y' }}</span>
+						</p>
+						<h3><a href="{{ art.url }}">{{ art.title }}</a></h3>
+					</div>
+				</div>			
+            {% endunless%}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	{%- endif -%}
+	{%if settings.show_blog_banner%}
+	<div class="sidebar-banner">
+		<div class="banner-img">
+			<a href="{{settings.blog_banner_link}}"><img src="{{ settings.blog_banner_img }}" alt="{{settings.blog_banner_alt}}" setting-id="blog_banner_img" setting-type="image" class="hrv-cf-blog_banner_img" /></a>
+		</div>
+	</div>
+	{%endif%}
+</aside>

@@ -1,0 +1,67 @@
+<div id="nav">
+	<nav class="main-nav text-center">
+		<ul class="clearfix">
+			{% for link in linklists[settings.mainmenu_link].links %}
+			{% if linklists[link.handle].links == empty %}
+			<li class="{% if link.active  %}active{% endif %}">
+				<a href="{{link.url}}" title="{{ link.title }}"> 
+					{{ link.title }}
+				</a>
+			</li>
+			{% else %}
+			<li class="{% if link.active  %}active{% endif %}">
+				<a href="{{ link.url }}" title="{{ link.title }}"> 
+					{{ link.title }}
+					<i class="fa fa-chevron-down" aria-hidden="true"></i>
+				</a>
+				<ul class="sub_menu">
+					{% for link_vl_1 in linklists[link.handle].links %}
+					{% if  linklists[link_vl_1.handle].links == empty %}
+					<li class="{% if link_vl_1.active  %}active{% endif %}">
+						<a href="{{ link_vl_1.url }}" title="{{ link_vl_1.title }}"> 
+							{{ link_vl_1.title }}
+						</a>
+					</li>
+					{% else %}
+					<li class="{% if link_vl_1.active  %}active{% endif %}">
+						<a href="{{ link_vl_1.url }}" title="{{ link_vl_1.title }}"> 
+							{{ link_vl_1.title }}	<i class="fa fa-chevron-right" aria-hidden="true"></i>
+						</a>
+						<ul class="sub_menu">
+							{% for link_vl_2 in linklists[link_vl_1.handle].links %}
+							{% if  linklists[link_vl_2.handle].links == empty %}
+							<li class="{% if link_vl_2.active  %}active{% endif %}">
+								<a href="{{ link_vl_2.url }}" title="{{ link_vl_2.title }}"> 
+									{{ link_vl_2.title }}	
+								</a>
+							</li>
+							{% else %}
+							<li class="{% if link_vl_2.active  %}active{% endif %}">
+								<a href="{{ link_vl_2.url }}" title="{{ link_vl_2.title }}"> 
+									{{ link_vl_2.title }}	 	<i class="fa fa-chevron-right" aria-hidden="true"></i>
+								</a>
+								<ul class="sub_menu">
+									{% for link_vl_3 in linklists[link_vl_2.handle].links %}
+									<li>
+										<a href="{{ link_vl_3.url }}" title="{{ link_vl_3.title }}"> 
+											{{ link_vl_3.title }}	
+										</a>
+									</li>
+									{% endfor %}
+
+								</ul>
+							</li>
+							{% endif %}
+							{% endfor %}
+						</ul>
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+			</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+	</nav>
+</div>
+

@@ -1,0 +1,28 @@
+<div class="col-12">
+	<div class="account-action bg-light pl-3 pr-3 rounded-10 h-100">
+		<div class="item_ac pt-3 pb-3 border-bottom">
+			<a {%if template == '/account'%}disabled="disabled" href="javascript:void(0);"{%else%}href="/account"{%endif%} class="{%if template == 'customers[account]'%}active font-weight-bold{%endif%} d-flex w-100 align-items-center" title="{{settings.account_infor}}">
+				<svg width="20" height="20">
+    			<use href="#svg-client"/>
+    		</svg>
+				<span class="ml-3">{{settings.account_infor}}</span>
+			</a>
+		</div>
+		<div class="item_ac pt-3 pb-3 border-bottom">
+			<a {%if template == 'account/addresses'%}disabled="disabled" href="javascript:void(0);"{%else%}href="/account/addresses"{%endif%} class="{%if template == 'customers[addresses]'%}active font-weight-bold{%endif%} d-flex w-100 align-items-center" title="{{settings.account_address}}">
+				<svg width="20" height="20">
+    			<use href="#svg-address_ac"/>
+    		</svg>
+				<span class="ml-3">{{settings.account_address}} ({{ customer.addresses_count }})</span>
+			</a>
+		</div>
+		<div class="item_ac pt-3 pb-3">
+			<a class="d-flex w-100 align-items-center" href="/account/logout" title="{{settings.account_logout}}">
+				<svg width="20" height="20">
+    			<use href="#svg-out"/>
+    		</svg>
+				<span class="ml-3">{{settings.account_logout}}</span>
+			</a>
+		</div>
+	</div>
+</div>

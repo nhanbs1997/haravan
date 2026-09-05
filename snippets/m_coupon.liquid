@@ -1,0 +1,36 @@
+<div class="m_giftbox mb-3 {%if template contains 'cart'%}order-lg-1{%endif%}">
+	<fieldset class="free-gifts p-3 pb-4 pb-md-3 rounded-10 position-relative">
+		<legend class="d-inline-block pl-3 pr-3 mb-0 bg-light">
+			<img alt="{{settings.coupon_title}}" src="{{'gift.gif' | asset_url | img_url: 'icon'}}"> {{settings.coupon_title}}
+		</legend>
+		<div class="row">
+			{%-for i in (1..6)-%}
+			{%capture ena_g_code%}g1_code_{{i}}_ena{%endcapture%}
+			{%capture sum_g_code%}g1_code_{{i}}_sum{%endcapture%}
+			{%capture cod_g_code%}g1_code_{{i}}_cod{%endcapture%}
+			{%-if settings[ena_g_code]-%}
+			<div class="col-12 col-md-6 col-lg-12 col-xl-12">
+				<div class="item line_b pb-2 {%if i > 1%}none_mb{%endif%}">
+					{%if settings[cod_g_code].size > 0%} 
+					{%capture code %} <b>{{settings[cod_g_code]}}</b> {%endcapture%}
+					{%assign code_sum = settings[sum_g_code] | replace: settings[cod_g_code], code %}
+					<span class="d-block"><small>{{code_sum}}</small></span>
+          <copy-text class="btn mb-2 mt-1 btn-sm m_copy text-white font-weight-bold pl-2 pr-2 d-inline-block" data-text="{{settings[cod_g_code]}}">
+             {{settings.copy_text}}
+          </copy-text>
+					{%else%}
+					{{settings[sum_g_code]}}
+					{%endif-%}
+				</div>
+			</div>
+			{%-endif-%}
+			{%-endfor-%}
+			<div class="position-absolute vmore_c w-100 d-md-none">
+				<a href="javascript:;" class="d-block v_more_coupon text-center font-weight-bold">
+					<span class="t1">{{settings.view_more_coupon}}</span>
+					<span class="t1 d-none">{{settings.view_less_coupon}}</span>
+				</a>
+			</div>
+		</div>
+	</fieldset>
+</div>

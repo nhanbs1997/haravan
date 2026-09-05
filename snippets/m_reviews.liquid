@@ -1,0 +1,40 @@
+<section class="mew_reviews my-5 py-5 position-relative" style="--bgPeopleCl: {{settings.bgpeoplecolor}};--bgPeople: url({{settings.bgpeople}});">
+	<div class="container">
+    <h2 class="title text-uppercase font-weight-bold position-relative mb-3 text-center">
+      <span class="line-bottom position-relative">{{settings.review_user_title}}</span>
+    </h2>
+    <div class="m_people swiper-container pt-2">
+      <div class="swiper-wrapper">
+        {%for i in (1..6)%}
+        {%capture ena_peo%}ykkh_{{i}}_enable{%endcapture%}
+        {%capture img_peo%}ykkh_{{i}}{%endcapture%}
+        {% assign set_peo = settings[img_peo] %}  
+        {%capture sup%}ykkh_{{i}}_sup{%endcapture%}
+        {%capture des_peo%}ykkh_{{i}}_des{%endcapture%}
+        {%capture tit_peo%}ykkh_{{i}}_arthor{%endcapture%}
+        {%if settings[ena_peo]%}
+        <div class="swiper-slide item_yk p-2">
+          <div class="content_tip m-0 p-3 text-center">
+            <div class="hgroup pb-4 position-relative">	
+              <p class="jt">{{settings[des_peo]}}</p>
+            </div>		
+            <div class="imga d-flex flex-column align-items-center mb-2">
+              <div class="d-flex i_ff justify-content-center">
+                <p class="name font-weight-bold m-0">{{settings[tit_peo]}}</p>
+                {%if settings[sup].size > 0%}<span class="mx-2">-</span><span class="w">{{settings[sup]}}</span>{%endif%}
+              </div>
+              <div class="i_fm">
+                <picture class="aspect d-block m-0 modal-open position-relative ratio1by1 rounded-circle w-100">
+                  <img alt="{{settings[title2]}}" class="lazy" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{set_peo}}">
+                </picture>
+              </div>
+            </div>	
+          </div>
+        </div>
+        {%endif%}
+        {%endfor%}
+      </div>
+      <div class="swiper-pagination mew_peo_p"></div>
+    </div>
+	</div>
+</section>

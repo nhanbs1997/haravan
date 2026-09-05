@@ -1,0 +1,76 @@
+<section id="flash_sale" class="m_product mb-4 mb-lg-5 position-relative" style="--cl_tit_fl: {{settings.cl_tit_fl}};--bg_fl_1: {{settings.bg_fl_1}};--bg_fl_2: {{settings.bg_fl_2}};">
+	<div class="container">
+  <div class="rounded-10 bg-flash p-2 p-lg-3">
+		<div class="time_box row align-items-center mb-2">
+			<div class=" col-12 col-lg-9 mb-2 mb-lg-0">
+        <div class="row align-items-center">
+          <div class="col-12 {%if settings.enable_text_fade-%}col-lg-4{%-endif-%}">
+            <h2 class="title text-uppercase font-weight-bold position-relative m-0 text-center text-lg-left cl_tit_fl">
+              <a class="position-relative" href="{{settings.m_link_product_fl}}" title="{{settings.m_product_fl}}">
+                <img alt="icon-flash-sale" src="{{settings.flash}}"> 
+                {{settings.m_product_fl}}
+              </a>
+            </h2>
+          </div>
+          {%-if settings.enable_text_fade-%}
+          <div class="col-12 col-lg-8">
+            <div class="mew_text_fade swiper-container">
+              <div class="swiper-wrapper">
+                {%-for i in (1..5)-%}
+                {%-capture ena_txf-%}ena_txf_{{i}}{%-endcapture-%}
+                {%-capture url_txf-%}url_txf_{{i}}{%-endcapture-%}
+                {%-capture alt_txf-%}alt_txf_{{i}}{%-endcapture-%}
+                {%-if settings[ena_txf]-%}
+                <div class="swiper-slide text-center">
+                  <a class="modal-open text-white" href="{{ settings[url_txf]}}" title="{{ settings[alt_txf] | default : store.name}}">
+                    {{settings[alt_txf]}}
+                  </a>
+                </div>
+                {%-endif-%}
+                {%-endfor-%}
+              </div>
+            </div>
+          </div>
+          {%-endif-%}
+        </div>
+			</div>
+			{%-if settings.mtm_countdown != '' and settings.mtm_countdown != null -%}
+      <div class="ml-auto col-12 col-lg-3 text-center text-lg-right">
+        {%-include 'countdown-sn'-%}
+      </div>
+      {%-endif-%}
+		</div>
+		<div class="b_products">
+			{%-assign product_size = collections[settings.m_c_product_fl].products_count-%}
+      {%-assign product_url = settings.m_link_product_fl-%}
+			{%-if product_size >= 1-%}
+			<div class="mew_flash swiper-container position-relative pb-2 pb-lg-0">
+				<div class="swiper-wrapper">
+					{%-for product in collections[settings.m_c_product_fl].products limit:settings.m_product_limit_fl-%}
+					<div class="swiper-slide">
+						{%if forloop.index > 2%}
+						{%-include 'product-grid-item-sale'-%}     
+						{%else%}
+						{%-include 'product-grid-sale-no-lazy'-%}
+						{%endif%}
+					</div>
+					{%-endfor-%}
+          {%unless product_size < settings.m_product_limit_fl%}
+          <div class="swiper-slide box_padding h-auto">
+            {%-include 'm_viewmore_card'-%}
+          </div>
+          {%endunless%}
+				</div>
+				<div class="swiper-button-prev mf_prev"></div>
+				<div class="swiper-button-next mf_next"></div>
+				<div class="swiper-scrollbar sb_flash d-lg-none"></div>
+			</div>
+			{%-elsif product_size == 0-%}
+			<div class="col-12">
+				<p class="alert alert-warning">{{settings.emptyCollection}}</p>
+			</div>
+			{%-endif-%}
+		</div>
+	</div>
+  </div>
+</section>

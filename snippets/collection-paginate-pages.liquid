@@ -1,0 +1,64 @@
+<ul class="pagination d-flex justify-content-center clearfix mt-4 mb-4">
+	{%- if paginate.previous -%}
+	<li class="page-item mx-1">
+		<a class="prev d-flex align-items-center justify-content-center page-link rounded-10 text-center" onclick="doSearch({{ paginate.current_page | minus: 1 }})" href="javascript:;" title="{{settings.pagination_prev}}">
+			<svg width="20" height="20">
+				<use href="#svg-prev" />
+			</svg>
+		</a>
+	</li>
+	{%- else -%} 
+	<li class="page-item mx-1 disabled">
+		<a class="prev d-flex align-items-center justify-content-center page-link rounded-10 text-center" href="#" title="{{settings.pagination_prev}}">
+			<svg width="20" height="20">
+				<use href="#svg-prev" />
+			</svg>
+		</a>
+	</li>
+	{%- endif -%}
+	{%- for part in paginate.parts -%}
+	{%- if part.is_link -%}
+	<li class="page-item mx-1">
+		<a class="d-flex align-items-center justify-content-center page-link rounded-10 text-center" onclick="doSearch({{ part.title }})" href="javascript:;" title="{{settings.pagination_page}} {{ part.title }}">
+			{{ part.title }}
+		</a>
+	</li>
+	{%- else -%}
+	{%- if part.title == paginate.current_page -%}
+	<li class="active page-item disabled mx-1">
+		<a class="d-flex align-items-center justify-content-center page-link rounded-10 text-center" href="javascript:;" title="{{settings.pagination_page}} {{ part.title }}">
+			{{ part.title }}
+		</a>
+	</li>
+	{%- else -%}
+	<li class="page-item mx-1">
+		<a class="d-flex align-items-center justify-content-center page-link rounded-10 text-center" href="javascript:;" title="{{settings.pagination_page}} {{ part.title }}">
+			{{ part.title }}
+		</a>
+	</li>
+	{%- endif -%}
+	{%- endif -%}
+	{%- endfor -%}
+	{%- if paginate.next -%}
+	<li class="page-item mx-1">
+		<a class="next d-flex align-items-center justify-content-center page-link rounded-10 text-center" onclick="doSearch({{ paginate.current_page | plus: 1 }})" href="javascript:;" title="{{settings.pagination_next}}">
+			<svg width="20" height="20">
+				<use href="#svg-next" />
+			</svg>
+		</a>
+	</li>
+	{%- else -%}
+	<li class="page-item mx-1 disabled">
+		<a class="next d-flex align-items-center justify-content-center page-link rounded-10 text-center" href="#" title="{{settings.pagination_next}}">
+			<svg width="20" height="20">
+				<use href="#svg-next" />
+			</svg>
+		</a>
+	</li>
+	{%- endif -%}
+</ul>
+{%-comment-%}
+<script>
+	var cuPage = {{ paginate.current_page }};
+</script>
+{%-endcomment-%}

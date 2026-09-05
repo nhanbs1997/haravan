@@ -1,0 +1,41 @@
+{%-for link in linklists[menuBreadcrumb].links-%}
+  {%-if link.active -%}
+    {%-assign breadbcrumbTitle = link.title-%}
+    {%-assign breadbcrumbLink = link.url-%}
+    {%-break-%}
+  {%-endif-%}
+  {%-for childlink in linklists[link.handle].links-%}
+    {%-if childlink.active -%}
+      {%-assign breadbcrumbTitle = link.title | append: splitter | append: childlink.title-%}
+      {%-assign breadbcrumbLink = link.url | append: splitter | append: childlink.url-%}
+      {%-break-%}
+    {%-endif-%}
+    {%-for childlink2 in linklists[childlink.handle].links-%}
+      {%-if childlink2.active-%}
+        {%-assign breadbcrumbTitle = link.title | append: splitter | append: childlink.title |  append: splitter  | append: childlink2.title-%}
+        {%-assign breadbcrumbLink = link.url | append: splitter | append: childlink.url |  append: splitter | append: childlink2.url-%}
+        {%-break-%}
+      {%-endif-%}
+      {%-for childlink3 in linklists[childlink2.handle].links-%}
+        {%- if childlink3.active-%}
+          {%-assign breadbcrumbTitle = link.title | append: splitter | append: childlink.title |  append: splitter  | append: childlink2.title | append: splitter | append: childlink3.title-%}
+          {%-assign breadbcrumbLink = link.url | append: splitter | append: childlink.url |  append: splitter | append: childlink2.url | append: splitter | append: childlink3.url-%}
+          {%-break-%}
+        {%-endif-%}
+      {%-endfor-%}
+    {%-endfor-%}
+  {%-endfor-%}
+{%-endfor-%}
+{%include 'breadcrumb_loop' with links: breadbcrumbLink, titles: breadbcrumbTitle, splitter: splitter%}
+
+<li>
+  <a href="{{ collection.url }}" title="{%if collection.handle == 'all'%}{{settings.breadcrumb_all_products}}{%- else -%}{{ collection.title }}{%- endif -%}">
+    <span>
+      {%-if collection.handle == 'all'-%}
+      {{settings.breadcrumb_all_products}}
+      {%- else -%}
+      {{ collection.title }}
+      {%- endif -%}
+    </span>
+  </a>
+</li>

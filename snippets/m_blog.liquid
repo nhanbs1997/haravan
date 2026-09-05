@@ -1,0 +1,29 @@
+<section id="m_blog" class="m_blog mb-4 mb-lg-5">
+  <div class="container">
+    <h2 class="title text-uppercase font-weight-bold position-relative mb-3 text-center">
+      <a class="line-bottom position-relative" href="{{blogs[settings.home_blog].url}}" title="{{settings.home_blog_tit}}">
+        {{settings.home_blog_tit}}
+      </a>
+    </h2>
+    <div class="b_blog pt-2">
+      {%-assign article_size = blogs[settings.home_blog].articles_count-%}
+      {%-if article_size > 0-%}
+      <div class="mew_blog swiper-container position-relative">
+        <div class="swiper-wrapper">
+        {% for article in blogs[settings.home_blog].articles %}
+          <div class="swiper-slide">
+          {%- include 'blog_item_grid_index' -%}
+          </div>
+        {% endfor %}
+        </div>
+        <span class="swiper-button-prev ml_prev"></span>
+        <span class="swiper-button-next ml_next"></span>
+      </div>
+      {%-else-%}
+      <div class="col-12">
+        <p class="alert alert-warning">{{settings.other_updating}}</p>
+      </div>
+      {%-endif-%}
+    </div>
+  </div>
+</section>

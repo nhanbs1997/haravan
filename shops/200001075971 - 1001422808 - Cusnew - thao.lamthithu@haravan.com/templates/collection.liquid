@@ -1,0 +1,159 @@
+<div id="collection" class="collection-page">
+	<div class="breadcrumb-shop">
+		<div class="container-fluid">
+			<div class="row">{%include 'breadcrumb'%}</div>
+		</div>
+	</div>
+	{% paginate collection.products by settings.pagination_limit %}
+	{% if settings.show_collection_image%}
+	<div class="banner-collection-header text-center">
+		{% if collection.image != blank %}
+		<img src="{{ collection.image.src }}" alt="{{collection.title}}"/>
+		{% else %}
+		<img src="{{ 'collection_banner.jpg'|asset_url }}" alt="{{collection.title}}"/>
+		{% endif %}
+	</div>
+	{% endif %}
+	<div class="main-content container-fluid">
+		<div class="row">
+			<div id="collection-body" class="wrap-collection-body clearfix">
+				{%-assign check_menu = false-%}
+				{%-if settings.collection_sidebar != "" and linklists[settings.collection_sidebar].links.size > 0-%}
+					{%-assign check_menu = true-%}
+				{%-endif-%}
+
+				{%-if settings.show_collection_filter-%}
+					{%-assign check_menu = true-%}
+				{%-endif-%}
+
+				{%-if check_menu-%}
+					<div class="col-md-3 col-sm-12 col-xs-12 sidebar-fix">
+						<div class="wrap-filter">
+							{% include 'sidebar-left-collection' %}
+						</div>
+					</div>
+				{% endif %}
+				<div class="{% if check_menu %}col-md-9{% else %}col-md-12{% endif %} col-sm-12 col-xs-12">
+					<div class="wrap-collection-title row">
+						<div class="heading-collection row">
+							<div class="col-md-8 col-sm-12 col-xs-12">
+								<h1 class="title">
+									{%if collection.handle == 'all'%}Tất cả sản phẩm{%else%}{{collection.title}}{%endif%}
+								</h1>
+								{% if collection.products.size == 0%}
+								<div class="alert-no"><p>Chưa có sản phẩm nào trong danh mục này</p></div>
+								{% else %}
+								<div class="alert-no-filter"></div>		
+								{% endif %}
+							</div>
+							{% if  settings.collection_sort and collection.products_count > 0 %}
+							<div class="col-md-4 hidden-sm hidden-xs">
+								<div class="option browse-tags">
+									<label class="lb-filter hide" for="sort-by">Sắp xếp theo:</label>
+									<span class="custom-dropdown custom-dropdown--grey">
+										<select class="sort-by custom-dropdown__select">
+											{% unless collection.handle == 'all' %}									
+											<option value="manual">Sản phẩm nổi bật</option>
+											{% endunless %}
+											<option value="price-ascending" data-filter="&sortby=(price:product=asc)">Giá: Tăng dần</option>
+											<option value="price-descending" data-filter="&sortby=(price:product=desc)">Giá: Giảm dần</option>
+											<option value="title-ascending" data-filter="&sortby=(title:product=asc)">Tên: A-Z</option>
+											<option value="title-descending" data-filter="&sortby=(price:product=desc)">Tên: Z-A</option>
+											<option value="created-ascending" data-filter="&sortby=(updated_at:product=asc)">Cũ nhất</option>
+											<option value="created-descending" data-filter="&sortby=(updated_at:product=desc)">Mới nhất</option>
+											<option value="best-selling" data-filter="&sortby=(sold_quantity:product=desc)">Bán chạy nhất</option>
+											<option value="quantity-descending" >Tồn kho: Giảm dần</option>
+										</select>
+									</span>
+								</div>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+					{%if collection.products.size > 0%}
+					<div class="row filter-here">
+						<div class="content-product-list product-list filter clearfix">
+							{% for product in collection.products limit: settings.pagination_limit  %}
+              {% assign total_inventory = 0 %}
+              {% for variant in product.variants %}
+                {% assign total_inventory = total_inventory | plus: variant.inventory_quantity %}
+              {% endfor %}
+							<div class="col-md-3 col-sm-6 col-xs-6 pro-loop {% if check_menu %}col-4{%else%}col-5{%endif%}" data-tonkho="{{ total_inventory }}">
+								{% include 'product-loop' with collection.handle %}
+							</div>
+							{% endfor %}	
+						</div>				
+						<div class="sortpagibar pagi clearfix text-center">
+							{%include 'pagination-default'%}
+						</div>
+					</div>
+					{%endif%}	
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endpaginate %}
+	<input type="text" class="hidden" id="coll-handle" value="{% if collection.handle == 'all' %}(collectionid:product>0){% else %}(collectionid:product={{collection.id}}){% endif %}" />
+</div>
+<script>
+Haravan.queryParams = {};
+if (location.search.length) {
+	for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+		aKeyValue = aCouples[i].split('=');
+		if (aKeyValue.length > 1) {
+			Haravan.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+		}
+	}
+}
+var collFilters = jQuery('.coll-filter');
+collFilters.change(function() {
+	var newTags = [];
+	var newURL = '';
+	delete Haravan.queryParams.page;
+	collFilters.each(function() { 
+		if (jQuery(this).val()) {
+			newTags.push(jQuery(this).val());
+		}
+	});
+	{% if collection.handle %}
+	newURL = '/collections/' + '{{ collection.handle }}';
+	 if (newTags.length) {
+		 newURL += '/' + newTags.join('+');
+	 }
+	 var search = jQuery.param(Haravan.queryParams);
+	 if (search.length) {
+		 newURL += '?' + search;
+	 }
+	 location.href = newURL;    
+	 {% else %}
+	 if (newTags.length) {
+		 Haravan.queryParams.constraint = newTags.join('+');        
+	 }
+		else {
+			delete Haravan.queryParams.constraint;
+		}
+		location.search = jQuery.param(Haravan.queryParams);
+		{% endif %}      
+		});
+		jQuery('.sort-by')
+		.val('{{ collection.sort_by | default: collection.default_sort_by  }}')
+		.bind('change', function() {
+			Haravan.queryParams.sort_by = jQuery(this).val();
+			location.search = jQuery.param(Haravan.queryParams);
+		});
+    
+  {% if collection.handle == 'all' %}
+$(window).on('load', function() {
+    setTimeout(function() {
+        var sortValue = 'quantity-descending';
+        var currentSort = Haravan.queryParams.sort_by;
+        if (!currentSort) {
+            $('.sort-by').val(sortValue).trigger('change');
+        }
+    }, 200);
+});
+{% endif %}
+		</script>
+
+
+

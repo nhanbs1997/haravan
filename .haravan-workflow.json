@@ -1,0 +1,13 @@
+{
+  "allowDev": true,
+  "productionThemeId": "",
+  "releasePrefix": "haravan-theme",
+  "git": {
+    "enabled": true,
+    "repositoryPath": "",
+    "remote": "origin",
+    "branch": "",
+    "push": true,
+    "commitMessagePrefix": "Haravan theme"
+  }
+}

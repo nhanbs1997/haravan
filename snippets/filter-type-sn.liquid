@@ -1,0 +1,23 @@
+<aside class="aside-item filter-vendor mb-3 col-12 col-sm-4 col-lg-12">
+	<div class="h2 title-head m-0 pt-2 pb-2 font-weight-bold text-main">{{settings.filter_type_title}}</div>
+	<div class="aside-content filter-group">
+		<ul class="filter-type {%if collection.all_vendors.size > 0%}d-flex flex-wrap{%endif%} gap_8 list-unstyled m-0 pr-1">
+			{%-if collection.all_types.size > 0-%}
+			{%- for type in collection.all_types limit: settings.shop_by_vendor_number -%}
+			{%- if type != '' -%}
+			<li class="filter-item filter-item--check-box">
+				<label class="d-flex align-items-baseline m-0" data-filter="{{ type | downcase }}" for="filter-type-{{ type | handleize }}">
+					<input type="checkbox" id="filter-type-{{ type | handleize }}" class="d-none" onchange="toggleFilter(this)"  data-group="type" data-field="product_type" value="(product_type:product**{{ type }})" data-operator="OR">
+					<span class="fa2 px-2 py-1 rounded-10 border">{{ type }}</span>
+				</label>
+			</li>
+			{%- endif-%}
+			{%- endfor -%}
+			{%-else-%}
+			<li class="filter-item alert alert-warning w-100">
+				{{settings.other_updating}}
+			</li>
+			{%-endif-%}
+		</ul>
+	</div>
+</aside>

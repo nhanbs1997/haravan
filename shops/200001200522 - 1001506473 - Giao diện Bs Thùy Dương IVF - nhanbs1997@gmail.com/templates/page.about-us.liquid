@@ -1,0 +1,305 @@
+<div class="layout-about-us">
+	{%if settings.show_about%}
+	<section class="section-about-us {%if settings.show_about_service%}has-service{%endif%}">
+		<div class="container">
+			<div class="heading-title">
+				{%if settings.about_title_1 != ''%}<p class="title1 hrv-cf-about_title_1" setting-id="about_title_1" setting-type="text">{{settings.about_title_1}}</p>{%endif%}
+				{%if settings.about_title_2 != ''%}<h2 class="title2 hrv-cf-about_title_2" setting-id="about_title_2" setting-type="text">{{settings.about_title_2}}</h2>{%endif%}
+			</div>
+			<div class="row">
+				<div class="col-lg-4 col-12">
+					<div class="about-desc hrv-cf-about_desc_1" setting-id="about_desc_1" setting-type="textarea">
+						{{settings.about_desc_1 | newline_to_br}}
+					</div>
+				</div>
+				<div class="col-lg-4 col-12">
+					<div class="about-desc hrv-cf-about_desc_2" setting-id="about_desc_2" setting-type="textarea">
+						{{settings.about_desc_2 | newline_to_br}}
+					</div>
+				</div>
+				<div class="col-lg-4 col-12">
+					<div class="list-progress">
+						{%- for i in (1..4) -%}
+						{%- capture show -%}show_about_{{i}}{%- endcapture -%}
+						{%- capture title -%}about_{{i}}_counter_title{%- endcapture -%}
+						{%- capture text -%}about_{{i}}_counter_num{%- endcapture -%}
+						{%- if settings[show] -%}
+						<div class="jet-progress-bar" data-percent="{{settings[text]}}">
+							<div class="jet-progress-bar__inner">
+								<div class="jet-progress-bar__title">
+									<span class="jet-progress-bar__title-text hrv-cf-{{ title }}" setting-id="{{ title }}" setting-type="text">{{settings[title]}}</span>
+								</div>
+								<div class="jet-progress-bar__wrapper">
+									<div class="jet-progress-bar__status-bar">
+										<div class="jet-progress-bar__percent">
+											<span class="jet-progress-bar__percent-value hrv-cf-{{ text }}" setting-id="{{ text }}" setting-type="text">{{settings[text]}}</span>
+											<span class="jet-progress-bar__percent-suffix">%</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{%- endif -%}
+						{%- endfor -%}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_about_service%}
+    {% comment %}
+	<section class="section-about-service {%if settings.show_about%}has-about{%endif%}">
+		<div class="container">
+			<div class="row list-service">
+				{%assign time1 = 0.3%}
+				{%for i in (1..10)%}
+				{%capture show%}show_about_service_{{i}}{%endcapture%}
+				{%capture banner%}about_service_{{i}}_img_1{%endcapture%}
+				{%capture icon%}about_service_{{i}}_img_2{%endcapture%}
+				{%capture title%}about_service_{{i}}_title{%endcapture%}
+				{%capture desc%}about_service_{{i}}_desc{%endcapture%}
+				{%capture link%}about_service_{{i}}_link{%endcapture%}
+				{%if settings[show]%}
+				{%assign time1 = time1 | plus: 0.2%}
+				<div class="col-lg-3 col-md-6 col-12 wow fadeInUp" data-wow-delay="{{time1}}s">
+					<a href="{{settings[link]}}" class="service-item">
+						<div class="item-img">
+							<div class="banner">
+								<img src="{{ settings[banner] }}" alt="{{settings[title]}}" setting-id="{{ banner }}" setting-type="image" class="hrv-cf-{{ banner }}" />
+							</div>
+							<div class="icon">
+								<img src="{{ settings[icon] }}" alt="{{settings[title]}} icon" setting-id="{{ icon }}" setting-type="image" class="hrv-cf-{{ icon }}" />
+							</div>
+						</div>
+						<div class="item-detail">
+							{%if settings[title] != ''%}<h3 class="title hrv-cf-{{ title }}" setting-id="{{ title }}" setting-type="text">{{settings[title]}}</h3>{%endif%}
+							{%if settings[desc] != ''%}<p class="desc hrv-cf-{{ desc }}" setting-id="{{ desc }}" setting-type="text">{{settings[desc]}}</p>{%endif%}
+						</div>
+					</a>
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+		</div>
+	</section>
+    {% endcomment %}
+
+    <section class="section-about-service {% if settings.show_about %}has-about{% endif %}">
+    	<div class="container">
+    		<div class="list-service owl-carousel owl-theme">
+    			{% assign time1 = 0.3 %}
+    			{% for i in (1..10) %}
+    				{% capture show %}show_about_service_{{i}}{% endcapture %}
+    				{% capture banner %}about_service_{{i}}_img_1{% endcapture %}
+    				{% capture icon %}about_service_{{i}}_img_2{% endcapture %}
+    				{% capture title %}about_service_{{i}}_title{% endcapture %}
+    				{% capture desc %}about_service_{{i}}_desc{% endcapture %}
+    				{% capture link %}about_service_{{i}}_link{% endcapture %}
+    
+    				{% if settings[show] %}
+    					{% assign time1 = time1 | plus: 0.2 %}
+    					<div class="service-item-wrap wow fadeInUp" data-wow-delay="{{time1}}s">
+    						<a href="{{settings[link]}}" class="service-item">
+    							<div class="item-img">
+    								<div class="banner">
+    									<img src="{{ settings[banner] }}" alt="{{settings[title]}}" setting-id="{{ banner }}" setting-type="image" class="hrv-cf-{{ banner }}">
+    								</div>
+    
+    								<div class="icon">
+    									<img src="{{ settings[icon] }}" alt="{{settings[title]}} icon" setting-id="{{ icon }}" setting-type="image" class="hrv-cf-{{ icon }}">
+    								</div>
+    							</div>
+    
+    							<div class="item-detail">
+    								{% if settings[title] != '' %}
+    									<h3 class="title hrv-cf-{{ title }}" setting-id="{{ title }}" setting-type="text">
+    										{{settings[title]}}
+    									</h3>
+    								{% endif %}
+    
+    								{% if settings[desc] != '' %}
+    									<p class="desc hrv-cf-{{ desc }}" setting-id="{{ desc }}" setting-type="text">
+    										{{settings[desc]}}
+    									</p>
+    								{% endif %}
+    							</div>
+    						</a>
+    					</div>
+    				{% endif %}
+    			{% endfor %}
+    		</div>
+    	</div>
+    </section>
+  <script>
+    $(document).ready(function(){
+      $('.list-service').owlCarousel({
+        loop: true,
+        margin: 30,
+        nav: false,
+        dots: true,
+        autoplay: true,
+        autoplayTimeout: 5000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            576: {
+                items: 2
+            },
+            768: {
+                items: 2
+            },
+            992: {
+                items: 3
+            },
+            1200: {
+                items: 4
+            }
+        }
+    });
+    })
+  </script>      
+	{%endif%}
+	{% assign featured_articles_prefix = 'about_press' %}
+	{% include 'featured-articles-slider' %}
+	{%if settings.show_about_counter%}
+	<section class="section-about-counter">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-12">
+					<div class="heading-title">
+						{%if settings.about_counter_title_1 != ''%}<p class="title1 hrv-cf-about_counter_title_1" setting-id="about_counter_title_1" setting-type="text">{{settings.about_counter_title_1}}</p>{%endif%}
+						{%if settings.about_counter_title_2 != ''%}<h2 class="title2 hrv-cf-about_counter_title_2" setting-id="about_counter_title_2" setting-type="text">{{settings.about_counter_title_2}}</h2>{%endif%}
+						{%if settings.about_counter_desc != ''%}<p class="desc hrv-cf-about_counter_desc" setting-id="about_counter_desc" setting-type="textarea">{{settings.about_counter_desc}}</p>{%endif%}
+					</div>
+				</div>
+			</div>
+			<div class="row row-counter">
+				{%assign time2 = 0.2%}
+				{%for i in (1..4)%}
+				{%capture show%}show_about_counter_{{i}}{%endcapture%}
+				{%capture img%}about_counter_{{i}}_img{%endcapture%}
+				{%capture title%}about_counter_{{i}}_title{%endcapture%}
+				{%capture num%}about_counter_{{i}}_num{%endcapture%}
+				{%if settings[show]%}
+				{%assign time2 = time2 | plus: 0.1%}
+				<div class="col-lg-3 col-md-6 col-12 wow fadeInUp" data-wow-delay="{{time2}}s">
+					<div class="counter-item">
+						<div class="item-num">
+							<div aria-valuenow="{{settings[num]}}" aria-valuemin="0" aria-valuemax="100" style="--value: {{settings[num]}}" class="progressbar"></div>
+							<div class="item-icon">
+								<img src="{{ settings[img] }}" alt="{{settings[title]}}" setting-id="{{ img }}" setting-type="image" class="hrv-cf-{{ img }}" />
+							</div>
+						</div>
+						<div class="item-detail">
+							<p class="num hrv-cf-{{ num }}" setting-id="{{ num }}" setting-type="text">{{settings[num]}}%</p>
+							<p class="title hrv-cf-{{ title }}" setting-id="{{ title }}" setting-type="text">{{settings[title]}}</p>
+						</div>
+					</div>
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+			<div class="row list-desc">
+				{%assign time3 = 0.3%}
+				{%for i in (1..3)%}
+				{%capture desc%}about_counter_desc_{{i}}{%endcapture%}
+				{%if settings[desc] != ''%}
+				{%assign time3 = time3 | plus: 0.2%}
+				<div class="col-lg-4 col-12 desc-item wow fadeInUp hrv-cf-{{ desc }}" data-wow-delay="{{time3}}s" setting-id="{{ desc }}" setting-type="text">
+					{{settings[desc] | newline_to_br}}
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_about_review%}
+	<section class="section-about-review">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-9 col-12">
+					<div class="heading-title">
+						{%if settings.about_review_title_1 != ''%}<p class="title1 hrv-cf-about_review_title_1" setting-id="about_review_title_1" setting-type="text">{{settings.about_review_title_1}}</p>{%endif%}
+						{%if settings.about_review_title_2 != ''%}<h2 class="title2 hrv-cf-about_review_title_2" setting-id="about_review_title_2" setting-type="text">{{settings.about_review_title_2}}</h2>{%endif%}
+					</div>
+				</div>
+				{%if settings.about_review_btn != ''%}
+				<div class="col-lg-3 col-12 btn-pc">
+					<div class="btn-more text-right">
+						<a href="{{settings.about_review_link}}" class="button hrv-cf-about_review_btn" setting-id="about_review_btn" setting-type="text" setting-bg-id="about_review_btn">{{settings.about_review_btn}}</a>
+					</div>
+				</div>
+				{%endif%}
+			</div>
+			<div class="list-review owl-carousel">
+				{%for i in (1..10)%}
+				{%capture show%}show_about_review_{{i}}{%endcapture%}
+				{%capture img%}about_review_{{i}}_img{%endcapture%}
+				{%capture name%}about_review_{{i}}_name{%endcapture%}
+				{%capture position%}about_review_{{i}}_position{%endcapture%}
+				{%capture desc%}about_review_{{i}}_desc{%endcapture%}
+				{%if settings[show]%}
+				<div class="review-item">
+					<div class="item-top">
+						<div class="item-img">
+							<img src="{{ settings[img] }}" alt="{{settings[name]}}" setting-id="{{ img }}" setting-type="image" class="hrv-cf-{{ img }}" />
+						</div>
+						<div class="item-info">
+							<p class="name hrv-cf-{{ name }}" setting-id="{{ name }}" setting-type="text">{{settings[name]}}</p>
+							<p class="position hrv-cf-{{ position }}" setting-id="{{ position }}" setting-type="text">{{settings[position]}}</p>
+						</div>
+					</div>
+					<div class="item-bottom hrv-cf-{{ desc }}" setting-id="{{ desc }}" setting-type="text">
+						{{settings[desc]}}
+					</div>
+				</div>
+				{%endif%}
+				{%endfor%}
+			</div>
+			{%if settings.about_review_btn != ''%}
+			<div class="btn-more btn-mb text-center">
+				<a href="{{settings.about_review_link}}" class="button hrv-cf-about_review_btn" setting-id="about_review_btn" setting-type="text" setting-bg-id="about_review_btn">{{settings.about_review_btn}}</a>
+			</div>
+			{%endif%}
+		</div>
+	</section>
+	{%endif%}
+	{%if settings.show_about_time%}
+	<section class="section-about-contact">
+		<div class="row align-items-center contact-top">
+			<div class="col-lg-8 col-12 top-left">
+				<div class="contact-map hrv-cf-about_contact_map" setting-id="about_contact_map" setting-type="textarea">
+					{{settings.about_contact_map}}
+				</div>
+			</div>
+			<div class="col-lg-4 col-12">
+				<div class="contact-time">
+					{%if settings.about_contact_time_title != ''%}<p class="title hrv-cf-about_contact_time_title" setting-id="about_contact_time_title" setting-type="text">{{settings.about_contact_time_title}}</p>{%endif%}
+					{%if settings.about_contact_time_desc != ''%}<p class="desc hrv-cf-about_contact_time_desc" setting-id="about_contact_time_desc" setting-type="textarea">{{settings.about_contact_time_desc}}</p>{%endif%}
+					<ul class="list-time">
+						{%for i in (1..6)%}
+						{%capture title%}about_contact_time_{{i}}_title{%endcapture%}
+						{%capture desc%}about_contact_time_{{i}}_desc{%endcapture%}
+						{%if settings[title] != ''%}
+						<li>
+							<span class="title hrv-cf-{{ title }}" setting-id="{{ title }}" setting-type="text">{{settings[title]}}</span>
+							<span class="desc hrv-cf-{{ desc }}" setting-id="{{ desc }}" setting-type="text">{{settings[desc]}}</span>
+						</li>
+						{%endif%}
+						{%endfor%}
+					</ul>
+					{%if settings.about_contact_btn != ''%}
+					<div class="btn-more">
+						<a href="{{settings.about_contact_link}}" class="button hrv-cf-about_contact_btn" setting-id="about_contact_btn" setting-type="text" setting-bg-id="about_contact_btn">{{settings.about_contact_btn}}</a>
+					</div>
+					{%endif%}
+				</div>
+			</div>
+		</div>
+	</section>
+	{%endif%}
+</div>

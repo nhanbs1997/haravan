@@ -1,0 +1,21 @@
+<div class="border border-main js-gift js-gift2 p-3 w-100 rounded-10">
+	<h3 class="font-weight-bold">{{settings.gift_title}}</h3>
+	{%if settings.gift_note.size > 0%}
+	<div class="note_gift">
+		{{settings.gift_note}}
+	</div>
+	{%endif%}
+	<div class="gift-progress w-100 list-unstyled">
+		<div class=gift-progress-bar></div>
+		<div class=gift-progress-bg></div>
+	</div>
+	<div class="gift-text mb-0"></div>
+	<div class="align-items-center d-flex justify-content-between mt-2">
+    {%if template == 'cart'%}
+      <a href="/colections/all" title="{{settings.gift_buy_more}}" class="gift-buy-more text-danger">{{settings.gift_buy_more}}</a>
+    {%endif%}
+		<button class="js-bmi py-2 px-3 text-hover font-weight-bold rounded-10">
+			{{settings.gift_cta}}
+		</button>
+	</div>
+</div>

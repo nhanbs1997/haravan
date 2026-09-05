@@ -1,0 +1,97 @@
+<div class="aside-content d-none d-lg-block bg-main rounded-10 mb-3">
+	{% assign col_menu = settings.aside_category_menu %}
+	{% for link in linklists[settings.aside_category_menu].links %}
+	{% if link.object %}
+	{% if link.active %}
+	{% assign col_menu_title = link.title %}
+	{% assign col_menu = link.handle %}
+	{%endif%}
+	{% for childlink in linklists[link.handle].links %}
+	{% if childlink.active %}
+	{% assign check_active_menu = true %}
+	{% endif %}
+	{% for childlink2 in linklists[childlink.handle].links %}
+	{% if childlink2.active %}
+	{% assign check_active_menu = true %}
+	{% endif %}
+	{% endfor %}
+	{% endfor %}
+	{% if link.active or check_active_menu %}
+	{% if linklists[link.handle] != null %}
+	{% for childlink in linklists[link.handle].links %}
+	{% if childlink.active %}
+	{% assign col_menu_title = link.title %}
+	{% assign col_menu = childlink.handle %}
+	{%endif%}
+	{% for childlink2 in linklists[childlink.handle].links %}
+	{% if childlink2.active %}
+	{% assign col_menu_title = childlink.title %}
+	{% assign col_menu = childlink.handle %}
+	{%endif%}
+	{% endfor %}
+	{% endfor %}
+	{% endif %}
+	{% endif %}
+	{% endif %}
+	{% assign check_active_menu = false %}
+	{% endfor %}
+	{% assign check_active_menu2 = false %}
+	{% if linklists[col_menu].links.size > 0 %}
+	{% assign check_active_menu2 = true %}
+	{% endif %}
+	{% if check_active_menu2 == false %}
+	{% assign col_menu = settings.aside_category_menu %}
+	{% assign col_menu_title = settings.aside_col_title %}
+	{%endif%}
+	<ul class="nav navbar-pills p-2">
+		{% for link in linklists[col_menu].links %}
+		{% if linklists[link.handle] %}
+		<li class="nav-item position-relative {% if link.active %}active{% endif %} position-relative">
+			<a title="{{ link.title }}" href="{{ link.url }}" class="nav-link align-items-center d-flex font-weight-bold">
+				{{ link.title }}
+			{%comment%}<i class="open_mnu down_icon align-items-center justify-content-center position-relative"></i>{%endcomment%}
+			</a>
+			<ul class="menu_down" style="display:none;">
+				{% for childlink in linklists[link.handle].links %}
+				{% if linklists[childlink.handle] %}
+				<li class="dropdown-submenu nav-item {% if childlink.active %}active{% endif %} position-relative">
+					<a title="{{ childlink.title }}" class="nav-link pr-5" href="{{ childlink.url }}">{{ childlink.title }}</a>
+					<i class="open_mnu down_icon align-items-center justify-content-center"></i>
+					<ul class="menu_down" style="display:none;">
+						{% for childlink2 in linklists[childlink.handle].links %}
+						{% if linklists[childlink2.handle] %}
+						<li class="dropdown-submenu nav-item {% if childlink2.active %}active{% endif %} position-relative">
+							<a title="{{ childlink2.title }}" class="nav-link pr-5 pl-4" href="{{ childlink2.url }}">{{ childlink2.title }}</a>
+							<i class="open_mnu down_icon align-items-center justify-content-center"></i>
+							<ul class="menu_down" style="display:none;">
+								{% for childlink3 in linklists[childlink2.handle].links %}
+								<li class="dropdown-submenu nav-item {% if childlink3.active %}active{% endif %}">
+									<a title="{{ childlink3.title }}" class="nav-link pl-5" href="{{ childlink3.url }}">{{ childlink3.title }}</a>
+								</li>
+								{% endfor %}
+							</ul>
+						</li>
+						{% else %}
+						<li class="nav-item">
+							<a title="{{ childlink2.title }}" class="nav-link pl-4" href="{{ childlink2.url }}">{{ childlink2.title }} </a>
+						</li>
+						{% endif %}
+						{% endfor %}
+					</ul>                      
+				</li>
+				{% else %}
+				<li class="nav-item">
+					<a  title="{{ childlink.title }}" class="nav-link" href="{{ childlink.url }}">{{ childlink.title }}</a>
+				</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+		</li>
+		{% else %}
+		<li class="nav-item position-relative {% if link.active %}active{% endif %}">
+			<a title="{{ link.title }}" class="nav-link font-weight-bold" href="{{ link.url }}">{{ link.title }}</a>
+		</li>
+		{% endif %}
+		{% endfor %}
+	</ul>
+</div>

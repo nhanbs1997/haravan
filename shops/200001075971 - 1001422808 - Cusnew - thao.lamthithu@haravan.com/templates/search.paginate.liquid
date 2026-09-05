@@ -1,0 +1,29 @@
+{%layout none%}
+{%paginate search.results by settings.pagination_limit %}
+
+<div id="pagination" class="row">
+	{% if paginate.pages > 1 %}
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		{% if paginate.previous %}
+		<a class="prev" href="javascript:;" data-link="m" title="{{ paginate.previous.title }}">
+			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 31 10" style="enable-background:new 0 0 31 10; width: 31px; height: 10px;" xml:space="preserve"><polygon points="31,5 25,0 25,4 0,4 0,6 25,6 25,10 "></polygon></svg>
+		</a>
+		{% endif %}
+
+		{%for part in paginate.parts%}
+		{%if part.is_link%}
+		<a class="page-node" href="javascript:;" data-link="{{part.title}}">{{part.title}}</a>
+		{%else%}
+		<span class="page-node {%if part.title == paginate.current_page%}current{%endif%}">{{part.title}}</span>
+		{%endif%}
+		{%endfor%}
+
+		{% if paginate.next %}
+		<a class="next" href="javascript:;" data-link="p" title="{{ paginate.next.title }}">
+			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 31 10" style="enable-background:new 0 0 31 10; width: 31px; height: 10px;" xml:space="preserve"><polygon points="31,5 25,0 25,4 0,4 0,6 25,6 25,10 "></polygon></svg>
+		</a>
+		{% endif %}
+	</div>
+	{% endif %}
+</div>
+{% endpaginate %}

@@ -1,0 +1,64 @@
+/*--------------------------------------------------------------------------------
+PAGE FAQS
+--------------------------------------------------------------------------------*/
+.layoutPage-faqs {
+	margin-bottom: 60px;
+	.section-breadcrumb {margin-bottom: 60px;}
+	.section-faqs-info {
+		max-width: 800px;margin: 0 auto;
+		.intro-banner {margin-bottom: 20px;}
+		.intro-desc {margin-bottom: 60px;font-size: 16px;}
+		.intro-list-faqs {
+			font-size: 16px;
+			.faq-item {margin-bottom: 20px;}
+			.header-faqs {
+				font-weight: 600;
+				padding-right: 20px;
+				padding-bottom: 10px;
+				margin-bottom: 10px;
+				border-bottom: 1px solid #eee;
+				position: relative;
+				cursor: pointer;
+				&:before {
+					content: "";
+					right: 5px;top: 12px;
+					position: absolute;
+					box-sizing: border-box;
+					height: 8px;
+					width: 8px;
+					border-style: solid;
+					border-color: currentColor;
+					border-width: 0px 1px 1px 0px;
+					transform: rotate(45deg);
+					transition: border-width 150ms ease-in-out;
+					transition: all 0.4s ease-in-out 0s;
+					-moz-transition: all 0.4s ease-in-out 0s;
+					-o-transition: all 0.4s ease-in-out 0s;
+					-webkit-transition: all 0.4s ease-in-out 0s;
+					-ms-transition: all 0.4s ease-in-out 0s;
+				}
+				&.opened {border-color: #000;}
+				&.opened:before {
+					-moz-transform: rotate(-135deg);
+					-webkit-transform: rotate(-135deg);
+					-o-transform: rotate(-135deg);
+					-ms-transform: rotate(-135deg);
+					transform: rotate(-135deg);
+				}
+			}
+			.content-faqs {display: none;}
+		}
+		.form-faqs {
+			margin-top: 60px;
+			h2 {font-size: 18px;font-weight: 600;margin-bottom: 15px;}
+		}
+	}
+	@media(max-width: 991px){
+		.section-breadcrumb {margin-bottom: 20px;}
+	}
+}
+
+
+
+
+

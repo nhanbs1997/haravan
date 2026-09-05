@@ -1,0 +1,203 @@
+{%-if template contains 'index'-%}
+<script type="application/ld+json">
+{  
+   "@context":"http://schema.org",
+   "@type":"Organization",
+   "name":"{{shop.title}}",
+   "url":"https:{{shop.url}}",
+   "logo":"https:{{'logo.png' | asset_url}}",
+   "contactPoint":[  
+      {  
+         "@type":"ContactPoint",
+        "telephone":"{{shop.phone_number | remove_first:'0' | prepend:'+84'}}",
+         "contactType":"Customer Service",
+         "availableLanguage":[  
+            "Tiếng Việt",
+            "English"
+         ],
+         "contactOption":[  
+         ]
+      }
+   ],
+   "sameAs":[  
+   ]
+}
+</script>
+<script type="application/ld+json">
+{
+   "@context": "http://schema.org",
+   "@type": "WebSite",
+   "url": "https:{{shop.url}}",
+   "potentialAction": {
+   "@type": "SearchAction",
+   "target": "https:{{shop.url}}/search?q={search_term_string}",
+   "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{%-endif-%}
+{%-unless template contains 'index' or template contains '404'-%}
+<script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": 
+        [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": 
+                {
+                  "@id": "https:{{shop.url}}",
+                  "name": "Trang chủ"
+                }
+            },
+      {%-if template contains 'product'-%}
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": 
+                {
+                  "@id": "https:{{shop.url}}/{{ product.alias }}",
+                  "name": "{{ product.title }}"
+                }
+            }
+      {%-endif-%}
+      {%-if template contains 'collection' and collection.alias-%}
+      {%-if collection.alias == 'all'-%}
+      {
+                "@type": "ListItem",
+                "position": 2,
+                "item": 
+                {
+                  "@id": "https:{{shop.url}}/collections/all",
+                  "name": "{{ collection.title }}"
+                }
+      }{%-if current_tags-%},{%-endif-%}
+      {%-else-%}
+      {
+                "@type": "ListItem",
+                "position": 2,
+                "item": 
+                {
+                  "@id": "https:{{shop.url}}/{{ collection.alias }}",
+                  "name": "{{ collection.title }}"
+                }
+            }{%-if current_tags-%},{%-endif-%}
+      {%-endif-%}
+      {%-if current_tags-%}
+        {%-if collection.alias == 'all'-%}
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": 
+          {
+            "@id": "https:{{shop.url}}/collections/all/{{ current_tags.first }}",
+            "name": "{{ current_tags.first }}"
+          }
+        }
+        {%-else-%}
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": 
+          {
+            "@id": "https:{{shop.url}}/{{ collection.alias }}/{{ current_tags.first }}",
+            "name": "{{ current_tags.first }}"
+          }
+        }
+      {%-endif-%}
+      {%-endif-%}
+      {%-endif-%}
+      {%-if template contains 'article'-%}
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": 
+                {
+                  "@id": "https:{{shop.url}}{{ blog.url }}",
+                  "name": "{{ blog.title }}"
+                }
+            },
+      {
+                "@type": "ListItem",
+                "position": 3,
+                "item": 
+                {
+                  "@id": "https:{{shop.url}}{{ article.url }}",
+                  "name": "{{ article.title }}"
+                }
+            }
+      {%-endif-%}
+      {%-if template contains 'blog'-%}
+      {%-if current_url contains 'blogs/all'-%}
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": 
+                {
+                  "@id": "https:{{shop.url}}/blogs/all",
+                  "name": "{{ blog.title }}"
+                }
+            }
+      {%-else-%}
+        {
+                "@type": "ListItem",
+                "position": 2,
+                "item": 
+                {
+                  "@id": "https:{{shop.url}}{{blog.url}}",
+                  "name": "{{ blog.title }}"
+                }
+            }
+      {%-if current_tags-%}
+      ,
+      {
+                "@type": "ListItem",
+                "position": 3,
+                "item": 
+                {
+                  "@id": "https:{{shop.url}}{{blog.url}}/{{ current_tags.first }}",
+                  "name": "{{ current_tags.first }}"
+                }
+            }
+      {%-endif-%}
+      {%-endif-%}
+      {%-endif-%}
+      {%-if template contains 'page'-%}
+      {
+                "@type": "ListItem",
+                "position": 2,
+                "item": 
+                {
+                  "@id": "https:{{shop.url}}/{{ page.alias }}",
+                  "name": "{{ page.title }}"
+                }
+            }
+      {%-endif-%}
+      {%-if template contains 'cart'-%}
+      {
+                "@type": "ListItem",
+                "position": 2,
+                "item": 
+                {
+                  "@id": "https:{{shop.url}}/cart",
+                  "name": "Giỏ hàng"
+                }
+            }
+      {%-endif-%}
+      {%-if template contains 'search'-%}
+      {
+                "@type": "ListItem",
+                "position": 2,
+                "item": 
+                {
+                  "@id": "https:{{shop.url}}/search",
+                  "name": "Tìm kiếm"
+                }
+      }
+      {%-endif-%}
+    ]
+}
+</script>
+{%-endunless-%}

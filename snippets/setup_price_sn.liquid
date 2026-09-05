@@ -1,0 +1,57 @@
+{%-assign sold_out = true-%}
+{%-if product.available-%}
+{%-assign sold_out = false-%}
+{%-endif-%} 
+{%-assign dq-price = product.variants[0].price-%}
+{%-assign dq-compare-price = product.variants[0].compare_at_price-%}
+{%-assign contact_item = false-%}
+{%-if dq-price < 1-%}
+{%-assign contact_item = true-%}
+{%-endif-%}
+{%-assign on_sale = false-%}
+{%-if dq-compare-price > dq-price-%}
+{%-assign on_sale = true-%}
+{%-endif-%}
+{%-assign variantCount = product.variants | size-%}
+{%-assign on_var = false-%}
+{%-if variantCount > 1-%}
+{%-assign on_var = true-%}
+{%-endif-%}
+{%-capture discount-%}{{-dq-compare-price | minus:dq-price | times:100 | divided_by:dq-compare-price | round-}}{%-endcapture %}
+{%-assign pt = dq-compare-price  | minus:dq-price | times:100 | divided_by:dq-compare-price-%}
+{%-if pt > 99-%}{%-capture discount-%}99{%-endcapture-%}{%-endif-%}
+{%-if pt < 1-%}{%-capture discount-%}1{%-endcapture-%}{%-endif-%}
+{%assign khung = ''%}
+{% for collection in product.collections %}
+{%if settings.product_image_overlay01 and collection.handle == settings.product_image_overlay_col01%}
+{%assign khung = '01'%}
+{%break%}
+{% elsif settings.product_image_overlay02 and collection.handle == settings.product_image_overlay_col02 %}
+{%assign khung = '02'%}
+{%break%}
+{% elsif settings.product_image_overlay03 and collection.handle == settings.product_image_overlay_col03 %}
+{%assign khung = '03'%}
+{%break%}
+{% elsif settings.product_image_overlay04 and collection.handle == settings.product_image_overlay_col04 %}
+{%assign khung = '04'%}
+{%break%}
+{% elsif settings.product_image_overlay05 and collection.handle == settings.product_image_overlay_col05 %}
+{%assign khung = '05'%}
+{%break%}
+{% elsif settings.product_image_overlay06 and collection.handle == settings.product_image_overlay_col06 %}
+{%assign khung = '06'%}
+{%break%}
+{% elsif settings.product_image_overlay07 and collection.handle == settings.product_image_overlay_col07 %}
+{%assign khung = '07'%}
+{%break%}
+{% elsif settings.product_image_overlay08 and collection.handle == settings.product_image_overlay_col08 %}
+{%assign khung = '08'%}
+{%break%}
+{% elsif settings.product_image_overlay09 and collection.handle == settings.product_image_overlay_col09 %}
+{%assign khung = '09'%}
+{%break%}
+{% elsif settings.product_image_overlay10 and collection.handle == settings.product_image_overlay_col10 %}
+{%assign khung = '10'%}
+{%break%}
+{%endif%}
+{% endfor %}

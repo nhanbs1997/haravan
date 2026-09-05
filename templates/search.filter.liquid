@@ -1,0 +1,20 @@
+{%layout none%}
+{%paginate search.results by settings.pagination_limit %}
+
+{%-assign check_menu = false-%}
+{%-if settings.collection_sidebar != "" and linklists[settings.collection_sidebar].links.size > 0-%}
+{%-assign check_menu = true-%}
+{%-endif-%}
+
+{%-if settings.show_collection_filter-%}
+{%-assign check_menu = true-%}
+{%-endif-%}
+{%if search.results.size > 0%}
+{%for product in search.results%}
+<div class="col-lg-3 col-md-4 col-sm-6 col-6 product-grid-item-lm mb-3 ">
+  {%- include 'product-grid-item' -%}         
+</div>
+{%endfor%}
+{%endif%}
+{%endpaginate%}
+

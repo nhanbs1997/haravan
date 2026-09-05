@@ -1,0 +1,49 @@
+{%- if template contains 'product' -%}
+<meta property="og:type" content="product" />
+<meta property="og:title" content="{{ product.title | strip_html | strip_newlines  }}" />
+<meta property="og:image" content="http:{{ product.featured_image.src | product_img_url: 'grande'  | remove: 'http:'}}" />
+<meta property="og:image:secure_url" content="https:{{ product.featured_image.src | product_img_url: 'grande'  | remove: 'http:'}}" />
+<meta property="og:price:amount" content="{{ product.price | money_without_currency | remove: ',' | remove: '₫'}}" />
+<meta property="og:price:currency" content="{{ shop.currency }}" />
+{%- elsif template contains 'collection' %}
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{{ collection.title | strip_html | strip_newlines }}" />
+{%- assign img_tag = '&lt;' | append: 'img' -%}
+{%- if collection.image -%}
+{%- assign src = collection.image.src | remove: 'https:' | remove: 'http:' -%}
+{%- else -%}
+{%- if collection.description contains img_tag -%}
+{%- assign src = collection.description | split: 'src="' -%}
+{%- assign src = src[1] | split: '"' | first | remove: 'https:' | remove: 'http:' -%}
+{%- else -%}
+{%- assign shareFb =  'share_fb_home.png' | asset_url -%}
+{%- assign src = shareFb | remove: 'https:' | remove: 'http:'-%}
+{%- endif -%}
+{%- endif -%}
+<meta property="og:image" content="http:{{ src }}" />
+<meta property="og:image:secure_url" content="https:{{ src }}" />
+{%- elsif template contains 'article' %}
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{ article.title | strip_html | strip_newlines }}" />
+{%- assign img_tag = '&lt;' | append: 'img' -%}
+{%- if article.image -%}
+{%- assign src = article.image.src | remove: 'https:' | remove: 'http:' -%}
+{%- else -%}
+{%- if article.content contains img_tag -%}
+{%- assign src = article.content | split: 'src="' -%}
+{%- assign src = src[1] | split: '"' | first | remove: 'https:' | remove: 'http:' -%}
+{%- endif -%}
+{%- endif -%}
+{%- if src -%}
+<meta property="og:image" content="http:{{ src }}" /><meta property="og:image:secure_url" content="https:{{ src }}" />
+{%- endif -%}
+{%- else -%}
+{%- assign shareFb =  'share_fb_home.png' | asset_url -%}
+{%- assign src = shareFb | remove: 'https:' | remove: 'http:'-%}
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{{ page_title | strip_html | strip_newlines | escape}}" />
+<meta property="og:image" content="http:{{ src }}" />
+<meta property="og:image:secure_url" content="https:{{ src }}" />
+{%- endif -%}
+{%- if page_description -%}<meta property="og:description" content="{{ page_description | strip_html | strip_newlines }}" />{%- endif -%}
+<meta property="og:url" content="{{ canonical_url  | remove: 'http:'}}" /><meta property="og:site_name" content="{{ shop.name }}" />

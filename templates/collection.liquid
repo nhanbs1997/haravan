@@ -1,0 +1,74 @@
+<div class="opacity_filter"></div>
+{%- assign product_per_page = settings.collection_results_per_page | default: 12 -%}
+{%- include 'breadcrumb'-%}
+<section class="collection-layout mt-3 mb-4 mb-lg-5">
+	<div class="container">
+    <h1 class="collection-name font-weight-bold mb-lg-3 text-uppercase pb-2 pt-2 mb-2 d-none">
+      {{ collection.title }}
+    </h1>
+    {%-if settings.enable_banner_collection-%}
+    {%include 'm_banner_collection'%}
+    {%-endif-%}
+    {%if settings.display_cate_collection%}
+    {%include 'aside-cate'%}
+    {%endif%}
+    {%- include 'collection-sortby' -%}
+    <div class="collection">
+      {%- paginate collection.products by product_per_page -%}
+      <div class="category-products position-relative mt-3">
+        {%- if collection.products.size > 0 -%}
+        <div class="row slider-items mb-3">
+          {%- for product in collection.products -%}
+          <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-6 product-grid-item-lm mb-3 ">
+            {%if forloop.index > 2%}
+            {%- include 'product-grid-item' -%}         
+            {%else%}
+            {%- include 'product-grid-item-no-lazy' -%} 
+            {%endif%}
+          </div>
+          {%- endfor -%}
+        </div>
+        {%- else -%}
+        <p class="text-center alert alert-warning">{{settings.emptyCollection}}</p>
+        {%- endif -%}
+        {%- if paginate.pages > 1 -%}
+        {%- include 'collection-paginate-pages' -%}
+        {%- endif -%}
+        {%- endpaginate -%}
+      </div>
+    </div>
+    {% assign mycontent2 = collection.description | split:'<p>####</p>' | last%}
+    {% assign mycontent3 = mycontent2 | split:'<h5>' | first%}
+    {%- if mycontent3 != '' and mycontent3 != null -%}
+    {%- assign long = mycontent3.size -%}
+    <div class="category-gallery pb-3 pt-3">
+      <div class="{%if mycontent3 != '' and long > 800%}content_coll{%endif%} position-relative rte">
+        {{mycontent3}}
+        {%- if mycontent3 != '' and long > 800-%}
+        <div class="bg_cl position-absolute w-100"></div>
+        {%- endif -%}
+      </div>
+      {%- if mycontent3 != '' and long > 800-%}
+      <div class="view_mores text-center mb-2">
+        <a href="javascript:;" class="one pt-2 pb-2 pl-4 pr-4 modal-open position-relative btn rounded-10 box_shadow font-weight-bold" title="{{settings.seemore_text}}">{{settings.seemore_text}} <img class="m_more" src="{{'sortdown.png' | asset_url | img_url:'pico'}}" alt="{{settings.seemore_text}}"></a>
+        <a href="javascript:;" class="two pt-2 pb-2 pl-4 pr-4 modal-open position-relative btn rounded-10 box_shadow font-weight-bold d-none" title="{{settings.seeless_text}}">{{settings.seeless_text}} <img class="m_less" src="{{'sortdown.png' | asset_url | img_url:'pico'}}" alt="{{settings.seeless_text}}"></a>
+      </div>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+    {% if settings.display_fillter %}
+    {%- include 'sidebar-collection' -%}
+    {%endif%}
+    {%if settings.enable_product_recents%}
+    <div class="template-product">
+				{%-include 'm_product_recent'-%}
+		</div>
+    {%endif%}
+	</div>
+</section>
+<input type="text" class="d-none" id="coll-handle" value="{% if collection.handle == 'all' %}(collectionid:product>0){% else %}(collectionid:product={{collection.id}}){% endif %}" />
+<script>
+	var colId = {% if collection.id > 0 %}{{collection.id }}{% else %}0{% endif %};
+	var selectedViewData = 'data';
+	var isFilterRange = {%if settings.filter_price_type == 'checkbox'%}false{%else%}true{%endif%};
+</script>

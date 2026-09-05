@@ -1,0 +1,56 @@
+{%-assign result_per_page = settings.search_result_per_page | default: 12-%}
+{%- include 'breadcrumb' -%}
+<section class="search-layout mt-3 mb-3">
+	<div class="container">
+		<div class="category-products position-relative b_search">
+						{%- if search.performed -%}     
+						{%- paginate search.results by result_per_page -%}        
+						{%- if search.results.size == 0 -%}
+						<div class="text-center pt-4 pb-4">
+							{%-include 'noproduct_svg'-%}
+							<h2 class="search_0 font-weight-bold text-center">{{settings.search_no_result}}</h2>
+						</div>
+						<div class="cd_back_home text-danger text-center m-auto font-weight-bold">
+							<img src="{{'back.png' | asset_url}}" alt="{{settings.search_back_to_home}}">
+							<span>{{settings.search_back_to_home}} <span id="countdown-timer"></span></span>
+						</div>
+						<script>
+							var timeleft = 10;
+							var downloadTimer = setInterval(function(){
+								if(timeleft < 2){
+									clearInterval(downloadTimer);
+									window.location.href = '/'
+								}
+								document.getElementById('countdown-timer').innerHTML = timeleft;
+								timeleft -= 1;
+								console.log(timeleft);
+							}, 1000);
+						</script>
+						{%-else-%}
+						{%-include 'search_cate'-%}
+						{%-capture search_count-%}{{ search.results_count }}{%-endcapture-%}
+						{%-capture search_keyword-%}{{ search.terms }}{%-endcapture-%}
+						<h2 class="h3 mb-3 t-search">{{settings.search_result_count | replace: '[count]', search_count | replace: '[keyword]', search_keyword}}</h2> 
+						<div class="row slider-items">
+							{%-for article in search.results-%}
+							{%-if article.object_type == 'article'-%}
+							<div class="col-12 col-sm-6 col-md-6 col-lg-4 its mb-3">
+								{%include 'blog_item_grid'%}
+							</div>
+							{%-endif-%}
+							{%-endfor-%}
+						</div>
+						{%-endif-%}
+						{%-if paginate.pages > 1-%}
+						{%-include 'paginate-pages'-%}
+						{%-endif-%}
+						{%-endpaginate-%}
+						{%-else-%}
+						<div class="text-center pt-4 pb-4">
+							{%-include 'noproduct_svg'-%}
+							<h2 class="search_0 font-weight-bold text-center">{{settings.search_result_noti}}</h2>
+						</div>
+						{%- endif -%}
+					</div>
+	</div>
+</section>

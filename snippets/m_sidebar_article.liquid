@@ -1,0 +1,12 @@
+<div class="aside-content blog-sidebar">
+	<h3 class="align-items-center title d-flex pt-2 mb-3 font-coiny">
+		{{settings.blogs_sidebar_title}}
+	</h3>
+	<div class="row flex-unset flex-lg-wrap mbs">
+		{% for article in blogs.all.articles limit: 4 %}
+		<div class="col-12 col-sm-6 col-lg-12 item {%unless forloop.last%}mb-lg-3{%endunless%}">
+			{%- include 'blog_item_sidebar' -%}
+		</div>
+		{% endfor %}
+	</div>
+</div>

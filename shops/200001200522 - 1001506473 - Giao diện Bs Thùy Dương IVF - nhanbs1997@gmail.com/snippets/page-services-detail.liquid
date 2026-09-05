@@ -1,0 +1,283 @@
+{% assign page_index = page_service_template_index | default: 1 %}
+{% capture setting_prefix %}page_services_{{ page_index }}_{% endcapture %}
+
+{% capture service_show_key %}{{ setting_prefix }}show{% endcapture %}
+{% capture legacy_service_show_key %}show_page_service_{{ page_index }}{% endcapture %}
+{% assign service_show = settings[service_show_key] %}
+{% if service_show == blank %}{% assign service_show = settings[legacy_service_show_key] %}{% endif %}
+
+{% capture service_image_key %}{{ setting_prefix }}image{% endcapture %}
+{% capture legacy_service_image_key %}page_service_{{ page_index }}_img{% endcapture %}
+{% assign service_image = settings[service_image_key] | default: settings[legacy_service_image_key] %}
+
+{% capture service_title_key %}{{ setting_prefix }}title{% endcapture %}
+{% capture legacy_service_title_key %}page_service_{{ page_index }}_title{% endcapture %}
+{% assign service_title = settings[service_title_key] | default: settings[legacy_service_title_key] | default: page_service_template_default_title | default: page.title %}
+
+{% capture service_desc_key %}{{ setting_prefix }}description{% endcapture %}
+{% capture legacy_service_desc_key %}page_service_{{ page_index }}_desc{% endcapture %}
+{% assign service_desc = settings[service_desc_key] | default: settings[legacy_service_desc_key] | default: page_service_template_default_description %}
+
+{% capture service_button_key %}{{ setting_prefix }}button{% endcapture %}
+{% capture legacy_service_button_key %}page_service_{{ page_index }}_btn{% endcapture %}
+{% assign service_button = settings[service_button_key] | default: settings[legacy_service_button_key] | default: 'Xem thêm' %}
+
+{% capture service_link_key %}{{ setting_prefix }}link{% endcapture %}
+{% capture legacy_service_link_key %}page_service_{{ page_index }}_link{% endcapture %}
+{% assign service_link = settings[service_link_key] | default: settings[legacy_service_link_key] | default: page.url %}
+
+{% capture content_key %}{{ setting_prefix }}content{% endcapture %}
+{% assign detail_content = settings[content_key] %}
+{% if detail_content == blank %}{% assign detail_content = page_service_template_default_content %}{% endif %}
+{% if detail_content == blank %}{% assign detail_content = page.content %}{% endif %}
+
+<div class="layout-services">
+  <section class="section-breadcrumb text-center">
+    <div class="container breadcrumb-content">
+      <h1>{{ service_title }}</h1>
+      <a href="#btn-scroll" class="btn-scroll">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14.626" height="8.639" viewBox="0 0 14.626 8.639"><path d="M14.392,101.42l-.479-.482a.8.8,0,0,0-1.132,0L7.316,106.4l-5.472-5.472a.8.8,0,0,0-1.132,0l-.479.479a.8.8,0,0,0,0,1.131l6.515,6.538a.818.818,0,0,0,.567.257h0a.818.818,0,0,0,.566-.257l6.508-6.52a.808.808,0,0,0,.234-.571A.8.8,0,0,0,14.392,101.42Z" transform="translate(0 -100.698)"></path></svg>
+      </a>
+    </div>
+    <div class="hidden">{% include 'breadcrumb' %}</div>
+  </section>
+
+  <div id="btn-scroll">
+    {% if service_show != false %}
+    <section class="section-page-service">
+      <div class="container">
+        <div class="row list-service">
+          <div class="service-item">
+            {% if service_image != blank %}
+            <div class="item-img">
+              <img src="{{ service_image }}" alt="{{ service_title }}" setting-id="{{ service_image_key }}" setting-type="image" class="hrv-cf-{{ service_image_key }}" />
+            </div>
+            {% endif %}
+            <div class="item-detail">
+              <h3 class="title">
+                <a href="{{ service_link }}" setting-id="{{ service_title_key }}" setting-type="text" class="hrv-cf-{{ service_title_key }}">{{ service_title }}</a>
+              </h3>
+              {% if service_desc != blank %}<p class="desc hrv-cf-{{ service_desc_key }}" setting-id="{{ service_desc_key }}" setting-type="textarea">{{ service_desc | newline_to_br }}</p>{% endif %}
+              {% if service_button != blank %}
+              <a href="{{ service_link }}" class="link">
+                <span setting-id="{{ service_button_key }}" setting-type="text" class="hrv-cf-{{ service_button_key }}">{{ service_button }}</span>
+                <svg width="20px" height="20px" viewBox="0 0 24 24" class="icon flat-line"><line x1="21" y1="12" x2="3" y2="12" style="fill:none;stroke:rgb(0,0,0);stroke-linecap:round;stroke-linejoin:round;stroke-width:2;"></line><polyline points="14 5 21 12 14 19" style="fill:none;stroke:rgb(0,0,0);stroke-linecap:round;stroke-linejoin:round;stroke-width:2;"></polyline></svg>
+              </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% capture intro_show_key %}{{ setting_prefix }}intro_show{% endcapture %}
+    {% assign intro_show = settings[intro_show_key] %}
+    {% if intro_show == blank %}{% assign intro_show = settings.show_page_about %}{% endif %}
+    {% capture intro_title1_key %}{{ setting_prefix }}intro_title1{% endcapture %}
+    {% assign intro_title1 = settings[intro_title1_key] | default: 'Dịch vụ' %}
+    {% capture intro_title2_key %}{{ setting_prefix }}intro_title2{% endcapture %}
+    {% assign intro_title2 = settings[intro_title2_key] | default: service_title %}
+    {% capture intro_desc_key %}{{ setting_prefix }}intro_desc{% endcapture %}
+    {% assign intro_desc = settings[intro_desc_key] | default: service_desc %}
+    {% capture intro_img1_key %}{{ setting_prefix }}intro_img_1{% endcapture %}
+    {% assign intro_img1 = settings[intro_img1_key] | default: service_image %}
+    {% capture intro_img2_key %}{{ setting_prefix }}intro_img_2{% endcapture %}
+    {% capture legacy_intro_img2_key %}page_about_img_2{% endcapture %}
+    {% assign intro_img2 = settings[intro_img2_key] | default: settings[legacy_intro_img2_key] %}
+
+    {% if intro_show != false %}
+    <section class="section-page-about">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 col-12 about-content">
+            <div class="heading-title">
+              {% if intro_title1 != blank %}<p class="title1 hrv-cf-{{ intro_title1_key }}" setting-id="{{ intro_title1_key }}" setting-type="text">{{ intro_title1 }}</p>{% endif %}
+              {% if intro_title2 != blank %}<h2 class="title2 hrv-cf-{{ intro_title2_key }}" setting-id="{{ intro_title2_key }}" setting-type="text">{{ intro_title2 }}</h2>{% endif %}
+              {% if intro_desc != blank %}<p class="desc hrv-cf-{{ intro_desc_key }}" setting-id="{{ intro_desc_key }}" setting-type="textarea">{{ intro_desc | newline_to_br }}</p>{% endif %}
+            </div>
+            <ul class="list-desc">
+              {% for i in (1..6) %}
+              {% capture feature_key %}{{ setting_prefix }}feature_{{ i }}{% endcapture %}
+              {% capture legacy_feature_key %}page_about_desc_{{ i }}{% endcapture %}
+              {% assign feature = settings[feature_key] | default: settings[legacy_feature_key] %}
+              {% if feature != blank %}<li class="desc-item hrv-cf-{{ feature_key }}" setting-id="{{ feature_key }}" setting-type="text">{{ feature }}</li>{% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="col-lg-6 col-12 about-banner">
+            {% if intro_img1 != blank %}<div class="banner-item banner-item--1"><img src="{{ intro_img1 }}" alt="{{ intro_title2 }} 1" setting-id="{{ intro_img1_key }}" setting-type="image" class="hrv-cf-{{ intro_img1_key }}" /></div>{% endif %}
+            {% if intro_img2 != blank %}<div class="banner-item banner-item--2"><img src="{{ intro_img2 }}" alt="{{ intro_title2 }} 2" setting-id="{{ intro_img2_key }}" setting-type="image" class="hrv-cf-{{ intro_img2_key }}" /></div>{% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% capture price_show_key %}{{ setting_prefix }}price_show{% endcapture %}
+    {% assign price_show = settings[price_show_key] %}
+    {% if price_show == blank %}{% assign price_show = settings.show_page_price %}{% endif %}
+    {% capture price_title1_key %}{{ setting_prefix }}price_title1{% endcapture %}
+    {% assign price_title1 = settings[price_title1_key] | default: 'BẢNG GIÁ' %}
+    {% capture price_title2_key %}{{ setting_prefix }}price_title2{% endcapture %}
+    {% assign price_title2 = settings[price_title2_key] | default: service_title %}
+    {% capture price_title_key %}{{ setting_prefix }}price_title{% endcapture %}
+    {% capture legacy_price_title_key %}page_price_{{ page_index }}_title{% endcapture %}
+    {% assign price_title = settings[price_title_key] | default: settings[legacy_price_title_key] %}
+    {% capture price_num_key %}{{ setting_prefix }}price_num{% endcapture %}
+    {% capture legacy_price_num_key %}page_price_{{ page_index }}_num{% endcapture %}
+    {% assign price_num = settings[price_num_key] | default: settings[legacy_price_num_key] %}
+    {% capture price_desc_key %}{{ setting_prefix }}price_desc{% endcapture %}
+    {% capture legacy_price_desc_key %}page_price_{{ page_index }}_desc{% endcapture %}
+    {% assign price_desc = settings[price_desc_key] | default: settings[legacy_price_desc_key] %}
+    {% capture price_button_key %}{{ setting_prefix }}price_button{% endcapture %}
+    {% capture legacy_price_button_key %}page_price_{{ page_index }}_btn{% endcapture %}
+    {% assign price_button = settings[price_button_key] | default: settings[legacy_price_button_key] %}
+    {% capture price_link_key %}{{ setting_prefix }}price_link{% endcapture %}
+    {% capture legacy_price_link_key %}page_price_{{ page_index }}_link{% endcapture %}
+    {% assign price_link = settings[price_link_key] | default: settings[legacy_price_link_key] | default: page.url %}
+
+    {% if price_show != false %}
+    <section class="section-page-price text-center">
+      <div class="container">
+        <div class="heading-title">
+          {% if price_title1 != blank %}<p class="title1 hrv-cf-{{ price_title1_key }}" setting-id="{{ price_title1_key }}" setting-type="text">{{ price_title1 }}</p>{% endif %}
+          {% if price_title2 != blank %}<h2 class="title2 hrv-cf-{{ price_title2_key }}" setting-id="{{ price_title2_key }}" setting-type="text">{{ price_title2 }}</h2>{% endif %}
+        </div>
+        {% if price_title != blank or price_num != blank or price_desc != blank %}
+        <div class="row price-list">
+          <div class="col-lg-4 col-12">
+            <div class="price-item">
+              <div class="item-content">
+                {% if price_title != blank %}<p class="title hrv-cf-{{ price_title_key }}" setting-id="{{ price_title_key }}" setting-type="text">{{ price_title }}</p>{% endif %}
+                {% if price_num != blank %}<p class="num hrv-cf-{{ price_num_key }}" setting-id="{{ price_num_key }}" setting-type="text">{{ price_num }}</p>{% endif %}
+                {% if price_desc != blank %}<p class="desc hrv-cf-{{ price_desc_key }}" setting-id="{{ price_desc_key }}" setting-type="text">{{ price_desc }}</p>{% endif %}
+                <ul class="list-desc">
+                  {% for i in (1..3) %}
+                  {% capture price_feature_key %}{{ setting_prefix }}price_feature_{{ i }}{% endcapture %}
+                  {% capture legacy_price_feature_key %}page_price_{{ page_index }}_desc_{{ i }}{% endcapture %}
+                  {% assign price_feature = settings[price_feature_key] | default: settings[legacy_price_feature_key] %}
+                  {% if price_feature != blank %}<li class="desc-item hrv-cf-{{ price_feature_key }}" setting-id="{{ price_feature_key }}" setting-type="text">{{ price_feature }} <svg width="20px" height="20px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M13.7071,4.29289 C14.0976,4.68342 14.0976,5.31658 13.7071,5.70711 L7.70711,11.7071 C7.31658,12.0976 6.68342,12.0976 6.29289,11.7071 L3.29289,8.70711 C2.90237,8.31658 2.90237,7.68342 3.29289,7.29289 C3.68342,6.90289 4.31658,6.90289 4.70711,7.29289 L7,9.58579 L12.2929,4.29289 C12.6834,3.90289 13.3166,3.90289 13.7071,4.29289 Z"/></svg></li>{% endif %}
+                  {% endfor %}
+                </ul>
+                {% if price_button != blank %}<div class="btn-more"><a href="{{ price_link }}" class="button hrv-cf-{{ price_button_key }}" setting-id="{{ price_button_key }}" setting-type="text" setting-bg-id="{{ price_button_key }}">{{ price_button }}</a></div>{% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% capture counter_show_key %}{{ setting_prefix }}counter_show{% endcapture %}
+    {% assign counter_show = settings[counter_show_key] %}
+    {% if counter_show == blank %}{% assign counter_show = settings.show_about_counter %}{% endif %}
+    {% capture counter_title1_key %}{{ setting_prefix }}counter_title1{% endcapture %}
+    {% assign counter_title1 = settings[counter_title1_key] | default: 'Quy trình' %}
+    {% capture counter_title2_key %}{{ setting_prefix }}counter_title2{% endcapture %}
+    {% assign counter_title2 = settings[counter_title2_key] | default: 'Quy trình thăm khám & tư vấn' %}
+    {% capture counter_desc_key %}{{ setting_prefix }}counter_desc{% endcapture %}
+    {% assign counter_desc = settings[counter_desc_key] | default: '' %}
+
+    {% if counter_show != false %}
+    <section class="section-about-counter">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-12">
+            <div class="heading-title">
+              {% if counter_title1 != blank %}<p class="title1 hrv-cf-{{ counter_title1_key }}" setting-id="{{ counter_title1_key }}" setting-type="text">{{ counter_title1 }}</p>{% endif %}
+              {% if counter_title2 != blank %}<h2 class="title2 hrv-cf-{{ counter_title2_key }}" setting-id="{{ counter_title2_key }}" setting-type="text">{{ counter_title2 }}</h2>{% endif %}
+              {% if counter_desc != blank %}<p class="desc hrv-cf-{{ counter_desc_key }}" setting-id="{{ counter_desc_key }}" setting-type="textarea">{{ counter_desc | newline_to_br }}</p>{% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="row row-counter">
+          {% for i in (1..4) %}
+          {% capture counter_show_key_i %}{{ setting_prefix }}counter_{{ i }}_show{% endcapture %}
+          {% capture legacy_counter_show_key_i %}show_about_counter_{{ i }}{% endcapture %}
+          {% assign counter_item_show = settings[counter_show_key_i] %}
+          {% if counter_item_show == blank %}{% assign counter_item_show = settings[legacy_counter_show_key_i] %}{% endif %}
+          {% if counter_item_show %}
+          {% capture counter_img_key_i %}{{ setting_prefix }}counter_{{ i }}_img{% endcapture %}
+          {% capture legacy_counter_img_key_i %}about_counter_{{ i }}_img{% endcapture %}
+          {% capture counter_title_key_i %}{{ setting_prefix }}counter_{{ i }}_title{% endcapture %}
+          {% capture legacy_counter_title_key_i %}about_counter_{{ i }}_title{% endcapture %}
+          {% capture counter_num_key_i %}{{ setting_prefix }}counter_{{ i }}_num{% endcapture %}
+          {% capture legacy_counter_num_key_i %}about_counter_{{ i }}_num{% endcapture %}
+          {% assign counter_img = settings[counter_img_key_i] | default: settings[legacy_counter_img_key_i] %}
+          {% assign counter_title = settings[counter_title_key_i] | default: settings[legacy_counter_title_key_i] %}
+          {% assign counter_num = settings[counter_num_key_i] | default: settings[legacy_counter_num_key_i] %}
+          <div class="col-lg-3 col-md-6 col-12 wow fadeInUp">
+            <div class="counter-item">
+              <div class="item-num">
+                <div aria-valuenow="{{ counter_num }}" aria-valuemin="0" aria-valuemax="100" style="--value: {{ counter_num }}" class="progressbar"></div>
+                {% if counter_img != blank %}<div class="item-icon"><img src="{{ counter_img }}" alt="{{ counter_title }}" setting-id="{{ counter_img_key_i }}" setting-type="image" class="hrv-cf-{{ counter_img_key_i }}" /></div>{% endif %}
+              </div>
+              <div class="item-detail">
+                {% if counter_num != blank %}<p class="num hrv-cf-{{ counter_num_key_i }}" setting-id="{{ counter_num_key_i }}" setting-type="text">{{ counter_num }}%</p>{% endif %}
+                {% if counter_title != blank %}<p class="title hrv-cf-{{ counter_title_key_i }}" setting-id="{{ counter_title_key_i }}" setting-type="text">{{ counter_title }}</p>{% endif %}
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% capture faq_show_key %}{{ setting_prefix }}faq_show{% endcapture %}
+    {% assign faq_show = settings[faq_show_key] %}
+    {% if faq_show == blank %}{% assign faq_show = true %}{% endif %}
+    {% capture faq_title_key %}{{ setting_prefix }}faq_title{% endcapture %}
+    {% assign faq_title = settings[faq_title_key] | default: page_service_template_default_faq_title | default: 'Câu hỏi thường gặp' %}
+    <div class="layoutPage-faqs">
+      {% if faq_show %}
+      <section class="section-faqs-info" itemscope itemtype="https://schema.org/FAQPage">
+        <div class="container">
+          <div class="wrapper-content">
+            <div class="intro-desc">
+              <div class="desc">{{ detail_content }}</div>
+            </div>
+            <div class="intro-list-faqs">
+              {% if faq_title != blank %}<h2 class="faq-title hrv-cf-{{ faq_title_key }}" setting-id="{{ faq_title_key }}" setting-type="text">{{ faq_title }}</h2>{% endif %}
+              {% for i in (1..10) %}
+              {% capture faq_question_key %}{{ setting_prefix }}faq_{{ i }}_question{% endcapture %}
+              {% capture legacy_faq_question_key %}faqs_{{ i }}_title{% endcapture %}
+              {% capture faq_answer_key %}{{ setting_prefix }}faq_{{ i }}_answer{% endcapture %}
+              {% capture legacy_faq_answer_key %}faqs_{{ i }}_desc{% endcapture %}
+              {% assign faq_question = settings[faq_question_key] | default: settings[legacy_faq_question_key] %}
+              {% assign faq_answer = settings[faq_answer_key] | default: settings[legacy_faq_answer_key] %}
+              {% if faq_question != blank %}
+              <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                <div class="header-faqs hrv-cf-{{ faq_question_key }}" itemprop="name" setting-id="{{ faq_question_key }}" setting-type="textarea">{{ faq_question }}</div>
+                <div class="content-faqs" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div itemprop="text" setting-id="{{ faq_answer_key }}" setting-type="textarea" class="hrv-cf-{{ faq_answer_key }}">{{ faq_answer }}</div></div>
+              </div>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div class="form-faqs">
+              <h2>Bạn vẫn còn câu hỏi cần giải đáp, vui lòng liên hệ trực tiếp với chúng tôi</h2>
+              <div class="contact-form">
+                {% form 'contact' %}
+                {% if form.posted_successfully? %}<div class="alert alert-success">Cám ơn bạn đã liên hệ! Chúng tôi sẽ trả lời ngay khi có thể</div>{% endif %}
+                <div class="contact-form">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12"><div class="input-group"><input required type="text" name="contact[name]" class="form-control" placeholder="Tên của bạn" aria-describedby="basic-addon1"></div></div>
+                    <div class="col-lg-6 col-md-6 col-12"><div class="input-group"><input required type="text" name="contact[email]" class="form-control" placeholder="Email của bạn" aria-describedby="basic-addon1"></div></div>
+                    <div class="col-lg-6 col-md-6 col-12"><div class="input-group"><input pattern="[0-9]{10,12}" required type="text" name="contact[phone]" class="form-control" placeholder="Số điện thoại của bạn" aria-describedby="basic-addon1"></div></div>
+                    <div class="col-lg-12 col-md-12 col-12"><div class="input-group"><textarea required name="contact[body]" placeholder="Câu hỏi của bạn"></textarea><div class="sitebox-recaptcha">This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a> apply.</div></div></div>
+                    <div class="col-lg-12 col-md-12 col-12"><button class="button">Gửi cho chúng tôi</button></div>
+                  </div>
+                </div>
+                {% endform %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {% endif %}
+    </div>
+  </div>
+</div>

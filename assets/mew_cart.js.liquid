@@ -1,0 +1,365 @@
+const cartWarp = $('.js-cart');
+const cartEmpty = $('.cart__empty');
+const cartCount = $('.btn-cart-indicator');
+const cartTotal = $('.cart__summary_total');
+const regexValue = /\[value]/g;
+
+{%if settings.use_gift%}
+let giftIdList = [];
+let giftRequire = $('.js-gift').data('price') || 0;
+Array.from($('.js-gift').find('.js-gift-item')).forEach(item => giftIdList.push(item.dataset.id));
+
+function checkGift(data){
+	$('.js-gift').removeClass('d-none');
+	if(!giftIdList) return;
+	let isGiftInCart = [];
+	data.items.forEach(item => {
+		if(giftIdList.includes((item.variant_id).toString())){
+			isGiftInCart.push(item.variant_id)
+		} 
+	});
+
+	if(data.total_price == 0){
+		MewServices.clearCart().then(() =>{
+			MewServices.getCart().then(res => {
+				MewServices.getCartByView('item').then(data => updateAllCartForm(data, '.cart__basket'));
+				updateCartInfo(res);
+			});
+		});
+	}
+	if(isGiftInCart.length > 1){
+		createToast('error', 'Chỉ nhận được tối đa 01 sp khuyến mãi', 'Đã có sản phẩm khuyến mãi trong giỏ hàng, không thể lấy thêm');
+		isGiftInCart.forEach((id, index) => {
+			if(index >=1 ){
+				MewServices.updateItem(id, 0).then(() =>{
+					let variantItem = $(`.variantId-${id}`);
+					variantItem.addClass('deleted');
+					setTimeout(function(){
+						variantItem.remove();
+					}, 200);
+					$(document).trigger('changeCart');
+				});
+			}
+		});
+		return;
+	}
+  //console.log(giftRequire,data.total_price/100);
+	if(giftRequire <= (data.total_price/100)){
+		$('.js-gift').removeClass('d-none');
+		$('.js-gift').find('.title_gift').html(giftUnlockString.replace(/\[amount]/g, `<b>${Haravan.formatMoney(giftRequire*100 - data.total_price, "{%raw%}{{amount}}{%endraw%}₫").replace(/\s+/g, '')}</b>`).replace(/\[name]/g, `<b>${giftName}</b>`));
+		$('.js-gift').find('.js-gift-item').removeClass('disable');
+	} else {
+		$('.js-gift').removeClass('d-none');
+		$('.js-gift').find('.js-gift-item').addClass('disable');
+		$('.js-gift').find('.title_gift').html(giftString.replace(/\[amount]/g, `<b>${Haravan.formatMoney(giftRequire*100 - data.total_price, "{%raw%}{{amount}}{%endraw%}₫").replace(/\s+/g, '')}</b>`).replace(/\[name]/g, `<b>${giftName}</b>`));
+		giftIdList.forEach(id => {
+			if($(`input[data-variantid="${id}"]`).length){
+				MewServices.updateItem(id, 0).then(() =>{
+					let variantItem = $(`.variantId-${id}`);
+					variantItem.addClass('deleted');
+					setTimeout(function(){
+						variantItem.remove();
+					}, 200);
+					$(document).trigger('changeAllCart');
+				});
+			}
+		});
+	}
+	if(isGiftInCart.length == 1){
+		$('.js-gift').addClass('d-none');
+		return;
+	}
+}
+{%endif%}
+{% if settings.free_shipping_enable %}
+document.addEventListener("DOMContentLoaded", function () {
+  freeShipping(0);
+});
+function freeShipping(price) {
+  const minOrderValue = parseInt(document.querySelector('.js-free-shipping').dataset.value) || 0;
+  const priceCart = price;
+  const progressBar = document.querySelector('.js-free-shipping .progress-bar');
+  const freeShippingText = document.querySelector('.js-free-shipping-text');
+  const freeShippingIcon = document.querySelector('.js-free-shipping .icon');
+
+  if (priceCart >= minOrderValue) {
+    progressBar.style.width = '100%';
+    progressBar.classList.remove('progress-bar-striped', 'bg-warning');
+    progressBar.classList.add('bg-success', 'progress-bar-striped');
+
+    freeShippingIcon.classList.remove('bg-warning');
+    freeShippingIcon.classList.add('bg-success');
+
+    freeShippingText.innerHTML = freeShip; // Assuming `freeShip` is a defined string
+  } else {
+    const percent = priceCart / minOrderValue * 100;
+    progressBar.style.width = `${percent}%`;
+    progressBar.classList.remove('bg-success', 'progress-bar-striped');
+    progressBar.classList.add('progress-bar-striped', 'bg-warning');
+
+    freeShippingIcon.classList.remove('bg-success');
+    freeShippingIcon.classList.add('bg-warning');
+
+    const formattedAmount = Haravan.formatMoney(minOrderValue - priceCart, "{%raw%}{{amount}}{%endraw%}₫").replace(/\s+/g, '');
+    freeShippingText.innerHTML = orderShip.replace(/\[ship]/g, `<strong>${formattedAmount}</strong>`);
+  }
+}
+{%endif%}
+function updateCartItem(line, quantity, cartClass) {
+  let cartContainer = $(cartClass);
+	if (cartContainer.length) {
+    let item = cartContainer.find(`.number-input input[line="${line}"]`);
+    if(quantity > 0){
+      item.val(quantity);
+      item.parents('.cart__basket__item').find('.price').text(Haravan.formatMoney(quantity*parseInt(item.data('price')), "{%raw%}{{amount}}{%endraw%}₫"));
+    } else {
+      item.parents('.cart__basket__item').addClass('deleted');
+      setTimeout(function(){
+        item.parents('.cart__basket__item').remove();
+      }, 200);
+      $(document).trigger('changeAllCart');
+    }
+  }
+}
+function updateAllCartForm(data, cartClass) {
+	let cartContainer = $(cartClass);
+	if (cartContainer.length && data.length) {
+		cartContainer.empty();
+    cartContainer.html(data);
+		cartWarp.removeClass('d-none');
+		cartEmpty.addClass('d-none');
+	} else{
+		cartWarp.addClass('d-none');
+		cartEmpty.removeClass('d-none');
+	}
+}
+
+function updateCartInfo(data){
+	if(data.item_count > 0){
+		cartCount.text((data.item_count > 99) ? '99+' : data.item_count).removeClass('d-none')
+	} else {
+		cartCount.text('').addClass('d-none');
+	}
+	cartTotal.html(Haravan.formatMoney(data.total_price, "{%raw%}{{amount}}{%endraw%}₫"));
+  {%if settings.free_shipping_enable%}
+		freeShipping(data.total_price);			
+	{%endif%}
+}
+
+function buyNow(e){
+	if (typeof e !== 'undefined') e.preventDefault();
+	let form = $(this).parents('form');
+	let dataForm = new FormData(form[0]);
+	let queryString = new URLSearchParams(dataForm).toString();
+
+	MewServices.addFromForm(queryString).then(() =>{
+		window.location.href = '/checkout';
+	}, () => {
+		console.log(cartStrings.error)
+	}).catch(error => {
+		createToast('error', toastString.toastAddErrorTitle, toastString.toastAddErrorMessage);
+		console.error('Đã có lỗi xảy ra: ' + error.message);
+	}).finally(()=>{
+		setTimeout(function(){ 
+			$this.prop('disabled', false);
+			$this.find('.button__text').toggleClass('fadeOut');
+			$this.find('.button__loader').toggleClass('fadeOut');
+			createToast('success', toastString.toastAddSuccessTitle, toastString.toastAddSuccessMessage);
+		}, 700);
+	});
+}
+
+function addToCartCallback(el) {
+  setTimeout(function(){ 
+    el.prop('disabled', false);
+    quickviewModal.hide();
+    $('.mobile_open_box_swatch').removeClass('active');
+    $('#body_overlay').addClass('d-none');
+  }, 400);
+}
+
+async function addToCart(e){
+	e.preventDefault();
+	let $this = $(this);
+	$this.prop('disabled', true);
+	let dataForm = new FormData($this.parents('form')[0]);
+	let serialFormData = MewServices.serializeFormData(dataForm);
+  let checkQuantityAvailable = await CheckQuantityUtil.check(parseInt(serialFormData.quantity), parseInt(serialFormData.id), serialFormData.productAlias);
+  //console.log(checkQuantityAvailable.status);
+  switch(checkQuantityAvailable.status) {
+		case 'inStock':
+		case 'available':
+			dataForm.set('quantity', checkQuantityAvailable.quantity);
+			break;
+		case 'overAdd':
+      dataForm.set('quantity', checkQuantityAvailable.quantity);
+  		createToast('error', toastString.toastOverAddTitle, toastString.toastOverAddMessage.replace(/\[sl]/ig, checkQuantityAvailable.quantity));
+			break;
+		case 'exactMatch':
+			createToast('warning', toastString.toastExactMatchTitle, toastString.toastExactMatchMessage);
+			dataForm.set('quantity', checkQuantityAvailable.quantity);
+			break;
+		case 'exceeded':
+      createToast('error', toastString.toastInventoryExccedTitle, toastString.toastInventoryExccedMessage);
+      break;
+		case '404':
+      createToast('error', toastString.toastInventoryUnavaiTitle, toastString.toastInventoryUnavaiMessage);
+			break;
+		default:
+	}
+  if(['exceeded', '404'].includes(checkQuantityAvailable.status)){
+    addToCartCallback($(this));
+    return false;
+  }
+  
+	let queryString = new URLSearchParams(dataForm).toString();
+  MewServices.addFromForm(queryString).then((res) => {
+    if(res.status === 422){
+        console.log(res.description)
+    } else {
+        $(document).trigger('changeAllCart');
+        createToast('success', toastString.toastAddSuccessTitle, toastString.toastAddSuccessMessage);  
+    }
+	}).catch(error => {
+		createToast('error', toastString.toastAddErrorTitle, toastString.toastAddErrorMessage);
+		console.error('Đã có lỗi xảy ra: ' + error.message);
+	}).finally(()=>{
+		addToCartCallback($(this));
+	});
+}
+
+$(document).on('click', '.js-step-qty', function(e){
+	e.preventDefault();
+	let input = $(this).parents('.number-input').find('input'),
+		currentVal = parseInt(input.val()),
+		variantId = input.data('variantid');
+  let tempQuantity = 1;
+	if($(this).hasClass('plus')){
+    tempQuantity = currentVal + 1;
+	} else {
+		tempQuantity = (currentVal - 1 <= 0) ? 0 : currentVal - 1;
+	}
+  input.val(tempQuantity);
+});
+
+$(document).on('click', '.js-clearcart', function(){
+	MewServices.clearCart().then(() =>{
+		$(document).trigger('changeAllCart');
+	})
+})
+$(document).on('changeAllCart', debounce(function(){
+	MewServices.getCart().then(res => {
+    {%if settings.use_gift%}
+    MewServices.getCartByView('item').then(data => updateAllCartForm(data, '.cart__basket')).then(() => {checkGift(res)});
+    {%else%}
+    MewServices.getCartByView('item').then(data => updateAllCartForm(data, '.cart__basket'));  
+    {%endif%}
+		updateCartInfo(res);
+	});
+}, 300));
+$(document).on('changeCart', debounce(function(){
+	MewServices.getCart().then(res => {
+    {%if settings.use_gift%}
+      checkGift(res);
+    {%endif%}
+		updateCartInfo(res);
+	});
+}, 300));
+
+let updateCartMultiLines = throttle(function(id, qty){
+  MewServices.getCart().then((res) => {
+     return res.items.map((v, index) => {
+      if(v.variant_id === id){
+        return qty
+      } else{
+        return v.quantity
+      }
+    });
+  }).then(arrQuantity => {
+    MewServices.updateLinesItem(arrQuantity).then((res) => {
+      $(document).trigger('changeAllCart');
+    });
+  });
+}, 800);
+let updateCartByLine = throttle(function(line, qty){
+  MewServices.updateLineItem(line, qty).then((res) => {
+    updateCartItem(line, qty, '.cart__basket')
+    $(document).trigger('changeCart');
+  });
+}, 800);
+
+$(document).on('click', '.js-step-qty', debounce(async function(){
+  let input =  $(this).parents('.js-number-input').find('input');
+  let line = parseInt(input.attr('line'));
+  let quantity = parseInt(input.val());
+  let id = parseInt(input.attr('data-variantid'));
+  let checkQuantityAvailable = await CheckQuantityUtil.check(quantity, id);
+  switch(checkQuantityAvailable.status) {
+		case 'inStock':
+		case 'available':
+			break;
+		case 'overAdd':
+  		createToast('error', toastString.toastOverAddTitle, toastString.toastOverAddMessage.replace(/\[sl]/ig, checkQuantityAvailable.quantity));
+			break;
+		case 'exactMatch':
+			createToast('warning', toastString.toastExactMatchTitle, toastString.toastExactMatchMessage);
+			break;
+		case 'exceeded':
+      createToast('error', toastString.toastInventoryExccedTitle, toastString.toastInventoryExccedMessage);
+      break;
+		case '404':
+      createToast('error', toastString.toastInventoryUnavaiTitle, toastString.toastInventoryUnavaiMessage);
+      return false;
+			break;
+		default:
+	}
+  updateCartByLine(line, checkQuantityAvailable.quantity);
+}, 500));
+$(document).on('click', '.js-remove-item-cart', function(e){
+	e.preventDefault();
+	let variantId = parseInt($(this).data('variantid'));
+	MewServices.updateItem(variantId, 0).then(() =>{
+		let variantItem = $(`.variantId-${variantId}`);
+		variantItem.addClass('deleted');
+		setTimeout(function(){
+			variantItem.remove();
+		}, 200);
+		$(document).trigger('changeAllCart');
+	})
+});
+
+$(document).on('click', '.btn-checkout', function(e){
+	e.preventDefault();
+	let note = $('#note').length ? $('#note').val() : '';
+  MewServices.updateCartAttributes({'note': note}).then(() => {
+      window.location.href = '/checkout'
+  })
+});
+      
+window.addEventListener('pageshow', function(){
+	$(document).trigger('changeAllCart');
+});
+{%if settings.use_gift%}
+$(document).on('click', '.js-gift-item', function(e){
+	e.preventDefault();
+	let variantId = $(this).data('id');
+  if(variantId === '') {
+      createToast('error', 'Lỗi', "Shop chưa setup quà tặng")
+      return false;      
+  };
+	MewServices.addItem(variantId, 1).then(() => {
+		$(document).trigger('changeAllCart');
+		createToast('success', toastString.toastAddSuccessTitle, "Thêm quà tặng thành công!");
+	})
+})
+{%endif%}
+$(document).ready(function(){
+	$(document).trigger('changeAllCart');
+	$('.js-addToCart').on('click', throttle(addToCart, 200));
+	/*$('.js-buynow').on('click', buyNow );*/
+  
+	$(".v_more_coupon").on('click', function() {
+		$(this).parents('.free-gifts').find('.none_mb').toggleClass('open_gift');
+		$(this).find('.t1').toggleClass('d-none');
+	});
+});

@@ -1,0 +1,52 @@
+{%- include 'breadcrumb' -%} 
+<section class="cart-layout mt-3 mb-4 mb-lg-5">
+	<div class="container">
+    <h1 class="cart-name font-coiny text-uppercase pb-2 pt-2 mb-2 d-none">
+      {{ settings.cartStringsTitle }}
+    </h1>
+    <div class="row js-cart d-none">
+      <div class="col-12 mb-3 d-none d-lg-block">
+        <a class="btn-clearcart js-clearcart text-danger" href="javascript:;" role="button" title="{{settings.cartStringsClear}}">
+          {{settings.cartStringsClear}}
+        </a>
+      </div>
+      <div class="col-lg-8">
+        {%-if settings.use_gift and linklists[settings.gift_menu].links.size > 0-%}
+        {%include 'm_gift'%}
+        {%-endif-%}
+        <div class="basket cart__basket {%if settings.use_gift %}mt-3{%endif%}"></div>
+        <div class="checkout-buttons clearfix mt-3">
+          <label for="note" class="note-label font-weight-bold">{{settings.note_cart}}</label>
+          <textarea class="form-control rounded-10" id="note" name="note" rows="4"></textarea>
+        </div>	
+      </div>
+      <div class="summary cart__summary col-lg-4 mt-3 mt-lg-0">
+        <div class="bx_right_cart d-flex flex-column">
+          <div class="bm_checkout">
+            <dl class="bg-light border clearfix mb-3 p-2 p-lg-3 rounded-10 total">
+              <dt class="text-uppercase font-weight-bold text-btn">{{settings.cartStringsTotal}}</dt>
+              <dd class="cart__summary_total font-weight-bold ml-auto mb-0">0{{store.money_format}}</dd>
+              {% if settings.free_shipping_enable %}
+              {% include 'free_ship' %}
+              {% endif %}
+              <a class="d-none d-lg-block text-white btn btn-checkout rounded-10 mt-0 mt-lg-3 text-uppercase font-weight-bold py-2 py-lg-3 px-3 px-lg-4" href="/checkout" role="button">
+                {{settings.cartStringsCheckout}}
+              </a>
+            </dl>
+          </div>
+          {%-if settings.enable_gift_code_pr-%}
+          {%include 'm_coupon'%}
+          {%-endif-%}
+        </div>
+      </div>
+    </div>
+    <div class="row cart__empty d-none">
+      <div class="col-md-12">
+        <div class="alert alert-warning" role="alert">{{settings.cartStringsEmpty}}</div>
+      </div>
+    </div>
+	</div>
+</section>
+{%-if settings.use_gift and linklists[settings.gift_menu].links.size > 0-%}
+{%include 'popup_gift'%}
+{%-endif-%}

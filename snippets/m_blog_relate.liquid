@@ -1,0 +1,19 @@
+{%-assign article_size = blog.articles_count-%}
+{%-if article_size > 1-%}
+<div class="main blogs mt-4">
+  <h3 class="title text-uppercase font-weight-bold position-relative pb-2 pb-lg-3 m-0">
+   <a class="position-relative" href="{{blog.url}}" title="{{ settings.relate_title }}">{{settings.relate_title}}</a>
+  </h3>
+	<div class="widget-content latest-blog swiper-container position-relative">
+		<div class="swiper-wrapper">
+			{% for relatearticle in blog.articles limit: 8%}
+			<div class="swiper-slide">
+				{%- include 'blog_item_relate' -%}
+			</div>
+			{% endfor %}
+		</div>
+		<div class="swiper-button-prev mew_latest_blog_prev"></div>
+		<div class="swiper-button-next mew_latest_blog_next"></div>
+	</div>
+</div>
+{%-endif-%}

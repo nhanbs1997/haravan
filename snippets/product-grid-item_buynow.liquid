@@ -1,0 +1,36 @@
+{%-if settings.enable_buy_item-%}
+<form action="/cart/add" method="post" enctype="multipart/form-data" class="product-item_form position-absolute">
+	{%if product.variants.size > 1 and product.available%}
+	<a class="btn p-1 d-flex justify-content-center align-items-center rounded-10 position-relative js-quickview" data-toggle="modal" data-target="#quickviewModal" href="{{ product.url }}" title="{{settings.option}} {{ product.name }}">
+		<svg width="24" height="24">
+			<use href="#svg-variant"></use>
+		</svg>
+	</a>
+	{%else%}
+	{%-if contact_item == false-%}
+	{%-if product.available-%}
+	<input type="hidden" name="productAlias" value="{{ product.url}}" />
+	<input type="hidden" name="id" value="{{ product.variants[0].id }}" />
+	<input type="hidden" name="quantity" value="1" class="form-control prd_quantity border rounded-10 mb-2">
+	<button class="btn p-1 js-addToCart d-flex justify-content-center align-items-center rounded-10 position-relative" title="{{settings.addToCart}}" type="button">
+		<svg width="24" height="24">
+			<use href="#svg-cart"></use>
+		</svg>
+	</button>
+	{%-else-%}
+	<a class="btn p-1 d-flex justify-content-center align-items-center rounded-10 s_out position-relative" href="{{ product.url }}" title="{{settings.soldOut}}">
+		<svg width="24" height="24">
+			<use href="#svg-cart"></use>
+		</svg>
+	</a>
+	{%-endif-%}
+	{%-else-%}
+	<a class="btn p-1 d-flex justify-content-center align-items-center rounded-10 position-relative" href="{{ product.url }}" title="{{settings.detail}}">
+		<svg width="24" height="24">
+			<use href="#svg-variant"></use>
+		</svg>
+	</a>
+	{%endif%}
+	{%endif%}
+</form>
+{%-endif-%}

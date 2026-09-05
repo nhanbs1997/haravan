@@ -1,0 +1,31 @@
+<section class="m_banner mb-4 mb-lg-5">
+	<div class="container">
+    <div class="mew_slide_banner swiper-container position-relative swiper-overflow">
+      <div class="swiper-wrapper">
+        {%-for i in (1..3)-%}
+        {%-capture banner2_ena-%}ena_banner2_{{i}}{%-endcapture-%}
+        {%-capture banner2_img-%}banner2_{{i}}{%-endcapture-%}
+        {% assign bnimg = settings[banner2_img] %}
+        {%-capture banner2_url-%}banner2_{{i}}_link{%-endcapture-%}
+        {%-capture banner2_alt-%}banner2_{{i}}_alt{%-endcapture-%}
+          
+        {%-if settings[banner2_ena]-%}
+        <div class="swiper-slide text-center">
+          <a class="d-block w-100 h-100 modal-open rounded-10" href="{{ settings[banner2_url]}}" title="{{ settings[banner2_alt] | default : shop.name}}">
+            <picture class="position-relative w-100 m-0 ratio8by3 d-block aspect">
+              <source media="(min-width: 1200px)" srcset="{{ bnimg}}">
+              <source media="(min-width: 992px)" srcset="{{ bnimg }}">
+              <source media="(max-width: 569px)" srcset="{{ bnimg | img_url:'large'}}">
+              <source media="(max-width: 480px)" srcset="{{ bnimg | img_url:'large' }}">
+              <img class="d-block img img-cover position-absolute" src="{{ bnimg }}" alt="{{ settings[banner2_alt] | default : shop.name}}"/>
+            </picture>
+          </a>
+        </div>
+        {%-endif-%}
+        {%-endfor-%}
+      </div>
+    </div>
+	</div>
+</section>
+
+

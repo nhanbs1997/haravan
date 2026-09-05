@@ -1,0 +1,88 @@
+{% capture loadnew %}{{ load | replace: '<!--[', '[' | replace: ']-->', ']' | replace: ']</p>', ']' | replace: '<p>[', '[' | replace: ']</div>', ']' | replace: '<div>[', '['}}{% endcapture %}
+
+{% assign parts = loadnew | split: '[' %}
+
+{% for part in parts %}
+  {% assign block = part | split: ']' %}
+  {% assign shortcodeFull = block[0] | strip %}
+  {% assign contentAfter = block[1] %}
+
+  {% if shortcodeFull == blank %}
+    {% continue %}
+  {% endif %}
+
+  {% assign namePart = shortcodeFull | split: ' ' | first | strip | replace: '/', '' | remove: '_' %}
+  {% assign snippetName = namePart | prepend: 'shortcode-' %}
+
+  {% assign rawParams = shortcodeFull | remove_first: namePart | strip %}
+  {% assign values = '' %}
+  {% assign keys = '' %}
+
+  {% if rawParams contains '"' %}
+    {% assign segments = rawParams | split: '"' %}
+    {% assign cycleMode = 'value' %}
+
+    {% for seg in segments %}
+      {% assign segTrim = seg | strip %}
+      {% if forloop.first %}
+        {% assign firstAttrs = segTrim | split: ' ' %}
+        {% for item in firstAttrs %}
+          {% assign cleanItem = item | strip %}
+          {% if cleanItem == blank %}
+            {% continue %}
+          {% endif %}
+
+          {% if cleanItem contains '=' %}
+            {% assign cleanKey = cleanItem | replace: '=', '' %}
+            {% assign keys = keys | append: cleanKey | append: '||' %}
+          {% else %}
+            {% assign values = values | append: cleanItem | append: '||' %}
+            {% assign keys = keys | append: 'nokey_' | append: cleanItem | append: '||' %}
+          {% endif %}
+        {% endfor %}
+      {% elsif forloop.last %}
+        {% assign lastAttrs = segTrim | split: ' ' %}
+        {% for item in lastAttrs %}
+          {% assign cleanItem = item | strip %}
+          {% if cleanItem == blank %}
+            {% continue %}
+          {% endif %}
+
+          {% if cleanItem contains '=' %}
+            {% assign cleanKey = cleanItem | replace: '=', '' %}
+            {% assign keys = keys | append: cleanKey | append: '||' %}
+          {% else %}
+            {% assign values = values | append: cleanItem | append: '||' %}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% if cycleMode == 'value' %}
+          {% assign values = values | append: seg | append: '||' %}
+          {% assign cycleMode = 'key' %}
+        {% else %}
+          {% assign cleanKey = segTrim | replace: '=', '' %}
+          {% assign keys = keys | append: cleanKey | append: '||' %}
+          {% assign cycleMode = 'value' %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {% assign valuesFinal = values | split: '||' %}
+    {% assign keysFinal = keys | split: '||' %}
+
+    {% capture output %}
+      {% include snippetName variable: valuesFinal key: keysFinal %}
+    {% endcapture %}
+  {% else %}
+    {% assign valuesFinal = rawParams | split: ' ' %}
+    {% capture output %}
+      {% include snippetName variable: valuesFinal %}
+    {% endcapture %}
+  {% endif %}
+
+  {% if output contains 'Lỗi Liquid' %}
+    [{{ shortcodeFull }}]
+  {% else %}
+    {{ output }}
+  {% endif %}
+{% endfor %}

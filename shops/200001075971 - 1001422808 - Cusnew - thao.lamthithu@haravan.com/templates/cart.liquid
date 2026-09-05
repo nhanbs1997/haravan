@@ -1,0 +1,400 @@
+<div id="layout-cart">
+	<div class="breadcrumb-shop">
+		<div class="container-fluid">
+			<div class="row">{%include 'breadcrumb'%}</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row pd-page">
+			<div class="col-md-12 col-xs-12 heading-page">
+				<div class="header-page">
+					<h1>Giỏ hàng của bạn</h1>
+					<p class="count-cart">Có <span>{{ cart.item_count }} sản phẩm</span> trong giỏ hàng</p>
+				</div>
+			</div>
+			<div class="col-md-12 col-xs-12 wrapbox-content-cart">
+				{%-assign checkUnActiveApp = ''-%}
+				{%-assign still = false-%}
+				{% if cart.item_count == 0 %}			
+				<div class="span12 expanded-message text-center">
+					Giỏ hàng của bạn đang trống 
+					<p class="link-continue">
+						<a  href="/collections/all" class="button dark">
+							<i class="fa fa-reply"></i> Tiếp tục mua hàng
+						</a>
+					</p>
+				</div>						
+				{% else %}
+				<div class="cart-container">
+					<div class="cart-col-left">
+						<div class="main-content-cart">
+							<form action="/cart" method="post" id="cartformpage">
+								<div class="row">
+									<div class="col-md-12 col-sm-12 col-xs-12">
+										<table class="table-cart">
+											<thead>
+												<tr>
+													<th class="image">&nbsp;</th>
+													<th class="item">Tên sản phẩm</th>
+													<th class="remove">&nbsp;</th>
+												</tr>
+											</thead>
+											<tbody>
+
+												{% for item in cart.items %}
+												{%-unless settings.promotion_hrvapp_use-%}
+												{%-if item.properties.Combo != nil-%}
+												{%-assign still = true-%}
+												{%-if checkUnActiveApp == ''-%}
+												{%-assign checkUnActiveApp = checkUnActiveApp | append: 'updates[]=0'-%}
+												{%-else-%}
+												{%-assign checkUnActiveApp = checkUnActiveApp | append: '&' | append: 'updates[]=0'-%}
+												{%-endif-%}
+												{%-elsif item.properties.BuyXGetY != nil-%}
+												{%-assign still = true-%}
+												{%-if checkUnActiveApp == ''-%}
+												{%-assign checkUnActiveApp = checkUnActiveApp | append: 'updates[]=0'-%}
+												{%-else-%}
+												{%-assign checkUnActiveApp = checkUnActiveApp | append: '&' | append: 'updates[]=0'-%}
+												{%-endif-%}
+												{%-else-%}
+												{%-if checkUnActiveApp == ''-%}
+												{%-assign checkUnActiveApp = checkUnActiveApp | append: 'updates[]=' | append: item.quantity-%}
+												{%-else-%}
+												{%-assign checkUnActiveApp = checkUnActiveApp | append: '&' | append: 'updates[]=' | append: item.quantity-%}
+												{%-endif-%}
+												{%-endif-%}
+												{%-endunless-%}
+
+												<tr class="line-item-container" data-variant-id="{{ item.id }}">
+													<td class="image">
+														<div class="product_image">
+															<a href="{{ item.url }}">
+																<img src="{% if item.image > 0 %} {% if item.variant.image == empty %} {{ item.image | product_img_url : 'medium'}} {% else%} {{ item.variant.image | product_img_url : 'medium'}}{% endif %}{% else %}{{'no_image.jpg' | asset_url}}{% endif %}" alt="{{ item.title }}" />
+															</a>
+
+														</div>
+													</td>
+													<td class="item">
+														<a href="{{ item.url }}">
+															<h3>{{ item.product.title }} </h3>
+															{%-if settings.promotion_hrvapp_use and item.properties.Combo != nil-%}
+															<p class="type_promote">{{item.properties.Combo | append: '' | split: '-' | last}}</p>
+															{%-endif-%}
+														</a>
+														<p>
+															<span>{{item.price | money }}</span>
+															{% if item.product.compare_at_price > item.price  %}
+															<del>({{ item.variant.compare_at_price | money }})</del>
+															{% endif %}
+															{%-if settings.promotion_hrvapp_use and item.properties.BuyXGetY != nil-%}
+															<span class="ico-gift"><img src="{{settings.appbuyxgety_icon}}" alt="icon quà tặng"></span>
+															{%-endif-%}
+														</p>
+														<p class="variant">
+															{% if item.product.variants.size > 1 %}
+															<span class="variant_title">{{ item.variant.title }}</span>
+															{% endif %}
+														</p>
+														{%-assign show_btn_qty = true-%}
+														{%-if settings.promotion_hrvapp_use and item.price == 0-%}
+														{%-assign show_btn_qty = false-%}
+														{%-endif-%}
+														<div class="qty quantity-partent qty-click clearfix">
+															{%-if show_btn_qty-%}<button type="button" class="qtyminus qty-btn">-</button>{%-endif-%}
+															<input type="text" size="4" name="updates[]" min="1" id="updates_{{ item.id }}" data-price="{{ item.price}}" value="{{ item.quantity }}" {%unless show_btn_qty%}readonly{%endunless%}  class="tc line-item-qty item-quantity" />
+															{%-if show_btn_qty-%}<button type="button" class="qtyplus qty-btn">+</button>{%-endif-%}
+														</div>
+
+														<p class="price">
+															<span class="text">Thành tiền:</span>
+															<span class="line-item-total">{{ item.line_price | money }}</span>
+														</p>
+
+													</td>
+													<td class="remove">
+														<a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart">
+															<img src="{{'ic_close.png' | asset_url}}"/></a>
+													</td>
+												</tr>
+												{% endfor %}
+												{%-if still == false-%}{%-assign checkUnActiveApp = ''-%}{%-endif-%}
+											</tbody>
+										</table>
+									</div>
+									<div class="col-md-6 col-sm-12 col-xs-12">
+										<div class="checkout-note clearfix">
+											<textarea id="note" name="note" rows="8" cols="50" placeholder="Ghi chú">{{ cart.note }}</textarea>
+										</div>
+									</div>
+									<div class="col-md-6 col-sm-12 col-xs-12 text-right">
+										<p class="order-infor">					
+											Tổng tiền:
+											<span class="total_price"><b>{{ cart.total_price | money }}</b></span>
+										</p>
+										<div class="cart-buttons">
+											<a class="button dark link-continue" href="/collections/all" title="Tiếp tục mua hàng"><i class="fa fa-reply"></i>Tiếp tục mua hàng</a>
+                      {% comment %}
+											<button type="submit" id="update-cart" class="btn-update button dark" name="update" value="" >Cập nhật</button>
+                      {% endcomment %}
+											<button type="submit" id="checkout" class="btn-checkout button dark" name="checkout" value="" >Thanh toán</button>
+
+										</div>
+
+										{% if additional_checkout_buttons %}
+										<div class="row">
+											<div class="extra-checkout-buttons span6">
+												{{ content_for_additional_checkout_buttons }}
+											</div>
+										</div>
+										{% endif %}
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>				
+				</div>
+				{% endif %}
+				<!-- End cart -->
+			</div>
+		</div>
+	</div>
+</div> 
+<script>
+	function log(args) {
+		var str = "";
+		for (var i = 0; i < arguments.length; i++) {
+			if (typeof arguments[i] === "object") {
+				str += JSON.stringify(arguments[i]);
+			} else {
+				str += arguments[i];
+			}
+		}
+		return str;
+	}
+	function addCommas(str) {
+		var parts = (str + "").split("."),
+				main = parts[0],
+				len = main.length,
+				output = "",
+				i = len - 1;
+
+		while(i >= 0) {
+			output = main.charAt(i) + output;
+			if ((len - i) % 3 === 0 && i > 0) {
+				output = "," + output;
+			}
+			--i;
+		}
+		// put decimal part back
+		if (parts.length > 1) {
+			output += "," + parts[1];
+		}
+		return output;
+	}
+	;(function ( $, window, document, undefined ) {
+		var pluginName = 'hrvAJAXCart',
+				defaults = {
+					propertyName: "value"
+				};
+		function Plugin( element, options ) {
+			this.element = element;
+			this.options = $.extend( {}, defaults, options );
+			this._defaults = defaults;
+			this._name = 'hrvAJAXCart';
+			this.init();
+		}
+		Plugin.prototype = {
+			init: function() {
+				var item = this.options.item,
+						item_total = this.options.item_total,
+						item_qty = this.options.item_qty,
+						subtotal = $(this.options.subtotal);
+
+				// Change line item quantity
+				$(item_qty).change(function() {
+					var qty = $(this).val(),
+							this_item = $(this).closest(item),
+							variant_id = this_item.data('variant-id'),
+							this_item_total = this_item.find(item_total);
+					$.ajax({
+						type: 'POST',
+						url: '/cart/change.js',
+						dataType: 'json',
+						data: {
+							quantity: qty,
+							id: variant_id
+						},
+						success: function(cart) {
+							if ( qty == 0 ) {
+								this_item.remove();
+							} else {
+								$.each(cart.items,function(index,row) {
+									var price = parseFloat(row.line_price / 100).toFixed(2);
+									var currency = Number(price.replace(/[^0-9\.-]+/g,""));
+									if ( variant_id == row.variant_id ) this_item_total.html( log(addCommas(currency)) + ' đ' );
+								});
+							}
+							var sub_price = parseFloat(cart.total_price / 100).toFixed(2);
+							sub_price = Number(sub_price.replace(/[^0-9\.-]+/g,""));
+							subtotal.html( log(addCommas(sub_price)) + ' đ' );
+						},
+						error: function(response) {
+							alert(response);
+						}
+					});
+				});
+
+				// Remove line item
+				$(this.options.item_remove).click(function(e) {
+					e.preventDefault();
+					$(this).closest(item).find(item_qty).val(0);
+					$(this).closest(item).find(item_qty).trigger('change');
+				});
+			}
+		};
+		$.fn.hrvAJAXCart = function ( options ) {
+			return this.each(function () {
+				if (!$.data(this, "plugin_" + pluginName)) {
+					$.data(this, "plugin_" + pluginName, new Plugin( this, options ));
+				}
+			});
+		};
+	})( jQuery, window, document );
+	/* Social */
+	$(document).ready(function(){
+		var href = window.location.href;
+		if (href.indexOf("?add=") != -1){
+			var splitHref = href.split("?add=")[1];
+			var variantId = parseInt($.trim(splitHref.split("&ref=")[0]));	
+			$.ajax({					
+				url: "/cart/" + variantId + ":1",
+				success: function(data){
+					var x = false;
+					if(data.items.length > 0){
+						data.items.map(function(v,i){
+							if(v.variant_id == variantId){
+								x = true;
+							}
+						});						
+					}		
+					if(!x){
+						alert('Sản phẩm bạn vừa mua đã hết hàng');
+					}
+					window.location = '/cart';
+				},
+				error: function(XMLHttpRequest, textStatus) {
+					Haravan.onError(XMLHttpRequest, textStatus);
+				}
+			});
+		}
+	});
+	/*==== END SOCIAL ==========================================*/
+</script>
+<script>
+	{%-if settings.promotion_hrvapp_use-%}
+	function delayTime (func, wait) {
+		return function() {
+			var that = this,
+					args = [].slice(arguments);
+			clearTimeout(func._throttleTimeout);
+			func._throttleTimeout = setTimeout(function() {
+				func.apply(that, args);
+			}, wait);
+		};
+	}
+	 $(document).on('click','.qty-click .qtyplus', function(e){
+		 e.preventDefault();
+		 var input = $(this).parent('.quantity-partent').find('input');
+		 var currentVal = parseInt(input.val());
+		 if (!isNaN(currentVal)) {
+			 input.val(currentVal + 1);
+		 } else {
+			 input.val(1);
+		 }
+	 });
+	 $(document).on('click',".qty-click .qtyminus", function(e){
+		 e.preventDefault();
+		 var input = $(this).parent('.quantity-partent').find('input');
+		 var currentVal = parseInt(input.val());
+		 if (!isNaN(currentVal) && currentVal > 1) {
+			 input.val(currentVal - 1);
+		 } else {
+			 input.val(1);
+		 }
+	 });
+	 {%-if settings.promotion_hrvapp == 'appbuyxgety'-%}
+	 $(document).on('click', '.qty-click .qtyplus,.qty-click .qtyminus', delayTime(function(){
+		 buyXgetY.UpdateCartFromCart();
+	 },500));
+		//Update cart buyxgety
+		$(document).on('click','#update-cart',function(e){
+			e.preventDefault();
+			buyXgetY.UpdateCartFromCart();
+		});
+		{%-else-%}
+		$(document).on('click','.qty-click .qtyplus,.qty-click .qtyminus', delayTime(function(){
+			comboApp.comboUpdateCart();
+		},500));
+		 {%-endif-%}
+		 {%-else-%}
+		 function unPromote(tmp){
+			 var self = this;
+			 tmp += "&note="+$('#note').val();
+			 $.post('/cart', tmp).always(function() {
+				 setTimeout(function() { location.reload(); }, 500);
+			 });
+		 }		
+			console.log("{{checkUnActiveApp}}");
+			{%-if checkUnActiveApp != ''-%} 
+			unPromote("{{checkUnActiveApp}}");
+			 {%-else-%}
+			 $(document).on('click','.qty-click .qtyplus', function(e){
+				 e.preventDefault();
+				 var input = $(this).parent('.quantity-partent').find('input');
+				 var currentVal = parseInt(input.val());
+				 if (!isNaN(currentVal)) {
+					 input.val(currentVal + 1);
+				 } else {
+					 input.val(1);
+				 }
+				 Update_price_change();
+			 });
+				$(document).on('click',".qty-click .qtyminus", function(e){
+					e.preventDefault();
+					var input = $(this).parent('.quantity-partent').find('input');
+					var currentVal = parseInt(input.val());
+					if (!isNaN(currentVal) && currentVal > 1) {
+						input.val(currentVal - 1);
+					} else {
+						input.val(1);
+					}
+					Update_price_change();
+				});
+				function Update_price_change(){
+					var params = {
+						type: 'POST',
+						url: '/cart/update.js',
+						data: $('#cartformpage').serialize(),
+						async: false,
+						dataType: 'json',
+						success: function(data) { 
+							$.each(data.items,function(i,v){
+								$('.table-cart tbody tr[data-variant-id="'+v.variant_id+'"] .line-item-total').html(Haravan.formatMoney(v.line_price, "{{ shop.money_format }}"));
+							});
+							$('.total_price b').html(Haravan.formatMoney(data.total_price, "{{ shop.money_format }}"));
+							$('.count-cart').html('Có ' + '<span>' + data.item_count + ' sản phẩm </span>' + 'trong giỏ hàng');
+							$('.icon-cart .count').html(data.item_count);
+						},
+						error: function(XMLHttpRequest, textStatus) {
+							Haravan.onError(XMLHttpRequest, textStatus);
+						}
+					};
+					jQuery.ajax(params);
+				}
+				{%-endif-%}
+				{%-endif-%}
+</script>
+
+
+

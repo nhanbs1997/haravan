@@ -1,0 +1,8 @@
+{%layout none%}
+{% paginate collection.products by settings.pagination_limit %}
+{%for product in collection.products%}
+<div class="col-md-3 col-sm-6 col-xs-6 pro-loop animated zoomIn">
+	{% include 'product-loop' %}
+</div>
+{%endfor%}
+{% endpaginate %}

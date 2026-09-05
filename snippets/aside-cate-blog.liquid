@@ -1,0 +1,39 @@
+<div class="aside-content">
+  {%if linklists[settings.blogs_all_menu].links.size > 0%}
+  <div class="aside-content blog-list">
+  	<h3 class="align-items-center article-name d-flex font-weight-bold pt-2 pt-lg-0 mb-3 pb-2 border-bottom">
+  		<img class="lazy mr-2" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{'hot_ico.png' | asset_url}}" alt="{{settings.blogs_all_title}}"> 
+  		{{settings.blogs_all_title}}
+  	</h3>
+  	<ul class="b_item mb-0 p-0">
+  		{%-for link in linklists[settings.blogs_all_menu].links-%}
+  		<li class="d-flex align-items-center position-relative mb-2">
+  			<div class="image mr-2 rounded modal-open">
+  				<a href="{{link.url}}" title="{{link.title}}">
+  					{%-include 'blog_image' with link.object.description, alt: link.title -%}
+  				</a>
+  			</div>
+  			<div class=text>
+  				<h4 class="font-weight-bold"><a href="{{link.url}}" title="{{link.title}}">{{link.title | strip_html}}</a></h4>
+  				<span class="d-block">{{link.object.articles_count | append: settings.append_tit}}</span>
+  			</div>
+  		</li>
+  		{% endfor %}
+  	</ul>
+  </div>
+  {%endif%}
+  {%if settings.ena_prblog_sb%}
+  <div class="blog-product mt-4">
+      <div class="article-name pb-2 pt-2 pt-lg-0 font-weight-bold border-bottom pb-2 mb-3 h1">
+        {{settings.prblog_sb_title}}
+      </div>
+      <div class="box_pr">
+        {%-for product in collections[settings.prblog_sb_url].products limit:settings.prblog_sb_limit%}
+        <div class="mb-2">
+        {%-include 'product-list-item'-%}
+        </div>
+        {%-endfor-%}
+      </div>
+  </div>
+  {%endif%}
+</div>

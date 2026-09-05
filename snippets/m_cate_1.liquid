@@ -1,0 +1,27 @@
+<section class="mew_cate_1 mb-4 mb-lg-5">
+	<div class="container">
+		<div class="b_mew_cate">
+			<h3 class="title text-uppercase font-weight-bold position-relative mb-3 text-center">
+				<span class="line-bottom position-relative">{{settings.menu_cate_tit_1}}</span>
+			</h3>
+			<div class="mew_cate_sl1 swiper-container pt-2">
+        <div class="swiper-wrapper">
+				{%-for link in linklists[settings.menu_cate_1].links limit:20-%}
+        {%-capture bgcate-%}bg_item_cate_{{forloop.index}}{%-endcapture-%}  
+        {%-capture icon-%}icon_cate_{{forloop.index}}{%-endcapture-%}
+        {% assign seticon = settings[icon] %}
+        <div class="swiper-slide item_cate text-center p-1 rounded-10" style="--bgItemCate: {{settings[bgcate]}};">
+  				<a href="{{link.url}}" title="{{link.title}}" class="position-relative rounded-10 thumb overflow-hidden d-block mb-1">
+            <picture class="position-relative w-100 m-0 ratio1by1 has-edge aspect d-block bg_fade zoom">
+              <img class="d-block img img-cover position-absolute lazy" alt="{{link.title}}" src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{seticon}}" decoding="async" onError="this.src='{{ settings.favicon }}'">
+            </picture>
+  				</a>
+  				<a class="tit text-center line_1 line_2 h-auto" href="{{link.url}}" title="{{link.title}}">{{link.title}}</a>
+        </div>
+				{%-endfor-%}
+  			</div>
+      </div>
+		</div>
+	</div>
+</section>
+

@@ -1,0 +1,255 @@
+<div class="layout-services">
+	<section class="section-breadcrumb text-center">
+		<div class="container breadcrumb-content">
+			<h1>{{page.title}}</h1>
+			<a href="#btn-scroll" class="btn-scroll">
+				<svg xmlns="http://www.w3.org/2000/svg" width="14.626" height="8.639" viewBox="0 0 14.626 8.639"><g id="down-arrow" transform="translate(0 -70.698)"><g id="Group_8820" data-name="Group 8820" transform="translate(0 100.698)"><path id="Path_6507" data-name="Path 6507" d="M14.392,101.42l-.479-.482a.8.8,0,0,0-1.132,0L7.316,106.4l-5.472-5.472a.8.8,0,0,0-1.132,0l-.479.479a.8.8,0,0,0,0,1.131l6.515,6.538a.818.818,0,0,0,.567.257h0a.818.818,0,0,0,.566-.257l6.508-6.52a.808.808,0,0,0,.234-.571A.8.8,0,0,0,14.392,101.42Z" transform="translate(0 -130.698)"></path></g></g></svg>
+			</a>
+		</div>
+		<div class="hidden">
+			{%include 'breadcrumb'%}
+		</div>
+	</section>
+	<div id="btn-scroll">
+		{%if settings.show_page_service %}
+		<section class="section-page-service">
+			<div class="container">
+				<div class="row list-service">
+					{%for i in (1..12)%}
+					{%capture show%}show_page_service_{{i}}{%endcapture%}
+					{%capture img%}page_service_{{i}}_img{%endcapture%}
+					{%capture title%}page_service_{{i}}_title{%endcapture%}
+					{%capture desc%}page_service_{{i}}_desc{%endcapture%}
+					{%capture btn%}page_service_{{i}}_btn{%endcapture%}
+					{%capture link%}page_service_{{i}}_link{%endcapture%}
+					{%if settings[show]%}
+					<div class="service-item">
+						<div class="item-img">
+							<img src="{{ settings[img] }}" alt="{{settings[title]}}" setting-id="{{ img }}" setting-type="image" class="hrv-cf-{{ img }}" />
+						</div>
+						<div class="item-detail">
+							<h3 class="title">
+								<a href="{{settings[link]}}" setting-id="{{ title }}" setting-type="text" class="hrv-cf-{{ title }}">{{settings[title]}}</a>
+							</h3>
+							{%if settings[desc] != ''%}<p class="desc hrv-cf-{{ desc }}" setting-id="{{ desc }}" setting-type="text">{{settings[desc]}}</p>{%endif%}
+							<a href="{{settings[link]}}" class="link">
+								<span setting-id="{{ btn }}" setting-type="text" class="hrv-cf-{{ btn }}">{{settings[btn]}}</span>
+								<svg width="20px" height="20px" viewBox="0 0 24 24" id="right" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line"><line id="primary" x1="21" y1="12" x2="3" y2="12" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><polyline id="primary-2" data-name="primary" points="14 5 21 12 14 19" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></polyline></svg>
+							</a>
+						</div>
+					</div>
+					{%endif%}
+					{%endfor%}
+				</div>
+
+			</div>
+		</section>
+		{%endif%}
+		{%if settings.show_page_about %}
+		<section class="section-page-about">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-lg-6 col-12 about-content">
+						<div class="heading-title">
+							{%if settings.page_about_title1 != ''%}<p class="title1 hrv-cf-page_about_title1" setting-id="page_about_title1" setting-type="text">{{settings.page_about_title1}}</p>{%endif%}
+							{%if settings.page_about_title2 != ''%}<h2 class="title2 hrv-cf-page_about_title2" setting-id="page_about_title2" setting-type="text">{{settings.page_about_title2}}</h2>{%endif%}
+							{%if settings.page_about_desc != ''%}<p class="desc hrv-cf-page_about_desc" setting-id="page_about_desc" setting-type="textarea">{{settings.page_about_desc | newline_to_br}}</p>{%endif%}
+						</div>
+						<ul class="list-desc">
+							{%for i in (1..6)%}
+							{%capture desc%}page_about_desc_{{i}}{%endcapture%}
+							{%if settings[desc] != ''%}
+							<li class="desc-item hrv-cf-{{ desc }}" setting-id="{{ desc }}" setting-type="text">{{settings[desc]}}</li>
+							{%endif%}
+							{%endfor%}
+						</ul>
+					</div>
+					<div class="col-lg-6 col-12 about-banner">
+						<div class="banner-item banner-item--1">
+							<img src="{{ settings.page_about_img_1 }}" alt="{{settings.page_about_title2}} 1" setting-id="page_about_img_1" setting-type="image" class="hrv-cf-page_about_img_1" />
+						</div>
+						<div class="banner-item banner-item--2">
+							<img src="{{ settings.page_about_img_2 }}" alt="{{settings.page_about_title2}} 2" setting-id="page_about_img_2" setting-type="image" class="hrv-cf-page_about_img_2" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		{%endif%}
+		{%if settings.show_page_price %}
+		<section class="section-page-price text-center">
+			<div class="container">
+				<div class="heading-title">
+					{%if settings.page_price_title1 != ''%}<p class="title1 hrv-cf-page_price_title1" setting-id="page_price_title1" setting-type="text">{{settings.page_price_title1}}</p>{%endif%}
+					{%if settings.page_price_title2 != ''%}<h2 class="title2 hrv-cf-page_price_title2" setting-id="page_price_title2" setting-type="text">{{settings.page_price_title2}}</h2>{%endif%}
+				</div>
+				<div class="row price-list">
+					{%for i in (1..12)%}
+					{%capture show%}show_page_price_{{i}}{%endcapture%}
+					{%capture title%}page_price_{{i}}_title{%endcapture%}
+					{%capture num%}page_price_{{i}}_num{%endcapture%}
+					{%capture desc%}page_price_{{i}}_desc{%endcapture%}
+					{%capture btn%}page_price_{{i}}_btn{%endcapture%}
+					{%capture link%}page_price_{{i}}_link{%endcapture%}
+					{%if settings[show]%}
+					<div class="col-lg-4 col-12">
+						<div class="price-item">
+							<div class="item-content">
+								{%if settings[title] != ''%}<p class="title hrv-cf-{{ title }}" setting-id="{{ title }}" setting-type="text">{{settings[title]}}</p>{%endif%}
+								{%if settings[num] != ''%}<p class="num hrv-cf-{{ num }}" setting-id="{{ num }}" setting-type="text">{{settings[num]}}</p>{%endif%}
+								{%if settings[desc] != ''%}<p class="desc hrv-cf-{{ desc }}" setting-id="{{ desc }}" setting-type="text">{{settings[desc]}}</p>{%endif%}
+								<ul class="list-desc">
+									{%for j in (1..3)%}
+									{%capture desc_sub%}page_price_{{i}}_desc_{{j}}{%endcapture%}
+									{%if settings[desc_sub] != ''%}
+									<li class="desc-item hrv-cf-{{ desc_sub }}" setting-id="{{ desc_sub }}" setting-type="text">{{settings[desc_sub]}} <svg width="20px" height="20px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M13.7071,4.29289 C14.0976,4.68342 14.0976,5.31658 13.7071,5.70711 L7.70711,11.7071 C7.31658,12.0976 6.68342,12.0976 6.29289,11.7071 L3.29289,8.70711 C2.90237,8.31658 2.90237,7.68342 3.29289,7.29289 C3.68342,6.90237 4.31658,6.90237 4.70711,7.29289 L7,9.58579 L12.2929,4.29289 C12.6834,3.90237 13.3166,3.90237 13.7071,4.29289 Z"/> </svg></li>
+									{%endif%}
+									{%endfor%}
+								</ul>
+								{%if settings[btn] != ''%}
+								<div class="btn-more">
+									<a href="{{settings[link]}}" class="button hrv-cf-{{ btn }}" setting-id="{{ btn }}" setting-type="text" setting-bg-id="{{ btn }}">{{settings[btn]}}</a>
+								</div>
+								{%endif%}
+							</div>
+						</div>
+					</div>
+					{%endif%}
+					{%endfor%}
+				</div>
+			</div>
+		</section>
+		{%endif%}
+		{%if settings.show_about_counter%}
+		<section class="section-about-counter">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-12">
+						<div class="heading-title">
+							{%if settings.about_counter_title_1 != ''%}<p class="title1 hrv-cf-about_counter_title_1" setting-id="about_counter_title_1" setting-type="text">{{settings.about_counter_title_1}}</p>{%endif%}
+							{%if settings.about_counter_title_2 != ''%}<h2 class="title2 hrv-cf-about_counter_title_2" setting-id="about_counter_title_2" setting-type="text">{{settings.about_counter_title_2}}</h2>{%endif%}
+							{%if settings.about_counter_desc != ''%}<p class="desc hrv-cf-about_counter_desc" setting-id="about_counter_desc" setting-type="textarea">{{settings.about_counter_desc}}</p>{%endif%}
+						</div>
+					</div>
+				</div>
+				<div class="row row-counter">
+					{%assign time2 = 0.2%}
+					{%for i in (1..4)%}
+					{%capture show%}show_about_counter_{{i}}{%endcapture%}
+					{%capture img%}about_counter_{{i}}_img{%endcapture%}
+					{%capture title%}about_counter_{{i}}_title{%endcapture%}
+					{%capture num%}about_counter_{{i}}_num{%endcapture%}
+					{%if settings[show]%}
+					{%assign time2 = time2 | plus: 0.1%}
+					<div class="col-lg-3 col-md-6 col-12 wow fadeInUp" data-wow-delay="{{time2}}s">
+						<div class="counter-item">
+							<div class="item-num">
+								<div aria-valuenow="{{settings[num]}}" aria-valuemin="0" aria-valuemax="100" style="--value: {{settings[num]}}" class="progressbar"></div>
+								<div class="item-icon">
+									<img src="{{ settings[img] }}" alt="{{settings[title]}}" setting-id="{{ img }}" setting-type="image" class="hrv-cf-{{ img }}" />
+								</div>
+							</div>
+							<div class="item-detail">
+								<p class="num hrv-cf-{{ num }}" setting-id="{{ num }}" setting-type="text">{{settings[num]}}%</p>
+								<p class="title hrv-cf-{{ title }}" setting-id="{{ title }}" setting-type="text">{{settings[title]}}</p>
+							</div>
+						</div>
+					</div>
+					{%endif%}
+					{%endfor%}
+				</div>
+        {% comment %}
+
+				<div class="row list-desc">
+					{%assign time3 = 0.3%}
+					{%for i in (1..3)%}
+					{%capture desc%}about_counter_desc_{{i}}{%endcapture%}
+					{%if settings[desc] != ''%}
+					{%assign time3 = time3 | plus: 0.2%}
+					<div class="col-lg-4 col-12 desc-item wow fadeInUp hrv-cf-{{ desc }}" data-wow-delay="{{time3}}s" setting-id="{{ desc }}" setting-type="text">
+						{{settings[desc] | newline_to_br}}
+					</div>
+					{%endif%}
+					{%endfor%}
+				</div>
+      {% endcomment %}
+			</div>
+		</section>
+		{%endif%}
+
+    <div class="layoutPage-faqs">
+      <section class="section-faqs-info" itemscope itemtype="https://schema.org/FAQPage">
+    		<div class="container">
+    			<div class="wrapper-content">
+    				<div class="intro-desc">
+    					<div class="desc">
+    						{{ page.content }}
+    					</div>
+    				</div>
+    				<div class="intro-list-faqs">
+    					{%- for i in (1..10) -%}
+    					{%- capture title -%}faqs_{{i}}_title{%- endcapture -%}
+    					{%- capture desc -%}faqs_{{i}}_desc{%- endcapture -%}
+    					
+    					{%- if settings[title] != blank -%}
+    					<div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    						<div class="header-faqs hrv-cf-{{ title }}" itemprop="name" setting-id="{{ title }}" setting-type="textarea">{{ settings[title] }}</div>
+    						<div class="content-faqs" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    							<div itemprop="text" setting-id="{{ desc }}" setting-type="textarea" class="hrv-cf-{{ desc }}">{{ settings[desc] }}</div>
+    						</div>
+    					</div>
+    					{%- endif -%}
+    					{%- endfor -%}
+    				</div>
+    				<div class="form-faqs">
+    					<h2>Bạn vẫn còn câu hỏi cần giải đáp, vui lòng liên hệ trực tiếp với chúng tôi</h2>
+    					<div class="contact-form">
+    						{% form 'contact' %}
+    						{% if form.posted_successfully? %}
+    						<div class="alert alert-success">
+    							Cám ơn bạn đã liên hệ! Chúng tôi sẽ trả lời ngay khi có thể
+    						</div>
+    						{% endif %}
+    						<div class="contact-form">
+    							<div class="row">
+    								<div class="col-lg-12 col-md-12 col-12">
+    									<div class="input-group">
+    										<input required type="text" name="contact[name]" class="form-control" placeholder="Tên của bạn" aria-describedby="basic-addon1">
+    									</div>
+    								</div>
+    								<div class="col-lg-6 col-md-6 col-12">
+    									<div class="input-group">
+    										<input required type="text" name="contact[email]" class="form-control" placeholder="Email của bạn" aria-describedby="basic-addon1">
+    									</div>
+    								</div>
+    								<div class="col-lg-6 col-md-6 col-12">
+    									<div class="input-group">
+    										<input pattern="[0-9]{10,12}" required type="text" name="contact[phone]" class="form-control" placeholder="Số điện thoại của bạn" aria-describedby="basic-addon1">
+    									</div>
+    								</div>
+    								<div class="col-lg-12 col-md-12 col-12">
+    									<div class="input-group">
+    										<textarea required name="contact[body]" placeholder="Câu hỏi của bạn"></textarea>
+    										<div class="sitebox-recaptcha " >
+    											This site is protected by reCAPTCHA and the Google
+    											<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> 
+    											and <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a> apply.
+    										</div>	
+    									</div>
+    								</div>
+    								<div class="col-lg-12 col-md-12 col-12">
+    									<button class="button">Gửi cho chúng tôi</button>
+    								</div>
+    							</div>
+    						</div>
+    						{% endform %}
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    	</section>
+    </div>
+    
+	</div>
+
+</div>

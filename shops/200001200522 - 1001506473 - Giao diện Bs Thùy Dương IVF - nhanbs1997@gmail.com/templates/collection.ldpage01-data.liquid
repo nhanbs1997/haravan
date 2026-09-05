@@ -1,0 +1,17 @@
+{%layout none%}
+{%- assign collection_tabs_size = settings.ldp_collection_limit -%}
+{% paginate collection.products by collection_tabs_size %}
+
+{%if collection.products.size > 0%}
+{%for product in collection.products%}
+	{% include 'product-loop-ldpage' with collection.handle,  template: 'landing-page-01' %}
+{%endfor%}
+{%else%}
+
+{% for i in (1..collection_tabs_size) %}
+{% capture noimage %}no_image.jpg{% endcapture %}
+	{% include 'product-loop-ldpage-no' %}
+{%endfor%}
+{%endif%} 
+
+{% endpaginate %}

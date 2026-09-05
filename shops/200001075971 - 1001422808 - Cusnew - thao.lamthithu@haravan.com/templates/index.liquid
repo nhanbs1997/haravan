@@ -1,0 +1,366 @@
+{%- if settings.slide_1 != false or settings.slide_2 != false or settings.slide_3 != false or settings.slide_4 != false -%}
+{%- include'home-slider' -%}
+{%- endif -%}
+<!-- Nhóm banner 1--> 
+{% if settings.show_homepage_imgs %}
+<section class="section section-banner">
+	<div class="container-fluid">
+		<div class="homepage-images">
+			{%- for i in (1..6) -%}
+			{%- capture use_banner -%}show_homepage_img{{ i }}{%- endcapture -%}
+			{%- capture image_banner -%}homepage-img{{ i }}.jpg{%- endcapture -%}
+			{%- assign setImg = image_banner | asset_url -%}
+			{%- capture alt_banner -%}homepage_img{{ i }}_alt{%- endcapture -%}
+			{%- capture title_banner -%}homepage_img{{ i }}_title{%- endcapture -%}
+			{%- capture btn_banner -%}homepage_img{{ i }}_btn{%- endcapture -%}
+			{%- capture link_banner -%}homepage_img{{ i }}_link{%- endcapture -%}
+			{%- if settings[use_banner] -%}
+			<div class="box-image">
+				<a href="{{settings[link_banner]}}" class="box-link">
+					<img src="{{ setImg }}" alt="{{settings[alt_banner]}}">
+					<div class="box-overlay"></div>
+				</a>
+        {%- if settings[title_banner].size > 0 or settings[btn_banner].size > 0 -%}
+				<div class="box-image-content">
+					<h2 class="box-image-title"><a href="{{settings[link_banner]}}">{{settings[title_banner]}}</a></h2>
+						{%- if settings[btn_banner].size > 0 -%}
+						<div class="box-image-button"><a href="{{settings[link_banner]}}">{{settings[btn_banner]}}</a></div>
+						{%- endif -%}
+					</div>
+				{%- endif -%}
+			</div>
+			{%- endif -%}
+			{%- endfor -%}
+		</div>
+	</div>
+</section>
+{% endif %}
+<!-- Nhóm 1 -->
+{% if settings.use_collection_one_products %}
+<section class="section section-collection">
+	<div class="wrapper-heading-home text-center">
+		<div class="container-fluid">
+			<div class="site-animation">
+				<h2>
+					<a href="{{collections[settings.collection_one].url}}">
+						{% if settings.heading_collection_one  == '' %}
+						{{collections[settings.collection_one].title}}
+						{% else %}
+						{{settings.heading_collection_one}}
+						{% endif %}
+					</a>
+				</h2>
+			</div>
+		</div>
+	</div>
+	<div class="wrapper-collection-1" >
+		{%if collections[settings.collection_one].products.size > 0%}
+		{%if collections[settings.collection_one].products.size > 2%}
+		<div class="container-fluid" >
+			<div class="clearfix content-product-list" id="collection-slide">
+				{% assign collection_one_size = 10 %}
+				{% for product in collections[settings.collection_one].products limit: collection_one_size %}
+				<div class="pro-loop" >
+					{% include 'product-loop' with collection.handle %}
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% elseif collections[settings.collection_one].products.size > 1 %}		
+		<div class="container-fluid collection-two-product" >
+			<div class="row collection-special-two">
+				{% for product in collections[settings.collection_one].products limit: 2 %}
+				<div class="col-md-6 col-sm-12 col-xs-12">
+					{% include 'product-loop-special' with collection.handle %}
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% else %}
+		<div class="container-fluid">
+			<div class="collection-special-one">
+				{% for product in collections[settings.collection_one].products limit: 1 %}
+				{% include 'product-loop-special' with collection.handle %}
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+		{% else %}
+		<div class="container-fluid" >
+			<div class="clearfix content-product-list" id="collection-slide">
+				{% include 'no-owl-product-loop' %}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</section>
+{% endif %}
+<!-- Nhóm banner 2 -->
+{% if settings.show_block_home_category %} 
+<div class="wrapper-home-banner" >
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-4 home-banner-pd site-animation">
+				<div class="block-banner-category"> 
+					<a  class="link-banner" href="{{settings.block_home_category1_link}}">
+						<img src="{{ 'block_home_category1.jpg' | asset_url }}"  alt="{{settings.block_home_category1_alt }}">
+						<div class="caption_banner">
+							<h3>{{settings.block_home_category1_title}}</h3>
+							{% if settings.block_home_category1_button > 0 %}
+							<div class="button-img">{{settings.block_home_category1_button}}</div>
+							{% endif %}					
+						</div>
+					</a>	
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 home-banner-pd site-animation">
+				<div class="block-banner-category"> 
+					<a  class="link-banner" href="{{settings.block_home_category2_link}}">
+						<img src="{{ 'block_home_category2.jpg'|asset_url }}"  alt="{{settings.block_home_category2_alt }}">
+						<div class="caption_banner">
+							<h3>{{settings.block_home_category2_title}}</h3>
+							{% if settings.block_home_category2_button > 0 %}
+							<div class="button-img">{{settings.block_home_category2_button}}</div>
+							{% endif %}					
+						</div>
+					</a>	
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 home-banner-pd site-animation">
+				<div class="block-banner-category"> 
+					<a  class="link-banner" href="{{settings.block_home_category3_link}}">
+						<img class="" src="{{ 'block_home_category3.jpg'|asset_url }}"  alt="{{settings.block_home_category3_alt }}">
+						<div class="caption_banner">
+							<h3>{{settings.block_home_category3_title}}</h3>
+							{% if settings.block_home_category3_button > 0 %}
+							<div class="button-img">{{settings.block_home_category3_button}}</div>
+							{% endif %}
+						</div>
+					</a>	
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+<!-- Nhóm 2 -->
+{% if settings.use_collection_two_products %}
+<section class="section section-collection">
+	<div class="wrapper-heading-home text-center">
+		<div class="container-fluid">
+			<div class="site-animation">
+				<h2>
+					<a href="{{collections[settings.collection_two].url}}">
+						{% if settings.heading_collection_two  == '' %}
+						{{collections[settings.collection_two].title}}
+						{% else %}
+						{{settings.heading_collection_two}}
+						{% endif %}
+					</a>
+				</h2>
+			</div>
+		</div>
+	</div>
+	<div class="wrapper-collection-2" >
+		{% assign collection_two_size = 10 %}
+		{%if collections[settings.collection_two].products.size > 0%}
+
+		{%if collections[settings.collection_two].products.size > 2%}
+		<div class="container-fluid" >
+			<div class="row">
+				<div class="clearfix content-product-list owl-carousel owl-theme">
+					{% for product in collections[settings.collection_two].products limit: collection_two_size %}
+					<div class="col-md-12 col-sm-12 col-xs-12 pro-loop">
+						{% include 'product-loop' with collection.handle %}
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% elseif collections[settings.collection_two].products.size > 1 %}		
+		<div class="container-fluid collection-two-product" >
+			<div class="row collection-special-two">
+				{% for product in collections[settings.collection_two].products limit: 2 %}
+				<div class="col-md-6 col-sm-12 col-xs-12">
+					{% include 'product-loop-special' with collection.handle %}
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% else %}
+		<div class="container">
+			<div class="collection-special-one">
+				{% for product in collections[settings.collection_two].products limit: 1 %}
+				{% include 'product-loop-special' with collection.handle %}
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+		{% else %}
+		<div class="container-fluid" >
+			<div class="row" >
+				{% include 'no-product-loop' %}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+
+<script>
+  $(function(){
+    $('.wrapper-collection-2 .owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    navText: ["‹", "›"],
+    responsive:{
+      0:{
+          items:2
+      },
+      600:{
+          items:3
+      },
+      1000:{
+          items:5
+      }
+    }
+})
+  })
+</script>
+  
+</section>
+{% endif %}
+<!-- Blog -->
+{% if settings.home_blog_show %}
+<section class="section wrapper-home-instagram">
+	<div class="container-fluid">
+		<div class="wrapper-heading-home text-center">
+			<h2>{{settings.title_home_blog}}</h2>
+		</div>
+		<div class="posts-list row">
+			{% for article in blogs[settings.blog_home_recent].articles limit: settings.blog_home_limit %}
+			{% if article.image %}
+			{% comment %} Lấy hình Featured {% endcomment %}
+			{% assign imageUrl = article.image.src  | product_img_url : 'grande' %}
+			{% else %}
+
+			{% comment %}Kiểm tra trích dẫn và content có hình hay ko{% endcomment %}
+			{% assign imageUrl = '' %}
+			{% if article.excerpt contains 'src=' %}
+			{% assign imageExcerptNotNull = true %}
+			{% else %}
+			{% assign imageExcerptNotNull = false %}
+			{% endif %}
+			{% if article.content contains 'src=' %}
+			{% assign imageContentNotNull = true %}
+			{% else %}
+			{% assign imageContentNotNull = false %}
+			{% endif %}
+
+			{% comment %}Nếu có Excerpt or Content cắt hình{% endcomment %}
+			{% if imageExcerptNotNull %}
+			{% assign arrayUrl = article.excerpt | split : 'src="' %}
+			{% else %}
+			{% if imageContentNotNull %}
+			{% assign arrayUrl = article.content | split : 'src="' %}
+			{% endif %}
+			{% endif %}
+
+			{% comment %}Truyền hình vào biến imageUrl{% endcomment %}
+			{% if imageExcerptNotNull == false and imageContentNotNull == false %}
+			{% assign imageUrl = 'blog_no_image.jpg' | asset_url %}
+			{% else %}
+			{% assign imageUrl = arrayUrl[1] | split : '"'%}
+			{% if imageUrl contains '//hstatic' %}
+			{% assign imageUrl = imageUrl.first | product_img_url : 'grande' %}
+			{% else %}
+			{% assign imageUrl = imageUrl.first %}
+			{% endif %}
+			{% endif %}
+			{% endif %}
+			<div class="col-md-4 col-sm-6 col-xs-12 col-post">
+				<div class="post_item">
+					<div class="post_featured">
+						<div class="post_thumb" title="">
+							<a class="hover_icon" href="{{ article.url }}">
+								<img src="{{ imageUrl }}" alt="{{ article.title }}">
+							</a>	
+						</div>
+					</div>
+					<div class="post_content">
+						<div class="post_info">
+							<span class="post_info_item"> 
+								{{ article.published_at | date: '%A %d,%m,%Y'}}
+							</span>
+						</div>							
+						<h3 class="post_title">
+							<a href="{{ article.url }}">{{ article.title }}</a>
+						</h3>
+						<div class="post_descr">
+							<p>{{ article.content | strip_html | truncatewords: 30 }}</p>					
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endif %}
+<!-- About Us -->
+{% if settings.home_about_show %}
+<div class="wrapper-home-information" >
+	<div class="container-fluid">
+		<div class="row">			
+			<div class="col-md-6 col-sm-12 col-xs-12 wrap-pd-infor wrap-flex-align flex-column box_stick">
+				<div class="box-banner-inf">
+					<div class="content site-animation">
+						<h2 class="title dark">{{settings.home_about_title}}</h2>
+						{% if settings.home_about_button != empty %}
+						<a class="button" href="{{settings.home_about_link}}" title="{{settings.home_about_button}}">
+							<span>{{settings.home_about_button}}</span> 
+						</a>
+						{% endif %}
+					</div>
+				</div>
+				<div class="container-background">
+					<img src="{{ 'home_about_image.jpg'|asset_url }}" alt="{{settings.home_about_title}}">
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12 col-xs-12  wrap-pd-infor wrap-flex-align flex-column">
+				<div class="inf-content site-animation">
+					{{pages[settings.home_about_page].content}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+<!-- Gallery -->
+{% if settings.gallery_show %}
+<section class="section-gallery">
+	<div class="container-fluid">
+		<div class="row">
+			{%- for i in (1..12) -%}
+			{%- capture use_item -%}use_gallery_item_{{ i }}{%- endcapture -%}
+			{%- capture image_item -%}gallery_item_{{ i }}.jpg{%- endcapture -%}
+			{%- assign setImg = image_item | asset_url -%}
+			{%- capture alt_item -%}gallery_item_{{i}}_alt{%- endcapture -%}
+			{%- if settings[use_item] -%}
+			<div class="col-md-2  col-sm-3 col-xs-3 gallery_item">
+				<img title="{{ settings[alt_item] }}" alt="{{ settings[alt_item] | escape }}" src="{{ setImg }}">
+			</div>
+			{%- endif -%}
+			{%- endfor -%}
+		</div>
+	</div>
+</section>
+{% endif %}
+
+
+
+
+
+
+
+
+

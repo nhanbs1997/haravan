@@ -1,0 +1,19 @@
+{% capture limit %}{% include 'shortcode-render' render:'limit' %}{% endcapture %}
+<div class="banner_collection mb-3 swiper-container position-relative">
+	<div class="swiper-wrapper">
+		{%for i in (1..5) limit: limit%}
+		{%capture link%}link{{i}}{%endcapture%}
+		{% capture links %}{% include 'shortcode-render' render: link %}{% endcapture %}
+		{%capture image%}image{{i}}{%endcapture%}
+		{% capture images %}{% include 'shortcode-render' render: image %}{% endcapture %}
+		<div class="swiper-slide text-center effect-ming">
+			<a href="{{links}}" class="rounded-10 modal-open position-relative w-100 m-0 ratio8by3 d-block aspect" title="{{ page_title }}">
+				<img src="{{ images }}" alt="{{ page_title }}" class="d-block img img-cover position-absolute" />
+			</a>
+		</div>
+		{%endfor%}
+	</div>
+  <div class="swiper-pagination mew_bn_p"></div>
+	<div class="swiper-button-prev mbc_prev d-none d-md-flex"></div>
+	<div class="swiper-button-next mbc_next d-none d-md-flex"></div>
+</div>

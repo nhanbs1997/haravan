@@ -1,0 +1,221 @@
+{%- include 'breadcrumb' -%}
+<section class="login order-layout pt-3 pb-3">
+	<div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-8">
+        <div class="row mb-3">
+          {%-include 'mew_account_action_top'-%}
+        </div>
+        <div class="row mb-3 mb-lg-0">
+          <div class="col-12">
+            <div class="order-info p-3 bg-light rounded-10">
+              <div class="head-title clearfix">
+                <h1 class="font-weight-bold m-0 sml" style="color: var(--mainColor);">{{settings.order_detail_title}} {{ order.name}}</h1>
+                <p class="note order_date m-0">{{settings.order_detail_created_date | append: ': '}} {{ order.created_at | date: "%d/%m/%Y, %I:%M%p" }}</p>
+                {%- if order.cancelled -%}
+                <div id="order_cancelled" class="flash notice">
+                  <p id="order_cancelled_title" class=" m-0">
+                    {{settings.order_detail_cancel_date | append: ': '}} 
+                    <span class="note">{{ order.cancelled_at | date: "%d/%m/%Y, %I:%M%p" }}</span>
+                  </p>
+                  <p class="m-0">{{ order.cancel_reason }}</p>
+                </div>
+                {%- endif -%}
+                <div class="shipping_status">
+                  {%- case order.status -%}
+                  {%- when 'cancelled' -%}
+                  <b class="text-danger">{{settings.order_detail_cancel}}</b>
+                  {%- else %}
+                  {%- case order.fulfillment_status -%}
+                  {%- when 'fulfilled' -%}
+                  <b class="span_{{ order.fulfillment_status }} text-success">{{settings.order_detail_fulfilled}}</b>
+                  {%- when 'partial' -%}
+                  <b class="span_{{ order.fulfillment_status }} text-warning">{{settings.order_detail_partial}}</b>
+                  {%- else %}
+                  <b class="span_{{ order.fulfillment_status }} text-danger">{{settings.order_detail_not_ship}}</b>
+                  {%- endcase -%}
+                  {%- endcase -%}
+                </div>
+              </div>
+              <div class="body_order mt-3 border-top">
+                {%- if order.shipping_address -%}
+                <div class="b_name_phone pt-3 pb-3 border-bottom">
+                  <h2 class="title-head font-weight-bold mb-3" style="color: var(--mainColor);">{{settings.order_detail_delivery_title}}</h2>
+                  <div class="row">
+                    <div class="col-6">
+                      <p class="m-0 i_sup">{{settings.order_detail_delivery_name | append: ': '}}</p>
+                      <p class="m-0 i_main">{{ order.customer.name }}</p>
+                    </div>
+                    <div class="col-6">
+                      {%- if order.shipping_address.phone != null -%}
+                      <p class="m-0 i_sup">{{settings.order_detail_delivery_phone | append: ': '}}</p>
+                      <p class="m-0 i_main">
+                        {{ order.shipping_address.phone }}
+                      </p>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+                <div class="box-address pt-3 pb-3 border-bottom">
+                  <p class="m-0 i_sup">
+                    {{settings.order_detail_delivery_address | append: ': '}}
+                  </p>
+                  <p class="i_main m-0">
+                    {% if order.shipping_address %}
+                    {%- if order.shipping_address.address1 != null and order.shipping_address.address1 != "" -%}{{ order.shipping_address.address1 }}{%- endif -%}
+                    {%- if order.shipping_address.address2 != null and order.shipping_address.address2 != "" -%}, {{ order.shipping_address.address2 }}{%- endif -%}
+                    {%- if order.shipping_address.district != null and order.shipping_address.district != "" -%}, {{ order.shipping_address.district }}{%- endif -%}
+                    {%- if order.shipping_address.province != null and order.shipping_address.province != "" -%}, {{ order.shipping_address.province }}{%- endif -%}
+                    {%- if order.shipping_address.country != null and order.shipping_address.country != "" -%}, {{ order.shipping_address.country }}{%- endif -%}
+                    {% endif %}
+                  </p>
+                </div>
+                {%- endif -%}
+                <div class="payment_status pt-3 pb-3 border-bottom">
+                  <p class="note m-0 i_sup">{{settings.order_detail_payment_title | append: ': '}}</p>
+                  {%- if order.cancelled -%}
+                  <b class="status_{{ order.status }} text-danger">{{settings.order_detail_cancel}}</b>
+                  {%- else -%}
+                  {%- case order.financial_status %}
+                  {%- when 'paid' -%}
+                  <b class="span_{{ order.financial_status }} text-success">
+                    {{settings.order_detail_payment_paid}}
+                  </b>
+                  {%- when 'pending' -%}
+                  <span class="span_{{ order.financial_status }} text-danger">{{settings.order_detail_payment_unpaid}}</span>
+                  {%- when 'partially_paid' -%}
+                  <span class="span_{{ order.financial_status }} text-warning">{{settings.order_detail_payment_partial}}</span>
+                  {%- when 'partially_refunded'-%}
+                  <b class="span_{{ order.financial_status }} text-primary">
+                    {{settings.order_detail_partially_refunded}}
+                  </b>
+                  {%- when 'refunded' -%}
+                  <b class="span_{{ order.financial_status }} text-primary">
+                    {{settings.order_detail_refunded}}
+                  </b>
+                  {%- when 'voided ' -%}
+                  <b class="span_{{ order.financial_status }} text-muted">{{settings.order_detail_void}}</b>
+                  {%- endcase -%}
+                  {%- endif -%}
+                </div>
+                {%-if order.gateway != null and order.gateway != ''-%}
+                <div class="box-gateway pt-3 pb-3 border-bottom"> 
+                  <p class="note m-0 i_sup">
+                    {{settings.order_detail_payment_method}}
+                  </p>
+                  <b class="text-success">
+                    {%-if order.gateway == 'manual'-%}
+                    {{settings.gateway_manual}}
+                    {%-else-%}
+                    {{order.gateway}}
+                    {%endif%}
+                  </b>
+                </div>
+                {%-endif-%}
+              </div>
+              <div class="list-order pt-3 pb-3">
+                <p class="note m-0 i_main font-weight-bold">
+                  {{settings.order_detail_payment_list}}
+                </p>
+                {% for line_item in order.line_items %}
+                <div class="item_order mt-2 {%unless forloop.last%}mb-2{%endunless%} p-2 border rounded-10">
+                  <div class="row align-items-center m--1">
+                    <div class="col-3 col-md-1 font-weight-bold pl-1 pr-1 qty text-center text-dark">
+                      {{ line_item.quantity }} x
+                    </div>
+                    <div class="image_order col-2 text-center pl-1 pr-1 d-none d-md-block">
+                      <a title="{{line_item.title}}" href="{{line_item.url}}">{{ line_item.image | product_img_url : 'small' | img_tag }}</a>
+                    </div>
+                    <div class="content_right col-9 col-md-7 pl-1 pr-1">
+                      <a class="title_order font-weight-bold" href="{{line_item.url}}" title="{{line_item.title}}">{{line_item.product.title}}</a>
+                      {% if line_item.sku != null and line_item.sku != "" %}
+                      <p class="sku_order m-0">
+                        {{settings.order_detail_list_sku | append: ': '}}{{ line_item.sku }}
+                      </p>
+                      {%endif%}
+                      <small class="d-block">
+                        {%unless line_item.variant_title == 'Default Title'%}{{line_item.variant.title}} - {%endunless%} {{ line_item.price | money }}
+                      </small>
+                    </div>
+                    <div class="price total col-12 col-md-2 text-right font-weight-bold pl-1 pr-1">
+                      {{ line_item.quantity | times: line_item.price | money }}
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              <div class="list-order totalorders border-top">
+                <div class="border-bottom pt-2 pb-2">
+                  <div class="row m--1">
+                    <div class="col-6 pl-1 pr-1">
+                      {{settings.order_old_total }}
+                    </div>
+                    <div class="col-6 pl-1 pr-1">
+                       {{ order.subtotal_price | money }}
+                    </div>
+                  </div>
+                </div>
+                <div class="border-bottom pt-2 pb-2">
+                  <div class="row m--1">
+                    <div class="col-6 pl-1 pr-1">
+                      {{settings.order_detail_list_discount }}
+                    </div>
+                    <div class="col-6 pl-1 pr-1">
+                       -{{ order.discount | money}}
+                    </div>
+                  </div>
+                </div>
+                <div class="border-bottom pt-2 pb-2">
+                  <div class="row m--1">
+                    <div class="col-6 pl-1 pr-1">
+                      {{settings.order_detail_shipping_fee }}
+                    </div>
+                    <div class="col-6 pl-1 pr-1">
+                      {% for shipping_method in order.shipping_methods %}
+                      {% if order.shipping_price != null and order.shipping_price != "" %}
+                      {{ order.shipping_price | money }}
+                      {%else%}
+                      {{ shipping_method.price | money }}
+                      {%endif%}
+                      {% if shipping_method.title != null and shipping_method.title != "" %}
+                      ({{ shipping_method.title }})
+                      {%endif%}
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+                <div class="border-bottom pt-2 pb-2">
+                  <div class="row m--1">
+                    <div class="col-6 pl-1 pr-1">
+                      {{settings.order_detail_total}}
+                    </div>
+                    <div class="col-6 pl-1 pr-1">
+                      <b class="price">{{ order.total_price | money }}</b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="box-address pt-2 pb-2">
+                <b class="i_main text-success">
+                  {{settings.order_detail_note}}
+                </b>
+                <p class="note m-0 i_sup">
+                  {% if order.note != null and order.note != ""  %}
+                  {{ order.note }}
+                  {%else%}
+                  {{settings.order_detail_nonote}}
+                  {%endif%}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="row mb-3 h-100">
+          {%-include 'mew_account_action_bottom'-%}
+        </div>
+      </div>
+    </div>
+	</div>
+</section>

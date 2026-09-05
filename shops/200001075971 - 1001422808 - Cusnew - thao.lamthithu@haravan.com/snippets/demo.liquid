@@ -1,0 +1,131 @@
+<meta charset="UTF-8">
+<style>
+	p {
+		margin-bottom: 5px !important;
+		margin-top: 0;
+	}
+	img {
+		max-width: 100%;
+	}
+  .print_qrcode img {
+    max-width: 150px;
+  }
+</style>
+<div style="margin:0;font-family: Helvetica;font-size:14px;page-break-after:always;">
+	<div style="margin-bottom: 15px;display: flex;flex-wrap: wrap;justify-content: space-between;">
+		<div style="margin: 5px 0;width: 48%;">
+			<p><strong style="font-size: 18px;">{{ shop_name }}</strong></p>
+			{% if shop.phone %}<p><strong>Điện thoại:</strong> {{ shop.phone }}</p>{% endif %}
+			{% if shop.domain %}<p><strong>Website:</strong> {{ shop.domain}}</p>{% endif %}
+			{% if shop.email %}<p><strong>Email:</strong> {{ shop.email }}</p>{% endif %}
+		</div>
+		<div style="width: 48%; text-align: right; padding-left:20px;">
+			{%- if tracking_company == 'Giaohangtietkiem.vn' -%}
+			<div style="overflow: hidden;display: flex;justify-content: flex-start"><p style="margin-right:0;width: 100%;"><img style="max-height: 100px;" class="print_barcode order" val="{{ tracking_number | split: '.' | last  }}"></p></div>
+			{%- else -%}
+			<div style="overflow: hidden;display: flex;justify-content: flex-start"><p style="margin-right:0;width: 100%;"><img style="max-height: 100px;" class="print_barcode order" val="{{ tracking_number }}"></p></div>
+			{%- endif -%}
+			<script>
+				$(".print_barcode").each(function () {
+					var barcode = $(this).attr("val");
+					$(this).JsBarcode(barcode, {
+						width: 1,
+						height: 150,
+						quite: 10,
+						format: "CODE128",
+						displayValue: true,
+						font: "Helvetica",
+						textAlign: "center",
+						fontSize: 100,
+						backgroundColor: "",
+						lineColor: "#000"
+					}
+													 )
+				});
+			</script>
+		</div>
+	</div>
+	<div>
+		<div style="width:100%;display:flex;padding-bottom:5px;">
+			{% if shipping_address %}
+			<div class="flex-1" style="margin-right:20px;width:48%;">
+        {% comment %}
+        <h3 style="font-size: 14px;line-height: 1">Thông tin mua hàng</h3>
+				<hr style="border: none; border-top: 2px solid #0975BD;" />{% endcomment %}
+				<div style="margin: 0 0 7px 0; padding: 7px; border: 1px solid #d9d9d9;min-height: 110px;">
+					<p><strong>{{ shipping_address.name }}</strong></p>
+					{% if shipping_address.company %}<p>{{ shipping_address.company }}</p>{% endif %}
+					{% if shipping_address.address1 %}
+					<p>{{ shipping_address.address1 }}{% if shipping_address.district %} ,
+						{{ shipping_address.district }} {% endif %}{% if shipping_address.province %} ,
+						{{ shipping_address.province }} , {% endif %}{% if shipping_address.country %}
+						{{ shipping_address.country }}{% endif %}</p>
+					{% endif %}
+					{% if shipping_address.phone %}<p>Điện thoại: {{ shipping_address.phone }}</p>{% endif %}
+					{% if email %}<p>Email: {{ email }}</p>{% endif %}
+				</div>
+			</div>
+			{% endif %}
+			<div class="flex-2" style="width:48%;">
+        {% comment %}
+				<h3 style="font-size: 14px;line-height: 1">Thông tin đơn hàng</h3>
+				<hr style="border: none; border-top: 2px solid #0975BD;" />{% endcomment %}
+				<div style="margin: 0 0 7px 0; padding: 7px; border: 1px solid #d9d9d9;min-height: 110px;">
+					<p><strong>Mã đơn hàng:</strong> {{ order_name }}</p>
+					<p><strong>Mã vận đơn: </strong>{{tracking_number}}</p>
+					{% comment %}<p><strong>Mã phiếu giao hàng: </strong>{{shipmentId}}</p>{% endcomment %}
+					{%- if sort_code -%}<p><strong>Mã Phân Vùng: </strong>{{sort_code}}</p>{%- endif -%}
+					{% comment %}<p><strong>Nhà vận chuyển: </strong>{{tracking_company}}</p>{% endcomment %}
+				</div>
+			</div>
+		</div>
+		<div style="width:100%;">
+			<h3 style="font-size: 14px;line-height: 1">Chi tiết đơn hàng</h3>
+			<hr style="border: none; border-top: 2px solid #0975BD;" />
+			<table style="margin: 0 0 5px 0;font-size: 12px;width:100%;">
+				<thead>
+					<tr>
+						<th style="width:55%;text-align: left;padding: 5px 0px">Sản phẩm</th>
+						<th style="width:15%;text-align: right;padding: 5px 0px">Số lượng</th>
+						<th style="width:15%;text-align: right;padding: 5px 0px">Giá</th>
+						<th style="width:15%;text-align: right;padding: 5px 0px">Thành tiền</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for line_item in line_items %}
+					<tr valign="top" style="border-top: 1px solid #d9d9d9;">
+						<td align="left" style="padding: 5px 5px 5px 0px;white-space: normal;">
+							{% if line_item.product.title %}
+							{% assign line_title = line_item.product.title %}
+							{% else %}
+							{% assign line_title = line_item.title %}
+							{% endif %}
+							<p style="margin-bottom: 5px;">{{ line_title }}</p>
+							{% if line_item.variant.title != "Default Title" %}
+							<p style="margin: 0">{{ line_item.variant.title }}</p>
+							{% endif %}
+						</td>
+						<td align="center" style="padding: 5px 0px">{{ line_item.quantity }}</td>
+						<td align="right" style="padding: 5px 0px">{{ line_item.price | money}}</td>
+						<td align="right" style="padding: 5px 0px">
+							{{ line_item.price | times:line_item.quantity | money}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<table style="font-size: 12px;width: 100%; margin: 0 0 1.5em 0;">
+				<tr>
+					<td style="padding: 5px 0px"><strong>Tiền thu người nhận:</strong></td>
+					<td style="text-align:right;padding: 5px 0px"><strong>{{ COD_amount | money }}</strong></td>
+				</tr>
+			</table>
+			{% if note %}
+			<h3 style="font-size: 14px;margin: 0 0 5px 0;">Ghi chú</h3>
+			<p style="line-height: 30px">{{ note }}</p>
+			{% endif %}
+      <div class="print_qrcode" val="{{ order_name }}"></div>
+		</div>
+
+	</div>
+</div>
+

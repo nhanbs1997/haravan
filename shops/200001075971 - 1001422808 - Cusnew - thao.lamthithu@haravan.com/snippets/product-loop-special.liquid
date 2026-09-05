@@ -1,0 +1,74 @@
+{% assign on_sale = false %}
+{% if product.available and product.variants.first.compare_at_price > product.variants.first.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% comment %}Tính giá khuyến mãi{% endcomment %}
+{% if product.variants.first.compare_at_price > product.variants.first.price %}
+{% assign price_sale = 0 %}
+{% assign price_sale = product.variants.first.compare_at_price | minus: product.variants.first.price | divided_by:product.variants.first.compare_at_price | times : 100 | round : 0 %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available  %}
+{% assign sold_out = false %}
+{% endif %} 
+
+<div class="product-loop-special {%if product.images.size > 0%}has-image{%if product.images.size > 1%} more-image {%endif%}{%else%}no-image{%endif%}">
+	<div class="product-col-left text-center">
+		<a href="{{product.url}}" title="{{product.title}}">
+			<picture>
+				<source media="(max-width: 767px)" srcset="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'large' }}{%else%}{{'no_image.jpg' | asset_url}}{%endif%}">
+				<source media="(min-width: 768px)" srcset="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'grande' }}{%else%}{{'no_image.jpg' | asset_url}}{%endif%}">
+				<img class="img-loop" alt="{% if product.featured_image.alt.size >0 %}{{ product.featured_image.alt | escape }}{% else%} {{product.title}} {% endif %}" src="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'grande' }}{%else%}//hstatic.net/0/0/global/design/theme-default/no-image.png{%endif%}"  />
+			</picture>
+		</a>
+		{% if settings.promotion_hrvapp_use and settings.promotion_hrvapp == 'appbuyxgety' %}
+		<div class="gift product_gift_label hidden" data-id="{{product.id}}">
+			<img src="{{'appbuyxgety-icon.png'|asset_url}}"  alt="icon quà tặng">
+		</div>
+		{% endif %}
+	</div>
+	<div class="product-col-right">
+		<div class="product-width">
+			{% if product.images.size > 1 %}
+			<div class="product-img-sub">
+				<a href="{{product.url}}" title="{{product.title}}">
+					<picture>
+						<source media="(max-width: 767px)" srcset="{% if product.images.size > 1 %}{{ product.images[1] | product_img_url: 'large' }}{%else%}{{ product.featured_image.src | product_img_url: 'large' }}{%endif%}">
+						<source media="(min-width: 768px)" srcset="{% if product.images.size > 1 %}{{ product.images[1] | product_img_url: 'grande' }}{%else%}{{ product.featured_image.src | product_img_url: 'grande' }}{%endif%}">
+						<img class="img-loop img-hover" alt="{% if product.featured_image.alt.size > 1 %}{{ product.featured_image.alt | escape }}{% else%} {{product.title}} {% endif %}" src="{% if product.images.size > 1 %}{{ product.images[1] | product_img_url: 'grande' }}{%else%}{{ product.featured_image.src | product_img_url: 'grande' }}{%endif%}"/>
+					</picture>
+				</a>
+			</div>
+			{% endif %}
+			<div class="product-detail">
+				<h3 class="pro-name"><a href="{{product.url}}" title="{{product.title}}"><span>{{ product.title }}</span></a></h3>
+				<div class="box-pro-prices">	
+					<p class="overflowed pro-price {% if on_sale %}highlight{% endif %}">{{ product.variants.first.price | money }}
+						<span class="pro-price-del">{% if on_sale %}<del class="compare-price">{{ product.variants.first.compare_at_price | money }}</del>{% endif %}</span>
+					</p>
+				</div>
+        <div class="product-meta-loop">
+          <div class="starbaprv-widget starbaprv-preview-badge starbaprv-preview-badge--with-link" data-id="{{product.id}}" data-url="{{product.handle}}">
+            {% if product.metafields.starbap['starbaprv.badge']%}
+            {{product.metafields.starbap['starbaprv.badge']}}
+            {% endif %}
+          </div>
+          {% if product.sold_quantity > 0 %}
+          <div class="product-sold">Đã bán: {{product.sold_quantity}}</div>
+          {% endif %}
+        </div>
+			</div>
+      
+			<div class="action text-center">
+				<a class="button dark" href="{{product.url}}" title="{{product.title}}">Xem chi tiết</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+

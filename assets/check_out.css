@@ -1,0 +1,12 @@
+.banner > .wrap > a {display: block;}
+.logo-text {color:#000;}
+/*.logo-text {
+	font-size: 0;
+	background: url('logo.png') no-repeat;
+	height: 45px;
+}
+@media ( max-width: 767px ) {
+	.logo-text {background-position: center;}
+}
+
+*/

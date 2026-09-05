@@ -1,0 +1,98 @@
+{% assign cam_nang_categories = '1|2|3|4' | split: '|' %}
+<style>
+	.cam-nang-clone {
+		--cam-nang-blue: {{ settings.cam_nang_blue | default: '#2777ee' }};
+		--cam-nang-purple: {{ settings.cam_nang_purple | default: '#8230e5' }};
+		--cam-nang-ink: {{ settings.cam_nang_ink | default: '#172b4d' }};
+		--cam-nang-page: {{ settings.cam_nang_page_bg | default: '#f5f7fa' }};
+		--cam-nang-panel: {{ settings.cam_nang_panel_bg | default: '#ffffff' }};
+		background: var(--cam-nang-page);
+		color: var(--cam-nang-ink);
+		font-family: inherit;
+		overflow: hidden;
+	}
+	.cam-nang-clone *, .cam-nang-clone *:before, .cam-nang-clone *:after { box-sizing: border-box; }
+	.cam-nang-hero {
+		min-height: 395px;
+		padding: 72px 20px 120px;
+		color: #fff;
+		text-align: center;
+		background: linear-gradient(112deg, var(--cam-nang-blue) 0%, #405be8 47%, var(--cam-nang-purple) 100%);
+	}
+	.cam-nang-hero-inner { width: min(920px, 100%); margin: 0 auto; }
+	.cam-nang-hero h1 { margin: 0 0 14px; color: #fff; font-size: clamp(30px, 4vw, 43px); font-weight: 800; line-height: 1.2; letter-spacing: .01em; }
+	.cam-nang-hero p { max-width: 820px; margin: 0 auto 30px; color: rgba(255,255,255,.88); font-size: 16px; line-height: 1.55; }
+	.cam-nang-search { position: relative; width: min(600px, 100%); margin: 0 auto; }
+	.cam-nang-search input { width: 100%; height: 55px; padding: 0 54px 0 50px; color: #4f5c70; font: inherit; font-size: 16px; border: 0; border-radius: 30px; outline: 0; background: #fff; box-shadow: 0 8px 22px rgba(23,43,77,.12); }
+	.cam-nang-search input::placeholder { color: #97a0ad; }
+	.cam-nang-search button { position: absolute; top: 0; left: 0; width: 50px; height: 55px; padding: 0; color: #8f9ba9; border: 0; background: transparent; cursor: pointer; }
+	.cam-nang-search button svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; }
+	.cam-nang-directory { position: relative; width: min(1298px, calc(100% - 40px)); margin: -60px auto 0; padding: 35px 48px 39px; border-radius: 20px; background: var(--cam-nang-panel); box-shadow: 0 18px 32px rgba(23,43,77,.09); }
+	.cam-nang-columns { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 34px; }
+	.cam-nang-category { min-width: 0; text-align: center; }
+	.cam-nang-category h2 a { color: inherit; text-decoration: none; }
+	.cam-nang-category h2 { display: inline-flex; align-items: center; justify-content: center; min-height: 47px; margin: 0 auto 12px; padding: 6px 27px; color: #397cd1; font-size: 25px; font-weight: 800; line-height: 1.1; border: 2px solid transparent; border-radius: 28px; background: linear-gradient(#fff,#fff) padding-box, linear-gradient(100deg, #05a9ff, #8c39cb) border-box; }
+	.cam-nang-category-count { margin: 0 0 20px; color: #1e293b; font-size: 15px; }
+	.cam-nang-links { margin: 0; padding: 0; list-style: none; text-align: left; }
+	.cam-nang-links li { margin: 0 0 17px; }
+	.cam-nang-links a { display: block; color: var(--cam-nang-ink); font-size: 15px; line-height: 1.4; text-decoration: none; transition: color .2s ease; }
+	.cam-nang-links a:before { content: '›'; display: inline-block; margin-right: 10px; color: var(--cam-nang-blue); font-size: 22px; font-weight: 700; line-height: 12px; vertical-align: -2px; }
+	.cam-nang-links a:hover { color: var(--cam-nang-blue); }
+	@media (max-width: 900px) { .cam-nang-directory { padding: 30px 24px; } .cam-nang-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 34px; } }
+	@media (max-width: 520px) { .cam-nang-hero { min-height: 360px; padding: 54px 16px 100px; } .cam-nang-hero p { font-size: 14px; } .cam-nang-directory { width: calc(100% - 24px); padding: 28px 22px; border-radius: 15px; } .cam-nang-columns { grid-template-columns: 1fr; gap: 28px; } .cam-nang-category h2 { font-size: 23px; } .cam-nang-links { width: min(250px, 100%); margin: 0 auto; } }
+</style>
+
+<div class="cam-nang-clone">
+	<section class="cam-nang-hero">
+		<div class="cam-nang-hero-inner">
+			<h1>{{ settings.cam_nang_title | default: 'GTV SEO CÓ THỂ GIÚP GÌ CHO BẠN?' }}</h1>
+			<p>{{ settings.cam_nang_description | default: 'Khám phá ngay kho kiến thức SEO, AI, Marketing và GEO được đúc kết gần 10 năm kinh nghiệm, giúp bạn ứng dụng hiệu quả để tăng trưởng nhanh và vượt trội trong ngành.' }}</p>
+			
+		</div>
+	</section>
+
+	<section class="cam-nang-directory " aria-label="Danh mục cẩm nang">
+		<div class="cam-nang-columns">
+			{% for category_index in cam_nang_categories %}
+				{% assign title_key = 'cam_nang_category_' | append: category_index | append: '_title' %}
+				{% assign count_key = 'cam_nang_category_' | append: category_index | append: '_count' %}
+				{% assign links = '1|2|3' | split: '|' %}
+				{% case category_index %}
+					{% when '1' %}{% assign default_category_title = 'SEO' %}{% assign default_category_url = '/seo/' %}
+					{% when '2' %}{% assign default_category_title = 'GEO' %}{% assign default_category_url = '/ai-seo/' %}
+					{% when '3' %}{% assign default_category_title = 'AI' %}{% assign default_category_url = '/ai/' %}
+					{% when '4' %}{% assign default_category_title = 'Marketing' %}{% assign default_category_url = '/marketing/' %}
+				{% endcase %}
+				<article class="cam-nang-category">
+					{% assign category_url_key = 'cam_nang_category_' | append: category_index | append: '_url' %}
+					{% assign active_cat_url = settings[category_url_key] | default: default_category_url %}
+					<h2>{% if active_cat_url != blank %}<a href="{{ active_cat_url }}">{{ settings[title_key] | default: default_category_title }}</a>{% else %}{{ settings[title_key] | default: default_category_title }}{% endif %}</h2>
+					<p class="cam-nang-category-count">{{ settings[count_key] | default: '99+' }} {{ settings.cam_nang_article_label | default: 'bài viết' }}</p>
+					<ul class="cam-nang-links">
+						{% for link_index in links %}
+							{% assign label_key = 'cam_nang_category_' | append: category_index | append: '_link_' | append: link_index | append: '_label' %}
+							{% assign url_key = 'cam_nang_category_' | append: category_index | append: '_link_' | append: link_index | append: '_url' %}
+							{% case category_index %}
+								{% when '1' %}{% assign default_link_labels = 'SEO Fundamentals|Onpage SEO|Offpage SEO' | split: '|' %}
+								{% when '2' %}{% assign default_link_labels = 'GEO Fundamentals|Local Content Optimization|GEO Technical' | split: '|' %}
+								{% when '3' %}{% assign default_link_labels = 'AI Fundamentals|AI Tools & Platforms|Prompt Engineering' | split: '|' %}
+								{% when '4' %}{% assign default_link_labels = 'Marketing Fundamentals|Digital Marketing|Marketing Case Studies' | split: '|' %}
+							{% endcase %}
+							{% assign default_link_label = default_link_labels[forloop.index0] %}
+							{% if settings[label_key] != blank or default_link_label != blank %}<li><a href="{{ settings[url_key] | default: default_category_url }}">{{ settings[label_key] | default: default_link_label }}</a></li>{% endif %}
+						{% endfor %}
+					</ul>
+				</article>
+			{% endfor %}
+		</div>
+	</section>
+
+	{% assign featured_articles_prefix = 'cam_nang_featured_1' %}
+	{% include 'featured-articles-slider' %}
+	{% assign featured_articles_prefix = 'cam_nang_featured_2' %}
+	{% include 'featured-articles-slider' %}
+	{% assign featured_articles_prefix = 'cam_nang_featured_3' %}
+	{% include 'featured-articles-slider' %}
+	{% assign featured_articles_prefix = 'cam_nang_featured_4' %}
+	{% include 'featured-articles-slider' %}
+</div>

@@ -1,0 +1,10 @@
+{% if collection.description.size > 0 %} 
+{% assign mycontent = collection.description | split:'<p>####</p>' %}
+{% if mycontent[0].size > 0 and mycontent[0] contains 'gallery-campaign' %}
+{% include 'shortcode' load: mycontent[0] %}
+{% else %}
+{% include 'collections_des_and_menu' %}
+{% endif %}
+{% else %}
+{% include 'collections_des_and_menu' %}
+{% endif %}

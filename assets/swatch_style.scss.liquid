@@ -1,0 +1,203 @@
+/*============================================================================
+8. SWATCH VARIANT
+==============================================================================*/
+.swatch {
+	.header {
+		min-width: 100%;
+	}
+	input {
+		top: 0;
+		left: 0;
+		height: 100%;
+		opacity: 0;
+		cursor: pointer;
+		{%unless settings.product_hide_variant_unavaiable_enable%}
+		z-index: 2;
+		{%endunless%}
+	}
+	@media (max-width: 991px) {
+		overflow-x: auto;
+		overflow-y: hidden;
+		&::-webkit-scrollbar {
+			width: 2px;
+			height: 0px;
+			border-radius: 3px;
+		}
+		/* Track */
+		&::-webkit-scrollbar-track {
+			background: #f1f1f1;
+			width: 80%;
+		}
+		/* Handle */
+		&::-webkit-scrollbar-thumb {
+			background: var(--mainColor);
+		}
+		/* Handle on hover */
+		&::-webkit-scrollbar-thumb:hover {
+			background: var(--mainColor);
+		}
+	}
+}
+@media (max-width: 991px) {
+	.scroll_info .info {
+		margin-right: -10%;
+	}
+	.fade_mb {
+		margin-left: calc(-10% - 8px);
+		.swatch {
+			padding-left: calc(10% + 8px);
+		}
+	}
+	.fade_mb:after {
+		content: '';
+		width: 50px;
+		height: 100%;
+		position: absolute;
+		right: 0;
+		top: 0;
+		background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+	}
+	.fade_mb:before {
+		content: '';
+		width: 50px;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		background: linear-gradient(270deg, rgba(255,255,255,0) 0%, #fff 100%);
+		z-index: 1;
+	}
+}
+.swatch-element>label,.swatch-element>.dlabel {
+	height: 40px !important;
+	background-color: #fff;
+	font-size: 14px !important;
+	line-height: 37px;
+	white-space: nowrap;
+	transition: all 0.4s ease;
+	border-radius: 10px;
+	border: 1px solid #e1e1e1 !important;
+	&:before {
+		display: block;
+		content: attr(title);
+		font-weight: bold;
+		height: 0;
+		overflow: hidden;
+		visibility: hidden;
+	}
+}
+.color.swatch-element label {
+	padding: 0;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	min-width: 30px !important;
+	height: 30px !important;
+}
+.swatch {
+	input:checked + label,
+	.swatch-element:hover label {
+		//background: #fff;
+		border: 1px solid var(--mainColor) !important;
+		font-weight: 600;
+		//box-shadow: 0px 3px 10px 0px #ccc;
+		color: var(--mainColor);
+	}
+	input:checked ~ .product-variation__tick{
+		//display: block;
+	}
+	.color input:checked + label {
+		background: initial;
+		border-color: initial;
+		color: #000;
+	}
+	.color {
+		&.swatch-element label {border: none !important;box-shadow: none;}
+		&.swatch-element:hover .dlabel {
+			border: 1px solid var(--mainColor) !important;
+			color: var(--mainColor);
+		}
+		input {
+			&:checked+ .dlabel {
+				border: 1px solid var(--mainColor) !important;
+				color: var(--mainColor);
+			}
+			&:checked + label {
+				position: relative;
+				&:after {
+					//content: "";
+					width:100%;
+					height:100%;
+					position:absolute;
+					top:0;
+					left:0;
+					//box-shadow: 0px 0px 2px 2px var(--mainColor);
+				}
+			}
+		}
+
+	}
+	.swatch-element {
+		-webkit-transform: translateZ(0);
+		-webkit-font-smoothing: antialiased;
+		margin-bottom: 10px !important; 
+		font-weight: 400;
+	}
+}
+/* Image with the cross in it */
+.swatch {
+	.swatch-element {
+		&.soldout{
+			{%if settings.product_hide_variant_unavaiable_enable%}
+			pointer-events: none;
+			{%endif%}
+			.dlabel{
+				//background: linear-gradient(to top left,transparent calc(50% - 1px),#222,transparent calc(50% + 1px)) no-repeat;
+				{%if settings.product_hide_variant_unavaiable_enable%}
+				cursor: not-allowed;
+				{%endif%}
+				background-color: #f7f7f7;
+				opacity: .6;
+			}
+			label {
+				background-color: #f7f7f7;
+				opacity: .6;
+			}
+		} 
+	}
+	&.error {
+		code {
+			font-family: monospace;
+		}
+	}
+}
+label[for] {
+	cursor: pointer;
+}
+.product-variation__tick {
+	width: 1rem;
+	height: 1rem;
+	overflow: hidden;
+	right: 0;
+	bottom: 0;
+	display: none;
+	pointer-events: none;
+	&::before {
+		border: 1rem solid transparent;
+		border-bottom-color: transparent;
+		border-bottom-color: var(--mainColor);
+		content: '';
+		position: absolute;
+		right: -1rem;
+		bottom: 0;
+	}
+	& > .icon-tick-bold {
+		position: absolute;
+		right: 2px;
+		bottom: 1px;
+		fill: #fff;
+		font-size: 0.5rem;
+		//display: inline-block;
+		width: 1em;
+		height: 1em;
+	}
+}

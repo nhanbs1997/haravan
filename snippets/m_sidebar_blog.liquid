@@ -1,0 +1,48 @@
+<div class="position-sticky top_blog">
+  <div class="aside-item bg-sale mb-4 p-3 rounded-10" style="--bgSale: {{settings.bg_sale}};">
+    <div class="title-head mb-3 font-weight-bold">
+      <a class="tit d-inline-block" href="{{settings.bogs_aside_event_2_url}}" title="{{ settings.bogs_aside_event_2_title }}">
+        {{ settings.bogs_aside_event_2_title }}
+      </a>
+    </div>
+    <div class="list-blogs">
+      {% for article in blogs[settings.bogs_aside_event_2_url].articles  limit : settings.bogs_aside_event_limit%}
+      <article class="d-flex blog-item blog-item-list clearfix {%unless forloop.last%}mb-3 {%endunless%}row">
+        <div class="col-4 pr-0">
+          <a href="{{ article.url }}" class=" d-block modal-open thumb_img_blog_list thumb rounded-10" title="{{ article.title | escape }}"> 
+            <span class="modal-open position-relative d-block w-100 m-0 ratio3by2 has-edge aspect zoom">
+              {% if article.image == null %}
+              <img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ 'no_image.jpg' | asset_url }}" decoding="async" alt="{{ article.title  | escape}}" class="lazy d-block img img-cover position-absolute">
+              {%else%}
+              <img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ article.image.src | img_url:'medium' }}" decoding="async" alt="{{ article.title  | escape}}" class="lazy d-block img img-cover position-absolute">
+              {%endif%}
+            </span>
+          </a>
+        </div>
+        <div class="blogs-rights col-8">
+          <h3 class="blog-item-name title_bar line_2 h-auto mb-0">
+            <a href="{{ article.url }}" title="{{ article.title | escape }}">{{article.title}}</a>
+          </h3>
+          {%-if settings.enable_author_n_time-%}
+          <div class="post-time small text-muted">{{ article.published_at | date: '%d/%m/%Y' }}</div>
+          {%endif%}
+        </div>
+      </article>			
+      {% endfor %}
+    </div>
+  </div>
+  <div class="aside-item mb-4">
+    <div class="title-head mb-3 font-weight-bold">
+      <a class="tit d-inline-block" href="{{settings.product_blog_sidebar}}" title="{{ settings.product_blogtitle_sidebar }}">
+        {{ settings.product_blogtitle_sidebar }}
+      </a>
+    </div>
+    <div class="list-product">
+      {%-for product in collections[settings.product_blog_sidebar]products limit: settings.product_bloglimit_sidebar-%}
+        <div class="mb-3">
+  			{%-include 'product-list-item'-%}
+        </div>
+			{%-endfor-%}
+    </div>
+  </div>
+</div>

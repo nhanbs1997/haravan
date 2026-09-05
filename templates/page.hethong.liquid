@@ -1,0 +1,32 @@
+{%- include 'breadcrumb' -%}
+<div class="com_info">
+	<div class="container mt-3 mb-4 mb-lg-5">
+		<div class="col-main page-title">
+			<h1 class="font-coiny mt-0 mb-3">
+				{{page.title}}
+			</h1>
+			<div class="nb_store mb-3">
+				<div class="row">
+					{%for i in (1..4)%}
+					{%capture ena_bn_st-%}ena_bn_st_{{i}}{%endcapture%}
+					{%capture tit_bn_st-%}tit_bn_st_{{i}}{%endcapture%}
+					{%capture nbm_bn_st-%}nbm_bn_st_{{i}}{%endcapture%}
+					{%if settings[ena_bn_st]%}
+					<div class="col-6 col-sm-6 col-md-3 {%if i < 3%}mb-3 mb-md-0{%endif%}">
+						<div class="item_nb p-3 b_{{i}} position-relative">
+							<p class="tt m-0 text-white">
+								{{settings[tit_bn_st]}}
+							</p>
+							<p class="bt font-weight-bold m-0 text-white">
+								{{settings[nbm_bn_st]}}
+							</p>
+						</div>
+					</div>
+					{%endif%}
+					{%endfor%}
+				</div>
+			</div>
+			{%- include 'hethong_w_api_sn' -%}
+		</div>
+	</div>
+</div>

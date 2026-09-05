@@ -1,0 +1,59 @@
+<section class="mew_mobile_slide mt-2 {{settings.container_slide}}">
+  <div class="row">
+    <div class="col-12 {%if settings.ena_bannerslide_right%}col-lg-8 pr-lg-1 mb-2 mb-lg-0{%else%}col-lg-12{%endif%}">
+      <div class="mew_slide swiper-container position-relative">
+      <div class="swiper-wrapper">
+        {%-for i in (1..5)-%}
+        {%-capture enable_slide-%}display_slideshow_{{i}}{%-endcapture-%}
+        {%-capture naviimage-%}slide-img{{i}}{%-endcapture-%}
+        {% assign setImg = settings[naviimage] %}
+        {%-capture url-%}slideshow_{{i}}_link{%-endcapture-%}
+        {%-capture alt-%}slide_{{i}}_alt{%-endcapture-%}
+        {%-if settings[enable_slide]-%}
+        <div class="swiper-slide text-center">
+          <a class="d-block w-100 h-100 rounded-10 modal-open" href="{{ settings[url]}}" title="{{ settings[alt] | default : shop.name}}">
+            <picture class="position-relative w-100 m-0 ratio5by2 d-block aspect">
+              <source media="(min-width: 1200px)" srcset="{{ setImg}}">
+              <source media="(min-width: 992px)" srcset="{{ setImg }}">
+              <source media="(max-width: 569px)" srcset="{{ setImg | img_url:'large'}}">
+              <source media="(max-width: 480px)" srcset="{{ setImg | img_url:'large' }}">
+              <img {%if i == '1'%}loading="eager" fetchpriority="high"{%else%}loading="lazy"{%endif%} class="d-block img img-cover position-absolute" src="{{ setImg }}" alt="{{ settings[alt] | default : store.name}}"/>
+            </picture>
+          </a>
+        </div>
+        {%-endif-%}
+        {%-endfor-%}
+      </div>
+      <div class="swiper-pagination mew_slide_p"></div>
+      <div class="swiper-button-prev msl_prev d-none d-md-flex"></div>
+      <div class="swiper-button-next msl_next d-none d-md-flex"></div>
+    </div>
+    </div>
+    {%-if settings.ena_bannerslide_right-%}
+    <div class="col-12 col-lg-4">
+      <div class="row">
+        {%-for i in (1..2)-%}
+        {%-capture bright_ena-%}bright_ena_{{i}}{%-endcapture-%}
+        {%-capture bright_img-%}bright_img_{{i}}{%-endcapture-%}
+        {% assign bnrimg = settings[bright_img] %}
+        {%-capture bright_url-%}bright_url_{{i}}{%-endcapture-%}
+        {%-capture bright_alt-%}bright_alt_{{i}}{%-endcapture-%}
+        {%-if settings[bright_ena]-%}
+        <div class="col-6 col-lg-12 banner-right-item br-{{i}}">
+          <a class="d-block w-100 h-100 modal-open rounded-10" href="{{ settings[bright_url]}}" title="{{ settings[bright_alt] | default : shop.name}}">
+            <picture class="position-relative w-100 m-0 ratio5by2 d-block aspect">
+              <source media="(min-width: 1200px)" srcset="{{ bnrimg}}">
+              <source media="(min-width: 992px)" srcset="{{ bnrimg }}">
+              <source media="(max-width: 569px)" srcset="{{ bnrimg | img_url:'large'}}">
+              <source media="(max-width: 480px)" srcset="{{ bnrimg | img_url:'large' }}">
+              <img class="d-block img img-cover position-absolute" src="{{ bnrimg }}" alt="{{ settings[bright_alt] | default : shop.name}}"/>
+            </picture>
+          </a>
+        </div>
+        {%-endif-%}
+        {%-endfor-%}
+      </div>
+    </div>
+    {%-endif-%}
+  </div>
+</section>

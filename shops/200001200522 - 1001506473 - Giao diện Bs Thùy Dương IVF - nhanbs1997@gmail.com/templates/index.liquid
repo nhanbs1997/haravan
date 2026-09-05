@@ -1,0 +1,338 @@
+{%if settings.show_home_form %}
+<section class="section-index-form">
+	<div class="slider-owl owl-carousel">
+		<div class="slider-item">
+			<div class="slide--image">
+				<img src="{{ settings.slide_1_img }}" alt="{{settings.home_form_title2}}" setting-id="slide_1_img" setting-type="image" class="hrv-cf-slide_1_img" />
+			</div>
+		</div>
+		{%- for i in (2..3) -%}
+		{% capture show_slide %}slide_{{ i }}_show{% endcapture %}
+		{% capture image %}slide_{{ i }}_img{% endcapture %}
+		{%- if settings[show_slide] -%}
+		<div class="slider-item">
+			<div class="slide--image">
+						<img class="owl-lazy hrv-cf-{{ image }}" data-src="{{ settings[image] }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="{{ settings[alt] | strip_html | escape }}" setting-id="{{ image }}" setting-type="image" />
+			</div>
+		</div>
+		{%- endif -%}
+		{%- endfor -%}
+	</div> 
+	<div class="slider-content">
+		<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-7 col-12">
+				<div class="heading-title">
+					{%if settings.home_form_title1 != ''%}<p class="title1 hrv-cf-home_form_title1" setting-id="home_form_title1" setting-type="text">{{settings.home_form_title1}}</p>{%endif%}
+					{%if settings.home_form_title2 != ''%}<h2 class="title2 hrv-cf-home_form_title2" setting-id="home_form_title2" setting-type="text">{{settings.home_form_title2}}</h2>{%endif%}
+				</div>
+				{%if settings.home_form_btn != ''%}
+				<div class="btn-more">
+					<a href="{{settings.home_form_link}}" class="button hrv-cf-home_form_btn" setting-id="home_form_btn" setting-type="text" setting-bg-id="home_form_btn">{{settings.home_form_btn}}</a>
+				</div>
+				{%endif%}
+			</div>
+			<div class="col-lg-5 col-12">
+				<div class="index-calendar">
+					<div id="calendar"></div>
+					<div class="calendar-time hidden">
+						<div class="form-time">
+							{%for i in (1..3)%}
+							{%capture time%}home_form_time_{{i}}{%endcapture%}
+							{%if settings[time] != ''%}
+							<div class="time-item" data-time="{{settings[time] | strip_html}}">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 52 52" enable-background="new 0 0 52 52" xml:space="preserve"> <g> <path d="M26,2C12.8,2,2,12.8,2,26s10.8,24,24,24s24-10.8,24-24S39.2,2,26,2z M26,44c-9.9,0-18-8.1-18-18 S16.1,8,26,8s18,8.1,18,18S35.9,44,26,44z"/> <path d="M29.4,26.2c-0.3-0.3-0.4-0.7-0.4-1.1v-9.6c0-0.8-0.7-1.5-1.5-1.5h-3c-0.8,0-1.5,0.7-1.5,1.5v12.1 c0,0.4,0.2,0.8,0.4,1.1l7.4,7.4c0.6,0.6,1.5,0.6,2.1,0l2.1-2.1c0.6-0.6,0.6-1.5,0-2.1L29.4,26.2z"/> </g> </svg>
+								<span setting-id="{{ time }}" setting-type="textarea" class="hrv-cf-{{ time }}">{{settings[time]}}</span>
+							</div>
+							{%endif%}
+							{%endfor%}
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	</div>
+	
+	
+</section>
+{%endif%}
+<div class="section-pus-promotion pus-promotion-grids">
+	<div class="container">
+		<div class="hrv-pus-promotion" data-hrvpus-layout="flashsale"></div>
+	</div>
+</div>
+<div class="section-hrvpmo hrvpmo-grids">
+	<div class="container">
+		<div class="hrv-pmo-coupon" data-hrvpmo-layout="grids"></div>
+		<div class="hrv-pmo-discount" data-hrvpmo-layout="grids"></div>
+	</div>
+</div>
+{%if settings.show_home_service %}
+<section class="section-index-service">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6 col-12">
+				<div class="heading-title">
+					{%if settings.home_service_title1 != ''%}<p class="title1 hrv-cf-home_service_title1" setting-id="home_service_title1" setting-type="text">{{settings.home_service_title1}}</p>{%endif%}
+					{%if settings.home_service_title2 != ''%}<h2 class="title2 hrv-cf-home_service_title2" setting-id="home_service_title2" setting-type="text">{{settings.home_service_title2}}</h2>{%endif%}
+				</div>
+			</div>
+			<div class="col-lg-6 col-12">
+				<div class="heading-title">
+					{%if settings.home_service_desc != ''%}<p class="desc hrv-cf-home_service_desc" setting-id="home_service_desc" setting-type="textarea">{{settings.home_service_desc | newline_to_br}}</p>{%endif%}
+				</div>
+			</div>
+		</div>
+		<div class="row list-service">
+			{%for i in (1..4)%}
+			{%capture show%}show_home_service_{{i}}{%endcapture%}
+			{%capture img%}home_service_{{i}}_img{%endcapture%}
+			{%capture title%}home_service_{{i}}_title{%endcapture%}
+			{%capture btn%}home_service_{{i}}_btn{%endcapture%}
+			{%capture link%}home_service_{{i}}_link{%endcapture%}
+			{%if settings[show]%}
+			<div class="service-item">
+				<div class="item-img">
+					<img src="{{ settings[img] }}" alt="{{settings[title]}}" setting-id="{{ img }}" setting-type="image" class="hrv-cf-{{ img }}" />
+				</div>
+				<div class="item-detail">
+					<h3 class="title">
+						<a href="{{settings[link]}}" setting-id="{{ title }}" setting-type="text" class="hrv-cf-{{ title }}">{{settings[title]}}</a>
+					</h3>
+					<a href="{{settings[link]}}" class="link">
+						<span setting-id="{{ btn }}" setting-type="text" class="hrv-cf-{{ btn }}">{{settings[btn]}}</span>
+						<svg width="20px" height="20px" viewBox="0 0 24 24" id="right" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line"><line id="primary" x1="21" y1="12" x2="3" y2="12" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><polyline id="primary-2" data-name="primary" points="14 5 21 12 14 19" style="fill: none; stroke: rgb(0, 0, 0); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></polyline></svg>
+					</a>
+				</div>
+			</div>
+			{%endif%}
+			{%endfor%}
+		</div>
+
+	</div>
+</section>
+{%endif%}
+{%if settings.show_home_about_1 %}
+<section class="section-index-about1">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6 col-12 about-banner">
+				<div class="banner-item banner-item--1">
+					<img src="{{ settings.home_about_1_img_1 }}" alt="{{settings.home_about_1_title2}} 1" setting-id="home_about_1_img_1" setting-type="image" class="hrv-cf-home_about_1_img_1" />
+				</div>
+				<div class="banner-item banner-item--2">
+					<img src="{{ settings.home_about_1_img_2 }}" alt="{{settings.home_about_1_title2}} 2" setting-id="home_about_1_img_2" setting-type="image" class="hrv-cf-home_about_1_img_2" />
+				</div>
+			</div>
+			<div class="col-lg-6 col-12 about-content">
+				<div class="heading-title">
+					{%if settings.home_about_1_title1 != ''%}<p class="title1 hrv-cf-home_about_1_title1" setting-id="home_about_1_title1" setting-type="text">{{settings.home_about_1_title1}}</p>{%endif%}
+					{%if settings.home_about_1_title2 != ''%}<h2 class="title2 hrv-cf-home_about_1_title2" setting-id="home_about_1_title2" setting-type="text">{{settings.home_about_1_title2}}</h2>{%endif%}
+					{%if settings.home_about_1_desc != ''%}<p class="desc hrv-cf-home_about_1_desc" setting-id="home_about_1_desc" setting-type="textarea">{{settings.home_about_1_desc | newline_to_br}}</p>{%endif%}
+				</div>
+				{%if settings.home_about_1_time != ''%}<p class="time hrv-cf-home_about_1_time" setting-id="home_about_1_time" setting-type="textarea">{{settings.home_about_1_time | newline_to_br}}</p>{%endif%}
+				{%if settings.home_about_1_btn != ''%}
+				<div class="btn-more">
+					<a href="{{settings.home_about_1_link}}" class="button hrv-cf-home_about_1_btn" setting-id="home_about_1_btn" setting-type="text" setting-bg-id="home_about_1_btn">{{settings.home_about_1_btn}}</a>
+				</div>
+				{%endif%}
+			</div>
+		</div>
+	</div>
+</section>
+{%endif%}
+{%if settings.show_home_about_2 %}
+<section class="section-index-about2">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-8 col-12 about-content">
+				<div class="row content-top">
+					<div class="col-12 top-left">
+						<div class="heading-title">
+							{%if settings.home_about_2_title1 != ''%}<p class="title1 hrv-cf-home_about_2_title1" setting-id="home_about_2_title1" setting-type="text">{{settings.home_about_2_title1}}</p>{%endif%}
+							{%if settings.home_about_2_title2 != ''%}<h2 class="title2 hrv-cf-home_about_2_title2" setting-id="home_about_2_title2" setting-type="textarea">{{settings.home_about_2_title2 | newline_to_br}}</h2>{%endif%}
+						</div>
+					</div>
+					<div class="col-lg-6 offset-lg-6 col-12 top-right">
+						<div class="heading-title">
+							{%if settings.home_about_2_desc != ''%}<p class="desc hrv-cf-home_about_2_desc" setting-id="home_about_2_desc" setting-type="textarea">{{settings.home_about_2_desc | newline_to_br}}</p>{%endif%}
+						</div>
+						{%if settings.home_about_2_btn != ''%}
+						<div class="btn-more">
+							<a href="{{settings.home_about_2_link}}" class="btn-text hrv-cf-home_about_2_btn" setting-id="home_about_2_btn" setting-type="text">{{settings.home_about_2_btn}}</a>
+						</div>
+						{%endif%}
+					</div>
+				</div>
+				<div class="row content-bottom">
+					<div class="col-lg-6 col-12 about-banner" style="--bg-img: url('{{ settings.home_about_2_img_2 }}')">
+					</div>
+					<div class="col-lg-6 col-12 about-desc">
+						{%for i in (1..2)%}
+						{%capture title%}home_about_2_title_sub{{i}}{%endcapture%}
+						{%capture desc%}home_about_2_desc_sub{{i}}{%endcapture%}
+						{%if settings[title] != ''%}
+						<div class="desc-item">
+							<h3 class="title hrv-cf-{{ title }}" setting-id="{{ title }}" setting-type="text">{{settings[title]}}</h3>
+							{%if settings[desc] != ''%}<p class="desc hrv-cf-{{ desc }}" setting-id="{{ desc }}" setting-type="textarea">{{settings[desc]}}</p>{%endif%}
+						</div>
+						{%endif%}
+						{%endfor%}
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-12 about-video">
+				<div class="icon-video">
+					<a href="https://www.youtube.com/watch?v={{settings.home_about_2_video}}" class="icon-play">
+						<svg aria-hidden="true" class="e-font-icon-svg e-fas-play" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{%endif%}
+{%if settings.show_home_review %}
+<section class="section-index-review">
+	<div class="container">
+		{%assign info = ''%}
+		{%assign content = ''%}
+		{%assign count = -1 %}
+		{%for i in (1..3)%}
+		{%capture show%}show_home_review_{{i}}{%endcapture%}
+		{%capture img%}home_review_{{i}}_img{%endcapture%}
+		{%capture name%}home_review_{{i}}_name{%endcapture%}
+		{%capture position%}home_review_{{i}}_position{%endcapture%}
+		{%capture desc%}home_review_{{i}}_desc{%endcapture%}
+		{%if settings[show]%}
+		{%assign count = count | plus: 1 %}
+		{%capture info_html%}
+		<div class="info-item info-item--{{count}} {%if count == 0%}active{%endif%}" data-index="{{count}}">
+			<div class="item-img">
+				<img src="{{ settings[img] }}" alt="{{settings[name]}}" setting-id="{{ img }}" setting-type="image" class="hrv-cf-{{ img }}" />
+				<div class="item-quote">
+					<svg height="20px" width="20px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"  xml:space="preserve"> <g><path class="st0" d="M119.472,66.59C53.489,66.59,0,120.094,0,186.1c0,65.983,53.489,119.487,119.472,119.487 c0,0-0.578,44.392-36.642,108.284c-4.006,12.802,3.135,26.435,15.945,30.418c9.089,2.859,18.653,0.08,24.829-6.389 c82.925-90.7,115.385-197.448,115.385-251.8C238.989,120.094,185.501,66.59,119.472,66.59z"/><path class="st0" d="M392.482,66.59c-65.983,0-119.472,53.505-119.472,119.51c0,65.983,53.489,119.487,119.472,119.487 c0,0-0.578,44.392-36.642,108.284c-4.006,12.802,3.136,26.435,15.945,30.418c9.089,2.859,18.653,0.08,24.828-6.389 C479.539,347.2,512,240.452,512,186.1C512,120.094,458.511,66.59,392.482,66.59z"/></g> </svg>
+				</div>
+			</div>
+			<div class="item-detail">
+				<p class="name hrv-cf-{{ name }}" setting-id="{{ name }}" setting-type="text">{{settings[name]}}</p>
+				<p class="position hrv-cf-{{ position }}" setting-id="{{ position }}" setting-type="text">{{settings[position]}}</p>
+			</div>
+		</div>
+		{%endcapture%}
+		{%capture desc_html%}
+		<div class="desc-item">
+			<p class="desc hrv-cf-{{ desc }}" setting-id="{{ desc }}" setting-type="textarea">{{settings[desc] | newline_to_br}}</p>
+		</div>
+		{%endcapture%}
+		{%assign info = info | append: info_html%}
+		{%assign content = content | append: desc_html%}
+		{%endif%}
+		{%endfor%}
+		<div class="row">
+			<div class="col-lg-5 col-12">
+				<div class="review-info">
+					{{info}}
+				</div>
+			</div>
+			<div class="col-lg-7 col-12">
+				<div class="review-desc owl-carousel">
+					{{content}}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{%endif%}
+{%if settings.show_home_blog %}
+<section class="section-index-blog">
+	<div class="container">
+		<div class="heading-title text-center">
+			{%if settings.home_blog_title1 != ''%}<p class="title1 hrv-cf-home_blog_title1" setting-id="home_blog_title1" setting-type="text">{{settings.home_blog_title1}}</p>{%endif%}
+			{%if settings.home_blog_title2 != ''%}<h2 class="title2 hrv-cf-home_blog_title2" setting-id="home_blog_title2" setting-type="text">{{settings.home_blog_title2}}</h2>{%endif%}
+		</div>
+		{%if blog.articles.size == 0%}
+		<p class="txt-noArticle">Chưa có bài viết nào trong mục này</p>
+		{%else%}
+		<div class="row">
+			{% for article in blogs[settings.home_blog_handle].articles limit: 3 %}
+			<div class="col-lg-4 col-12">
+				{%include 'article-loop'%}
+			</div>
+			{%endfor%}
+		</div>
+		{%endif%}
+		{%if blogs[settings.home_blog_handle].articles.size > 3 and settings.home_blog_btn != ''%}
+		<div class="btn-more text-center">
+			<a href="{{blogs[settings.home_blog_handle].url}}" class="button hrv-cf-home_blog_btn" setting-id="home_blog_btn" setting-type="text" setting-bg-id="home_blog_btn">{{settings.home_blog_btn}}</a>
+		</div>
+		{%endif%}
+	</div>
+</section>
+{%endif%}
+{% assign featured_articles_prefix = 'home_press' %}
+{% include 'featured-articles-slider' %}
+{%if settings.show_home_contact %}
+<section class="section-index-contact">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6 col-12 contact-left">
+				<div class="heading-title">
+					{%if settings.home_contact_title1 != ''%}<p class="title1 hrv-cf-home_contact_title1" setting-id="home_contact_title1" setting-type="text">{{settings.home_contact_title1}}</p>{%endif%}
+					{%if settings.home_contact_title2 != ''%}<h2 class="title2 hrv-cf-home_contact_title2" setting-id="home_contact_title2" setting-type="text">{{settings.home_contact_title2}}</h2>{%endif%}
+					{%if settings.home_contact_desc != ''%}<p class="desc hrv-cf-home_contact_desc" setting-id="home_contact_desc" setting-type="textarea">{{settings.home_contact_desc | newline_to_br}}</p>{%endif%}
+				</div>
+				{%if settings.home_contact_btn != ''%}
+				<div class="btn-more">
+					<a href="{{settings.home_contact_link}}" class="button hrv-cf-home_contact_btn" setting-id="home_contact_btn" setting-type="text" setting-bg-id="home_contact_btn">{{settings.home_contact_btn}}</a>
+				</div>
+				{%endif%}
+			</div>
+			<div class="col-lg-6 col-12 contact-right">
+				<div class="row align-items-center">
+					<div class="{%if settings.home_contact_map != ''%}col-lg-6{%endif%} col-12 contact-info">
+						<ul>
+							{%if settings.home_contact_address != ''%}
+							<li class="address">
+								<svg width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M12,2 C16.9705627,2 21,5.98572446 21,10.9023647 C21,14.1558559 18.2776716,17.5957933 12.9482526,21.3431516 L12,22 L11.4277959,21.6050955 C5.85042064,17.7558913 3,14.2315185 3,10.9023647 C3,5.98572446 7.02943725,2 12,2 Z M12,3.97830328 C8.13400675,3.97830328 5,7.07831119 5,10.9023647 C5,13.3048538 7.29671943,16.236445 12,19.5818284 C16.7032806,16.236445 19,13.3048538 19,10.9023647 C19,7.07831119 15.8659932,3.97830328 12,3.97830328 Z M12,6 C14.209139,6 16,7.790861 16,10 C16,12.209139 14.209139,14 12,14 C9.790861,14 8,12.209139 8,10 C8,7.790861 9.790861,6 12,6 Z M12,8 C10.8954305,8 10,8.8954305 10,10 C10,11.1045695 10.8954305,12 12,12 C13.1045695,12 14,11.1045695 14,10 C14,8.8954305 13.1045695,8 12,8 Z"/> </svg>
+								<span setting-id="home_contact_address" setting-type="textarea" class="hrv-cf-home_contact_address">{{settings.home_contact_address | newline_to_br}}</span>
+							</li>
+							{%endif%}
+							{%if settings.home_contact_phone != ''%}
+							<li class="phone">
+								<svg width="30px" height="30px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <g id="icomoon-ignore"> </g> <path d="M23.086 1.606h-14.173c-0.797 0-1.444 0.647-1.444 1.444v25.901c0 0.798 0.647 1.444 1.444 1.444h14.173c0.797 0 1.444-0.646 1.444-1.444v-25.901c0-0.797-0.647-1.444-1.444-1.444zM23.464 28.951c0 0.208-0.169 0.377-0.377 0.377h-14.173c-0.208 0-0.377-0.169-0.377-0.377v-4.95h14.928v4.95zM23.464 22.934h-14.928v-17.042h14.928v17.042zM23.464 4.826h-14.928v-1.776c0-0.208 0.169-0.378 0.377-0.378h14.173c0.208 0 0.377 0.17 0.377 0.378v1.776z"> </path> <path d="M14.401 26.129h3.199v1.066h-3.199v-1.066z"> </path> </svg>
+								<a href="tel:{{settings.home_contact_phone | remove: ' '}}" setting-id="home_contact_phone" setting-type="text" class="hrv-cf-home_contact_phone">{{settings.home_contact_phone}}</a>
+							</li>
+							{%endif%}
+							{%if settings.home_contact_time != ''%}
+							<li class="time">
+								<svg width="30px" height="30px" viewBox="-2 -2 24 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-clock"><path d='M11 9h4a1 1 0 0 1 0 2h-5a1 1 0 0 1-1-1V4a1 1 0 1 1 2 0v5zm-1 11C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z'/></svg>
+								<span setting-id="home_contact_time" setting-type="textarea" class="hrv-cf-home_contact_time">{{settings.home_contact_time | newline_to_br}}</span>
+							</li>
+							{%endif%}
+							{%if settings.home_contact_email != ''%}
+							<li class="email">
+								<svg width="30px" height="30px" viewBox="0 0 36 36" version="1.1"  preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <title>email-line</title> <path class="clr-i-outline clr-i-outline-path-1" d="M32,6H4A2,2,0,0,0,2,8V28a2,2,0,0,0,2,2H32a2,2,0,0,0,2-2V8A2,2,0,0,0,32,6ZM30.46,28H5.66l7-7.24-1.44-1.39L4,26.84V9.52L16.43,21.89a2,2,0,0,0,2.82,0L32,9.21v17.5l-7.36-7.36-1.41,1.41ZM5.31,8H30.38L17.84,20.47Z"></path> <rect x="0" y="0" width="36" height="36" fill-opacity="0"/> </svg>
+								<a href="mailto:{{settings.home_contact_email}}" setting-id="home_contact_email" setting-type="text" class="hrv-cf-home_contact_email">{{settings.home_contact_email}}</a>
+							</li>
+							{%endif%}
+						</ul>
+					</div>
+					{%if settings.home_contact_map != ''%}
+					<div class="col-lg-6 col-12 contact-map">
+						<div class="iframe-map hrv-cf-home_contact_map" setting-id="home_contact_map" setting-type="textarea">
+							{{settings.home_contact_map}}
+						</div>
+					</div>
+					{%endif%}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{%endif%}
+
+

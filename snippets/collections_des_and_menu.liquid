@@ -1,0 +1,27 @@
+<div class="banner_collection mb-3 swiper-container position-relative">
+	<div class="swiper-wrapper">
+		{%-for i in (1..3)-%}
+		{%-capture banner_collec_ena-%}ena_banner_collec_{{i}}{%-endcapture-%}
+		{%-capture banner_collec_img-%}banner_collec_{{i}}{%-endcapture-%}
+    {% assign setClImg = settings[banner_collec_img] %}
+		{%-capture banner_collec_url-%}banner_collec_{{i}}_link{%-endcapture-%}
+		{%-capture banner_collec_alt-%}banner_collec_{{i}}_alt{%-endcapture-%}
+		{%-if settings[banner_collec_ena]-%}
+		<div class="swiper-slide text-center effect-ming">
+			<a href="{{ settings[banner_collec_url]}}" title="{{ settings[banner_collec_alt] | default : store.name}}">
+				<picture class="rounded-10 modal-open position-relative w-100 m-0 ratio8by3 d-block aspect">
+					<source media="(min-width: 1200px)" srcset="{{ setClImg}}">
+					<source media="(min-width: 992px)" srcset="{{ setClImg}}">
+					<source media="(min-width: 569px)" srcset="{{ setClImg | img_url: 'grande' }}">
+					<source media="(min-width: 480px)" srcset="{{ setClImg | img_url: 'large' }}">
+					<img class="d-block img img-cover position-absolute" src="{{ setClImg | img_url: 'large'}}" alt="{{settings[banner_collec_alt] | default : store.name}}"/>
+				</picture>
+			</a>
+		</div>
+		{%-endif-%}
+		{%-endfor-%}
+	</div>
+  <div class="swiper-pagination mew_bn_p"></div>
+	<div class="swiper-button-prev mbc_prev d-none d-md-flex"></div>
+	<div class="swiper-button-next mbc_next d-none d-md-flex"></div>
+</div>

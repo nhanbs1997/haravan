@@ -1,0 +1,5 @@
+{%-layout none-%}
+{
+	"pages": {%paginate search.results by 12 %}{{paginate.pages}}{%endpaginate%},
+	"products": {{search.results.size}}
+}

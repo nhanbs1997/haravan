@@ -1,0 +1,19 @@
+<div class="col-6 account-action pr-2">
+	<a class="b_item d-flex p-3 bg-light rounded-10 flex-column h-100 justify-content-center align-items-center font-weight-bold text-center" href="/account?view=orders" title="{{settings.account_order_history}}">
+		<img alt="{{settings.account_order_history}}" src="{{'checklist.png' | asset_url}}">
+		<span class="mt-2 {%if template == 'customers[account].orders'%}active{%endif%} position-relative">
+			{{settings.account_order_history}}
+      {%-if customer.orders.size > 0-%}
+			<span class="total_order position-absolute font-weight-bold d-inline-flex align-items-center justify-content-center">{{ customer.orders.size }}</span>
+      {%-endif-%}
+		</span>
+	</a>
+</div>
+<div class="col-6 pl-2 account-action">
+	<a class="b_item d-flex p-3 bg-light rounded-10 flex-column h-100 justify-content-center align-items-center font-weight-bold text-center" href="/account" title="{{settings.account_default}}">
+		<img alt="{{settings.account_default}}" src="{{'account.png' | asset_url}}">
+		<span class="mt-2">
+			{{settings.account_order_greeting | strip | append: ', '}}<span class="name_acc">{{ customer.name }}</span>!
+		</span>
+	</a>
+</div>

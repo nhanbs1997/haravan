@@ -1,0 +1,21 @@
+{% layout none %}
+{%- assign limit_desk = settings.home_navtabs_limit_desk | lstrip | rstrip | times: 1 -%}
+{%- assign limit_mb = settings.home_navtabs_limit_mb | lstrip | rstrip | times: 1 -%}
+{%- assign limit_final = limit_desk -%}
+
+{%- if limit_mb > limit_desk -%}
+{%- assign limit_final = limit_mb -%}
+{%- endif -%}
+
+{%- capture sectionInd %}navTabColl_{%- endcapture -%}
+
+{%-if collection.products.size > 0-%}
+	{%- for product in collection.products limit: limit_final -%}
+	{%- include 'product-loop' with section: sectionInd -%}
+	{%- endfor -%}
+{%- else -%}
+	{% for i in (1..limit_final) %}
+	{% capture noimage %}spm3.png{% endcapture %}
+	{% include 'product-loop-no'%}
+	{% endfor%}
+{%- endif -%}

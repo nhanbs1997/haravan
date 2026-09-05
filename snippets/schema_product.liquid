@@ -1,0 +1,69 @@
+<meta itemprop="category" content="{{ product.collections.first.title }}">
+<meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+<meta itemprop="name" content="{{ product.title }}">
+<meta itemprop="image" content="http:{{ product.featured_image.src | img_url: 'grande' }}">
+<meta itemprop="description" content="{{product.description | strip_html | replace:'"','' }}">
+{%-if product.vendor != null-%}
+<div class="d-none" itemprop="brand" itemtype="https://schema.org/Brand" itemscope>
+	<meta itemprop="name" content="{{product.vendor}}" />
+</div>
+{%- endif -%}
+{%-if product.type != null-%}
+<meta itemprop="model" content="{{ product.type }}">
+{%-endif-%}
+{%-if product.variants[0].sku != null-%}
+<meta itemprop="sku" content="{{product.variants[0].sku }}">
+{%- endif -%}
+{%-if product.variants[0].barcode != null-%}
+<meta itemprop="gtin" content="{{product.variants[0].barcode }}">
+{%- endif -%}
+<div class="d-none hidden" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+	<div class="inventory_quantity hidden" itemscope itemtype="http://schema.org/ItemAvailability">
+		{%- if product.available -%}
+		<span class="a-stock" itemprop="supersededBy">
+			Còn hàng
+		</span>
+		{%- else -%}
+		<span class="a-stock" itemprop="supersededBy">
+			Hết hàng
+		</span>
+		{%- endif -%}
+	</div>
+	<link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+	<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+	<meta itemprop="price" content="{{ product.variants[0].price | round }}">
+	<meta itemprop="url" content="https:{{ shop.url }}{{ product.url }}">
+	<span itemprop="UnitPriceSpecification" itemscope itemtype="https://schema.org/Downpayment">
+		<meta itemprop="priceType" content="{{ product.variants[0].price | round }}">
+	</span>
+	{%- if product.variants[0].compare_at_price > 0 -%}
+	<span itemprop="UnitPriceSpecification" itemscope itemtype="https://schema.org/Downpayment">
+		<meta itemprop="priceSpecification" content="{{ product.variants[0].compare_at_price | round }}">
+	</span>
+	{%- endif -%}
+	<meta itemprop="priceValidUntil" content="2099-01-01">
+</div>
+<div class="d-none hidden" id="https:{{shop.url}}" itemprop="seller" itemtype="http://schema.org/Organization" itemscope>
+	<meta itemprop="name" content="{{shop.name}}" />
+	<meta itemprop="url" content="https:{{shop.url}}" />
+	<meta itemprop="logo" content="{{settings.logo}}" />
+</div>
+
+{%- if product.metafields.bpr.votes -%}
+<div itemprop="review" itemscope itemtype="https://schema.org/Review" class="d-none hidden">
+	<span itemprop="itemReviewed" itemscope itemtype="https://schema.org/Thing">
+		<span itemprop="name">{{ product.title }}</span>
+	</span>
+	<span itemprop="author" itemscope itemtype="https://schema.org/Person">
+		<span itemprop="name">{{ shop.name }}</span>
+	</span>
+	<div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating" class="d-none hidden">
+
+		<span itemprop="ratingValue">10</span> out of
+		<span itemprop="bestRating">10</span>
+	</div>
+	<span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+		<meta itemprop="name" content="{{ shop.name }}">
+	</span>
+</div>
+{%- endif -%}

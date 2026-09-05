@@ -1,0 +1,23 @@
+<div class="rte">
+	<div class="cssload-loader">{{settings.store_loading}}</div>
+	<div class="sectionContentStore row" style="display:none;">
+		<div class="col-12 col-md-4">
+			<div class="leftCollumStore h-100 p-2 p-lg-3 rounded">
+				<div class="form-group m-0">
+					<label class="select-city-label font-weight-bold text-uppercase position-relative mb-2">{{settings.store_select_city}}</label>
+					<label class="select-city-wrapper mb-1">
+						<select name="select-city" class="select-city custom-select">
+							<option value="" disabled selected>{{settings.store_select_city}}</option>
+						</select>
+					</label>
+				</div>
+				<div class="resultStore">
+					<div id="list-store" class="pr-1"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12 col-md-8">
+			<div id="map" class="rounded modal-open"></div>
+		</div>
+	</div>
+</div>

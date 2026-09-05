@@ -1,0 +1,2649 @@
+/*[
+	{
+		"name": "Màu sắc",
+		"settings":[
+			{
+				"type": "color",
+				"id": "shop_text_color",
+				"label": "Màu chữ toàn trang",
+				"default": "#252a2b"
+			},
+			{
+				"type": "color",
+				"id": "shop_title_color",
+				"label": "Màu chữ tiêu đề",
+				"default": "#252a2b"
+			},
+			{
+				"type": "color",
+				"id": "btn_bg_shop",
+				"label": "Màu chủ đạo",
+				"default": "#65d1e6"
+			},
+			{
+				"type": "color",
+				"id": "shop_text_hover_color",
+				"label": "Màu chữ khi hover",
+				"default": "#65d1e6"
+			}
+		]
+	},
+	{
+		"name": "Popup thông tin",
+		"settings":[
+			{
+				"type": "header",
+				"content": "Hiển thị Popup?"
+			},
+			{
+				"type": "checkbox",
+				"id": "popup_contact_show",
+				"label": "Hiển thị Popup?",
+				"default": false
+			},
+			{
+				"type": "radio",
+				"id": "popup_contact_select",
+				"label": "Chọn kiểu hiển thị",
+				"options": [
+					{ "value": "popupBanner", "label": "Popup Banner"},
+					{ "value": "popupForm", "label": "Popup form đăng kí"}
+
+				],
+				"default":  "popupForm"
+			},		
+
+			{
+				"type": "header",
+				"content": "1.1 - Popup Banner"
+			},
+			{
+				"type": "image_picker",
+				"id": "popup_contact_banner",
+				"label": "Hình ảnh",
+				"info": "Kích thước: 650x400 pixel"
+			},
+			{
+				"type": "text",
+				"id": "popup_contact_alt",
+				"label": "ALT",
+				"default": "Sản phẩm nổi bật"
+			},
+			{
+				"type": "text",
+				"id": "popup_contact_link",
+				"label": "Đường dẫn",
+				"default": "/"
+			},
+			{
+				"type": "header",
+				"content": "1.2 - Popup form đăng kí"
+			},
+			{
+				"type": "image_picker",
+				"id": "popup_contact_bkg",
+				"label": "Hình nền",
+				"info": "Kích thước: 650x400 pixel"
+			},
+			{
+				"type": "text",
+				"id": "popup_contact_title",
+				"label": "Tiêu đề",
+				"default": ""
+			},
+			{
+				"type": "textarea",
+				"id": "popup_contact_content",
+				"label": "Nội dung",
+				"default": ""
+			},
+			{
+				"type": "text",
+				"id": "popup_contact_description_1",
+				"label": "Chương trình 1",
+				"default": ""
+			},
+			{
+				"type": "text",
+				"id": "popup_contact_description_2",
+				"label": "Chương trình 2",
+				"default": ""
+			},
+			{
+				"type": "text",
+				"id": "popup_contact_description_3",
+				"label": "Chương trình 3",
+				"default": ""
+			}
+		]
+	},
+	{
+		"name": "Chọn kiểu hiển thị Header",
+		"settings":[
+			{
+				"type": "header",
+				"content": "Header"
+			},
+			{
+				"type": "select",
+				"id": "header_style_select",
+				"label": "Chọn kiểu hiển thị",
+				"options": [
+					{ "value": "header_style_01", "label": "Header style 1"},
+					{ "value": "header_style_02", "label": "Header style 2"},
+					{ "value": "header_style_03", "label": "Header style 3"}
+
+				],
+				"default":  "header_style_01"
+			},
+			{
+				"type": "header",
+				"content": "Header style 1"
+			},
+			{
+				"type": "paragraph",
+				"content": "THANH TOPBAR"
+			},
+			{
+				"type": "color",
+				"id": "header_01_topbar_bkg",
+				"label": "Màu nền",
+				"default": ""
+			},
+			{
+				"type": "color",
+				"id": "header_01_topbar_text",
+				"label": "Màu chữ ",
+				"default": ""
+			},
+			{
+				"type": "paragraph",
+				"content": "THANH HEADER"
+			},
+			{
+				"type": "color",
+				"id": "header_01_color_bkg",
+				"label": "Màu nền",
+				"default": ""
+			},
+			{
+				"type": "color",
+				"id": "header_01_color_text",
+				"label": "Màu chữ ",
+				"default": ""
+			},
+			{
+				"type": "header",
+				"content": "Header style 2"
+			},
+			{
+				"type": "paragraph",
+				"content": "THANH TOPBAR"
+			},
+			{
+				"type": "color",
+				"id": "header_02_topbar_bkg",
+				"label": "Màu nền",
+				"default": ""
+			},
+			{
+				"type": "color",
+				"id": "header_02_topbar_text",
+				"label": "Màu chữ ",
+				"default": ""
+			},
+			{
+				"type": "paragraph",
+				"content": "THANH HEADER"
+			},
+			{
+				"type": "color",
+				"id": "header_02_color_bkg",
+				"label": "Màu nền",
+				"default": ""
+			},
+			{
+				"type": "color",
+				"id": "header_02_color_text",
+				"label": "Màu chữ ",
+				"default": ""
+			},
+			{
+				"type": "color",
+				"id": "header_02_hover_color_text",
+				"label": "Màu chữ hover menu ",
+				"default": ""
+			},
+			{
+				"type": "header",
+				"content": "Header style 3"
+			},
+			{
+				"type": "paragraph",
+				"content": "THANH TOPBAR"
+			},
+			{
+				"type": "color",
+				"id": "header_03_topbar_bkg",
+				"label": "Màu nền",
+				"default": ""
+			},
+			{
+				"type": "color",
+				"id": "header_03_topbar_text",
+				"label": "Màu chữ ",
+				"default": ""
+			},
+			{
+				"type": "paragraph",
+				"content": "THANH HEADER"
+			},
+			{
+				"type": "color",
+				"id": "header_03_color_bkg",
+				"label": "Màu nền",
+				"default": ""
+			},
+			{
+				"type": "color",
+				"id": "header_03_color_text",
+				"label": "Màu chữ ",
+				"default": ""
+			}
+		]
+	},
+	{
+		"name": "Thiết lập tổng quát",
+		"settings":[
+			{
+				"type": "header",
+				"content": "Favicon"
+			},
+			{
+				"type": "image_picker",
+				"id": "favicon",
+				"label": "Chọn favicon",
+				"info": "Kích thước: 20x20 .png"
+			},
+			{
+				"type": "header",
+				"content": "Logo"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_logo",
+				"label": "Ẩn/hiện logo?",
+				"default": true
+			},
+			{
+				"type": "image_picker",
+				"id": "logo",
+				"label": "Chọn logo",
+				"info": "Kích thước: 320x50 .png"
+			},
+			{
+				"type": "header",
+				"content": "Menu chính"
+			},
+			{
+				"type": "link_list",
+				"id": "mainmenu_link",
+				"label": "Chọn menu chính desktop"
+			},
+			{
+				"type": "header",
+				"content": "Thông tin liên hệ dưới menu mobile"
+			},
+			{
+				"type": "text",
+				"id": "title_help_menu_mb",
+				"label": "Tiêu đề"
+			},
+			{
+				"type": "text",
+				"id": "hotline_mb",
+				"label": "Nhập số điện thoại"
+			},
+			{
+				"type": "text",
+				"id": "email_mb",
+				"label": "Nhập email"
+			},
+			{
+				"type": "header",
+				"content": "Ảnh share facebook"
+			},
+			{
+				"type": "image_picker",
+				"id": "share_fb_home",
+				"label": "Chọn ảnh",
+				"info": "Kích thước trên 500x500 .png"
+			},
+			{
+				"type": "header",
+				"content": "Harafunnel"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_chatbot",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "textarea",
+				"id": "code_messenger_mb",
+				"label": "Code chatbot",
+				"info": "[Hướng dẫn lấy mã javascript](https://huongdan.harafunnel.com/support/solutions/articles/42000038791-c%C3%B4ng-c%E1%BB%A5-customer-chat). Đọc hướng dẫn, đến bước 'Cài đặt Javascript', bạn chỉ cần copy mã id [như hình](https://file.hstatic.net/1000329159/file/huongdan_45ee451fca804a70a105685db4dfcc5f.png) và dán vào khung Code ID trên."				
+			},
+			{
+				"type": "header",			
+				"content": "NHÓM ICONS LIÊN HỆ"			
+			},
+			{
+				"type": "checkbox",
+				"id": "addthis_iconList_show",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "paragraph",
+				"content": "ICON HOTLINE"
+			},
+			{
+				"type": "checkbox",
+				"id": "addthis_icon1_show",
+				"label": "Hiển thị icon hotline?"
+			},
+			{
+				"type": "color",
+				"id": "addthis_icon1_color1",
+				"content": null,
+				"label": "Màu 1",
+				"default": "#e8434c"				
+			},
+			{
+				"type": "color",
+				"id": "addthis_icon1_color2",
+				"content": null,
+				"label": "Màu 2",
+				"default": "#d61114"
+			},
+			{
+				"type": "text",
+				"id": "addthis_icon1_tootlip",
+				"content": null,
+				"label": "Ghi chú",
+				"default": ""
+			},
+			{
+				"type": "text",
+				"id": "addthis_icon1_action",
+				"content": null,
+				"label": "Số điện thoại (Chỉ nhập số)",
+				"default": ""
+			},
+			{
+				"type": "paragraph",
+				"content": "ICON ZALO"
+			},
+			{
+				"type": "checkbox",
+				"id": "addthis_icon2_show",
+				"label": "Hiển thị icon Zalo?"
+			},
+			{
+				"type": "color",
+				"id": "addthis_icon2_color1",
+				"content": null,
+				"label": "Màu 1",
+				"default": "#e8434c"				
+			},
+			{
+				"type": "color",
+				"id": "addthis_icon2_color2",
+				"content": null,
+				"label": "Màu 2",
+				"default": "#d61114"
+			},
+			{
+				"type": "text",
+				"id": "addthis_icon2_tootlip",
+				"content": null,
+				"label": "Ghi chú",
+				"default": ""
+			},
+			{
+				"type": "text",
+				"id": "addthis_icon2_action",
+				"content": null,
+				"label": "Đường dẫn Zalo",
+				"default": ""
+			},
+			{
+				"type": "paragraph",
+				"content": "ICON EMAIL"
+			},
+			{
+				"type": "checkbox",
+				"id": "addthis_icon3_show",
+				"label": "Hiển thị icon Email?"
+			},
+			{
+				"type": "color",
+				"id": "addthis_icon3_color1",
+				"content": null,
+				"label": "Màu 1",
+				"default": "#e8434c"				
+			},
+			{
+				"type": "color",
+				"id": "addthis_icon3_color2",
+				"content": null,
+				"label": "Màu 2",
+				"default": "#d61114"
+			},
+			{
+				"type": "text",
+				"id": "addthis_icon3_tootlip",
+				"content": null,
+				"label": "Ghi chú",
+				"default": ""
+			},
+			{
+				"type": "text",
+				"id": "addthis_icon3_title",
+				"content": null,
+				"label": "Tiêu đề popup đăng kí",
+				"default": ""
+			},
+			{
+				"type": "text",
+				"id": "addthis_icon3_title2",
+				"content": null,
+				"label": "Tiêu đề popup đăng kí thành công",
+				"default": ""
+			},
+			{
+				"type": "textarea",
+				"id": "addthis_icon3_content",
+				"label": "Nội dung popup đăng kí thành công"
+			},
+			{
+				"type": "paragraph",
+				"content": "ICON ĐỊA CHỈ"
+			},
+			{
+				"type": "checkbox",
+				"id": "addthis_icon4_show",
+				"label": "Hiển thị icon địa chỉ?"
+			},
+			{
+				"type": "color",
+				"id": "addthis_icon4_color1",
+				"content": null,
+				"label": "Màu 1",
+				"default": "#e8434c"				
+			},
+			{
+				"type": "color",
+				"id": "addthis_icon4_color2",
+				"content": null,
+				"label": "Màu 2",
+				"default": "#d61114"
+			},
+			{
+				"type": "text",
+				"id": "addthis_icon4_tootlip",
+				"content": null,
+				"label": "Ghi chú",
+				"default": ""
+			},
+			{
+				"type": "text",
+				"id": "addthis_icon4_action",
+				"content": null,
+				"label": "Đường dẫn Zalo",
+				"default": ""
+			}
+		]
+	},
+	{
+		"name": "Trang chủ",
+		"settings":[
+			{
+				"type": "header",
+				"content": "Đầu trang"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_info_header",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "info_header",
+				"label": "Nhập thông tin",
+				"default": "Miễn phí vận chuyển với đơn hàng trên 300K"
+			},
+			{
+				"type": "header",
+				"content": "Banner Slider"
+			},
+			{
+				"type": "checkbox",
+				"id": "slide_1",
+				"label": "Ẩn/hiện slider 1?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "slide_1_link",
+				"label": "Link slider 1",
+				"default": "/collections/frontpage"
+			},
+			{
+				"type": "image_picker",
+				"id": "slideshow_1",
+				"label": "Chọn slider 1",
+				"info": "Kích thước: 1920x600 .png"
+			},
+			{
+				"type": "text",
+				"id": "slide_1_alt",
+				"label": "Thẻ alt slider 1",
+				"default": "Sản phẩm nổi bật"
+			},
+			{
+				"type": "checkbox",
+				"id": "slide_2",
+				"label": "Ẩn/hiện slider 2?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "slide_2_link",
+				"label": "Link slider 2",
+				"default": "/collections/frontpage"
+			},
+			{
+				"type": "image_picker",
+				"id": "slideshow_2",
+				"label": "Chọn slider 2",
+				"info": "Kích thước: 1920x600 .png"
+			},
+			{
+				"type": "text",
+				"id": "slide_2_alt",
+				"label": "Thẻ alt slider 2",
+				"default": "Sản phẩm khuyến mãi"
+			},
+			{
+				"type": "checkbox",
+				"id": "slide_3",
+				"label": "Ẩn/hiện slider 3?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "slide_3_link",
+				"label": "Link slider 3",
+				"default": "/collections/frontpage"
+			},
+			{
+				"type": "image_picker",
+				"id": "slideshow_3",
+				"label": "Chọn slider 3",
+				"info": "Kích thước: 1920x600 .png"
+			},
+			{
+				"type": "text",
+				"id": "slide_3_alt",
+				"label": "Thẻ alt slider 3",
+				"default": "Sản phẩm mới"
+			},
+			{
+				"type": "checkbox",
+				"id": "slide_4",
+				"label": "Ẩn/hiện slider 4?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "slide_4_link",
+				"label": "Link slider 4",
+				"default": "/collections/frontpage"
+			},
+			{
+				"type": "image_picker",
+				"id": "slideshow_4",
+				"label": "Chọn slider 4",
+				"info": "Kích thước: 1920x600 .png"
+			},
+			{
+				"type": "text",
+				"id": "slide_4_alt",
+				"label": "Thẻ alt slider 4",
+				"default": "Sản phẩm giảm giá"
+			},
+			{
+				"type": "header",
+				"content": "Banner trang chủ 1"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_homepage_imgs",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "header",
+				"content": "Banner 1"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_homepage_img1",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "image_picker",
+				"id": "homepage-img1",
+				"label": "Chọn banner 1",
+				"info": "Kích thước: 720x720 .png"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img1_title",
+				"label": "Tiêu đề chính",
+				"default": "D'Oro"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img1_btn",
+				"label": "Button",
+				"default": "Mua ngay"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img1_link",
+				"label": "Trang liên kết",
+				"default": "/collections/all"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img1_alt",
+				"label": "Thẻ alt",
+				"default": "D'Oro"
+			},
+			{
+				"type": "header",
+				"content": "Banner 2"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_homepage_img2",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "image_picker",
+				"id": "homepage-img2",
+				"label": "Chọn banner 2",
+				"info": "Kích thước: 720x720 .png"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img2_title",
+				"label": "Tiêu đề chính",
+				"default": "D'Oro"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img2_btn",
+				"label": "Button",
+				"default": "Mua ngay"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img2_link",
+				"label": "Trang liên kết",
+				"default": "/collections/all"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img2_alt",
+				"label": "Thẻ alt",
+				"default": "D'Oro"
+			},
+			{
+				"type": "header",
+				"content": "Banner 3"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_homepage_img3",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "image_picker",
+				"id": "homepage-img3",
+				"label": "Chọn banner 3",
+				"info": "Kích thước: 720x720 .png"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img3_title",
+				"label": "Tiêu đề chính",
+				"default": "D'Oro"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img3_btn",
+				"label": "Button",
+				"default": "Mua ngay"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img3_link",
+				"label": "Trang liên kết",
+				"default": "/collections/all"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img3_alt",
+				"label": "Thẻ alt",
+				"default": "D'Oro"
+			},
+			{
+				"type": "header",
+				"content": "Banner 4"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_homepage_img4",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "image_picker",
+				"id": "homepage-img4",
+				"label": "Chọn banner 4",
+				"info": "Kích thước: 720x720 .png"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img4_title",
+				"label": "Tiêu đề chính",
+				"default": "D'Oro"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img4_btn",
+				"label": "Button",
+				"default": "Mua ngay"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img4_link",
+				"label": "Trang liên kết",
+				"default": "/collections/all"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img4_alt",
+				"label": "Thẻ alt",
+				"default": "D'Oro"
+			},
+			{
+				"type": "header",
+				"content": "Banner 5"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_homepage_img5",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "image_picker",
+				"id": "homepage-img5",
+				"label": "Chọn banner 5",
+				"info": "Kích thước: 720x720 .png"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img5_title",
+				"label": "Tiêu đề chính",
+				"default": "D'Oro"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img5_btn",
+				"label": "Button",
+				"default": "Mua ngay"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img5_link",
+				"label": "Trang liên kết",
+				"default": "/collections/all"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img5_alt",
+				"label": "Thẻ alt",
+				"default": "D'Oro"
+			},
+			{
+				"type": "header",
+				"content": "Banner 6"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_homepage_img6",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "image_picker",
+				"id": "homepage-img6",
+				"label": "Chọn banner 6",
+				"info": "Kích thước: 720x720 .png"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img6_title",
+				"label": "Tiêu đề chính",
+				"default": "D'Oro"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img6_btn",
+				"label": "Button",
+				"default": "Mua ngay"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img6_link",
+				"label": "Trang liên kết",
+				"default": "/collections/all"
+			},
+			{
+				"type": "text",
+				"id": "homepage_img6_alt",
+				"label": "Thẻ alt",
+				"default": "D'Oro"
+			},
+			{
+				"type": "header",
+				"content": "Nhóm sản phẩm 1"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_collection_one_products",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "heading_collection_one",
+				"label": "Tiêu đề",
+				"default": "Sản phẩm mới"
+			},
+			{
+				"type": "collection",
+				"id": "collection_one",
+				"label": "Chọn nhóm sản phẩm",
+				"default": "hot-products"
+			},
+			{
+				"type": "header",
+				"content": "Banner trang chủ 2"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_block_home_category",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "image_picker",
+				"id": "block_home_category1",
+				"label": "Chọn banner 1",
+				"info": "Kích thước: 750x800 .png"
+			},
+			{
+				"type": "text",
+				"id": "block_home_category1_title",
+				"label": "Tiêu đề chính banner 1",
+				"default": "Sofa"
+			},
+			{
+				"type": "text",
+				"id": "block_home_category1_button",
+				"label": "Button banner 1",
+				"default": "Mua ngay"
+			},
+			{
+				"type": "text",
+				"id": "block_home_category1_link",
+				"label": "Link banner 1",
+				"default": "collections/hot-products"
+			},
+			{
+				"type": "text",
+				"id": "block_home_category1_alt",
+				"label": "Thẻ alt banner 1",
+				"default": "Khuyến mãi 1"
+			},
+			{
+				"type": "image_picker",
+				"id": "block_home_category2",
+				"label": "Chọn banner 2",
+				"info": "Kích thước: 750x800"
+			},
+			{
+				"type": "text",
+				"id": "block_home_category2_title",
+				"label": "Tiêu đề chính banner 2",
+				"default": "Modern Furniture"
+			},
+			{
+				"type": "text",
+				"id": "block_home_category2_button",
+				"label": "Button banner 2",
+				"default": "Xem thêm"
+			},
+			{
+				"type": "text",
+				"id": "block_home_category2_link",
+				"label": "Link banner 2",
+				"default": "/collections/all"
+			},
+			{
+				"type": "text",
+				"id": "block_home_category2_alt",
+				"label": "Thẻ alt banner 2",
+				"default": "Khuyến mãi 2"
+			},
+			{
+				"type": "image_picker",
+				"id": "block_home_category3",
+				"label": "Chọn banner 3",
+				"info": "Kích thước: 750x800"
+			},
+			{
+				"type": "text",
+				"id": "block_home_category3_title",
+				"label": "Tiêu đề chính banner 3",
+				"default": "Phong Cách Hoàng Gia"
+			},
+			{
+				"type": "text",
+				"id": "block_home_category3_button",
+				"label": "Button banner 3",
+				"default": "Xem thêm"
+			},
+			{
+				"type": "text",
+				"id": "block_home_category3_link",
+				"label": "Link banner 3",
+				"default": "/collections/hot-products"
+			},
+			{
+				"type": "text",
+				"id": "block_home_category3_alt",
+				"label": "Thẻ alt banner 3",
+				"default": "Khuyến mãi 3"
+			},
+			{
+				"type": "header",
+				"content": "Nhóm sản phẩm 2"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_collection_two_products",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "heading_collection_two",
+				"label": "Tiêu đề",
+				"default": "Sản phẩm bán chạy"
+			},
+			{
+				"type": "collection",
+				"id": "collection_two",
+				"label": "Chọn nhóm sản phẩm",
+				"default": "onsale"
+			},
+			{
+				"type": "header",
+				"content": "Bài viết mới nhất"
+			},
+			{
+				"type": "checkbox",
+				"id": "home_blog_show",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "title_home_blog",
+				"label": "Tiêu đề",
+				"default": "Bài viết mới nhất"
+			},
+			{
+				"type": "blog",
+				"id": "blog_home_recent",
+				"label": "Chọn danh mục bài viết",
+				"default": "news"
+			},
+			{
+				"type": "text",
+				"id": "blog_home_limit",
+				"label": "Số lượng hiển thị",
+				"default": "3"
+			},
+			{
+				"type": "header",
+				"content": "Về chúng tôi"
+			},
+			{
+				"type": "checkbox",
+				"id": "home_about_show",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "home_about_title",
+				"label": "Tiêu đề",
+				"default": "Về chúng tôi"
+			},
+			{
+				"type": "text",
+				"id": "home_about_button",
+				"label": "Tiêu đề liên kết",
+				"default": "Xem ngay"
+			},
+			{
+				"type": "text",
+				"id": "home_about_link",
+				"label": "Đường dẫn",
+				"default": "/pages/about-us"
+			},
+			{
+				"type": "image_picker",
+				"id": "home_about_image",
+				"label": "Hình nền",
+				"info": "Kích thước: 960x640 .png"
+			},
+			{
+				"type": "page",
+				"id": "home_about_page",
+				"label": "Nội dung hiển thị",
+				"default": "about-us"
+			},
+			{
+				"type": "header",
+				"content": "Gallery"
+			},
+			{
+				"type": "checkbox",
+				"id": "gallery_show",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "header",
+				"content": "Gallery 1"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_gallery_item_1",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "image_picker",
+				"id": "gallery_item_1",
+				"label": "Chọn hình ảnh"
+			},
+			{
+				"type": "text",
+				"id": "gallery_item_1_alt",
+				"label": "Thẻ alt"
+			},
+			{
+				"type": "header",
+				"content": "Gallery 2"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_gallery_item_2",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "image_picker",
+				"id": "gallery_item_2",
+				"label": "Chọn hình ảnh"
+			},
+			{
+				"type": "text",
+				"id": "gallery_item_2_alt",
+				"label": "Thẻ alt"
+			},
+			{
+				"type": "header",
+				"content": "Gallery 3"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_gallery_item_3",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "image_picker",
+				"id": "gallery_item_3",
+				"label": "Chọn hình ảnh"
+			},
+			{
+				"type": "text",
+				"id": "gallery_item_3_alt",
+				"label": "Thẻ alt"
+			},
+			{
+				"type": "header",
+				"content": "Gallery 4"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_gallery_item_4",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "image_picker",
+				"id": "gallery_item_4",
+				"label": "Chọn hình ảnh"
+			},
+			{
+				"type": "text",
+				"id": "gallery_item_4_alt",
+				"label": "Thẻ alt"
+			},
+			{
+				"type": "header",
+				"content": "Gallery 5"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_gallery_item_5",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "image_picker",
+				"id": "gallery_item_5",
+				"label": "Chọn hình ảnh"
+			},
+			{
+				"type": "text",
+				"id": "gallery_item_5_alt",
+				"label": "Thẻ alt"
+			},
+			{
+				"type": "header",
+				"content": "Gallery 6"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_gallery_item_6",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "image_picker",
+				"id": "gallery_item_6",
+				"label": "Chọn hình ảnh"
+			},
+			{
+				"type": "text",
+				"id": "gallery_item_6_alt",
+				"label": "Thẻ alt"
+			},
+			{
+				"type": "header",
+				"content": "Gallery 7"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_gallery_item_7",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "image_picker",
+				"id": "gallery_item_7",
+				"label": "Chọn hình ảnh"
+			},
+			{
+				"type": "text",
+				"id": "gallery_item_7_alt",
+				"label": "Thẻ alt"
+			},
+			{
+				"type": "header",
+				"content": "Gallery 8"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_gallery_item_8",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "image_picker",
+				"id": "gallery_item_8",
+				"label": "Chọn hình ảnh"
+			},
+			{
+				"type": "text",
+				"id": "gallery_item_8_alt",
+				"label": "Thẻ alt"
+			},
+			{
+				"type": "header",
+				"content": "Gallery 9"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_gallery_item_9",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "image_picker",
+				"id": "gallery_item_9",
+				"label": "Chọn hình ảnh"
+			},
+			{
+				"type": "text",
+				"id": "gallery_item_9_alt",
+				"label": "Thẻ alt"
+			},
+			{
+				"type": "header",
+				"content": "Gallery 10"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_gallery_item_10",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "image_picker",
+				"id": "gallery_item_10",
+				"label": "Chọn hình ảnh"
+			},
+			{
+				"type": "text",
+				"id": "gallery_item_10_alt",
+				"label": "Thẻ alt"
+			},
+			{
+				"type": "header",
+				"content": "Gallery 11"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_gallery_item_11",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "image_picker",
+				"id": "gallery_item_11",
+				"label": "Chọn hình ảnh"
+			},
+			{
+				"type": "text",
+				"id": "gallery_item_11_alt",
+				"label": "Thẻ alt"
+			},
+			{
+				"type": "header",
+				"content": "Gallery 12"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_gallery_item_12",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "image_picker",
+				"id": "gallery_item_12",
+				"label": "Chọn hình ảnh"
+			},
+			{
+				"type": "text",
+				"id": "gallery_item_12_alt",
+				"label": "Thẻ alt"
+			}
+		]
+	},
+	{
+		"name": "Cuối trang",
+		"settings":[
+			{
+				"type": "header",
+				"content": "Liên kết 1"
+			},
+			{
+				"type": "checkbox",
+				"id": "footer_link1_show",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "footer_link1_title",
+				"label": "Tiêu đề",
+				"default": "Liên kết"
+			},
+			{
+				"type": "link_list",
+				"id": "footer_link1_menu",
+				"label": "Chọn menu",
+				"default": "footer"
+			},
+			{
+				"type": "header",
+				"content": "Liên kết 2"
+			},
+			{
+				"type": "checkbox",
+				"id": "footer_link2_title",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "footer_link2_title",
+				"label": "Tiêu đề",
+				"default": "Liên kết"
+			},
+			{
+				"type": "link_list",
+				"id": "footer_link2_menu",
+				"label": "Chọn menu",
+				"default": "footer"
+			},
+			{
+				"type": "header",
+				"content": "Đăng kí email quảng cáo"
+			},
+			{
+				"type": "checkbox",
+				"id": "mailing_list_show",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "mailing_list_heading",
+				"label": "Tiêu đề",
+				"default": "ĐĂNG KÝ NHẬN TIN"
+			},
+			{
+				"type": "textarea",
+				"id": "mailing_list_caption",
+				"label": "Mô tả thêm",
+				"default": "Đăng ký ngay để nhận thông tin khuyến mãi, các chương trình quà tặng từ shop."
+			},
+			{
+				"type": "header",
+				"content": "Fanpage"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_footer3",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "footer3_title",
+				"label": "Tiêu đề",
+				"default": "FANPAGE"
+			},
+			{
+				"type": "textarea",
+				"id": "fanpage_faceook",
+				"label": "Đại chỉ trang fanpage",
+				"default": "https://www.facebook.com/haravan.official"
+			},
+			{
+				"type": "header",
+				"content": "Mạng xã hội"
+			},
+			{
+				"type": "checkbox",
+				"id": "display_social_footer",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "header",
+				"content": "Social 1"
+			},
+			{
+				"type": "checkbox",
+				"id": "display_social1",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "link_social1",
+				"label": "Liên kết Facebook"
+			},
+			{
+				"type": "header",
+				"content": "Social 2"
+			},
+			{
+				"type": "checkbox",
+				"id": "display_social2",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "link_social2",
+				"label": "Liên kết Google +"
+			},
+			{
+				"type": "header",
+				"content": "Social 3"
+			},
+			{
+				"type": "checkbox",
+				"id": "display_social3",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "link_social3",
+				"label": "Liên kết Twitter"
+			},
+			{
+				"type": "header",
+				"content": "Social 4"
+			},
+			{
+				"type": "checkbox",
+				"id": "display_social4",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "link_social4",
+				"label": "Liên kết Youtobe"
+			},
+			{
+				"type": "header",
+				"content": "Social 5"
+			},
+			{
+				"type": "checkbox",
+				"id": "display_social5",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "link_social5",
+				"label": "Liên kết Skype"
+			}
+		]
+	},
+	{
+		"name": "Trang nhóm sản phẩm",
+		"settings":[
+			{
+				"type": "header",
+				"content": "Banner Header"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_collection_image",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "image_picker",
+				"id": "collection_banner",
+				"label": "Chọn banner",
+				"info": "Kích thước: 1920x450 .png"
+			},
+			{
+				"type": "header",
+				"content": "Danh mục sản phẩm"
+			},
+			{
+				"type": "text",
+				"id": "title_list_col",
+				"label": "Tiêu đề",
+				"default": "Danh mục sản phẩm"
+			},
+			{
+				"type": "link_list",
+				"id": "collection_sidebar",
+				"label": "Chọn danh mục",
+				"default": "left"
+			},
+			{
+				"type": "header",
+				"content": "Bộ lọc sản phẩm"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_collection_filter",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "filter_title",
+				"label": "Tiêu đề",
+				"default": "Bộ lọc sản phẩm"
+			},
+			{
+				"type": "header",
+				"content": "Bộ lọc nhà cung cấp / thương hiệu"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_vendor_filter",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "vendor_title",
+				"label": "Tiêu đề",
+				"default": "Thương hiệu"
+			},
+			{
+				"type": "text",
+				"id": "vendor_limit",
+				"label": "Số lượng hiển thị",
+				"default": "5"
+			},
+			{
+				"type": "header",
+				"content": "Lọc màu sản phẩm"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_title",
+				"label": "Tiêu đề",
+				"default": "Màu sắc"
+			},
+			{
+				"type": "header",
+				"content": "Màu 1"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_1",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_1",
+				"label": "Tên màu",
+				"default": "Hồng"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_1",
+				"label": "Chọn màu",
+				"default": "#EF5777"
+			},
+			{
+				"type": "header",
+				"content": "Màu 2"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_2",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_2",
+				"label": "Tên màu",
+				"default": "Vàng"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_2",
+				"label": "Chọn màu",
+				"default": "#FFD32A"
+			},
+			{
+				"type": "header",
+				"content": "Màu 3"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_3",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_3",
+				"label": "Tên màu",
+				"default": "Xám"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_3",
+				"label": "Chọn màu",
+				"default": "#D2DAE2"
+			},
+			{
+				"type": "header",
+				"content": "Màu 4"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_4",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_4",
+				"label": "Tên màu",
+				"default": "Xanh"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_4",
+				"label": "Chọn màu",
+				"default": "#3C40C6"
+			},
+			{
+				"type": "header",
+				"content": "Màu 5"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_5",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_5",
+				"label": "Tên màu",
+				"default": "Xanh lá"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_5",
+				"label": "Chọn màu",
+				"default": "#0BE881"
+			},
+			{
+				"type": "header",
+				"content": "Màu 6"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_6",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_6",
+				"label": "Tên màu",
+				"default": "Sen"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_6",
+				"label": "Chọn màu",
+				"default": "#F53B57"
+			},
+			{
+				"type": "header",
+				"content": "Màu 7"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_7",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_7",
+				"label": "Tên màu",
+				"default": "Xanh biển"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_7",
+				"label": "Chọn màu",
+				"default": "#0FBCF9"
+			},
+			{
+				"type": "header",
+				"content": "Màu 8"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_8",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_8",
+				"label": "Tên màu",
+				"default": "Đen"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_8",
+				"label": "Chọn màu",
+				"default": "#000000"
+			},
+			{
+				"type": "header",
+				"content": "Màu 9"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_9",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_9",
+				"label": "Tên màu",
+				"default": "Trắng"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_9",
+				"label": "Chọn màu",
+				"default": "#FFFFFF"
+			},
+			{
+				"type": "header",
+				"content": "Màu 10"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_10",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_10",
+				"label": "Tên màu",
+				"default": "Đỏ"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_10",
+				"label": "Chọn màu",
+				"default": "#FF3F34"
+			},
+			{
+				"type": "header",
+				"content": "Màu 11"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_11",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_11",
+				"label": "Tên màu",
+				"default": "Tím"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_11",
+				"label": "Chọn màu",
+				"default": "#A55EEA"
+			},
+			{
+				"type": "header",
+				"content": "Màu 12"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_12",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_12",
+				"label": "Tên màu",
+				"default": "Pure Apple"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_12",
+				"label": "Chọn màu",
+				"default": "#6AB04C"
+			},
+			{
+				"type": "header",
+				"content": "Màu 13"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_13",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_13",
+				"label": "Tên màu",
+				"default": "Blue"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_13",
+				"label": "Chọn màu",
+				"default": "#0C2461"
+			},
+			{
+				"type": "header",
+				"content": "Màu 14"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_14",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_14",
+				"label": "Tên màu",
+				"default": "Cam"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_14",
+				"label": "Chọn màu",
+				"default": "#FA8231"
+			},
+			{
+				"type": "header",
+				"content": "Màu 15"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_15",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_15",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_15",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 16"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_16",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_16",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_16",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 17"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_17",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_17",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_17",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 18"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_18",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_18",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_18",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 19"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_19",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_19",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_19",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 20"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_20",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_20",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_20",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 21"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_21",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_21",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_21",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 22"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_22",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_22",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_22",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 23"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_23",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_23",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_23",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 24"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_24",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_24",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_24",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 25"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_25",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_25",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_25",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 26"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_26",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_26",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_26",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 27"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_27",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_27",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_27",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 28"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_28",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_28",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_28",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 29"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_29",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_29",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_29",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Màu 30"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_color_filter_30",
+				"label": "Ẩn/hiện?"
+			},
+			{
+				"type": "text",
+				"id": "color_name_new_30",
+				"label": "Tên màu"
+			},
+			{
+				"type": "color",
+				"id": "color_code_new_30",
+				"label": "Chọn màu"
+			},
+			{
+				"type": "header",
+				"content": "Bộ lọc kích thước (tùy chỉnh)"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_tag_custom_2",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "tag_title_custom_2",
+				"label": "Tiêu đề",
+				"default": "Kích thước"
+			},
+			{
+				"type": "textarea",
+				"id": "enter_tag_2",
+				"label": "Nhập kích thước",
+				"info": "Các kích thước phải được ngăn cách nhau bởi dấu , và không có khoản trắng ở sau Ví dụ:S,M,L...",
+				"default": "S,M,L,XL"
+			},
+			{
+				"type": "header",
+				"content": "Bộ lọc giá sản phẩm"
+			},
+			{
+				"type": "checkbox",
+				"id": "use_price_filter",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "title_tag_3",
+				"label": "Tiêu đề",
+				"default": "Giá sản phẩm"
+			},
+			{
+				"type": "header",
+				"content": "Khoảng giá 1: (nhỏ hơn)"
+			},
+			{
+				"type": "text",
+				"id": "1_price_to",
+				"label": "Nhập giá"
+			},
+			{
+				"type": "header",
+				"content": "Khoảng giá 2:"
+			},
+			{
+				"type": "text",
+				"id": "2_price_from",
+				"label": "Từ"
+			},
+			{
+				"type": "text",
+				"id": "2_price_to",
+				"label": "Đến"
+			},
+			{
+				"type": "header",
+				"content": "Khoảng giá 3:"
+			},
+			{
+				"type": "text",
+				"id": "3_price_from",
+				"label": "Từ"
+			},
+			{
+				"type": "text",
+				"id": "3_price_to",
+				"label": "Đến"
+			},
+			{
+				"type": "header",
+				"content": "Khoảng giá 3:"
+			},
+			{
+				"type": "text",
+				"id": "3_price_from",
+				"label": "Từ"
+			},
+			{
+				"type": "text",
+				"id": "3_price_to",
+				"label": "Đến"
+			},
+			{
+				"type": "header",
+				"content": "Khoảng giá 4:"
+			},
+			{
+				"type": "text",
+				"id": "4_price_from",
+				"label": "Từ"
+			},
+			{
+				"type": "text",
+				"id": "4_price_to",
+				"label": "Đến"
+			},
+			{
+				"type": "header",
+				"content": "Khoảng giá 5: (lớn hơn)"
+			},
+			{
+				"type": "text",
+				"id": "5_price_from",
+				"label": "Nhập giá"
+			},
+			{
+				"type": "header",
+				"content": "Phân trang"
+			},
+			{
+				"type":      "select",
+				"id":        "pagination_limit",
+				"label":     "Số sản phẩm hiển thị ở mỗi trang",
+				"options": [
+					{
+						"value": "20",
+						"label": "20"
+					},
+					{
+						"value": "40",
+						"label": "40"
+					}
+				],
+				"default": "20"
+			}
+		]
+	},
+	{
+		"name": "Trang sản phẩm",
+		"settings":[
+			{
+				"type": "header",
+				"content": "Giao diện trang product"
+			},
+			{
+				"type":      "select",
+				"id":        "use_product_style",
+				"label":     "Chọn giao diện trang product",
+				"options": [
+					{
+						"value": "style_01",
+						"label": "Style 1"
+					},
+					{
+						"value": "style_02",
+						"label": "Style 2"
+					},
+					{
+						"value": "style_03",
+						"label": "Style 3"
+					}
+				],
+				"default": "style_01"
+			},
+			{
+				"type": "header",
+				"content": "Sản phẩm liên quan"
+			},
+			{
+				"type": "checkbox",
+				"id": "productspg_related_products",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "productspg_related_title",
+				"label": "Tiêu đề",
+				"default": "Sản phẩm liên quan"
+			},
+			{
+				"type":      "select",
+				"id":        "productspg_featured_quantity",
+				"label":     "Số lượng hiển thị",
+				"options": [
+					{
+						"value": "5",
+						"label": "5"
+					},
+					{
+						"value": "10",
+						"label": "10"
+					},
+					{
+						"value": "15",
+						"label": "15"
+					}
+				],
+				"default": "5"
+			}
+		]
+	},
+	{
+		"name": "Trang bài viết",
+		"settings":[
+			{
+				"type": "header",
+				"content": "Phân trang"
+			},
+			{
+				"type":      "select",
+				"id":        "pagination_blog_limit",
+				"label":     "Số bài viết hiển thị ở mỗi trang",
+				"options": [
+					{
+						"value": "2",
+						"label": "2"
+					},
+					{
+						"value": "4",
+						"label": "4"
+					},
+					{
+						"value": "6",
+						"label": "6"
+					},
+					{
+						"value": "8",
+						"label": "8"
+					},
+					{
+						"value": "10",
+						"label": "10"
+					},
+					{
+						"value": "12",
+						"label": "12"
+					},
+					{
+						"value": "14",
+						"label": "14"
+					}
+				],
+				"default": "12"
+			},
+			{
+				"type": "header",
+				"content": "Bài viết mới nhất (sidebar)"
+			},
+			{
+				"type": "checkbox",
+				"id": "news_recent_show",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "news_recent_title",
+				"label": "Tiêu đề",
+				"default": "Bài viết mới nhất"
+			},
+			{
+				"type": "header",
+				"content": "Danh mục blog"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_blog_menu",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "title_blog_menu",
+				"label": "Tiêu đề",
+				"default": "Danh mục blog"
+			},
+			{
+				"type": "link_list",
+				"id": "blog_menu",
+				"label": "Chọn danh mục",
+				"default": "news"
+			}
+		]
+	},
+	{
+		"name": "Trang nội dung",
+		"settings":[
+			{
+				"type": "header",
+				"content": "Danh mục Page"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_page_menu",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "title_page_menu",
+				"label": "Tiêu đề",
+				"default": "Danh mục trang"
+			},
+			{
+				"type": "link_list",
+				"id": "page_menu",
+				"label": "Chọn danh mục",
+				"default": "footer"
+			},
+			{
+				"type": "header",
+				"content": "Banner Sidebar"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_page_banner",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "text",
+				"id": "title_page_menu",
+				"label": "Tiêu đề",
+				"default": "Danh mục trang"
+			},
+			{
+				"type": "image_picker",
+				"id": "page_banner",
+				"label": "Hình ảnh",
+				"info": "Kích thước: 860x940 .png"
+			},
+			{
+				"type": "text",
+				"id": "page_banner_link",
+				"label": "Liên kết",
+				"default": "/"
+			}
+		]
+	},
+	{
+		"name": "Trang liên hệ",
+		"settings":[
+			{
+				"type": "header",
+				"content": "Google maps"
+			},
+			{
+				"type": "checkbox",
+				"id": "show_google_maps",
+				"label": "Ẩn/hiện?",
+				"default": true
+			},
+			{
+				"type": "textarea",
+				"id": "google_maps_code",
+				"label": "Nhúng mã",
+				"info": "Xem [cách lấy mã Google Map](https://defaulttheme-theme.myharavan.com/blogs/huong-dan/1000017320-cach-lay-ma-hien-thi-google-maps?_ga=2.88738523.1569169537.1559114389-1867704009.1559114389) để được hướng dẫn cách thêm Google Map vị trí của bạn theo các tài liệu cung cấp"
+			},
+			{
+				"type": "header",
+				"content": "Thông tin liên hệ"
+			},
+			{
+				"type": "text",
+				"id": "footer_address",
+				"label": "Địa chỉ",
+				"default": "Tầng 4, tòa nhà Flemington, số 182, đường Lê Đại Hành, phường 15, quận 11, Tp. Hồ Chí Minh."
+			},
+			{
+				"type": "text",
+				"id": "footer_email",
+				"label": "Email",
+				"default": "hi@haravan.com"
+			},
+			{
+				"type": "text",
+				"id": "footer_phone",
+				"label": "Điện thoại",
+				"default": "1900.636.099"
+			},
+			{
+				"type": "text",
+				"id": "footer_time",
+				"label": "Thời gian làm việc",
+				"default": "Thứ 2 đến Thứ 6 từ 8h đến 18h; Thứ 7 và Chủ nhật từ 8h00 đến 17h00 "
+			}
+		]
+	},
+	{
+		"name": "Kích hoạt App khuyến mãi",
+		"settings":[
+			{
+				"type": "paragraph",
+				"content": "Bạn chọn 1 trong 2 Link dưới để cài APP và sử dụng:"
+			},
+			{
+				"type": "paragraph",
+				"content":"&#45; App Haravan Combo: [tại đây](https://apps.haravan.com/products/app?id=192)."
+			},	
+			{
+				"type": "paragraph",
+				"content":"&#45; App Mua X Tặng Y: [tại đây](https://apps.haravan.com/products/app?id=194)."
+			},	
+			{
+				"type": "header",
+				"content": "Sử dụng App"
+			},
+			{
+				"type": "checkbox",
+				"id": "promotion_hrvapp_use",
+				"label": "Sử dụng App?",
+				"default": false
+			},
+			{
+				"type":      "select",
+				"id":        "promotion_hrvapp",
+				"label":     "Chọn app khuyến mãi",
+				"options": [
+					{
+						"value": "appcombo",
+						"label": "Haravan Combo"
+					},
+					{
+						"value": "appbuyxgety",
+						"label": "Mua X tặng Y"
+					}
+				],
+				"default": "Mua X tặng Y"
+			},
+			{
+				"type": "image_picker",
+				"id": "appbuyxgety_icon",
+				"label": "Icon quà tặng Mua X tặng Y",
+				"info": "Kích thước: 35x35 pixel .png"
+			},
+			{
+				"type": "paragraph",
+				"content":"Với sản phẩm quà tặng áp dụng khuyến mãi 'Mua X tặng Y' bạn phải để giá 0đ và thêm tag 'giftbox'. [Hướng dẫn thêm tag như hình](https://file.hstatic.net/1000308580/file/hd-buyxgety_20fd95637e2e4dd2a6580b5167b272e8.jpg)."
+			}
+		]
+	}
+]*/

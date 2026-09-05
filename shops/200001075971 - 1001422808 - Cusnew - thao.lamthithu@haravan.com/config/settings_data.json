@@ -1,0 +1,2012 @@
+{
+
+"current": {
+
+
+"use_logo": true,
+
+
+"customer_layout": "theme",
+
+
+"base_font": "Montserrat",
+
+
+"show_meta_keyword": false,
+
+
+"meta_keyword": "hhh Theme mặc định, Theme bán hàng, Theme haravan",
+
+
+"header_r_phone": "1900.636.099",
+
+
+"header_desc_1": "Miễn phí vận chuyển",
+
+
+"header_desc_2": "ĐƠN HÀNG TRÊN 900K",
+
+
+"slide_1": true,
+
+
+"slide_1_cap_1": "Sưu tập xuân hè",
+
+
+"slide_1_cap_2": "Thời trang xuất khẩu",
+
+
+"slide_1_btn": "Xem thêm",
+
+
+"slide_1_link": "/collections/all",
+
+
+"align_title1": "center",
+
+
+"animate_title1": "bounceIn",
+
+
+"slide_2": true,
+
+
+"slide_2_cap_1": "Sưu tập mới",
+
+
+"slide_2_cap_2": "phụ kiện dạo phố",
+
+
+"slide_2_btn": "Xem thêm",
+
+
+"slide_2_link": "/collections/all",
+
+
+"align_title2": "center",
+
+
+"animate_title2": "bounceInRight",
+
+
+"slide_3": true,
+
+
+"slide_3_cap_1": "Thời trang",
+
+
+"slide_3_cap_2": "Phụ kiện thời trang",
+
+
+"slide_3_btn": "Xem thêm",
+
+
+"slide_3_link": "/collections/all",
+
+
+"align_title3": "center",
+
+
+"animate_title3": "bounceInLeft",
+
+
+"slide_4": true,
+
+
+"slide_4_cap_1": "",
+
+
+"slide_4_cap_2": "",
+
+
+"slide_4_btn": "",
+
+
+"slide_4_link": "/collections/all",
+
+
+"align_title4": "center",
+
+
+"animate_title4": "fade",
+
+
+"use_featured_products": true,
+
+
+"featured_products_cap": "Bộ sưu tập mới nhất",
+
+
+"featured_products_title": "Sản phẩm mới",
+
+
+"featured_collection": "hot-products",
+
+
+"use_icon_featured": true,
+
+
+"use_sale_products": true,
+
+
+"sale_products_cap": "",
+
+
+"sale_products_title": "Sản phẩm mới",
+
+
+"sale_collection": "onsale",
+
+
+"use_icon_sale": true,
+
+
+"use_ad_banners": "1",
+
+
+"ad_banner_1": "Miễn phí vận chuyển",
+
+
+"ad_banner_2": "Với tất cả đơn hàng trên 500k",
+
+
+"ad_banner_desc": "Miễn phí 2 ngày vận chuyển với đơn hàng trên 500k trừ trực tiếp khi thanh toán",
+
+
+"ad_banner_link": "/",
+
+
+"show_block_home_category1": false,
+
+
+"block_home_category1_title": "Nguyên liệu thiên nhiên",
+
+
+"block_home_category1_link": "https://rosa-valley.myharavan.com/collections/all",
+
+
+"show_block_home_category2": false,
+
+
+"block_home_category2_title": "Vẻ đẹp nguyên bản",
+
+
+"block_home_category2_link": "https://rosa-valley.myharavan.com/collections/all",
+
+
+"footer_bg": "#252a2b",
+
+
+"footer_title_colour": "#8d9090",
+
+
+"footer_txt_colour": "#ffffff",
+
+
+"footer_link_colour_hover": "#ff9e9e",
+
+
+"footer_bg_cp": " #141718",
+
+
+"footer_about_show": true,
+
+
+"footer_about_heading": "Hotline hỗ trợ",
+
+
+"footer_about_message": "Với hơn 100 nhân viên tư vấn trên mọi phương diện, không chỉ là hướng dẫn và xử lý các vấn đề từ Haravan, chúng tôi luôn mong cùng chia sẻ các kinh nghiệm giúp bạn bán được nhiều hàng hơn.",
+
+
+"footer_about_address": "56 Vân côi, Q. Tân Bình, Tp.HCM",
+
+
+"footer_about_email": "hi@haravan.com",
+
+
+"footer_about_phone": "1900.636.099",
+
+
+"footer_about_fax": "1900.636.099",
+
+
+"footer_linklist1_show": true,
+
+
+"footer_linklist1_heading": "Liên kết",
+
+
+"footer_linklist1": "",
+
+
+"mailing_list_show": false,
+
+
+"mailing_list_heading": "ĐĂNG KÝ NHẬN TIN",
+
+
+"mailing_list_caption": "Đăng ký ngay để nhận thông tin khuyến mãi, các chương trình quà tặng từ shop.",
+
+
+"mailing_list_emailtext": "Nhập email của bạn",
+
+
+"show_fanpage_faceook": "1",
+
+
+"facebook_widget_title": "Kết nối với chúng tôi",
+
+
+"fanpage_faceook": "https://www.facebook.com/karoseofficial",
+
+
+"social_icons_show": true,
+
+
+"social_icons_colour": "#9e9e9e",
+
+
+"social_icons_hover": "#ffffff",
+
+
+"social_icons_hover_bg": "#ffffff",
+
+
+"social_icons_facebook_link": "/",
+
+
+"social_icons_twitter_link": "/",
+
+
+"social_icons_pinterest_link": "/",
+
+
+"social_icons_google_link": "/",
+
+
+"social_icons_youtube_link": "/",
+
+
+"social_icons_instagram_link": "/",
+
+
+"shop_bg_color": "#fff3dc",
+
+
+"shop_bg2_color": "#ff00ff",
+
+
+"shop_bg3_color": "#e6ff00",
+
+
+"shop_text_color": "#000000",
+
+
+"header_bg_color": "#ffffff",
+
+
+"header_text_color": "#ffffff",
+
+
+"header_text_hover_color": "#04b2de",
+
+
+"bg_navbar_color": "#ffffff",
+
+
+"text_navbar_color": "#4d4d4d",
+
+
+"text_hover_navbar_color": "#00a7f4",
+
+
+"shop_border_color": "#ebebeb",
+
+
+"slide_title1_colour": "#ffffff",
+
+
+"slide_title2_colour": "#ffffff",
+
+
+"slide_btn_colour": "#ffffff",
+
+
+"shop_text_dark_color": "#ffffff",
+
+
+"link_text_color": "#000000",
+
+
+"link_text_hover_color": "#65d1e6",
+
+
+"pr_n_color": "#252a2b",
+
+
+"pr_n_color_hover": "#00a7f4",
+
+
+"pr_p_color": "#252a2b",
+
+
+"pr_p_color_hover": "#777a7b",
+
+
+"btn_add_cart": "#ffffff",
+
+
+"btn_text_add_cart": "#333333",
+
+
+"btn_add_cart_hover": "#00a7f4",
+
+
+"btn_text_add_cart_hover": "#ffffff",
+
+
+"pagination_limit": "40",
+
+
+"show_collection_menu": true,
+
+
+"collection_menu_title": "Danh mục ",
+
+
+"collection_menu_link": "left",
+
+
+"show_left_ad": true,
+
+
+"promo_link_left": "",
+
+
+"use_tags_products": true,
+
+
+"share_prod_on_facebook": true,
+
+
+"share_prod_on_googleplus": true,
+
+
+"use_comment_products": true,
+
+
+"productspg_related_products": true,
+
+
+"productspg_featured_quantity": "15",
+
+
+"blog_recent_show": "1",
+
+
+"blog_recent_title": "Danh mục blog",
+
+
+"blog_recent_menu": "left",
+
+
+"news_recent_show": "1",
+
+
+"news_recent_title": "Bài viết mới nhất",
+
+
+"pagination_news_limit": "3",
+
+
+"pagination_blog_limit": "12",
+
+
+"show_google_maps": false,
+
+
+"google_maps_code": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59643.04848876993!2d105.58554378676928!3d20.884520331577658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313445835d09ffb5%3A0xbb29dc6ebd8fa4b3!2zVGjhu6d5IFh1w6JuIFRpw6puLCBDaMawxqFuZyBN4bu5LCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1761879078113!5m2!1svi!2s\" width=\"730\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+
+
+"footer_text": "Giải pháp bán hàng toàn diện từ website đến cửa hàng",
+
+
+"footer_company": "Fashion Style",
+
+
+"footer_address": "Thôn Xuân Sen, Xã Xuân Mai, Thành Phố Hà Nội",
+
+
+"footer_phone": "0982710075",
+
+
+"footer_email": "cskh@karose.vn",
+
+
+"collection_sort": true,
+
+
+"shop_text2_color": "#ff2e77",
+
+
+"shop_fearture_color": "#fdbc0e",
+
+
+"slide_1_alt": "Nước cất hoa bưởi",
+
+
+"slide_2_alt": "Nước cất hoa bưởi",
+
+
+"slide_3_alt": "Nước cất hoa bưởi",
+
+
+"slide_4_alt": "Nước cất hoa bưởi",
+
+
+"block_home_category1_alt": "Thiên nhiên",
+
+
+"block_home_category2_alt": "Nguyên bản",
+
+
+"font_slide_title1": "30",
+
+
+"font_slide_title2": "70",
+
+
+"font_slide_title3": "15",
+
+
+"slide_1_cap_3": "Hàng mới về",
+
+
+"slide_2_cap_3": "Sản phẩm nổi bật",
+
+
+"slide_3_cap_3": "Khuyến mãi tới 50%",
+
+
+"slide_4_cap_3": "",
+
+
+"color_title_1": "Xanh dương",
+
+
+"color_1": "#3232d1",
+
+
+"color_title_2": "Vàng",
+
+
+"color_2": "#d9c211",
+
+
+"color_title_3": "Đen",
+
+
+"color_3": "#170606",
+
+
+"color_title_4": "Nâu",
+
+
+"color_4": "#424141",
+
+
+"color_title_5": "Tím",
+
+
+"color_5": "#810a87",
+
+
+"color_title_6": "",
+
+
+"color_6": "#ffffff",
+
+
+"color_title_7": "",
+
+
+"color_7": "#ffffff",
+
+
+"color_title_8": "",
+
+
+"color_8": "#ffffff",
+
+
+"color_title_9": "",
+
+
+"color_9": "#ffffff",
+
+
+"color_title_10": "",
+
+
+"color_10": "#ffffff",
+
+
+"color_title_11": "",
+
+
+"color_11": "#ffffff",
+
+
+"color_title_12": "",
+
+
+"color_12": "#ffffff",
+
+
+"color_title_13": "",
+
+
+"color_13": "#ffffff",
+
+
+"color_title_14": "",
+
+
+"color_14": "#ffffff",
+
+
+"color_title_15": "",
+
+
+"color_15": "#ffffff",
+
+
+"color_title_16": "",
+
+
+"color_16": "#ffffff",
+
+
+"color_title_17": "",
+
+
+"color_17": "#ffffff",
+
+
+"color_title_18": "",
+
+
+"color_18": "#ffffff",
+
+
+"color_title_19": "",
+
+
+"color_19": "#ffffff",
+
+
+"color_title_20": "",
+
+
+"color_20": "#ffffff",
+
+
+"footer_time": "Thứ 2 đến Thứ 6 từ 8h đến 18h; Thứ 7 và Chủ nhật từ 8h00 đến 17h00 ",
+
+
+"heading_featured": "GREY FASHION <br> Bộ sưu tập xuân hè mới nhất 2018",
+
+
+"heading_featured_url": "/collections/all",
+
+
+"block_home_category1_note": "Bộ sưu tập",
+
+
+"block_home_category2_note": "Bộ sưu tập ",
+
+
+"home_about_show": false,
+
+
+"home_about_title": "VỀ HẰNG KAROSE",
+
+
+"home_about_button": "Xem ngay",
+
+
+"home_about_link": "/pages/about-us",
+
+
+"home_about_page": "about-us",
+
+
+"social_icons_title": "Mạng xã hội",
+
+
+"social_icons_note": "Vui lòng nhấp vào liên kết để theo dõi",
+
+
+"footer_about_note": "Tổng đài hỗ trợ hoạt động từ T2 đến T6",
+
+
+"show_vendor": true,
+
+
+"show_color": true,
+
+
+"show_size": false,
+
+
+"field_filter_size": "35, 36, 37, 38",
+
+
+"share_prod_on_twitter": true,
+
+
+"share_prod_on_plusgoogle": true,
+
+
+"share_prod_on_pinterest": true,
+
+
+"productspg_related_title": "Sản phẩm liên quan",
+
+
+"mainmenu_link": "main-menu",
+
+
+"childrenmenu__link": "footer",
+
+
+"footer_bg_email": "#141718",
+
+
+"footer_bg_button": "#363d3e",
+
+
+"pr_btn_sale": "#ededed",
+
+
+"btn_bg_shop": "#f71939",
+
+
+"slide_bkg_color": "#fbf3f5",
+
+
+"slide_text_color": "#262627",
+
+
+"slide_button_color": "#262627",
+
+
+"footer_bg_copyright": "#141718",
+
+
+"footer_text_copyright": "#ffffff",
+
+
+"btn_addcarrt_mb": "#ff9e9e",
+
+
+"shop_title_color": "#000000",
+
+
+"show_block_home_category3": false,
+
+
+"block_home_category3_link": "https://rosa-valley.myharavan.com/collections/all",
+
+
+"block_home_category3_alt": "Mộc mạc",
+
+
+"use_collection_one_products": false,
+
+
+"heading_collection_one": "Mỹ Phẩm Karose",
+
+
+"heading_collection_one_url": "/",
+
+
+"collection_one": "my-pham-karose",
+
+
+"use_collection_two_products": true,
+
+
+"heading_collection_two": "SẢN PHẨM BÁN CHẠY",
+
+
+"heading_collection_two_url": "/",
+
+
+"collection_two": "my-pham-karose",
+
+
+"show_footer1": true,
+
+
+"footer1_title": "Giới thiệu",
+
+
+"footer1_information": "trang mua sắm trực tuyến của thương hiệu thời trang Lama, thời trang nam, nữ, phụ kiện, giúp bạn tiếp cận xu hướng thời trang mới nhất.",
+
+
+"social_icon_show": "1",
+
+
+"facebook_link": "/",
+
+
+"instagram_link": "/",
+
+
+"footer_link1_show": true,
+
+
+"footer_link1_title": "QUY ĐỊNH VÀ CHÍNH SÁCH",
+
+
+"footer_link1_menu": "footer",
+
+
+"show_footer2": true,
+
+
+"footer2_title": "Thông tin liên hệ",
+
+
+"footer-address": "Tầng 4, tòa nhà Flemington, số 182, đường Lê Đại Hành, phường 15, quận 11, Tp. Hồ Chí Minh.",
+
+
+"footer-tell": "1900.636.099",
+
+
+"footer-fax": "1900.636.099",
+
+
+"footer-email": "hi@haravan.com",
+
+
+"show_footer3": false,
+
+
+"footer3_title": "FANPAGE",
+
+
+"footer_link2_show": false,
+
+
+"footer_link2_title": "",
+
+
+"footer_link2_menu": "main-menu",
+
+
+"footer-address-title": "",
+
+
+"footer-tell-title": "",
+
+
+"footer-fax-title": "",
+
+
+"footer-email-title": "",
+
+
+"show_list_col": true,
+
+
+"link_list_col": "Danh mục sản phẩm",
+
+
+"collection_sidebar": "08cd8cf1-903c-4a62-8d2a-fc849e2b04e5",
+
+
+"show_collection_filter": false,
+
+
+"filter_title": "Bộ lọc sản phẩm",
+
+
+"use_vendor_filter": false,
+
+
+"vendor_title": "Thương hiệu",
+
+
+"vendor_limit": "4",
+
+
+"use_color_filter": false,
+
+
+"color_title": "Màu sắc",
+
+
+"use_color_filter_1": "1",
+
+
+"color_name_new_1": "Hồng",
+
+
+"color_code_new_1": "#ef5777",
+
+
+"use_color_filter_2": "1",
+
+
+"color_name_new_2": "Vàng",
+
+
+"color_code_new_2": "#ffd32a",
+
+
+"use_color_filter_3": "1",
+
+
+"color_name_new_3": "Xám",
+
+
+"color_code_new_3": "#d2dae2",
+
+
+"use_color_filter_4": "1",
+
+
+"color_name_new_4": "Xanh",
+
+
+"color_code_new_4": "#3c40c6",
+
+
+"use_color_filter_5": "1",
+
+
+"color_name_new_5": "Xanh lá",
+
+
+"color_code_new_5": "#0be881",
+
+
+"use_color_filter_6": "1",
+
+
+"color_name_new_6": "Sen",
+
+
+"color_code_new_6": "#f53b57",
+
+
+"use_color_filter_7": "1",
+
+
+"color_name_new_7": "Xanh biển",
+
+
+"color_code_new_7": "#0fbcf9",
+
+
+"use_color_filter_8": "1",
+
+
+"color_name_new_8": "Đen",
+
+
+"color_code_new_8": "#000000",
+
+
+"use_color_filter_9": true,
+
+
+"color_name_new_9": "Trắng",
+
+
+"color_code_new_9": "#ffffff",
+
+
+"use_color_filter_10": true,
+
+
+"color_name_new_10": "Đỏ",
+
+
+"color_code_new_10": "#ff3f34",
+
+
+"use_color_filter_11": true,
+
+
+"color_name_new_11": "Tím",
+
+
+"color_code_new_11": "#a55eea",
+
+
+"use_color_filter_12": true,
+
+
+"color_name_new_12": "Pure Apple",
+
+
+"color_code_new_12": "#6ab04c",
+
+
+"use_color_filter_13": true,
+
+
+"color_name_new_13": "Blue",
+
+
+"color_code_new_13": "#0c2461",
+
+
+"use_color_filter_14": true,
+
+
+"color_name_new_14": "Cam",
+
+
+"color_code_new_14": "#fa8231",
+
+
+"use_color_filter_15": false,
+
+
+"color_name_new_15": "",
+
+
+"color_code_new_15": "#ffffff",
+
+
+"use_color_filter_16": false,
+
+
+"color_name_new_16": "",
+
+
+"color_code_new_16": "#ffffff",
+
+
+"use_color_filter_17": false,
+
+
+"color_name_new_17": "",
+
+
+"color_code_new_17": "#ffffff",
+
+
+"use_color_filter_18": false,
+
+
+"color_name_new_18": "",
+
+
+"color_code_new_18": "#ffffff",
+
+
+"use_color_filter_19": false,
+
+
+"color_name_new_19": "",
+
+
+"color_code_new_19": "#ffffff",
+
+
+"use_color_filter_20": false,
+
+
+"color_name_new_20": "",
+
+
+"color_code_new_20": "#ffffff",
+
+
+"use_color_filter_21": false,
+
+
+"color_name_new_21": "",
+
+
+"color_code_new_21": "#ffffff",
+
+
+"use_color_filter_22": false,
+
+
+"color_name_new_22": "",
+
+
+"color_code_new_22": "#ffffff",
+
+
+"use_color_filter_23": false,
+
+
+"color_name_new_23": "",
+
+
+"color_code_new_23": "#ffffff",
+
+
+"use_color_filter_24": false,
+
+
+"color_name_new_24": "",
+
+
+"color_code_new_24": "#ffffff",
+
+
+"use_color_filter_25": false,
+
+
+"color_name_new_25": "",
+
+
+"color_code_new_25": "#ffffff",
+
+
+"use_color_filter_26": false,
+
+
+"color_name_new_26": "",
+
+
+"color_code_new_26": "#ffffff",
+
+
+"use_color_filter_27": false,
+
+
+"color_name_new_27": "",
+
+
+"color_code_new_27": "#ffffff",
+
+
+"use_color_filter_28": false,
+
+
+"color_name_new_28": "",
+
+
+"color_code_new_28": "#ffffff",
+
+
+"use_color_filter_29": false,
+
+
+"color_name_new_29": "",
+
+
+"color_code_new_29": "#ffffff",
+
+
+"use_color_filter_30": false,
+
+
+"color_name_new_30": "",
+
+
+"color_code_new_30": "#ffffff",
+
+
+"use_tag_custom_2": false,
+
+
+"tag_title_custom_2": "Kích thước",
+
+
+"enter_tag_2": "S,M,L,XL",
+
+
+"use_price_filter": false,
+
+
+"title_tag_3": "Giá sản phẩm",
+
+
+"price_filter_min": "0",
+
+
+"price_filter_max": "1000000",
+
+
+"price_filter_step": "50000",
+
+
+"use_purpose_filter": "1",
+
+
+"purpose_title": "",
+
+
+"show_collection_image": false,
+
+
+"show_logo_bct": true,
+
+
+"1_price_to": "500000",
+
+
+"2_price_from": "500000",
+
+
+"2_price_to": "1000000",
+
+
+"3_price_from": "1000000",
+
+
+"3_price_to": "1500000",
+
+
+"4_price_from": "2000000",
+
+
+"4_price_to": "5000000",
+
+
+"5_price_from": "5000000",
+
+
+"use_info_header": false,
+
+
+"info_header": "YÊU LÀN DA NHƯ VỐN CÓ",
+
+
+"block_home_category1_subtitle": "",
+
+
+"block_home_category1_button": "Xem sản phẩm",
+
+
+"block_home_category2_subtitle": "",
+
+
+"block_home_category2_button": "Xem sản phẩm",
+
+
+"block_home_category3_subtitle": "",
+
+
+"block_home_category3_title": "Đơn giản mộc mạc",
+
+
+"block_home_category3_button": "Xem sản phẩm",
+
+
+"display_category": true,
+
+
+"featured_collection1": "hot-products",
+
+
+"featured_collection2": "thoi-trang-nu",
+
+
+"featured_collection3": "thoi-trang-nam",
+
+
+"featured_collection4": "onsale",
+
+
+"featured_collection5": "frontpage",
+
+
+"phone_contact_show": true,
+
+
+"phone_contact_title": "Hỗ trợ / Mua hàng:",
+
+
+"phone_contact_number": "18001162",
+
+
+"title_list_col": "Danh mục sản phẩm",
+
+
+"show_blog_menu": true,
+
+
+"title_blog_menu": "Danh mục blog",
+
+
+"blog_menu": "main-menu",
+
+
+"show_page_menu": false,
+
+
+"title_page_menu": "Danh mục trang",
+
+
+"page_menu": "footer",
+
+
+"show_page_banner": "1",
+
+
+"page_banner_link": "/",
+
+
+"use_category": false,
+
+
+"shop_text_hover_color": "#f71939",
+
+
+"show_block_home_category": false,
+
+
+"use_product_style": "style_03",
+
+
+"instagram_index_show": true,
+
+
+"subtitle_instagram": "Tô điểm cho cuộc sống",
+
+
+"title_instagram": "CẢM HỨNG",
+
+
+"use_img_instagram1": "1",
+
+
+"link_instagram1": "/",
+
+
+"use_img_instagram2": "1",
+
+
+"link_instagram2": "/",
+
+
+"use_img_instagram3": "1",
+
+
+"link_instagram3": "/",
+
+
+"use_img_instagram4": "1",
+
+
+"link_instagram4": "/",
+
+
+"show_homepage_imgs": true,
+
+
+"show_homepage_img1": true,
+
+
+"homepage_img1_title": "KAROSE",
+
+
+"homepage_img1_btn": "",
+
+
+"homepage_img1_link": "https://hangkarose.com/collections/my-pham-karose",
+
+
+"homepage_img1_alt": "KAROSE",
+
+
+"show_homepage_img2": true,
+
+
+"homepage_img2_title": "HẰNG ORGANIC",
+
+
+"homepage_img2_btn": "",
+
+
+"homepage_img2_link": "https://hangkarose.com/collections/hang-organic",
+
+
+"homepage_img2_alt": "HẰNG ORGANIC",
+
+
+"show_homepage_img3": true,
+
+
+"homepage_img3_title": "NẾN ÉCLAT",
+
+
+"homepage_img3_btn": "",
+
+
+"homepage_img3_link": "https://hangkarose.com/collections/nen-eclat",
+
+
+"homepage_img3_alt": "Nến Éclat",
+
+
+"show_homepage_img4": true,
+
+
+"homepage_img4_title": "SẢN PHẨM KHÁC",
+
+
+"homepage_img4_btn": "",
+
+
+"homepage_img4_link": "https://hangkarose.com/collections/san-pham-phan-phoi",
+
+
+"homepage_img4_alt": "SẢN PHẨM KHÁC",
+
+
+"show_homepage_img5": false,
+
+
+"homepage_img5_title": "Nước cất lá tía tô",
+
+
+"homepage_img5_btn": "Mua ngay",
+
+
+"homepage_img5_link": "https://rosa-valley.myharavan.com/products/nuoc-cat-la-tia-to",
+
+
+"homepage_img5_alt": "Nước cất lá tía tô",
+
+
+"show_homepage_img6": false,
+
+
+"homepage_img6_title": "Bột chuối tiêu xanh",
+
+
+"homepage_img6_btn": "Mua ngay",
+
+
+"homepage_img6_link": "https://rosa-valley.myharavan.com/products/bot-chuoi-tieu-xanh",
+
+
+"homepage_img6_alt": "Bột chuối tiêu xanh",
+
+
+"support_menu_home_show": "1",
+
+
+"support_menu_home_title": "Bạn cần hỗ trợ",
+
+
+"support_menu_home": "footer",
+
+
+"footer_link3_show": "1",
+
+
+"footer_link3_title": "VỀ CHÚNG TÔI",
+
+
+"footer_link3_menu": "footer",
+
+
+"gallery_show": false,
+
+
+"use_gallery_item_1": true,
+
+
+"gallery_item_1_alt": "gallery item",
+
+
+"use_gallery_item_2": "1",
+
+
+"gallery_item_2_alt": "gallery item",
+
+
+"use_gallery_item_3": "1",
+
+
+"gallery_item_3_alt": "gallery item",
+
+
+"use_gallery_item_4": "1",
+
+
+"gallery_item_4_alt": "gallery item",
+
+
+"use_gallery_item_5": "1",
+
+
+"gallery_item_5_alt": "gallery item",
+
+
+"use_gallery_item_6": "1",
+
+
+"gallery_item_6_alt": "gallery item",
+
+
+"use_gallery_item_7": "1",
+
+
+"gallery_item_7_alt": "gallery item",
+
+
+"use_gallery_item_8": "1",
+
+
+"gallery_item_8_alt": "gallery item",
+
+
+"use_gallery_item_9": "1",
+
+
+"gallery_item_9_alt": "gallery item",
+
+
+"use_gallery_item_10": "1",
+
+
+"gallery_item_10_alt": "gallery item",
+
+
+"use_gallery_item_11": "1",
+
+
+"gallery_item_11_alt": "gallery item",
+
+
+"use_gallery_item_12": "1",
+
+
+"gallery_item_12_alt": "gallery item",
+
+
+"display_social_footer": true,
+
+
+"display_social1": true,
+
+
+"link_social1": "https://www.facebook.com/karoseofficial",
+
+
+"display_social2": "1",
+
+
+"link_social2": "https://www.tiktok.com/@hangkarose",
+
+
+"display_social3": "1",
+
+
+"link_social3": "https://zalo.me/s/4389321128025795089/",
+
+
+"display_social4": "1",
+
+
+"link_social4": "https://www.instagram.com/karosebeauty/",
+
+
+"display_social5": "1",
+
+
+"link_social5": "",
+
+
+"topbar_bg": "#b5e2ef",
+
+
+"topbar_color": "#333333",
+
+
+"home_blog_show": false,
+
+
+"title_home_blog": "Bài viết mới nhất",
+
+
+"home_blog": "",
+
+
+"blog_home_recent": "",
+
+
+"blog_home_limit": "3",
+
+
+"show_logo_payment": false,
+
+
+"logo_payment_height": "45",
+
+
+"use_chatbot": true,
+
+
+"code_chatbot": "",
+
+
+"favicon": "https://file.hstatic.net/1000397797/file/favicon_101dd4a6694f4d99b9e302cc4a620d68.png",
+
+
+"share_fb_home": "https://file.hara.vn/1000113711/file/share_fb_home_2419d7bb62294b0eb91acf8834bdd6a7.png",
+
+
+"slideshow_1": "https://file.hstatic.net/1000327411/file/slideshow_1_01312957b65c499dbcd92c0ae731285e.jpg",
+
+
+"slideshow_2": "https://file.hstatic.net/1000327411/file/slideshow_2_debd9a412314464fad7ee760f83bea68.jpg",
+
+
+"slideshow_3": "https://file.hstatic.net/1000327411/file/slideshow_3_20b73932f7c74c96bfcc3d2e7351ee8a.jpg",
+
+
+"homepage-img1": "https://file.hstatic.net/1000327411/file/homepage-img1_5d4731c965ac4bc09db0df94bc8e684a.jpg",
+
+
+"homepage-img2": "https://file.hstatic.net/1000327411/file/homepage-img2_b806f75e8b224c528387bf51e6dcea09.jpg",
+
+
+"homepage-img3": "https://file.hstatic.net/1000327411/file/homepage-img3_5b592bf0702b4cadbc1c02d9b0a3b019.jpg",
+
+
+"homepage-img4": "https://file.hstatic.net/1000327411/file/homepage-img4_3fd34982dbb947fbb578d56497e461aa.jpg",
+
+
+"homepage-img5": "https://file.hstatic.net/1000327411/file/homepage-img5_91b4cebc1926417794155561dac496a4.jpg",
+
+
+"homepage-img6": "https://file.hstatic.net/1000327411/file/homepage-img6_f7de1486b3e44e83bcd44ddf2d7c9a27.jpg",
+
+
+"block_home_category1": "https://file.hstatic.net/1000327411/file/block_home_category1_7eab3d8d67fc4289b3b2f0b6a75f7c11.jpg",
+
+
+"block_home_category2": "https://file.hstatic.net/1000327411/file/block_home_category2_2_2dc44cee5a6346f5888a9691a024f69a.jpg",
+
+
+"block_home_category3": "https://file.hstatic.net/1000327411/file/block_home_category3_6ecf6ef58cec45208089b3d38eacb007.jpg",
+
+
+"home_about_image": "https://file.hstatic.net/1000327411/file/home_about_image_dff5ca7485474655b8ff333ada18013c.jpg",
+
+
+"gallery_item_1": "https://file.hstatic.net/1000327411/file/gallery_item_1_204d445c09974ee998ed64e56369d8dd.jpg",
+
+
+"gallery_item_2": "https://file.hstatic.net/1000327411/file/gallery_item_2_110de1b3f1bb43cf9f835ce252d18812.jpg",
+
+
+"gallery_item_3": "https://file.hstatic.net/1000327411/file/gallery_item_3_a0058a3373444a2499256139a328e994.jpg",
+
+
+"gallery_item_4": "https://file.hstatic.net/1000327411/file/gallery_item_4_ae484b3773eb4d6a92e3ac933f5f8058.jpg",
+
+
+"gallery_item_5": "https://file.hstatic.net/1000327411/file/gallery_item_5_486ea117e6f24d528e8d7ec95a9f5ed2.jpg",
+
+
+"gallery_item_6": "https://file.hstatic.net/1000327411/file/gallery_item_6_1a260e84b90d4bd89e2d0d72994224a2.jpg",
+
+
+"gallery_item_7": "https://file.hstatic.net/1000327411/file/gallery_item_7_ed0c6a1fb22f4e59b686d079786e46d5.jpg",
+
+
+"gallery_item_8": "https://file.hstatic.net/1000327411/file/gallery_item_8_8b283c16519246dc98b3d6fc7c978615.jpg",
+
+
+"gallery_item_9": "https://file.hstatic.net/1000327411/file/gallery_item_9_07ba3e65807a41f48d0610e8c0749fc4.jpg",
+
+
+"gallery_item_10": "https://file.hstatic.net/1000327411/file/gallery_item_10_b5ee3880f5164ffc9658150225001d45.jpg",
+
+
+"gallery_item_11": "https://file.hstatic.net/1000327411/file/gallery_item_11_5dd6d217ffe34d2f86872fe7a4516711.jpg",
+
+
+"gallery_item_12": "https://file.hstatic.net/1000327411/file/gallery_item_12_6e41747e477a44b99948dec6b90313ac.jpg",
+
+
+"collection_banner": "https://file.hstatic.net/1000327411/file/collection_banner_1_619776f86d224cfea11df547881608df.jpg",
+
+
+"page_banner": "https://file.hstatic.net/1000327411/file/page_banner_feaa86dd1457447ebe891f0c48a932e4.jpg",
+
+
+"logo": "https://file.hstatic.net/1000327411/file/logo-kidty-shop_7129e5ee7b094fc2bf05900072a462d3.png",
+
+
+"slideshow_4": "",
+
+
+"addthis_iconList_show": true,
+
+
+"addthis_icon1_show": true,
+
+
+"addthis_icon1_color1": "#e8434c",
+
+
+"addthis_icon1_color2": "#d61114",
+
+
+"addthis_icon1_tootlip": "GỌI NGAY",
+
+
+"addthis_icon1_action": "0868582830",
+
+
+"addthis_icon2_show": false,
+
+
+"addthis_icon2_color1": "#3985f7",
+
+
+"addthis_icon2_color2": "#1272e8",
+
+
+"addthis_icon2_tootlip": "Chat với chúng tôi qua Zalo",
+
+
+"addthis_icon2_action": "//zalo.me/0987392844",
+
+
+"addthis_icon3_show": false,
+
+
+"addthis_icon3_color1": "#70f3ff",
+
+
+"addthis_icon3_color2": "#00dcf0",
+
+
+"addthis_icon3_tootlip": "Đăng kí thông tin và để lại lời nhắn",
+
+
+"addthis_icon3_title": "Để lại lời nhắn cho chúng tôi",
+
+
+"addthis_icon3_title2": "Đăng kí thông tin thành công",
+
+
+"addthis_icon3_content": "Cảm ơn bạn đã để lại thông tin <br> Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất\t",
+
+
+"addthis_icon4_show": false,
+
+
+"addthis_icon4_color1": "#fecf72",
+
+
+"addthis_icon4_color2": "#ef9f00",
+
+
+"addthis_icon4_tootlip": "Xem địa chỉ doanh nghiệp",
+
+
+"addthis_icon4_action": "/pages/lien-he",
+
+
+"promotion_hrvapp_use": false,
+
+
+"promotion_hrvapp": "appcombo",
+
+
+"appbuyxgety_icon": "https://file.hstatic.net/1000308580/file/icon-gifbox_21127e78739a40a28f058e5e123d41b1.png",
+
+
+"code_messenger_mb": "108520260558644",
+
+
+"popup_contact_select": "popupForm",
+
+
+"popup_contact_description_3": "Sản phẩm bán chạy",
+
+
+"popup_contact_description_2": "Sản phẩm mới",
+
+
+"popup_contact_description_1": "Giảm giá sản phẩm",
+
+
+"popup_contact_content": "Chúng tôi sẽ cập nhật các chương trình khuyến mãi đến bạn.",
+
+
+"popup_contact_title": "Đăng ký nhận bản tin",
+
+
+"popup_contact_bkg": "https://file.hstatic.net/1000327411/file/banner-bkgje_ce05031246804efc985960ef7455a403.jpg",
+
+
+"popup_contact_link": "/collections/all",
+
+
+"popup_contact_alt": "Chương trình khuyến mãi",
+
+
+"popup_contact_banner": "https://file.hstatic.net/1000327411/file/banner-je_e5c5a207829d46969f22986b3b2e6472.jpg",
+
+
+"popup_contact_show": false,
+
+
+"header_style_select": "header_style_02",
+
+
+"header_01_topbar_bkg": "#ebb673",
+
+
+"header_01_topbar_text": "#9c0707",
+
+
+"header_01_color_text": "#9c0707",
+
+
+"header_01_color_bkg": "#ffffff",
+
+
+"header_02_topbar_bkg": "#dbb2b8",
+
+
+"header_02_topbar_text": "#333333",
+
+
+"header_02_color_text": "#333333",
+
+
+"header_02_hover_color_text": "#dbb2b8",
+
+
+"header_02_color_bkg": "#ffffff",
+
+
+"header_03_topbar_bkg": "#b5e2ef",
+
+
+"header_03_topbar_text": "#333333",
+
+
+"header_03_color_text": "#000000",
+
+
+"header_03_color_bkg": "#ffffff",
+
+
+"title_help_menu_mb": "LIÊN HỆ",
+
+
+"hotline_mb": "0986806436",
+
+
+"email_mb": "cskh@karose.vn",
+
+
+"logo.png": "",
+
+
+"favicon.png": "",
+
+
+"share_fb_home.png": "",
+
+
+"popup_contact_banner.jpg": "",
+
+
+"popup_contact_bkg.jpg": "",
+
+
+"slideshow_1.jpg": "",
+
+
+"slideshow_2.jpg": "",
+
+
+"slideshow_3.jpg": "",
+
+
+"slideshow_4.jpg": "",
+
+
+"homepage-img1.jpg": "",
+
+
+"homepage-img2.jpg": "",
+
+
+"homepage-img3.jpg": "",
+
+
+"homepage-img4.jpg": "",
+
+
+"homepage-img5.jpg": "",
+
+
+"homepage-img6.jpg": "",
+
+
+"block_home_category1.jpg": "",
+
+
+"block_home_category2.jpg": "",
+
+
+"block_home_category3.jpg": "",
+
+
+"home_about_image.jpg": "",
+
+
+"gallery_item_1.jpg": "",
+
+
+"gallery_item_2.jpg": "",
+
+
+"gallery_item_3.jpg": "",
+
+
+"gallery_item_4.jpg": "",
+
+
+"gallery_item_5.jpg": "",
+
+
+"gallery_item_6.jpg": "",
+
+
+"gallery_item_7.jpg": "",
+
+
+"gallery_item_8.jpg": "",
+
+
+"gallery_item_9.jpg": "",
+
+
+"gallery_item_10.jpg": "",
+
+
+"gallery_item_11.jpg": "",
+
+
+"gallery_item_12.jpg": "",
+
+
+"collection_banner.jpg": "",
+
+
+"page_banner.jpg": "",
+
+
+"appbuyxgety-icon.png": "",
+
+
+"popup_contact_time": "5",
+
+
+"show_icon_mess": true,
+
+
+"messenger_link": "https://m.me/1989716381309217",
+
+
+"1footer_link1_show": true,
+
+
+"1footer_link1_title": "THÔNG TIN DOANH NGHIỆP",
+
+
+"te1": "<p><strong>CÔNG TY TNHH ROSA VALLEY VIỆT NAM</strong><br /><strong>Mã số thuế</strong>: 0107313598<br /><strong>Ngày cấp:</strong> 27/01/2016<br /><strong>Nơi cấp:</strong> Sở KH và ĐT Thành phố Hà Nội.<br /><strong>Địa chỉ:</strong> Thôn Xuân Sen, Xã Xuân Mai, Thành phố Hà Nội.</p>",
+
+
+"title_social_footer": "Thông tin liên hệ",
+
+
+"footer_link2_txt": "",
+
+
+"1footer_info_bct": "http://online.gov.vn/Home/WebDetails/138343",
+
+
+"unuse": "Danh mục blog",
+
+
+"null": "Nhận từ 23 Th11 - 28 Th11, phí giao 0₫",
+
+
+"text_introduce": "",
+
+
+"footer_link4_show": true,
+
+
+"footer_link4_title": "Liên kết",
+
+
+"footer_link4_menu": "fanpage",
+
+
+"show_review": false,
+
+
+"show_solded": false,
+
+
+"slide_5": true,
+
+
+"slideshow_5.jpg": "",
+
+
+"slide_5_link": "/collections/all",
+
+
+"slide_5_alt": "",
+
+
+"slide_6": true,
+
+
+"slideshow_6.jpg": "",
+
+
+"slide_6_link": "/collections/all",
+
+
+"slide_6_alt": "",
+
+
+"slide_7": true,
+
+
+"slideshow_7.jpg": "",
+
+
+"slide_7_link": "/collections/all",
+
+
+"slide_7_alt": "",
+
+
+"slide_8": true,
+
+
+"slideshow_8.jpg": "",
+
+
+"slide_8_link": "/collections/all",
+
+
+"slide_8_alt": "",
+
+
+"slide_9": true,
+
+
+"slideshow_9.jpg": "",
+
+
+"slide_9_link": "/collections/all",
+
+
+"slide_9_alt": ""
+
+},
+
+"presets": {}
+}

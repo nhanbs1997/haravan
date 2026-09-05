@@ -1,0 +1,97 @@
+<div class="site-nav-container-last">
+	<p class="title">Menu</p>
+	<div class="main-navbar">
+		<nav class="primary-menu">
+			<ul class="menu-collection">	
+				{% for link1 in linklists[settings.mainmenu_link].links %}
+				{% if linklists[link1.handle].links == empty %}				
+				<li class="navi1"><a href="{{link1.url}}"><span>{{link1.title}}</span></a></li>
+				{% else %}
+				<li class="navi1 has-sub level0">
+					<a href="{{ link1.url }}">{{ link1.title }}</a>
+					<span class="icon-subnav"><i class="fa fa-angle-down"></i></span>
+					<ul class=" submenu subnav-children">
+						{% for link2 in linklists[link1.handle].links %}
+						{% if linklists[link2.handle].links == empty %}
+						<li class="navi2"><a href="{{ link2.url }}">{{ link2.title }}</a></li>
+						{% else %}
+						<li class="navi2 has-sub level1">
+							<a href="{{ link2.url }}">{{ link2.title }}</a>
+							<span class="icon-subnav"><i class="fa fa-angle-down"></i></span>
+							<ul class="submenu subnav-child" >
+								{% for link3 in linklists[link2.handle].links %}						
+								<li class=""><a href="{{ link3.url }}">{{ link3.title }}</a></li>
+								{% endfor %}
+							</ul>
+						</li>
+						{% endif %}
+						{% endfor %}
+					</ul>
+				</li>
+				{% endif %}
+				{% endfor%}
+			</ul>
+			<ul class="menu-about">
+				{% for childlink in linklists[settings.childrenmenu__link].links %}
+				<li><a  href="{{childlink.url}}"><span>{{childlink.title}}</span></a></li>		
+				{% endfor %}
+				{% if shop.customer_accounts_enabled or shop.customer_accounts_optional %}
+				{% if customer  %}
+				<li class="login">
+					<a href="/account" title="Tài khoản">
+						<span>
+							<svg class="svg-account" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="510px" height="510px" viewBox="0 0 510 510" style="enable-background:new 0 0 510 510;" xml:space="preserve">
+								<g><g id="account-circle">
+									<path d="M255,0C114.75,0,0,114.75,0,255s114.75,255,255,255s255-114.75,255-255S395.25,0,255,0z M255,76.5
+													 c43.35,0,76.5,33.15,76.5,76.5s-33.15,76.5-76.5,76.5c-43.35,0-76.5-33.15-76.5-76.5S211.65,76.5,255,76.5z M255,438.6
+													 c-63.75,0-119.85-33.149-153-81.6c0-51,102-79.05,153-79.05S408,306,408,357C374.85,405.45,318.75,438.6,255,438.6z"></path>
+									</g></g>
+							</svg>
+						</span> 
+						<span>Tài khoản của bạn</span>
+					</a>
+				</li>
+				{% else %}
+				{% if shop.customer_accounts_optional %}
+				<li class="login">
+					<a  href="/account/login">
+						<span>
+							<svg class="svg-account" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="510px" height="510px" viewBox="0 0 510 510" style="enable-background:new 0 0 510 510;" xml:space="preserve">
+								<g><g id="account-circle">
+									<path d="M255,0C114.75,0,0,114.75,0,255s114.75,255,255,255s255-114.75,255-255S395.25,0,255,0z M255,76.5
+													 c43.35,0,76.5,33.15,76.5,76.5s-33.15,76.5-76.5,76.5c-43.35,0-76.5-33.15-76.5-76.5S211.65,76.5,255,76.5z M255,438.6
+													 c-63.75,0-119.85-33.149-153-81.6c0-51,102-79.05,153-79.05S408,306,408,357C374.85,405.45,318.75,438.6,255,438.6z"></path>
+									</g></g>
+							</svg>
+						</span>
+						<span>Đăng nhập</span>
+					</a>
+				</li>
+				{%else%}
+				<li class="login">
+					<a  href="/account/login">
+						<span>
+							<svg class="svg-account" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="510px" height="510px" viewBox="0 0 510 510" style="enable-background:new 0 0 510 510;" xml:space="preserve">
+								<g><g id="account-circle">
+									<path d="M255,0C114.75,0,0,114.75,0,255s114.75,255,255,255s255-114.75,255-255S395.25,0,255,0z M255,76.5
+													 c43.35,0,76.5,33.15,76.5,76.5s-33.15,76.5-76.5,76.5c-43.35,0-76.5-33.15-76.5-76.5S211.65,76.5,255,76.5z M255,438.6
+													 c-63.75,0-119.85-33.149-153-81.6c0-51,102-79.05,153-79.05S408,306,408,357C374.85,405.45,318.75,438.6,255,438.6z"></path>
+									</g></g>
+							</svg>
+						</span>
+						<span>Đăng nhập</span>
+					</a>
+				</li>
+				{% endif %}
+				{% endif %}
+				{% endif %}
+			</ul>
+		</nav>
+	</div>
+	<div class="to-bottom-content">
+		<div class="site-copyright">
+			<p class="copy">Copyright &copy; {{ "now" | date: "%Y" }} <a href="{{shop.url}}">{{shop.name}}</a></p>
+			<p class="powered">{{ powered_by_link }}</p>
+		</div>
+	</div>
+</div>

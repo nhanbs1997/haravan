@@ -1,0 +1,34 @@
+{% assign listproduct = '' %}
+{% for tag in product.tags %}
+{% if tag contains '_danhmuc_' %}
+{% assign listproduct = tag | split: '_danhmuc_' | first | handleize%}
+{% endif %}
+{% endfor %}
+{%if collections[listproduct].products.size > 0%}
+<div class="list_pr_tag mb-2">
+	<div class="b_pr d-flex flex-wrap gap_8">
+		{% assign currenturl = canonical_url | remove: shop.domain | remove: 'https:' | remove: '/' | remove: 'products'%}
+		{% for product in collections[listproduct].products %}
+		{% for tag in product.tags %}
+		{% if tag contains '_danhmuc_' %}
+		{% assign nameproduct = tag | split: '_danhmuc_' | last %}
+		{% endif %}
+		{% endfor %}
+		<div class="item {%if currenturl == product.handle%}active{%endif%}">
+			<a href="{{product.url}}" title="{{nameproduct | default: product.title}}" class="d-block rounded-10 text-center small font-weight-bold p-2 h-100">
+				<p class="tit_pr m-0">
+					<i class="ratio"></i>{{nameproduct | default: product.title}}
+				</p>
+				<p class="price_pr m-0">
+					{%if product.variants[0].price != 0%}
+					{{ product.variants[0].price | money }} 
+					{%else%}
+					{{settings.noPrice}}
+					{%endif%}
+				</p>
+			</a>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{%endif%}

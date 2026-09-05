@@ -1,0 +1,25 @@
+{%-layout none-%}
+{%-if cart.item_count != 0 -%}		
+  {%-for item in cart.items-%}
+  <div class="d-flex cart__basket__item product mb-3 mb-lg-4 ux-card position-relative clearfix">
+    <img src="{{item.image | product_img_url: 'medium'}}" class="position-absolute" alt="{{item.title}}">
+    <div class="col-12 d-flex p-0">
+    <p class="item-title clearfix mb-0 mb-md-2">
+      <a href="{{item.url}}" title="{{item.title}}" class="font-weight-bold">{{item.title}}</a>
+      {%-if item.variant.title != 'Default Title'-%}
+      <span class="d-block">{{item.variant.title}}</span>
+      {%-endif-%}
+    </p>
+    </div>
+    <div class="align-items-center b_ac d-flex flex-wrap justify-content-between mt-2 w-100">
+    <div class="js-number-input number-input rounded {%unless item.price > 0%}d-none{%else%}d-inline-flex{%endunless%}">
+      <button class="position-relative m-0 p-0 step-down-qty js-step-qty text-main2 rounded-circle"></button>
+      <input class="text-center font-weight-bold text-main2" readonly="" min="1" name="Lines" value="{{item.quantity}}" size="2" type="number" data-variantid="{{item.variant_id}}" data-price="{{item.price}}" line="{{forloop.index}}">
+      <button class="position-relative m-0 p-0 step-up-qty js-step-qty plus text-main2 rounded-circle"></button>
+    </div>
+    <span class="price font-weight-bold text-right clearfix text-main2">{%if item.price > 0%}{{item.price | times: item.quantity | money}}{%else%}Miễn phí{%endif%}</span>
+    </div>
+    <button class="btn text-main remove ml-auto js-remove-item-cart position-absolute rounded-circle font-weight-bold" title="Xoá" data-variantid="{{item.variant_id}}">Xoá</button>
+  </div>
+  {%-endfor-%}
+{%-endif-%}

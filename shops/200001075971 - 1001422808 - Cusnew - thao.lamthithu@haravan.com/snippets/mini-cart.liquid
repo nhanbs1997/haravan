@@ -1,0 +1,81 @@
+<div class="header_dropdown_content site_cart">
+	<span class="box-triangle">
+		<svg viewBox="0 0 20 9">
+			<path d="M.47108938 9c.2694725-.26871321.57077721-.56867841.90388257-.89986354C3.12384116 6.36134886 5.74788116 3.76338565 9.2467995.30653888c.4145057-.4095171 1.0844277-.40860098 1.4977971.00205122L19.4935156 9H.47108938z" fill="#ffffff"></path>
+		</svg>
+	</span>
+	<div class="site-nav-container">
+		<p class="titlebox">Giỏ hàng</p>
+		<div class="cart-view clearfix">
+			<table id="clone-item-cart" class="table-clone-cart">
+				<tr class="list-item hidden">
+					<td class="img"><a href="" title=""><img src="" alt="" /></a></td>
+					<td class="item">
+						<a class="pro-title-view" href="" title=""></a>
+						<span class="variant"></span>	
+						<span class="pro-quantity-view"></span>
+						<span class="pro-price-view"></span>
+						<span class="remove_link remove-cart"></span>						
+					</td>
+				</tr>   
+			</table>
+			<div class="cart-scroll">
+				<table id="cart-view">
+					{% if cart.item_count > 0 %}
+					{% for item in cart.items %}
+					<tr class="list-item">
+						<td class="img">
+							<a href="{{ item.product.url }}">
+								<img src="{% if item.variant.image == empty %} {{ item | img_url: 'small' }} {% else%} {{ item.variant.image | product_img_url : 'small'}}  {% endif %}" alt="{{ item.title }}" />
+							</a>
+						</td>
+						<td class="item">
+							<a class="pro-title-view" href="{{ item.product.url }}" title="{{ item.title }}">{{ item.title }}</a>
+							<span class="variant">
+								{% unless item.variant.title contains 'Default Title' %}
+								{{ item.variant.title }}
+								{% endunless %}		
+							</span>	
+							<span class="pro-quantity-view">{{ item.quantity }}</span>
+							<span class="pro-price-view">{{ item.price | money }}</span>
+							<span class="remove_link remove-cart">
+								<a href='javascript:void(0);' onclick='deleteCart({{forloop.index}})' ><i class='fa fa-times'></i></a>
+							</span>				
+						</td>
+					</tr>
+					{% endfor %}
+					{% else %}
+					<tr>
+						<td class="mini_cart_header">
+							<svg width="81" height="70" viewBox="0 0 81 70">
+								<g transform="translate(0 2)" stroke-width="4" stroke="#90cdde" fill="none" fill-rule="evenodd">
+									<circle stroke-linecap="square" cx="34" cy="60" r="6"></circle>
+									<circle stroke-linecap="square" cx="67" cy="60" r="6"></circle>
+									<path d="M22.9360352 15h54.8070373l-4.3391876 30H30.3387146L19.6676025 0H.99560547"></path>
+								</g>
+							</svg>
+							<p>Hiện chưa có sản phẩm</p>
+						</td>								
+					</tr>
+					{% endif %}
+				</table>
+			</div>
+			<span class="line"></span>
+			<table class="table-total">
+				<tr>
+					<td class="text-left">TỔNG TIỀN:</td>
+					<td class="text-right" id="total-view-cart">{{cart.total_price | money}}</td>
+				</tr>
+				<tr class="btn-linktocart">
+					<td><a href="/cart" class="linktocart button dark">Xem giỏ hàng</a></td>
+					<td><a href="/checkout" class="linktocheckout button dark">Thanh toán</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+
+

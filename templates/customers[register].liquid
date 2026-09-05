@@ -1,0 +1,71 @@
+{%- include 'breadcrumb' -%}
+<section class="acc_layout my-3">
+	<div class='container'>
+    <div class="row">
+        <div class="col-12 col-lg-8">
+          <div class="box_log position-relative registered-users">
+            {%- form 'create_customer' -%}
+            <h2 class="page_title mb-3">{{settings.register_title}}</h2>
+            <div class="form-signup text-danger mb-2 " >
+              {{ form.errors | default_errors }}
+            </div>
+            <div class='row'>
+              <div class='col-lg-6'>
+                <div class="form-group">
+                  <label for="firstName" class="font-weight-bold d-none">{{settings.register_firstname}}<span class="text-danger">*</span></label>
+                  <input type="text" placeholder="Nhập {{settings.register_firstname}}" class="mew-control rounded-10 border border-main" name="customer[first_name]" required>
+                </div>
+              </div>
+              <div class='col-lg-6'>
+                <div class="form-group">
+                  <label for="lastName" class="font-weight-bold  d-none">{{settings.register_lastname}}<span class="text-danger">*</span></label>
+                  <input type="text" placeholder="Nhập {{settings.register_lastname}}" class="mew-control rounded-10 border border-main" name="customer[last_name]" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="Phone" class="d-none">{{settings.register_phone}}<span class="text-danger">*</span></label>
+              <input type="text" placeholder="{{settings.register_phone}}" pattern="\d+" class="mew-control rounded-10 border border-main" name="customer[phone]" required>
+            </div>
+            <div class="form-group">
+              <label for="dob" class="d-none">{{settings.register_birthday}}</label>
+              <input type="date" placeholder="YYYY-MM-DD" class="mew-control rounded-10 border border-main" name="customer[birthday]">
+            </div>
+            <div class="form-group">
+              <label for="Type" class="d-none col-form-label">Khách hàng</label>
+              <select class="ui-select mew-control rounded-10 border border-main bg-white" name="customer[tags]">
+                <option selected="selected" value="Khách hàng lẻ">Khách hàng lẻ</option>
+                <option value="Khách hàng đại lý">Khách hàng đại lý</option>
+              </select>
+            </div> 
+            
+            <div class="form-group">
+              <label for="Gender" class="d-none col-form-label">{{settings.register_gender}}</label>
+              <select class="ui-select mew-control rounded-10 border border-main bg-white" name="customer[gender]">
+                <option selected="selected" value="male">{{settings.register_gender_male}}</option>
+                <option value="female">{{settings.register_gender_female}}</option>
+                <option value="other">{{settings.register_gender_other}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="email" class="d-none">{{settings.register_mail}}<span class="text-danger">*</span></label>
+              <input type="email" placeholder="Nhập {{settings.register_mail}}" class="mew-control rounded-10 border border-main" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="customer[email]" required>
+            </div>
+            <div class="form-group">
+              <label for="create_password" class="d-none">{{settings.register_pass}}<span class="text-danger">*</span></label>
+              <input type="password" placeholder="Nhập {{settings.register_pass}}" class="mew-control rounded-10 border border-main" name="customer[password]" required>
+            </div>
+            <div class="form-group mb-2">
+              <button type="submit" class="btn_login btn btn-primary mew-control font-weight-bold mb-3 rounded-10">{{settings.register_text}}</button>
+            </div>
+            {%- endform -%} 
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <h3 class="page_title mb-3">{{settings.login_text}}</h3>
+          <p class="border border-main line_cus p-3 rounded-10 text-center  text-center">{{settings.login_content}}</p>
+          <a href="/account/login" title="{{settings.login_text}}" class="btn btn-primary border-mew mew-control font-weight-bold mb-2">{{settings.login_text}}</a>
+        </div>
+      </div>
+	</div>
+</section>

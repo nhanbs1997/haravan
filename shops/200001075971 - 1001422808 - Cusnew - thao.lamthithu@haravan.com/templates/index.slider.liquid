@@ -1,0 +1,183 @@
+<h1 class="hidden">{{shop.name}}</h1>
+{% include'home-slider' %}
+<!-- Nhóm 1 -->
+{% if settings.use_collection_one_products %}
+<section class="section section-collection">
+	<div class="wrapper-heading-home animation-tran text-center">
+		<div class="container-fluid">
+			<div class="site-animation">
+				<h2>
+					<a href="{{collections[settings.collection_one].url}}">
+						{% if settings.heading_collection_one  == '' %}
+						{{collections[settings.collection_one].title}}
+						{% else %}
+						{{settings.heading_collection_one}}
+						{% endif %}
+					</a>
+				</h2>
+			</div>
+		</div>
+	</div>
+	<div class="wrapper-collection-1" >
+
+		{%if collections[settings.collection_one].products.size > 0%}
+
+		{%if collections[settings.collection_one].products.size > 2%}
+		<div class="container-fluid" >
+			<div class="clearfix content-product-list" id="collection-slide">
+				{% assign collection_one_size = 10 %}
+				{% for product in collections[settings.collection_one].products limit: collection_one_size %}
+				<div class="pro-loop animation-tran" >
+					{% include 'product-loop' with collection.handle %}
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% elseif collections[settings.collection_one].products.size > 1 %}		
+		<div class="container-fluid" >
+			<div class="row collection-special-two">
+				{% for product in collections[settings.collection_one].products limit: 2 %}
+				<div class="col-md-6 col-sm-12 col-xs-12">
+					{% include 'product-loop-special' with collection.handle %}
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% else %}
+		<div class="container">
+			<div class="collection-special-one">
+				{% for product in collections[settings.collection_one].products limit: 1 %}
+				{% include 'product-loop-special' with collection.handle %}
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+		{% else %}
+		<div class="container-fluid" >
+			<div class="clearfix content-product-list" id="collection-slide">
+				{% include 'no-owl-product-loop' %}
+			</div>
+		</div>
+		{% endif %}
+
+	</div>
+</section>
+{% endif %}
+{% if settings.show_block_home_category %} 
+<div class="wrapper-home-banner animation-tran" >
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4 col-md-4 home-banner-pd site-animation">
+				<div class="block-banner-category"> 
+					<a  class="link-banner" href="{{settings.block_home_category1_link}}">
+						<img class="" src="{{ settings.block_home_category1 }}"  alt="{{settings.block_home_category1_alt }}">
+					</a>		
+					<div class="caption_banner">
+						<span class="subtitle">{{settings.block_home_category1_subtitle}}</span>
+						<h3>{{settings.block_home_category1_title}}</h3>
+						{% if settings.block_home_category1_button > 0 %}
+						<a class="button" href="{{settings.block_home_category1_link}}">{{settings.block_home_category1_button}}</a>
+						{% endif %}					
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 home-banner-pd site-animation">
+				<div class="block-banner-category"> 
+					<a  class="link-banner" href="{{settings.block_home_category2_link}}">
+						<img class="" src="{{ settings.block_home_category2 }}"  alt="{{settings.block_home_category2_alt }}">
+					</a>		
+					<div class="caption_banner">
+						<span class="subtitle">{{settings.block_home_category2_subtitle}}</span>
+						<h3>{{settings.block_home_category2_title}}</h3>
+						{% if settings.block_home_category2_button > 0 %}
+						<a class="button" href="{{settings.block_home_category2_link}}">{{settings.block_home_category2_button}}</a>
+						{% endif %}					
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 home-banner-pd site-animation">
+				<div class="block-banner-category"> 
+					<a  class="link-banner" href="{{settings.block_home_category3_link}}">
+						<img class="" src="{{ settings.block_home_category3 }}"  alt="{{settings.block_home_category3_alt }}">
+					</a>		
+					<div class="caption_banner">
+						<span class="subtitle">{{settings.block_home_category3_subtitle}}</span>
+						<h3>{{settings.block_home_category3_title}}</h3>
+						{% if settings.block_home_category3_button > 0 %}
+						<a class="button" href="{{settings.block_home_category3_link}}">{{settings.block_home_category3_button}}</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+<!-- Nhóm 2 -->
+{% if settings.use_collection_two_products %}
+<section class="section section-collection">
+	<div class="wrapper-heading-home animation-tran text-center">
+		<div class="container-fluid">
+			<div class="site-animation">
+				<h2>
+					<a href="{{collections[settings.collection_two].url}}">
+						{% if settings.heading_collection_two  == '' %}
+						{{collections[settings.collection_two].title}}
+						{% else %}
+						{{settings.heading_collection_two}}
+						{% endif %}
+					</a>
+				</h2>
+			</div>
+		</div>
+	</div>
+	<div class="wrapper-collection-2" >
+		{% assign collection_two_size = 10 %}
+		{%if collections[settings.collection_two].products.size > 0%}
+
+		{%if collections[settings.collection_two].products.size > 2%}
+		<div class="container-fluid" >
+			<div class="row">
+				<div class="clearfix content-product-list ">
+					{% for product in collections[settings.collection_two].products limit: collection_two_size %}
+					<div class="col-md-3 col-sm-6 col-xs-6 pro-loop animation-tran">
+						{% include 'product-loop' with collection.handle %}
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% elseif collections[settings.collection_two].products.size > 1 %}		
+		<div class="container-fluid" >
+			<div class="row collection-special-two">
+				{% for product in collections[settings.collection_two].products limit: 2 %}
+				<div class="col-md-6 col-sm-12 col-xs-12">
+					{% include 'product-loop-special' with collection.handle %}
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% else %}
+		<div class="container">
+			<div class="collection-special-one">
+				{% for product in collections[settings.collection_two].products limit: 1 %}
+				{% include 'product-loop-special' with collection.handle %}
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+		{% else %}
+		<div class="container-fluid" >
+			<div class="row" >
+				{% include 'no-product-loop' %}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</section>
+{% endif %}
+
+
+
+
+

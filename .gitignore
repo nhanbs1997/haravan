@@ -1,0 +1,20 @@
+.haravan-cli_local.json
+
+# Local credentials and machine-only settings
+.env.*.local
+.env.local
+
+# Generated backups, ticket working data and temporary Drive files
+/backups/
+/.ticket-workflow/
+/.qa/
+/.tmp.driveupload/
+/dist/
+shops/**/.haravan-workflow-cache.json
+
+# Local ticket attachments and temporary Word lock files
+~$*.docx
+/yeucau.docx
+/word/
+/evidence-ticket-*.png
+/ticket-*.png

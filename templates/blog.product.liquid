@@ -1,0 +1,13 @@
+{%- layout none -%}
+{%- if blog.articles.size > 0 -%}
+{%- for article in blog.articles limit: 4 -%}
+{%- include 'blog_item_list'-%}
+{%- endfor -%}
+{%-if blog.articles.size > 4-%}
+<a href="" title="{{settings.view_more_blogpr}}" class="font-weight-bold align-items-center d-flex flex-column h-100 justify-content-center mb-0 modal-open p-2 position-relative product-item rounded-10 views_more">
+  <span class="small">{{settings.view_more_blogpr}}</span>
+</a>
+{%-endif-%}
+{%- else -%}
+<p class="alert alert-warning">{{settings.other_updating}}</p>
+{%- endif -%}

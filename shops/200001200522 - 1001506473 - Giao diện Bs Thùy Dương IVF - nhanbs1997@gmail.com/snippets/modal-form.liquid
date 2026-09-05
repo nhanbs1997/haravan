@@ -1,0 +1,67 @@
+<div class="modal fade modal-form-booking" id="modal-booking" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title hrv-cf-index_form_title" setting-id="index_form_title" setting-type="text">{{settings.index_form_title}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 50 50">
+							<path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z"></path>
+						</svg>
+					</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				{%if settings.index_form_content != ''%}<p class="modal-desc hrv-cf-index_form_content" setting-id="index_form_content" setting-type="textarea">{{settings.index_form_content}}</p>{%endif%}
+				<div class="modal-time">
+					<div class="title hrv-cf-index_form_time" setting-id="index_form_time" setting-type="text">{{settings.index_form_time}}</div>
+					<div class="time"></div>
+				</div>
+				<div class="form-booking">
+					<form id="formbooking-index" action="{{settings.index_gg_link_form}}" data-shop="{{shop.name}}" data-form="{{settings.index_form_booking_option}}" data-harasocial="{{settings.index_harasocial_link}}" data-success="{{ settings.index_form_success | newline_to_br}}">
+						<div class="contact-form">
+							<div class="row">
+								<div class="col-form col-12">
+									<div class="input-group">
+										<input required type="text" name="{{settings.index_gg_name}}" id="full_name"
+													 data-valid="full_name" class="form-control" placeholder="{{settings.index_form_name}}"
+													 aria-describedby="basic-addon1">
+									</div>
+									<p class="full_name-validation field-error"></p>
+								</div>
+								<div class="col-form col-12">
+									<div class="input-group">
+										<input pattern="[0-9]{10,12}" required type="text" name="{{settings.index_gg_phone}}"
+													 id="your_phone" data-valid="your_phone" class="form-control"
+													 placeholder="{{settings.index_form_phone}}" aria-describedby="basic-addon1">
+									</div>
+									<p class="your_phone-validation field-error"></p>
+								</div>
+								<div class="col-form col-12">
+									<div class="input-group">
+										<input required type="text" name="{{settings.index_gg_email}}" id="your_email"
+													 data-valid="your_email" class="form-control" placeholder="{{settings.index_form_email}}"
+													 aria-describedby="basic-addon1">
+									</div>
+									<p class="your_email-validation field-error"></p>
+								</div>
+								<div class="col-form col-12">
+									<div class="input-group">
+										<textarea class="form-control" placeholder="{{settings.index_form_desc}}" id="your_content"
+															name="{{settings.index_gg_desc}}"></textarea>
+									</div>
+								</div>
+								<div class="col-form col-12">
+									<input type="hidden" name="{{settings.index_gg_time}}" id="your_time" placeholder="{{settings.index_form_time}}" value="" />
+									<button type="button" id="btn-booking-send" class="button btn-send hrv-cf-index_form_booking" setting-id="index_form_booking" setting-type="text" setting-bg-id="index_form_booking">
+										{{settings.index_form_booking}}
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

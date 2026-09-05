@@ -1,0 +1,67 @@
+<div class="sitenav-wrapper sitenav-right sitenav-notify">
+	<div class="sitenav-inner">
+		<div class="sitenav-header">
+			<p class="sitenav-header__title">Thông báo</p>
+			<a name="button-close" class="sitenav-header__btn btn-sitenav-close">
+				<svg viewBox="0 0 19 19" role="presentation"><path d="M9.1923882 8.39339828l7.7781745-7.7781746 1.4142136 1.41421357-7.7781746 7.77817459 7.7781746 7.77817456L16.9705627 19l-7.7781745-7.7781746L1.41421356 19 0 17.5857864l7.7781746-7.77817456L0 2.02943725 1.41421356.61522369 9.1923882 8.39339828z" fill-rule="evenodd"></path></svg>
+			</a>
+		</div>
+		<div class="sitenav-content">
+			<div class="notify-content">
+				<div class="list-notify">
+					{%- assign date_atc = '' -%}
+					{%- assign count_atc = 0 -%}
+					{%- if settings.notify_date_start != blank and settings.notify_date_end != blank -%}
+						{%- assign date_start = settings.notify_date_start | date: '%s' -%}
+						{%- assign date_end = settings.notify_date_end | date: '%s' -%}
+					
+						{%- for article in blogs.all.articles -%}
+						{%- assign date_atc = article.published_at | date: '%s' -%}
+						{%- if date_atc >= date_start and date_end >= date_atc -%}
+						{%- assign count_atc = count_atc | plus: 1 -%}
+						<article class="article-item {%if count_atc > settings.notify_limit %}d-none{%endif%}">
+							<div class="article-item__block">
+								<div class="article-item__detail">
+									<h3 class="art-title"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+									<div class="art-meta">
+										<span class="art-date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d/%m/%Y' }}</time></span>
+										<span class="art-link"><a href="{{ article.url }}">Xem chi tiết</a></span>
+									</div>	
+								</div>
+							</div>
+						</article>
+						{% endif %}
+						{%-endfor-%}
+					{%- else -%}
+						{%- comment -%}Lấy 5 bài viết gần nhất{%- endcomment -%}
+					
+						{%- for article in blogs.all.articles limit: 5 -%}
+						{%- assign count_atc = count_atc | plus: 1 -%}
+						<article class="article-item {%if count_atc > settings.notify_limit %}d-none{%endif%}">
+							<div class="article-item__block">
+								<div class="article-item__detail">
+									<h3 class="art-title"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+									<div class="art-meta">
+										<span class="art-date"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d/%m/%Y' }}</time></span>
+										<span class="art-link"><a href="{{ article.url }}">Xem chi tiết</a></span>
+									</div>	
+								</div>
+							</div>
+						</article>
+						{%-endfor-%}
+					{%- endif -%}
+					{%- if count_atc == 0 -%}
+					<div class="article-item-no">Hiện không có thông báo nào.</div>
+					{%- endif -%}
+				</div>
+			</div>
+			{%- if count_atc > settings.notify_limit -%}
+			<div class="more-notify text-center">
+				<a href="/blogs/all">Xem tất cả thông báo</a>
+			</div>
+			{%- endif -%}
+		</div>
+	</div>
+	<div class="sidebar-overlay"></div>
+</div>
+

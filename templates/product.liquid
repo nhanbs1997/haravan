@@ -1,0 +1,272 @@
+{%- include 'setup_price_pr' -%}
+{%- assign variantCount = product.variants | size -%}
+{%- assign productContent = product.description -%}
+{%- assign PromoDes = false -%}
+{%- assign PromotionalDes = productContent | split: "<p>####</p>" -%}
+{%-for content in PromotionalDes-%}
+{%if forloop.index > 1%}
+{%- assign PromoDes = true -%}
+{%endif%}
+{%-endfor-%}
+{%- assign mainContent = productContent | split: "<p>####</p>" | last -%}  
+
+{%- assign videos = '' -%}
+{%- for tag in product.tags -%}
+  {%- if tag contains 'video_' -%}
+    {%- assign videos = tag | split: 'video_' | last -%}
+    {%-break-%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- include 'breadcrumb'-%}
+<section class="product-layout product-layout2 mb-3 mb-lg-4" itemscope itemtype="http://schema.org/Product">
+  {%-include 'schema_product'-%}
+  <div class="container">
+    <div class="row">
+      <div class="product-layout_col-left col-12 col-sm-12 col-md-5 col-lg-5 col-xl-4 mb-3">
+        <div class="position-sticky top_product">
+          <div class="position-relative arrow_main_slide">
+            <div class="product-main-slide swiper-container border rounded-10">
+              <div id="lightgallery" class="swiper-wrapper">
+                {%-if product.images.size < 1-%}
+                <div class="swiper-slide {{image.alt | handleize}}">
+                  <picture class="position-relative d-block aspect ratio1by1 rounded-10 modal-open">
+                    <source media="(min-width: 1200px)" srcset="{{ 'no_image.jpg' | asset_url }}">
+                    <source media="(min-width: 575px)" srcset="{{ 'no_image.jpg' | asset_url }}">
+                    <img src="{{ 'no_image.jpg' | asset_url }}" alt="{{ image.alt | default : product.title}}" class="d-block m-auto img position-absolute img-contain gradient-load"/>
+                  </picture>
+                </div>
+                {%-else-%}
+                {%-for image in product.images-%}
+                <div class="swiper-slide {{image.alt | handleize}} pb-3" data-src="{{ image.src }}">
+                  <picture class="position-relative d-block aspect ratio1by1 rounded-10 modal-open">
+                    <source media="(min-width: 1200px)" srcset="{{ image.src }}">
+                    <source media="(min-width: 575px)" srcset="{{ image.src | product_img_url:'large' }}">
+                    <img src="{{ image.src | product_img_url:'large' }}" alt="{{ image.alt | default : product.title}}" class="d-block m-auto img position-absolute img-contain gradient-load" data-zoom-image="{{ image.src }}"/>
+                  </picture>
+                </div>
+                {%-endfor-%}
+                {%-endif-%}
+              </div>
+              {%-if videos != ''-%}
+              <a href="javascript:;" class="position-absolute openvideo bg-white d-flex align-items-center p-2 rounded" data-bs-toggle="modal" data-bs-target="#videoModal" data-video="{{videos}}">
+                <img src="{{'youtube.png' | asset_url}}" class="d-block" width=32 alt="Video" decoding="async" />
+              </a>
+              {%-endif-%}
+            </div>
+            <div class="swiper-button-prev mew_product_main-slide_prev"></div>
+            <div class="swiper-button-next mew_product_main-slide_next"></div>
+          </div>
+          <div class="product-thumb-slide swiper-container mt-2 {%if product.images.size < 2%}d-none{%endif%}">
+            <div class="swiper-wrapper">
+              {%-for image in product.images-%}
+              <div class="swiper-slide rounded-10 m_thumb_pl modal-open crp {{image.alt | handleize}}">
+                <div class="position-relative w-100 m-0 ratio1by1 aspect">
+                  <img src="{{ image.src | product_img_url:'compact' }}" data-img="{{ image.src }}" alt="{{ image.alt | default: product.title}}" class="d-block img position-absolute w-100 h-100">
+                </div>
+              </div>
+              {%-endfor-%}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="product-layout_col-right col-12 col-sm-12 col-md-7 col-lg-7 col-xl-5 product-warp mb-3">
+        {%-if product.vendor != null and product.vendor != ''-%}
+        <p class="vendor font-weight-bold mb-0">
+          <span class="text-main">{{product.vendor | default: settings.other_updating}}</span>
+        </p>
+        {%-endif-%}
+        <h1 class="product-name mb-2 d-inline-flex">{{ product.title }}</h1>
+        {%-if settings.product_review-%}
+        <div class="haravan-product-reviews-badge d-flex align-items-center gap_8" data-id="{{ product.id }}">{{ product.metafields.src.product_loop }}</div>
+        {%-endif-%}
+        <ul class="list-unstyled mb-3 position-relative product-info mb-3 mt-3 mt-lg-0">
+          <li class="in_1 font-weight-bold">
+            {{settings.other_status}}:
+            {%- if product.available -%}
+            {%- if product.selected_or_first_available_variant.inventory_management == "" -%}
+            <span class="inventory_quantity text-success font-weight-normal">{{settings.available}}</span>
+            {%- else -%}
+            {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
+            <span class="inventory_quantity text-success font-weight-normal">{{settings.available}}</span>
+            {%- else -%}
+            <span class="inventory_quantity text-success font-weight-normal">{{settings.available}}</span>
+            {%- endif -%}
+            {%- endif -%}
+            {%- else -%}
+            <span class="inventory_quantity text-danger font-weight-normal">{{settings.soldOut}}</span>
+            {%- endif -%}
+          </li>
+          {%-if product.variants[0].sku != null and product.variants[0].sku != ''-%}
+          <li class="in_1 font-weight-bold">
+            {{settings.filter_sku_title}}: 
+            <span id="sku" class="text-dark font-weight-normal">{{product.variants[0].sku | default: settings.other_updating}}</span>
+          </li>
+          {%-endif-%}
+          {%-if product.type != null and product.type != ''-%}
+          <li class="in_1 font-weight-bold">
+            {{settings.filter_type_title}}: 
+            <span id="sku" class="text-dark font-weight-normal">{{product.type | default: settings.other_updating}}</span>
+          </li>
+          {%-endif-%}
+        </ul> 
+        <div class="bg-light price_scroll px-3 py-2 rounded-10 mb-3">
+          <div class="product-price">
+            {%- if variantCount > 1 -%}
+            {%- if contacts == true -%}
+            <span class="special-price font-weight-bold m-0">{{settings.noPrice}}</span>
+            {%- else -%}
+            <span class="special-price font-weight-bold m-0">{{product.selected_or_first_available_variant.price| money }}</span>
+            <del class="old-price ml-2">{{ product.selected_or_first_available_variant.compare_at_price | money }}</del>
+            {%- endif -%}
+            {%- else -%}
+            {%- if contacts == true -%}
+            <span class="special-price font-weight-bold m-0">{{settings.noPrice}}</span>
+            {%- else -%}
+            {%- if product.variants[0].compare_at_price > product.variants[0].price -%}
+            <span class="special-price font-weight-bold m-0">{{ product.variants[0].price  | money }}</span>
+            <del class="old-price ml-2">{{ product.variants[0].compare_at_price | money }}</del>
+            {%- else -%}
+            <span class="special-price font-weight-bold m-0">{{ product.variants[0].price | money }}</span>
+            {%- endif -%}
+            {%- endif -%}
+            {%- endif -%}
+          </div>
+          {%-if contacts == false-%}
+          {%-if on_sale-%}
+          <div class="discount">
+            {{settings.discounts_txt}} <span class="nb_thrifty">{{thrifty | money}}</span>
+            <span class=" text-danger">(-<span class="nb_dis">{{-discount-}}</span>%)</span>
+          </div>
+          {%-endif-%}
+          {%-endif-%}
+        </div>
+        {% include 'm_list_tag_pr' %}
+        <form action="/cart/add" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="productAlias" value="{{ product.url}}" />
+          <div id="o_sw_buy" class="mobile_open_box_swatch mb-3">
+            <div class="d-flex align-items-start flex-column">
+              <div class="product-control w-100">
+                {%-unless product.variants.size <= 1 and product.variants.first.title contains 'Default'-%}
+                {%- if settings.product_swatch_enable and product.variants.size > 0 -%}
+                {%- for option in product.options -%}
+                {%- include 'swatch' with option -%}
+                {%- endfor -%}
+                {%- endif -%}
+                {%-endunless-%}
+                <div class="box-variant clearfix {% if settings.product_swatch_enable and product.variants.size > 0%} d-none {%endif%}">
+                  {%- if variantCount > 1 -%} 
+                  <fieldset class="form-group">
+                    <select id="product-selectors" class="custom-select form-control" name="id" style="display:none">
+                      {%- for variant in product.variants -%}
+                      <option {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %} value="{{ variant.id | esacpe }}">{{ variant.id }} {{ variant.title | esacpe}} - {{ variant.price | money }}</option>
+                      {%- endfor -%}
+                    </select>
+                  </fieldset>
+                  {%- else -%}
+                  <input type="hidden" name="id" value="{{ product.variants[0].id }}" />
+                  {%- endif -%}
+                </div>
+                <div class="buy_scroll">
+                  <div class="product-quantity {% if contacts == true %}d-none{%else%}{%if product.available%}d-flex{%else%}d-none{%endif%}{%endif%} align-items-center mb-3">
+                    <header class="mr-3">{{settings.product_quantity}}</header>
+                    <div class="custom-btn-number form-inline border-0">	
+                      <button class="mr-2 border rounded-10 justify-content-center align-items-center d-flex bg-white" onClick="var result = document.getElementById('qtym'); var qtypro = result.value; if( !isNaN( qtypro ) &amp;&amp; qtypro &gt; 1 ) result.value--;return false;" type="button">
+                        <svg width="12" height="12">
+                          <use href="#svg-minus" />
+                        </svg>
+                      </button>
+                      <button class="mr-2 border rounded-10 justify-content-center align-items-center d-flex bg-white" onClick="var result = document.getElementById('qtym'); var qtypro = result.value; if( !isNaN( qtypro )) result.value++;return false;" type="button">
+                        <svg width="14" height="14">
+                          <use href="#svg-plus" />
+                        </svg>
+                      </button>
+                      <input type="number"  name="quantity" min="1" value="1" class="border rounded-10 text-center form-control prd_quantity" id="qtym">
+                      </div>	
+                  </div>
+                  <div class="active_buy mb-2 d-flex gap_8 mxs_100">
+                    <button type="button" class=" btn {%if contacts%}d-none{%else%}{%if product.available%}d-flex{%else%}d-none{%endif%}{%endif%} w-100 justify-content-center flex-column align-items-center rounded-10 pt-2 pb-2 product-action_buynow js-buynow modal-open position-relative text-white">
+                      <span class="text-uppercase font-weight-bold">{{settings.buyNow}}</span>
+                      <small>{{settings.sup_buyNow}}</small>
+                    </button>
+                    <button type="button" class=" btn {%if contacts%}d-none{%else%}{%if product.available%}d-flex{%else%}d-none{%endif%}{%endif%} justify-content-center flex-column align-items-center rounded-10 p-2 product-action_buy js-addToCart modal-open font-weight-bold position-relative">
+                      <svg width="20" height="20">
+                        <use href="#svg-shopping-cart" />
+                      </svg>
+                      <small class="ml-2 mr-2 button__text">{{settings.addToCart}}</small>
+                    </button>
+                  </div>
+                  <a href="tel:{{settings.support_call}}" title="{{settings.support_tit}}" class="bg-primary bg-primary-contact btn d-block px-2 py-2 rounded-10 text-center text-white">
+                    <p class="mb-0 font-weight-bold text-uppercase">{{settings.support_tit}}</p>
+                    <small>{{settings.support_sum}}</small>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {%if PromoDes == 'true'%}
+          {%-for content in PromotionalDes-%}
+          {%if forloop.index < 2%}
+          <div class="box-promotion mb-3 small">
+            <div class="promo-head font-weight-bold px-3 py-2 special-content_title">{{settings.title_promo}}</div>
+            <div class="promo-content py-3 px-2 p-lg-3">
+              {{content}}
+            </div>
+          </div>
+          {%endif%}
+          {%-endfor-%}
+          {%endif%}
+          {%include 'mew_mobi_bar_product'%}
+        </form>
+        {%-if settings.use_gift and linklists[settings.gift_menu].links.size > 0-%}
+        {%include 'm_gift'%}
+        {%-endif-%}
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-3 product-warp">
+        {%-if settings.ena_follow_check-%}
+        {%include 'box_follow_detail'%}
+        {%-endif-%}
+        {%-if settings.enable_gift_code_pr-%}
+        {%include 'm_coupon'%}
+        {%-endif-%}
+      </div>
+    </div>
+  </div>
+  {%include 'product_description'%}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-lg-9 col-12 mb-3">
+        {%-include 'm_relate_product'-%}
+        {%if settings.enable_product_recents%}
+        <div class="template-product">
+            {%-include 'm_product_recent'-%}
+        </div>
+        {%endif%}
+      </div>
+      <div class="col-md-4 col-lg-3 col-12 mb-3">
+        {%-include 'm_blog_product'-%}
+      </div>
+    </div>
+  </div>
+</section>
+{%-if videos != ''-%}
+<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title fw-bold">Video</h5>
+				<button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<div class="embed-responsive embed-responsive-16by9"></div>
+			</div>
+		</div>
+	</div>
+</div>
+{%-endif-%}
+{%-if settings.use_gift and linklists[settings.gift_menu].links.size > 0-%}
+{%include 'popup_gift'%}
+{%-endif-%}
+<script>
+	var productAlias = '{{product.url}}';
+</script>

@@ -1,0 +1,21 @@
+<div id="home-slider">
+	<div id="homepage_slider" class="owl-carousel owl-theme">
+		{%- for i in (1..9) -%}
+		{%- capture show_slide -%}slide_{{ i }}{%- endcapture -%}
+		{%- capture image -%}slideshow_{{ i }}.jpg{%- endcapture -%}
+		{%- assign setImg =  image | asset_url -%}
+		{%- capture link -%}slide_{{i}}_link{%- endcapture -%}
+		{%- capture alt -%}slide_{{i}}_alt{%- endcapture -%}
+		{%- if settings[show_slide] -%}
+		<div class="item">
+			<a href="{{ settings[link] }}" title="{{ settings[alt] }}">
+				<img alt="{{ settings[alt] | escape }}" src="{{ setImg }}">
+			</a>
+		</div>
+		{% endif %}
+		{% endfor %}
+	</div>  
+</div>
+
+
+

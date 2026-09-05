@@ -1,0 +1,197 @@
+{%- assign number_of_comments = article.comments_count -%}
+{%-assign author = ''-%}
+{%-assign video = ''-%}
+{%-for tag in article.tags -%}
+{%-if tag contains 'author_' -%}
+{%-assign author = tag | split: '_' | last-%}
+{%-endif-%}
+{%-if tag contains 'video_' -%}
+{%-assign video = tag | split: 'video_' | last-%}
+{%-break-%}
+{%-endif-%}
+{% endfor %}
+{%- include 'breadcrumb' -%}
+<section class="col2-right-layout" itemscope  itemtype="http://schema.org/Article">
+	<meta itemprop="mainEntityOfPage" content="{{ article.url }}">
+	<meta itemprop="description" content="{{ article.content | strip_html | remove: '"'}}">
+	<meta itemprop="url" content="{{ shop.url }}{{ article.url }}">
+	<meta itemprop="name" content="{{ article.title }}">
+	<meta itemprop="headline" content="{{ article.title }}">
+	<meta itemprop="image" content="http:{{ article.image.src | img_url: 'grande' }}">
+	<meta itemprop="author" content="{{ article.author }}">
+	<meta itemprop="datePublished" content="{{ article.published_at | date: '%d/%m/%Y' }}">
+	<meta itemprop="dateModified" content="{{ article.created_at | date: '%d/%m/%Y' }}">
+	<div class="d-none" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+		<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+			<img class="hidden" src="{{settings.logo}}" alt="{{shop.title}}"/>
+			<meta itemprop="url" content="{{settings.logo}}">
+			<meta itemprop="width" content="400">
+			<meta itemprop="height" content="60">
+		</div>
+		<meta itemprop="name" content="{{shop.title}}">
+	</div>
+	<div class="main container blogs">
+		<div class="col-main art_container mb-4 mb-lg-5">
+      <div class="row">
+        <article class="blog_entry clearfix col-12 col-lg-9">
+            <h1 class="article-name font-weight-bold my-2">{{article.title | replace: '"', '&quot;'}}</h1>
+            {%-if settings.enable_author_n_time-%}
+            <div class="entry-date">
+              <p class="day mb-3 pt-1">
+                {{settings.tit_author_art}}: <b>{{article.author | default: shop.name}} - {{ article.published_at | date: '%d/%m/%Y' }}</b>
+              </p>
+            </div>
+            {%-endif-%}
+            <div class="image-blog mx-auto mb-3">
+              {%- if article.image != null -%}
+              <a href="{%if video != ''%}javascript:;{%else%}{{ article.url }}{%endif%}" data-video="{{video}}" title="{{ article.title }}" class="rounded-10 effect-ming d-block {%if video != ''%}open_popup{%endif%}">
+                <div class="position-relative w-100 m-0 be_opa modal-open aspect ratio3by2">
+                  <img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{article.image.src}}" class="d-block img position-absolute w-100 h-100 lazy" alt="{{ article.title }}">
+                  {%if video != ''%}
+                  <div class="position-absolute w-100 h-100 video_open lazy_bg" data-video="{{video}}" data-background="url({{'play-button.png'|asset_url}})"></div>
+                  {%endif%}
+                </div>
+              </a>
+              {%- else -%}
+              <a href="{{ article.url }}" title="{{ article.title }}"><img src="{{ 'no_image.jpg' | asset_url }}" alt="{{ article.title }}"> </a>                      
+              {%- endif -%}   
+            </div>
+            {%-if settings.enable_toc_art-%}
+            <div class="table-of-contents w-100 position-relative p-2 p-lg-3 rounded-10 mb-3 d-none">
+              <div class="js-toc" data-toc style="--heightToc: 0px">
+              </div>
+              <a href="javascript:;" class="more_toc btn-expand d-none text-main font-weight-bold" title="{{settings.seemore_text}}">
+                <span class="m1">{{settings.seemore_text}}</span>
+                <span class="m2">{{settings.seeless_text}}</span>
+                <svg width="5" height="10">
+                  <use href="#svg-next-mini"/>
+                </svg>
+              </a>
+            </div>
+            {%-endif-%}
+            <div class="entry-content text-justify rte {%if article.content contains '<h2' or article.content contains '<h3' or article.content contains '<h4'%}article__content js-toc-content{%endif%}" data-content>
+              {%-include 'm_content_art'-%}
+            </div>
+            {%-if settings.enable_tags_art-%}
+            {%include 'mew_tag_article'%}
+            {%-endif-%}
+            {%if author != ''%}
+            <div class="box_arthor pb-3 mb-3 pt-3 mt-2 border-top">
+              {%assign author_handle = author | handleize %}
+              <div class="author_b">
+                <div class="author_info">
+                  <div class="row">
+                    <div class="col-12 col-md-3">
+                      <div class="avata modal-open m-auto">
+                        <a href="{{pages[author_handle].url}}">
+                          {%-include 'blog_image' with pages[author_handle].content, alt: {{pages[author_handle].title}} -%}
+                        </a>
+                      </div>
+                      <div class="name text-center">
+                        <a href="{{pages[author_handle].url}}"  class="titl d-block font-weight-bold mt-2">
+                          {{pages[author_handle].title}}
+                        </a>
+                        <span class="sup">{{settings.blog_author_text}}</span>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                      <div class="cont_au">
+                        <div class="cont text-justify mt-3 line_5 mb-3">
+                          {{pages[author_handle].content | split: "<p>####</p>" | last | strip_html | truncate: 400}}
+                        </div>
+                        <a href="{{pages[author_handle].url}}" title="{{settings.seemore_text}}" class="view_arthor pt-1 pb-1 pl-3 pr-3 d-inline-block border">{{settings.seemore_text}}</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {%endif%}
+            {%- if blog.comments_enabled -%}
+            <div class="border-top pt-3">
+              <div class="comment-content widget_b" id="comments">
+                <div class="comments-wrapper mb-4">
+                  <h3 class="title widget-title mb-3 font-coiny text-main2">{{settings.blog_comment}}</h3>
+                  {%-if number_of_comments > 0-%}
+                  {%-if blog.moderated-%}
+                  <p class="alert alert-warning">{{settings.blog_moderated}}</p>
+                  {%-endif-%}
+                  {%- paginate article.comments by 4 -%}
+                  {%- for comment in article.comments -%}
+                  <div class="media pb-3">
+                    <img class="mr-3 align-self-start rounded-10" width="50" height="50" alt="avatar" src="https://www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}?d=identicon&s=60">
+                    <div class="media-body">
+                      <h5 class="mt-0 mb-0 small font-weight-bold">{{ comment.author }}</h5>
+                      <span class="d-block small font-italic">{{ comment.created_on | date:'dd/MM/yyyy' }}</span>
+                      {{comment.content}}
+                    </div>
+                  </div>
+                  {%- endfor -%}	
+                  {%- if paginate.pages > 1 -%}
+                  {%- include 'paginate-pages' -%}
+                  {%- endif -%}
+                  {%- endpaginate -%}
+                  {%-else-%}
+                  <p class="alert alert-warning">{{settings.blog_no_comment_noti}}</p>
+                  {%-endif-%}
+                </div>
+                <div class="comments-form-wrapper clearfix">
+                  <h3 id="add-comment-title" class="title widget-title mb-3 font-coiny text-main2">
+                    {{settings.blog_write_comment}}
+                  </h3>
+                  {% form "new_comment", article %}
+                    {% if form.posted_successfully? %}
+                    {% if blog.moderated? %}
+                    <p class="alert alert-success">{{settings.blog_moderated}}</p>
+                    {% else %}
+                    <p class="alert alert-success">{{settings.blog_comment_success_noti}}</p>
+                    {% endif %}
+                    {% endif %}
+                    {% if form.errors %}
+                    {%- include 'form-errors-custom' -%}
+                    {% endif %}
+                    <div class="row">
+                      <div class="col-12 col-lg-6">
+                        <div class="form-group mb-10">
+                          <input required type="text" id="comment_author" name="comment[author]" size="40" class="form-control rounded-10" placeholder="{{settings.blog_comment_name | append: ' *'}}" required="required" />
+                        </div>
+                      </div>
+                      <div class="col-12 col-lg-6">
+                        <div class="form-group mb-10">
+                          <input required type="text" id="comment_email" name="comment[email]" size="40" class="form-control rounded-10" placeholder="{{settings.blog_comment_mail | append: ' *'}}" required="required"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group mb-10">												
+                      <textarea id="comment_body" name="comment[body]" cols="40" rows="5" class="form-control rounded-10" placeholder="{{settings.blog_comment_content | append: ' *'}}" required="required">{{form.body}}</textarea>
+                    </div>
+                    {{form.captcha_html}}
+                    <div class="button-set">
+                    <button type="submit" class="book-submit btn btn-primary text-center d-flex align-items-center font-weight-boldt font-weight-bold rounded-pill" id="comment-submit" >{{settings.blog_comment_submit}}</button>
+                    </div>
+                    {% endform %}
+                </div>
+              </div>
+            </div>
+            {%- endif -%}
+          {%- if settings.enable_relate_art -%}
+          {%-include 'm_blog_relate'-%}
+          {%- endif -%}
+        </article>
+        <div class="col-12 col-lg-3">
+          {%include 'm_sidebar_blog'%}
+        </div>
+      </div>
+		</div>
+	</div>
+</section>
+<div class="popup_box position-fixed w-100 h-100 justify-content-center align-items-center d-flex">
+  <div class="position-relative max-100">
+    <a href="javascript:;" class="close_popup position-absolute d-flex justify-content-center align-items-center bg-dark" title="{{settings.tit_close}}">
+		<svg width="18" height="18">
+			<use href="#svg-close"/>
+		</svg>
+    </a>
+    <div class="b_video p-2 p-md-3 bg-white rounded-10 m-auto"></div>
+  </div>
+</div>

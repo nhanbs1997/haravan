@@ -1,0 +1,34 @@
+<section class="product_poli_wrap mb-3 mb-lg-4 bg-white">
+	<div class="container">
+		<div class="mew_poli d-flex b_item flex-unset flex-md-wrap mobi_poli py-2 py-lg-3">
+      {%-for i in (1..8)-%}
+      {%-capture ena_poli-%}ena_poli_{{i}}{%-endcapture-%}
+      {% capture poliimg %}img_poli_{{i}}{% endcapture %}
+      {% assign setPoly = settings[poliimg] %}
+      {%-capture alt_poli-%}alt_poli_{{i}}{%-endcapture-%}
+      {%-capture url_poli-%}url_poli_{{i}}{%-endcapture-%}
+      {% assign cvt_two_1 = forloop.index | modulo: 2 %}
+			{% if cvt_two_1 == 1 %}
+			<div class="row m-0 item_poli">
+			{% endif %}
+        {%-if settings[ena_poli]-%}
+        <div class="col-12 col-lg-6 p-0 mb-2 mb-lg-0">
+          <a href="{{settings[url_poli]}}" title="{{ settings[alt_poli] | default: shop.name}}" class="d-flex align-items-center flex-column">
+            <div class="b_img">
+              <picture class="position-relative w-100 m-0 ratio1by1 d-block aspect">
+                <img src="{{setPoly}}" alt="icon-{{settings[alt_poli]}}" decoding="async">
+              </picture>
+            </div>
+            <div class="tit mt-1 mt-lg-2 text-center px-2 px-sm-3 px-lg-2 px-xl-3"> 
+              {{settings[alt_poli]}}
+            </div>
+          </a>
+        </div>
+        {%-endif-%}
+      {% if cvt_two_1 == 0 or forloop.index == 8 %}
+			</div>
+			{% endif %}
+      {%-endfor-%}
+    </div>
+	</div>
+</section>

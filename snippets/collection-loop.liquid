@@ -1,0 +1,23 @@
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 pro-loop">
+	<div class="product-block product-resize">
+		<!-- Begin product image -->
+		<div class="product-img image-resize view view-third clearfix">
+			<a href="{{ collection.url }}" class="coll-loop-img">
+				{% if collection.image %}
+				<img src="{{ collection.image.src | collection_img_url: 'large' }}" alt="{{ collection.image.alt }}" />
+				{% else %}
+				<img src="{{ collection.products.first.featured_image | product_img_url: 'large' }}" alt="{{ collection.title | escape  }}" />
+				{% endif %}
+			</a>
+		</div>
+		<!-- End product image -->
+		<!-- Begin product description -->
+		<div class="product-detail clearfix">
+			<h3 class="pro-name">
+				<a href="{{ collection.url }}">{{ collection.title }}</a>
+			</h3>
+			<span class="price">{{ collection.all_products_count }} {{ collection.all_products_count | pluralize: 'Sản phẩm', 'Sản phẩm' }}</span>
+		</div>
+		<!-- End product description -->
+	</div>
+</div>

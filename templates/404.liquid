@@ -1,0 +1,26 @@
+{%- include 'breadcrumb' -%}
+<section class="content-wrapper">
+<div class="container mt-3 mb-3">
+      <div class="bg-white p-2 rounded-10 text-center">
+        {%-include 'animation_404'-%}
+        <h2 class="pt-3 font-weight-bold text-danger">{{settings.404_title}}</h2>
+        <h3>{{settings.404_content}}</h3>
+        <div class="cd_back_home text-danger text-center m-auto font-weight-bold">
+          <img src="{{'back.png' | asset_url}}" alt="{{settings.404_back}}">
+          <span>{{settings.404_back}} <span id="countdown-timer"></span></span>
+        </div>
+      </div>
+      <script>
+        var timeleft = 10;
+        var downloadTimer = setInterval(function(){
+          if(timeleft < 2){
+            clearInterval(downloadTimer);
+            window.location.href = '/'
+          }
+          document.getElementById('countdown-timer').innerHTML = timeleft;
+          timeleft -= 1;
+          console.log(timeleft);
+        }, 1000);
+      </script>
+    </div>
+</section>

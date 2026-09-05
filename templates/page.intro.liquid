@@ -1,0 +1,148 @@
+<h1 class="d-none font-weight-bold pt-2 pt-lg-0 mt-0 mb-3 page_name">
+	{{page.title}}
+</h1>
+{%- include 'breadcrumb' -%}
+<div class="page_intro">
+	<div class="container mt-3 mb-3">
+    <div class="col-main page-title">
+    	<div class='intro_block intro_block_3 my-3 mb-lg-5'>
+        <h2 class='title font-weight-bold mb-4'>
+          {{settings.gt_3_title}}
+        </h2>
+        <div class="gt_3_slide swiper-container ">
+          <div class="swiper-wrapper">
+            {%-for i in (1..5)-%}
+            {%-capture ena-%}gt3_ena_{{i}}{%-endcapture-%}
+            {%-capture imggt-%}gt_3_img_{{i}}{%-endcapture-%}
+            {% assign img = settings[imggt] %}
+            {%-capture url-%}gt_3_{{i}}_url{%-endcapture-%}
+            {%-capture title-%}gt_3_{{i}}_title{%-endcapture-%}
+            {%-capture des-%}gt_3_{{i}}_des{%-endcapture-%}
+            {%-if settings[ena]-%}
+            <div class="swiper-slide" >
+              <div class='bg-light item p-2 p-lg-3 rounded-10 h-100'>
+                <a class="imgWrap pt_100 bor-20 img--cover"  href="{{settings[url]}}" title="{{ settings[title]}}">
+                  <picture class="aspect d-block m-0 overflow-hidden position-relative ratio1by1 rounded-10 w-100">
+                    <img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{ img | img_url:'large'}}" class="lazy d-block img img-cover position-absolute" alt="{{settings[title]}}" />
+                  </picture>
+                </a>
+                <h3 class='py-2 mt-2 mb-0'>
+                  {{settings[title]}}
+                </h3>
+                <p class='m-0'>
+                  {{settings[des]}}
+                </p>
+              </div>
+            </div>
+            {%-endif-%}
+            {%-endfor-%}
+          </div>
+          <div class="swiper-button-prev mf_prev"></div>
+          <div class="swiper-button-next mf_next"></div>
+        </div>
+    	</div>
+      <div class="bg-secondary info_prodject mb-3 mb-lg-5 p-3 p-lg-4 rounded-10">
+        <h2 class="font-weight-bold mt-0 mb-3 page_name text-center text-white">
+          {{settings.title_sum_2}}
+        </h2>
+        <div class="summary text-white text-center mb-4 mb-lg-5 text-light">
+          {{settings.sumary_2}}
+        </div>
+        <div id="accordion" class="row position-relative line_middle mb-4">
+          {%-for i in (1..6)-%}
+          {%-capture ena_spch-%}ena_spch_{{i}}{%-endcapture-%}
+          {%-capture img_spch-%}img_spch_{{i}}.png{%-endcapture-%}
+          {%-capture tit_spch-%}tit_spch_{{i}}{%-endcapture-%}
+          {%-capture sum_spch-%}sum_spch_{{i}}{%-endcapture-%}
+          {%-if settings[ena_spch]-%}
+          <div class="col-12 col-md-6 text-white mb-3 pl-5 cir {% cycle "text-md-right pr-md-4 pr-lg-5 cir-block", "text-md-left pl-md-4 pl-lg-5" %}">
+            <div class="font-weight-bold mb-2 p-0">
+              <a class="card-link tit_pr text-white {%if i != 1%}collapsed{%endif%}" data-toggle="collapse" href="#spch_{{i}}">
+                {{settings[tit_spch]}}
+              </a>
+            </div>
+            <div id="spch_{{i}}" class="collapse {%if i == 1%}show{%endif%} d-md-block" data-parent="#accordion">
+              <div class="sum_pr card-body p-0 text-light">
+                {{settings[sum_spch]}}
+              </div>
+            </div>
+          </div>
+          {%-endif-%}
+          {%-endfor-%}
+        </div>
+      </div>
+    	<div class='intro_block intro_block_2 mb-3 my-lg-5'>
+    		<div class='row align-items-center'>
+    				<div class='col-lg-5 left'>
+    					<a class="imgWrap pt_100 bor-20 img--cover " href="{{ settings.gt_1_link }}" title="{{ settings.gt_1_title}}">
+    						<picture class="position-relative w-100 m-0 ratio1by1 d-block aspect">
+    							<img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{settings.gt_1_img | img_url:'grande'}}" class="lazy d-block img img-cover position-absolute" alt="{{ settings.gt_1_title}}">
+                </picture>
+    					</a>
+    				</div>
+    				<div class='col-lg-7 right'>
+    					<div class='info py-3'>
+    						<h2 class='title font-weight-bold mb-2'>
+    							{{settings.gt_1_title}}
+    						</h2>
+    						<p class='des m-0 text-justify'>
+    							{{settings.gt_1_des}}
+    						</p>
+    					</div>
+    				</div>
+    			</div>
+    	</div>
+    	<div class='intro_block mb-3 mb-lg-5'>
+    		<div class='row align-items-center'>
+    				<div class='col-lg-7 left'>
+    					<div class='info py-3'>
+    						<h2 class='title font-weight-bold mb-2'>
+    							{{settings.gt_2_title}}
+    						</h2>
+    						<p class='des m-0 text-justify'>
+    							{{settings.gt_2_des}}
+    						</p>
+    					</div>
+    				</div>
+    				<div class='col-lg-5 right'>
+    					<a class="imgWrap pt_100 bor-20 img--cover" href="{{ settings.gt_2_link }}" title="{{ settings.gt_2_title}}">
+    						<picture class="position-relative w-100 m-0 ratio1by1 d-block aspect">
+    							<img src="{{'placeholder_1x1.png' | asset_url}}" data-src="{{settings.gt_2_img | img_url:'grande'}}" class="lazy d-block img img-cover position-absolute" alt="{{ settings.gt_2_title}}">
+                </picture>
+    					</a>
+    				</div>
+    			</div>
+    	</div>
+    </div>
+  </div>
+</div>
+
+<script>
+	window.addEventListener('DOMContentLoaded', (event) => {
+		var gt_3_slide = new Swiper('.gt_3_slide', {
+			spaceBetween: 40,
+			loop: false,
+			speed: 1000,
+			autoplay: false,
+			slidesPerView: 3,
+			navigation: {
+				nextEl: '.gt_3_slide .mf_next',
+				prevEl: '.gt_3_slide .mf_prev',
+			},
+			breakpoints: {
+				0: {
+					slidesPerView: 1
+				},
+				768: {
+					slidesPerView: 2
+				},
+				992: {
+					slidesPerView: 3
+				},
+				1200: {
+					slidesPerView: 3
+				}
+			}
+		});
+	});
+</script>

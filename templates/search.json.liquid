@@ -1,0 +1,16 @@
+{% layout none %}
+{
+	{%- if search.results.size -%}
+	{%- for item in search.results limit: 8 -%}
+	{%- if item.object_type == 'product' -%}
+		"{{item.id}}": {
+			"title": "{{ item.name | replace:'"',"&quot;" | replace:"'","&apos;"}}",
+			"url": "{{ item.url }}",
+			"thumbnail": "{{ item.featured_image.src | img_url:'small' }}",
+			"price": "{% if item.variants[0].price == 0 %}Liên hệ{%else%}{{ item.variants[0].price | money }}{%endif%}",
+			"compare_at_price": "{% if item.variants[0].compare_at_price != 0 %}{{ item.variants[0].compare_at_price | money }}{%endif%}"
+		}{% unless forloop.last %},{% endunless %}
+	{%- endif -%}
+	{%- endfor -%}
+	{%- endif -%}
+}

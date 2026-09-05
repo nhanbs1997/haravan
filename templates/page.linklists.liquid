@@ -1,0 +1,12 @@
+{%- layout none %}
+{%- capture result %}
+[
+{%- for linklist in linklists %}
+,{
+"label": {{ linklist.title | json }},
+"value": {{ linklist.handle | json }}
+}
+{%- endfor %}
+]
+{%- endcapture %}
+{{ result | remove_first: "," }}

@@ -1,0 +1,41 @@
+<aside class="aside-item filter-price mb-3 col-12 col-sm-6 col-lg-12">
+	<div class="h2 title-head m-0 pt-2 pb-2 font-weight-bold text-main">{{settings.filter_price_title}}</div>
+	<div class="aside-content filter-group">
+		<ul class="ft_price list-unstyled m-0">
+			{%- assign tags = settings.filter_price_node | split: ';' -%} 
+			{%- for t in tags -%}
+			{%- assign tag = t | strip -%}
+			{%- assign tag_value = tag | handleize -%}
+			{%- if forloop.index == 1-%}
+			<li class="filter-item filter-item--check-box ">
+				<label class="d-flex align-items-baseline py-1 m-0" for="filter-price-{{settings.filter_price_under | handleize}}-{{tag | handleize }}">
+					<input type="checkbox" id="filter-price-{{settings.filter_price_under | handleize}}-{{tag | handleize }}" class="d-none" onchange="toggleFilter(this);" data-group="khoanggia" data-field="price_min" value="(price:product<={{ tag | replace: '.' | replace: 'đ' }})" data-operator="OR">
+					<i class="fa position-relative mr-2"></i> {{settings.filter_price_under}} {{tag}}
+				</label>
+			</li>
+			{%- elsif forloop.index == forloop.length-%}
+			<li class="filter-item filter-item--check-box ">
+				<label class="d-flex align-items-baseline py-1 m-0" for="filter-price-{{ tagold | handleize }}-{{ tag | handleize }}">
+					<input type="checkbox" id="filter-price-{{ tagold | handleize }}-{{ tag | handleize }}" class="d-none" onchange="toggleFilter(this)" data-group="khoanggia" data-field="price_min" value="(price:product>={{ tagold | replace: '.' | replace: 'đ' }})&&(price:product<{{ tag | replace: '.' | replace: 'đ' | plus: 1}})" data-operator="OR">
+					<i class="fa position-relative mr-2"></i> {{tagold}} - {{tag}}							
+				</label>
+			</li>	
+			<li class="filter-item filter-item--check-box ">
+				<label class="d-flex align-items-baseline py-1 m-0" for="filter-price-{{ settings.filter_price_upper | handleize }}-{{ tag | handleize }}">
+					<input type="checkbox" id="filter-price-{{ settings.filter_price_upper | handleize }}-{{ tag | handleize }}" class="d-none" onchange="toggleFilter(this)" data-group="khoanggia" data-field="price_min" value="(price:product>={{ tag | replace: '.' | replace: 'đ' }})" data-operator="OR">
+					<i class="fa position-relative mr-2"></i> {{settings.filter_price_upper}} {{tag}}
+				</label>
+			</li>
+			{%- else-%}
+			<li class="filter-item filter-item--check-box ">
+				<label class="d-flex align-items-baseline py-1 m-0" for="filter-price-{{ tagold | handleize }}-{{ tag | handleize }}">
+					<input type="checkbox" id="filter-price-{{ tagold | handleize }}-{{ tag | handleize }}" class="d-none" onchange="toggleFilter(this)" data-group="khoanggia" data-field="price_min" value="(price:product>={{ tagold | replace: '.' | replace: 'đ' }})&&(price:product<{{ tag | replace: '.' | replace: 'đ' | plus: 1}})" data-operator="OR">
+					<i class="fa position-relative mr-2"></i> {{tagold}} - {{tag}}							
+				</label>
+			</li>	
+			{%- endif-%}											
+			{%- assign tagold = tag -%}
+			{%- endfor-%}								
+		</ul>
+	</div>
+</aside>

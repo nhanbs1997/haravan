@@ -1,0 +1,171 @@
+<h1 class="hidden">{{shop.name}}</h1>
+{% if settings.use_category %}
+<div class="wrapper-home-banner-top">
+	<div class="">
+		<div class="list-slider-banner">
+			{% for i in (1..5) %}
+			{% capture collection_iteration %}featured_collection{{ i }}{% endcapture %}
+			{% capture collection_name %}{{ settings[collection_iteration] }}{% endcapture %}
+			{% if collections[collection_name].products.size > 0  %}
+			<div class="home-banner-pd product-resize">
+				<div class="block-banner-category image-resize"> 
+					<a class="link-banner" href="{{ collections[collection_name].url }}">
+						<img class="" src="{%if collections[collection_name].products.first.images.size > 0%}{{ collections[collection_name].products.first.featured_image | product_img_url : 'grande' }}{%else%}{{'no_image.jpg' | asset_url}}{%endif%}" alt="{{ collections[collection_name].title }}">
+					</a>		
+					<div class="caption_banner_slide">
+						<h3>{{ collections[collection_name].title }}</h3>
+						<a class="button" href="{{ collections[collection_name].url }}">Xem ngay</a>
+					</div>
+				</div>
+			</div>
+			{% else %}
+			<div class="home-banner-pd product-resize">
+				<div class="block-banner-category image-resize"> 
+					<a class="link-banner" href="/">
+						<img class="" src="{{'no_image.jpg' | asset_url}}" alt="">
+					</a>		
+					<div class="caption_banner_slide">
+						<h3>Tên nhóm sản phẩm</h3>
+						<a class="button" href="/">Xem ngay</a>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endif %}
+<!-- Nhóm 1 -->
+{% if settings.use_collection_one_products %}
+<section class="section section-collection">
+	<div class="wrapper-heading-home animation-tran text-center">
+		<div class="container-fluid">
+			<div class="site-animation">
+				<h2>
+					<a href="{{collections[settings.collection_one].url}}">
+						{% if settings.heading_collection_one  == '' %}
+						{{collections[settings.collection_one].title}}
+						{% else %}
+						{{settings.heading_collection_one}}
+						{% endif %}
+					</a>
+				</h2>
+			</div>
+		</div>
+	</div>
+	<div class="wrapper-collection-1" >
+
+		{%if collections[settings.collection_one].products.size > 0%}
+
+		{%if collections[settings.collection_one].products.size > 2%}
+		<div class="container-fluid" >
+			<div class="clearfix content-product-list" id="collection-slide">
+				{% assign collection_one_size = 10 %}
+				{% for product in collections[settings.collection_one].products limit: collection_one_size %}
+				<div class="pro-loop animation-tran" >
+					{% include 'product-loop' with collection.handle %}
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% elseif collections[settings.collection_one].products.size > 1 %}		
+		<div class="container-fluid" >
+			<div class="row collection-special-two">
+				{% for product in collections[settings.collection_one].products limit: 2 %}
+				<div class="col-md-6 col-sm-12 col-xs-12">
+					{% include 'product-loop-special' with collection.handle %}
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% else %}
+		<div class="container">
+			<div class="collection-special-one">
+				{% for product in collections[settings.collection_one].products limit: 1 %}
+				{% include 'product-loop-special' with collection.handle %}
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+		{% else %}
+		<div class="container-fluid" >
+			<div class="clearfix content-product-list" id="collection-slide">
+				{% include 'no-owl-product-loop' %}
+			</div>
+		</div>
+		{% endif %}
+
+	</div>
+</section>
+{% endif %}
+<!-- Nhóm 2 -->
+{% if settings.use_collection_two_products %}
+<section class="section section-collection">
+	<div class="wrapper-heading-home animation-tran text-center">
+		<div class="container-fluid">
+			<div class="site-animation">
+				<h2>
+					<a href="{{collections[settings.collection_two].url}}">
+						{% if settings.heading_collection_two  == '' %}
+						{{collections[settings.collection_two].title}}
+						{% else %}
+						{{settings.heading_collection_two}}
+						{% endif %}
+					</a>
+				</h2>
+			</div>
+		</div>
+	</div>
+	<div class="wrapper-collection-2" >
+		{% assign collection_two_size = 10 %}
+		{%if collections[settings.collection_two].products.size > 0%}
+
+		{%if collections[settings.collection_two].products.size > 2%}
+		<div class="container-fluid" >
+			<div class="row">
+				<div class="clearfix content-product-list ">
+					{% for product in collections[settings.collection_two].products limit: collection_two_size %}
+					<div class="col-md-3 col-sm-6 col-xs-6 pro-loop animation-tran">
+						{% include 'product-loop' with collection.handle %}
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		{% elseif collections[settings.collection_two].products.size > 1 %}		
+		<div class="container-fluid" >
+			<div class="row collection-special-two">
+				{% for product in collections[settings.collection_two].products limit: 2 %}
+				<div class="col-md-6 col-sm-12 col-xs-12">
+					{% include 'product-loop-special' with collection.handle %}
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% else %}
+		<div class="container">
+			<div class="collection-special-one">
+				{% for product in collections[settings.collection_two].products limit: 1 %}
+				{% include 'product-loop-special' with collection.handle %}
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+		{% else %}
+		<div class="container-fluid" >
+			<div class="row" >
+				{% include 'no-product-loop' %}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</section>
+{% endif %}
+
+
+
+
+
+
+

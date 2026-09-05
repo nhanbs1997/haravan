@@ -1,0 +1,89 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Haravan: Start",
+      "type": "process",
+      "command": "npm.cmd",
+      "args": ["run", "start"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "Haravan: Pull latest shop",
+      "type": "process",
+      "command": "npm.cmd",
+      "args": ["run", "pull"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": false,
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "Haravan: Backup selected shop",
+      "type": "process",
+      "command": "npm.cmd",
+      "args": ["run", "backup"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Haravan: Restore selected shop",
+      "type": "process",
+      "command": "npm.cmd",
+      "args": ["run", "restore"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Haravan: Export selected shop",
+      "type": "process",
+      "command": "npm.cmd",
+      "args": ["run", "release"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Haravan: Clean local shops",
+      "type": "process",
+      "command": "npm.cmd",
+      "args": ["run", "clean"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

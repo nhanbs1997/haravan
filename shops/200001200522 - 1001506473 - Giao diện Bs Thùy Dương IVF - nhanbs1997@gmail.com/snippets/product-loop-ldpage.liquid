@@ -1,0 +1,187 @@
+
+{% comment %}Tính phần trăm{% endcomment %}
+{% assign on_sale = false %}
+{% if product.variants.first.compare_at_price > product.variants.first.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% comment %}Tính giá khuyến mãi{% endcomment %}
+{% if product.variants.first.compare_at_price > product.variants.first.price %}
+{% assign price_sale = 0 %}
+{% assign price_sale = product.variants.first.compare_at_price | minus: product.variants.first.price | divided_by:product.variants.first.compare_at_price | times : 100 | round : 0 %}
+{% endif %}
+{% comment %}<!-- Sản phẩm có giá 0đ  -->{% endcomment %}
+{%- assign price_zero = false -%}
+{%- if  product.variants.first.price == 0 -%}
+{%- assign price_zero = true -%}
+{%- endif -%}
+ 
+{% comment %}<!-- Tình trạng hết hàng -->{% endcomment %}
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}  
+
+{% comment %}<!-- Tag sản phẩm -->{% endcomment %}
+{%- assign at_store = false -%}	
+{%- assign check_gift = false -%}
+{%- for tag in product.tags -%}
+{%- if tag == 'giftbox' -%} {%- assign check_gift = true -%} {%- endif -%}
+{%- endfor -%}
+
+{% comment %}<!-- Check collection -->{% endcomment %}
+{%- assign is_preorder_prodloop = false -%}
+{%- for item in product.collections -%}
+	{%- if item.handle == settings.collection_preorder -%}
+		{%- assign is_preorder_prodloop = true -%}
+		{%- break -%}
+	{%- endif -%}
+{%- endfor -%}
+{% comment %}<!-- Check Video -->{% endcomment %}
+{%- assign check_video = false -%}
+{%-if product.media.size > 0 -%}
+{%- for media in product.media -%}
+		{%- if media.media_type == 'external_video' -%}
+			{%- assign check_video = true -%}
+		{%- endif -%}
+{%-endfor-%}
+{%- endif -%}
+
+
+{%-assign index_item = forloop.index | times: 1 -%}
+{%- if template contains 'search' or template contains 'collection' -%}
+{%-if page != nil-%}{%-assign index_item = page | minus: 1 | times: settings.collection_pagination_limit | plus: index_item -%}{%-endif-%}
+{%-endif-%}
+<div class="col-lg-cus5 col-md-6 col-6 product-loop-ldpage product-loop animated">
+	<div class="product-block" data-id="{{ product.variants.first.id }}">
+		<div class="proloop-image" data-proid="{{ product.id }}">
+			{% if on_sale %}<div class="pro-sale"><span>-{{price_sale}}%</span></div>{% endif %}		
+			{% if sold_out %}<div class="pro-soldout"><span>Hết hàng</span></div>{% endif %}	
+			{% if settings.promotion_hrvapp_use and settings.promotion_hrvapp == 'appcombo' or settings.promotion_hrvapp == 'appbuyxgety' %}
+			<div class="gift product_gift_label d-none" data-id="{{product.id}}">
+				<img class="lazyload" data-src="{{ settings.combo_icon }}" 
+						  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+							alt="Icon quà tặng">
+			</div>
+			{% endif %}
+			{%-if product.description contains '"image360":' or check_video -%}
+			<div class="pro-iconbox ">
+				{%-if check_video -%}
+				<div class="pro-video">
+					<img class="lazyload" data-src="https://file.hstatic.net/200000592359/file/icon_video_2d253ef605b0407da214e359ac3bdea5.png"
+							  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+							 alt="image video"/>
+				</div>
+				{%-endif-%}
+				{%-if product.description contains '"image360":'-%}
+				<div class="pro-360">
+					<img class="lazyload" data-src="https://file.hstatic.net/200000592359/file/icon_spin_3_556d2cb6ff344907b916eeb57020e156.png" 
+							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+							 alt="image 360"/>
+				</div>
+				{%-endif-%}
+			</div>
+			{%-endif-%}
+			
+			<div class="product--image">		
+				{% if product.images.size > 1 %}
+				<div class="lazy-img first-image">
+					<picture>
+						<source media="(max-width: 480px)" data-srcset="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'medium' }}{%else%}{{'no_image.jpg' | asset_url}}{%endif%}"
+										srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+						<source media="(min-width: 481px)" data-srcset="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'large' }}{%else%}{{'no_image.jpg' | asset_url}}{%endif%}"
+										srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+						<img class="lazyload img-loop " data-src="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'small' }}{%else%}{{'no_image.jpg' | asset_url}}{%endif%}" 
+								 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+								 alt="{% if product.featured_image.alt.size > 0 %}{{ product.featured_image.alt | strip_html | escape }}{% else%} {{product.title | strip_html | escape}} {% endif %}"  />
+					</picture>		
+				</div>					
+				<div class="lazy-img second-image hovered-img d-none d-lg-block">	
+					<picture>
+						<source media="(min-width: 481px) and (max-width:767px)" data-srcset="{{ product.images[1] | product_img_url: 'medium' }}"
+										srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+						<source media="(min-width:768px)" data-srcset="{{ product.images[1] | product_img_url: 'large' }}"
+										srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+						<img  class="lazyload img-loop " data-src="{{ product.images[1] | product_img_url: 'small' }}" 
+								 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+								 alt="{% if product.featured_image.alt.size > 1 %}{{ product.featured_image.alt | strip_html | escape}}{% else%} {{product.title | strip_html | escape}} {% endif %}"/>
+					</picture>
+				</div>
+				{% else %}
+				<div class="lazy-img">
+					<picture>
+						<source media="(max-width: 480px)" data-srcset="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'medium' }}{%else%}{{'no_image.jpg' | asset_url}}{%endif%}"
+										srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+						<source media="(min-width: 481px)" data-srcset="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'large' }}{%else%}{{'no_image.jpg' | asset_url}}{%endif%}"
+										srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+						<img class="lazyload img-loop " data-src="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'small' }}{%else%}{{'no_image.jpg' | asset_url}}{%endif%}" 
+								 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+								 alt="{% if product.featured_image.alt.size >0 %}{{ product.featured_image.alt | strip_html | escape }}{% else%} {{product.title | strip_html | escape}} {% endif %}"  />
+					</picture>		
+				</div>				
+				{% endif %}
+			</div>
+			<div class="quickview-product">
+				<a class="icon-quickview {% if is_preorder_prodloop %}is-preorder{%endif%}" href="javascript:void(0)" name="icon quickview" data-handle="{{product.url}}" title="Xem nhanh"><i class="fa fa-eye" aria-hidden="true"></i></a>
+			</div>
+			{% if settings.ldpage01_frame_show %}
+			<div class="prod-label-onsale" >
+				<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" class="lazyload hrv-cf-ldpage01_frame_image" data-src="{{ settings.ldpage01_frame_image }}" alt="Sale" setting-id="ldpage01_frame_image" setting-type="image" />
+			</div>
+			{% endif %}
+			<a href="{{product.url}}" class="proloop-link quickview-product" data-handle="{{product.url}}" title="{{product.title}}" ></a>
+		</div>
+		<div class="proloop-detail">
+			{%- if settings.prod_variant_show -%}{%- include 'product-loop--options' -%}	{%- endif -%}
+			{%- if settings.prod_vendor_show -%}
+			{%- unless product.vendor == 'Khác' -%}
+			<p class="proloop--vendor">{{product.vendor | link_to_vendor}}</p>
+			{%- endunless -%}
+			{%- endif -%}
+			<h3><a href="{{product.url}}" class="quickview-product" data-handle="{{product.url}}">{{ product.title }}</a></h3>
+			{%- if settings.productreviews_hrvapp_use and settings.productreviews_hrvapp_proloop -%}
+			<div class="proloop--review">
+				<!--  check review -->
+				{%-assign rate_review = product.metafields.src.product_loop | append: ""-%}
+				{% assign rate_number = '' %}
+				{%-if rate_review != ''-%}
+				{%-assign rate_number = rate_review | remove: ' đánh giá'-%}
+				{%-endif-%}
+				<div class="haravan-product-reviews-badge" data-id="{{ product.id }}"> {{rate_number}} </div>
+			</div>	
+			{%- endif -%}
+			
+			<div class="wrapper-action-loop ">
+				{%- unless price_zero -%}
+				<p class="proloop--price {% if on_sale %}on-sale{% endif %}  {% if settings.add_to_cart_show%} prices-ctas {%endif%}">
+					<span class="price">{{ product.variants.first.price | money }}</span>
+					{%- if on_sale -%}			
+					<span class="price-del">{{ product.variants.first.compare_at_price | money }}</span>
+					<span class="pro-percent">-{{price_sale}}%</span>
+					{%- endif -%}
+					{%- if sold_out -%} <span class="prohzt-soldout">Hết hàng</span>{%- endif -%}
+				</p>
+				{%- endunless -%}
+				{%- if price_zero or check_gift-%}
+					<div class="proloop-actions">
+							<div class="proloop-actions__inner">
+						{%- if check_gift -%}
+						<a href="{{product.url}}" class="btn-proloop btn-proloop-gift"  title="{{product.title}}" >
+							<span>Hàng tặng không bán</span>
+						</a>
+						{%- else -%}
+						<a href="{{settings.prod_pricezero_link}}" 
+							 class="btn-proloop btn-proloop-contact hrv-cf-prod_pricezero_title" setting-id="prod_pricezero_title" setting-type="text">{{settings.prod_pricezero_title}}	</a>	
+						{%- endif -%}
+						</div>
+					</div>
+				{% else %}
+					{%- if settings.add_to_cart_show -%} {% include 'product-loop--ctas' %}	{%- endif -%}
+				{%- endif -%}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

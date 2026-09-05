@@ -1,0 +1,38 @@
+{{ article.content | split:'<pre>' | first}}
+{% assign description_parts = article.content | split: "<pre>" %}
+{% for part in description_parts %}
+{% assign alias_relate = '' %}
+{% assign tab_title = part | split: "</pre>" %}
+{% assign variant_title_sale = part | split: "</pre>" %}
+{% assign fp = part | append: " " | split: "</pre>" | last %}
+{% assign p = part | append: " " | split: "</pre>" | last | strip_html | replace: "&nbsp;", "" | replace: " ", "" | strip_newlines %}
+{% if p != "" or fp contains "<img" or fp contains "<iframe" %}
+{% if forloop.index0 != '0' %}
+{%if tab_title[0] contains "sanphamtin"%}
+{% assign alias_relate = tab_title[0] | split: 'sanphamtin_' | last %}
+{%if alias_relate != ''%}
+<div class="box_relate_product p-2 pb-3 text-left">
+	<div class="row mbs">
+		{% for product in collections[alias_relate].products limit: 6 %}
+		<div class="col-6 col-md-4 col-lg-3 my-3">
+			{%-include 'product-grid-item-no-heading'-%}
+		</div>
+		{% endfor%}
+	</div>
+	<div class="view_more_pr text-center mt-4">
+		<a href="{{alias_relate}}" title="{{settings.seemore_text}}" class="position-relative text-btn font-weight-bold">
+			{{settings.seemore_text}}
+			<svg width="5" height="10">
+				<use href="#svg-next-mini"/>
+			</svg>
+		</a>
+	</div>
+</div>
+{%endif%}
+{%endif%}
+
+{{ part | split: "</pre>" | last }}
+
+{% endif %}
+{% endif %}
+{% endfor %}

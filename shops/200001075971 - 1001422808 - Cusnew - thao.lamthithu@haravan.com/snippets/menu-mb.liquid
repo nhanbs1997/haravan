@@ -1,0 +1,148 @@
+<div class="header_dropdown_content site_menu_mobile">
+	<span class="box-triangle">
+		<svg viewBox="0 0 20 9">
+			<path d="M.47108938 9c.2694725-.26871321.57077721-.56867841.90388257-.89986354C3.12384116 6.36134886 5.74788116 3.76338565 9.2467995.30653888c.4145057-.4095171 1.0844277-.40860098 1.4977971.00205122L19.4935156 9H.47108938z" fill="#ffffff"></path>
+		</svg>
+	</span>
+	<div class="site-nav-container-menu">
+		<div class="menu-mobile-content">
+			<nav id="mb-menu" class="navbar-mainmenu" >
+				<div class="navbar-level" data-level="1">
+					<ul class="menuList-sub vertical-menu-list sub-child">
+						{%- for link in linklists[settings.mainmenu_link].links -%}
+						{%- if linklists[link.handle] == empty -%}
+						<li class="{%if link.active%}active{%endif%}">
+							<a class="parent" href="{{link.url}}">{{link.title}}</a>
+						</li>
+						{%- else -%}
+						<li class="{%if link.active%}active{%endif%}" data-menu-root="{{ link.id }}">
+							<a class="parent" href="{{link.url}}">{{link.title}}
+								<i>
+									<svg class="icon icon--arrow-right" viewBox="0 0 8 12">
+										<path stroke="currentColor" stroke-width="2" d="M2 2l4 4-4 4" fill="none" stroke-linecap="square"></path>
+									</svg>
+								</i>
+							</a>
+						</li>
+						{%- endif -%}
+						{%- endfor -%}
+						<li class="main_help">
+							<div class="mobile_menu_section">
+								{%- if settings.title_help_menu_mb != empty-%}
+								<p class="mobile_menu_section-title">{{settings.title_help_menu_mb}}</p>
+								{%- endif -%}
+								{%- if settings.hotline_mb != empty-%}
+								<div class="mobile_menu_help">
+									<svg class="icon icon--bi-phone" viewBox="0 0 24 24">
+										<g stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="square">
+											<path d="M17 15l-3 3-8-8 3-3-5-5-3 3c0 9.941 8.059 18 18 18l3-3-5-5z" stroke="#333333"></path>
+											<path d="M14 1c4.971 0 9 4.029 9 9m-9-5c2.761 0 5 2.239 5 5" stroke="#333333"></path>
+										</g>
+									</svg>
+									<a href="tel:{{settings.hotline_mb | replace: '.'}}" rel="nofollow">{{settings.hotline_mb}}</a>
+								</div>
+								{%- endif-%}
+								{%- if settings.email_mb != empty-%}
+								<div class="mobile_menu_help">
+									<svg class="icon icon--bi-email" viewBox="0 0 22 22">
+										<g fill="none" fill-rule="evenodd">
+											<path stroke="#333333" d="M.916667 10.08333367l3.66666667-2.65833334v4.65849997zm20.1666667 0L17.416667 7.42500033v4.65849997z"></path>
+											<path stroke="#333333" stroke-width="2" d="M4.58333367 7.42500033L.916667 10.08333367V21.0833337h20.1666667V10.08333367L17.416667 7.42500033"></path>
+											<path stroke="#333333" stroke-width="2" d="M4.58333367 12.1000003V.916667H17.416667v11.1833333m-16.5-2.01666663L21.0833337 21.0833337m0-11.00000003L11.0000003 15.5833337"></path>
+											<path d="M8.25000033 5.50000033h5.49999997M8.25000033 9.166667h5.49999997" stroke="#333333" stroke-width="2" stroke-linecap="square"></path>
+										</g>
+									</svg>
+									<a href="mailto:{{settings.email_mb}}" rel="nofollow">{{ settings.email_mb}}</a>
+								</div>
+								{%- endif -%}
+							</div>
+						</li>
+					</ul>
+					{%- for link in linklists[settings.mainmenu_link].links -%}
+					{%- if linklists[link.handle] == empty -%}
+					{%- else -%}
+					<ul class="menuList-sub sub-child-1 level-text" id="{{link.id}}">
+						<li class="comeback"><a href="javascript:;"><i class="fa fa-angle-left" aria-hidden="true"></i>Quay về</a></li>
+						<li><a href="{{link.url}}"><b>Xem tất cả "{{link.title}}"</b></a></li>							
+						{%- for l in linklists[link.handle].links -%}
+						{%- if linklists[l.handle] == empty -%}
+						<li class="{%if l.active%}active{%endif%}">
+							<a href="{{l.url}}" ><span>- </span>{{l.title}}</a>
+						</li>
+						{%- else -%}
+						<li class="level-2 {%if l.active%}active{%endif%}" data-menu-root="{{ l.id }}">
+							<a class="parent-child" href="{{l.url}}">
+								<span>- </span>{{l.title}}
+								<i>
+									<svg class="icon icon--arrow-right" viewBox="0 0 8 12">
+										<path stroke="currentColor" stroke-width="2" d="M2 2l4 4-4 4" fill="none" stroke-linecap="square"></path>
+									</svg>
+								</i>								
+							</a>
+						</li>
+						{%- endif -%}
+						{%- endfor -%}
+					</ul>
+					{%- endif -%}
+					{%- endfor -%}
+					{%- for link in linklists[settings.mainmenu_link].links -%}
+					{%- if linklists[link.handle] == empty -%}
+					{%- else -%}
+					{%- for l in linklists[link.handle].links -%}
+					{%- if linklists[l.handle].links.size > 0 -%}
+					<ul class="menuList-sub sub-child-2 level-text"  id="{{l.id}}">
+						<li class="comeback"><a href="javascript:;"><i class="fa fa-angle-left" aria-hidden="true"></i>Quay về</a></li>
+						<li><a href="{{l.url}}"><b>Xem tất cả "{{l.title}}"</b></a></li>		
+						{%- for ll in linklists[l.handle].links -%}
+						{%- if linklists[ll.handle].links == empty -%}
+						<li>
+							<a href="{{ ll.url }}"{% if ll.active %} class="current"{% endif %} title="{{ll.title}}"><span>- </span>{{ ll.title }}</a>
+						</li>
+						{%- else -%}
+						<li class="level-3 {%if ll.active%}active{%endif%}" data-menu-root="{{ ll.id }}">
+							<a class="parent-child" href="{{ll.url}}">
+								<span>- </span>{{ll.title}}
+								<i>
+									<svg class="icon icon--arrow-right" viewBox="0 0 8 12">
+										<path stroke="currentColor" stroke-width="2" d="M2 2l4 4-4 4" fill="none" stroke-linecap="square"></path>
+									</svg>
+								</i>
+							</a>
+						</li>
+						{%- endif -%}
+						{%- endfor -%}
+					</ul>
+					{%- endif -%}
+					{%- endfor -%}
+					{%- endif -%}
+					{%- endfor -%}
+					{%- for link in linklists[settings.mainmenu_link].links -%}
+					{%- if linklists[link.handle] == empty -%}
+					{%- else -%}
+					{%- for l in linklists[link.handle].links -%}
+					{%- if linklists[l.handle].links.size > 0 -%}
+					{%- for ll in linklists[l.handle].links -%}
+					{%- if linklists[ll.handle].links == empty -%}
+					{%- else -%}
+					<ul class="menuList-sub sub-child-3 level-text"  id="{{ll.id}}">
+						<li class="comeback"><a href="javascript:;"><i class="fa fa-angle-left" aria-hidden="true"></i>Quay về</a></li>
+						<li><a href="{{ll.url}}"><b>Xem tất cả "{{ll.title}}"</b></a></li>		
+						{%- for lll in linklists[ll.handle].links -%}
+						<li class="level-4 {%if lll.active%}active{%endif%}">
+							<a class="parent-child" href="{{lll.url}}"><span>- </span>{{lll.title}}</a>
+						</li>
+						{%- endfor -%}
+					</ul>
+					{%- endif -%}
+					{%- endfor -%}
+					{%- endif -%}
+					{%- endfor -%}
+					{%- endif -%}
+					{%- endfor -%}
+				</div>
+			</nav>	
+		</div>
+	</div>
+</div>
+
+

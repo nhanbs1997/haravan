@@ -1,0 +1,135 @@
+{%-layout none-%}
+{%- include 'setup_price_pr' -%}
+{%- assign variantCount = product.variants | size -%}
+<div class="row align-items-center">
+	<div class="col-12 col-lg-6 mb-2 mb-lg-0">
+		<div class="row">
+			<div class="col-4 col-lg-12">
+				<div class="product-quickview-slide swiper-container {%if product.images.size < 2%}rounded_bottom{%endif%}">
+					<div class="swiper-wrapper">
+						{%-if product.images.size < 1-%}
+						<div class="swiper-slide {{image.alt | handleize}}">
+							<picture class="position-relative d-block aspect ratio1by1 rounded">
+								<source media="(min-width: 1200px)" srcset="{{ 'no_image.jpg' | asset_url }}">
+								<source media="(min-width: 575px)" srcset="{{ 'no_image.jpg' | asset_url }}">
+								<img src="{{ 'no_image.jpg' | asset_url }}" alt="{{ image.alt | default : product.name}}" data-img="{{ image.src }}" class="d-block m-auto img position-absolute img-contain gradient-load"/>
+							</picture>
+						</div>
+						{%-else-%}
+						{%-for image in product.images-%}
+						<div class="swiper-slide {{image.alt | handleize}} pb-4" data-src="{{ image.src }}">
+							<picture class="position-relative d-block aspect ratio1by1 rounded">
+								<source media="(min-width: 1200px)" srcset="{{ image.src }}">
+								<source media="(min-width: 575px)" srcset="{{ image.src | img_url:'large' }}">
+								<img src="{{ image.src | img_url:'large' }}" alt="{{ image.alt | default : product.name}}" data-img="{{ image.src }}" class="d-block m-auto img position-absolute img-contain gradient-load"/>
+							</picture>
+						</div>
+						{%-endfor-%}
+						{%-endif-%}
+					</div>
+					<div class="swiper-button-prev quickview_slide_prev"></div>
+					<div class="swiper-button-next quickview_slide_next"></div>
+				</div>
+			</div>
+			<div class="col-8 col-lg-12 d-lg-none">
+				<div class="product-name font-weight-bold mr-3">
+					{{ product.title | replace: '<', '&lt;'}}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-6">
+		<form action="/cart/add" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="productAlias" value="{{product.url}}" />
+			<div class="product-control w-100">
+				<div class="scroll_info {%if variantCount <= 1%}mb-0{%endif%}">
+					<div class="d-none d-lg-block product-name font-weight-bold mb-2 mr-3">{{ product.title | replace: '<', '&lt;'}}</div>
+					<div class="big_swatch pt-3 border-top">
+						{%-unless product.variants.size <= 1 and product.variants.first.title contains 'Default'-%}
+						{%- if settings.product_swatch_enable and product.variants.size > 0 -%}
+						{%- for option in product.options -%}
+						{%- include 'swatch' with option -%}
+						{%- endfor -%}
+						{%- endif -%}
+						{%-endunless-%}
+						<div class="box-variant clearfix {% if settings.product_swatch_enable and product.variants.size > 0%} d-none {%endif%}">
+							{%- if variantCount > 1 -%} 
+							<fieldset class="form-group">
+								<select id="quickview-selectors" class="custom-select form-control" name="id" style="display:none">
+									{%- for variant in product.variants -%}
+									<option {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %} value="{{ variant.id | esacpe }}">{{ variant.id }} {{ variant.title | esacpe}} - {{ variant.price | money }}</option>
+									{%- endfor -%}
+								</select>
+							</fieldset>
+							{%- else -%}
+							<input type="hidden" name="id" value="{{ product.variants[0].id }}" />
+							{%- endif -%}
+						</div>
+					</div>
+				</div>
+				<div class="scroll_active">
+					<div class="d-flex align-items-center justify-content-end mb-3">
+						<div class="product-price text-right">
+							{%- if variantCount > 1 -%}
+							{%- if contacts == true -%}
+							<span class="special-price font-weight-bold m-0">{{settings.noPrice}}</span>
+							{%- else -%}
+							<span class="special-price font-weight-bold m-0">{{product.selected_or_first_available_variant.price| money }}</span>
+							<del class="old-price ml-2 text-hover">{{ product.selected_or_first_available_variant.compare_at_price | money }}</del>
+							{%- endif -%}
+							{%- else -%}
+							{%- if contacts == true -%}
+							<span class="special-price font-weight-bold m-0">{{settings.noPrice}}</span>
+							{%- else -%}
+							{%- if product.variants[0].compare_at_price > product.variants[0].price -%}
+							<span class="special-price font-weight-bold m-0">{{ product.variants[0].price  | money }}</span>
+							<del class="old-price ml-2 text-hover">{{ product.variants[0].compare_at_price | money }}</del>
+							{%- else -%}
+							<span class="special-price font-weight-bold m-0">{{ product.variants[0].price | money }}</span>
+							{%- endif -%}
+							{%- endif -%}
+							{%- endif -%}
+						</div>
+						{%-if contacts == false-%}
+						{%-if on_sale-%}
+						<div class="sale_label rounded-10 ml-2 py-1 px-2">
+							-<span class="nb_dis">{{discount}}</span>%
+						</div>
+						{%-endif-%}
+						{%-endif-%}
+					</div>
+					<div class="d-flex justify-content-between mb-3">
+						<div class="product-quantity {% if contacts == true %}d-none{%else%}{%if product.available%}d-sm-flex{%else%}d-none{%endif%}{%endif%} align-items-center clearfix">
+							<div class="custom-btn-number form-inline border-0">	
+								<button class="mb-2 border rounded-circle justify-content-center align-items-center d-flex" onClick="var result = document.getElementById('qtym'); var qtypro = result.value; if( !isNaN( qtypro ) &amp;&amp; qtypro &gt; 1 ) result.value--;return false;" type="button">
+									<svg width="12" height="12">
+										<use href="#svg-minus" />
+									</svg>
+								</button>
+								<input type="number"  name="quantity" min="1" value="1" class="bg-transparent border-0 text-center form-control prd_quantity mb-2" id="qtym">
+								<button class="mb-2 border rounded-circle justify-content-center align-items-center d-flex" onClick="var result = document.getElementById('qtym'); var qtypro = result.value; if( !isNaN( qtypro )) result.value++;return false;" type="button">
+									<svg width="14" height="14">
+										<use href="#svg-plus" />
+									</svg>
+								</button>
+							</div>	
+						</div>
+						<div class="active_buy">
+							<button id="add_cart" type="button" class="text-uppercase mb-2 mb-lg-0 btn {%if contacts%}d-none{%else%}{%if product.available%}d-flex{%else%}d-none{%endif%}{%endif%} justify-content-center flex-column align-items-center p-2 product-action_buy {% if settings.product_swatch_enable and product.variants.size > 1%}js-addToCart-product{%else%}js-addToCart{%endif%} modal-open font-weight-bold position-relative rounded-10">
+								<span class="ml-2 mr-2 button__text text-hover">{{settings.addToCart}}</span>
+							</button>
+							<a href="tel:{{settings.hotline_buy | remove: ' ' | remove: '.'}}" class="btn_out mb-2 mb-lg-0 btn {%if contacts%}d-none{%else%}{%unless product.available%}d-flex{%else%}d-none{%endunless%}{%endif%} w-100 justify-content-center flex-column align-items-center pt-2 pb-2 sitdown product-action_buynow font-weight-bold text-white position-relative">
+								<span class="text-uppercase font-weight-bold">{{settings.soldOut}}</span>
+								<small>{{settings.sup_soldOut}}</small>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+    <div class="rte">
+      {{ product.description | strip_html | truncate: 300 }}
+      <a href="{{product.url}}" title="{{settings.detail_product}}" class="d-block text-main font-weight-bold mt-2">{{settings.detail_product}}</a>
+    </div>
+	</div>
+</div>

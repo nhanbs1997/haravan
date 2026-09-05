@@ -1,0 +1,44 @@
+{%- include 'breadcrumb' -%}
+<section class="signup layout-account pt-3 pb-3">
+	<div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-8">
+        {% if form.posted_successfully %}
+        <div class="alert alert-success" role="alert">
+          {{settings.account_changepass_success}}
+        </div>
+        {% endif %}
+        <div class="row mb-3">
+          {%-include 'mew_account_action_top'-%}
+        </div>
+        <div class="row mb-3 mb-lg-0">
+          <div class="col-12">
+            <div class="account-info bg-light rounded-10 p-3">
+              <h1 class="font-weight-bold mt-0 sml" style="color: var(--mainColor);">{{settings.account_personal_infor}}</h1>
+              {% if customer.default_address.first_name == empty and customer.default_address.last_name == empty %}
+              <p class="mb-1"><b>{{settings.account_infor_name | append: ': '}}</b> {{ customer.name }} {{ customer.last_name }} {{ customer.first_name }}</p>
+              {% else %}
+              <p class="mb-1"><b>{{settings.account_infor_name | append: ': '}}</b> {{ customer.default_address.name }} {{ customer.default_address.last_name }} {{ customer.default_address.first_name }}</p>
+              {% endif %}
+              <p class="mb-1"><b>{{settings.account_infor_mail | append: ': '}}</b> {{ customer.email }}</p>
+              {%if customer.default_address.phone != null and  customer.default_address.phone != ''%}
+              <p class="mb-1"><b>{{settings.account_infor_phone | append: ': '}}</b> {{ customer.default_address.phone }}</p>
+              {%endif%}
+              {%if customer.dob != null and  customer.dob != ''%}
+              <p class="mb-1"><b>{{settings.account_infor_dob | append: ': '}}</b> {{ customer.dob }}</p>
+              {%endif%}
+              {%- if customer.default_address -%}
+              <p class="mb-1"><b>{{settings.account_infor_address  | append: ': '}}</b> {% if customer.default_address.address1 != null and customer.default_address.address1 != "" %}{{ customer.default_address.address1 }},{%endif%} {% if customer.default_address.district != null and customer.default_address.district != "" %}{{ customer.default_address.district }},{%endif%} {% if customer.default_address.city != null and customer.default_address.city != "" %}{{ customer.default_address.city }},{%endif%} {% if customer.default_address.country != null and customer.default_address.country != "" %}{{ customer.default_address.country }}{%endif%}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="row mb-3 h-100">
+          {%-include 'mew_account_action_bottom'-%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

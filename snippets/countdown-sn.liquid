@@ -1,0 +1,11 @@
+{%-if settings.mtm_countdown.size-%}
+<countdown-timer data-time="{{settings.mtm_countdown}}" class="countdown-time-wrapper font-weight-bold position-relative pl-md-2">
+  <div class="px-2 countdown-item rod position-relative text-white rounded-pill d-inline-flex align-items-baseline justify-content-center modal-open">
+    <div class="days mr-1"></div>
+    <span>{{settings.txtday}}</span>
+  </div>
+  <div class="hours px-2 countdown-item rod position-relative text-white rounded-circle d-inline-flex align-items-baseline justify-content-center modal-open"></div>
+  <div class="minutes px-2 countdown-item rod position-relative text-white rounded-circle d-inline-flex align-items-baseline justify-content-center modal-open"></div>
+  <div class="seconds px-2 countdown-item rod position-relative text-white rounded-circle d-inline-flex align-items-baseline justify-content-center modal-open"></div>
+</countdown-timer>
+{%-endif-%}
