@@ -7099,11 +7099,6 @@ body,
             parent.children.splice(selected.index + 1, 0, node);
           else parent.children.push(node);
           parent.collapsed = false;
-          ensureTaskForMindmapNode({
-            node,
-            parent,
-            depth: selected.depth + (effectiveMode === "sibling" ? 0 : 1),
-          });
           reconcileMindmapCompletion(state.mindmap.root, true);
           const keepBranchRootForOutsideSibling =
             effectiveMode === "sibling" &&
@@ -10181,9 +10176,8 @@ body,
         }
 
         // ---------- Liên kết Task ↔ Mindmap ----------
-        // Mỗi node được tạo mới ở một bên nhận một syncKey chung với node
-        // tương ứng ở bên còn lại. Các dữ liệu cũ không có syncKey vẫn được
-        // giữ nguyên, không tự ghép theo tên để tránh nhân bản ngoài ý muốn.
+        // Chỉ đồng bộ các liên kết đã có trong dữ liệu cũ.
+        // Task mới ở mỗi tab độc lập, không tự tạo node bên còn lại.
         function isSyncableTaskNode(node) {
           return !!node && !node._pinned && node.kind !== "kienthuc";
         }
@@ -10222,101 +10216,6 @@ body,
           return null;
         }
 
-        function ensureTaskMindmapLink(taskNode) {
-          if (!isSyncableTaskNode(taskNode)) return "";
-          if (!taskNode.syncKey) taskNode.syncKey = genId("link");
-          return taskNode.syncKey;
-        }
-
-        function ensureMindmapNodeLink(mindmapNode) {
-          if (!mindmapNode || !mindmapNode.id) return "";
-          if (!mindmapNode.syncKey) mindmapNode.syncKey = genId("link");
-          return mindmapNode.syncKey;
-        }
-
-        function ensureMindmapForTaskNode(taskNode, preferredParentTask) {
-          const root = state.mindmap?.root;
-          if (!root || !isSyncableTaskNode(taskNode)) return root || null;
-          const existingKey = taskNode.syncKey;
-          if (existingKey) {
-            const existing = findMindmapNodeBySyncKey(existingKey);
-            if (existing) return existing;
-          }
-
-          let parentMindmap = null;
-          if (preferredParentTask) {
-            parentMindmap = isSyncableTaskNode(preferredParentTask)
-              ? ensureMindmapForTaskNode(preferredParentTask)
-              : root;
-          } else {
-            const parentTask = findParentNodeAny(taskNode.id);
-            parentMindmap = parentTask && isSyncableTaskNode(parentTask)
-              ? ensureMindmapForTaskNode(parentTask)
-              : root;
-          }
-          if (!parentMindmap) parentMindmap = root;
-
-          const syncKey = ensureTaskMindmapLink(taskNode);
-          const alreadyLinked = findMindmapNodeBySyncKey(syncKey);
-          if (alreadyLinked) return alreadyLinked;
-          const isTopLevel = parentMindmap === root;
-          const color = isTopLevel
-            ? MINDMAP_BRANCH_COLORS[
-                parentMindmap.children.length % MINDMAP_BRANCH_COLORS.length
-              ]
-            : "";
-          const mindmapNode = createMindmapNode(taskNode.text, color);
-          mindmapNode.syncKey = syncKey;
-          parentMindmap.children.push(mindmapNode);
-          parentMindmap.collapsed = false;
-          return mindmapNode;
-        }
-
-        function ensureTaskForMindmapNode(recordOrNode) {
-          const root = state.mindmap?.root;
-          const record = recordOrNode?.node
-            ? recordOrNode
-            : recordOrNode?.id
-              ? findMindmapNodeRecord(recordOrNode.id)
-              : null;
-          if (!root || !record || record.depth === 0) return null;
-          const mindmapNode = record.node;
-          if (mindmapNode.syncKey) {
-            const existing = findTaskNodeBySyncKey(mindmapNode.syncKey);
-            if (existing) return existing;
-          }
-
-          const syncKey = ensureMindmapNodeLink(mindmapNode);
-          const existing = findTaskNodeBySyncKey(syncKey);
-          if (existing) return existing;
-
-          let parentTask = null;
-          if (record.parent && record.parent !== root) {
-            parentTask = ensureTaskForMindmapNode(
-              findMindmapNodeRecord(record.parent.id),
-            );
-          }
-          const taskNode = newNode(mindmapNode.text);
-          taskNode.syncKey = syncKey;
-          taskNode.kind = "task";
-          if (parentTask) {
-            alphaInsert(parentTask.children, taskNode);
-            state.collapsed[parentTask.id] = false;
-          } else {
-            alphaInsert(state.tasks, taskNode);
-          }
-          return taskNode;
-        }
-
-        function linkTaskTreeToMindmap(taskNode, parentTask) {
-          if (!isSyncableTaskNode(taskNode)) return null;
-          const mindmapNode = ensureMindmapForTaskNode(taskNode, parentTask);
-          (taskNode.children || []).forEach((child) =>
-            linkTaskTreeToMindmap(child, taskNode),
-          );
-          return mindmapNode;
-        }
-
         function syncTaskTextToMindmap(taskNode) {
           if (!taskNode?.syncKey) return;
           const mindmapNode = findMindmapNodeBySyncKey(taskNode.syncKey);
@@ -10332,14 +10231,9 @@ body,
 
         function syncTaskCompletionToMindmap(taskNode, checked) {
           if (!taskNode || !state.mindmap?.root) return;
-          const shouldCreateLink =
-            checked === true ||
-            (checked === undefined && taskNode.status === "done");
-          let mindmapNode = taskNode.syncKey
+          const mindmapNode = taskNode.syncKey
             ? findMindmapNodeBySyncKey(taskNode.syncKey)
             : null;
-          if (!mindmapNode && shouldCreateLink)
-            mindmapNode = ensureMindmapForTaskNode(taskNode);
           if (!mindmapNode) return;
           mindmapNode.checked =
             checked === undefined ? taskNode.status === "done" : !!checked;
@@ -10386,11 +10280,9 @@ body,
           const taskEntries = [];
           const seenTaskIds = new Set();
           Array.from(recordsById.values()).forEach((entry) => {
-            let taskNode = entry.node.syncKey
+            const taskNode = entry.node.syncKey
               ? findTaskNodeBySyncKey(entry.node.syncKey)
               : null;
-            if (!taskNode && entry.node.checked)
-              taskNode = ensureTaskForMindmapNode(entry);
             if (
               taskNode &&
               !isPinnedDayTask(taskNode) &&
@@ -10924,7 +10816,6 @@ body,
             const node = newNode(p);
             node.kind = nodeKind;
             alphaInsert(state.tasks, node);
-            if (node.kind === "task") linkTaskTreeToMindmap(node, null);
           });
           renderWithoutFlicker();
           scheduleAutoExport();
@@ -10955,7 +10846,6 @@ body,
             const child = newNode(p);
             if (parent.kind === "kienthuc") child.kind = "kienthuc";
             alphaInsert(parent.children, child);
-            if (child.kind === "task") linkTaskTreeToMindmap(child, parent);
           });
           state.collapsed[parentId] = false;
           renderWithoutFlicker();
@@ -10985,13 +10875,10 @@ body,
             return true;
           });
           if (newParts.length === 0) return false;
-          const parent = findParentNodeAny(nodeId);
           newParts.forEach((part) => {
             const sibling = newNode(part);
             sibling.kind = node.kind;
             alphaInsert(siblings, sibling);
-            if (sibling.kind === "task")
-              linkTaskTreeToMindmap(sibling, parent);
           });
           renderWithoutFlicker();
           scheduleAutoExport();
