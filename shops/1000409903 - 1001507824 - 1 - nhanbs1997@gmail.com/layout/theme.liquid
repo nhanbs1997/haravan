@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="{{ shop.locale | default: 'vi' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{% if template == 'index' %}Todolist Tree giúp tổ chức công việc, ghi chú kiến thức, lập sơ đồ tư duy và quản lý thời gian tập trung với Pomodoro.{% else %}{{ page_description | default: shop.name | escape }}{% endif %}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta name="theme-color" content="#020713">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="{{ shop.name | default: 'Todolist Tree' | escape }}">
+    <title>{% if template == 'index' %}Todolist Tree{% else %}{{ page_title }}{% endif %}</title>
+    <link rel="icon" href="{{ 'icon-192.png' | asset_url }}">
+    <link rel="apple-touch-icon" href="{{ 'icon-192.png' | asset_url }}">
+    <style>
+      html,
+      body {
+        min-height: 100%;
+        margin: 0;
+        background:
+          radial-gradient(circle at 14% -8%, rgba(126, 72, 255, 0.16), transparent 34%),
+          radial-gradient(circle at 92% 8%, rgba(43, 140, 255, 0.12), transparent 30%),
+          #020713;
+        color: #f5f7ff;
+        color-scheme: dark;
+      }
+      body:not(.template-index) {
+        font-family: "Segoe UI", sans-serif;
+      }
+      body:not(.template-index) a {
+        color: #75adff;
+      }
+      body:not(.template-index) input,
+      body:not(.template-index) select,
+      body:not(.template-index) textarea,
+      body:not(.template-index) button {
+        border: 1px solid rgba(111, 147, 206, 0.24);
+        border-radius: 9px;
+        background: #0b1628;
+        color: #f5f7ff;
+      }
+      body:not(.template-index) table,
+      body:not(.template-index) article,
+      body:not(.template-index) form {
+        border-color: rgba(111, 147, 206, 0.18);
+        background: rgba(7, 16, 31, 0.88);
+      }
+      #site-password-gate {
+        box-sizing: border-box;
+        font-family: "Segoe UI", Arial, sans-serif;
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background:
+          radial-gradient(circle at 12% 0%, rgba(126, 72, 255, 0.24), transparent 36%),
+          radial-gradient(circle at 90% 100%, rgba(43, 140, 255, 0.18), transparent 34%),
+          #020713;
+        color: #f5f7ff;
+        opacity: 1;
+        transition: opacity 180ms ease, visibility 180ms ease;
+      }
+      #site-password-gate[hidden] {
+        display: none;
+      }
+      #site-password-gate.is-unlocked {
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+      }
+      .site-password-gate__card {
+        box-sizing: border-box;
+        width: min(100%, 420px);
+        padding: 36px;
+        border: 1px solid rgba(143, 177, 235, 0.22);
+        border-radius: 24px;
+        background: linear-gradient(145deg, rgba(17, 31, 55, 0.96), rgba(8, 17, 33, 0.96));
+        box-shadow: 0 26px 80px rgba(0, 0, 0, 0.42), inset 0 1px rgba(255, 255, 255, 0.08);
+        text-align: center;
+      }
+      .site-password-gate__eyebrow {
+        margin: 0 0 10px;
+        color: #9bbcff;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .site-password-gate__title {
+        margin: 0;
+        font-size: clamp(25px, 5vw, 34px);
+        line-height: 1.15;
+      }
+      .site-password-gate__description {
+        margin: 14px 0 28px;
+        color: #aebbd1;
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      .site-password-gate__form {
+        display: grid;
+        gap: 10px;
+        text-align: left;
+      }
+      .site-password-gate__label {
+        color: #dfe8f8;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .site-password-gate__controls {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+      }
+      .site-password-gate__input,
+      .site-password-gate__button {
+        box-sizing: border-box;
+        min-height: 46px;
+        border: 1px solid rgba(143, 177, 235, 0.28);
+        border-radius: 12px;
+        font: inherit;
+      }
+      .site-password-gate__input {
+        width: 100%;
+        padding: 0 14px;
+        background: rgba(2, 7, 19, 0.72);
+        color: #f5f7ff;
+        outline: none;
+      }
+      .site-password-gate__input:focus {
+        border-color: #75adff;
+        box-shadow: 0 0 0 3px rgba(117, 173, 255, 0.18);
+      }
+      .site-password-gate__button {
+        padding: 0 18px;
+        background: linear-gradient(135deg, #6240df, #2062bd);
+        color: #fff;
+        cursor: pointer;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .site-password-gate__button:hover {
+        filter: brightness(1.08);
+      }
+      .site-password-gate__error {
+        margin: 2px 0 0;
+        color: #ff9eae;
+        font-size: 13px;
+      }
+      @media (max-width: 520px) {
+        .site-password-gate__card {
+          padding: 28px 22px;
+          border-radius: 20px;
+        }
+        .site-password-gate__controls {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    {{ content_for_header }} 
+  </head>
+  <body class="template-{{ template | handle }}">
+    <div
+      id="site-password-gate"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="site-password-gate-title"
+    >
+      <div class="site-password-gate__card">
+        <p class="site-password-gate__eyebrow">Todolist Tree</p>
+        <h1 id="site-password-gate-title" class="site-password-gate__title">Nhập mật khẩu để tiếp tục</h1>
+        <p class="site-password-gate__description">
+          Trang này được bảo vệ. Bạn chỉ cần nhập mật khẩu một lần trên trình duyệt này.
+        </p>
+        <form id="site-password-gate-form" class="site-password-gate__form" novalidate>
+          <label class="site-password-gate__label" for="site-password-gate-input">Mật khẩu</label>
+          <div class="site-password-gate__controls">
+            <input
+              id="site-password-gate-input"
+              class="site-password-gate__input"
+              type="password"
+              autocomplete="current-password"
+              aria-describedby="site-password-gate-error"
+              spellcheck="false"
+              required
+            >
+            <button class="site-password-gate__button" type="submit">Truy cập</button>
+          </div>
+          <p id="site-password-gate-error" class="site-password-gate__error" role="alert" hidden>
+            Mật khẩu chưa đúng. Vui lòng thử lại.
+          </p>
+        </form>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var storageKey = "todolist-theme-access-granted-v1";
+        var password = "nhan";
+        var gate = document.getElementById("site-password-gate");
+        var form = document.getElementById("site-password-gate-form");
+        var input = document.getElementById("site-password-gate-input");
+        var error = document.getElementById("site-password-gate-error");
+
+        if (!gate || !form || !input || !error) return;
+
+        var hasAccess = false;
+        try {
+          hasAccess = window.localStorage.getItem(storageKey) === "1";
+        } catch (storageError) {
+          hasAccess = false;
+        }
+
+        if (hasAccess) {
+          gate.remove();
+          return;
+        }
+
+        window.requestAnimationFrame(function () {
+          input.focus();
+        });
+
+        input.addEventListener("input", function () {
+          error.hidden = true;
+          input.removeAttribute("aria-invalid");
+        });
+
+        gate.addEventListener("keydown", function (event) {
+          if (event.key !== "Tab") return;
+          var submit = form.querySelector('button[type="submit"]');
+          if (event.shiftKey && document.activeElement === input) {
+            event.preventDefault();
+            submit.focus();
+          } else if (!event.shiftKey && document.activeElement === submit) {
+            event.preventDefault();
+            input.focus();
+          }
+        });
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          if (input.value !== password) {
+            error.hidden = false;
+            input.setAttribute("aria-invalid", "true");
+            input.value = "";
+            input.focus();
+            return;
+          }
+
+          try {
+            window.localStorage.setItem(storageKey, "1");
+          } catch (storageError) {
+            // Continue for this visit if browser storage is unavailable.
+          }
+
+          gate.classList.add("is-unlocked");
+          input.blur();
+          gate.setAttribute("aria-hidden", "true");
+          document.dispatchEvent(new Event("todolist:access-granted"));
+          window.setTimeout(function () {
+            gate.remove();
+          }, 200);
+        });
+      })();
+    </script>
+    {{ content_for_layout }}
+  </body>
+</html>
