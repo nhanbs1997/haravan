@@ -1,5 +1,7 @@
 . "$PSScriptRoot/common.ps1"
 
+Sync-HaravanGitWorkspace -WorkingPath $script:ProjectRoot | Out-Null
+
 $shop = Select-ShopProject
 $distDirectory = Join-Path $script:ProjectRoot "dist"
 New-Item -ItemType Directory -Path $distDirectory -Force | Out-Null

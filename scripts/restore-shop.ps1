@@ -1,5 +1,7 @@
 . "$PSScriptRoot/common.ps1"
 
+Sync-HaravanGitWorkspace -WorkingPath $script:ProjectRoot | Out-Null
+
 $shop = Select-ShopProject
 $backups = @(Get-ThemeBackups -Shop $shop)
 
@@ -101,7 +103,7 @@ try {
                 throw (
                     "Could not replace local theme directory: $targetDirectory. " +
                     "Stop Haravan: Start, close files from this shop in VS Code, " +
-                    "wait for Google Drive to finish syncing, and run restore again."
+                    "wait for the GitHub checkout to finish updating, and run restore again."
                 )
             }
         }

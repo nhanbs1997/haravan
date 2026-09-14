@@ -4,9 +4,13 @@
   "releasePrefix": "haravan-theme",
   "git": {
     "enabled": true,
-    "repositoryPath": "",
+    "repositoryPath": ".",
     "remote": "origin",
-    "branch": "",
+    "remoteUrl": "https://github.com/nhanbs1997/haravan.git",
+    "requireGitHub": true,
+    "pullBeforeWork": true,
+    "allowSkipGit": false,
+    "branch": "main",
     "push": true,
     "commitMessagePrefix": "Haravan theme"
   }

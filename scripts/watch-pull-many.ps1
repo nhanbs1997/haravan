@@ -54,7 +54,7 @@ while ($true) {
     if ($fingerprint -ne "" -and
         $fingerprint -ne "EMPTY" -and
         $fingerprint -ne $lastFingerprint) {
-        # Chờ file ổn định sau thao tác Save của editor/Google Drive.
+        # Chờ file ổn định sau thao tác Save của editor.
         Start-Sleep -Milliseconds 800
         $stableFingerprint = Get-UrlFileFingerprint -Path $resolvedUrlFile
         if ($stableFingerprint -eq $fingerprint) {

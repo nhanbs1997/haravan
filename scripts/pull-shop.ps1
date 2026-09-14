@@ -1,5 +1,7 @@
 . "$PSScriptRoot/common.ps1"
 
+Sync-HaravanGitWorkspace -WorkingPath $script:ProjectRoot | Out-Null
+
 $shop = Select-ShopProject
 
 Write-Host ""
@@ -23,7 +25,7 @@ try {
     }
 
     Write-Warning (
-        "A fresh backup could not be created because the local Google Drive " +
+        "A fresh backup could not be created because the local GitHub checkout " +
         "theme is inaccessible or incomplete: $($_.Exception.Message)"
     )
     Write-Warning (

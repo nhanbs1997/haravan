@@ -4,6 +4,8 @@ param(
 
 . "$PSScriptRoot/common.ps1"
 
+Sync-HaravanGitWorkspace -WorkingPath $script:ProjectRoot | Out-Null
+
 if ([string]::IsNullOrWhiteSpace($UrlFile)) {
     $defaultUrlFile = Join-Path $script:ProjectRoot "urls.txt"
     if (Test-Path -LiteralPath $defaultUrlFile -PathType Leaf) {

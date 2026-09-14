@@ -418,7 +418,7 @@ function Remove-HaravanDirectorySafely {
                 -PathType Container `
                 -ErrorAction Stop
         } catch {
-            # Google Drive can briefly deny stat access immediately after a
+            # A local checkout can briefly deny stat access immediately after a
             # directory changes. Treat that as transient and retry cleanup.
             $lastError = $_
         }
@@ -448,7 +448,7 @@ function Remove-HaravanDirectorySafely {
                 -LiteralPath $Path `
                 -ErrorAction Stop
         } catch {
-            # Keep retrying when Google Drive temporarily blocks metadata
+            # Keep retrying when a local file lock temporarily blocks metadata
             # access instead of terminating with UnauthorizedAccessException.
             $lastError = $_
         }
@@ -457,7 +457,7 @@ function Remove-HaravanDirectorySafely {
             return $true
         }
 
-        # If direct deletion was blocked by Google Drive file locks, move directory aside
+        # If direct deletion was blocked by local file locks, move directory aside
         if ($lastError -and (Split-Path -Leaf $Path) -notlike ".*") {
             $stalePath = Move-HaravanDirectoryAsideSafely -Path $Path -AllowedRoot $AllowedRoot
             if ($stalePath) {
@@ -495,14 +495,14 @@ function Sync-HaravanThemeContent {
         $targetDirectory = Join-Path $TargetRoot $directoryName
 
         # Let the retry-aware helper check existence too. A direct Test-Path
-        # here can itself fail while Google Drive is refreshing the folder.
+        # here can itself fail while the local checkout is refreshing the folder.
         $removed = Remove-HaravanDirectorySafely `
             -Path $targetDirectory `
             -AllowedRoot $TargetRoot `
             -MaxAttempts 8
         if (-not $removed) {
             Write-Warning (
-                "Google Drive did not release the old directory. " +
+                "The local checkout did not release the old directory. " +
                 "Moving it aside before continuing: $targetDirectory"
             )
             $staleDirectory = Move-HaravanDirectoryAsideSafely `
@@ -512,7 +512,7 @@ function Sync-HaravanThemeContent {
             if ($null -eq $staleDirectory) {
                 throw (
                     "Could not replace local theme directory: $targetDirectory. " +
-                    "Close files from this shop in VS Code, wait for Google Drive " +
+                    "Close files from this shop in VS Code, wait for local file locks to clear, " +
                     "to finish syncing, and run pull again."
                 )
             }
@@ -530,7 +530,7 @@ function Sync-HaravanThemeContent {
                 -AllowedRoot $TargetRoot `
                 -MaxAttempts 8
             if (-not $staleRemoved) {
-                Write-Warning "Old Google Drive directory was left at: $staleDirectory"
+                Write-Warning "Old local directory was left at: $staleDirectory"
             }
         }
     }
@@ -592,7 +592,7 @@ function Finalize-HaravanShopDirectory {
         return $DestinationRoot
     }
 
-    # Google Drive can complete the directory copy but fail while removing the
+    # A local checkout can complete the directory copy but fail while removing the
     # hidden staging directory. Preserve a complete destination in that case.
     $destinationReady = Test-HaravanShopDirectory -RootPath $DestinationRoot
     $sourceExists = Test-Path -LiteralPath $SourceRoot -PathType Container
@@ -1156,259 +1156,18 @@ function Invoke-HaravanDailyBackupCleanup {
         [string[]]$ProtectedPaths = @()
     )
 
-    $projectRoot = [System.IO.Path]::GetFullPath($script:ProjectRoot).
-        TrimEnd(
-            [System.IO.Path]::DirectorySeparatorChar,
-            [System.IO.Path]::AltDirectorySeparatorChar
-        )
-    $backupRoot = [System.IO.Path]::GetFullPath(
-        (Join-Path $script:ProjectRoot "backups")
-    ).TrimEnd(
-        [System.IO.Path]::DirectorySeparatorChar,
-        [System.IO.Path]::AltDirectorySeparatorChar
-    )
-    $backupParent = [System.IO.Path]::GetFullPath(
-        (Split-Path -Parent $backupRoot)
-    ).TrimEnd(
-        [System.IO.Path]::DirectorySeparatorChar,
-        [System.IO.Path]::AltDirectorySeparatorChar
-    )
-
-    if ($backupParent -ne $projectRoot -or
-        (Split-Path -Leaf $backupRoot) -ne "backups") {
-        throw "Unsafe backup cleanup root: $backupRoot"
-    }
-
-    $cutoff = $ReferenceTime.AddDays(-1)
-    if (-not (Test-Path -LiteralPath $backupRoot -PathType Container)) {
-        return [PSCustomObject]@{
-            Root              = $backupRoot
-            Cutoff            = $cutoff
-            DeletedFiles      = 0
-            DeletedDirectories = 0
-            DeletedBytes      = 0L
-            FailedFiles       = 0
-            FailedDirectories = 0
-            SkippedLinks      = 0
-        }
-    }
-
-    $protected = New-Object 'System.Collections.Generic.HashSet[string]' (
-        [System.StringComparer]::OrdinalIgnoreCase
-    )
-    foreach ($path in @($ProtectedPaths)) {
-        if ([string]::IsNullOrWhiteSpace([string]$path)) {
-            continue
-        }
-        $fullProtectedPath = [System.IO.Path]::GetFullPath([string]$path)
-        if (-not (Test-HaravanPathWithinRoot `
-            -Path $fullProtectedPath `
-            -AllowedRoot $backupRoot)) {
-            throw "Protected backup path is outside backups/: $fullProtectedPath"
-        }
-        [void]$protected.Add($fullProtectedPath)
-    }
-
-    $deletedFiles = 0
-    $deletedDirectories = 0
-    $deletedBytes = 0L
-    $failedFiles = 0
-    $failedDirectories = 0
-    $skippedLinks = 0
-    $pendingDirectories = New-Object 'System.Collections.Generic.Stack[string]'
-    $directoryRecords = New-Object 'System.Collections.Generic.List[object]'
-    [void]$directoryRecords.Add([PSCustomObject]@{
-        Path = $backupRoot
-        LastWriteTime = $ReferenceTime
-    })
-    $pendingDirectories.Push($backupRoot)
-
-    while ($pendingDirectories.Count -gt 0) {
-        $directory = $pendingDirectories.Pop()
-        try {
-            $children = @(Get-ChildItem `
-                -LiteralPath $directory `
-                -Force `
-                -ErrorAction Stop)
-        } catch {
-            Write-Warning (
-                "Không thể đọc thư mục backup khi dọn hằng ngày: {0}. {1}" -f `
-                    $directory,
-                    $_.Exception.Message
-            )
-            continue
-        }
-
-        foreach ($child in $children) {
-            $isReparsePoint = (
-                $child.Attributes -band [System.IO.FileAttributes]::ReparsePoint
-            ) -ne 0
-            if ($child.PSIsContainer) {
-                if ($isReparsePoint) {
-                    $skippedLinks++
-                    Write-Warning "Bỏ qua thư mục liên kết trong backups/: $($child.FullName)"
-                    continue
-                }
-                [void]$directoryRecords.Add([PSCustomObject]@{
-                    Path = $child.FullName
-                    LastWriteTime = $child.LastWriteTime
-                })
-                $pendingDirectories.Push($child.FullName)
-                continue
-            }
-
-            if ($isReparsePoint) {
-                $skippedLinks++
-                Write-Warning "Bỏ qua file liên kết trong backups/: $($child.FullName)"
-                continue
-            }
-            if ($child.LastWriteTime -ge $cutoff -or
-                $protected.Contains($child.FullName)) {
-                continue
-            }
-            if (-not (Test-HaravanPathWithinRoot `
-                -Path $child.FullName `
-                -AllowedRoot $backupRoot)) {
-                throw "Unsafe backup cleanup target outside backups/: $($child.FullName)"
-            }
-
-            $removed = $false
-            $lastError = $null
-            for ($attempt = 1; $attempt -le 4; $attempt++) {
-                try {
-                    Remove-Item `
-                        -LiteralPath $child.FullName `
-                        -Force `
-                        -ErrorAction Stop
-                    $removed = $true
-                    break
-                } catch [System.UnauthorizedAccessException] {
-                    $lastError = $_
-                } catch [System.IO.IOException] {
-                    $lastError = $_
-                } catch [System.Management.Automation.ItemNotFoundException] {
-                    $removed = $true
-                    break
-                } catch {
-                    $lastError = $_
-                }
-
-                if ($attempt -lt 4) {
-                    Start-Sleep -Milliseconds (150 * $attempt)
-                }
-            }
-
-            if ($removed) {
-                $deletedFiles++
-                $deletedBytes += [long]$child.Length
-            } else {
-                $failedFiles++
-                Write-Warning (
-                    "Không thể xóa backup cũ: {0}. {1}" -f `
-                        $child.FullName,
-                        $lastError.Exception.Message
-                )
-            }
-        }
-    }
-
-    foreach ($directoryRecord in @(
-        $directoryRecords | Sort-Object { ([string]$_.Path).Length } -Descending
-    )) {
-        $directoryPath = [string]$directoryRecord.Path
-        if ($directoryPath -eq $backupRoot -or
-            $protected.Contains($directoryPath) -or
-            $directoryRecord.LastWriteTime -ge $cutoff) {
-            continue
-        }
-        if (-not (Test-HaravanPathWithinRoot `
-            -Path $directoryPath `
-            -AllowedRoot $backupRoot)) {
-            throw "Unsafe backup cleanup target outside backups/: $directoryPath"
-        }
-
-        try {
-            $remainingItems = @(Get-ChildItem `
-                -LiteralPath $directoryPath `
-                -Force `
-                -ErrorAction Stop)
-        } catch {
-            $failedDirectories++
-            Write-Warning (
-                "Không thể kiểm tra thư mục backup cũ: {0}. {1}" -f `
-                    $directoryPath,
-                    $_.Exception.Message
-            )
-            continue
-        }
-        if ($remainingItems.Count -gt 0) {
-            continue
-        }
-
-        $removed = $false
-        $lastError = $null
-        for ($attempt = 1; $attempt -le 4; $attempt++) {
-            try {
-                Remove-Item `
-                    -LiteralPath $directoryPath `
-                    -Force `
-                    -ErrorAction Stop
-                $removed = $true
-                break
-            } catch [System.UnauthorizedAccessException] {
-                $lastError = $_
-            } catch [System.IO.IOException] {
-                $lastError = $_
-            } catch [System.Management.Automation.ItemNotFoundException] {
-                $removed = $true
-                break
-            } catch {
-                $lastError = $_
-            }
-
-            if ($attempt -lt 4) {
-                Start-Sleep -Milliseconds (150 * $attempt)
-            }
-        }
-
-        if ($removed) {
-            $deletedDirectories++
-        } else {
-            $failedDirectories++
-            Write-Warning (
-                "Không thể xóa thư mục backup cũ: {0}. {1}" -f `
-                    $directoryPath,
-                    $lastError.Exception.Message
-            )
-        }
-    }
-
-    if ($deletedFiles -gt 0 -or $deletedDirectories -gt 0) {
-        $deletedMb = [Math]::Round($deletedBytes / 1MB, 2)
-        Write-Host (
-            (
-                "Dọn backup hằng ngày: đã xóa {0} file cũ ({1} MB) và {2} thư mục rỗng; " +
-                "giữ dữ liệu mới hơn {3}."
-            ) -f `
-                $deletedFiles,
-                $deletedMb,
-                $deletedDirectories,
-                $cutoff.ToString("dd/MM/yyyy HH:mm")
-        )
-    }
-
     return [PSCustomObject]@{
-        Root              = $backupRoot
-        Cutoff            = $cutoff
-        DeletedFiles      = $deletedFiles
-        DeletedDirectories = $deletedDirectories
-        DeletedBytes      = $deletedBytes
-        FailedFiles       = $failedFiles
-        FailedDirectories = $failedDirectories
-        SkippedLinks      = $skippedLinks
+        Root               = Join-Path $script:ProjectRoot "backups"
+        Cutoff             = $ReferenceTime.AddDays(-1)
+        DeletedFiles       = 0
+        DeletedDirectories = 0
+        DeletedBytes       = 0L
+        FailedFiles        = 0
+        FailedDirectories  = 0
+        SkippedLinks       = 0
+        Disabled           = $true
     }
 }
-
 function Invoke-HaravanDailyShopCleanup {
     [CmdletBinding()]
     param(
@@ -1416,111 +1175,15 @@ function Invoke-HaravanDailyShopCleanup {
         [string[]]$ProtectedPaths = @()
     )
 
-    $projectRoot = [System.IO.Path]::GetFullPath($script:ProjectRoot).TrimEnd(
-        [System.IO.Path]::DirectorySeparatorChar,
-        [System.IO.Path]::AltDirectorySeparatorChar
-    )
-    $shopsRoot = [System.IO.Path]::GetFullPath(
-        (Join-Path $script:ProjectRoot "shops")
-    ).TrimEnd(
-        [System.IO.Path]::DirectorySeparatorChar,
-        [System.IO.Path]::AltDirectorySeparatorChar
-    )
-    $shopsParent = [System.IO.Path]::GetFullPath(
-        (Split-Path -Parent $shopsRoot)
-    ).TrimEnd(
-        [System.IO.Path]::DirectorySeparatorChar,
-        [System.IO.Path]::AltDirectorySeparatorChar
-    )
-
-    if ($shopsParent -ne $projectRoot -or
-        (Split-Path -Leaf $shopsRoot) -ne "shops") {
-        throw "Unsafe shop cleanup root: $shopsRoot"
-    }
-
-    $cutoff = $ReferenceTime.AddDays(-1)
-    if (-not (Test-Path -LiteralPath $shopsRoot -PathType Container)) {
-        return [PSCustomObject]@{
-            Root = $shopsRoot
-            Cutoff = $cutoff
-            DeletedDirectories = 0
-            FailedDirectories = 0
-            SkippedLinks = 0
-        }
-    }
-
-    $protected = New-Object 'System.Collections.Generic.HashSet[string]' (
-        [System.StringComparer]::OrdinalIgnoreCase
-    )
-    foreach ($path in @($ProtectedPaths)) {
-        if ([string]::IsNullOrWhiteSpace([string]$path)) {
-            continue
-        }
-        $fullProtectedPath = [System.IO.Path]::GetFullPath([string]$path)
-        if (-not (Test-HaravanPathWithinRoot `
-            -Path $fullProtectedPath `
-            -AllowedRoot $shopsRoot)) {
-            throw "Protected shop path is outside shops/: $fullProtectedPath"
-        }
-        [void]$protected.Add($fullProtectedPath)
-    }
-
-    $deletedDirectories = 0
-    $failedDirectories = 0
-    $skippedLinks = 0
-    $shopDirectories = @(Get-ChildItem `
-        -LiteralPath $shopsRoot `
-        -Directory `
-        -Force `
-        -ErrorAction Stop)
-
-    foreach ($shopDirectory in $shopDirectories) {
-        $isReparsePoint = (
-            $shopDirectory.Attributes -band [System.IO.FileAttributes]::ReparsePoint
-        ) -ne 0
-        if ($isReparsePoint) {
-            $skippedLinks++
-            Write-Warning "Bỏ qua thư mục shop liên kết: $($shopDirectory.FullName)"
-            continue
-        }
-        if ($protected.Contains($shopDirectory.FullName) -or
-            $shopDirectory.LastWriteTime -ge $cutoff) {
-            continue
-        }
-        if (-not (Test-HaravanPathWithinRoot `
-            -Path $shopDirectory.FullName `
-            -AllowedRoot $shopsRoot)) {
-            throw "Unsafe shop cleanup target outside shops/: $($shopDirectory.FullName)"
-        }
-
-        $removed = Remove-HaravanDirectorySafely `
-            -Path $shopDirectory.FullName `
-            -AllowedRoot $shopsRoot
-        if ($removed) {
-            $deletedDirectories++
-        } else {
-            $failedDirectories++
-            Write-Warning "Không thể xóa theme quá hạn trong shops/: $($shopDirectory.FullName)"
-        }
-    }
-
-    if ($deletedDirectories -gt 0) {
-        Write-Host (
-            "Dọn shops hằng ngày: đã xóa {0} theme quá 24 giờ; giữ theme mới hơn {1}." -f `
-                $deletedDirectories,
-                $cutoff.ToString("dd/MM/yyyy HH:mm")
-        )
-    }
-
     return [PSCustomObject]@{
-        Root = $shopsRoot
-        Cutoff = $cutoff
-        DeletedDirectories = $deletedDirectories
-        FailedDirectories = $failedDirectories
-        SkippedLinks = $skippedLinks
+        Root               = Join-Path $script:ProjectRoot "shops"
+        Cutoff             = $ReferenceTime.AddDays(-1)
+        DeletedDirectories = 0
+        FailedDirectories  = 0
+        SkippedLinks       = 0
+        Disabled           = $true
     }
 }
-
 function Get-ThemeBackups {
     param([Parameter(Mandatory = $true)]$Shop)
 
@@ -1654,20 +1317,14 @@ function New-ThemeBackup {
                     $latestBackup[0].LastWriteTime -ge $backupOperationTime.AddDays(-1) -and
                     $latestBackup[0].LastWriteTime -le $backupOperationTime -and
                     [string]$latestManifest.contentFingerprint -eq $contentFingerprint) {
-                    $dailyCleanup = Invoke-HaravanDailyBackupCleanup `
-                        -ReferenceTime $backupOperationTime `
-                        -ProtectedPaths @($latestBackup[0].FullName)
-                    $dailyShopCleanup = Invoke-HaravanDailyShopCleanup `
-                        -ReferenceTime $backupOperationTime `
-                        -ProtectedPaths @($Shop.Path)
                     return [PSCustomObject]@{
                         Path = $latestBackup[0].FullName
                         CreatedAt = $latestBackup[0].LastWriteTime
                         FileCount = [int]$latestManifest.fileCount
                         SizeBytes = $latestBackup[0].Length
                         WasCreated = $false
-                        DailyCleanup = $dailyCleanup
-                        DailyShopCleanup = $dailyShopCleanup
+                        DailyCleanup = $null
+                        DailyShopCleanup = $null
                     }
                 }
             } catch {
@@ -1771,20 +1428,14 @@ function New-ThemeBackup {
     }
 
     $backupFile = Get-Item -LiteralPath $backupPath
-    $dailyCleanup = Invoke-HaravanDailyBackupCleanup `
-        -ReferenceTime $backupOperationTime `
-        -ProtectedPaths @($backupFile.FullName)
-    $dailyShopCleanup = Invoke-HaravanDailyShopCleanup `
-        -ReferenceTime $backupOperationTime `
-        -ProtectedPaths @($Shop.Path)
     return [PSCustomObject]@{
         Path = $backupFile.FullName
         CreatedAt = $createdAt
         FileCount = $fileCount
         SizeBytes = $backupFile.Length
         WasCreated = $true
-        DailyCleanup = $dailyCleanup
-        DailyShopCleanup = $dailyShopCleanup
+        DailyCleanup = $null
+        DailyShopCleanup = $null
     }
 }
 
@@ -1993,9 +1644,13 @@ function Get-HaravanGitSettings {
 
     $enabled = $true
     $pushToRemote = $true
-    $repositoryPath = ""
+    $repositoryPath = "."
     $remote = "origin"
-    $branch = ""
+    $branch = "main"
+    $remoteUrl = "https://github.com/nhanbs1997/haravan.git"
+    $requireGitHub = $true
+    $pullBeforeWork = $true
+    $allowSkipGit = $false
     $commitPrefix = "Haravan theme"
 
     if ($gitConfig) {
@@ -2026,6 +1681,28 @@ function Get-HaravanGitSettings {
         if ($property -and $null -ne $property.Value) {
             $branch = ([string]$property.Value).Trim()
         }
+        $property = $gitConfig.PSObject.Properties["remoteUrl"]
+        if ($property -and $null -ne $property.Value) {
+            $remoteUrl = ([string]$property.Value).Trim()
+        }
+        $property = $gitConfig.PSObject.Properties["requireGitHub"]
+        if ($property) {
+            $requireGitHub = ConvertTo-HaravanGitBoolean `
+                -Value $property.Value `
+                -Default $requireGitHub
+        }
+        $property = $gitConfig.PSObject.Properties["pullBeforeWork"]
+        if ($property) {
+            $pullBeforeWork = ConvertTo-HaravanGitBoolean `
+                -Value $property.Value `
+                -Default $pullBeforeWork
+        }
+        $property = $gitConfig.PSObject.Properties["allowSkipGit"]
+        if ($property) {
+            $allowSkipGit = ConvertTo-HaravanGitBoolean `
+                -Value $property.Value `
+                -Default $allowSkipGit
+        }
         $property = $gitConfig.PSObject.Properties["commitMessagePrefix"]
         if ($property -and $null -ne $property.Value) {
             $commitPrefix = ([string]$property.Value).Trim()
@@ -2052,6 +1729,10 @@ function Get-HaravanGitSettings {
         RepositoryPath   = $repositoryPath
         Remote           = $remote
         Branch           = $branch
+        RemoteUrl        = $remoteUrl
+        RequireGitHub    = $requireGitHub
+        PullBeforeWork   = $pullBeforeWork
+        AllowSkipGit     = $allowSkipGit
         CommitPrefix     = $commitPrefix
     }
 }
@@ -2110,6 +1791,138 @@ function Resolve-HaravanGitRepository {
         return ""
     }
     return [System.IO.Path]::GetFullPath([string]$repositoryRoot)
+}
+
+function ConvertTo-HaravanGitRemoteKey {
+    param([AllowNull()][string]$Url)
+
+    $value = ([string]$Url).Trim()
+    if ([string]::IsNullOrWhiteSpace($value)) {
+        return ""
+    }
+    if ($value -match '^(?i)git@github\.com:(.+)$') {
+        $value = "https://github.com/$($matches[1])"
+    }
+    return ($value -replace '(?i)\.git$', '').TrimEnd('/').ToLowerInvariant()
+}
+
+function Assert-HaravanGitRepository {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)][string]$WorkingPath
+    )
+
+    $settings = Get-HaravanGitSettings
+    if (-not $settings.Enabled) {
+        throw "Workflow bắt buộc lưu mã nguồn qua GitHub; git.enabled phải là true."
+    }
+
+    $repositoryRoot = Resolve-HaravanGitRepository `
+        -ShopPath $WorkingPath `
+        -ConfiguredPath $settings.RepositoryPath
+    if ([string]::IsNullOrWhiteSpace($repositoryRoot)) {
+        throw "Không tìm thấy Git repository từ $WorkingPath. Hãy clone repository GitHub vào workspace."
+    }
+
+    $remoteName = ([string]$settings.Remote).Trim()
+    if ([string]::IsNullOrWhiteSpace($remoteName)) {
+        $remoteName = "origin"
+    }
+    $remoteResult = Invoke-HaravanGitCommand `
+        -WorkingDirectory $repositoryRoot `
+        -Arguments @("remote", "get-url", $remoteName) `
+        -AllowNonZero
+    if ($remoteResult.ExitCode -ne 0) {
+        throw "Git repository chưa có remote '$remoteName'. Thêm remote GitHub $($settings.RemoteUrl) rồi chạy lại."
+    }
+
+    $actualRemoteUrl = @(
+        $remoteResult.Output |
+            ForEach-Object { ([string]$_).Trim() } |
+            Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+    ) | Select-Object -First 1
+    if ($settings.RequireGitHub) {
+        $expectedRemoteKey = ConvertTo-HaravanGitRemoteKey -Url $settings.RemoteUrl
+        $actualRemoteKey = ConvertTo-HaravanGitRemoteKey -Url $actualRemoteUrl
+        if ([string]::IsNullOrWhiteSpace($expectedRemoteKey) -or
+            $actualRemoteKey -ne $expectedRemoteKey) {
+            throw (
+                "Git remote phải trỏ tới GitHub {0}; hiện tại là {1}." -f
+                $settings.RemoteUrl,
+                $actualRemoteUrl
+            )
+        }
+    }
+
+    $branchResult = Invoke-HaravanGitCommand `
+        -WorkingDirectory $repositoryRoot `
+        -Arguments @("branch", "--show-current")
+    $currentBranch = @(
+        $branchResult.Output |
+            ForEach-Object { ([string]$_).Trim() } |
+            Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+    ) | Select-Object -First 1
+    if (-not [string]::IsNullOrWhiteSpace($settings.Branch) -and
+        [string]$currentBranch -ne [string]$settings.Branch) {
+        throw (
+            "Git workflow phải làm việc trên nhánh '{0}', hiện tại là '{1}'." -f
+            $settings.Branch,
+            $currentBranch
+        )
+    }
+
+    $workingFullPath = [System.IO.Path]::GetFullPath($WorkingPath)
+    if (-not (Test-HaravanPathWithinOrEqual `
+        -Path $workingFullPath `
+        -AllowedRoot $repositoryRoot)) {
+        throw "Đường dẫn thao tác nằm ngoài Git repository: $workingFullPath"
+    }
+
+    return [PSCustomObject]@{
+        Settings       = $settings
+        RepositoryRoot = $repositoryRoot
+        Remote         = $remoteName
+        RemoteUrl      = [string]$actualRemoteUrl
+        Branch         = [string]$currentBranch
+    }
+}
+
+function Sync-HaravanGitWorkspace {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)][string]$WorkingPath
+    )
+
+    $workspace = Assert-HaravanGitRepository -WorkingPath $WorkingPath
+    if (-not $workspace.Settings.PullBeforeWork) {
+        return $workspace
+    }
+
+    $status = Invoke-HaravanGitCommand `
+        -WorkingDirectory $workspace.RepositoryRoot `
+        -Arguments @("status", "--porcelain=v1", "--untracked-files=all")
+    $statusLines = @($status.Output | Where-Object {
+        -not [string]::IsNullOrWhiteSpace([string]$_)
+    })
+    if ($statusLines.Count -gt 0) {
+        $dirtyMessage = (
+            "Bỏ qua git pull vì workspace có {0} thay đổi chưa commit; " +
+            "hãy commit/push lên GitHub trước khi đồng bộ lượt tiếp theo."
+        ) -f $statusLines.Count
+        Write-Warning $dirtyMessage
+        return $workspace
+    }
+
+    $pull = Invoke-HaravanGitCommand `
+        -WorkingDirectory $workspace.RepositoryRoot `
+        -Arguments @("pull", "--ff-only", $workspace.Remote, $workspace.Branch) `
+        -AllowNonZero
+    if ($pull.ExitCode -ne 0) {
+        $detail = (@($pull.Output) -join " ").Trim()
+        throw "Không thể đồng bộ GitHub trước khi làm việc: $detail"
+    }
+    Write-Host "GitHub workspace đã được đồng bộ: $($workspace.Remote)/$($workspace.Branch)."
+    return $workspace
 }
 
 function Get-HaravanGitFailureDetail {
@@ -2337,6 +2150,23 @@ function Invoke-HaravanGitArchive {
             )
             $baseResult.Remote = $remoteName
             return [PSCustomObject]($baseResult + @{ Status = "CommittedNoRemote" })
+        }
+        if ($settings.RequireGitHub) {
+            $actualRemoteUrl = @(
+                $remoteCheck.Output |
+                    ForEach-Object { ([string]$_).Trim() } |
+                    Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+            ) | Select-Object -First 1
+            $expectedRemoteKey = ConvertTo-HaravanGitRemoteKey -Url $settings.RemoteUrl
+            $actualRemoteKey = ConvertTo-HaravanGitRemoteKey -Url $actualRemoteUrl
+            if ([string]::IsNullOrWhiteSpace($expectedRemoteKey) -or
+                $actualRemoteKey -ne $expectedRemoteKey) {
+                throw (
+                    "Git remote phải trỏ tới GitHub {0}; hiện tại là {1}." -f
+                    $settings.RemoteUrl,
+                    $actualRemoteUrl
+                )
+            }
         }
 
         $branchName = ([string]$settings.Branch).Trim()

@@ -1,5 +1,7 @@
 . "$PSScriptRoot/common.ps1"
 
+Sync-HaravanGitWorkspace -WorkingPath $script:ProjectRoot | Out-Null
+
 function Select-ShopOrAdd {
     $projects = @(Get-ShopProjects)
     if ($projects.Count -eq 0) {
@@ -90,8 +92,6 @@ Write-Host "Organization: $($shop.OrgId)"
 Write-Host "Theme: $($shop.ThemeId)"
 Write-Host "Account: $($shop.Email)"
 Write-Host "Folder: $($shop.Path)"
-
-$dailyShopCleanup = Invoke-HaravanDailyShopCleanup -ProtectedPaths @($shop.Path)
 
 $beforePullBackup = $null
 if (Test-HaravanThemeContent -RootPath $shop.Path) {

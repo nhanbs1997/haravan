@@ -468,6 +468,7 @@ function Write-WorkflowThemeCache {
 }
 
 function Invoke-WorkflowPrepare {
+    Sync-HaravanGitWorkspace -WorkingPath $script:ProjectRoot | Out-Null
     $context = Read-WorkflowContext -Path $ContextPath -Json $ContextJson
     $sessionDirectory = Get-WorkflowSessionDirectory -TicketIdValue $context.TicketId
     New-Item -ItemType Directory -Path $sessionDirectory -Force | Out-Null

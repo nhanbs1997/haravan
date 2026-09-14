@@ -1,28 +1,36 @@
 # Haravan theme workflow
 
 Quy trình này quản lý nhiều Haravan Organization/theme trong cùng một VS Code
-workspace, với mỗi shop nằm trong một thư mục và có kết nối CLI riêng. Toàn bộ
-workspace được đồng bộ giữa các máy bằng Google Drive; Git là lớp lưu trữ phiên bản
-tùy chọn cho các file code đã được push lên Haravan.
+workspace, với mỗi shop nằm trong một thư mục và có kết nối CLI riêng. GitHub
+`https://github.com/nhanbs1997/haravan.git` là nguồn mã nguồn chính; mọi thao tác
+workflow đều bắt đầu từ checkout này và thay đổi đã xác minh được commit/push lên
+GitHub sau khi push theme thành công.
 
-## Đồng bộ bằng Google Drive
+## Đồng bộ bằng GitHub
 
-Đặt toàn bộ thư mục `Haravan` bên trong **My Drive** và chọn
-**Available offline / Có thể sử dụng khi không có mạng** trong Google Drive for
-desktop. Thư mục `backups/`, code theme, scripts và cấu hình VS Code sẽ được đồng
-bộ cùng nhau.
+Clone repository trước khi làm việc và luôn mở chính checkout đó trong VS Code:
+
+```powershell
+git clone https://github.com/nhanbs1997/haravan.git
+cd haravan
+git pull --ff-only origin main
+```
+
+Workflow tự kiểm tra remote `origin` và nhánh `main`; nếu working tree sạch, nó tự
+đồng bộ GitHub trước khi fetch/pull. Khi có thay đổi chưa commit, workflow giữ nguyên
+checkout và cảnh báo để người dùng commit/push trước lượt tiếp theo.
 
 Trước khi đổi máy:
 
 1. Dừng `Haravan: Start` bằng `Ctrl+C`.
-2. Chờ Google Drive báo đồng bộ hoàn tất.
+2. Chạy `git push origin main` và kiểm tra GitHub đã nhận commit.
 3. Đóng VS Code trên máy cũ.
 
 Trên máy mới:
 
-1. Cài Google Drive for desktop, VS Code và Node.js 16 trở lên.
-2. Chờ toàn bộ thư mục `Haravan` tải xong và đặt ở chế độ available offline.
-3. Mở đúng thư mục `Haravan` từ Google Drive trong VS Code.
+1. Cài Git, VS Code và Node.js 16 trở lên.
+2. Clone repository `nhanbs1997/haravan` và chạy `git pull --ff-only origin main`.
+3. Mở checkout GitHub trong VS Code.
 4. Chạy `npm.cmd run setup`.
 5. Chạy `npm.cmd run add:shop`; workflow sẽ tự xác nhận phiên Haravan CLI đã đăng nhập,
    chỉ mở login khi chưa có Organization hợp lệ.
@@ -30,15 +38,14 @@ Trên máy mới:
 Không sao chép file xác thực `%USERPROFILE%\.haravan-cli.json` giữa hai máy.
 Không chạy `theme dev` cho cùng một shop trên hai máy cùng lúc.
 
-## Lưu trữ Git tự động
+## Lưu trữ GitHub tự động
 
 Sau mỗi lần `agent:push` đẩy code thành công lên Haravan, workflow tự commit đúng các
-file vừa đẩy và tự `git push` lên remote đã cấu hình. Thiết lập repository một lần tại
-workspace:
+file vừa đẩy và tự `git push origin main` lên repository GitHub:
 
 ```powershell
-git init
-git remote add origin <URL-repository>
+git clone https://github.com/nhanbs1997/haravan.git
+git remote -v
 ```
 
 Nhóm `git` trong `.haravan-workflow.json` điều khiển tính năng này:
@@ -47,20 +54,21 @@ Nhóm `git` trong `.haravan-workflow.json` điều khiển tính năng này:
 {
   "git": {
     "enabled": true,
-    "repositoryPath": "",
+    "repositoryPath": ".",
     "remote": "origin",
-    "branch": "",
+    "remoteUrl": "https://github.com/nhanbs1997/haravan.git",
+    "requireGitHub": true,
+    "pullBeforeWork": true,
+    "allowSkipGit": false,
+    "branch": "main",
     "push": true,
     "commitMessagePrefix": "Haravan theme"
   }
 }
 ```
 
-Để trống `repositoryPath` để workflow tự tìm repository từ thư mục shop; nếu repository
-ở nơi khác, điền đường dẫn tương đối hoặc tuyệt đối. Workflow không tự khởi tạo repo,
-không tự đoán URL remote và không lưu credential. Nếu thiếu Git/repository/remote, code
-vẫn được push lên Haravan; trạng thái Git sẽ được cảnh báo rõ trong terminal. Dùng
-`-SkipGit` cho một lượt cần bỏ qua lưu Git.
+Workflow không tự đổi remote, không lưu credential và không cho phép `-SkipGit`. Nếu
+checkout/remote/nhánh không đúng GitHub, workflow dừng trước khi ghi lên Haravan.
 
 ## Làm việc trực tiếp trong VS Code
 
@@ -70,8 +78,8 @@ Mở thư mục dự án:
 code .
 ```
 
-Nhấn `Ctrl+Shift+B` để chạy `Haravan: Start`. Sau khi chọn shop, workflow tự
-động backup code local, tải code mới nhất của đúng remote theme, backup trạng
+Nhấn `Ctrl+Shift+B` để chạy `Haravan: Start`. Sau khi chọn shop, workflow đồng bộ
+GitHub khi checkout sạch, tự động backup code local, tải code mới nhất của đúng remote theme, backup trạng
 thái vừa tải và mới bắt đầu `theme dev`.
 
 Tại menu, có thể:
@@ -100,22 +108,19 @@ của shop đang chọn. Nhấn `Ctrl+C` để dừng.
 Mỗi lần chạy `Haravan: Start`, workflow tự backup code local **trước khi pull**,
 tải code mới nhất từ remote theme, rồi backup thêm trạng thái mới **trước khi**
 chạy `theme dev`. Task `Haravan: Pull latest shop` cũng tự backup trước khi pull,
-vì thao tác này có thể ghi đè file local. Nếu code không thay đổi so với bản gần
-nhất trong vòng 24 giờ, workflow dùng lại bản đó để tránh tốn dung lượng. Bản quá
-24 giờ không được dùng lại: workflow phải tạo thành công hoặc xác nhận một backup còn
-trong hạn trước khi dọn dữ liệu cũ.
+vì thao tác này có thể ghi đè file local. Nếu code không thay đổi, workflow có thể
+dùng lại backup có cùng fingerprint để tránh tạo bản trùng; các backup cũ vẫn được giữ
+lại và không bị xóa tự động.
 
-Backup nằm trong workspace Google Drive, không tạo bản sao theme trong Haravan:
+Backup nằm trong checkout GitHub tại máy local, không tạo bản sao theme trong Haravan:
 
 ```text
 backups/<org_id> - <theme_id>/<thời gian>-<lý do>.zip
 ```
 
-Sau khi có thao tác workflow, hệ thống dọn đệ quy `backups/` và xóa các **file backup**
-cùng các thư mục theme đã quá 24 giờ; thư mục backup rỗng sau đó cũng được dọn. Theme
-đang thao tác và backup vừa tạo trong lượt hiện tại được bảo vệ. Cơ chế này chạy khi
-một workflow được sử dụng; nó không phải lịch nền của Windows nên không tự chạy vào
-thời điểm không có workflow nào được mở.
+Workflow không còn dọn hoặc xóa backup và thư mục theme theo mốc 24 giờ. Dữ liệu được
+giữ lại để đối chiếu với GitHub; chỉ lệnh `npm.cmd run clean` do người dùng chủ động
+chạy mới thực hiện dọn local.
 
 Khi AI sửa theme, auto-push phải nhận đúng danh sách file đã chỉnh để backup và push
 chọn lọc:
@@ -211,10 +216,14 @@ nhận. Có thể thêm yêu cầu cần làm ngay sau ID, ví dụ `83537 sửa
 sửa các lỗi khác trong ticket. Workflow tại [`WORKFLOW-TICKET.md`](WORKFLOW-TICKET.md)
 sẽ tự đọc ticket, tìm website/Org ID, tự tra Inside theo Org ID khi ticket thiếu link
 website, fetch đúng theme, xử lý đúng phạm vi và tạo bản
-nháp phản hồi. Người dùng chỉ cần đăng nhập khi phiên yêu cầu; phản hồi Helpdesk luôn ở
-chế độ `draft-only`, không tự nhấn Reply hoặc gửi email. Mỗi lượt workflow dùng browser
-session/cửa sổ mới và không điều hướng hoặc đóng các tab đang mở của người dùng. Lookup
-Inside dùng đúng một tab được tái sử dụng tuần tự cho các Org ID, không mở nhiều tab Inside.
+nháp phản hồi. Người dùng chỉ cần đăng nhập khi phiên yêu cầu OTP/CAPTCHA; sau login,
+workflow tự bấm `Đồng Ý` trên trang Haravan CLI. Phản hồi Helpdesk luôn ở
+chế độ `draft-only`, không tự nhấn Reply hoặc gửi email. Trước khi mở tab, mỗi lượt
+workflow phải tạo browser session và một cửa sổ trình duyệt mới; mọi tab của ticket chỉ
+được mở trong cửa sổ đó. Workflow không mở tab mới, điều hướng, claim hoặc tái sử dụng
+tab trong cửa sổ hiện tại của người dùng. Lookup Inside dùng đúng một tab trong cửa sổ
+workflow, được tái sử dụng tuần tự cho các Org ID, không mở nhiều tab Inside. Nếu không
+tạo được cửa sổ độc lập, workflow dừng trước khi mở tab và báo rõ.
 
 Khi chạy lại cùng theme trong tối đa 30 phút, workflow tự dùng theme local nếu metadata
 file không đổi, nên bỏ qua backup và fetch/pull. Dùng `-ForceFetch` để lấy bản remote mới

@@ -7,6 +7,8 @@ param(
 
 . "$PSScriptRoot/common.ps1"
 
+Sync-HaravanGitWorkspace -WorkingPath $script:ProjectRoot | Out-Null
+
 try {
     $null = Get-HaravanCommand
 } catch {
@@ -136,8 +138,6 @@ if ($hasExplicitSelection) {
 $existingShop = @(Get-ShopProjects | Where-Object {
     $_.OrgId -eq $orgId -and $_.ThemeId -eq $themeId
 })
-$protectedShopPaths = @($existingShop | ForEach-Object { $_.Path })
-$dailyShopCleanup = Invoke-HaravanDailyShopCleanup -ProtectedPaths $protectedShopPaths
 if ($existingShop.Count -gt 0) {
     $targetShop = $existingShop[0]
     Write-Host "Shop already configured: org $orgId / theme $themeId"

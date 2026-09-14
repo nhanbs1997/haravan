@@ -87,6 +87,11 @@ $shop = [PSCustomObject]@{
     Email     = Get-HaravanAccountEmail -OrgId ([string]$meta.orgId)
 }
 
+$gitWorkspace = Assert-HaravanGitRepository -WorkingPath $shop.Path
+if ($SkipGit -and -not $gitWorkspace.Settings.AllowSkipGit) {
+    throw "Workflow bắt buộc commit và push thay đổi qua GitHub; không được dùng -SkipGit."
+}
+
 Write-Host ""
 Write-Host "Shop: $($shop.ThemeName)  |  Org: $($shop.OrgId)  |  Theme: $($shop.ThemeId)"
 Write-Host ""
@@ -277,37 +282,28 @@ if ($pushedFiles.Count -gt 0) {
                 Write-Host "Git archive: không có thay đổi mới để commit."
             }
             "CommittedNoRemote" {
-                Write-Warning (
-                    "Đã commit Git {0} nhưng chưa push remote. Cấu hình remote rồi " +
-                    "chạy lại agent:push nếu cần." -f $gitArchive.CommitId
-                )
+                throw "Đã commit Git $($gitArchive.CommitId) nhưng chưa push được GitHub remote."
             }
             "CommittedNoBranch" {
-                Write-Warning (
-                    "Đã commit Git {0} nhưng chưa push vì detached HEAD." -f
-                    $gitArchive.CommitId
-                )
+                throw "Đã commit Git $($gitArchive.CommitId) nhưng checkout không ở nhánh GitHub hợp lệ."
             }
             "CommittedNoPush" {
-                Write-Host (
-                    "Git commit OK: {0}; git push đang tắt trong cấu hình." -f
-                    $gitArchive.CommitId
-                )
+                throw "Git commit $($gitArchive.CommitId) đã tạo nhưng git push đang tắt; workflow yêu cầu push GitHub."
             }
             "Disabled" {
-                Write-Host "Bỏ qua lưu Git vì git.enabled=false trong .haravan-workflow.json."
+                throw "git.enabled=false; workflow yêu cầu bật lưu mã nguồn qua GitHub."
             }
             "GitUnavailable" {
-                Write-Warning "Không thể lưu Git vì Git chưa sẵn sàng trên máy."
+                throw "Git chưa sẵn sàng trên máy; không thể hoàn tất workflow GitHub."
             }
             "NoRepository" {
-                Write-Warning "Không có Git repository; code Haravan vẫn đã push thành công."
+                throw "Không có Git repository GitHub; workflow dừng sau khi push theme để tránh mất nguồn mã."
             }
             "Failed" {
-                Write-Warning "Lưu/push Git không hoàn tất; code Haravan vẫn đã push thành công."
+                throw "Lưu/push GitHub không hoàn tất; hãy kiểm tra repository rồi chạy lại agent:push."
             }
             default {
-                Write-Warning "Lưu Git trả về trạng thái không xác định: $($gitArchive.Status)"
+                throw "Lưu GitHub trả về trạng thái không xác định: $($gitArchive.Status)"
             }
         }
     }

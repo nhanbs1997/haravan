@@ -4,7 +4,7 @@
 .env.*.local
 .env.local
 
-# Generated backups, ticket working data and temporary Drive files
+# Generated backups, ticket working data and temporary workspace files
 /backups/
 /.ticket-workflow/
 /.qa/

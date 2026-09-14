@@ -1,4 +1,7 @@
 . "$PSScriptRoot/../scripts/common.ps1"
+
+Sync-HaravanGitWorkspace -WorkingPath $script:ProjectRoot | Out-Null
+
 $shopsPath = Join-Path $script:ProjectRoot "shops"
 if (Test-Path -LiteralPath $shopsPath) {
     Get-ChildItem -LiteralPath $shopsPath -Directory | Where-Object { $_.Name -notlike ".*" } | ForEach-Object {
@@ -16,7 +19,7 @@ if (Test-Path -LiteralPath $shopsPath) {
 
         $removed = Remove-HaravanDirectorySafely -Path $dirPath -AllowedRoot $shopsPath
         if (-not $removed) {
-            # If Google Drive locks the directory, move it aside so shops/ is immediately clean
+            # If a local file lock remains, move the directory aside so shops/ is immediately clean
             $stale = Move-HaravanDirectoryAsideSafely -Path $dirPath -AllowedRoot $shopsPath
             if ($stale) {
                 Remove-HaravanDirectorySafely -Path $stale -AllowedRoot $shopsPath | Out-Null
