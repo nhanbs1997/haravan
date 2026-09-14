@@ -1,8 +1,35 @@
 {%- assign contact_phone = settings.header_r_phone | default: '0797.397.883' -%}
 {%- assign contact_phone_href = contact_phone | replace: '.', '' | replace: ' ', '' | replace: '-', '' | replace: '(', '' | replace: ')', '' -%}
 {%- assign zalo_link = settings.chilldeck_toolbar_icon_zalo_link | default: settings.chilldeck_addthis_icon2_action -%}
-{%- assign facebook_link = settings.fanpage_faceook | default: settings.social_icons_facebook_link | remove_first: '/' -%}
-
+{%- assign zalo_prefix = zalo_link | slice: 0, 2 -%}
+{%- if zalo_prefix == '//' -%}
+  {%- assign zalo_link = zalo_link | slice: 2, 999 -%}
+{%- else -%}
+  {%- assign zalo_prefix = zalo_link | slice: 0, 1 -%}
+  {%- if zalo_prefix == '/' -%}
+    {%- assign zalo_link = zalo_link | slice: 1, 999 -%}
+  {%- endif -%}
+{%- endif -%}
+{%- if zalo_link != blank -%}
+  {%- unless zalo_link contains '://' -%}
+    {%- assign zalo_link = 'https://' | append: zalo_link -%}
+  {%- endunless -%}
+{%- endif -%}
+{%- assign facebook_link = settings.fanpage_faceook | default: settings.social_icons_facebook_link -%}
+{%- assign facebook_prefix = facebook_link | slice: 0, 2 -%}
+{%- if facebook_prefix == '//' -%}
+  {%- assign facebook_link = facebook_link | slice: 2, 999 -%}
+{%- else -%}
+  {%- assign facebook_prefix = facebook_link | slice: 0, 1 -%}
+  {%- if facebook_prefix == '/' -%}
+    {%- assign facebook_link = facebook_link | slice: 1, 999 -%}
+  {%- endif -%}
+{%- endif -%}
+{%- if facebook_link != blank -%}
+  {%- unless facebook_link contains '://' -%}
+    {%- assign facebook_link = 'https://' | append: facebook_link -%}
+  {%- endunless -%}
+{%- endif -%}
 <nav class="floating-contact-icons" aria-label="Liên hệ nhanh">
   <a class="floating-contact-icon floating-contact-icon--zalo" href="{{ zalo_link }}" target="_blank" rel="noopener noreferrer" aria-label="Liên hệ qua Zalo">
     <span aria-hidden="true">Z</span>
