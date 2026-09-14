@@ -1,0 +1,75 @@
+
+{% if settings.product_grid_layout == '4-col' %}
+{% assign grid_item_width = '3' %}
+{% elsif settings.product_grid_layout == '3-col' %}
+{% assign grid_item_width = '4' %}
+{% else %}
+{% assign grid_item_width = '6' %}
+{% endif %}
+
+
+{% unless grid_item_width %}
+{% assign grid_item_width = '4' %}
+{% endunless %}
+
+{% assign on_sale = false %}
+{% if product.available and product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available  %}
+{% assign sold_out = false %}
+{% endif %}
+
+<div class="product-block product-resize">
+	<div class="product-img image-resize view view-third">
+		{% if on_sale %}
+		<div class="product-sale" >
+			<span><label class="sale-lb">- </label> {{product.compare_at_price_max | minus: product.price | divided_by:product.compare_at_price_max | times : 100 | round : 0}}%</span>
+		</div>
+		{% endif %}
+		{% if sold_out %}
+		<div class="sold-out">Hết hàng</div>
+		{% endif %}
+
+		<a href="{{product.url}}" title="{{product.title}}">
+			<img class="first-image {% if product.images.size > 1 %} has-img{% endif %}" alt="{% if product.featured_image.alt.size >0 %}{{ product.featured_image.alt | escape }}{% else%} {{product.title}} {% endif %}" src="{%if product.images.size > 0%}{{ product.featured_image.src | product_img_url: 'large' }}{%else%}//hstatic.net/0/0/global/design/theme-default/no-image.png{%endif%}"  />
+			{% if product.images.size > 1 %}				
+			<img  class ="second-image" src="{{ product.images[1] | product_img_url: 'large' }}"  alt="{% if product.images[1].alt.size >0 %}{{ product.images[1].alt | escape }} {% else%} {{product.title}} {% endif %}" />
+			{% endif %}
+		</a>
+		<div class="actionss">
+			<div class="view-details">
+				<a href="{{ product.url | within: collection }}" class="view-detail" > 
+					<span><i class="fa fa-clone"> </i></span>
+				</a>
+			</div>
+			<div class="btn-quickview-products">
+				<a href="javascript:void(0);" class="quickview" data-handle="{{ product.url }}"><i class="fa fa-eye"></i></a>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="product-detail clearfix">
+		{% if settings.product_reviews %}
+		<div class="hidden-xs">
+			<span class="haravan-product-reviews-badge" data-id="{{ product.id }}"></span>
+		</div> 
+		{% endif %}
+
+		<!-- sử dụng {% cycle 'pull-left','pull-right'%} -->
+		<h3 class="pro-name"><a href="{{ product.url | within: collection }}" title="{{product.title}}">{{ product.title }} </a></h3>
+		<div class="pro-prices">	
+			<p class="pro-price">{{ product.price | money }}</p>
+			<p class="pro-price-del text-left">{% if on_sale %}<del class="compare-price">{{ product.compare_at_price | money }}</del>{% endif %}</p>	
+
+
+		</div>
+		{% if settings.show_grid_vendor %}
+		<p>by {{ product.vendor }}</p>
+		{% endif %}
+
+	</div>
+</div>	

@@ -1,0 +1,75 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="no-js" lang="vi" >
+	<!--<![endif]-->
+	<head>
+		<link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+		<meta charset="utf-8" />
+
+		<title>
+			{{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+		</title>
+		{% if page_description %}
+		<meta name="description" content="{{ page_description | strip_html | strip_newlines }}" />
+		{% endif %}
+		<link rel="canonical" href="{{ canonical_url }}" />
+
+		<meta name="robots" content="index,follow" />
+
+		<meta name="revisit-after" content="1 day" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="HandheldFriendly" content="true">
+		<meta content='width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0' name='viewport' />
+		<link rel="dns-prefetch" href="{{ shop.url }}">
+		<link rel="dns-prefetch" href="//hstatic.net">
+		{{ content_for_header }}
+		{% include 'master-include' %}
+
+	</head>
+	<body >
+		{% include 'menu-mobile' %}
+		<div id="page">
+			{% include 'quick-view' %}
+			<section id="page_content" class="">
+				<div id="pageContainer" class="clearfix">
+					{%include 'header'%}
+					{% if template == 'index' %}
+					{%include'home-slider' %}
+					{% endif %}
+
+					{% unless template == 'index' or template contains 'customers'%}
+					<div class="wrap-breadcrumb">
+						<div class="clearfix container">
+							<div class="row main-header">							
+								{%include 'breadcrumb'%}
+							</div>
+						</div>
+						{% endunless %}	
+					</div>
+					<section id="content" class="clearfix container">
+						<div class="row">
+							{{ content_for_layout }}
+						</div>
+					</section>
+					{%include 'footer'%}
+					<a href="#" class="scrollToTop ">
+						<i class="fa fa-chevron-up"></i>
+					</a>
+
+					<!--Scroll to Top-->
+					{% include 'modal-cart' %}
+					{% include 'svg-icon' %}
+				</div>
+			</section>
+
+		</div>
+
+    {%- include 'cd-addthis-sharing' -%}
+    {%- include 'floating-contact-icons' -%}
+	</body>
+</html>

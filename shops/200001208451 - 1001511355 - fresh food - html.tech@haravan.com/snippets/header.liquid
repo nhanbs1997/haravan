@@ -1,0 +1,76 @@
+<header class="header bkg visible-lg">
+	<div class="container clearfix">
+		<div class="row">
+			<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 logo">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-7 col-xs-7">
+						<!-- LOGO -->
+						{% if settings.use_logo %}
+						<h1>
+							<a href="{{shop.url}}">
+								<img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" class="img-responsive logoimg"/>
+							</a>
+						</h1>
+						{% if template == 'index' %}
+						<h1 style="display:none">
+							<a href="/">{{ shop.name }}</a>
+						</h1>
+						{% endif %}
+						{% else %}
+						<h1>
+							<a href="/">{{ shop.name }}</a>
+						</h1>
+						{% endif %}
+					</div>
+					<div class="hidden-lg hidden-md col-sm-5 col-xs-5 mobile-icons" >
+						<div>
+              {% comment %}
+							<a href="#" title="Xem giỏ hàng" class="mobile-cart"><span>5</span></a>
+              {% endcomment %}
+							<a href="#" id="mobile-toggle"><i class="fa fa-bars"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>	
+			<div class="col-lg-7 hidden-md hidden-sm hidden-xs">
+				<aside class="top-info">
+          {% comment %}
+					{% include 'target-cart' %}
+          {% endcomment %}
+					<div class="navholder">
+						<nav id="subnav">
+							<ul>
+								{% if settings.header_r_phone != blank %}
+								<li>
+									<a href="tel:{{ settings.header_r_phone | replace: '.', '' | replace: ' ', '' | replace: '-', '' }}" aria-label="Gọi {{ settings.header_r_phone }}"><i class="fa fa-phone" aria-hidden="true"></i>{{settings.header_r_phone}}</a>
+								</li>
+								{% endif %}
+                {% comment %}
+								{% if shop.customer_accounts_enabled or shop.customer_accounts_optional %}											
+								{% if customer  %}
+								<li><a class="acc" href="/account" title="Tài khoản">Tài khoản của bạn</a></li>
+								{% else %}
+								{% if shop.customer_accounts_optional %}
+								<li><a class="reg" href="/account/register" title="Đăng ký">ĐĂNG KÝ</a></li>
+								<li><a class="log" href="/account/login" title="Đăng nhập">Đăng nhập</a></li>
+								{%else%}
+								<li> <a class="log-only" href="/account/login" title="Đăng nhập">Đăng nhập</a></li>
+								{% endif %}
+
+
+								{% endif %}
+
+								{% endif %}
+                {% endcomment %}
+							</ul>
+						</nav>
+						<div class="header_line"><p>{{settings.header_desc_1}}<span class="mar-l5">{{settings.header_desc_2}}</span></p></div>
+					</div>
+				</aside>
+			</div>	
+		</div>
+	</div>
+</header>
+<nav class="navbar-main navbar navbar-default cl-pri">
+	{% include 'menu' %}
+</nav>

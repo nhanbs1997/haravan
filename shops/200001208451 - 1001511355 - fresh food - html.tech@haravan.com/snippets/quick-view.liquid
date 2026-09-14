@@ -1,0 +1,188 @@
+{%- assign quickview_phone = settings.header_r_phone | default: '0797.397.883' -%}
+{%- assign quickview_phone_href = quickview_phone | replace: '.', '' | replace: ' ', '' | replace: '-', '' | replace: '(', '' | replace: ')', '' -%}
+<div id="quick-view-modal" class="wrapper-quickview" style="display:none;">
+	<div class="quickviewOverlay"></div>
+	<div class="jsQuickview">
+		<div class="modal-header clearfix" style="width:100%">
+			<a href="#" class="quickview-title text-left" title=""><h4 class="p-title modal-title"></h4></a>
+			<div class="quickview-close">
+				<a href="javascript:void(0);"><i class="fa fa-times"></i></a>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="quickview-image image-zoom">
+				<img class="p-product-image-feature" src="" alt="">
+			</div>
+			<div id="quickview-sliderproduct">
+				<div class="quickview-slider">
+					<ul class="slides"></ul>
+				</div>			
+			</div>
+		</div>
+		<div class="col-md-7">
+			<div id="form-quickview">
+				<div class="quickview-information">
+
+					<div class="form-input">							
+						<div class="quickview-price product-price">
+							<span></span><del></del>
+						</div>
+					</div>
+					<div class="quickview-variants variant-style clearfix">
+						<select name="id" class="" id="quickview-select"></select>			
+					</div>
+					<div class="quickview-description"></div>
+					<div class="quickview-contact-actions">
+						<a class="btn-detail btn-color-add btn-min-width btn-mgt" href="/pages/lien-he">Báo giá lăn bánh</a>
+						<a class="btn-detail btn-color-buy btn-min-width btn-mgt" href="tel:{{ quickview_phone_href }}">{{ quickview_phone }}</a>
+						<div class="qv-readmore">
+							<a class="read-more p-url" href="" role="button">Xem chi tiết</a>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+/* QUICK VIEW JS */
+jQuery(document).ready(function(){
+	var callBack = function (variant, selector) {
+		if (variant) {
+			item = $('.wrapper-quickview');
+			if(variant != null && variant.featured_image != null){
+				item.find(".product-thumb a[data-image='"+ Haravan.resizeImage(variant.featured_image.src,'large')+"']").click();
+			}
+			item.find('.quickview-price').find('span').html(Haravan.formatMoney(variant.price, "{{ shop.money_format }}"));
+
+			if(variant.compare_at_price > variant.price )
+				item.find('.quickview-price').find('del').html(Haravan.formatMoney(variant.compare_at_price, "{{ shop.money_format }}"));
+			else
+				item.find('.quickview-price').find('del').html('');
+			
+
+		}
+
+	}
+	var quickview_html_variants = $('.quickview-variants').html();
+	var quickview_image_zoom = $('.quickview-image').html();
+	var quickViewProduct = function (purl) {
+		if ($(window).width() < 680) { 
+			window.location = purl;
+			return false; 
+		}
+		item = $('.wrapper-quickview');
+		$.ajax({
+			url: purl + '.js',
+			async: false,
+			success: function (product) {
+				$.each(product.options, function (i, v) {
+					product.options[i] = v.name;
+				})
+				item.find('.quickview-title').attr('title',product.title).attr('href',product.url).find('h4').html(product.title);
+				item.find('.quickview-variants').html(quickview_html_variants);
+				$('.quickview-image').html(quickview_image_zoom);
+				$.each(product.variants, function (i, v) {
+					item.find('#quickview-select').append("<option value='" + v.id + "'>" + v.title + ' - ' + v.price + "</option>");
+				})
+				if (product.variants.length == 1 && product.variants[0].title.indexOf('Default') != -1)
+					$('#quickview-select').hide();
+				else
+					$('#quickview-select').show();
+				if (product.variants.length == 1 && product.variants[0].title.indexOf('Default') != -1) {
+					callBack(product.variants[0], null);
+				}
+				else {
+					new Haravan.OptionSelectors("quickview-select", { product: product, onVariantSelected: callBack });
+					if (product.options.length == 1 && product.options[0].indexOf('Tiêu đề')==-1)
+						item.find('.selector-wrapper:eq(0)').prepend('<label>' + product.options[0] + '</label>');
+					$('.p-option-wrapper select:not(#p-select)').each(function () {
+						$(this).wrap('<span class="custom-dropdown custom-dropdown--white"></span>');
+						$(this).addClass("custom-dropdown__select custom-dropdown__select--white");
+					});
+					callBack(product.variants[0], null);
+				}
+				if (product.images.length == 0) {
+					item.find('.quickview-image').find('img').attr('alt',product.title).attr('src', '//hstatic.net/0/0/global/design/theme-default/no-image.png');
+				}
+				else {													
+					$('.quickview-slider').remove();
+					$('#quickview-sliderproduct').append("<div class='quickview-slider' class='flexslider'>");
+					$('.quickview-slider').append("<ul class='owl-carousel'>");
+					$.each(product.images, function (i, v) {
+						elem = $('<li class="product-thumb">').append('<a href="javascript:void(0);" data-image=""><img /></a>');
+						elem.find('a').attr('data-image', Haravan.resizeImage(v, 'large'));
+						elem.find('img').attr('src', Haravan.resizeImage(v, 'small'));
+						item.find('.owl-carousel').append(elem);
+					});
+					item.find('.quickview-image img').attr('alt', product.title).attr('src', Haravan.resizeImage(product.featured_image, 'large') );
+
+					$('.quickview-slider img').imagesLoaded( function() {
+						var owl = $('.owl-carousel');
+						owl.owlCarousel({
+							items:3,
+							navigation : true,
+							navigationText :['owl-prev', 'owl-next']
+						});		
+						$('.quickview-slider .owl-carousel .owl-item').first().children('.product-thumb').addClass('active');	
+					});				
+
+				}
+
+			}
+		});
+		return false;
+	}
+	//final width --> this is the quick view image slider width
+	//maxQuickWidth --> this is the max-width of the quick-view panel
+	var sliderFinalWidth = 500,
+			maxQuickWidth = 900;
+
+	//open the quick view panel
+	jQuery(document).on("click", ".quickview", function(event){
+		var selectedImage = $(this).parents('.product-block').find('.product-img img'),
+				slectedImageUrl = selectedImage.attr('src');
+		quickViewProduct($(this).attr('data-handle'));
+
+		animateQuickView(selectedImage, sliderFinalWidth, maxQuickWidth, 'open');
+
+		//update the visible slider image in the quick view panel
+		//you don't need to implement/use the updateQuickView if retrieving the quick view data with ajax
+
+	});
+
+	$('.wrapper-quickview').on('click', '.product-thumb a', function () {
+		item = $('.wrapper-quickview');
+		item.find('.quickview-image img').attr('src', $(this).attr('data-image'));
+		item.find('.product-thumb').removeClass('active');
+		$(this).parents('li').addClass('active');
+		return false;
+	});
+	//close the quick view panel
+
+	$(document).on('click', '.quickview-close, .quickviewOverlay', function(e){
+		$(".wrapper-quickview").fadeOut(500);
+
+		$('.jsQuickview').fadeOut(500);
+	});
+
+
+	//center quick-view on window resize
+	$(window).on('resize', function(){
+		if($('.wrapper-quickview').hasClass('is-visible')){
+			window.requestAnimationFrame(resizeQuickView);
+		}
+	});
+
+	function animateQuickView(image, finalWidth, maxQuickWidth, animationType) {
+
+		$('.wrapper-quickview').fadeIn(500);
+		$('.jsQuickview').fadeIn(500);
+	}
+
+	
+
+
+});
+</script>

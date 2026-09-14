@@ -1,0 +1,96 @@
+{%- assign contact_phone = settings.header_r_phone | default: '0797.397.883' -%}
+{%- assign contact_phone_href = contact_phone | replace: '.', '' | replace: ' ', '' | replace: '-', '' | replace: '(', '' | replace: ')', '' -%}
+{%- assign zalo_link = settings.chilldeck_toolbar_icon_zalo_link | default: settings.chilldeck_addthis_icon2_action -%}
+{%- assign facebook_link = settings.fanpage_faceook | default: settings.social_icons_facebook_link | remove_first: '/' -%}
+
+<nav class="floating-contact-icons" aria-label="Liên hệ nhanh">
+  <a class="floating-contact-icon floating-contact-icon--zalo" href="{{ zalo_link }}" target="_blank" rel="noopener noreferrer" aria-label="Liên hệ qua Zalo">
+    <span aria-hidden="true">Z</span>
+    <span class="floating-contact-tooltip">Zalo</span>
+  </a>
+  {%- if facebook_link != blank -%}
+    <a class="floating-contact-icon floating-contact-icon--facebook" href="{{ facebook_link }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+      <i class="fa fa-facebook" aria-hidden="true"></i>
+      <span class="floating-contact-tooltip">Facebook</span>
+    </a>
+  {%- endif -%}
+  <a class="floating-contact-icon floating-contact-icon--phone" href="tel:{{ contact_phone_href }}" aria-label="Gọi {{ contact_phone }}">
+    <i class="fa fa-phone" aria-hidden="true"></i>
+    <span class="floating-contact-tooltip">{{ contact_phone }}</span>
+  </a>
+</nav>
+
+<style>
+  .floating-contact-icons {
+    position: fixed;
+    top: 50%;
+    right: 18px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transform: translateY(-50%);
+  }
+
+  .floating-contact-icon {
+    position: relative;
+    display: flex;
+    width: 46px;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 19px;
+    line-height: 1;
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .2);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+
+  .floating-contact-icon:hover,
+  .floating-contact-icon:focus-visible {
+    color: #fff;
+    text-decoration: none;
+    transform: translateX(-3px) scale(1.05);
+    box-shadow: 0 5px 14px rgba(0, 0, 0, .28);
+  }
+
+  .floating-contact-icon--zalo {
+    background: #1272e8;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .floating-contact-icon--facebook { background: #1877f2; }
+  .floating-contact-icon--phone { background: #e81a23; }
+
+  .floating-contact-tooltip {
+    position: absolute;
+    right: calc(100% + 8px);
+    top: 50%;
+    padding: 5px 8px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, .82);
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.2;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    transform: translateY(-50%) translateX(4px);
+    transition: opacity .2s ease, transform .2s ease;
+  }
+
+  .floating-contact-icon:hover .floating-contact-tooltip,
+  .floating-contact-icon:focus-visible .floating-contact-tooltip {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  @media (max-width: 767px) {
+    .floating-contact-icons { right: 10px; gap: 8px; }
+    .floating-contact-icon { width: 42px; height: 42px; font-size: 17px; }
+  }
+</style>

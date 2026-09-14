@@ -1,0 +1,405 @@
+<div id="product" class="content-pages product-layout" {% if settings.show_collection_menu or settings.show_left_ad %} data-sticky_parent {% endif %}>
+  {% if settings.show_collection_menu or settings.show_left_ad %}
+	<div class="col-md-3 col-sm-12 col-xs-12  leftsidebar-col" data-sticky_column>
+		{% include 'sidebar-left-collection' %}	
+	</div>
+  {% endif %}
+	<div class="{% if settings.show_collection_menu or settings.show_left_ad %} col-lg-9 col-md-9 {% else %} col-lg-12 col-md-12 {% endif %} col-sm-12 col-xs-12" {% if settings.show_collection_menu or settings.show_left_ad %} data-sticky_column {% endif %}>
+		<div  id="wrapper-detail" class="product-page">
+			<div id="product-description-top" class="product-description-top">
+				<div class="product-description-heading">
+					<h2>Mô tả sản phẩm</h2>
+				</div>
+				<div class="product-description-wrapper">
+					{% if product.description == blank %}
+						<p>Chưa có mô tả cho sản phẩm này</p>
+					{% else %}
+						{{ product.description }}
+					{% endif %}
+				</div>
+			</div>
+
+			<div class="row product-main-row">
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 product-media-column">
+					<div id="surround">
+						{% if product.compare_at_price > product.price %}
+						<div class="product-sale">
+
+							<span>
+								<label class="sale-lb">-</label> {{product.variants.first.compare_at_price | minus: product.variants.first.price | divided_by:product.variants.first.compare_at_price | times : 100 | round : 0}}%
+							</span>
+						</div>		
+						{% endif %}
+						{%if product.images.size > 0%}
+						<a class="slide-prev slide-nav" href="javascript:">
+							<i class="fa fa-arrow-circle-o-left fa-2"></i>
+						</a>
+						<a class="slide-next slide-nav" href="javascript:">
+							<i class="fa fa-arrow-circle-o-right fa-2"></i>
+						</a>
+
+						<img class="product-image-feature" src="{{ product.featured_image | product_img_url : 'master' }}" alt="{{product.title}}">
+
+
+						{%if product.images.size > 1 %}
+						<div id="sliderproduct" class="">
+							<ul class="slides" >
+								{% for thumb in product.images %}
+								<li class="product-thumb">
+									<a href="javascript:" data-image="{{ thumb.src | product_img_url : 'master' }}" data-zoom-image="{{ thumb.src | product_img_url : 'master' }}">
+										<img alt="{{product.title}}" data-image="{{ thumb.src | product_img_url : 'master' }}" src="{{ thumb.src | product_img_url : 'small' }}" >
+									</a></li>	
+								{% endfor %}
+							</ul>
+						</div>
+						{%endif%}
+
+						{%else%}
+						<img src="//hstatic.net/0/0/global/design/theme-default/no-image.png" width="100%"  alt="{{product.title}}"/>
+						{%endif%}
+					</div>
+
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 product-summary-column">
+					<div class="product-title">
+						<h1>{{ product.title }}</h1>
+
+						<span id="pro_sku"></span>
+
+					</div>
+					<div class="product-price" id="price-preview">
+						{% if  product.available %}	
+						<span>{{ product.price | money }}</span>{% if product.compare_at_price > product.price %}<del>{{ product.compare_at_price | money }}</del>{% endif %}
+						{% else %} <span>Hết hàng </span>{% endif %}			
+
+					</div>
+
+					{% assign hide_default_title = false %}
+					{% if product.variants.size == 1 and product.variants.first.title contains 'Default' and product.options.size == 1%}
+					{% assign hide_default_title = true %}
+					{% endif %}
+					<div id="product-contact-form" class="variants clearfix">				
+						<div class="select clearfix"{% if hide_default_title %} style="display:none"{% endif %}>
+							<select id="product-select" name="id" style="display:none">
+								{% for variant in product.variants %}
+								<option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+								{% endfor %}
+							</select>
+						</div>
+
+            
+            <div class="product-contact-wrapper" aria-label="Liên hệ mua xe">
+              <a href="/pages/lien-he" class="item_btn_ct">Báo giá lăn bánh</a>
+              <a href="tel:0797397883" class="item_btn_ct">0797 397 883</a>
+            </div>
+            
+					</div>
+					{% if settings.use_tags_products %}
+					<div class="pt20">																
+						<!-- Begin tags -->
+						{%if product.tags.size > 0%}
+						<div class="tag-wrapper">
+							<label>
+								Tags:
+							</label>
+							<ul class="tags">
+								{%for tag in product.tags%}
+								<li class="active">
+									<a href="/collections/all/{{tag | handleize}}">{{tag}}</a>
+								</li>
+								{%endfor%}
+							</ul>
+						</div>
+						{%endif%}
+
+						<!-- End tags -->
+					</div>
+					{% endif %}
+
+					<div class="pt20">																
+						<!-- Begin social icons -->
+					<div class="addthis_toolbox addthis_default_style ">
+						{% if settings.share_prod_on_facebook %}
+						<div class="info-socials-article clearfix">
+							<div class="box-like-socials-article">
+								<div class="fb-send" data-href="{{ product.url }}">
+								</div>
+							</div>
+							<div class="box-like-socials-article">
+								<div class="fb-like" data-href="{{ product.url }}" data-layout="button_count" data-action="like">
+								</div>
+							</div> 
+							<div class="box-like-socials-article">
+								<div class="fb-share-button" data-href="{{ product.url }}" data-layout="button_count">
+								</div>
+							</div>
+						</div>
+						{% endif %}
+
+					</div>
+					<!-- End social icons -->
+					</div>
+				</div>
+								{% if settings.use_comment_products %}
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 product-comments-column">
+					<div id="binhluan" class="product-comment">
+						<div class="title-bl">
+							<h2>Bình luận</h2>
+						</div>
+						<div class="product-comment-fb">
+							<div id="fb-root"></div>
+							<div class="fb-comments" data-href="{{shop.url}}{{product.url}}" data-numposts="5" width="100%" data-colorscheme="light"></div>
+							<script type="text/javascript">(function(d, s, id) {
+								var js, fjs = d.getElementsByTagName(s)[0];
+								if (d.getElementById(id)) return;
+								js = d.createElement(s); js.id = id;
+								js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.0";
+								fjs.parentNode.insertBefore(js, fjs);
+							}(document, 'script', 'facebook-jssdk'));</script>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+		{% if settings.productspg_related_products %}
+
+		<div class="col-md-12 col-sm-12 col-xs-12  list-like">
+			<div id="like">
+				<div class="title-like">
+					<h2>Sản phẩm khác</h2>
+				</div>
+				{%assign cp = product%}
+				{% assign number_of_related_products_to_show = settings.productspg_featured_quantity %}
+
+				{% assign number_of_related_products_to_fetch = number_of_related_products_to_show %}
+
+				{% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+				{% assign found_a_collection = false %}
+				{% for c in product.collections %}
+				{% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+				{% assign found_a_collection = true %}
+				{% assign collection = c %}
+				{% endif %}
+				{% endfor %}
+				{% endif %}
+
+				{% if collection and collection.products_count > 1 %}
+
+				<div class="row product-list ">
+					<div class="content-product-list">
+						{% assign current_product = product %}
+						{% assign current_product_found = false %}
+						{% assign counter_p = 0 %}
+						{% for product in collection.products%}
+						{%if counter_p >= number_of_related_products_to_show%}
+
+						{%break%}
+						{%endif%}
+
+						{%if cp.handle != product.handle %}
+						<div class="col-md-3 col-sm-6 col-xs-12 pro-loop">
+							{% include 'product-loop' %}
+						</div>
+						{%assign counter_p =counter_p | plus : 1%}
+						{%endif%}
+						{% endfor %}
+					</div>
+				</div>
+
+				{%else%}
+
+				{%if collections.all.products.size > 0%}
+				<div class="row product-list ">
+					<div class="content-product-list">
+						{% for product in collections.all.products limit: number_of_related_products_to_fetch %}
+
+						{%if cp.handle != product.handle %}
+						<div class="col-md-3 col-sm-6 col-xs-12 pro-loop">
+							{% include 'product-loop' %}
+						</div>
+						{%endif%}
+						{% endfor %}
+					</div>
+				</div>
+				{%else%}
+				<p>
+					Không tìm thấy sản phẩm nào
+				</p>
+				{%endif%}
+				{% endif %}
+
+				<script>
+				var add_to_wishlist = function(){
+					if(typeof(Storage) !== "undefined")
+					{
+						if (localStorage.recently_viewed)
+						{
+
+							if(localStorage.recently_viewed.indexOf('1st-birthday-princess-basic-party-kit-18-guests') == -1)
+								localStorage.recently_viewed = '1st-birthday-princess-basic-party-kit-18-guests_'+localStorage.recently_viewed ;
+
+						} else
+							localStorage.recently_viewed = '1st-birthday-princess-basic-party-kit-18-guests';
+					}
+					else {
+						console.log('Your Browser does not support storage!');
+					}
+				}
+				</script>
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+
+
+<script>
+$(".product-thumb img").click(function(){
+	$(".product-thumb").removeClass('active');
+	$(this).parents('li').addClass('active');
+	$(".product-image-feature").attr("src",$(this).attr("data-image"));
+	$(".product-image-feature").attr("data-zoom-image",$(this).attr("data-zoom-image"));
+});
+
+$(".product-thumb").first().addClass('active');
+
+</script>
+<script>
+$(document).ready(function(){
+	$('a[data-spy=scroll]').click(function(){
+		event.preventDefault() ;
+		$('body').animate({scrollTop: ($($(this).attr('href')).offset().top - 20) + 'px'}, 500);
+	})
+});
+
+/**
+function deleteCart(variant_id){
+	var params = {
+		type: 'POST',
+		url: '/cart/change.js',
+		data: 'quantity=0&id=' + variant_id,
+		dataType: 'json',
+		success: function(cart) {
+			if ((typeof callback) === 'function') {
+				callback(cart);
+			} else {
+
+				getCartAjax();
+			}
+		},
+		error: function(XMLHttpRequest, textStatus) {
+			Haravan.onError(XMLHttpRequest, textStatus);
+		}
+	};
+	jQuery.ajax(params);
+}
+**/
+// The following piece of code can be ignored.
+$(function(){
+	$(window).resize(function() {
+		$('#info').text("Page width: "+$(this).width());
+	});
+	$(window).trigger('resize');
+});
+
+
+var selectCallback = function(variant, selector) {
+	if (variant && variant.available) {
+		if(variant.featured_image != null)
+		{
+			$(".product-thumb").removeClass('active');
+			$(".product-thumb img[data-image='"+Haravan.resizeImage(variant.featured_image.src,'master')+"']").click().parents('li').addClass('active');
+		}
+		if (variant.sku != null ){
+			jQuery('#pro_sku').html('SKU: ' +variant.sku);
+		}
+
+		if(variant.price < variant.compare_at_price){
+			jQuery('#price-preview').html("<span>" + Haravan.formatMoney(variant.price, "{{ shop.money_format }}") + "</span><del>" + Haravan.formatMoney(variant.compare_at_price, "{{ shop.money_format }}") + "</del>");
+			var pro_sold = variant.price ;
+			var pro_comp = variant.compare_at_price / 100;
+			var sale = 100 - (pro_sold / pro_comp) ;
+			var kq_sale = Math.round(sale);
+			jQuery('#surround .product-sale span').html("<label class='sale-lb'>- </label> "+kq_sale + '%');
+		} else {
+			jQuery('#price-preview').html("<span>" + Haravan.formatMoney(variant.price, "{{ shop.money_format }}") + "</span>");
+		}
+
+	} else {
+		var message = variant ? "Hết hàng" : "Không có hàng";
+		jQuery('#price-preview').html("<span>"+message+ "</span>");
+	}
+};
+
+jQuery(document).ready(function($){
+	{%if product.variants.size == 1 and product.variants.first.title contains 'Default'%}
+	{%else%}
+	new Haravan.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
+
+	 // Add label if only one product option and it isn't 'Title'.
+	 {% if product.options.size == 1 and product.options.first != 'Tiêu đề' %}
+	 $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
+		{% endif %} 
+
+		// Auto-select first available variant on page load.
+		{% assign found_one_in_stock = false %}
+		{% for variant in product.variants %}
+		{% if variant.available and found_one_in_stock == false %}
+		{% assign found_one_in_stock = true %}
+		{% for option in product.options %}
+		$('.single-option-selector:eq({{ forloop.index0 }})').val({{ variant.options[forloop.index0] | json }}).trigger('change');
+		 {% endfor %}
+
+		 {% endif %}
+		 {% endfor %}
+		 $('.selector-wrapper select').each(function(){
+			 $(this).wrap( '<span class="custom-dropdown custom-dropdown--white"></span>');
+			 $(this).addClass("custom-dropdown__select custom-dropdown__select--white");
+		 });
+			{%endif%}
+
+			});
+			</script>
+
+{% if product.images.size > 0 %}
+<script>
+$(document).ready(function(){
+	if($(".slides .product-thumb").length>4){
+		$('#sliderproduct').flexslider({
+			animation: "slide",
+			controlNav: false,
+			animationLoop: false,
+			slideshow: false,
+			itemWidth:95,
+			itemMargin: 10,
+		});
+	}
+	if($(window).width() > 960){
+		jQuery(".product-image-feature").elevateZoom({
+			gallery:'sliderproduct',
+			scrollZoom : true
+		});
+	} else {
+
+	}
+	jQuery('.slide-next').click(function(){
+		if($(".product-thumb.active").prev().length>0){
+			$(".product-thumb.active").prev().find('img').click();
+		}
+		else{
+			$(".product-thumb:last img").click();
+		}
+	});
+	jQuery('.slide-prev').click(function(){
+		if($(".product-thumb.active").next().length>0){
+			$(".product-thumb.active").next().find('img').click();
+		}
+		else{
+			$(".product-thumb:first img").click();
+		}
+	});
+});
+</script>
+{% endif %}
