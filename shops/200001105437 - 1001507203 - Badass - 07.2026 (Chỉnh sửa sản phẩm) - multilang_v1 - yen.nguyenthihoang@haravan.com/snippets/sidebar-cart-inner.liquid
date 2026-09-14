@@ -1,0 +1,114 @@
+{%- comment -%}
+  Snippet: sidebar-cart-inner
+  Mô tả: Toàn bộ nội dung BÊN TRONG .sidebar__inner của mini cart.
+         Tách riêng để vừa render trong sidebar-cart.liquid, vừa dùng cho
+         alternate view /cart?view=sidebar (AJAX swap, không reload trang).
+  Vùng động: step bar, promo, items, footer — phụ thuộc state giỏ hàng.
+{% endcomment %}
+
+<button class="sc__close" data-action="close-cart" aria-label="Đóng giỏ hàng">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+</button>
+
+<div class="sc__content">
+
+  <h3 class="sc__title">Giỏ hàng của bạn</h3>
+
+  {%- if settings.bs_cart_step_show -%}
+  {%- capture _sc_step_count -%}{{ settings.bs_cart_step_count | default: 4 }}{%- endcapture -%}
+  {%- assign _sc_step_count = _sc_step_count | times: 1 -%}
+  {%- if _sc_step_count < 2 -%}{%- assign _sc_step_count = 2 -%}{%- endif -%}
+  {%- if _sc_step_count > 4 -%}{%- assign _sc_step_count = 4 -%}{%- endif -%}
+
+  {%- assign _sc_achieved_idx = 0 -%}
+  {%- for i in (2.._sc_step_count) -%}
+    {%- assign _sc_th_key = 'bs_cart_step_threshold_' | append: i -%}
+    {%- assign _sc_th_raw = settings[_sc_th_key] | default: 0 -%}
+    {%- assign _sc_th = _sc_th_raw | times: 100 -%}
+    {%- if cart.total_price >= _sc_th and _sc_th > 0 -%}{%- assign _sc_achieved_idx = i -%}{%- endif -%}
+  {%- endfor -%}
+
+  <div class="sc__steps" id="scSteps">
+    <div class="sc__steps-track">
+      {%- for i in (1.._sc_step_count) -%}
+        {%- assign _sc_label_key = 'bs_cart_step_label_' | append: i -%}
+        {%- assign _sc_sub_key = 'bs_cart_step_sub_' | append: i -%}
+        {%- assign _sc_label = settings[_sc_label_key] -%}
+        {%- assign _sc_sub = settings[_sc_sub_key] -%}
+        {%- assign _sc_achieved = false -%}
+        {%- if i == 1 or i <= _sc_achieved_idx -%}{%- assign _sc_achieved = true -%}{%- endif -%}
+        <div class="sc__step{% unless _sc_achieved %} is-pending{% endunless %}" data-step="{{ i }}">
+          <div class="sc__step-row">
+            <span class="sc__step-line{% if forloop.first %} sc__step-line--invisible{% endif %}"></span>
+            <span class="sc__step-dot{% unless _sc_achieved %} is-pending{% endunless %}">
+              {%- include 'sc-gift-icon' -%}
+            </span>
+            <span class="sc__step-line{% if forloop.last %} sc__step-line--invisible{% endif %}"></span>
+          </div>
+          <div class="sc__step-text">
+            <p class="sc__step-label">{{ _sc_label | default: '—' }}</p>
+            {%- unless _sc_sub == blank -%}
+            <p class="sc__step-sub">{{ _sc_sub }}</p>
+            {%- endunless -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- assign _sc_next_threshold = 0 -%}
+  {%- assign _sc_next_label = '' -%}
+  {%- for i in (2.._sc_step_count) -%}
+    {%- assign _sc_th_key2 = 'bs_cart_step_threshold_' | append: i -%}
+    {%- assign _sc_lb_key2 = 'bs_cart_step_sub_' | append: i -%}
+    {%- assign _sc_th_raw2 = settings[_sc_th_key2] | default: 0 -%}
+    {%- assign _sc_th2 = _sc_th_raw2 | times: 100 -%}
+    {%- if cart.total_price < _sc_th2 and _sc_th2 > 0 and _sc_next_threshold == 0 -%}
+      {%- assign _sc_next_threshold = _sc_th2 -%}
+      {%- assign _sc_next_label = settings[_sc_lb_key2] -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- assign _sc_promo_visible = false -%}
+  {%- if _sc_next_threshold > 0 -%}
+    {%- assign _sc_need = _sc_next_threshold | minus: cart.total_price -%}
+    {%- if _sc_need > 0 -%}{%- assign _sc_promo_visible = true -%}{%- endif -%}
+  {%- endif -%}
+
+  <div class="sc__promo" id="scPromo"{% unless _sc_promo_visible %} style="display:none"{% endunless %}>
+    <p class="sc__promo-text" id="scPromoText">
+      {%- if _sc_promo_visible -%}
+        {{ settings.bs_cart_promo_text | default: 'Mua thêm' | strip | escape }} <strong>{{ _sc_need | money }}</strong>{%- unless _sc_next_label == blank %} là được {{ _sc_next_label | downcase | escape }}{%- endunless -%}
+      {%- endif -%}
+    </p>
+    <a href="/cart" class="sc__promo-btn">{{ settings.bs_cart_promo_btn | default: 'Mua thêm' | strip | escape }}</a>
+  </div>
+  {%- endif -%}
+
+  <div class="sc__items" id="sidebarCartItems">
+    {%- if cart.item_count > 0 -%}
+      {%- for item in cart.items -%}
+        {%- include 'sidebar-cart-item' -%}
+      {%- endfor -%}
+    {%- else -%}
+      <div class="sc__empty">
+        <p>Chưa có sản phẩm nào trong giỏ hàng</p>
+      </div>
+    {%- endif -%}
+  </div>
+
+</div>
+
+<div class="sc__footer{% if cart.item_count == 0 %} d-none{% endif %}" id="scFooter">
+  <div class="sc__total">
+    <span class="sc__total-label">Tạm tính :</span>
+    <strong class="sc__total-price">
+      <span class="sc__total-amount" id="sidebarCartTotalAmount">{{ cart.total_price | money_without_currency | replace: '₫', '' | replace: 'đ', '' | strip }}</span>
+      <span class="sc__total-unit">₫</span>
+    </strong>
+  </div>
+  <div class="sc__actions">
+    <a href="/checkout" class="sc__btn sc__btn--primary">Thanh toán ngay</a>
+    <a href="/cart" class="sc__btn sc__btn--outline">Đến giỏ hàng</a>
+  </div>
+</div>

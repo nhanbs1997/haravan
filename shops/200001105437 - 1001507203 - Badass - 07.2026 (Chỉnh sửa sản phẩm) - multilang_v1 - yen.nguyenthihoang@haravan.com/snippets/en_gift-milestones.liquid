@@ -1,0 +1,101 @@
+{%- comment -%}
+  Snippet: gift-milestones
+  Mô tả: Data container + popup chọn quà tặng theo mốc.
+         Render global trong layout — JS xử lý sync với step bar (.bs_cart__steps + .sc__steps).
+  Settings:
+    - bs_gm_enable (master)
+    - bs_cart_step_threshold_X (X=2..4) — mốc giá trị (VND)
+    - bs_cart_step_label_X / bs_cart_step_sub_X — label hiển thị
+    - bs_cart_gift_collection_X (X=2..4) — collection quà mỗi mốc
+{% endcomment %}
+
+{%- if settings.en_bs_gm_enable -%}
+
+{%- comment -%} Build IDs string cho từng mốc {% endcomment %}
+{%- capture _gm_ids_2 -%}
+{%- assign _col2 = collections[settings.en_bs_cart_gift_collection_2] -%}
+{%- if _col2.products.size -%}{%- for product in _col2.products -%}{%- for variant in product.variants -%}{{ variant.id }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}{%- endif -%}
+{%- endcapture -%}
+{%- capture _gm_ids_3 -%}
+{%- assign _col3 = collections[settings.en_bs_cart_gift_collection_3] -%}
+{%- if _col3.products.size -%}{%- for product in _col3.products -%}{%- for variant in product.variants -%}{{ variant.id }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}{%- endif -%}
+{%- endcapture -%}
+{%- capture _gm_ids_4 -%}
+{%- assign _col4 = collections[settings.en_bs_cart_gift_collection_4] -%}
+{%- if _col4.products.size -%}{%- for product in _col4.products -%}{%- for variant in product.variants -%}{{ variant.id }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}{%- endif -%}
+{%- endcapture -%}
+
+<div class="gm-data" id="gmData"
+  data-step-count="{{ settings.en_bs_cart_step_count | default: 4 }}"
+  data-promo-prefix="{{ settings.en_bs_cart_promo_text | default: 'Buy more' | strip | escape }}"
+  data-ms2-threshold="{{ settings.en_bs_cart_step_threshold_2 | default: 0 }}"
+  data-ms3-threshold="{{ settings.en_bs_cart_step_threshold_3 | default: 0 }}"
+  data-ms4-threshold="{{ settings.en_bs_cart_step_threshold_4 | default: 0 }}"
+  data-ms2-label="{{ settings.en_bs_cart_step_sub_2 | default: settings.en_bs_cart_step_label_2 | escape }}"
+  data-ms3-label="{{ settings.en_bs_cart_step_sub_3 | default: settings.en_bs_cart_step_label_3 | escape }}"
+  data-ms4-label="{{ settings.en_bs_cart_step_sub_4 | default: settings.en_bs_cart_step_label_4 | escape }}"
+  data-ms2-ids="{{ _gm_ids_2 | strip | strip_newlines }}"
+  data-ms3-ids="{{ _gm_ids_3 | strip | strip_newlines }}"
+  data-ms4-ids="{{ _gm_ids_4 | strip | strip_newlines }}"
+  hidden></div>
+
+<div class="gm-popup" id="gmPopup" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="gmPopupTitle">
+  <div class="gm-popup__overlay" data-gm-close></div>
+  <div class="gm-popup__panel">
+    <div class="gm-popup__head">
+      <h3 class="gm-popup__title" id="gmPopupTitle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
+        </svg>
+        <span class="gm-popup__title-text">Select a Gift</span>
+      </h3>
+      <button type="button" class="gm-popup__close" data-gm-close aria-label="Close">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <p class="gm-popup__note">Each row only selected <strong>01 gifts</strong> only</p>
+
+    <div class="gm-popup__body">
+
+      {%- for ms in (2..4) -%}
+        {%- assign _col_key = 'en_bs_cart_gift_collection_' | append: ms -%}
+        {%- assign _col_handle = settings[_col_key] -%}
+        {%- assign _col = collections[_col_handle] -%}
+        <div class="gm-popup__group" data-group="{{ ms }}">
+          {%- if _col.products.size > 0 -%}
+            <div class="gm-popup__items">
+              {%- for product in _col.products limit: 10 -%}
+                {%- assign _v0 = product.variants[0] -%}
+                <div class="gm-popup__item" data-variant-id="{{ _v0.id }}" data-handle="{{ product.handle }}" data-group="{{ ms }}">
+                  <div class="gm-popup__item-img">
+                    <img src="{{ product.featured_image | product_img_url: 'small' }}" alt="{{ product.metafields.hrvmultilang_en.title | append: '' | default: product.title | escape }}" loading="lazy" decoding="async" width="64" height="64">
+                  </div>
+                  <div class="gm-popup__item-info">
+                    <p class="gm-popup__item-name">{{ product.metafields.hrvmultilang_en.title | append: '' | default: product.title | truncate: 60 | escape }}</p>
+                    {%- if product.variants.size > 1 -%}
+                      <select class="gm-popup__variant js-gm-variant">
+                        {%- for variant in product.variants -%}
+                        <option value="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>
+                          {{ variant.title | escape }}{% unless variant.available %} (Commissions){% endunless %}
+                        </option>
+                        {%- endfor -%}
+                      </select>
+                    {%- else -%}
+                      <span class="gm-popup__item-price">Gifts</span>
+                    {%- endif -%}
+                  </div>
+                  <button type="button" class="gm-popup__btn js-gm-select" data-variant-id="{{ _v0.id }}" data-group="{{ ms }}">Select</button>
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- else -%}
+            <p class="gm-popup__empty">Not yet. yes product A gift for the mold.</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+
+    </div>
+  </div>
+</div>
+
+{%- endif -%}

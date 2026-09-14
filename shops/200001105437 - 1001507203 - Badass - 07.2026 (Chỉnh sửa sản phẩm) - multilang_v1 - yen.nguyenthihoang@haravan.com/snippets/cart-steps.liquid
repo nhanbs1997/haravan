@@ -1,0 +1,79 @@
+{%- comment -%}
+  Snippet: cart-steps
+  Mô tả: Step bar 4 mốc thưởng + promo "Mua thêm xxx" (trang cart).
+  Settings: bs_cart_step_show, bs_cart_step_count, bs_cart_step_threshold_X,
+            bs_cart_step_label_X, bs_cart_step_sub_X, bs_cart_promo_btn
+{% endcomment %}
+
+{%- if settings.bs_cart_step_show -%}
+
+{%- capture _step_count -%}{{ settings.bs_cart_step_count | default: 4 }}{%- endcapture -%}
+{%- assign _step_count = _step_count | times: 1 -%}
+{%- if _step_count < 2 -%}{%- assign _step_count = 2 -%}{%- endif -%}
+{%- if _step_count > 4 -%}{%- assign _step_count = 4 -%}{%- endif -%}
+
+{%- assign _next_threshold = 0 -%}
+{%- assign _next_label = '' -%}
+{%- assign _achieved_idx = 0 -%}
+{%- for i in (2.._step_count) -%}
+  {%- assign _th_key = 'bs_cart_step_threshold_' | append: i -%}
+  {%- assign _lb_key = 'bs_cart_step_sub_' | append: i -%}
+  {%- assign _th_raw = settings[_th_key] | default: 0 -%}
+  {%- assign _th = _th_raw | times: 100 -%}
+  {%- if cart.total_price >= _th and _th > 0 -%}
+    {%- assign _achieved_idx = i -%}
+  {%- elsif _next_threshold == 0 and _th > 0 -%}
+    {%- assign _next_threshold = _th -%}
+    {%- assign _next_label = settings[_lb_key] -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<div class="bs_cart__steps-wrap">
+
+  <div class="bs_cart__steps" role="list">
+    {%- for i in (1.._step_count) -%}
+      {%- assign _label_key = 'bs_cart_step_label_' | append: i -%}
+      {%- assign _sub_key = 'bs_cart_step_sub_' | append: i -%}
+      {%- assign _label = settings[_label_key] -%}
+      {%- assign _sub = settings[_sub_key] -%}
+
+      {%- assign _is_first = false -%}
+      {%- assign _is_last = false -%}
+      {%- if forloop.first -%}{%- assign _is_first = true -%}{%- endif -%}
+      {%- if forloop.last -%}{%- assign _is_last = true -%}{%- endif -%}
+
+      {%- assign _is_achieved = false -%}
+      {%- if i == 1 or i <= _achieved_idx -%}{%- assign _is_achieved = true -%}{%- endif -%}
+
+      <div class="bs_cart__step{% if _is_first %} bs_cart__step--first{% elsif _is_last %} bs_cart__step--last{% else %} bs_cart__step--mid{% endif %}" role="listitem">
+        <div class="bs_cart__step-line-row">
+          <span class="bs_cart__step-line{% if _is_first %} bs_cart__step-line--hidden{% endif %}" aria-hidden="true"></span>
+          <span class="bs_cart__step-dot{% unless _is_achieved %} is-pending{% endunless %}" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+          </span>
+          <span class="bs_cart__step-line{% if _is_last %} bs_cart__step-line--hidden{% endif %}" aria-hidden="true"></span>
+        </div>
+        <div class="bs_cart__step-text">
+          <span class="bs_cart__step-label">{{ _label | default: '—' | escape }}</span>
+          {%- unless _sub == blank -%}
+          <span class="bs_cart__step-sub">{{ _sub | escape }}</span>
+          {%- endunless -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if _next_threshold > 0 -%}
+    {%- assign _need = _next_threshold | minus: cart.total_price -%}
+    {%- if _need > 0 -%}
+    <div class="bs_cart__promo">
+      <p class="bs_cart__promo-text">
+        {{ settings.bs_cart_promo_text | default: 'Mua thêm' | strip | escape }} <strong>{{ _need | money }}</strong> {%- unless _next_label == blank %} là được {{ _next_label | downcase | escape }}{%- endunless -%}
+      </p>
+      <button type="button" class="bs_cart__promo-btn" aria-haspopup="dialog" aria-controls="bmPopup">{{ settings.bs_cart_promo_btn | default: 'Mua thêm' | escape }}</button>
+    </div>
+    {%- endif -%}
+  {%- endif -%}
+
+</div>
+{%- endif -%}

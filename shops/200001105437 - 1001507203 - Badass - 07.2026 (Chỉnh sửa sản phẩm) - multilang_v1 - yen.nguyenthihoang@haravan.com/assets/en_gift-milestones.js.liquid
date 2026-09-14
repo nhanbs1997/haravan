@@ -1,0 +1,605 @@
+/* ============================================================
+   Gift Milestones — Toàn bộ logic JS
+   - Đồng bộ trạng thái với .bs_cart__steps (cart page) + .sc__steps (mini cart)
+   - Render popup chọn quà
+   - Validate quà tự động khi giỏ thay đổi
+   - Compatible Haravan Cart API (form-encoded, line index 1-based)
+   ============================================================ */
+
+(function () {
+  'use strict';
+
+  if (window.GiftMilestones) return; // idempotent
+
+  var GM = {
+
+    // ── State ───────────────────────────────────────
+    $data: null,
+    $popup: null,
+    enabled: false,
+    milestones: [],   // [{ index, threshold (VND), label, ids: [variantIds], position (%) }]
+    allGiftIds: [],
+
+    // ── Init ────────────────────────────────────────
+    init: function () {
+      var self = this;
+      this.$data = document.getElementById('gmData');
+      this.$popup = document.getElementById('gmPopup');
+      if (!this.$data) return;
+
+      this.parseMilestones();
+      if (this.milestones.length === 0) return;
+      this.enabled = true;
+
+      this.bindEvents();
+      this.refreshFromCart();
+    },
+
+    parseMilestones: function () {
+      this.milestones = [];
+      this.allGiftIds = [];
+      var stepCount = parseInt(this.$data.getAttribute('data-step-count') || '4', 10) || 4;
+      stepCount = Math.max(2, Math.min(4, stepCount));
+      for (var i = 2; i <= stepCount; i++) {
+        // Bug 1: dùng .getAttribute (= jQuery .attr) thay vì .data
+        var thRaw = this.$data.getAttribute('data-ms' + i + '-threshold') || '0';
+        var idsRaw = this.$data.getAttribute('data-ms' + i + '-ids') || '';
+        var label = this.$data.getAttribute('data-ms' + i + '-label') || '';
+        var threshold = parseInt(thRaw, 10) || 0;
+        if (threshold <= 0) continue;
+        var ids = idsRaw.split(',').map(function (s) {
+          return parseInt(s.trim(), 10);
+        }).filter(function (n) { return n > 0; });
+        this.milestones.push({
+          index: i,
+          threshold: threshold,
+          label: label,
+          ids: ids,
+          position: 0
+        });
+        this.allGiftIds = this.allGiftIds.concat(ids);
+      }
+      // Sort theo threshold tăng dần
+      this.milestones.sort(function (a, b) { return a.threshold - b.threshold; });
+      this.computePositions();
+    },
+
+    computePositions: function () {
+      // Vị trí icon ứng với từng mốc — chia đều theo step bar có sẵn
+      var n = this.milestones.length;
+      if (n === 0) return;
+      // Step bar gồm: mốc 1 (Mua hàng) + N mốc thưởng → tổng N+1 cột
+      // Vị trí icon thứ i (0-based) = i / N * 100%
+      this.milestones.forEach(function (ms, idx) {
+        ms.position = (idx + 1) / n * 100;
+      });
+    },
+
+    // ── Cart fetch ──────────────────────────────────
+    refreshFromCart: function () {
+      var self = this;
+      this._fetchCart(function (cart) {
+        self.applyState(cart);
+      });
+    },
+
+    _fetchCart: function (callback) {
+      // Dùng /cart?view=json.en (alternate view custom) — fallback /cart.js native
+      this._getJSON('/cart?view=json.en', function (data) {
+        if (data && typeof data.total_price !== 'undefined') {
+          callback(data);
+        } else {
+          GM._getJSON('/cart.js', function (data2) {
+            if (data2) callback(data2);
+          });
+        }
+      });
+    },
+
+    _getJSON: function (url, cb) {
+      if (window.jQuery) {
+        jQuery.getJSON(url, cb).fail(function () { cb(null); });
+        return;
+      }
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.setRequestHeader('Accept', 'application/json');
+      xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try { cb(JSON.parse(xhr.responseText)); } catch (e) { cb(null); }
+        } else { cb(null); }
+      };
+      xhr.onerror = function () { cb(null); };
+      xhr.send();
+    },
+
+    // ── Apply state ─────────────────────────────────
+    applyState: function (cart) {
+      // Bug 6: đơn vị thống nhất — total_price từ API là VND × 100, threshold là VND
+      var totalCents = cart.total_price || 0;
+      var giftCents = 0;
+      var giftLines = [];
+
+      (cart.items || []).forEach(function (item, idx) {
+        if (GM.allGiftIds.indexOf(item.variant_id) > -1) {
+          giftCents += (item.line_price || item.price * (item.quantity || 1) || 0);
+          giftLines.push(idx + 1); // line 1-based
+        }
+      });
+
+      var nonGiftCents = totalCents - giftCents;
+      var nonGiftVND = nonGiftCents / 100;
+
+      // Tìm mốc cao nhất đã đạt
+      var achievedIdx = -1;
+      for (var i = 0; i < this.milestones.length; i++) {
+        if (nonGiftVND >= this.milestones[i].threshold) achievedIdx = i;
+      }
+
+      this.updateProgressBar(nonGiftVND, achievedIdx);
+      this.markCartGiftLines(cart, giftLines);
+      this.updatePromoText(nonGiftVND, achievedIdx);
+      this.validateGifts(cart, giftLines, achievedIdx);
+      this.markSelectedInPopup(cart);
+    },
+
+    // ── Update step bar (bs_cart + sc) ──────────────
+    updateProgressBar: function (nonGiftVND, achievedIdx) {
+      // Set is-pending / achieved cho từng dot trong cả 2 step bar
+      // bs_cart: .bs_cart__step (i=1: Mua hàng luôn active; i=2..N+1: theo mốc)
+      // sc:      .sc__step      (i=1: Mua hàng luôn active; i=2..N+1: theo mốc)
+
+      var self = this;
+      var sels = ['.bs_cart__steps .bs_cart__step', '.sc__steps .sc__step'];
+      sels.forEach(function (sel) {
+        var nodes = document.querySelectorAll(sel);
+        nodes.forEach(function (node, i) {
+          if (i === 0) return; // mốc 1 (Mua hàng) — luôn active, skip
+          var msIdx = i - 1; // mốc 2 = milestones[0]
+          var ms = self.milestones[msIdx];
+          if (!ms) return;
+          var dot = node.querySelector('.bs_cart__step-dot, .sc__step-dot');
+          if (!dot) return;
+          if (msIdx <= achievedIdx) {
+            node.classList.add('gm-reached');
+            dot.classList.remove('is-pending');
+            node.setAttribute('data-gm-group', ms.index);
+          } else {
+            node.classList.remove('gm-reached');
+            dot.classList.add('is-pending');
+            node.removeAttribute('data-gm-group');
+          }
+        });
+      });
+    },
+
+    // ── Update promo text (cart + sidebar) ──────────
+    updatePromoText: function (nonGiftVND, achievedIdx) {
+      var self = this;
+
+      // Tìm mốc kế tiếp
+      var nextMs = null;
+      for (var i = 0; i < this.milestones.length; i++) {
+        if (i > achievedIdx) { nextMs = this.milestones[i]; break; }
+      }
+
+      // Cart page promo
+      var $cartPromo = document.querySelector('.bs_cart__promo');
+      if ($cartPromo) {
+        if (nextMs) {
+          var need = nextMs.threshold - nonGiftVND;
+          if (need < 0) need = 0;
+          var textEl = $cartPromo.querySelector('.bs_cart__promo-text');
+          if (textEl) {
+            textEl.innerHTML = this._escapeHtml(this._getPromoPrefix()) + ' <strong>' +
+              this._escapeHtml(this._formatVND(need)) + '</strong>' +
+              (nextMs.label ? ' okay ' + this._escapeHtml(nextMs.label.toLowerCase()) : '');
+          }
+          $cartPromo.style.display = '';
+        } else {
+          $cartPromo.style.display = 'none';
+        }
+      }
+
+      // Sidebar cart promo
+      var $scPromo = document.getElementById('scPromo');
+      if ($scPromo) {
+        if (nextMs) {
+          var need2 = nextMs.threshold - nonGiftVND;
+          if (need2 < 0) need2 = 0;
+          var scText = document.getElementById('scPromoText');
+          if (scText) {
+            scText.innerHTML = this._escapeHtml(this._getPromoPrefix()) + ' <strong>' +
+              this._escapeHtml(this._formatVND(need2)) + '</strong>' +
+              (nextMs.label ? ' okay ' + this._escapeHtml(nextMs.label.toLowerCase()) : '');
+          }
+          $scPromo.style.display = '';
+        } else {
+          $scPromo.style.display = 'none';
+        }
+      }
+
+      // Update sidebar mini step labels từ settings (khôi phục nếu bị stale)
+      this._syncStepLabels();
+    },
+
+    _syncStepLabels: function () {
+      // Sidebar cart step bar có hardcode "Tặng abc...." — sync với data-msX-label
+      var self = this;
+      var nodes = document.querySelectorAll('.sc__steps .sc__step');
+      nodes.forEach(function (node, i) {
+        if (i === 0) return;
+        var ms = self.milestones[i - 1];
+        if (!ms) {
+          node.style.display = 'none';
+          return;
+        }
+        node.style.display = '';
+        var labelEl = node.querySelector('.sc__step-label');
+        var subEl = node.querySelector('.sc__step-sub');
+        if (subEl && ms.label) subEl.textContent = ms.label;
+      });
+    },
+
+    // ── Mark gift lines on cart UI ──────────────────
+    markCartGiftLines: function (cart, giftLines) {
+      // bs_cart page items
+      document.querySelectorAll('.bs_cart__item').forEach(function (node) {
+        var line = parseInt(node.getAttribute('data-line'), 10);
+        if (giftLines.indexOf(line) > -1) {
+          node.classList.add('gm-is-gift');
+        } else {
+          node.classList.remove('gm-is-gift');
+        }
+      });
+      // sidebar cart items
+      document.querySelectorAll('.sc__item').forEach(function (node) {
+        var line = parseInt(node.getAttribute('data-line'), 10);
+        if (giftLines.indexOf(line) > -1) {
+          node.classList.add('gm-is-gift');
+        } else {
+          node.classList.remove('gm-is-gift');
+        }
+      });
+    },
+
+    // ── Validate: xóa quà không hợp lệ ──────────────
+    validateGifts: function (cart, giftLines, achievedIdx) {
+      var self = this;
+      if (giftLines.length === 0) return;
+
+      var toRemove = [];
+
+      // Case 1: Không đạt mốc nào → xóa hết quà
+      if (achievedIdx < 0) {
+        toRemove = giftLines.slice();
+      } else {
+        // Case 2: Quá nhiều quà (> 1) → giữ quà ở mốc cao nhất, xóa còn lại
+        // Case 3: Quà thuộc mốc khác mốc cao nhất hiện tại → xóa
+        var highestMs = this.milestones[achievedIdx];
+        var validLineFound = false;
+        giftLines.forEach(function (line) {
+          var item = cart.items[line - 1];
+          if (!item) return;
+          // Quà thuộc mốc cao nhất?
+          if (highestMs.ids.indexOf(item.variant_id) > -1 && !validLineFound) {
+            validLineFound = true; // giữ quà này
+          } else {
+            toRemove.push(line);
+          }
+        });
+      }
+
+      if (toRemove.length === 0) return;
+
+      // Bug 5: xóa từ index cao nhất xuống thấp nhất để tránh lệch line
+      toRemove.sort(function (a, b) { return b - a; });
+
+      // Xóa tuần tự
+      var i = 0;
+      function next() {
+        if (i >= toRemove.length) {
+          // Đã xóa hết quà không hợp lệ → render lại UI (không reload trang).
+          if (window.TF && TF.Cart && TF.Cart.render) {
+            TF.Cart.render(!document.getElementById('cartPage'));
+          } else {
+            setTimeout(function () { window.location.reload(); }, 200);
+          }
+          return;
+        }
+        var line = toRemove[i++];
+        self._postChange(line, 0, next, next);
+      }
+      next();
+    },
+
+    // ── Mark selected gift in popup ─────────────────
+    markSelectedInPopup: function (cart) {
+      if (!this.$popup) return;
+      var selectedIds = [];
+      (cart.items || []).forEach(function (item) {
+        if (GM.allGiftIds.indexOf(item.variant_id) > -1) {
+          selectedIds.push(item.variant_id);
+        }
+      });
+      this.$popup.querySelectorAll('.gm-popup__item').forEach(function (node) {
+        var vid = parseInt(node.getAttribute('data-variant-id'), 10);
+        var btn = node.querySelector('.js-gm-select');
+        if (selectedIds.indexOf(vid) > -1) {
+          node.classList.add('is-selected');
+          if (btn) {
+            btn.classList.add('is-selected');
+            btn.textContent = 'Deselect';
+          }
+        } else {
+          node.classList.remove('is-selected');
+          if (btn) {
+            btn.classList.remove('is-selected');
+            btn.textContent = 'Select';
+          }
+        }
+      });
+    },
+
+    // ── Bind events ─────────────────────────────────
+    bindEvents: function () {
+      var self = this;
+
+      // Click mốc (đã đạt) → mở popup tab tương ứng
+      document.addEventListener('click', function (e) {
+        var step = e.target.closest('.bs_cart__step.gm-reached, .sc__step.gm-reached');
+        if (step) {
+          e.preventDefault();
+          var grp = step.getAttribute('data-gm-group');
+          if (grp) self.openPopup(parseInt(grp, 10));
+          return;
+        }
+
+        // Promo button "Mua thêm" → đóng overlay (sidebar) + scroll/redirect
+        // (đã có link sẵn, chỉ cần overlay không chặn)
+
+        // Close popup
+        if (e.target.closest('[data-gm-close]')) {
+          e.preventDefault();
+          self.closePopup();
+          return;
+        }
+
+        // Select gift button
+        var selectBtn = e.target.closest('.js-gm-select');
+        if (selectBtn) {
+          e.preventDefault();
+          var $item = selectBtn.closest('.gm-popup__item');
+          var vid = parseInt(selectBtn.getAttribute('data-variant-id'), 10);
+          var grp2 = parseInt(selectBtn.getAttribute('data-group'), 10);
+
+          // Override variant ID nếu user chọn khác trong dropdown
+          var sel = $item.querySelector('.js-gm-variant');
+          if (sel) vid = parseInt(sel.value, 10);
+
+          if ($item.classList.contains('is-selected')) {
+            self.removeGift(vid);
+          } else {
+            self.selectGift(vid, grp2);
+          }
+          return;
+        }
+      });
+
+      // Variant dropdown change → cập nhật btn data-variant-id
+      document.addEventListener('change', function (e) {
+        var sel = e.target.closest('.js-gm-variant');
+        if (!sel) return;
+        var $item = sel.closest('.gm-popup__item');
+        var btn = $item.querySelector('.js-gm-select');
+        if (btn) btn.setAttribute('data-variant-id', sel.value);
+        $item.setAttribute('data-variant-id', sel.value);
+      });
+
+      // ESC → đóng popup
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && self.$popup && self.$popup.classList.contains('is-open')) {
+          self.closePopup();
+        }
+      });
+
+      // Hook: sau mọi cart mutation → refresh state
+      this._hookCartMutations();
+    },
+
+    _hookCartMutations: function () {
+      // Theo dõi TF.Cart.refresh — gọi GM sau mỗi lần refresh
+      if (window.TF && TF.Cart && TF.Cart.refresh && !TF.Cart._gmHooked) {
+        var origRefresh = TF.Cart.refresh.bind(TF.Cart);
+        TF.Cart.refresh = function () {
+          origRefresh();
+          // Delay để đợi /cart?view=json.en trả về
+          setTimeout(function () { GM.refreshFromCart(); }, 350);
+        };
+        TF.Cart._gmHooked = true;
+      } else if (!window.TF) {
+        // Theme chưa load TF — retry
+        setTimeout(function () { GM._hookCartMutations(); }, 500);
+      }
+    },
+
+    // ── Popup open/close ────────────────────────────
+    openPopup: function (group) {
+      if (!this.$popup) return;
+      // Activate group tương ứng
+      this.$popup.querySelectorAll('.gm-popup__group').forEach(function (g) {
+        g.classList.remove('is-active');
+      });
+      var $grp = this.$popup.querySelector('.gm-popup__group[data-group="' + group + '"]');
+      if ($grp) $grp.classList.add('is-active');
+
+      this.$popup.classList.add('is-open');
+      this.$popup.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      this.refreshFromCart(); // re-mark selected
+    },
+
+    closePopup: function () {
+      if (!this.$popup) return;
+      this.$popup.classList.remove('is-open');
+      this.$popup.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    },
+
+    // ── Select / remove gift ────────────────────────
+    selectGift: function (variantId, group) {
+      var self = this;
+      // 1. Xóa quà hiện tại nếu có (validate sẽ tự dọn nhưng làm trước cho UX nhanh)
+      this._fetchCart(function (cart) {
+        var existingLines = [];
+        (cart.items || []).forEach(function (item, idx) {
+          if (GM.allGiftIds.indexOf(item.variant_id) > -1) {
+            existingLines.push(idx + 1);
+          }
+        });
+        existingLines.sort(function (a, b) { return b - a; });
+
+        function addNew() {
+          self._postAdd(variantId, 1, function () {
+            self.closePopup();
+            self._showToast('Added A gift!');
+            // Render lại UI (cart page + sidebar đồng bộ), không reload trang.
+            if (window.TF && TF.Cart && TF.Cart.render) {
+              TF.Cart.render(!document.getElementById('cartPage'));
+            } else {
+              setTimeout(function () { window.location.reload(); }, 400);
+            }
+          }, function (xhr) {
+            var msg = 'Can not get folder: %s: %s';
+            try {
+              var resp = JSON.parse(xhr.responseText || '{}');
+              msg = resp.description || resp.message || msg;
+            } catch (e) {}
+            self._showToast(msg);
+          });
+        }
+
+        if (existingLines.length === 0) {
+          addNew();
+        } else {
+          var i = 0;
+          function removeNext() {
+            if (i >= existingLines.length) { addNew(); return; }
+            self._postChange(existingLines[i++], 0, removeNext, removeNext);
+          }
+          removeNext();
+        }
+      });
+    },
+
+    removeGift: function (variantId) {
+      var self = this;
+      this._fetchCart(function (cart) {
+        var lines = [];
+        (cart.items || []).forEach(function (item, idx) {
+          if (item.variant_id === variantId) lines.push(idx + 1);
+        });
+        lines.sort(function (a, b) { return b - a; });
+        if (lines.length === 0) {
+          self.closePopup();
+          return;
+        }
+        var i = 0;
+        function next() {
+          if (i >= lines.length) {
+            self.closePopup();
+            self._showToast('Synchronising folder');
+            if (window.TF && TF.Cart && TF.Cart.render) {
+              TF.Cart.render(!document.getElementById('cartPage'));
+            } else {
+              setTimeout(function () { window.location.reload(); }, 400);
+            }
+            return;
+          }
+          self._postChange(lines[i++], 0, next, next);
+        }
+        next();
+      });
+    },
+
+    // ── HTTP helpers ────────────────────────────────
+    _postAdd: function (variantId, qty, success, error) {
+      this._post('/cart/add.js', { id: variantId, quantity: qty }, success, error);
+    },
+
+    _postChange: function (line, qty, success, error) {
+      this._post('/cart/change.js', { line: line, quantity: qty }, success, error);
+    },
+
+    _post: function (url, data, success, error) {
+      if (window.jQuery) {
+        jQuery.ajax({
+          type: 'POST', url: url, data: data, dataType: 'json',
+          success: success || function () {},
+          error: error || function () {}
+        });
+        return;
+      }
+      // Fallback fetch form-encoded
+      var body = Object.keys(data).map(function (k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+      }).join('&');
+      fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Accept': 'application/json' },
+        body: body,
+        credentials: 'same-origin'
+      })
+        .then(function (r) {
+          return r.text().then(function (t) {
+            var d = {}; try { d = JSON.parse(t); } catch (e) {}
+            if (!r.ok) { (error || function () {})({ responseText: t }); return; }
+            (success || function () {})(d);
+          });
+        })
+        .catch(function () { (error || function () {})({ responseText: '' }); });
+    },
+
+    // ── Utils ───────────────────────────────────────
+    _getPromoPrefix: function () {
+      var prefix = this.$data && this.$data.getAttribute('data-promo-prefix');
+      return (prefix || 'Buy more').trim() || 'Buy more';
+    },
+
+    _escapeHtml: function (value) {
+      return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    },
+
+    _formatVND: function (vnd) {
+      // Bug 4: format thủ công an toàn
+      if (window.Haravan && Haravan.formatMoney && window.shop && window.shop.moneyFormat) {
+        try {
+          return Haravan.formatMoney(Math.round(vnd) * 100, window.shop.moneyFormat).replace(/,/g, '.');
+        } catch (e) {}
+      }
+      return Math.round(vnd).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ₫';
+    },
+
+    _showToast: function (msg) {
+      if (window.TF && TF.Helpers && TF.Helpers.showToast) {
+        TF.Helpers.showToast(msg);
+      } else {
+        // No-op fallback
+      }
+    }
+  };
+
+  window.GiftMilestones = GM;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { GM.init(); });
+  } else {
+    GM.init();
+  }
+})();
