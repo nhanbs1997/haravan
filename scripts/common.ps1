@@ -1566,7 +1566,15 @@ function Invoke-HaravanGitCommand {
         # Capture output so a failed push cannot leak credentials embedded in a
         # remote URL into the workflow log.
         $ErrorActionPreference = "Continue"
-        $output = @(& $gitCommand @Arguments 2>&1)
+        # Trust only this verified workspace for this invocation. Windows and
+        # sandbox accounts can own the same checkout under different SIDs.
+        $workspaceRoot = (Resolve-Path -LiteralPath $script:ProjectRoot).ProviderPath
+        $gitOptions = @()
+        if ((Test-Path -LiteralPath (Join-Path $workspaceRoot '.git')) -and
+            (Test-HaravanPathWithinOrEqual -Path $WorkingDirectory -AllowedRoot $workspaceRoot)) {
+            $gitOptions = @('-c', ('safe.directory=' + ($workspaceRoot -replace '\\', '/')))
+        }
+        $output = @(& $gitCommand @gitOptions @Arguments 2>&1)
         $exitCode = $LASTEXITCODE
     } finally {
         $ErrorActionPreference = $previousErrorPreference
