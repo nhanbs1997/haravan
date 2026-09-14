@@ -100,8 +100,9 @@ Mỗi shop nằm trong thư mục:
 shops/<org_id> - <theme_id> - <tên theme> - <email đăng nhập>/
 ```
 
-Mỗi thư mục có kết nối riêng. Mỗi lần lưu file, CLI ghi trực tiếp lên remote theme
-của shop đang chọn. Nhấn `Ctrl+C` để dừng.
+Mỗi thư mục có kết nối CLI riêng trong checkout GitHub. `theme dev` dùng để xem và
+đồng bộ preview Haravan; sau khi kiểm tra, `agent:push` mới commit/push đúng các file
+đã xác minh lên GitHub và theme remote. Nhấn `Ctrl+C` để dừng.
 
 ## Backup và khôi phục khi sửa sai
 
