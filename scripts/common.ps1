@@ -953,6 +953,42 @@ function Invoke-HaravanThemeDownloadWithRelogin {
     }
 }
 
+function Get-HaravanThemeIdsWithRetry {
+    param(
+        [Parameter(Mandatory = $true)][string]$OrgId,
+        [ValidateRange(1, 5)][int]$MaxAttempts = 3
+    )
+
+    for ($attempt = 1; $attempt -le $MaxAttempts; $attempt++) {
+        try {
+            $selection = @(Invoke-HaravanCaptureAt -WorkingDirectory $script:ProjectRoot "select" $OrgId)
+            if (Test-HaravanThemeCommandFailure -Lines $selection) {
+                $selectionError = [System.Exception]::new("Không chọn được Organization.")
+                $selectionError.Data["HaravanOutput"] = $selection
+                throw $selectionError
+            }
+            $lines = @(Invoke-HaravanCaptureAt -WorkingDirectory $script:ProjectRoot "theme" "list")
+        } catch {
+            $lines = @('An error has occurred')
+            if ($_.Exception.Data.Contains("HaravanOutput")) {
+                $lines += @($_.Exception.Data["HaravanOutput"] | ForEach-Object { [string]$_ })
+            }
+        }
+        if (Test-HaravanAuthFailure -Lines $lines) {
+            throw "Phiên Haravan của Organization $OrgId hết hạn; cần đăng nhập lại trước khi lấy danh sách theme."
+        }
+        $ids = @(Get-HaravanTableIds -Lines $lines)
+        if (-not (Test-HaravanThemeCommandFailure -Lines $lines) -and $ids.Count -gt 0) {
+            return $ids
+        }
+        if ($attempt -lt $MaxAttempts) {
+            Write-Warning "Chưa lấy được danh sách theme của Organization $OrgId; thử lại ($attempt/$MaxAttempts)."
+            Start-Sleep -Seconds $attempt
+        }
+    }
+    throw "Không lấy được danh sách theme của Organization $OrgId sau $MaxAttempts lần. CLI lỗi hoặc trả danh sách rỗng; chưa thể xác minh quyền theme. Kiểm tra phiên đăng nhập/quyền truy cập và thử lại."
+}
+
 function Get-HaravanTableIds {
     param([string[]]$Lines)
 

@@ -60,9 +60,7 @@ if ($hasExplicitSelection) {
     Write-Host "Dùng Org/Theme đã xác minh: $orgId / $themeId"
     Write-Host ""
     Write-Host "Themes in Organization $orgId`:"
-    Invoke-HaravanAt -WorkingDirectory $script:ProjectRoot "select" $orgId
-    $themeOutput = Invoke-HaravanCaptureAt -WorkingDirectory $script:ProjectRoot "theme" "list"
-    $themeIds = @(Get-HaravanTableIds -Lines $themeOutput)
+    $themeIds = @(Get-HaravanThemeIdsWithRetry -OrgId $orgId)
     if ($themeId -notin $themeIds) {
         throw (
             "Theme $themeId không thuộc Organization $orgId. " +
@@ -93,9 +91,7 @@ if ($hasExplicitSelection) {
 
     Write-Host ""
     Write-Host "Themes in Organization $orgId`:"
-    Invoke-HaravanAt -WorkingDirectory $script:ProjectRoot "select" $orgId
-    $themeOutput = Invoke-HaravanCaptureAt -WorkingDirectory $script:ProjectRoot "theme" "list"
-    $themeIds = @(Get-HaravanTableIds -Lines $themeOutput)
+    $themeIds = @(Get-HaravanThemeIdsWithRetry -OrgId $orgId)
     if ($themeId -notin $themeIds) {
         throw (
             "Theme $themeId (từ URL) không thuộc Organization $orgId. " +
@@ -118,9 +114,7 @@ if ($hasExplicitSelection) {
 
     Write-Host ""
     Write-Host "Themes in Organization $orgId`:"
-    Invoke-HaravanAt -WorkingDirectory $script:ProjectRoot "select" $orgId
-    $themeOutput = Invoke-HaravanCaptureAt -WorkingDirectory $script:ProjectRoot "theme" "list"
-    $themeIds = @(Get-HaravanTableIds -Lines $themeOutput)
+    $themeIds = @(Get-HaravanThemeIdsWithRetry -OrgId $orgId)
     if ($themeIds.Count -eq 0) {
         throw "No theme found for Organization $orgId."
     }
