@@ -1,5 +1,6 @@
 {%- assign quickview_phone = settings.header_r_phone | default: '0797.397.883' -%}
 {%- assign quickview_phone_href = quickview_phone | replace: '.', '' | replace: ' ', '' | replace: '-', '' | replace: '(', '' | replace: ')', '' -%}
+{%- assign quickview_phone_display = quickview_phone | replace: '.', ' ' -%}
 <div id="quick-view-modal" class="wrapper-quickview" style="display:none;">
 	<div class="quickviewOverlay"></div>
 	<div class="jsQuickview">
@@ -34,7 +35,7 @@
 					<div class="quickview-description"></div>
 					<div class="quickview-contact-actions">
 						<a class="btn-detail btn-color-add btn-min-width btn-mgt" href="/pages/lien-he">Báo giá lăn bánh</a>
-						<a class="btn-detail btn-color-buy btn-min-width btn-mgt" href="tel:{{ quickview_phone_href }}">{{ quickview_phone }}</a>
+						<a class="btn-detail btn-color-buy btn-min-width btn-mgt" href="tel:{{ quickview_phone_href }}">{{ quickview_phone_display }}</a>
 						<div class="qv-readmore">
 							<a class="read-more p-url" href="" role="button">Xem chi tiết</a>
 						</div>
