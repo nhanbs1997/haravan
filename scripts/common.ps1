@@ -70,12 +70,20 @@ function Invoke-HaravanCaptureAt {
 
     $command = Get-HaravanCommand
     $previousErrorPreference = $ErrorActionPreference
+    $previousNodeOptions = $env:NODE_OPTIONS
     Push-Location -LiteralPath $WorkingDirectory
     try {
+        if ($Arguments.Count -ge 2 -and $Arguments[0] -eq 'theme' -and
+            $Arguments[1] -in @('fetch', 'pull')) {
+            $diagnosticsPath = Join-Path $script:ProjectRoot 'scripts/haravan-http-diagnostics.mjs'
+            $diagnosticsUrl = ([System.Uri]$diagnosticsPath).AbsoluteUri
+            $env:NODE_OPTIONS = ($previousNodeOptions + ' --import="' + $diagnosticsUrl + '"').Trim()
+        }
         $ErrorActionPreference = "Continue"
         $output = @(& $command @Arguments 2>&1)
         $exitCode = $LASTEXITCODE
     } finally {
+        $env:NODE_OPTIONS = $previousNodeOptions
         $ErrorActionPreference = $previousErrorPreference
         Pop-Location
     }
@@ -743,6 +751,12 @@ function Invoke-HaravanThemeDownloadAt {
             }
         }
 
+        $assetHttpErrors = @($fetchOutput | Where-Object {
+            [string]$_ -match '\[HARAVAN_ASSET_HTTP_ERROR:5\d\d\]'
+        })
+        if ($assetHttpErrors.Count -gt 0 -and (Test-HaravanThemeCommandFailure -Lines $fetchOutput)) {
+            throw "Haravan API HTTP 5xx: không lấy được danh sách asset của theme $ThemeId sau các lần thử lại của CLI. Lỗi phía dịch vụ; đăng nhập lại không giải quyết lỗi này. Theme local được giữ nguyên. Thử lại sau hoặc báo Haravan kiểm tra API assets.json của theme này."
+        }
         $fetchContentReady = Test-HaravanThemeContent -RootPath $scratchProject
         $fetchReportedDuplicate = Test-HaravanRecoverableDuplicateAssetFailure `
             -Lines $fetchOutput
@@ -921,6 +935,9 @@ function Invoke-HaravanThemeDownloadWithRelogin {
                 -WorkingDirectory $WorkingDirectory `
                 -ThemeId $ThemeId
         } catch {
+            if ($_.Exception.Message -match 'Haravan API HTTP 5xx') {
+                throw
+            }
             if ($attempt -ge 2) {
                 throw
             }
