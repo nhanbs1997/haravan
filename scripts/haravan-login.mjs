@@ -45,12 +45,10 @@ export function callbackHandler({ callbackPath, complete, finish }) {
     try {
       const org = await complete(Object.fromEntries(url.searchParams));
       response.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
-      response.end(`Đã lưu phiên Haravan cho Organization ${org}. Có thể đóng tab này.`);
-      finish(null, org);
+      response.end(`Đã lưu phiên Haravan cho Organization ${org}. Có thể đóng tab này.`, () => finish(null, org));
     } catch (error) {
       response.writeHead(400, { 'Content-Type': 'text/plain; charset=utf-8' });
-      response.end('Chưa đăng nhập thành công. Xem thông báo trong terminal.');
-      finish(error);
+      response.end('Chưa đăng nhập thành công. Xem thông báo trong terminal.', () => finish(error));
     }
   };
 }

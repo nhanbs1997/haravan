@@ -166,6 +166,13 @@ Org ID.
 
 ### 2.1. Thứ tự đăng nhập Haravan
 
+Các script workflow gọi `scripts/haravan-login.mjs` qua `Invoke-Haravan` khi đăng nhập.
+Helper dùng thư viện của CLI đã cài, cho phép lệch đồng hồ tối đa 60 giây để tránh lỗi
+`JWT not active yet`, kiểm tra đúng Org nếu được truyền vào và chỉ báo thành công sau
+khi ghi/đọc lại phiên trong kho credential chuẩn của CLI. Không in token hay lỗi OAuth
+thô. Nếu lệch giờ vượt ngưỡng, đồng bộ giờ Windows rồi đăng nhập lại. Lệnh `haravan login`
+gọi trực tiếp ngoài workflow vẫn dùng triển khai gốc của CLI.
+
 1. Ưu tiên đăng nhập Google bằng tài khoản `html.tech@haravan.com` (Haravan HTML).
    Trên `accounts.haravan.com` phải bấm **Sign in with Google** / **Đăng nhập bằng Google**.
    Không nhập email vào ô Haravan rồi bấm Continue — bước đó gửi OTP email, không dùng.
