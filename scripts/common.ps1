@@ -36,7 +36,17 @@ function Invoke-Haravan {
     $previousErrorPreference = $ErrorActionPreference
     try {
         $ErrorActionPreference = "Continue"
-        & $command @Arguments
+        if ($Arguments.Count -gt 0 -and $Arguments[0] -eq 'login') {
+            $cliRoot = Join-Path (Split-Path -Parent $command) 'node_modules/@haravan/cli'
+            if (-not (Test-Path -LiteralPath (Join-Path $cliRoot 'dist/helper/auth.js'))) {
+                throw "Không tìm thấy thư viện Haravan CLI tại $cliRoot."
+            }
+            $loginArguments = @((Join-Path $script:ProjectRoot 'scripts/haravan-login.mjs'), $cliRoot)
+            if ($Arguments.Count -gt 1) { $loginArguments += $Arguments[1] }
+            & node @loginArguments
+        } else {
+            & $command @Arguments
+        }
         $exitCode = $LASTEXITCODE
     } finally {
         $ErrorActionPreference = $previousErrorPreference
@@ -1073,7 +1083,7 @@ function Ensure-HaravanOrganizationLogin {
         }
 
         Write-Host "Mở Haravan login..."
-        Invoke-HaravanAt -WorkingDirectory $script:ProjectRoot "login"
+        Invoke-HaravanAt -WorkingDirectory $script:ProjectRoot "login" $OrgId
         $loginAttempted = $true
         for ($attempt = 0; $attempt -lt 5; $attempt++) {
             if ($OrgId -in @(Get-LoggedInOrganizationIds)) {
