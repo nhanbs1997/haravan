@@ -1,0 +1,96 @@
+<div class="navigation-wrapper hidden xl:flex items-center sub-header">
+  <div class="container relative">
+    <div class="grid ">
+      <div class="navigation-header relative w-full py-3.5 hidden">
+        <portal-opener>
+          <div class="flex items-center gap-4 cursor-pointer hover:text-[var(--color-sub-header-link)] " data-portal="#menu-drawer">
+            <div class="hamburger-button inline-flex items-center flex-col gap-1 ">
+              {% for i in (1..3) %}
+                <span class="h-[2px] w-5 bg-[currentColor] hover:bg-[var(--color-sub-header-link)] "></span>
+              {% endfor %}
+            </div>
+            <span class="font-semibold">{{ settings.main_menu_title }}</span>
+          </div>
+        </portal-opener>
+        <menu-drawer class="portal portal--drawer" id="menu-drawer" data-type="drawer" data-animation="slide-in-left">
+          <dialog class="portal-dialog">
+            <div class="portal-overlay"></div>
+            <div class="portal-inner animation bg-background h-full grid grid-rows-[auto_1fr_auto]">
+              <div class="navigation-header pt-4 flex justify-between items-center border-b pb-3 border-neutral-50 px-4">
+               {%if shop.customer_accounts_enabled %}
+			 <a href="{% if customer%}/account{%else%}/account/login{%endif%}" 
+				title="{% if customer%}{{customer.name}}{%else%}Đăng nhập{%endif%}" 
+				class="header-icon-group flex gap-2 items-center account-group  hover:bg-neutral-50 active:scale-95 transition-all duration-150 px-2 py-1 rounded-sm ">
+                  <div class="header-icon w-[3.6rem] h-[3.6rem] p-2 rounded-sm flex items-center justify-center border border-neutral-50">
+                    <i class="icon icon-user"></i>
+                  </div>
+                  <div class=" ">
+                    <span class="text-xs">Tài khoản</span>
+                    <span class="font-semibold block" >Đăng nhập</span>
+                  </div>
+                </a>
+				{% endif %}
+                <button
+                  type="button"
+                  id="PortalClose-menu-crawer"
+                  class="w-[3.2rem] h-[3.2rem] rounded-full border border-neutral-50 text-neutral-200 flex items-center justify-center active:scale-95 transition-transform hover:bg-neutral-50"
+                >
+                  <i class="icon icon-cross"> </i>
+                </button>
+              </div>
+         		{% include 'main-nav' %}
+              <div class="navigation-footer 4 border-t border-neutral-50 flex">
+				    {%if settings.header_location_enabled  %}
+                <div class="{%if settings.header_hotline_enabled  %}w-1/2{%else%}w-full{% endif %}">
+                  <a
+                    href="{{ settings.header_location_link }}"
+                    title="{{ settings.header_location_title }}"
+                    class="header-icon-group flex gap-2 items-center  hover:bg-neutral-50 transition-all duration-150 px-2 py-4 store-group"
+                  >
+                    <div class="header-icon w-[3.6rem] h-[3.6rem] p-2 rounded-sm flex items-center justify-center border border-neutral-50">
+                      <i class="icon icon-store"></i>
+                    </div>
+                    <div>
+                      <span class="text-xs">{{ settings.header_location_title }}</span>
+               
+                    </div>
+                  </a>
+                </div>
+				  {% endif %}
+			  {%if settings.header_hotline_enabled %}
+				  {% assign phone =  settings.header_hotline_link | remove: ' ' %}
+					{% if phone == blank %}
+						{% assign phone =  settings.phone   | remove: ' ' %}
+					{% endif %}
+                <div class="{%if settings.header_location_enabled  %}w-1/2{%else%}w-full{% endif %}">
+                  <a
+                    class="header-icon-group flex gap-2 items-center  hover:bg-neutral-50  transition-all duration-150 px-2 py-4  phone-group "
+                    href="tel:{{ phone }}"
+                    title="{{ phone }}"
+                  >
+                    <div class="header-icon w-[3.6rem] h-[3.6rem] p-2 rounded-sm flex items-center justify-center border border-neutral-50">
+                      <i class="icon icon-calling-phone"></i>
+                    </div>
+                    <div>
+                      <span class="text-xs">{{ settings.header_hotline_title }}	</span>
+                    </div>
+                  </a>
+                </div>
+				{% endif %}
+				
+              </div>
+            </div>
+          </dialog>
+        </menu-drawer>
+      </div>
+      <div class="flex justify-between items-center mx-auto">
+		  {% if settings.sub_menu and settings.sub_menu_enabled -%}
+        {% include 'sub-nav' %}
+		  {%else %}
+		  <div></div>
+		  {% endif %}
+       
+      </div>
+    </div>
+  </div>
+</div>

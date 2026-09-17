@@ -1,0 +1,103 @@
+height: 70vh;
+	display: flex;
+    align-items: center;
+	padding: 1.2rem
+}
+#quick-view-product .product-wrapper{
+	border-radius: var(--rounded);
+	height: 100%;
+	width: 100%;
+				overflow: hidden
+
+}
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr;
+	align-items: center
+}
+#quick-view-product .portal-inner.loading{
+  	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#quick-view-product .product-detail:before{
+	content: none
+}
+#quick-view-product .product-gallery{
+	padding: 0
+}
+
+@media(min-width: 768px){
+    #quick-view-product .product-detail {
+		height: 100%!important;
+		padding: var(--spacing-3)
+	
+	}
+	#quick-view-product .product-form-wrapper{
+		height: 100%;
+		max-height: calc(70vh - 2.4rem);
+		overflow: auto;
+		display: flex;
+	}
+}
+@media(max-width: 767px){
+	#quick-view-product .product-wrapper{
+	border-radius: 0;
+
+}
+	#quick-view-product .card-product__badges {
+		display: none
+	}
+	#quick-view-product .gallery-thumbnails{
+		display: none!important;
+	}
+	#quick-view-product .product-detail{
+		grid-template-columns: 1fr 
+	}
+	#quick-view-product [class*=text-h]{
+		font-size: var(--font-size-body)
+	}
+	#quick-view-product  .portal-inner.loading {
+	min-height: 30rem;
+}
+	#quick-view-product .portal-inner{
+		align-self: flex-end;
+		height : auto;
+		padding: 0
+	}
+	#quick-view-product .product-gallery .swiper-button-prev,
+	#quick-view-product .product-gallery .swiper-button-next,
+	#quick-view-product compare-button,
+	#quick-view-product .group-status,
+	#quick-view-product .installment-button,
+	#quick-view-product .product-polices,
+	#quick-view-product [name="buynow"]
+	{
+		display: none!important;
+	}
+	#quick-view-product .product-detail {
+		padding: 2rem;
+		position: relative
+	}
+	#quick-view-product .portal-inner{
+		border-radius: var(--rounded-sm) var(--rounded-sm) 0 0 
+	}
+	#quick-view-product .product-gallery-wrapper  {
+		height: 80px!important;
+		width: 80px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		top: 2rem;
+		left: 2rem;
+	
+	}
+	#quick-view-product .product-gallery-wrapper > div{
+		padding: 0px;
+		max-width: 100%;
+	}
+	#quick-view-product .product-title{
+		padding-left: 90px;
+		min-height: 90px
+	}
+}

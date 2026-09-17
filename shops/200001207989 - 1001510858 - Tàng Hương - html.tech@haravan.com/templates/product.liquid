@@ -1,0 +1,29 @@
+{% include 'breadcrumb' %} 
+
+{% include 'section-main-product' %}
+{% if settings.related_product_enabled %}
+{% include 'section-related-products' %}
+{% endif %}
+{% if settings.equalprice_product_enabled %}
+{% include 'section-equalprice-products' %}
+{% endif %}
+
+{% if settings.product_recent_viewed_enabled %}
+{% include 'section-recent-products' %}
+{% endif %}
+<script>
+function  setProductRecent(){
+	try{
+		let productId = '{{product.id}}'
+		let storage =  JSON.parse(localStorage.getItem(window.themeConfigs.recentStorage)) || []
+		if(storage  && !storage.includes(productId) ){
+			storage =	[productId].concat(storage)
+			storage.length > 7 && storage.pop()
+			localStorage.setItem(window.themeConfigs.recentStorage, JSON.stringify(storage))
+		}}catch(e){
+			console.log(e)
+		}
+	}
+setProductRecent()
+
+</script>

@@ -1,0 +1,31 @@
+{% capture promo_type -%}promo_tag_type_{{promo_index}}{% endcapture -%}
+{% if settings[promo_type] and settings[promo_type] != 'none' -%}
+  {% capture promo_tag -%}promo_tag_{{promo_index}}{% endcapture -%}
+
+  {% if settings[promo_tag] != '' -%}
+    {% assign tagPrefix = settings[promo_tag] %}
+    {% if settings[promo_type] != 'image' -%}
+      {% assign tagPrefix = settings[promo_tag] | append: '_' %}
+    {% endif -%}
+    {% for tag in product.tags -%}
+      {% if tag contains tagPrefix -%}
+        {% capture promo_image -%}promo_tag_{{promo_index}}.png{% endcapture -%}
+        {% capture promo_tag_color -%}promo_tag_color_{{promo_index}}{% endcapture -%}
+        {% capture promo_tag_bg -%}promo_tag_bg_{{promo_index}}{% endcapture -%}
+        {% capture promo_tag_border -%}promo_tag_border_{{promo_index}}{% endcapture -%}
+        {% assign tag_content = tag | split: '_' | last -%}
+        <div
+          class="w-full badge font-semibold text-center product-promo-tag product-promo-tag--{{promo_index}} product-promo-tag--{{settings[promo_type]}}  px-2 py-1.5 md:text-sm text-xs
+"
+          style="--color-badge: {{settings[promo_tag_color] | default: settings.main-color}}; --color-badge-bg: {{ settings[promo_tag_bg] | default: 'transparent'}}; --color-badge-border:  {{ settings[promo_tag_border] | default: 'transparent' }}"
+        >
+          {% if settings[promo_type] == 'image' -%}
+            <img src="{{ promo_image | asset_url }}" alt="{{product.title}}">
+          {% else -%}
+            {{ tag_content }}
+          {% endif %}
+        </div>
+      {% endif -%}
+    {% endfor -%}
+  {% endif -%}
+{% endif -%}

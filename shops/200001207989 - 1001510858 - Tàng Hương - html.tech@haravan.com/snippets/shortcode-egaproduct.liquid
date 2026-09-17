@@ -1,0 +1,3 @@
+{%capture handleProduct-%}{% include 'shortcode-render' render:'handle' default:'' -%}{%endcapture-%}
+{% assign product =all_products[handleProduct] -%}
+{% include 'featured-product', product: product -%}

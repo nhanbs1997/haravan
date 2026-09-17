@@ -1,0 +1,18 @@
+{% layout none %}
+
+{% paginate search.results by settings.collection_number_product %}
+    {% if search.results.size > 0 -%}
+      {% for product in search.results %}
+        {% include 'product-grid-item' -%}
+      {% endfor %}
+    {% else -%}
+        <div class="bg-background p-4 rouded-sm" style="grid-column: 1 / -1">
+          Không tìm thấy sản phẩm
+        </div>
+    {% endif -%}
+      <div class="mt-6 lg:pt-6" style="grid-column: 1 / -1">
+		{% if paginate.pages > 1 %}
+        {% include 'collection-paginate' %}
+		{% endif -%}
+      </div>
+{% endpaginate %}

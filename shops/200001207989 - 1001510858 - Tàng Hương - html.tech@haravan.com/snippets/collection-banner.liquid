@@ -1,0 +1,31 @@
+<section class="section section-collection-banner">
+	{% assign collection_image = collection.image.src -%}
+	{% assign collection_image_mb = collection.image.src | img_url: 'large' -%}
+
+	{% assign collection_link = collection.url  -%}
+	{% assign collection_alt = collection.title | escape %}
+
+	{%if settings.collection_main_banner_enabled and collection.handle == 'all' -%}
+		{% assign collection_image = 'collection_main_banner.jpg' | asset_url -%}
+		{% assign collection_image_mb = 'collection_main_banner.jpg' | asset_url | img_url: 'large' -%}
+		{% assign collection_link = settings.collection_main_banner_url -%}
+		{% assign collection_alt = collection.title | escape %}
+	{%endif-%}
+
+	{% if collection_image != blank %}
+		<div class='collection_banner mb-4 md:mb-6  container text-center'>
+			<a class="banner" href="{{collection_link}}"
+				title="{{ collection_main_banner_alt | default: collection.title }}">
+				<picture>
+					<source media="(max-width: 767px)"
+						srcset="{{ collection_image_mb -}}"
+						>
+					<img class='object-contain mx-auto' src="{{ collection_image  -}}" 
+						width="{{settings.collection_banner_width}}" height="{{settings.collection_banner_height}}"
+						alt="{{ collection_main_banner_alt | default: collection.title -}}" />
+				</picture>
+			</a>
+		</div>
+		
+	{% endif %}
+</section>

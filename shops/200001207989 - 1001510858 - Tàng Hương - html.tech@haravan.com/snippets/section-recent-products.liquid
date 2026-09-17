@@ -1,0 +1,39 @@
+<section id="recent-view-coll" class="section section-products section-related-products" style="--section-margin: 64px 0 64px 0;--section-margin-mb: 32px 0 32px 0">
+	<div class="container ">
+		<div class="heading-bar py-3 px-5 text-center  mb-2">
+			<h2 class="text-h4 heading font-semibold text-secondary">
+				 Sản phẩm đã xem
+			</h2>
+		</div>
+		 <recentview-products class="releated-products w-full" data-product="{{product.id}}" data-limit="8"  >
+		  	<ega-carousel>
+				 <script data-type="swiper-params" type="application/json">
+				{
+				  "spaceBetween": 8,
+				  "slidesPerView": 2,
+				   "breakpoints": {
+					"768": {
+					  "slidesPerView": 2
+					},
+					"1024": {
+					  "slidesPerView": 3
+					},
+					"1200": {
+					  "slidesPerView": 4
+					}
+				  }
+				}
+			  </script>
+				
+			  	<div class="swiper lg:pb-[var(--spacing-10)] ">
+					
+					<div class="swiper-wrapper  product-list h-inherit pb-3">
+					</div>
+					 <div class="swiper-button-prev md:flex hidden" onclick="event.stopPropagation()"></div>
+              <div class="swiper-button-next  md:flex hidden" onclick="event.stopPropagation()"></div>
+				</div>
+			  
+			  </ega-carousel>
+		  </recentview-products>
+	</div>
+</section>

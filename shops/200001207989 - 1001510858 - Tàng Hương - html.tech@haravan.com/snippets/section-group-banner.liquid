@@ -1,0 +1,62 @@
+{% include 'section-styles', key: 'banner_group' %}
+
+<section class="section section-banner-group" style="{{ section_style }}">
+    <div class="container">
+        <ega-carousel>
+            <script data-type="swiper-params" type="application/json">
+                    {
+                      "speed": 1000,
+                      "spaceBetween": 12,
+                      "slidesPerView": 1.6,
+					  "centerInsufficientSlides": true,
+                      "pagination": {
+                        "el": ".section-banner-group .swiper-pagination",
+                        "clickable": true
+                      },
+                      "breakpoints": {
+                        "768": {
+                          "slidesPerView": 2.5
+                        },
+                    
+                        "1200": {
+						  "spaceBetween": 24,
+                          "slidesPerView": 3
+                        }
+                      }
+                    }
+            </script>
+                <div class="swiper">
+                    {% assign banner_count = 0 -%}
+					  {% for i in (1..3) %}
+						{% capture banner_enabled %}banner_group_{{i}}_enabled{% endcapture %}
+							{% if settings[banner_enabled] %}
+								{% assign banner_count = banner_count | plus:1 -%}
+							{%endif%}
+						{% endfor %}
+                        <div class="swiper-wrapper max-w-max grid flex-cols-custom grid-cols-[repeat(2,61.3%)] grid-flow-col md:grid-cols-3 gap-gutter h-auto">
+                            {% for i in (1..3) %}
+								{% capture banner_enabled %}banner_group_{{i}}_enabled{% endcapture %}
+								{% capture banner_title %}banner_group_{{i}}_title{% endcapture %}
+								{% capture banner_text %}banner_group_{{i}}_text{% endcapture %}
+								{% capture banner_link %}banner_group_{{i}}_link{% endcapture %}
+								{% capture banner_image %}banner_group_{{i}}.jpg{% endcapture %}
+								{% capture banner_color %}banner_group_{{i}}_color{% endcapture %}
+								{% capture banner_background %}banner_group_{{i}}_background{% endcapture %}
+								{% if settings[banner_enabled] %}
+                                <div class="swiper-slide">
+									<a href="{{ settings[banner_link] }}" title="{{ settings[banner_title] }}" class="block">
+										<picture>
+											   <source media="(max-width: 480px)" srcset="{{ banner_image | asset_url | img_url: "large" -}}">
+									     
+											  <img src="{{ banner_image | asset_url }}"  alt="{{ banner_image }}" loading="lazy" width="408" height="232" class="object-cover  rounded-lg transition-transform duration-300 group-hover:scale-105 ">
+										 </picture>
+											</a>
+										</div>
+								{% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="swiper-pagination static mt-2"></div>
+                </div>
+        </ega-carousel>
+    </div>
+</section>

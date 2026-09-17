@@ -1,0 +1,26 @@
+{% capture share_url -%}{{canonical_url}}{% endcapture -%}
+<div class='share-group flex justify-center items-center mt-5 gap-3'>
+	<p class='share-group__heading mr-3 '>Chia sẻ</p>
+	<div class='share-group__list flex gap-3'>
+		{% if settings.product_share_facebook_enabled -%}
+		<a title="facebook-share" class='share-group__item p-2 border border-neutral-50 rounded-full w-[3.6rem] h-[3.6rem] flex items-center justify-center facebook' target="_blank" href='http://www.facebook.com/sharer.php?u={{share_url}}'>
+			<img class="object-contain" src="{{ 'facebook-icon.png' | asset_url }}" alt="facebook" loading="lazy" width="20" height="20" />
+		</a>
+		{% endif -%}
+		{% if settings.product_share_messenger_enabled -%}
+		<a title="messenger-share" class='share-group__item messenger p-2  border border-neutral-50 rounded-full w-[3.6rem] h-[3.6rem] flex items-center justify-center lg:hidden' target="_blank" href='fb-messenger://share/?link={{share_url}}'>
+			<img class="object-contain" src="{{ 'messenger-icon.png' | asset_url }}" alt="messenger" loading="lazy" width="20" height="20" />
+		</a>
+		{% endif -%}
+		{% if settings.product_share_pinterest_enabled -%}
+		<a title="pinterest-share" class='share-group__item pinterest p-2 border border-neutral-50 rounded-full w-[3.6rem] h-[3.6rem] flex items-center justify-center ' target="_blank" href='http://pinterest.com/pin/create/button/?url={{share_url}}'>
+			<img class="object-contain" src="{{ 'pinterest-icon.png' | asset_url }}" alt="pinterest" loading="lazy" width="20" height="20" />
+		</a>
+		{% endif -%}
+		{% if settings.product_share_twitter_enabled -%}
+		<a title="twitter-share" class='share-group__item twitter p-2 border border-neutral-50 rounded-full w-[3.6rem] h-[3.6rem] flex items-center justify-center ' target="_blank" href='http://twitter.com/share?text={{share_url}}'>
+			<img class="object-contain" src="{{ 'twitter-icon.png' | asset_url }}" alt="twitter" loading="lazy" width="20" height="20" />
+		</a>
+		{% endif -%}
+	</div>
+</div>

@@ -1,0 +1,30 @@
+{%if settings.hot_banner_enabled %}
+{% include 'section-styles', key: 'hot_banner' %}
+
+<div class="section-hot-banner section" style="{{ section_style }}">
+	<div class="container">
+		<a class="banner" href="{{settings.hot_banner_link}}" title="{{settings.hot_banner_alt}}">
+		<picture>
+			<source media="(max-width: 600px)" srcset="{{ 'hot_banner.png' | asset_url | img_url:'grande' }}">
+			<img class="object-contain  {%if settings.hot_banner_mb_enabled%}hidden md:block{%endif%}" loading="lazy" 
+				 src="{{'hot_banner.png'|asset_url}}" 
+				 alt="{{settings.hot_banne_alt}}" 
+				 width="{{settings.hot_banner_width}}"
+				 height="{{settings.hot_banner_height}}"
+				 />
+		</picture>
+			 {%if settings.hot_banner_mb_enabled -%}
+			<img class="object-contain  block md:hidden" loading="lazy" 
+				 src="{{'hot_banner_mb.png'|asset_url | img_url: 'grande'}}" 
+				 alt="{{settings.hot_banne_alt}}" 
+				 width="{{settings.hot_banner_mb_width}}"
+				 height="{{settings.hot_banner_mb_height}}"
+				 />
+			
+			{%endif-%} 
+
+	</a>
+	</div>
+	
+</div>
+{% endif %}

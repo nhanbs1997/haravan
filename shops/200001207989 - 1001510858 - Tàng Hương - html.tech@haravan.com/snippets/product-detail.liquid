@@ -1,0 +1,139 @@
+<div class="   ">
+  <div class="product-title space-y-2  mb-4">
+    {% unless template == 'product' %}
+      <h2 class="font-semibold text-h4">
+        <a class="link" href="{{ product.url }}" title="{{ product.title }}">
+          {{ product.title }}
+        </a>
+      </h2>
+    {% else %}
+      <h1 class="font-semibold text-h4">{{ product.title }}</h1>
+    {% endunless %}
+    <div class="flex flex-wrap gap-2 items-center  mt-2 ">
+      {% if settings.reviews_enabled -%}
+      {% endif -%}
+      {% if settings.compare_product_enabled %}
+        <compare-button>
+          <button
+            aria-label="So sánh"
+            type="button"
+            data-product="{{product.id}}"
+            data-portal="#quick-view-compare"
+            class="p-0 text-secondary text-xs font-semibold flex gap-2 items-centerfont-semibold"
+          >
+            <i class="icon icon-arrow-swap"></i>
+            <span>So sánh</span>
+          </button>
+        </compare-button>
+      {% endif %}
+    </div>
+
+    <div class="group-status  flex flex-wrap gap-4 pb-2 items-center border-b border-dash border-neutral-50">
+      <div class="status status-vendor">
+        <span class="text-xs">Thương hiệu:</span>
+        {% if product.vendor != blank %}
+          <a href="/collections/all?vendor={{product.vendor}}" class="link text-xs font-semibold underline">
+            {{- product.vendor -}}
+          </a>
+        {% else %}
+          <span class="link text-xs">Đang cập nhật</span>
+        {% endif %}
+      </div>
+      <div class="status status-sku">
+        <span class="text-xs">Mã sản phẩm:</span>
+        <span class="text-xs"> {{ product.selected_or_first_available_variant.sku | default: 'Đang cập nhật' }} </span>
+      </div>
+    </div>
+    {% capture flashsale_style %}
+		    --color-flashsale: {{ settings.product_flashsale_color | default: '#fff' }};
+			--color-flashsale-bg: {{ settings.product_flashsale_bg | default: '#EE1926' }};
+			--color-flashsale-timer-bg: {{ settings.product_flashsale_timer_bg | default: '#EE1926' }};
+			--color-flashsale-timer: {{ settings.product_flashsale_timer_color | default: '#fff' }};
+			--color-flashsale-process: {{ settings.product_flashsale_process_background | default: '#EE1926' }};
+			{% endcapture %}
+    <div class="product-price-group grid rounded-sm overflow-hidden mb-4" style="{{flashsale_style}}">
+      {% unless template contains 'quickview' -%}
+        <div class="product-flashsale">
+          {%- for i in (0..3) %}
+            {%- capture flashsale_id -%}section-flashsale-{{i}}{%- endcapture -%}
+            {%- if forloop.first -%}
+              {%- capture flashsale_coll -%}flashsale_coll{%- endcapture -%}
+              {%- capture prefix %}flashsale{%- endcapture -%}
+            {%- else -%}
+              {%- capture flashsale_enabled -%}flashsale_{{i}}_enabled{%- endcapture -%}
+              {%- capture flashsale_coll -%}flashsale_{{i}}_coll{%- endcapture -%}
+              {%- capture prefix %}flashsale_{{i}}{%- endcapture -%}
+            {%- endif -%}
+            {%- if forloop.first or settings[flashsale_enabled] -%}
+              {%- for coll in product.collections -%}
+                {%- if coll.handle == settings[flashsale_coll] -%}
+                  <div class="product-flashsale-item flex items-center justify-between gap-3 ">
+                    {%- if settings.flashsale_show_quantity -%}
+                      {%- include 'stock-countdown' %}
+                    {%- endif -%}
+                    {%- if settings.flashsale_timer_enabled -%}
+                      {%- include 'countdown-timer', prefix: prefix %}
+                    {%- endif -%}
+                  </div>
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {% endunless -%}
+      <div class="price-box flex items-center flex-wrap gap-2  ">
+        <div class="flex flex-wrap gap-1 items-baseline">
+          {% if contact_item -%}
+            <span class="price-contact text-h4 text-error"> Liên hệ </span>
+          {% else -%}
+            {% if on_sale -%}
+              <span class="price text-h4">{{ awe-price | money }}</span>
+              {% if awe-compare-price > awe-price -%}
+                <span class="compare-price text-h6 line-through">{{ awe-compare-price | money }}</span>
+              {% endif -%}
+            {% else -%}
+              <span class="price text-h4">{{ awe-price | money }}</span>
+            {% endif -%}
+          {% endif -%}
+        </div>
+        {% if on_sale -%}
+          <div class="badge sale-badge px-2 py-1 text-h6 font-semibold">{{ discount }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% unless template contains 'quickview' -%}
+  {% if settings.product_promotion_enabled %}
+    <div class="promo-box md:col-start-1  min-h-0 min-w-0 relative mb-4   ">
+      {% include 'product-promobox' %}
+    </div>
+  {% endif %}
+  {% if settings.product_coupons_enabled %}
+    <div class="coupon-box md:col-start-1   min-h-0 min-w-0 relative mb-4">
+      {% include 'product-coupons' %}
+    </div>
+  {% endif %}
+{% endunless %}
+
+  {% unless product.options.size == 1 and product.variants[0].option1 == 'Default Title' %}
+    {% include 'variants-picker' %}
+  {% endunless %}
+	
+	{% unless template contains 'quickview' %}
+	 {% if settings.combo_app_enabled %}
+		{% include 'combo-module-detail'%}
+	{% endif %}
+		 {% if settings.buy_x_get_y_enabled %}
+
+	{% include 'buyxgety-module-detail' %}
+		{% endif %}
+
+  {% endunless %}
+</div>
+{% include 'product-form', product: product %}
+
+<div class="card-product__badges hidden space-y-2 col-span-full lg:col-start-2 md:py-3 mt-4 ">
+  {% include 'product-tag-promo', promo_index: 2 -%}
+  {% include 'product-tag-promo', promo_index: 3 -%}
+</div>

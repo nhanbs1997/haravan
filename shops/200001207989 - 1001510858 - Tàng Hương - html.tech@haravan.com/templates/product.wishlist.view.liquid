@@ -1,0 +1,12 @@
+{% layout none %}
+{%- if product.metafields.hrvmultilang_vi_vn.title != empty -%}
+	{%- assign pro_title = product.metafields.hrvmultilang_vi_vn.title -%}
+{%- else -%}
+	{%- assign pro_title = product.title | split: '|' | first -%}
+{%- endif -%}
+<div class=" wish-item relative"  data-id="{{product.id}}">
+   <a href="#" class="onAppWishList_remove absolute top-2 left-2  flex justify-center items-center rounded-full bg-neutral-50 w-5 h-5" style="z-index:1000" data-id="{{product.id}}" type="button" class="rmv-wish">
+                <i class="icon icon-cross"></i>
+            </a>
+  {%include 'product-grid-item' -%}
+</div>

@@ -1,0 +1,34 @@
+<cart-vat-drawer class="portal portal--drawer"
+    id="cart-vat-drawer"
+    data-type="drawer"
+    data-animation="slide-in-right"
+    style="--dialog-max-width:52rem" >
+	 
+    <dialog class="portal-dialog">
+      <div class=" w-full h-full flex">
+        <div class="portal-overlay"></div>
+        <div class="portal-inner w-full ml-auto bg-background   h-screen px-4 animation">
+			<div class="portal-header px-3 pb-3 pt-5 ">
+				<div class="font-semibold text-h6 md:text-h4 flex items-center gap-2">
+			<i class="icon icon-arrow-left text-h6 md:text-h4  cursor-pointer" id="PortalClose-cart-vat-drawer"></i>	
+					Xuất hóa đơn công ty
+				</div>
+			</div>
+         <div class="r-bill px-3">
+			 <form>
+	 			{% include 'vat-form', drawer: true %}
+				  <button
+            type="submit"
+            class="btn w-full mt-5  btn--large font-semibold  bg-primary text-white inline-flex  justify-center items-center gap-2"
+		
+          >
+        	Lưu thông tin 
+
+          </button>
+			 </form>
+		</div>
+        </div>
+      </div>
+    </dialog>
+
+</cart-vat-drawer>

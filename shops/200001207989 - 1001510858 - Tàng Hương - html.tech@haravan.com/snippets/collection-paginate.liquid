@@ -1,0 +1,58 @@
+{% assign query = '?' %}
+
+{% if template contains 'search' %}
+	{% assign query = '?' | append : search.terms | append : '&' %}
+{% endif %}
+{%if paginate.parts.size > 1 %}
+<nav class="pages w-full lg:mt-6 lg:mb-6 text-center">
+	<ul class="pagination inline-flex mx-auto items-center  gap-2 md:gap-4">
+		{%assign pageTotalMin = 7 -%}
+		{% if paginate.previous %}
+		<li class="page-item hidden md:block"><a class="page-link w-[3.6rem] h-[3.6rem] flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform" data-page="{{ paginate.current_page | minus: 1 }}"
+										   href="{{query}}page={{ paginate.current_page | minus: 1 }}"><i class="icon icon-carret-left" aria-hidden="true"></i>
+			</a></li>
+		{% else %}  
+		<li class="page-item hidden md:block disabled"><a class="page-link w-[3.6rem] h-[3.6rem] border-transparent border flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform" href="#"><i class="icon icon-carret-left"></i></a></li>
+		{% endif %}
+		{%assign max = paginate.current_page  |plus: 1 -%}
+		{%assign min = paginate.current_page  | minus: 1 -%}
+		{% for part in paginate.parts %}
+		{%if paginate.parts.size > pageTotalMin and part.title  > max and part.title < paginate.parts.size -%}
+			{%continue%}
+		{%endif %}
+		{%if paginate.parts.size > pageTotalMin and part.title  < min and part.title < paginate.parts.size -%}
+			{%continue%}
+		{%endif %}
+		{%if paginate.parts.size > pageTotalMin and max != paginate.parts.size and forloop.last and part.title  != paginate.current_page  -%}
+			<li class=" page-item "><a class="page-link w-[3.6rem] h-[3.6rem] border-transparent border flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform" href="{{query}}page={{ paginate.current_page | plus: 2 }}" 
+									  data-page="{{ paginate.current_page | plus: 2 }}">...</a></li>
+			{%if forloop.last == max | plus: 1 -%}
+				{%break%}
+			{%endif%}
+		{%endif -%}
+		{%if paginate.parts.size > pageTotalMin and  part.title  == min  and min > 1 -%}
+			<li class=" page-item "><a class="page-link w-[3.6rem] h-[3.6rem] border-transparent border flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform" href="{{query}}page={{ paginate.current_page | minus: 2 }}" data-page="{{ paginate.current_page | minus: 2}}">...</a></li>
+		{%endif -%}
+		{% if part.is_link %}
+			<li class="page-item"><a class="page-link w-[3.6rem] h-[3.6rem] border-transparent border flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform"  data-page="{{part.title}}" href="{{query}}page={{ part.title  }}">{{ part.title }}</a></li>
+		{% else %}
+			{% if part.title == paginate.current_page %}
+				<li class="active page-item disabled"><a class="page-link text-secondary border border-secondary w-[3.6rem] h-[3.6rem] flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform" href="javascript:;">{{ part.title }}</a></li>
+			{% else %}
+				<li class="page-item"><a class="page-link w-[3.6rem] h-[3.6rem] border-transparent border flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform" href="javascript:;">{{ part.title }}</a></li>
+			{% endif %}
+		
+		{% endif %}
+		
+		{% endfor %}
+
+		{% if paginate.next %}
+		<li class="page-item hidden md:block"><a class="page-link w-[3.6rem] h-[3.6rem] flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform"  data-page="{{ paginate.current_page | plus: 1 }}"
+										   href="{{query}}page={{ paginate.current_page | plus: 1 }}"><i class="icon icon-carret-right" aria-hidden="true"></i>
+			</a></li>
+		{% else %}
+		<li class="page-item hidden md:block disabled"><a class="page-link w-[3.6rem] h-[3.6rem] flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform" href="#"><i class="icon icon-carret-right"></i></a></li>
+		{% endif %}
+	</ul>
+</nav>
+{% endif %}

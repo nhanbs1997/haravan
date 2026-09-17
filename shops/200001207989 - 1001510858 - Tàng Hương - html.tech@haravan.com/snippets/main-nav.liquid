@@ -1,0 +1,76 @@
+<nav class="navigation-vertical overflow-y-auto no-scrollbar ">
+  <ul class="main-menu">
+    {% assign i = 0 -%}
+    {% for link in linklists[settings.main_menu].links %}
+      {% assign items_list = settings.megamenu_items | split: ',' %}
+      {% assign mega-title = link.title | downcase %}
+      {% capture use_icon -%}menu_icon_{{forloop.index}}_enabled{% endcapture -%}
+      {% capture menu_icon -%}menu_icon_{{forloop.index}}.png{% endcapture -%}
+      <li class="menu-item px-6 group hover:bg-neutral-50 -mt-[1px]  ">
+        <a
+          href="{{ link.url }}"
+          class="menu-item__link  flex items-center gap-3.5 py-3 font-semibold"
+          title="{{ link.title }}"
+        >
+          {% if settings[use_icon] -%}
+            <img
+              loading="lazy"
+              width="24"
+              height="24"
+              class="w-5"
+			  src="{{menu_icon | asset_url | small: 'pico'}}"
+              alt="{{link.title }}"
+            >
+          {% endif -%}
+          <span>{{ link.title }}</span>
+          {% if linklists[link.handle].links.size > 0 %}
+            <span class="ml-auto text-neutral-200" data-toggle-submenu>
+              <i class="icon icon-carret-right "></i>
+            </span>
+          {%- endif %}
+        </a>
+        {% if settings.display_megamenu and items_list contains mega-title %}
+          {% assign i = i | plus: 1 %}
+        {% endif %}
+        {% if linklists[link.handle].links.size > 0 -%}
+          <div class="submenu  absolute lg:group-hover:block p-4">
+            <div data-toggle-submenu class="relative toggle-submenu -mt-4 -mx-4 p-3 mb-4 bg-neutral-50 p-3 font-semibold flex justify-center items-center lg:hidden">
+              <span class="">
+                <i class="icon icon-carret-left mr-auto text-neutral-200"></i>
+              </span>
+              <span>{{ link.title }} </span>
+            </div>
+
+            <ul class="submenu__list space-y-4">
+              {% for childlink in linklists[link.handle].links %}
+                {% if linklists[childlink.handle] %}
+                  <li class="submenu__col">
+                    <span class="submenu__item submenu__item--main mb-3">
+                      <a class="link font-semibold" href="{{ childlink.url }}" title="{{ childlink.title }}">
+                        {{- childlink.title -}}
+                      </a>
+                    </span>
+                    <ul class="list-disc pl-4 flex-col flex">
+                      {% for childlink2 in linklists[childlink.handle].links %}
+                        <li class="submenu__item ">
+                          <a class="link" href="{{ childlink2.url }}" title="{{ childlink2.title }}">
+                            {{- childlink2.title -}}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                {% else %}
+                  <li class="submenu__item submenu__item--main">
+                    <a class="link" href="{{ childlink.url }}" title="{{ childlink.title }}">{{ childlink.title }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif -%}
+      </li>
+    {% endfor %}
+  </ul>
+  
+</nav>

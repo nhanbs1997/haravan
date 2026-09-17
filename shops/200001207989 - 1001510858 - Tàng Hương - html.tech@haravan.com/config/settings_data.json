@@ -1,0 +1,2876 @@
+{
+
+"current": {
+
+
+"favicon_enable": true,
+
+
+"logo_use_image": true,
+
+
+"social_facebook_link": "https://www.facebook.com/share/14krz573mvP/?mibextid=wwXIfr",
+
+
+"social_youtube_link": "https://www.youtube.com/haiorg",
+
+
+"social_tiktok_link": "https://www.tiktok.com/@jolienguyen2610",
+
+
+"social_instagram_link": "https://www.instagram.com/thanhhai_2610?igsi=MTc1Mm5iejluN2p6eA%3D%3D&utm_source=qr",
+
+
+"social_zalo_link": "https://zalo.me/0906969464",
+
+
+"fot_use_logo": true,
+
+
+"footer_logo_width": "115",
+
+
+"footer_logo_height": "48",
+
+
+"address": "136/4 Vạn Xuân, Buôn Ma Thuột, Đắk Lắk",
+
+
+"phone": "0906969464",
+
+
+"email": "thanhhai@tanghuong.vn",
+
+
+"fot_use_contact": true,
+
+
+"fot_use_social": true,
+
+
+"fot_social_title": "Mạng xã hội",
+
+
+"fot_c2_title": "",
+
+
+"fot_c2_menu": "",
+
+
+"fot_c3_title": "Thông tin & Chính sách",
+
+
+"fot_c3_menu": "footer",
+
+
+"subs_fot_hotline_group_title": "",
+
+
+"subs_fot_hotline_1_num": "",
+
+
+"subs_fot_hotline_2_num": "",
+
+
+"subs_fot_hotline_1_text": "",
+
+
+"subs_fot_hotline_2_text": "",
+
+
+"subs_fot_subscribe_enabled": true,
+
+
+"subs_fot_subscribe_desc": "Bạn muốn nhận khuyến mãi đặc biệt? Đăng kí tham gia ngay cộng động hơn 46.000+ người theo dõi của chúng tôi để cập nhật khuyến mãi ngay lập tức",
+
+
+"subs_fot_subscribe_title": "Đăng ký nhận ưu đãi",
+
+
+"subs_fot_payment_enabled": true,
+
+
+"subs_fot_payment_title": "PHƯƠNG THỨC THANH TOÁN",
+
+
+"subs_fot_payment_link": "/",
+
+
+"home_slider_autoplay": true,
+
+
+"home_slider_1_enabled": true,
+
+
+"home_slider_2_enabled": true,
+
+
+"home_slider_3_enabled": true,
+
+
+"home_side_banner_1_enabled": true,
+
+
+"home_side_banner_3_enabled": true,
+
+
+"home_side_banner_2_enabled": true,
+
+
+"policies_margin": "0 0px",
+
+
+"policies_1_enabled": true,
+
+
+"policies_1_title": "01 · NGUỒN GỐC RÕ RÀNG",
+
+
+"policies_1_text": "Giúp trà hữu an tâm thưởng trà",
+
+
+"policies_2_title": "02 · TUYỂN CHỌN KỸ LƯỠNG",
+
+
+"policies_2_text": "Chọn lọc kỹ từ các nghệ nhân, vùng trà",
+
+
+"policies_2_enabled": true,
+
+
+"policies_3_enabled": true,
+
+
+"policies_3_title": "03 · ĐÓNG GÓI CẨN THẬN",
+
+
+"policies_3_text": "Nâng niu từ những sản phẩm nhỏ",
+
+
+"policies_4_enabled": true,
+
+
+"policies_4_title": "04. ĐỒNG HÀNH TẬN TÂM",
+
+
+"policies_4_text": "Luôn luôn tận tâm cùng Quý trà hữu ",
+
+
+"coll_per_row": "6",
+
+
+"coll_color_bg": "",
+
+
+"coll_1_enabled": false,
+
+
+"coll_2_enabled": false,
+
+
+"coll_4_enabled": false,
+
+
+"coll_6_enabled": false,
+
+
+"coll_8_enabled": false,
+
+
+"coll_9_enabled": false,
+
+
+"coll_11_enabled": false,
+
+
+"coll_12_enabled": false,
+
+
+"coll_15_enabled": false,
+
+
+"coll_14_enabled": false,
+
+
+"coll_13_enabled": false,
+
+
+"coll_16_enabled": false,
+
+
+"coll_10_enabled": false,
+
+
+"coll_7_enabled": false,
+
+
+"coll_3_enabled": false,
+
+
+"coll_1_title": "Ấm thưởng trà",
+
+
+"coll_2_title": "Trà thượng phẩm",
+
+
+"coll_5_enabled": false,
+
+
+"coll_margin": "8px 8px",
+
+
+"coll_margin_mb": "8px 8px",
+
+
+"coupon_button_color": "#ff3c02",
+
+
+"coupon_text_color": "#016735",
+
+
+"coupon_1_enabled": false,
+
+
+"coupon_1_text": "Mã: TANGHUONG2610",
+
+
+"coupon_1_date": "31/10/2026",
+
+
+"coupon_2_enabled": false,
+
+
+"coupon_1_desc": "Giảm 5% cho đơn hàng giá trị tối thiểu 5000k.",
+
+
+"coupon_2_desc": "Giảm 15% cho đơn hàng giá trị tối thiểu 500k. Mã giảm tối đa 250K",
+
+
+"coupon_2_text": "Mã: EGA30THANG10",
+
+
+"coupon_2_code": "EGA30THANG10",
+
+
+"coupon_2_date": "20/02/2024",
+
+
+"coupon_1_time": "21:00:00",
+
+
+"coupon_1_code": "TANGHUONG2610",
+
+
+"banner_group_1_enabled": true,
+
+
+"banner_group_1_background": "#ff7709",
+
+
+"banner_group_1_color": "#ffffff",
+
+
+"banner_group_1_title": "GIẢM GIÁ NHẬP HỌC 30%",
+
+
+"banner_group_1_text": "Tai nghe, Phụ kiện",
+
+
+"banner_group_1_link": "/collections/all",
+
+
+"banner_group_2_background": "#0056e7",
+
+
+"banner_group_2_color": "#ffffff",
+
+
+"banner_group_2_title": "ƯU ĐÃI MÙA HÈ ĐẾN 60%",
+
+
+"banner_group_2_text": "Laptop, Màn hình máy tính",
+
+
+"banner_group_2_link": "/collections/all",
+
+
+"banner_group_2_enabled": true,
+
+
+"banner_group_3_enabled": true,
+
+
+"banner_group_3_background": "#49be01",
+
+
+"banner_group_3_title": "GIẢM 500K cho đơn 2tr",
+
+
+"banner_group_3_text": "Laptop Gaming",
+
+
+"banner_group_3_link": "/collections/all",
+
+
+"banner_group_3_color": "#ffffff",
+
+
+"banner_group_margin": "8px 8px",
+
+
+"banner_group_margin_mb": "8px 8px",
+
+
+"hot_banner_enabled": true,
+
+
+"hot_banner_alt": "Banner ngang",
+
+
+"hot_banner_link": "/",
+
+
+"hot_banner_margin": "64px 64px",
+
+
+"hot_banner_margin_mb": "32px 32px",
+
+
+"brand_items_display": "6",
+
+
+"brand_1_enabled": true,
+
+
+"brand_1_alt": "am-tu-sa",
+
+
+"brand_1_link": "/collections/all",
+
+
+"brand_2_enabled": true,
+
+
+"brand_3_enabled": true,
+
+
+"brand_4_enabled": true,
+
+
+"brand_5_enabled": true,
+
+
+"brand_6_enabled": true,
+
+
+"brand_7_enabled": false,
+
+
+"brand_8_enabled": false,
+
+
+"brand_9_enabled": false,
+
+
+"brand_10_enabled": false,
+
+
+"brand_11_enabled": false,
+
+
+"brand_12_enabled": false,
+
+
+"brand_13_enabled": false,
+
+
+"brand_14_enabled": false,
+
+
+"brand_15_enabled": false,
+
+
+"brand_16_enabled": false,
+
+
+"brand_margin": "8px 8px",
+
+
+"brand_margin_mb": "8px 8px",
+
+
+"use_reviews": true,
+
+
+"use_hover_change_image": true,
+
+
+"quickview_enable": true,
+
+
+"add_cart_enable": true,
+
+
+"addtocart_bg_color": "#FF3C02",
+
+
+"product_tabs_1_title": "Ấm Tử Sa",
+
+
+"product_tabs_1_url": "san-pham-noi-bat",
+
+
+"product_tabs_1_limit": "6",
+
+
+"product_tabs_1_tab_1_enabled": true,
+
+
+"product_tabs_1_tab_1_title": "Ấm Thưởng Trà",
+
+
+"product_tabs_1_tab_1_coll": "am-thuong-tra",
+
+
+"product_tabs_1_tab_2_enabled": true,
+
+
+"product_tabs_1_tab_2_title": "Ấm Sưu Tầm",
+
+
+"product_tabs_1_tab_2_coll": "am-suu-tam",
+
+
+"product_tabs_1_tab_3_enabled": false,
+
+
+"product_tabs_1_tab_3_title": "Ấm Thưởng Trà",
+
+
+"product_tabs_1_tab_3_coll": "hot-products",
+
+
+"section_blogs_limit": "4",
+
+
+"section_blogs_tab_1_enabled": true,
+
+
+"section_blogs_tab_1_title": "Chuyện về trà",
+
+
+"section_blogs_tab_1_url": "kien-thuc-thuong-tra",
+
+
+"section_blogs_tab_2_enabled": true,
+
+
+"section_blogs_tab_2_title": "Chuyện về ấm",
+
+
+"section_blogs_title": "Chuyện Trà | Chuyện Ấm",
+
+
+"section_blogs_url": "/",
+
+
+"section_blogs_margin": "8px 8px",
+
+
+"section_blogs_margin_mb": "8px 8px",
+
+
+"hot_product_handle": "tai-nghe-fnatic-react-7-1-virtual-surround-usb-soundcard",
+
+
+"hot_product_coll": "tai-nghe",
+
+
+"hot_product_bg": "#0054f2",
+
+
+"hot_product_margin": "64px 64px",
+
+
+"hot_product_margin_mb": "32px 32px",
+
+
+"product_thumb_enabled": true,
+
+
+"buynow_enabled": true,
+
+
+"product_add_to_cart_enabled": true,
+
+
+"product_promotion_enabled": true,
+
+
+"product_policies_enabled": true,
+
+
+"product_coupons_enabled": false,
+
+
+"installment_type": "enabled_with_tag",
+
+
+"installment_price": "100000",
+
+
+"product_addtocart_content": "Thêm vào giỏ",
+
+
+"product_buynow_content": "Mua ngay",
+
+
+"product_promotion_heading": "Quà tri ân nhân dịp khai trương",
+
+
+"product_promotion_1_content": "Chiết khấu 10% trên 50 đơn đầu tiên",
+
+
+"product_promotion_2_content": "",
+
+
+"product_promotion_3_content": "",
+
+
+"product_promotion_4_content": "",
+
+
+"policy_product_1_enabled": true,
+
+
+"policy_product_1_title": "Giao hàng nhanh miễn phí trên toàn quốc",
+
+
+"policy_product_2_enabled": true,
+
+
+"policy_product_2_title": "Đổi trả miễn phí nếu hàng lỗi, bể vỡ",
+
+
+"policy_product_3_enabled": true,
+
+
+"policy_product_3_title": "Đền bù gấp 10 lần nếu phát hiện hàng kém chất lượng",
+
+
+"limit_related_products": "4",
+
+
+"use_collection_alternative": true,
+
+
+"product_specifications_title": "Thông số kỹ thuật",
+
+
+"related_products_title": "Sản phẩm liên quan",
+
+
+"equalprice_heading": "Sản phẩm cùng phân khúc",
+
+
+"equalprice_from": "all",
+
+
+"equalprice_limit": "4",
+
+
+"product_recent_viewed_enabled": true,
+
+
+"use_product_review_tab": false,
+
+
+"related_product_enabled": true,
+
+
+"equalprice_product_enabled": true,
+
+
+"equalprice_percent": "50",
+
+
+"collection_main_banner_enabled": true,
+
+
+"collection_main_banner_url": "/collections/all",
+
+
+"collection_coupons_enabled": true,
+
+
+"collection_list_enabled": true,
+
+
+"collection_number_product": "12",
+
+
+"aside_filter_enabled": true,
+
+
+"filter_price": true,
+
+
+"filter_price_title": "Phân khúc giá",
+
+
+"filter_price_node": "5000000;10000000;20000000",
+
+
+"filter_vendor": true,
+
+
+"filter_vendor_title": "Tên Nghệ nhân",
+
+
+"filter_type": true,
+
+
+"filter_type_title": "Loại sản phẩm",
+
+
+"filter_tag1": true,
+
+
+"filter_tag1_title": "Chất đất, nhóm trà",
+
+
+"filter_tag1_list": "Tử Nê; Chu Nê; Đoạn Nê; Hắc Đôn Đầu; Đại Hồng Bào; Để Tào Thanh; Giáng Pha Nê; Hồng Bì Long Nê; Lục Nê; Thiên Thanh Nê; Ô Long; Hồng Trà; Bạch Trà; Phổ Nhĩ",
+
+
+"filter_tag2": true,
+
+
+"filter_tag2_title": "Theo dung tích",
+
+
+"filter_tag2_list": "120CC; 130CC; 150CC; 180CC; 200CC; 230CC; 250CC; 300CC",
+
+
+"filter_price_order": "4",
+
+
+"filter_vendor_order": "2",
+
+
+"filter_type_order": "1",
+
+
+"filter_tag_order": "3",
+
+
+"collection__desc_enabled": true,
+
+
+"collection_desc_position": "bottom",
+
+
+"collection_desc_crop_enabled": true,
+
+
+"collection_desc_crop_limit": "300",
+
+
+"cart_empty_title": "Giỏ hàng chưa có gì!",
+
+
+"cart_empty_subtitle": "Hãy tìm sản phẩm ứng ý và thêm vào giỏ hàng bạn nhé",
+
+
+"cart_empty_cta": "Tiếp tục mua sắm",
+
+
+"cart_empty_cta_link": "/collections/all",
+
+
+"cart_policies_enabled": true,
+
+
+"cart_policies_1_enabled": false,
+
+
+"cart_policies_1_title": "Membership",
+
+
+"cart_policies_1_text": "Earn 10% back for the next order",
+
+
+"cart_coupon_enabled": true,
+
+
+"blogs_number_perpage": "12",
+
+
+"aside_category_blog_title": "DANH MỤC",
+
+
+"aside_category_blog_menu": "",
+
+
+"blogs_related_enable": true,
+
+
+"blogs_related_limit": "5",
+
+
+"blogs_aside_enabled": true,
+
+
+"blogs_related_title": "BÀI VIẾT LIÊN QUAN",
+
+
+"blogs_aside_title": "TIN TỨC NỔI BẬT",
+
+
+"blogs_aside_url": "kien-thuc-thuong-tra",
+
+
+"blogs_aside_limit": "5",
+
+
+"article_featured_image_enabled": true,
+
+
+"article_toc_used": true,
+
+
+"blogs_aside_tag_enabled": true,
+
+
+"blogs_aside_tag_title": "Tags",
+
+
+"blogs_related_enabled": true,
+
+
+"main_menu": "",
+
+
+"sub_menu": "main-menu",
+
+
+"menu_icon_1_enabled": true,
+
+
+"menu_icon_2_enabled": true,
+
+
+"sub_menu_enabled": true,
+
+
+"header_location_enabled": true,
+
+
+"header_location_link": "/pages/he-thong-cua-hang",
+
+
+"header_location_title": "Hệ thống cửa hàng",
+
+
+"header_hotline_enabled": true,
+
+
+"header_hotline_title": "Hotline: <b>0906969464</b>",
+
+
+"add_cart_enabled": true,
+
+
+"hover_change_image_enabled": true,
+
+
+"reviews_enabled": false,
+
+
+"quickview_enabled": true,
+
+
+"home_section_1": "section-home-banner",
+
+
+"home_section_2": "section-policies",
+
+
+"home_section_3": "section-group-banner",
+
+
+"home_section_4": "section-flashsale",
+
+
+"home_section_5": "section-coupons",
+
+
+"home_section_6": "section-video-review",
+
+
+"home_section_7": "none",
+
+
+"home_section_8": "section-product-tabs-1",
+
+
+"home_section_9": "section-product-tabs-2",
+
+
+"home_section_10": "none",
+
+
+"home_section_11": "section-product-tabs-3",
+
+
+"add_cart_variants": "quickview",
+
+
+"contactr_contact_maps": "<iframe\n  src=\"https://www.google.com/maps?q=136%2F4%20V%E1%BA%A1n%20Xu%C3%A2n%2C%20Bu%C3%B4n%20Ma%20Thu%E1%BB%99t%2C%20%C4%90%E1%BA%AFk%20L%E1%BA%AFk&output=embed\"\n  width=\"100%\"\n  height=\"450\"\n  style=\"border:0;\"\n  allowfullscreen=\"\"\n  loading=\"lazy\"\n  referrerpolicy=\"no-referrer-when-downgrade\">\n</iframe>",
+
+
+"title_page": "Tàng Hương – Ấm Tử Sa & Trà Thượng Phẩm",
+
+
+"policies_5_enabled": false,
+
+
+"policies_5_title": "HỖ TRỢ 24/7",
+
+
+"policies_5_text": "Hỗ trợ khách hàng 24/7",
+
+
+"coupon_3_enabled": false,
+
+
+"coupon_4_enabled": false,
+
+
+"coupon_3_text": "Mã: FREESHIPTHANG10",
+
+
+"coupon_3_code": "FREESHIPTHANG10",
+
+
+"coupon_3_desc": "Mã giảm 99k cho đơn hàng tối thiểu 1 triệu. Tối đa 1 mã giảm giá/đơn hàng.",
+
+
+"coupon_4_text": "Mã: 500KTHANG10",
+
+
+"coupon_4_desc": "Miễn phí vận chuyển cho đơn hàng từ 500k. Áp dụng cho khu vực Tp.HCM",
+
+
+"coupon_4_code": "500KTHANG10",
+
+
+"flashsale_coupons_enabled": false,
+
+
+"flashsale_banner_type": "settings_banner",
+
+
+"faq_primary_color": "#5A351F",
+
+
+"faq_form_title": "Trao đổi cùng Tàng Hương",
+
+
+"faq_form_show": true,
+
+
+"faq_form_btn": "GỬI LIÊN HỆ",
+
+
+"faq_form_success": "Cảm ơn bạn đã liên hệ cùng Tàng Hương. Chúng tôi sẽ phản hồi sớm nhất có thể.",
+
+
+"store_locator_form_title": "Tìm kiếm",
+
+
+"store_locator_dist_label": "Đắk Lắk",
+
+
+"store_locator_stores_label": "136/4 Vạn Xuân, Buôn Ma Thuột",
+
+
+"store_locator_address_label": "Địa chỉ",
+
+
+"store_locator_spreadsheet": "https://docs.google.com/spreadsheets/d/1sHWAXwLIEFpe244Cb4m3RlC5WRH-0cB89dxVb5dOHo4/edit?usp=sharing",
+
+
+"coll_3_title": "Nghệ nhân",
+
+
+"coll_4_title": "Ấm sưu tầm",
+
+
+"coll_5_title": "Phổ nhĩ",
+
+
+"coll_6_title": "Tác phẩm mới",
+
+
+"coll_7_title": "Chuột + Lót chuột",
+
+
+"coll_8_title": "Củ sạc",
+
+
+"coll_9_title": "Máy tính bàn (PC)",
+
+
+"coll_10_title": "Màn hình",
+
+
+"coll_11_title": "Thiết bị âm thanh",
+
+
+"coll_12_title": "Máy chơi game",
+
+
+"coll_13_title": "Ghế gaming",
+
+
+"coll_14_title": "Balo laptop",
+
+
+"coll_15_title": "Cáp sạc",
+
+
+"coll_16_title": "Phụ kiện",
+
+
+"flashsale_countdown_type": "hours",
+
+
+"compare_product_enabled": true,
+
+
+"compare_product_page": "/pages/so-sanh-san-pham",
+
+
+"use_compare_product_overview": true,
+
+
+"compare_product_overview_heading": "Tổng quan",
+
+
+"use_compare_product_type": true,
+
+
+"compare_product_type_heading": "Loại sản phẩm",
+
+
+"use_compare_product_vendor": true,
+
+
+"compare_product_vendor_heading": "Nhà cung cấp",
+
+
+"use_compare_product_variants": true,
+
+
+"compare_product_variants_heading": "Biến thể",
+
+
+"use_compare_product_specifications": true,
+
+
+"use_compare_product_content": true,
+
+
+"compare_product_content_heading": "Mô tả",
+
+
+"cart_limit_enabled": false,
+
+
+"cart_limit": "5000000",
+
+
+"cart_limit_message": "Đơn hàng của bạn chưa đạt giá trị tối thiểu 5.000.000đ. \r\nVui lòng chọn mua thêm sản phẩm.",
+
+
+"vat_note_enabled": true,
+
+
+"vat_note": "Nhập mã giảm giá ở trang thanh toán",
+
+
+"cart_vat_enabled": false,
+
+
+"cart_vat_checkbox_text": "Xuất hóa đơn công ty",
+
+
+"cart_vat_company_label": "Tên công ty",
+
+
+"cart_vat_tax_code_label": "Mã số thuế",
+
+
+"cart_vat_tax_min": "10",
+
+
+"cart_vat_address_label": "Địa chỉ",
+
+
+"cart_vat_email_label": "Email",
+
+
+"product_share_enabled": true,
+
+
+"product_share_facebook_enabled": true,
+
+
+"product_share_messenger_enabled": true,
+
+
+"product_share_pinterest_enabled": true,
+
+
+"product_share_twitter_enabled": true,
+
+
+"newsletter_form_action": "https://egany.us11.list-manage.com/subscribe/post?u=5a58afacba94c1c4a94c354c9&id=2a7da1a514&f_id=000694e0f0",
+
+
+"use_frame_1": true,
+
+
+"promo_tag_type_2": "text-2",
+
+
+"promo_tag_2": "giaohang",
+
+
+"promo_tag_color_2": "#5A351F",
+
+
+"promo_tag_bg_2": "#F3EBDD",
+
+
+"promo_tag_border_2": "#D8C7AA",
+
+
+"frame_1_coll": "frame1",
+
+
+"product_lightbox_enabled": true,
+
+
+"video_product_enabled": true,
+
+
+"video_play_button_pditem_enabled": true,
+
+
+"swatch_color_configs": "Tử Nê:#4A2E1B\nChu Nê:#8B3A2B\nĐoạn Nê:#C5A77A\nLục Nê:#68745A\nThanh Hôi:#62605A\nTử Sa:#795548",
+
+
+"filter_search_list": "Ấm tử sa, Trà, Trà cụ, Ấm trà, Chén trà, Khay trà, Phổ Nhĩ, Ô Long, Đại Hồng Bào, Bạch trà",
+
+
+"search_categories_enabled": true,
+
+
+"search_category_menu": "main-menu",
+
+
+"search_product_enabled": true,
+
+
+"search_history_enabled": true,
+
+
+"flashsale_bg": "#6B4632",
+
+
+"flashsale_timer_bg": "#8B5E3C",
+
+
+"flashsale_timer_color": "#FFFFFF",
+
+
+"flashsale_process_background": "#8B5E3C",
+
+
+"flashsale_title": "Tuyển chọn tinh hoa, trao trọn hương trà",
+
+
+"flashsale_coll": "hot-products",
+
+
+"flashsale_coll_limit": "5",
+
+
+"flashsale_random_enabled": false,
+
+
+"flashsale_timer_enabled": true,
+
+
+"flashsale_not_started_label": "Chương trình sẽ bắt đầu sau",
+
+
+"flashsale_ongoing_label": "Nhanh lên nào! <br> <b>Sự kiện sẽ kết thúc sau</b>",
+
+
+"flashsale_ended_label": "Chương trình đã kết thúc",
+
+
+"flashsale_start_date": "04/12/2023 - 08:00:00",
+
+
+"flashsale_end_date": "05/12/2023 - 23:00:00",
+
+
+"flashsale_begin_date": "04/12/2023",
+
+
+"flashsale_start_time": "06:00:00",
+
+
+"flashsale_end_time": "23:59:59",
+
+
+"flashsale_day_1": true,
+
+
+"flashsale_day_2": true,
+
+
+"flashsale_day_3": true,
+
+
+"flashsale_day_4": true,
+
+
+"flashsale_day_5": true,
+
+
+"flashsale_day_6": true,
+
+
+"flashsale_day_0": true,
+
+
+"flashsale_not_started_action": "show",
+
+
+"flashsale_ended_action": "show",
+
+
+"flashsale_random_order_enabled": true,
+
+
+"flashsale_opening_text": "Vừa lên kệ",
+
+
+"flashsale_sold_text": "Đã bán [soluongdaban] sản phẩm ✅",
+
+
+"flashsale_run_out_soon_text": "Chỉ còn [soluongtonkho] sản phẩm ✅",
+
+
+"flashsale_run_out_soon_qty": "3",
+
+
+"flashsale_show_quantity": true,
+
+
+"flashsale_quantity_type": "tag",
+
+
+"flashsale_percent_min": "10",
+
+
+"flashsale_percent_max": "300",
+
+
+"flashsale_1_title": "18/06 - 20/06",
+
+
+"flashsale_1_coll": "hot-products",
+
+
+"flashsale_1_start_date": "18/06/2024 - 00:00:00",
+
+
+"flashsale_1_end_date": "20/06/2024 - 23:00:00",
+
+
+"flashsale_2_title": "21/06 - 22/06",
+
+
+"flashsale_2_coll": "cham-soc-gia-dinh",
+
+
+"flashsale_2_start_date": "21/06/2024 - 07:00:00",
+
+
+"flashsale_2_end_date": "22/06/2024 - 23:00:00",
+
+
+"flashsale_3_start_date": "23/06/2024 - 07:00:00",
+
+
+"flashsale_3_end_date": "24/06/2024 - 23:00:00",
+
+
+"flashsale_3_title": "23/06 - 24/06",
+
+
+"flashsale_3_coll": "do-dung-nha-bep",
+
+
+"flashsale_1_enabled": false,
+
+
+"flashsale_3_enabled": false,
+
+
+"flashsale_2_enabled": false,
+
+
+"product_flashsale_color": "#ffffff",
+
+
+"product_flashsale_process_background": "#ffe500",
+
+
+"product_flashsale_bg": "#ee1926",
+
+
+"product_flashsale_timer_bg": "#fcfcfc",
+
+
+"product_flashsale_timer_color": "#000000",
+
+
+"coupon_3_date": "30/12/2023",
+
+
+"coupon_3_time": "20:18:00",
+
+
+"coupon_1_info": "- Tổng giá trị sản phẩm từ 5 triệu trở lên",
+
+
+"cart_collection_title": "Sản phẩm gợi ý",
+
+
+"cart_collection_enabled": true,
+
+
+"cart_collection_limit": "8",
+
+
+"tag_related_products": "lienquan",
+
+
+"related_products_empty_message": "Sản phẩm đang được cập nhật",
+
+
+"delivery_enabled": true,
+
+
+"delivery_heading": "Hẹn giờ nhận hàng",
+
+
+"delivery_date_title": "Ngày nhận hàng",
+
+
+"delivery_time_title": "Thời gian nhận hàng",
+
+
+"delivery_time_default": "Chọn thời gian",
+
+
+"delivery_time": "08h00 - 12h00; 14h00 - 18h00; 19h00 - 21h00",
+
+
+"rewards_enabled": true,
+
+
+"rewards_unlocked_text": "Chúc mừng Quý trà hữu đã đạt tất cả phần thưởng",
+
+
+"rewards_1_enabled": true,
+
+
+"rewards_1_title": "Mã tri ân 10%",
+
+
+"rewards_1_coupon": "TANGHUONG",
+
+
+"rewards_1_text": "Bạn cần mua thêm [price] để được giảm 10%",
+
+
+"rewards_1_amount": "5000000",
+
+
+"rewards_2_enabled": false,
+
+
+"rewards_2_title": "Mã giảm giá 100k",
+
+
+"rewards_2_text": "Bạn cần mua thêm [price] để được giảm 100k",
+
+
+"rewards_2_coupon": "EGA100k",
+
+
+"rewards_2_amount": "15000000",
+
+
+"rewards_3_enabled": false,
+
+
+"rewards_3_title": "Mã giảm giá 150k",
+
+
+"rewards_3_text": "Bạn cần mua thêm [price] để được giảm 150k",
+
+
+"rewards_3_coupon": "EGA150k",
+
+
+"rewards_3_amount": "25000000",
+
+
+"rewards_color": "#ff7709",
+
+
+"top_banner_width": "1600",
+
+
+"top_banner_mb": true,
+
+
+"top_banner_enabled": false,
+
+
+"top_banner_alt": "top banner",
+
+
+"cro_enabled": true,
+
+
+"cro_add_cart_enabled": true,
+
+
+"cro_btn_1_position": "3",
+
+
+"cro_btn_1_title": "Khuyến mãi",
+
+
+"cro_btn_1_url": "/collections/all",
+
+
+"cro_btn_2_position": "4",
+
+
+"cro_btn_2_title": "Sản phẩm",
+
+
+"cro_btn_2_url": "/collections/all",
+
+
+"cro_btn_3_position": "3",
+
+
+"cro_btn_3_title": "Cửa hàng",
+
+
+"cro_btn_3_url": "/pages/he-thong-cua-hang",
+
+
+"cro_btn_mess_position": "2",
+
+
+"cro_btn_cart_enabled": true,
+
+
+"cro_btn_mess_url": "https://m.me/nguyenthanhhai2610",
+
+
+"cro_btn_hotline_title": "Gọi điện",
+
+
+"cro_btn_mess_title": "Nhắn tin",
+
+
+"top_banner_mb_width": "810",
+
+
+"top_banner_mb_height": "63",
+
+
+"swatch_color_label": "Màu#Màu sắc#Color",
+
+
+"swatch_size": "sm",
+
+
+"swatch_type": "color",
+
+
+"inventory_status_enabled": true,
+
+
+"inventory_count_enabled": true,
+
+
+"inventory_threshold": "1",
+
+
+"addThis_listSharing_enabled": true,
+
+
+"addthis_icon1_enabled": true,
+
+
+"addthis_icon1_tootlip": "Gọi ngay cho Tàng Hương",
+
+
+"addthis_icon2_enabled": true,
+
+
+"addthis_icon2_tootlip": "Tư vấn ấm tử sa & trà qua Zalo",
+
+
+"zalo": "https://zalo.me/0906969464",
+
+
+"addthis_icon3_enabled": true,
+
+
+"page_id": "168389884826236",
+
+
+"backtotop_enabled": true,
+
+
+"cart_note_enabled": true,
+
+
+"cart_note_title": "Ghi chú đơn hàng",
+
+
+"sale_pop_enabled": true,
+
+
+"sale_pop_coll": "hot-products",
+
+
+"sale_pop_color": "#7A5738",
+
+
+"sale_pop_customer_gender": "",
+
+
+"sale_pop_desc": "Trà hữu [name] tại [address] vừa mua sản phẩm cách đây [time]",
+
+
+"flashsale_mobile_layout": "single-row",
+
+
+"banner_popup_enabled": true,
+
+
+"banner_popup_width": "520",
+
+
+"banner_popup_height": "640",
+
+
+"logo_width": "115",
+
+
+"top_banner_color": "#F3E8D5",
+
+
+"product_review_tab_enabled": false,
+
+
+"product_review_heading": "Đánh giá sản phẩm",
+
+
+"banner_popup_alt": "Mừng khai trương – Ưu đãi 10%",
+
+
+"tiktok_embed_code": "<blockquote class=\"tiktok-embed\" cite=\"https://www.tiktok.com/tag/sieuthi\" data-tag-id=\"sieuthi\" data-embed-type=\"tag\" style=\"max-width: 780px; min-width: 288px;\" > <section> <a target=\"_blank\" href=\"https://www.tiktok.com/tag/sieuthi?refer=tag_embed\">#sieuthi</a> </section> </blockquote> <script async src=\"https://www.tiktok.com/embed.js\"></script>",
+
+
+"tiktok_embed_margin": "0px 0px",
+
+
+"tiktok_embed_margin_mb": "0px 0px",
+
+
+"product_installment_content": "Mua trả góp",
+
+
+"type_related_products": "tag_collection",
+
+
+"sale_pop_delay": "60000",
+
+
+"product_review_title": "Đánh giá sản phẩm",
+
+
+"product_desc_title": "Đặc điểm nổi bật ",
+
+
+"product_desc_crop_limit": "200",
+
+
+"product_specifications_crop_limit": "200",
+
+
+"cro_btn_hotline_position": "1",
+
+
+"coupon_margin": "16px 16px",
+
+
+"product_tabs_1_margin": "8px 8px",
+
+
+"coll_1_link": "/collections/all",
+
+
+"coll_2_link": "/collections/all",
+
+
+"coll_3_link": "/collections/all",
+
+
+"coll_4_link": "/collections/all",
+
+
+"coll_5_link": "/collections/all",
+
+
+"coll_6_link": "/collections/all",
+
+
+"coll_7_link": "/collections/all",
+
+
+"coll_8_link": "/collections/all",
+
+
+"coll_9_link": "/collections/all",
+
+
+"coll_10_link": "/collections/all",
+
+
+"coll_11_link": "/collections/all",
+
+
+"coll_12_link": "/collections/all",
+
+
+"coll_13_link": "/collections/all",
+
+
+"coll_14_link": "/collections/all",
+
+
+"coll_15_link": "/collections/all",
+
+
+"coll_16_link": "/collections/all",
+
+
+"home_slider_1_url": "/collections/all",
+
+
+"home_slider_1_alt": "am-tu-sa-va-tra-thuong-pham-tang-huong",
+
+
+"home_slider_2_url": "/collections/all",
+
+
+"home_slider_2_alt": "uong-tra-cung-am-tu-sa-tang-huong",
+
+
+"home_section_12": "section-product-tabs-4",
+
+
+"home_section_13": "section-group-banner-2",
+
+
+"home_section_14": "section-blogs",
+
+
+"home_section_15": "section-brand",
+
+
+"product_tabs_2_title": "Trà Thượng Phẩm",
+
+
+"product_tabs_2_limit": "6",
+
+
+"product_tabs_2_tab_1_enabled": true,
+
+
+"product_tabs_2_tab_2_enabled": true,
+
+
+"product_tabs_2_tab_3_enabled": true,
+
+
+"product_tabs_3_title": "Trà Tinh Tuyển",
+
+
+"product_tabs_4_title": "Trà Cụ",
+
+
+"product_tabs_4_card": "grid",
+
+
+"product_tabs_4_limit": "6",
+
+
+"product_tabs_4_tab_1_enabled": true,
+
+
+"product_tabs_4_tab_2_enabled": true,
+
+
+"product_tabs_4_tab_3_enabled": true,
+
+
+"product_tabs_4_tab_1_coll": "chen-khai-chen-tra",
+
+
+"product_tabs_4_tab_1_title": "Chén Trà",
+
+
+"product_tabs_4_tab_2_title": "Dụng Cụ Pha Trà",
+
+
+"product_tabs_4_tab_2_coll": "dung-cu-pha-tra",
+
+
+"product_tabs_4_tab_3_title": "Khay Trà - Tủ Trà",
+
+
+"product_tabs_4_tab_3_coll": "khay-tra",
+
+
+"product_tabs_1_margin_mb": "8px 8px",
+
+
+"product_tabs_2_margin": "8px 8px",
+
+
+"product_tabs_2_margin_mb": "8px 8px",
+
+
+"product_tabs_2_tab_1_title": "Ô Long ",
+
+
+"product_tabs_2_tab_1_coll": "o-long-tra",
+
+
+"product_tabs_2_tab_2_title": "Bạch Trà",
+
+
+"product_tabs_2_tab_2_coll": "bach-tra",
+
+
+"product_tabs_2_tab_3_title": "Hồng Trà",
+
+
+"product_tabs_2_tab_3_coll": "hong-tra",
+
+
+"product_tabs_3_limit": "6",
+
+
+"product_tabs_3_tab_1_enabled": true,
+
+
+"product_tabs_3_tab_1_title": "Phổ Nhĩ",
+
+
+"product_tabs_3_tab_1_coll": "pho-nhi",
+
+
+"product_tabs_3_tab_2_enabled": true,
+
+
+"product_tabs_3_tab_2_title": "Lục Trà",
+
+
+"product_tabs_3_tab_2_coll": "luc-tra",
+
+
+"product_tabs_3_tab_3_enabled": false,
+
+
+"product_tabs_3_tab_3_title": "",
+
+
+"product_tabs_3_tab_3_coll": "",
+
+
+"product_tabs_3_margin": "8px 8px",
+
+
+"product_tabs_3_margin_mb": "8px 8px",
+
+
+"brand_2_link": "/collections/all",
+
+
+"brand_3_link": "/collections/all",
+
+
+"brand_3_alt": "am-tu-sa",
+
+
+"brand_2_alt": "tra-tuyen-chon",
+
+
+"brand_4_alt": "tra-tuyen-chon",
+
+
+"brand_4_link": "/collections/all",
+
+
+"brand_5_link": "/collections/all",
+
+
+"brand_5_alt": "pho-nhi",
+
+
+"brand_6_link": "/collections/all",
+
+
+"brand_6_alt": "tac-pham-moi",
+
+
+"brand_16_link": "/collections/all",
+
+
+"brand_15_link": "/collections/all",
+
+
+"brand_14_link": "/collections/all",
+
+
+"brand_13_link": "/collections/all",
+
+
+"brand_12_link": "/collections/all",
+
+
+"brand_11_link": "/collections/all",
+
+
+"brand_10_link": "/collections/all",
+
+
+"brand_9_link": "/collections/all",
+
+
+"brand_8_link": "/collections/all",
+
+
+"brand_7_link": "/collections/all",
+
+
+"brand_7_alt": "brand-7",
+
+
+"brand_8_alt": "brand-8",
+
+
+"brand_9_alt": "brand-9",
+
+
+"brand_10_alt": "brand-10",
+
+
+"brand_11_alt": "brand-11",
+
+
+"brand_12_alt": "brand-12",
+
+
+"brand_13_alt": "brand-13",
+
+
+"brand_14_alt": "brand-14",
+
+
+"brand_15_alt": "brand-15",
+
+
+"brand_16_alt": "brand-16",
+
+
+"product_tabs_4_margin": "8px 8px",
+
+
+"main_menu_title": "Danh mục sản phẩm",
+
+
+"menu_icon_3_enabled": true,
+
+
+"menu_icon_4_enabled": true,
+
+
+"menu_icon_5_enabled": true,
+
+
+"menu_icon_6_enabled": true,
+
+
+"menu_icon_7_enabled": true,
+
+
+"menu_icon_9_enabled": true,
+
+
+"menu_icon_8_enabled": true,
+
+
+"cart_collection": "hot-products",
+
+
+"flashsale_tabs_banner_width": "1416",
+
+
+"flashsale_tabs_banner_height": "442",
+
+
+"flashsale_tabs_banner_alt": "flash-sale",
+
+
+"flashsale_banner_width": "1416",
+
+
+"flashsale_banner_height": "442",
+
+
+"flashsale_banner_alt": "flash-sale",
+
+
+"home_side_banner_1_url": "/collections/all",
+
+
+"home_side_banner_2_url": "/collections/all",
+
+
+"home_side_banner_3_url": "/collections/all",
+
+
+"home_slider_3_url": "/collections/all",
+
+
+"home_slider_3_alt": "bo-cham-chen-tong-tang-huong",
+
+
+"home_side_banner_1_alt": "banner-1",
+
+
+"home_side_banner_3_alt": "banner-3",
+
+
+"home_side_banner_2_alt": "banner-2",
+
+
+"top_banner_url": "/collections/all",
+
+
+"banner_popup_url": "/collections/all",
+
+
+"swatch_items_enabled": true,
+
+
+"hot_banner_mb_enabled": false,
+
+
+"hot_banner_mb_width": "828",
+
+
+"hot_banner_mb_height": "217",
+
+
+"primary_color": "#4A2E1B",
+
+
+"secondary_color": "#9B2C20",
+
+
+"foreground_color": "#3A2A20",
+
+
+"link_color": "#B8863B",
+
+
+"logo_height": "48",
+
+
+"flashsale_tabs_banner_type": "settings_banner",
+
+
+"coupon_1_link": "/collections/all",
+
+
+"price_color": "#9B2C20",
+
+
+"compare_price_color": "#8A8177",
+
+
+"sale_bg_color": "#A52A20",
+
+
+"sub_menu_bg_color": "#3B2418",
+
+
+"sub_menu_color": "#F3E8D5",
+
+
+"sub_menu_hover_color": "#C9A45C",
+
+
+"flashsale_tab_bg": "#f4dc00",
+
+
+"flashsale_tab_color": "#2e2e2e",
+
+
+"coll_color": "#5A321E",
+
+
+"banner_group_2_1_enabled": true,
+
+
+"banner_group_2_2_enabled": true,
+
+
+"banner_group_2_3_enabled": true,
+
+
+"banner_group_2_4_enabled": true,
+
+
+"product_banner_1_title": "",
+
+
+"product_banner_1_limit": "8",
+
+
+"product_banner_1_tab_1_enabled": false,
+
+
+"product_banner_1_tab_1_title": "Phổ Nhĩ",
+
+
+"product_banner_1_tab_1_coll": "pho-nhi",
+
+
+"product_banner_1_margin": "8px 8px",
+
+
+"product_banner_1_margin_mb": "8px 8px",
+
+
+"section_video_title": "Khoảnh khắc thưởng trà",
+
+
+"section_video_url": "/collections/all",
+
+
+"section_video_enabled_1": true,
+
+
+"section_video_img_1": "https://bizweb.dktcdn.net/100/502/483/theme_temp/951401/assets/item-02-3df5581c-1421-4940-853b-f4d2d657ba3d.jpg?1717308173422",
+
+
+"section_video_title_1": "清香齋 等客來 和解致璋學茶道【轉載❀山林曦照】",
+
+
+"section_video_url_1": "https://www.youtube.com/watch?v=T2SSnpFANRY",
+
+
+"section_video_img_2": "https://bizweb.dktcdn.net/100/502/483/theme_temp/951401/assets/item-02-888cd190-f16f-4d11-ab0e-b0f604bf2e8b.jpg?1717308173422",
+
+
+"section_video_enabled_2": true,
+
+
+"section_video_url_2": "https://www.youtube.com/watch?v=Rk8UgqHvkG8",
+
+
+"section_video_title_2": " 84歲潮州泰斗：用一輩子，做好這件最日常的事",
+
+
+"home_section_16": "section-coupons",
+
+
+"product_tabs_1_card": "grid",
+
+
+"top_banner_height": "32",
+
+
+"section_video_enabled_3": true,
+
+
+"section_video_enabled_4": true,
+
+
+"section_video_enabled_5": true,
+
+
+"section_video_enabled_6": true,
+
+
+"section_video_enabled_7": true,
+
+
+"section_video_enabled_8": true,
+
+
+"section_video_title_3": " 台灣茶家何健 冶堂：所有的好，是不能夠有負擔的",
+
+
+"section_video_title_4": " 台灣茶家李曙韻：99.9%會做錯，也要去試",
+
+
+"section_video_title_5": "一葉一宇宙 茶人周渝品茶的完美方式",
+
+
+"section_video_title_6": "茶壶千千万 为何宜兴紫砂壶独占鳌头？",
+
+
+"section_video_title_7": "近现代紫砂壶名家（四）徐汉棠和徐秀棠",
+
+
+"section_video_title_8": "紫砂艺术大师 汪寅仙",
+
+
+"section_video_url_3": "https://www.youtube.com/watch?v=Q_RSPFcR7uY",
+
+
+"section_video_url_4": "https://www.youtube.com/watch?v=ZOSe-EF-WdI",
+
+
+"section_video_url_5": "https://www.youtube.com/watch?v=2J6MAdCymvk",
+
+
+"section_video_url_6": "https://www.youtube.com/watch?v=k-p3hsjFN_o",
+
+
+"section_video_url_7": "https://www.youtube.com/watch?v=FeeA_-I6V1g&t=179s",
+
+
+"section_video_url_8": "https://www.youtube.com/watch?v=xXUgnnnRvsE",
+
+
+"banner_group_2_1_link": "/collections/all",
+
+
+"banner_group_2_2_link": "/collections/all",
+
+
+"banner_group_2_3_link": "/collections/all",
+
+
+"banner_group_2_4_link": "/collections/all",
+
+
+"section_blogs_tab_2_url": "chuyen-ve-am",
+
+
+"collection_main_banner_alt": "banner all",
+
+
+"flashsale_banner_link": "/collections/all",
+
+
+"flashsale_tabs_banner_link": "/collections/all",
+
+
+"flashsale_tabs_coupons_enabled": true,
+
+
+"logo_bct_enabled": false,
+
+
+"logo_bct_alt": "logo bct",
+
+
+"product_banner_1_tab_2_enabled": false,
+
+
+"product_banner_1_tab_2_title": "Lục Trà",
+
+
+"slider_banner_autoplay_delay": "5",
+
+
+"multilang_app_enabled": false,
+
+
+"combo_app_enabled": false,
+
+
+"buy_x_get_y_enabled": false,
+
+
+"promo_tag_type_1": "text-1",
+
+
+"promo_tag_1": "promotag",
+
+
+"promo_tag_bg_1": "#5A351F",
+
+
+"promo_tag_color_1": "#ffffff",
+
+
+"promo_tag_type_3": "image",
+
+
+"promo_tag_3": "dealsoc",
+
+
+"logo_bct_url": "http://online.gov.vn/",
+
+
+"body_color": "#F5EBDD",
+
+
+"home_slider_mb_1_enabled": true,
+
+
+"home_slider_mb_2_enabled": true,
+
+
+"sale_color": "#ffffff",
+
+
+"addthis_icon3_tootlip": "Tư vấn ấm tử sa & trà qua Messenger",
+
+
+"messenger": "https://www.facebook.com/share/14krz573mvP/?mibextid=wwXIfr",
+
+
+"product_banner_1_img_1_link": "/",
+
+
+"product_banner_1_img_1_alt": "Dụng cụ làm bánh",
+
+
+"menu_icon_1_enabled0": false,
+
+
+"menu_icon_1_enabled1": false,
+
+
+"menu_icon_1_enabled2": false,
+
+
+"menu_icon_1_enabled3": false,
+
+
+"menu_icon_1_enabled4": false,
+
+
+"home_slider_mb_3_enabled": true,
+
+
+"coupon_2_info": "",
+
+
+"coupon_3_info": "",
+
+
+"coupon_4_info": "",
+
+
+"coupon_5_enabled": false,
+
+
+"coupon_5_desc": "",
+
+
+"coupon_5_info": "",
+
+
+"coupon_6_enabled": false,
+
+
+"coupon_6_desc": "",
+
+
+"coupon_6_info": "",
+
+
+"coupon_7_enabled": false,
+
+
+"coupon_7_desc": "",
+
+
+"coupon_7_info": "",
+
+
+"coupon_8_enabled": false,
+
+
+"coupon_8_desc": "",
+
+
+"coupon_8_info": "",
+
+
+"product_tabs_2_card": "grid",
+
+
+"product_tabs_3_card": "grid",
+
+
+"product_banner_1_tab_3_enabled": false,
+
+
+"flashsale_icon_enabled": false,
+
+
+"product_promotion_5_content": "",
+
+
+"policy_product_4_enabled": false,
+
+
+"add_to_cart_action": "drawer",
+
+
+"cart_policies_2_enabled": false,
+
+
+"cart_policies_2_text": "",
+
+
+"cart_policies_3_enabled": false,
+
+
+"cart_policies_3_text": "",
+
+
+"cart_policies_4_enabled": false,
+
+
+"cart_policies_4_text": "",
+
+
+"use_frame_2": false,
+
+
+"use_frame_3": false,
+
+
+"customer_layout": "theme",
+
+
+"favicon.png": "",
+
+
+"share_fb_home.jpg": "",
+
+
+"addtocart_color": "#ffffff",
+
+
+"color_1_c": "",
+
+
+"cro-btn-1-icon.png": "",
+
+
+"cro-btn-2-icon.png": "",
+
+
+"cro-btn-3-icon.png": "",
+
+
+"cro-btn-hotline-icon.png": "",
+
+
+"cro-btn-mess-icon.png": "",
+
+
+"cro-btn-cart-icon.png": "",
+
+
+"banner-popup-img.png": "",
+
+
+"logo.png": "",
+
+
+"top_banner.jpg": "",
+
+
+"top_banner_mb.jpg": "",
+
+
+"menu_icon_1.png": "",
+
+
+"menu_icon_2.png": "",
+
+
+"menu_icon_3.png": "",
+
+
+"menu_icon_4.png": "",
+
+
+"menu_icon_5.png": "",
+
+
+"menu_icon_6.png": "",
+
+
+"menu_icon_7.png": "",
+
+
+"menu_icon_8.png": "",
+
+
+"menu_icon_9.png": "",
+
+
+"menu_icon_10.png": "",
+
+
+"menu_icon_11.png": "",
+
+
+"menu_icon_12.png": "",
+
+
+"menu_icon_13.png": "",
+
+
+"menu_icon_14.png": "",
+
+
+"header_hotline_link": "0906969464",
+
+
+"logo-footer.png": "",
+
+
+"logo-bct.png": "",
+
+
+"footer-trustbadge.png": "",
+
+
+"facebook.png": "",
+
+
+"zalo.png": "",
+
+
+"instagram.png": "",
+
+
+"youtube.png": "",
+
+
+"tiktok.png": "",
+
+
+"home_slider_1.jpg": "",
+
+
+"home_slider_1_mb.jpg": "",
+
+
+"home_slider_2.jpg": "",
+
+
+"home_slider_2_mb.jpg": "",
+
+
+"home_slider_3.jpg": "",
+
+
+"home_slider_3_mb.jpg": "",
+
+
+"home_slider_margin": "",
+
+
+"home_slider_margin_mobile": "",
+
+
+"policies_icon_1.png": "",
+
+
+"policies_icon_2.png": "",
+
+
+"policies_icon_3.png": "",
+
+
+"policies_icon_4.png": "",
+
+
+"policies_margin_mb": "0 0px",
+
+
+"coll_bg.jpg": "",
+
+
+"coll_1.png": "",
+
+
+"coll_2.png": "",
+
+
+"coll_3.png": "",
+
+
+"coll_4.png": "",
+
+
+"coll_5.png": "",
+
+
+"coll_6.png": "",
+
+
+"coll_7.png": "",
+
+
+"coll_8.png": "",
+
+
+"coll_9.png": "",
+
+
+"coll_10.png": "",
+
+
+"coll_11.png": "",
+
+
+"coll_12.png": "",
+
+
+"coll_13.png": "",
+
+
+"coll_14.png": "",
+
+
+"coll_15.png": "",
+
+
+"coll_16.png": "",
+
+
+"coupon_2_time": "00:00:00",
+
+
+"coupon_2_link": "",
+
+
+"coupon_3_link": "",
+
+
+"coupon_4_date": "",
+
+
+"coupon_4_time": "",
+
+
+"coupon_4_link": "",
+
+
+"coupon_5_text": "",
+
+
+"coupon_5_code": "",
+
+
+"coupon_5_date": "",
+
+
+"coupon_5_time": "",
+
+
+"coupon_5_link": "",
+
+
+"coupon_6_text": "",
+
+
+"coupon_6_code": "",
+
+
+"coupon_6_date": "",
+
+
+"coupon_6_time": "",
+
+
+"coupon_6_link": "",
+
+
+"coupon_7_text": "",
+
+
+"coupon_7_code": "",
+
+
+"coupon_7_date": "",
+
+
+"coupon_7_time": "",
+
+
+"coupon_7_link": "",
+
+
+"coupon_8_text": "",
+
+
+"coupon_8_code": "",
+
+
+"coupon_8_date": "",
+
+
+"coupon_8_time": "",
+
+
+"coupon_8_link": "",
+
+
+"coupon_margin_mb": "16px 16px",
+
+
+"banner_group_1.jpg": "",
+
+
+"banner_group_2.jpg": "",
+
+
+"banner_group_3.jpg": "",
+
+
+"banner_group_2_1.jpg": "",
+
+
+"banner_group_2_2.jpg": "",
+
+
+"banner_group_2_3.jpg": "",
+
+
+"banner_group_2_4.jpg": "",
+
+
+"banner_group_2_margin": "8px 8px",
+
+
+"banner_group_2_margin_mb": "8px 8px",
+
+
+"brand_1.png": "",
+
+
+"brand_2.png": "",
+
+
+"brand_3.png": "",
+
+
+"brand_4.png": "",
+
+
+"brand_5.png": "",
+
+
+"brand_6.png": "",
+
+
+"brand_7.png": "",
+
+
+"brand_8.png": "",
+
+
+"brand_9.png": "",
+
+
+"brand_10.png": "",
+
+
+"brand_11.png": "",
+
+
+"brand_12.png": "",
+
+
+"brand_13.png": "",
+
+
+"brand_14.png": "",
+
+
+"brand_15.png": "",
+
+
+"brand_16.png": "",
+
+
+"product_tabs_4_margin_mb": "8px 8px",
+
+
+"product_banner_1_img_1.jpg": "",
+
+
+"product_banner_1_tab_2_coll": "pho-nhi",
+
+
+"product_banner_1_img_2.jpg": "",
+
+
+"product_banner_1_img_2_alt": "",
+
+
+"product_banner_1_img_2_link": "",
+
+
+"product_banner_1_tab_3_title": "Lục Trà",
+
+
+"product_banner_1_tab_3_coll": "luc-tra",
+
+
+"product_banner_3_banner.jpg": "",
+
+
+"product_banner_1_img_3.jpg": "",
+
+
+"product_banner_1_img_3_alt": "",
+
+
+"product_banner_1_img_3_link": "",
+
+
+"flashsale_icon.png": "",
+
+
+"flashsale_margin": "8px 8px",
+
+
+"flashsale_margin_mb": "8px 8px",
+
+
+"flashsale_tabs_margin": "8px 8px",
+
+
+"flashsale_tabs_margin_mb": "8px 8px",
+
+
+"tiktok-embed-bg.jpg": "",
+
+
+"section_video_img_1.jpg": "",
+
+
+"section_video_img_2.jpg": "",
+
+
+"section_video_img_3.jpg": "",
+
+
+"section_video_img_4.jpg": "",
+
+
+"section_video_img_5.jpg": "",
+
+
+"section_video_img_6.jpg": "",
+
+
+"section_video_img_7.jpg": "",
+
+
+"section_video_img_8.jpg": "",
+
+
+"section_video_margin": "",
+
+
+"section_video_margin_mb": "",
+
+
+"product_installment_link": "/pages/lien-he",
+
+
+"policy_product_image_1.png": "",
+
+
+"policy_product_image_2.png": "",
+
+
+"policy_product_image_3.png": "",
+
+
+"policy_product_4_title": "",
+
+
+"policy_product_image_4.png": "",
+
+
+"equalprice_empty_message": "",
+
+
+"collection_main_banner.jpg": "",
+
+
+"collection_banner_width": "",
+
+
+"collection_banner_height": "",
+
+
+"filter_tag1_order": "3",
+
+
+"filter_tag2_order": "4",
+
+
+"cart_empty_background.png": "",
+
+
+"cart_policies_image_1.png": "",
+
+
+"cart_policies_2_title": "",
+
+
+"cart_policies_image_2.png": "",
+
+
+"cart_policies_3_title": "",
+
+
+"cart_policies_image_3.png": "",
+
+
+"cart_policies_4_title": "",
+
+
+"cart_policies_image_4.png": "",
+
+
+"article_toc_heading": "h2,h3",
+
+
+"flashsale_banner.png": "",
+
+
+"flashsale_tabs_banner.png": "",
+
+
+"promo_tag_1.png": "",
+
+
+"promo_tag_border_1": "#5A351F",
+
+
+"promo_tag_2.png": "",
+
+
+"promo_tag_3.png": "",
+
+
+"promo_tag_color_3": "",
+
+
+"promo_tag_bg_3": "",
+
+
+"promo_tag_border_3": "",
+
+
+"frame_1.png": "",
+
+
+"frame_1_scale": "",
+
+
+"frame_2.png": "",
+
+
+"frame_2_scale": "",
+
+
+"frame_2_coll": "",
+
+
+"frame_3.png": "",
+
+
+"frame_3_coll": "",
+
+
+"frame_3_scale": "",
+
+
+"404.jpg": "",
+
+
+"home_page_keywords": "Ấm tử sa, ấm tử sa nghi hưng, ấm trà tử sa, trà cao cấp, trà thượng hạng, trà cụ, phụ kiện trà, nghệ nhân tử sa, ấm tử sa chính hãng, Tàng Hương",
+
+
+"wishlist_enabled": false,
+
+
+"reviews_app": "productreviews",
+
+
+"social_login_enabled": false,
+
+
+"wishlist_page_url": "",
+
+
+"flashsale_url": "/collections/all"
+
+},
+
+"presets": {}
+}

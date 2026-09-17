@@ -1,0 +1,10 @@
+{% include 'breadcrumb' %} 
+
+{% include 'collection-banner' %}
+{% if settings.collection_coupons_enabled %}
+	{% include 'section-coupons' %}
+{% endif %}
+{% include 'section-main-collection' %}
+{% if settings.collection_list_enabled %}
+	{% include 'section-collection-list' %}
+{% endif %}

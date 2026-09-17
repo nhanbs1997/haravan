@@ -1,0 +1,72 @@
+<div class="search-bar relative ">
+	<quick-search class="quick-search">
+  <form
+    action="/search"
+    method="get"
+    class="m-0 flex bg-background pl-5 py-3 rounded-full items-center relative border border-neutral-50"
+    role="search"
+  >
+	{%if settings.search_categories_enabled and linklists[settings.search_category_menu] %}
+    <select
+      class="form-select border-0 focus:ring-transparent collection-options"
+	 aria-label="Danh mục sản phẩm"
+    >
+      <option value="">Danh mục sản phẩm</option>
+		{% for link in linklists[settings.search_category_menu].links %}
+			{% if link.type == 'collection_link' and  link.object.products_count > 0 -%}
+		<option value="{{link.object.id}}"> {{ link.title }}</option>
+			{% endif -%}
+		{% endfor %}
+    </select>
+	  {% endif %}
+	<div class="search-input-group w-full relative">
+		    <input
+      type="text"
+      name="q"
+      value=""
+      autocomplete="off"
+      class="border-0 bg-transparent focus:ring-transparent p-0 w-full text-base text-foreground"
+      required
+      data-placeholder="Tìm theo tên sản phẩm...; Tìm theo thương hiệu...;"
+      placeholder="Tìm theo tên sản phẩm..."
+    >
+    <input type="hidden" name="type" value="product">
+    <button
+      type="submit"
+      aria-label="search"
+      class="search-button btn rounded-0 right-0 flex items-center justify-center text-foreground rounded-tr-full rounded-br-full absolute   bg-[var(--color-search)] text-white"
+    >
+      <i class="icon icon-search"></i>
+    </button>
+	  </div>
+
+  </form>
+  <div class="search-dropdown absolute bottom-0 top-full mt-1 left-0 bg-background rounded-lg py-3 text-foreground w-full px-2">
+  	<div class="search-loading absolute top-1/2 left-1/2   -translate-x-1/2 -translate-y-1/2 w-full h-full z-[1] bg-background flex items-center justify-center">
+		  {% include 'loading-icon' %}
+	  </div>
+	    {% if settings.search_product_enabled %}
+	  <div class="search-result space-y-3">
+	  </div>
+	  {% endif %}
+	  {% if settings.search_history_enabled %}
+	  <div class="search-history-list border-neutral-50"></div>
+	  {% endif %}
+	 	{%assign keys = settings.filter_search_list | strip | split: ','-%} 
+ 
+		{%if settings.filter_search_list != blank and keys.size > 0 -%}
+    <div class="search-keywords space-y-2 pt-2 px-2 ">
+      <span class="text-primary font-semibold">Từ khóa phổ biến</span>
+	
+      <div class="search-keyword-list flex gap-1 items-center flex-wrap">
+        {% for key in keys %}
+        <a  href="/search?q={{key | url_encode }}&type=product" class="search-keyword text-secondary px-3 py-1 bg-relative rounded-full inline-flex items-center justify-center hover:border-secondary border border-transparent" title="">
+        	{{key}}
+        </a>
+        {%endfor%}
+      </div>
+    </div>
+	  {% endif -%}
+  </div>
+		</quick-search>
+</div>

@@ -1,0 +1,25 @@
+<div class="price-box flex justify-between items-center">
+          <div class="flex flex-col gap-1 ">
+            {% if contact_item -%}
+              <span class="price-contact"> Liên hệ </span>
+            {% else -%}
+              {% if on_sale -%}
+                <span class="price text-h6">{{ awe-price | money }}</span>
+                {% if awe-compare-price > awe-price -%}
+                  <div class="inline-flex items-center gap-1">
+                  <span class="compare-price line-through text-xs">{{ awe-compare-price | money }}</span>
+                  {% unless contact_item or hide_sales%}
+                    {% if on_sale -%}
+                      <div class="badge sale-badge font-semibold text-xs   p-1  md:px-1.5 md:py-1">{{ discount }}</div>
+                    {% endif -%}
+                  {% endunless -%}
+                  </div>
+                {% endif -%}
+              {% else -%}
+                <span class="price">{{ awe-price | money }}</span>
+              {% endif -%}
+            {% endif -%}
+
+          </div>
+         
+        </div>

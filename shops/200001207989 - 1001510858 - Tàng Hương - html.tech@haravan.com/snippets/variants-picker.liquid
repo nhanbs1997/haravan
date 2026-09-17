@@ -1,0 +1,87 @@
+{% assign color_label_list =  settings.swatch_color_label | downcase | split: '#' -%}
+{% assign size_label_list = 'Size,Kích thước' | downcase | split: ',' -%}
+
+<div class="mb-4">
+<variant-picker data-id="{{product.id}}" id="variant-picker-{{product.id}}-{{template}}">
+	<div class="variant-picker space-y-5" >
+	{% for option in product.options %}
+    {% assign is_color_option = false %}
+	{% assign option_downcase = option | downcase %}
+	{% assign curr_variant = product.selected_or_first_available_variant %}
+{% assign curr_variant = product.selected_or_first_available_variant %}
+	{% unless curr_variant %}
+			{% assign curr_variant = product.variants[0] %}
+		{% endunless %}
+	{% if color_label_list contains option_downcase%}
+		{% assign is_color_option = true %}
+		
+	{% endif %}
+	
+		 <div class="variant-picker__input flex items-centers gap-3 ">
+			<div class="text-neutral-400 mb-1 min-w-[88px]">{{ option }}</div>
+			<div class="fieldset flex flex-wrap gap-2" data-option="{{ option |handle }}">
+			{% assign optionIndex = 'option' | append: forloop.index %}
+			{% assign options = product.variants | map: optionIndex | uniq %}
+
+			  {% for option_value in options %}
+					{% assign option_disabled = false -%}
+				{% if optionIndex == 'option1' -%}
+					{% assign option_disabled = true -%}
+					{% for variant in product.variants -%}
+							{% if  variant[optionIndex] == option_value  and variant.available-%}
+								{% assign option_disabled = false -%}
+							{% endif -%}
+					{% endfor -%}
+				{% endif -%}
+				{%if is_color_option%}
+          				{%-  assign color_bg  = nil -%}
+
+				{% for variant in product.variants -%}
+				   		{%if variant[optionIndex] == option_value -%}
+				   			{%if settings.swatch_type == 'image' -%}
+				   					{% assign variantId = variant.id -%}
+				   				{% if variant.image  -%}
+				   					{% assign color_bg = variant.image.src  | img_url: 'icon' %}
+				  					{% break -%}
+				   				{%endif -%}
+				   			{%endif -%}
+				   		
+				   		{% endif -%}
+				   {% endfor -%}
+				{% endif -%}
+				<div class="inline-block {%if is_color_option %} {% else %} w-auto min-w-[6rem] {% endif %}">
+				  <input
+					type="radio"
+					id="{{ option_value | handle }}-{{ option | handle }}-{{template}}"
+					name="{{ option |handle }}-{{template}}"
+					value="{{ option_value }}"
+					class="peer hidden  {%if option_disabled == true %} disabled {% endif %}"
+						
+					{% if curr_variant[optionIndex] == option_value %}
+						 checked
+					{% endif %}
+				  >
+				  <label
+					for="{{ option_value | handle }}-{{ option | handle }}-{{template}}"
+					class="{%if is_color_option%}color-swatch rounded-full {% else %}rounded-pill {%endif%}  flex items-center justify-center border border-neutral-50  px-4 py-2 relative cursor-pointer peer-checked:border-primary peer-checked:text-primary"
+				  >
+ 					{% if is_color_option -%}
+					  	{% assign color_var = option_value  | downcase | strip | handleize  -%}
+					  	<span class="color-spot bg-[var(--color-swatch)]"  style="--color-swatch: var(--swatch-{{color_var}})" >
+					  	{% if color_bg -%}
+							<img class="aspect-square object-cover w-full h-full" width="48" height="48" src="{{color_bg | img_url : 'small' }}" alt="{{color}}" loading="lazy" />
+							{% endif -%}
+					  	</span>
+						{%else %}
+						{{ option_value }}
+					  {% endif -%}
+					{% comment %} {{ option_value }} {% endcomment %}
+				  </label>
+				</div>
+			  {% endfor %}
+			</div>
+		  </div>
+ 	{% endfor %}
+</div>
+</variant-picker>
+</div>

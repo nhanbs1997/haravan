@@ -1,0 +1,56 @@
+{% include 'section-styles', key: 'policies'  %}
+
+<section class="section section-polices overflow-hidden bg-background " style="{{section_style}}">
+  <div class="container md:px-container px-0">
+    {% assign column_count = 4 %}
+    <div class="text-w-icon text-w-icon--style-1  md:px-0 px-container w-auto  ">
+      <ega-carousel>
+        <script data-type="swiper-params" type="application/json">
+          {
+              "slidesPerView": 1.5,
+              "breakpoints": {
+                "768": {
+                  "slidesPerView": 2.5
+                },
+                "1024": {
+                  "slidesPerView": 3.5
+                },
+                "1200" : {
+                  "slidesPerView": 4,
+				  "simulateTouch":false
+                  }
+              }
+            }
+        </script>
+        <div class="swiper  ">
+          <div class="swiper-wrapper grid grid-flow-col grid-cols-[repeat(5,66.666%)] md:grid-cols-[repeat(5,40%)] lg:grid-cols-[repeat(5,29%)] xl:grid-cols-4  h-auto ">
+            {% for i in (1..column_count) %}
+			  {% capture policies_enabled %}policies_{{i}}_enabled{% endcapture %}
+			  {% capture policies_icon %}policies_icon_{{i}}.png{% endcapture %}
+			  {% capture policies_title %}policies_{{i}}_title{% endcapture %}
+			  {% capture policies_text %}policies_{{i}}_text{% endcapture %}
+			  {% if settings[policies_enabled] %}
+				   <div class="swiper-slide mx-auto w-auto inline-flex h-inherit flex-nowrap item relative  gap-4 py-3 md:py-4 px-4  ">
+					<div class="w-6  flex-grow-0 flex-shrink-0">
+					  <img
+						class="object-contain"
+						loading="lazy"
+						width="24"
+						height="24"
+						src="{{ policies_icon | asset_url }}"
+						alt="Giao hàng miễn phí trong 24h (chỉ áp dụng khu vực nội thành)"
+					  >
+					</div>
+					<div class="">
+					  <span class="font-semibold block">{{ settings[policies_title] }}</span>
+					  <span class="text-xs">{{ settings[policies_text] }}</span>
+					</div>
+				  </div>
+			  {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </ega-carousel>
+    </div>
+  </div>
+</section>

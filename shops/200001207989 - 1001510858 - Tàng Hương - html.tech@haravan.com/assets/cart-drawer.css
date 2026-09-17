@@ -1,0 +1,203 @@
+#cart-drawer .cart-header {
+	display: none
+}
+
+
+
+#cart-drawer .cart-unit-price-col{
+	display: none
+} 
+
+#cart-drawer .cart {
+	 --cart-right-column: 100%;
+	 --cart-left-column: 100%;
+	 --cart-gap: 1.6rem;
+	 display: grid;
+    height: 100%;
+}
+ #cart-drawer .cart-table {
+	 --cart-template: 4.2rem 1fr 1fr;
+}
+ #cart-drawer .cart-item {
+	 grid-template-areas: "product product product" "space total quantity";
+	 padding: 1.6rem 0;
+	 grid-template-columns: var(--cart-template);
+}
+#cart-drawer .cart-item:first-child{
+	padding-top: 0
+}
+#cart-drawer .cart-item > div{
+	padding: 0
+}
+ #cart-drawer .cart-item .cart-product-col {
+	 grid-area: product;
+	 padding-right: 2rem;
+	 gap: 1.2rem;
+}
+ #cart-drawer .cart-quantity-col {
+	 grid-area: quantity;
+	 justify-content: flex-end;
+}
+ #cart-drawer .cart-total-col {
+	 grid-area: total;
+	 text-align: left
+}
+ #cart-drawer .cart-remove-col {
+	 position: absolute;
+	 right: 0;
+	 top: 1.6rem;
+	 z-index: 1;
+}
+ #cart-drawer .cart-quantity-col .custom-number-input button {
+	 padding: 0.4rem;
+}
+ #cart-drawer .cart-quantity-col .custom-number-input {
+	 width: 9.6rem;
+	 height: 3.2rem;
+}
+ 
+#cart-drawer .cart-summary > div{
+	--spacing-4: 1.2rem;
+	border: none;
+	padding: 0;
+}
+.cart-empty{
+	display:none
+}
+
+.is-empty .cart-empty{
+	display: block
+}
+#cart-drawer .is-empty .cart-form {
+	display: block;
+}
+#cart-drawer .is-empty .cart-left,
+#cart-drawer .is-empty .cart-right{
+	display: none
+}
+#cart-drawer .cart-opener-group{
+	 display: grid;
+	grid-template-columns: repeat(auto-fit,minmax(0,1fr));
+    gap: 0.4rem;
+    justify-content: space-between;
+    border-top: 1px dashed var(--color-neutral-50);
+}
+#cart-drawer .cart-opener-item{
+	display: flex;
+	justify-content: center;
+	align-items: center
+}
+#cart-drawer .cart-opener-item:hover{
+	cursor: pointer;
+	opacity: 0.8
+}
+#cart-drawer .cart-opener-item  p {
+        flex-direction: column;
+	text-align: center;
+}
+#cart-drawer .cart-opener-item button {
+    display: none;
+}
+@media(max-width:767px){
+  #cart-drawer .cart-opener-item  p {
+     font-size: 1.2rem
+	}
+	.cart-form .card-product--horizontal .card-product__option-wrapper {
+		display: none;
+	}
+}
+
+.rewards-bar{
+	    grid-template-columns: 1fr auto;
+		background: linear-gradient(180deg, var(--color-primary) -900%, rgba(255, 255, 255, 0.00) 100%)
+}
+#cart-drawer .rewards-bar{
+		grid-template-columns: 1fr;
+	}
+#cart-drawer .rewards-messages,.rewards-success{
+		text-align: center;
+	}
+#cart-drawer .rewards-coupon{
+		order : 1;
+		text-align: center;
+	}
+@media(max-width: 767px){
+	.rewards-bar{
+		grid-template-columns: 1fr;
+	}
+	.rewards-messages,.rewards-success{
+		text-align: center;
+	}
+	.rewards-coupon{
+		order : 1;
+		text-align: center;
+	}
+}
+.datepicker-input .datepicker {
+	 --cell-width: 36px;
+}
+ .datepicker-input .datepicker-controls .prev-button, .datepicker-input .datepicker-controls .next-button {
+	 width: var(--cell-width);
+	 flex: 0 0 var(--cell-width);
+	 min-width: auto;
+}
+ .datepicker-input .datepicker-view {
+	 --cell-gap: 4px;
+	 width: calc(var(--cell-width) * 7);
+	 gap: var(--cell-gap);
+}
+ .datepicker-input .datepicker .dow {
+	 font-weight: 400;
+	 font-size: 1.4rem;
+}
+ .datepicker-input .datepicker .focused {
+	 outline: none;
+	 outline-offset: none;
+	 box-shadow: none;
+}
+ .datepicker-input .datepicker .dow, .datepicker-input .datepicker-cell {
+	 width: var(--cell-width);
+	 height: var(--cell-width);
+}
+ .datepicker-input .datepicker .dow {
+	 height: 2.4rem;
+}
+ .datepicker-input .datepicker-header .datepicker-controls .button {
+	 border-color: transparent;
+	 font-size: 1.4rem;
+	 font-weight: 600;
+}
+ .datepicker-input .datepicker-cell:not(.day) {
+	 flex-basis: calc(25% - var(--cell-gap));
+	 height: 7.2rem;
+}
+ .datepicker-input .datepicker-cell.selected, .datepicker-input .datepicker-cell.selected:hover {
+	 background-color: var(--color-primary);
+}
+ .datepicker-input .datepicker .button::before, .datepicker-input .datepicker .button::after {
+	 content: none;
+}
+ .datepicker-input .datepicker-main {
+	 padding: 5px;
+}
+
+.datepicker-input .datepicker-cell.disabled.focused {
+	color: var(--color-foreground)
+}
+
+.reward-title {
+    position: absolute;
+    background: var(--color-header);
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #fff;
+    top: 2.5rem;
+	font-size:1.2rem;
+    left: var(--tooltip-position);
+    min-width: 12rem;
+}
+
+
+.rewards-item:hover .reward-title{
+	display: block
+}

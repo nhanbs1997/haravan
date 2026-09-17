@@ -1,0 +1,54 @@
+{% include 'breadcrumb' %} 
+
+{% assign has_sidebar = settings.aside_filter_enabled %}
+{% if settings.aside_category_blog_menu != blank %}
+	{% assign has_sidebar = true %}
+{% endif %}
+
+{% if settings.blogs_aside_enabled and blogs[settings.blogs_aside_url].articles_count > 0 %}
+	{% assign has_sidebar = true %}
+{% endif %}
+
+<section class="section section-main-blog" style="--section-margin: 0px 0px 40px; --section-margin-mb: 0px 0px 20px">
+		<div class="container">
+		<div class="grid grid-cols-1 {% if has_sidebar %} lg:grid-cols-[calc(100%_-_32.8rem)_32rem]   {% endif %} gap-gutter">
+			<div>
+				<div class=" text-center md:text-left">
+					<h1 class="heading font-semibold text-secondary">
+					 {{ page_title }}
+					</h1>
+				</div>
+				
+				
+				<div class="article-list" >
+
+					{% paginate blog.articles by settings.blogs_number_perpage -%}
+					<div  class="grid grid-cols-2 {% if has_sidebar %}   xl:grid-cols-3  lg:grid-cols-2 {% else %}  lg:grid-cols-3  xl:grid-cols-4  {% endif %}  gap-2 mt-2 ">
+						{% if blog.articles_count > 0 -%}
+						{% for article in blog.articles %}
+						{% include 'article-card' -%}
+						{% endfor %}
+						{% else -%}
+						<div class="pt-3">
+							<div class="alert alert-warning alert-dismissible margin-top-15 section" role="alert">
+								Bài viết đang được cập nhật.
+							</div>
+						</div>
+						{% endif -%}
+						<div class="mt-6 pt-6" style="grid-column: 1 / -1">
+						{% include 'collection-paginate' %}
+					</div>
+					</div>
+					
+
+					{% endpaginate -%}
+				</div>
+				
+			</div>
+			{% if has_sidebar %}
+				{% include 'blogs-sidebar' %}
+			{% endif %}
+		</div>
+	</div>
+
+</section>

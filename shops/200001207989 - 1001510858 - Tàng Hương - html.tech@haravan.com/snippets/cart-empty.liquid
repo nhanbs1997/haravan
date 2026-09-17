@@ -1,0 +1,17 @@
+<div class="cart-empty ">
+	<div class=" bg-background px-gutter lg:px-6 py-6 rounded-sm  relative text-center">
+
+	<div class="flex-col mx-auto gap-4 {% if cart.item_count  > 0 %} hidden {%else%} flex {%endif%} items-center justify-center">
+	<img class="aspect-square object-contain" src="{{ 'cart_empty_background.png' | asset_url }}" alt="cart_empty_background" width="320" height="320" />
+	<h2 class="text-h4  font-semibold">
+		{{ settings.cart_empty_title }}
+	</h2>
+	<p>
+		{{ settings.cart_empty_subtitle }}
+	</p>
+	<a class="btn font-semibold bg-primary text-white" href="{{ settings.cart_empty_cta_link}}" title="{{ settings.cart_empty_cta}}" >
+							{{ settings.cart_empty_cta}}						   
+ </a>
+</div>
+</div>
+	</div>

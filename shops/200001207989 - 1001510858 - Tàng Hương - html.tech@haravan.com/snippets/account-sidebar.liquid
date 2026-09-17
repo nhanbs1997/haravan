@@ -1,0 +1,19 @@
+<div class="block-account lg:border-r border-neutral-100">
+<h5 class="title-account text-secondary font-semibold">Trang tài khoản</h5>
+<p>Xin chào, <span class="font-semibold" >{{ customer.name }}</span>!</p>
+<ul class="space-y-3 mt-5 list-disc pl-4">
+	<li>
+		<a class="title-info link font-semibold {% if active == 'account' %} text-secondary {% endif %}" {% unless active == 'account' %} href="/account/" {%endunless%} >Thông tin tài khoản</a>
+	</li>
+	<li>
+		<a class="title-info link font-semibold {% if active == 'order' %} text-secondary {% endif %}" {% unless active == 'order' %} href="/account/orders"{% endunless %}>Đơn hàng của bạn</a>
+	</li>
+	
+	<li>
+		<a class="title-info link font-semibold {% if active == 'addresses' %} text-secondary {% endif %}" {% unless active == 'addresses' %} href="/account/addresses" {% endunless %}>Sổ địa chỉ ({{ customer.addresses_count }})</a>
+	</li>
+	<li>
+		<a class="title-info link font-semibold text-error"  href="/account/logout">Đăng xuất</a>
+	</li>
+</ul>
+</div>

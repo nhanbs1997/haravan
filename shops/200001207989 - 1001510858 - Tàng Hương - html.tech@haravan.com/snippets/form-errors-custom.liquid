@@ -1,0 +1,18 @@
+{% if form.errors.size > 0 %}
+  <div class="note form-error">
+    <ul class="disc">
+      {% for field in form.errors %}
+        {% if field == 'form' %}
+          <li style="color:red; margin-bottom:10px;">
+            {{ form.errors.messages[field] }}
+          </li>
+        {% else %}
+          <li style="color:red;margin-bottom:10px;">
+            {{ form.errors.messages[field] }}
+          </li>
+        {% endif %}
+
+      {% endfor %}
+     </ul>
+  </div>
+{% endif %}

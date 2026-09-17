@@ -1,0 +1,81 @@
+{% assign coll = settings.flashsale_coll %}
+{% capture flashsale_id %}section-flashsale-0{% endcapture %}
+{% capture coll_custom_style %}
+--color-flashsale-bg: {{ settings.flashsale_bg | default: '#01049E' }};
+--color-flashsale-title: {{ settings.flashsale_text_color | default: '#fff' }};
+--color-flashsale-timer-bg: {{ settings.flashsale_timer_bg | default: '#01049E' }};
+--color-flashsale-timer: {{ settings.flashsale_timer_color | default: '#fff' }};
+--color-flashsale-process: {{ settings.flashsale_process_background | default: '#01049E' }};
+{% endcapture %}
+
+{% include 'section-styles', key: 'flashsale', custom_style: coll_custom_style %}
+<section
+  class="section section-flashsale {%if is_landing_page %} landing-page-section {% endif %} relative {%unless is_landing_page %} overflow-hidden {% endunless %} w-full"
+  id="{{ flashsale_id }}" style="{{ section_style }}">
+  <flashsale-section data-not-started="{{settings.flashsale_not_started_action}}" data-id="{{ flashsale_id }}"
+    data-ended="{{settings.flashsale_ended_action}}" {%if settings.flashsale_random_order_enabled %} data-random="true"
+    {% endif %}>
+    <div class="container px-0 lg:px-[var(--container-padding)]">
+    <div class="bg-[var(--color-flashsale-bg)] lg:rounded-lg overflow-hidden ">
+      <div class=" -mx-[var(--container-padding)]  text-[var(--color-flashsale-title)] px-4 md:px-6 py-4">
+        <div
+          class="flex  flex-wrap lg:flex-nowrap items-center justify-center lg:justify-between  mx-auto mb-4 gap-3 md:gap-4">
+          <div class="flex items-center gap-2 md:gap-3">
+            {%if settings.flashsale_icon_enabled %}
+            <img
+              src="{{ 'flashsale_icon.png' | asset_url }}"
+              alt="{{ settings.flashsale_title }}"
+              width="48"
+              height="48"
+              class=" w-6 lg:w-[48px] h-auto"
+            >
+              {%endif %}
+            {% if settings.flashsale_title != blank -%}
+              <h2 class="text-h4 text-center lg:text-h1  font-bold flashsale-heading">
+                <a href="{% if settings.flashsale_url %}{{ settings.flashsale_url }} {% else %}{{ collections[coll].url }} {% endif %}" title="{{settings.flashsale_title}}">
+                  {{ settings.flashsale_title -}}
+                </a>
+              </h2>
+            {% endif -%}
+          </div>
+          {% if settings.flashsale_timer_enabled -%}
+          {% include 'countdown-timer', prefix: 'flashsale' %}
+          {% endif -%}
+        </div>
+      </div>
+      {% unless is_landing_page -%}
+
+      <div
+        class="relative items-start  pb-0.5 rounded-[16px] overflow-hidden p-0.5 ">
+         
+        <div class="overflow-hidden lg:px-0 lg:pb-0 pb-[var(--container-padding)] px-[var(--container-padding)]">
+          {% include 'flashsale-products' -%}
+        </div>
+      </div>
+      {% comment %} Do not hide flash sale news {% endcomment %}
+
+      {% else -%}
+      <div class="container md:py-6">
+        {% assign is_empty_coll = false %}
+        {% if coll == blank or collections[coll] == blank or collections[coll].products_count == 0%}
+        {% assign is_empty_coll = true -%}
+        {% endif -%}
+
+        {% if is_empty_coll %}
+        <div class="p-4  mx-gutter">Sản phẩm đang được cập nhật...</div>
+        {% else -%}
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-gutter">
+          {% for product in collections[coll].products %}
+          {% include 'product-grid-item', product: product, is_flashsale: true %}
+          {% endfor %}
+        </div>
+
+        {% endif %}
+      </div>
+      {% endunless -%}
+    </div>
+  </div>
+
+  </flashsale-section>
+
+</section>

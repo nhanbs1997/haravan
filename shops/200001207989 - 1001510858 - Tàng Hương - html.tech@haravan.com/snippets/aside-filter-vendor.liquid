@@ -1,0 +1,44 @@
+{% assign vendors = collection.all_vendors %}
+{% if vendors.size > 1 %}
+  <aside class="aside-item filter-vendor md:py-5 py-4" style="order: {{ settings[filter_order] | default: 0 }}">
+    <div class="aside-title">
+      <h2 class="title-head margin-top-0 text-base font-semibold mb-3">
+        {{ settings[filter_title] }}
+      </h2>
+    </div>
+    <div class="aside-content filter-group">
+      <ul class="space-y-3">
+        {% for vendor in vendors %}
+          {% if vendor != blank %}
+            <li class="filter-item link filter-item--check-box {%if forloop.index > 5%} overflow-item {%endif %}">
+              <label
+                class="custom-checkbox cursor-pointer flex gap-2 items-center"
+                for="filter-vendor-{{ vendor | handleize }}"
+              >
+                <input
+                  type="checkbox"
+                  class="form-checkbox"
+                  id="filter-vendor-{{ vendor | handleize }}"
+                  data-group="PRODUCT_VENDOR"
+                  data-field="vendor.filter_ke"
+                  data-value="{{ vendor | escape }}"
+                  value="{{ vendor  | escape }}"
+                  data-operator="OR"
+				  name="vendor"
+                >
+                {{ vendor }}
+              </label>
+            </li>
+          {% endif %}
+          {% if forloop.last and vendors.size > 5 -%}
+            <li
+              class="filter-item-toggle link text-secondary font-semibold cursor-pointer  flex items-center pl-[var(--spacing-6-5)] gap-2   "
+            >
+              Xem thêm <i class="icon icon-carret-down"></i>
+            </li>
+          {% endif -%}
+        {% endfor %}
+      </ul>
+    </div>
+  </aside>
+{% endif %}

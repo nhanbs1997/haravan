@@ -1,0 +1,24 @@
+<ul class=" pt-3 flex gap-2 flex-col product-polices">
+            {% for i in (1..4) %}
+				{% capture policy_product_enabled %}policy_product_{{i}}_enabled{% endcapture %}
+				{% capture policy_product_title %}policy_product_{{i}}_title{% endcapture %}
+				{% capture policy_product_image %}policy_product_image_{{i}}.png{% endcapture %}
+				{% if settings[policy_product_enabled] %}
+				  <li class="item relative flex gap-2 items-center">
+					<div class="max-w-5">
+					  <img
+						class="object-contain"
+						loading="lazy"
+						width="20"
+						height="20"
+						src="{{ policy_product_image | asset_url}}"
+						alt="{{ settings[policy_product_title] }}"
+					  >
+					</div>
+					<div class="">
+ 						{{ settings[policy_product_title] }}
+					</div>
+				  </li>
+				{% endif %}
+            {% endfor %}
+</ul>

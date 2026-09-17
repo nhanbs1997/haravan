@@ -1,0 +1,80 @@
+{% if settings.sub_menu and settings.sub_menu_enabled -%}
+  <div class="navigation--horizontal hidden  lg:flex items-center ">
+    <div class=" navigation-horizontal-wrapper overflow-hidden ">
+      <nav>
+        <ul class="navigation-horizontal">
+          {% assign i = 0 -%}
+          {% for link in linklists[settings.sub_menu].links %}
+            {% assign items_list = settings.megamenu_items | split: ',' %}
+            {% assign mega-title = link.title | downcase %}
+
+            <li class="menu-item group ">
+              <a href="{{ link.url }}" data-prefetch class="menu-item__link hover:text-[var(--color-sub-header-link)]  flex items-center gap-3.5 py-3 font-semibold " title="{{ link.title }}">
+                <span>
+                  {{ link.title -}}
+                </span>
+                {% if linklists[link.handle].links.size > 0 %}
+                  <i class="icon icon-carret-down" data-toggle-submenu>
+                  
+                  </i>
+                {%- endif %}
+              </a>
+              {% if settings.display_megamenu and items_list contains mega-title %}
+                {% assign i = i | plus: 1 %}
+              {% endif %}
+              {% assign isMegamenu = false -%}
+              {% if linklists[link.handle].links.size > 0 -%}
+                {% for childlink in linklists[link.handle].links %}
+                  {% if linklists[childlink.handle] %}
+                    {% assign isMegamenu = true -%}
+                    {% break -%}
+                  {% endif -%}
+                {% endfor -%}
+                <div class="submenu {%if isMegamenu %} mega-menu bg-white {%else%} default {%endif%}">
+                
+                  <ul class="submenu__list">
+                    {% for childlink in linklists[link.handle].links %}
+                      {% if linklists[childlink.handle] %}
+                        <li class="submenu__col">
+                          <span class="submenu__item submenu__item--main">
+                            <a class="link font-semibold" data-prefetch href="{{ childlink.url }}" title="{{ childlink.title }}">
+                              {{- childlink.title -}}
+                            </a>
+                          </span>
+                          <ul>
+                          {% for childlink2 in linklists[childlink.handle].links %}
+                            <li class="submenu__item submenu__item">
+                              <a class="link" data-prefetch href="{{ childlink2.url }}" title="{{ childlink2.title }}">
+                                {{- childlink2.title -}}
+                              </a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                        </li>
+                      {% else %}
+                        <li class="submenu__item submenu__item--main">
+                          <a class="link " data-prefetch href="{{ childlink.url }}" title="{{ childlink.title }}">
+                            {{- childlink.title -}}
+                          </a>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif -%}
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+    <div class=" navigation-arrows ">
+	   <button class="btn prev px-1">
+      <i class="  disabled icon icon-carret-left link"> </i>
+    </button>
+    <button class="btn next px-1 ">
+      <i class=" icon icon-carret-right link"> </i>
+    </button>
+   
+    </div>
+  </div>
+{% endif -%}

@@ -1,0 +1,56 @@
+{% include 'breadcrumb' %} 
+<section class="section section-main-contact" style="--section-margin: 0px 0px 40px; --section-margin-mb: 0px 0px 20px">
+  <div class="container">
+    <div class="bg-background rounded-lg p-3 md:p-6 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+        <div>
+          <h1 class="text-h4 font-semibold mb-2">{{ settings.title_page }}</h1>
+          <div class="flex gap-1 items-start mb-3">
+            <i class="icon icon-location text-neutral-200"></i>
+            <div class="">
+              <p class="text-forground">Địa chỉ</p>
+              <p class="font-semibold">
+                {% if settings.address and settings.address != blank -%}
+                  <span>{{ settings.address }}</span>
+                 
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          <div class="grid justify-between gap-2">
+            <div class="flex gap-1 items-start">
+              <i class="icon icon-call text-neutral-200"></i>
+              <div class="">
+                <p class="text-forground">Hotline</p>
+                <a
+                  class="font-semibold text-primary link"
+                  href="tel:{{ settings.phone  | remove: ' ' }}"
+                  title="{{ settings.phone  | remove: ' ' }}"
+                >
+                  {{- settings.phone  -}}
+                </a>
+              </div>
+            </div>
+            <div class="flex gap-1 items-start">
+              <i class="icon icon-sms text-neutral-200"></i>
+              <div class="">
+                <p class="text-forground">Email</p>
+                <a class="font-semibold link" href="mailto:{{ settings.email | default:shop.customer_email }}">
+                  {{- settings.email | default: shop.customer_email -}}
+                </a>
+              </div>
+            </div>
+          </div>
+			{% include 'contact-form' %}
+        </div>
+        <div>
+		  <div class="">
+					<div id="contact_map" class="map aspect-square">
+						{{ settings.contactr_contact_maps }}
+					</div>
+				</div>
+		 </div>
+      </div>
+    </div>
+  </div>
+</section>

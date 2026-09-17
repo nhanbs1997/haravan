@@ -1,0 +1,145 @@
+{% include 'product-item-logic' %}
+<card-product class="h-full"   data-prefetch="{{ product.url }}"
+ >
+<div
+  class=" item_product_main overflow-hidden card-product card-product--vertical relative transition-transform duration-200 ease-in-out  h-full 
+	{{ custom_class }}
+  "
+>
+  <form
+    action="/cart/add"
+    method="post"
+    data-id="product-actions-{{ product.id }}"
+    enctype="multipart/form-data"
+    class="bg-background relative z-10 m-0   h-full"
+  >
+    <div class="card-product__top relative  overflow-hidden group/card p-3 md:p-4  ">
+		
+      <a
+        class="link aspect-square flex items-center justify-center w-full relative rounded-lg overflow-hidden"
+        href="{{ product.url }}"
+        title="{{ product.title }}"
+      >
+        <div class="card-product__badges absolute top-2 left-2 z-10 flex items-center gap-2">
+            {% include 'product-tag-promo', promo_index: 1 %}
+          {% if boolVideo %}
+            <span class="text-neutral-50">
+              <i class="icon icon-play"></i>
+            </span>
+          {% endif %}
+         
+        </div>
+		{% include 'product-frame' %}
+		  	<picture>
+			<source media="(max-width: 600px)" srcset="{{ product.featured_image.src | img_url:'medium' }}">
+        <img
+          class="card-product__image max-h-full w-auto aspect-square object-contain scale-[var(--image-scale)]  absolute top-1/2 left-1/2   -translate-x-1/2 -translate-y-1/2 transition duration-300 ease-out {% if hover_image %} group-hover/card:opacity-0  {% endif %}"
+          width="480"
+          height="480"
+          decoding="async"
+          loading="lazy"
+          style="--image-scale:{{image_scale  | default : 1}}"
+          src="{{ product.featured_image.src | img_url:'large' }}"
+          alt="{{ product.title }}"
+        >
+		  </picture>
+		  {% assign image_size = product.images | size %}
+        {% if image_size > 1 and settings.hover_change_image_enabled -%}
+		  	<picture>
+			<source media="(max-width: 600px)" srcset="{{ product.images[1].src | img_url:'medium' }}">
+          <img
+            class="card-product__image-2 max-h-full w-auto aspect-square object-contain  opacity-0 scale-[var(--image-scale)]  absolute top-1/2 left-1/2   -translate-x-1/2 -translate-y-1/2 z-[0] group-hover/card:opacity-1 group-hover/card:z-[1] group-hover/card:opacity-100 transition duration-300 ease-out"
+            width="480"
+            height="480"
+            decoding="async"
+            loading="lazy"
+            style="--image-scale:{{image_scale  | default : 1}}"
+            src="{{ product.images[1].src | img_url:'large' }}"
+            alt="{{ product.title }}"
+          >
+		  </picture>
+        {% endif -%}
+    
+      </a>
+
+      <div class="card-product__utilites absolute top-2 right-2 z-10 hidden lg:flex flex-col items-center gap-2 transition duration-300 ease-out">
+  {%if settings.quickview_enabled %}
+		  <portal-opener>
+		  <button
+          aria-label="Xem nhanh"
+          type="button"
+		  data-product="{{product.url}}"
+		  data-portal="#quick-view-product"
+          class="quick-view border bg-background rounded-full  flex items-center justify-center relative active:scale-95 transition-transform "
+        >
+          <i class="icon icon-eye"></i>
+          <span class="absolute opacity-0  bg-black py-1 px-3 whitespace-nowrap transition ease-out duration-300 "
+            >Xem nhanh</span
+          >
+        </button>
+		  </portal-opener>
+	{% endif %}
+	{% if settings.compare_product_enabled %}
+		  <compare-button>
+			<button
+			  aria-label="So sánh"
+			  type="button"
+			  data-product="{{product.id}}"
+			  data-product-type="{{product.type | handleize }}"
+			  data-portal="#quick-view-compare"
+			  class="add-compare border bg-background rounded-full flex items-center justify-center active:scale-95 transition-transform "
+			>
+			  <i class="icon icon-arrow-swap"></i>
+			  <span class="absolute opacity-0  bg-black py-1 px-3 whitespace-nowrap transition ease-out duration-300"
+				>So sánh</span
+			  >
+			</button>
+			</compare-button>
+	{% endif %}
+		  
+      </div>
+		
+
+    </div>
+   <a
+      class="link"
+      href="{{ product.url }}"
+      title="{{ product.title }}"
+    > 
+      <div class="card-product__body flex flex-col gap-2 px-2 pb-2  md:gap-1 md:px-4 md:pb-4 ">
+        <div class="card-product__title text-base font-semibold line-clamp-2 ">
+          {{ product.title }}   
+
+        </div>
+		   {% include 'product-reviews' -%}
+		{% include 'swatch-items' -%}
+        <div class="flex justify-between items-center gap-1 flex-wrap">
+      	{% include 'product-price' -%}
+        {% if sold_out %}
+          <div class="badge badge--soldout  px-2.5 py-2 text-xs  font-semibold whitespace-nowrap  ">
+        Hết hàng
+          </div>
+        {% endif %}
+        {% if settings.add_cart_enabled %}
+          {% unless sold_out == true or contact_item %}
+              <div class="">
+            {%include 'product-cta' -%}
+              </div>
+            {% endunless %}
+            {% endif %}
+          </div>
+		  
+        {% include 'product-tag-promo', promo_index: 2 %}
+        {% include 'product-tag-promo', promo_index: 3 %}
+
+        {% if is_flashsale %}
+         {% include 'stock-countdown' %}
+        {% endif %}
+	
+
+      </div>
+	     </a>
+	  	
+  </form>
+</div>
+</card-product>

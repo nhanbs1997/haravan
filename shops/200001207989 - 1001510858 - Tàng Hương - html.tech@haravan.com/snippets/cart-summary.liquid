@@ -1,0 +1,135 @@
+<div class="cart-summary">
+	<div class=" cart-summary-info p-4 lg:p-6 border-2 border-primary rounded-lg  divide-dashed divide-y divide-neutral-50">
+	  <div class="cart-opener-group   divide-dashed divide-y divide-neutral-50">
+	  {% if settings.cart_vat_enabled -%}
+		<div class="cart-opener-item">
+		  {% include 'vat-form' %}
+		  <portal-opener>
+			<div
+			  class="cart-voucer text-neutral-300 py-2 md:py-4 flex items-center justify-between w-full"
+			  data-portal="#cart-vat-drawer"
+			>
+			  <p class="flex items-center gap-1"><i class="icon icon-receipt"></i>
+				<span class="line-clamp-1" > Xuất hóa đơn </span>
+				</p>
+			  <button type="button" class="flex items-center">
+				{% if cart.attributes[invoice] == 'có' %}{% endif %}Thay đổi
+				<i class="icon icon-carret-right ml-2  flex items-center"></i>
+			  </button>
+			</div>
+		  </portal-opener>
+		</div>
+	  {% endif %}
+	  {% if settings.delivery_enabled -%}
+		<div class="cart-opener-item">
+		  <portal-opener>
+			<div
+			  class="cart-voucer text-neutral-300 py-2 md:py-4 flex items-center justify-between w-full"
+			  data-portal="#cart-delivery-drawer"
+			>
+			  <p class="flex items-center gap-1"><i class="icon icon-time"></i> 
+				  	<span class="line-clamp-1" >{{ settings.delivery_heading }} </span>
+				 </p>
+			  <button type="button" class="flex items-center">
+				Thay đổi
+				<i class="icon icon-carret-right ml-2  flex items-center"></i>
+			  </button>
+			  <input
+				type="hidden"
+				name="attributes[{{settings.delivery_heading}}]"
+				value="{{cart.attributes[settings.delivery_heading]}}"
+			  >
+			  <input
+				type="hidden"
+				name="attributes[{{settings.delivery_date_title}}]"
+				value="{{cart.attributes[settings.delivery_date_title]}}"
+			  >
+			  <input
+				type="hidden"
+				name="attributes[{{settings.delivery_time_title}}]"
+				value="{{cart.attributes[settings.delivery_time_title]}}"
+			  >
+			</div>
+		  </portal-opener>
+		</div>
+	  {% endif -%}
+	  {% if settings.cart_note_enabled -%}
+		<div class="cart-opener-item">
+		  <portal-opener>
+			<div
+			  class="cart-voucer text-neutral-300 py-2 md:py-4 flex items-center justify-between w-full"
+			  data-portal="#cart-note-drawer"
+			>
+			  <p class="flex items-center gap-1">
+				<i class="icon icon-stickynote"></i>
+				  <span class="line-clamp-1" > {{ settings.cart_note_title }} </span>
+				 
+			  </p>
+			  <button type="button" class="flex items-center">
+				Thay đổi
+				<i class="icon icon-carret-right ml-2  flex items-center"></i>
+			  </button>
+			  <textarea class="form-textarea hidden" name="note">{{ cart.note }}</textarea>
+			</div>
+		  </portal-opener>
+		</div>
+	  {% endif -%}
+	  {% if settings.cart_coupon_enabled %}
+		<div class="cart-opener-item">
+		  <portal-opener>
+			<div
+			  class="cart-voucer text-neutral-300 py-2 md:py-4 flex items-center justify-between w-full"
+			  data-portal="#coupon-drawer"
+			>
+			  <p class="flex items-center gap-1"><i class="icon icon-ticket-discount"></i>
+				  	  <span class="line-clamp-1" >  Mã giảm giá </span>
+				 </p>
+			  <button type="button" class="flex items-center">
+				Chọn
+				<i class="icon icon-carret-right ml-2  flex items-center"></i>
+			  </button>
+			</div>
+		  </portal-opener>
+		</div>
+	  {% endif %}
+  </div>
+	  <div class="cart-bottom">
+		<div class="cart-total py-2 md:py-4 flex items-start justify-between w-full">
+		  <p class="font-semibold">TỔNG CỘNG</p>
+		  <div class="text-right">
+			<div class="price">{{ cart.total_price | money }}</div>
+			  {% include 'loading-icon' -%}
+			{% if settings.vat_note_enabled %}
+			  <div class="text-sm text-neutral-200 cart-vat-note">{{ settings.vat_note }}</div>
+			{% endif %}
+		  </div>
+		</div>
+		<div class="cart-submit">
+		  {% assign checkout_disabled = false %}
+  
+		  {% if settings.cart_limit_enabled -%}
+			{% assign cart_limit = settings.cart_limit | times: 1 %}
+			{% assign cart_total = cart.total_price %}
+			{% if cart_total < cart_limit %}
+			  {% assign checkout_disabled = true %}
+			{% endif %}
+		  {% endif %}
+		  <button
+			type="submit"
+			class="btn w-full btn--large font-semibold  bg-primary text-white inline-flex  justify-center items-center gap-2"
+			{% if checkout_disabled %}
+			  disabled
+			{% endif %}
+		  >
+			THANH TOÁN
+			<i class="icon icon-arrow-login"></i>
+		  </button>
+		  {% if checkout_disabled %}
+			<div class="mt-2 text-error cart-limit-note">
+			  {{ settings.cart_limit_message }}
+			</div>
+		  {% endif %}
+		</div>
+	  </div>
+	</div>
+  </div>

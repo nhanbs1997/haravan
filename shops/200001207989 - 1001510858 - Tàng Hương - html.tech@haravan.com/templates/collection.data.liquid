@@ -1,0 +1,17 @@
+{% layout none -%}
+<div class="data">
+{% paginate collection.products by 24 -%}
+	{% if collection.products.size > 0 -%}
+	{% for product in collection.products %}
+		{% include 'product-grid-item' -%}
+			{% include 'product-row-item' -%}
+	{% endfor %}
+	{% else -%}
+	  <div class="bg-background p-4 rouded-sm" >
+		Sản phẩm đang được cập nhật
+		</div>
+	{% endif -%}
+	
+{% endpaginate -%}
+	
+</div>

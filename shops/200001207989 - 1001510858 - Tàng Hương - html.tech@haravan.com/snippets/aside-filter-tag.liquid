@@ -1,0 +1,48 @@
+{% capture list %}{{filter}}_list{%endcapture%}
+{% assign tags = settings[list]| split: ';' %}
+{% if tags.size > 1 %}
+  <aside class="aside-item filter-tag1 md:py-5 py-4" style="order: {{ settings[filter_order] | default: 0 }}">
+    <div class="aside-title">
+      <h2 class="title-head margin-top-0 text-base font-semibold mb-3">
+        {{ settings[filter_title] }}
+      </h2>
+    </div>
+    <div class="aside-content filter-group">
+      <ul class="space-y-3">
+		 
+        {% for tag in tags %}
+		  {% assign tag = tag | strip -%}
+          {% if tag != blank %}
+            <li class="filter-item link filter-item--check-box {%if forloop.index > 5%} overflow-item {%endif %}">
+              <label
+                class="custom-checkbox cursor-pointer flex gap-2 items-center"
+                for="filter-tag1-{{ tag | handleize }}"
+				 
+              >
+                <input
+                  type="checkbox"
+                  class="form-checkbox"
+                  id="filter-tag1-{{ tag | handleize }}"
+                  data-group="PRODUCT_TAG"
+                  data-field="tag.key"
+                  data-value="{{ tag | escape | strip  }}"
+                  value="{{ tag  | escape | strip }}"
+                  data-operator="OR"
+				  name="tag"
+                >
+                {{ tag }}
+              </label>
+            </li>
+          {% endif %}
+          {% if forloop.last and tags.size > 5 -%}
+            <li
+              class="filter-item-toggle link text-secondary font-semibold cursor-pointer  flex items-center pl-[var(--spacing-6-5)] gap-2   "
+            >
+              Xem thêm <i class="icon icon-carret-down"></i>
+            </li>
+          {% endif -%}
+        {% endfor %}
+      </ul>
+    </div>
+  </aside>
+{% endif %}

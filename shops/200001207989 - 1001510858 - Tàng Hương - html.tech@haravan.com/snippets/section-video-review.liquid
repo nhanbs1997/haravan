@@ -1,0 +1,70 @@
+{% include 'section-styles', key: 'section_video' %}
+
+<section class="section section-video-review" style="{{ section_style }}">
+  <div class="container">
+    <div class="heading-bar">
+      <h2 class=" heading font-semibold   w-auto mx-auto text-center">
+        <a class="tab-url" href="{{ settings.section_video_url }}" title="{{ settings.section_video_title }}">
+          {{ settings.section_video_title }}
+        </a>
+      </h2>
+    </div>
+    <div class="video-list  text-foreground">
+      <video-review>
+        <ega-carousel>
+          <script data-type="swiper-params" type="application/json">
+            {
+              "spaceBetween": 8,
+              "centerInsufficientSlides": true,
+              "slidesPerView": 1.7,
+              "breakpoints": {
+                "768": {
+                  "spaceBetween": 16,
+                  "slidesPerView": 3.5
+
+                },
+                "1024": {
+                    "slidesPerView": 8
+                }
+              }
+            }
+          </script>
+          <div class="swiper mt-6">
+            <div class="swiper-wrapper grid grid-flow-col grid-cols-[repeat(auto-fill,172px)]" >
+              {%- for i in (1..8) -%}
+                {%- capture video_enabled -%}section_video_enabled_{{i}}{%- endcapture -%}
+                {%- capture video_img -%}section_video_img_{{i}}.jpg{%- endcapture -%}
+                {%- capture video_title -%}section_video_title_{{i}}{%- endcapture -%}
+                {%- capture video_url -%}section_video_url_{{i}}{%- endcapture -%}
+
+                {%- if settings[video_enabled] and settings[video_url] != blank -%}
+                  <div class="swiper-slide max-w-full w-[172px] mr-3 link group">
+                    <div
+                      class="review-video__item relative cursor-pointer"
+                      data-video-url="{{ settings[video_url] }}"
+                      data-index="{{ forloop.index0 }}"
+                    >
+                      <div class="relative">
+                        <img src="{{ video_img | asset_url }}" class="w-full" loading="lazy" title="{{ settings[video_title] }}" width="172" height="305">
+                        <div class="video-icon absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+                          <i class="icon icon-play text-neutral-200 text-[40px] opacity-50 group-hover:opacity-100 group-hover:text-white"></i>
+                        </div>
+                      </div>
+                      <div class="review-video__title text-center  mt-3  line-clamp-2">
+                        {{ settings[video_title] }}
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+            <div class="swiper-action  ">
+              <div class="swiper-button-prev small-hide "></div>
+              <div class="swiper-button-next small-hide"></div>
+            </div>
+          </div>
+        </ega-carousel>
+      </video-review>
+    </div>
+  </div>
+</section>

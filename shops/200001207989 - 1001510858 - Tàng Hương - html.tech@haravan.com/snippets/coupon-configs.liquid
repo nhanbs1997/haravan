@@ -1,0 +1,16 @@
+{%capture coupon_show-%}coupon_{{i-}}_enabled{%endcapture-%}
+{%assign show = settings[coupon_show] %}
+{%capture coupon_link-%}coupon_{{i-}}_link{%endcapture-%}
+{%capture coupon_text-%}coupon_{{i-}}_text{%endcapture-%}
+{%capture coupon_desc-%}coupon_{{i-}}_desc{%endcapture-%}
+{%capture coupon_info-%}coupon_{{i-}}_info{%endcapture-%}
+{%capture coupon_code-%}coupon_{{i-}}_code{%endcapture-%}
+{%capture coupon_date-%}coupon_{{i-}}_date{%endcapture-%}
+{%capture coupon_time-%}coupon_{{i-}}_time{%endcapture-%}
+{%assign title = settings[coupon_text] -%}
+{%assign desc =  settings[coupon_desc] -%}
+{%assign info =  settings[coupon_info] -%}
+{%assign link =  settings[coupon_link] -%}
+{%assign code =  settings[coupon_code] -%}
+{%assign date =  settings[coupon_date] -%}
+{%assign time =  settings[coupon_time] -%}

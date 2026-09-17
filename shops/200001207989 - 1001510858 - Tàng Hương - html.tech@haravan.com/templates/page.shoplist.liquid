@@ -1,0 +1,234 @@
+{% include 'breadcrumb' %} 
+<link href='{{"shoplist.css" | asset_url}}' rel="stylesheet" type="text/css"/>
+{%assign store_locator_not_found = 'Địa chỉ cửa hàng đang cập nhật'%}
+<div class="ega-store-locator ">
+	<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" class="lds-magnify" 
+		 style="position: absolute; width: 0; height: 0; overflow: hidden;">
+		<defs>
+			<symbol id="ega-ic-location" viewBox="0 0 512 512">
+				<path d="M256,0C153.755,0,70.573,83.182,70.573,185.426c0,126.888,165.939,313.167,173.004,321.035
+						 c6.636,7.391,18.222,7.378,24.846,0c7.065-7.868,173.004-194.147,173.004-321.035C441.425,83.182,358.244,0,256,0z M256,278.719
+						 c-51.442,0-93.292-41.851-93.292-93.293S204.559,92.134,256,92.134s93.291,41.851,93.291,93.293S307.441,278.719,256,278.719z" fill="currentColor"/>
+			</symbol>
+			    <symbol id="ega-icon-spinner" viewBox="0 0 32 32"   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path
+        d="M12 4c0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.209-1.791 4-4
+        4s-4-1.791-4-4zM20.485 7.515c0-2.209 1.791-4 4-4s4 1.791 4 4c0
+        2.209-1.791 4-4 4s-4-1.791-4-4zM26 16c0-1.105 0.895-2 2-2s2 0.895 2 2c0
+        1.105-0.895 2-2 2s-2-0.895-2-2zM22.485 24.485c0-1.105 0.895-2 2-2s2
+        0.895 2 2c0 1.105-0.895 2-2 2s-2-0.895-2-2zM14 28c0 0 0 0 0 0 0-1.105
+        0.895-2 2-2s2 0.895 2 2c0 0 0 0 0 0 0 1.105-0.895 2-2
+        2s-2-0.895-2-2zM5.515 24.485c0 0 0 0 0 0 0-1.105 0.895-2 2-2s2 0.895 2
+        2c0 0 0 0 0 0 0 1.105-0.895 2-2 2s-2-0.895-2-2zM4.515 7.515c0 0 0 0 0 0
+        0-1.657 1.343-3 3-3s3 1.343 3 3c0 0 0 0 0 0 0 1.657-1.343 3-3
+        3s-3-1.343-3-3zM1.75 16c0-1.243 1.007-2.25 2.25-2.25s2.25 1.007 2.25
+        2.25c0 1.243-1.007 2.25-2.25 2.25s-2.25-1.007-2.25-2.25z" />
+    </symbol>
+		</defs>
+	</svg>
+
+	<div class="container ega-section ">
+		<h1 class="title_page text-center text-h4 font-semibold">{{ page.title }}</h1>
+		<div class="loading-icon">
+					<svg class="ega-ic-spinner icon spin">
+									<use xlink:href="#ega-icon-spinner"></use>
+			</svg>
+			</div>
+		<div class="card loading not_found col-md-6 col-12 py-5 mx-auto mt-4 text-center">
+			<h5 class="m-0 text-center text-base font-semibold">
+				{{store_locator_not_found}}
+			</h5>
+		</div>
+		<div class=" ega-row--grid loading">
+			
+		
+			<div class="card" id="store">
+				<div class="card-body">
+					<h5 class="text-base font-semibold">
+						{{ settings.store_locator_form_title -}}
+					</h5>
+					<div class=" form-group">
+						<label class="block">{{settings.store_locator_dist_label}}</label>
+						<div class="ega-custom-select">
+							<select id='city' class="form-select ">
+
+							</select>
+						</div>
+
+					</div>
+
+					<div class="form-group my-3">
+						<label class="block">{{settings.store_locator_stores_label}}</label>
+						<div class="ega-custom-select">
+							<input list="shops" name="shop" id="shop" class="form-select border-neutral-400" placeholder="Tìm nhanh cửa hàng" autocomplete="off">
+							<datalist id="shops" >
+							</datalist>
+						</div>
+					</div>
+					<div class="ega-store-locator__address">
+						<div id="shop-infor" class="space-y-2">
+							</div>
+						
+					</div>
+				</div>
+			</div>
+
+			<div id="map">
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<script>
+
+	let distObj = {};
+	const spreadSheet = '{{settings.store_locator_spreadsheet}}'
+	//const id = spreadSheet.match(/(?<=\/d\/)(.*)(?=\/)/gm);
+	const id = spreadSheet.match(/(d\/)(.*)(?=\/)/gm);
+	const gid = '0';
+	const url = 'https://docs.google.com/spreadsheets/'+id+'/gviz/tq?tqx=out:json&tq&gid='+gid;
+	function renderShop(shop,i){
+		let phone = shop.phone ? `<div class="flex gap-1 mb-1"><i class="icon icon-calling-phone text-neutral-200"></i>
+					<a class="link  font-semibold" href="tel:${shop.phone}">${shop.phone}</a>
+				</div>` : ''
+		return `<div class="shop cursor-pointer p-4 rounded border border-[transparent] hover:border-primary" data-index="${i}">
+				<h6 class="font-semibold mb-1">${shop.name}</h6>
+				<div class="flex gap-1 "><i class="icon icon-location  text-neutral-200"></i>
+					${shop.info}	
+				</div>
+				${phone}
+			</div>
+		`
+	}
+	function renderShopList(currentShopList){
+		$('#shop-infor').html('')
+		currentShopList.map((shop,i)=>{
+			$('#shop-infor').append(renderShop(shop,i))
+		})
+		renderIframe(currentShopList[0])
+		$('.shop').eq(0).addClass('active')
+			
+	}
+	function renderIframe (shop){
+		var newDiv = document.createElement("div"); 
+		newDiv.innerHTML = shop.map.replace('&lt;iframe','<iframe').replace('&lt;/iframe&gt;', '</iframe>')
+		$('#map').html(newDiv)
+	}
+	function getShops(){
+		let currentShopList = []
+		const params = {
+			type: 'GET',
+			url: url,
+			async: false,
+			dataType: "text",
+			success: function(data) { 
+				const from = data.indexOf("{");
+				const to   = data.lastIndexOf("}")+1;  
+				const jsonText = data.slice(from, to);  
+				const parsedText = JSON.parse(jsonText);  
+				const table = parsedText.table
+				if(!table || !table.rows || !table.rows.length){
+					$('.loading-icon').hide()
+					$('.not_found').show()
+					return 
+				}
+				let result =  table.rows.map(item => {return item.c})
+
+				distObj = [...new Set(result.map(item => item[0].v.trim()))].reduce((obj, item) => {
+					obj[item] = []
+					return obj
+				}, {})
+				result.map(item => distObj[item[0].v.trim()].push({
+					name: item[1].v,
+					info: item[2].v,
+					phone: item[3].v,
+					map: item[4].v
+
+				}))
+				currentShopList = Object.keys(distObj).map(dist => {
+					return distObj[dist]
+				})
+				currentShopList = currentShopList.flat()
+
+				let distHTML = '<option value="all">Tất cả</option>'
+				Object.keys(distObj).map(dist => {
+					if(dist && dist !== 'undefined'){
+						distHTML+=`<option value='${dist}'>${dist}</option>`
+					}
+				})
+
+				$('#city').html(distHTML)
+				let shopHTML
+				currentShopList.map((shop)=> {
+					shop.name = $(`<option value='${shop.name}'>${shop.name}</option>`).text()
+					shopHTML += `<option value='${shop.name}'>${shop.name}</option>`
+				})
+				$('#shops').html(shopHTML)
+
+				$('#city').change(function(){
+					
+					let html = ''
+
+					if($(this).val() == 'all'){
+						currentShopList = Object.keys(distObj).map(dist => {
+							return distObj[dist]
+						}).flat()
+						currentShopList.map((shop)=> {
+							shop.name = $(`<option value='${shop.name}'>${shop.name}</option>`).text()
+							html += `<option value='${shop.name}'>${shop.name}</option>`
+						})
+						
+					}else{
+						currentShopList = distObj[$(this).val()]
+
+						currentShopList.map((shop)=> {
+							shop.name = $(`<option value='${shop.name}'>${shop.name}</option>`).text()
+							html += `<option value='${shop.name}'>${shop.name}</option>`
+						})
+						
+					}
+					$('#shops').html(html)
+
+					renderShopList(currentShopList)
+
+				})
+				$('#shop').change(function(){
+					let value = $(this).val().trim().toLowerCase()
+					let shop = currentShopList.filter(shop => {
+						return shop.name.toLowerCase().includes(value) || shop.info.toLowerCase().includes(value)
+					});
+					if( shop){
+						renderShopList(shop)
+					}
+					if(!$('#shop-infor').text().trim() || !shop){
+						$('#shop-infor').html(`<p>{{store_locator_not_found}}</p>`)
+					}
+				})
+				$(document).on('click','.shop',function(){
+					let index = $(this).data('index')
+					$('.shop').removeClass('active')
+					$(this).addClass('active')
+					renderIframe(currentShopList[index])
+					
+				})
+
+				renderShopList(currentShopList)
+					$('.loading').removeClass('loading')
+					$('.loading-icon').hide()
+
+			},
+			error: function(){
+					$('.loading-icon').hide()
+					$('.not_found').show()
+			}
+		};
+		jQuery.ajax(params);
+
+	}
+	getShops()
+
+
+</script>

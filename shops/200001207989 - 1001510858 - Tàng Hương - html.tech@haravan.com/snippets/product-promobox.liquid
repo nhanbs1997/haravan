@@ -1,0 +1,21 @@
+<div class="promo-box-group  border rounded-sm">
+          <div class="promo-box__header flex items-center gap-1 px-5 py-1.5">
+            <i class="icon icon-gift"></i>
+            <div class="promo-box__header-title">{{ settings.product_promotion_heading }}</div>
+          </div>
+	{%- if promotion_content != blank %}
+	   <div class="promo-box__body px-5 bg-background p-3 prose  max-w-full text-base">
+			{{ promotion_content }}
+          </div>
+	{% else -%}
+          <div class="promo-box__body px-5 bg-background p-3 flex lg:grid grid-cols-2 gap-1 flex-col">
+			  {% for i in (1..5) %}
+			  	{% capture promotion_content %}product_promotion_{{i}}_content{% endcapture %}
+					{% if settings[promotion_content] != blank %}
+			  			  <div class="promo-box__body-item">{{ settings[promotion_content] }}</div>
+					{% endif %}
+			  {% endfor %}
+	
+          </div>
+	{% endif -%}
+        </div>

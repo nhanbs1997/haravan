@@ -1,0 +1,109 @@
+{% comment %} Check image logic {% endcomment %}
+{% assign feature_image = product.featured_image %}
+{% if product.selected_or_first_available_variant.image %}
+  {% assign feature_image = product.selected_or_first_available_variant.image %}
+{% endif %}
+{% assign gallery_class = '' -%}
+{% if settings.product_lightbox_enabled and product.images.size > 0 -%}
+  {% assign gallery_class = gallery_class | append: 'swiper-spotlight cursor-zoom-in' -%}
+{% endif %}
+{% include 'product-video' -%}
+{% if product.description contains '<iframe' %}
+  {% assign video_tags = product.description | split: '<iframe' %}
+  {% for string_video in video_tags %}
+    {% if string_video contains 'dropbox' %}
+      {% assign video_src = string_video | split: '</iframe>' | first | split: 'src="' | last | split: '"' | first %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  {% if video_src != blank %}
+    {% assign video = '<video class="object-contain aspect-square scale-[var(--image-scale)] gallery-main-img" autoplay muted controls loop><source src="'| append: video_src| append: '" type="video/mp4">Your browser does not support the video tag.</video>'%}
+    {% capture video_tag %}
+  <div class="swiper-slide aspect-square  flex items-center justify-center relative {{ gallery_class }}" 
+    data-video="{{ video_src }}"
+   data-href="{{ video_src }}">
+    {{ video }}
+   </div>
+  {% endcapture %}
+    {% assign videoDropboxThumb = '<div class="swiper-slide cursor-pointer w-[6.1rem] md:w-[9rem] swiper-slide-thumb-active ">    <div class=" flex items-center justify-center aspect-square "><video class="max-w-full object-contain aspect-square scale-[var(--image-scale)] "><source src="'| append: video_src| append: '" type="video/mp4">Your browser does not support the video tag.</video></div></div>'%}
+  {% endif %}
+{% endif %}
+<div class="product-gallery md:px-3 pt-3 md:pt-6">
+  <media-gallery>
+    <div id="GalleryMain-product-1" class="swiper gallery-main relative">
+      <div class="card-product__badges absolute top-2 left-2 z-10 flex items-center gap-2">
+        {% include 'product-tag-promo', promo_index: 1 %}
+      </div>
+      <div class="swiper-wrapper">
+        {{ video_tag }}
+
+        {{ videoImg }}
+
+        {% if product.images.size > 0 -%}
+          {% for image in product.images %}
+            {% if image.src != videoThumb %}
+              <div
+                class="swiper-slide aspect-square  flex items-center justify-center relative {{ gallery_class }}"
+                data-src="{{ image.src }}"
+                data-href="{{ image.src }}"
+              >
+                {% include 'product-frame' %}
+                <img
+                  class="object-contain aspect-square rounded-lg scale-[var(--image-scale)] gallery-main-img"
+                  src="{{ image.src | img_url:'grande' }}"
+                  alt="{{ product.title }}"
+                  {% unless forloop.first %}
+                    loading="lazy"
+                  {% endunless %}
+                >
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% else -%}
+          <div
+            class="swiper-slide aspect-square  flex items-center justify-center relative {{ gallery_class }}"
+            data-src="{{ product.featured_image.src }}"
+            data-href="{{ product.featured_image.src }}"
+          >
+            {% include 'product-frame' %}
+            <img
+              class="object-contain aspect-square rounded-lg scale-[var(--image-scale)] gallery-main-img"
+              src="{{ product.featured_image.src | img_url:'grande' }}"
+              alt="{{ product.title }}"
+            >
+          </div>
+        {% endif -%}
+      </div>
+      {% if product.images.size > 1 -%}
+        <div class="swiper-button-prev -translate-y-1/2"></div>
+        <div class="swiper-button-next  -translate-y-1/2"></div>
+      {% endif -%}
+    </div>
+    {% if product.images.size > 1 and settings.product_thumb_enabled %}
+      <div id="GalleryThumbnails-product-1" class="swiper overflow-hidde text-center tec gallery-thumbnails mt-3 ">
+        <div class="swiper-wrapper  gap-3 grid-flow-col h-auto auto-cols-[calc(100%/6-15px)] grid-cols-[repeat(auto-fit,calc(100%/6-15px))]  ">
+          {% include 'product-video', is_thumb: true -%}
+          {{ videoDropboxThumb }}
+          {{ videoItem }}
+
+          {% for image in product.images %}
+            {% if image.src != videoThumb %}
+              <div class="swiper-slide {%unless video_id or video_src %}{%if forloop.first%} swiper-slide-thumb-active {%endif%} {% endunless%}  cursor-pointer w-[6.1rem] md:w-[9rem]">
+                <div class=" flex items-center justify-center aspect-square ">
+                  <img
+                    class="object-contain w-auto"
+                    src="{{ image.src | img_url:'small' }}"
+                    width="64"
+                    height="64"
+                    loading="lazy"
+                    alt="{{product.title}}"
+                  >
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </media-gallery>
+</div>

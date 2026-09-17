@@ -1,0 +1,60 @@
+<section class="section section-main-cart" style="--section-margin:40px 0; --section-margin-mb:20px 0">
+	<div class="container">
+		
+	<cart-form class="{% if cart.item_count == 0 %} is-empty {%endif%}">
+		<form class="cart-form" action="/cart" method="post">
+		<div class="cart  flex lg:bg-background flex-wrap lg:px-6 rounded-sm gap-5  md:gap--[var(--cart-gap)] justify-between items-start relative">
+      <div class="cart-left lg:rounded-0 rounded-sm  px-3 lg:px-0 bg-background flex-[0_0_100%] lg:flex-[0_0_var(--cart-left-column)] py-6">
+     
+		  <h1 class="text-h4 mb-5 font-semibold">Giỏ hàng</h1>
+  		{%if settings.rewards_enabled -%}
+		  	{% include 'rewards-bar' -%}
+		{% endif -%}
+        <div class="cart-table">
+          <div class="cart-header hidden  lg:grid md:grid-cols-[var(--cart-template)] gap-[var(--table-gap)] border-t border-b border-neutral-50 font-semibold text-center">
+		      <div class="py-3">Sản phẩm</div>
+			  <div class="py-3">Đơn giá</div>
+            <div class="py-3">Số lượng</div>
+            <div class="py-3">Tạm tính</div>
+          </div>
+          <div class="cart-items divide-y divide-neutral-50">
+            {% for item in cart.items -%}
+			  	{% include 'cart-item' %}
+			{% endfor -%}
+          </div>
+        </div>
+      </div>
+		<div class="md:hidden w-full">
+			<related-products class="cart-releated-products" data-query="{{query_string | strip }}" data-product-type="row" data-limit="{{settings.cart_collection_limit}}">
+				<div class=" py-3 px-5  text-center mb-2">
+						<h2 class="heading font-semibold text-secondary">
+								{{ settings.cart_collection_title }}
+						</h2>
+					</div>
+				<ega-carousel>
+					<div class="swiper">
+						<div class="swiper-wrapper product-list ">
+							
+						</div>
+					</div>
+				</ega-carousel>
+			</related-products>
+
+		</div>
+       <div class="cart-right lg:rounded-0 rounded-sm   px-3 lg:px-0   bg-background flex-[0_0_100%] md:flex-[0_0_var(--cart-right-column)]  lg:sticky top-[var(--header-height)] py-6">
+            {% include 'cart-summary' %}
+		   {% unless template contains 'data'%}
+			   {% if settings.cart_policies_enabled %}
+				{% include 'cart-policies' %}
+			   {% endif %}
+		   {% endunless %}
+        </div>
+    </div>
+		</form>
+		{% include 'cart-empty' %}
+	</cart-form>
+	 
+	</div>
+	
+	
+</section>

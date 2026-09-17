@@ -1,0 +1,46 @@
+{% layout none -%}
+{% if search.results.size > 0 -%}
+{% for product in search.results limit: 5-%}
+{% include 'product-item-logic' -%}
+<a href="{{product.url}}" class="link font-semibold block" title="{{product.title}}">
+
+  <div class="product-search-item flex items-start gap-3">
+	  <div class="w-[4.4rem] h-[4.4rem] aspect-square  flex-shrink-0 flex-grow-0 flex items-center justify-center">
+		<img
+          class="aspect-square object-contain w-auto"
+          width="44"
+          height="44"
+          decoding="async"
+          style="--image-scale: {{image_scale}}"
+          src="{{ product.featured_image.src | img_url:'small' }}"
+          alt="{{ product.title }}"
+        >
+	  </div>
+    <div>
+      {{ product.title }}
+      <div class="price-box flex justify-between items-center">
+        <div class="flex flex-wrap gap-2 ">
+          {% if contact_item -%}
+          <span class="price-contact"> Liên hệ </span>
+          {% else -%}
+          {% if on_sale -%}
+          <span class="price">{{ awe-price | money }}</span>
+          {% if awe-compare-price > awe-price -%}
+          <span class="compare-price line-through">{{ awe-compare-price | money }}</span>
+          {% endif -%}
+          {% else -%}
+          <span class="price">{{ awe-price | money }}</span>
+          {% endif -%}
+          {% endif -%}
+
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</a>
+
+{% endfor -%}
+{% else %}
+Không tìm thấy kết quả với từ khóa "[query]"
+{% endif -%}

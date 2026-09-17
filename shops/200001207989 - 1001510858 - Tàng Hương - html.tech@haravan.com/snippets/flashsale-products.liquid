@@ -1,0 +1,55 @@
+<ega-carousel>
+			  	 <script data-type="swiper-params" type="application/json">
+				{
+				  "speed": 1000,
+				  "spaceBetween": 1,
+				  "slidesPerView": 1.5,
+				  "breakpoints": {
+					"768": {
+					  "slidesPerView": 2.5
+					},
+					"1024": {
+					  "slidesPerView": 3.5
+					},
+					"1200": {
+					  "slidesPerView": 5
+					}
+				  }
+				}
+      </script>
+	   {% assign is_empty_coll = false %}
+	   {% if coll == blank or collections[coll] == blank or collections[coll].products_count == 0%}
+		 {% assign is_empty_coll = true -%}
+	  {% endif -%}
+		{% assign swiper_class = '' -%}
+		{% if settings.flashsale_mobile_layout == 'two-column' -%}
+			 {% assign swiper_class = ' md:px-container  px-0' -%}
+				{% assign mobile_layout = 'grid grid-cols-2  grid-flow-row' -%}
+				{%else %}
+				{% assign swiper_class = '  swiper-mobile' -%}
+
+				{% assign mobile_layout = ' grid grid-cols-[repeat(2,65.5%)] grid-flow-col lg:grid-flow-row-dense auto-cols-[65%]' -%}
+		{% endif -%}
+		{% if is_empty_coll -%}
+			  {% assign swiper_class = '' -%} 
+			   {% assign mobile_layout = ''-%}
+		{% endif -%} 	  
+		<div class="{{swiper_class}} container px-0 overflow-hidden rounded-sm ">
+		 <div class=" swiper-wrapper gap-[1px] grid md:grid-cols-[repeat(4,38%)] md:auto-cols-[38%] lg:auto-cols-[20%] lg:grid-cols-5   {{mobile_layout}}  h-inherit  {% if is_empty_coll %} mx-auto px-container {% endif %}">
+          {% if is_empty_coll %}
+            <div class="bg-transparent text-white p-4 swiper-slide mx-gutter">Sản phẩm đang được cập nhật...</div>
+          {% endif %}
+		  {% assign quantityType =  settings.flashsale_quantity | default: 'tag' -%}
+          {% for product in collections[coll].products limit: settings.flashsale_coll_limit %}
+            <div class="relative h-inherit flashsale__item swiper-slide flex-shrink-0 flex-grow-0" >
+              {% include 'product-grid-item', product: product, is_flashsale: true, custom_class: 'h-full' %}
+            </div>
+          {% endfor %}
+        </div>
+				{% comment %} {% unless is_empty_coll %}
+				<div class="swiper-button-prev  hidden"></div>
+				<div class="swiper-button-next hidden"></div>
+				{% endunless -%} {% endcomment %}
+			  </div>
+
+			  </ega-carousel>

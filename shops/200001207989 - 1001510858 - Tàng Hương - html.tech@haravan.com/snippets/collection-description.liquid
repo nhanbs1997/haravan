@@ -1,0 +1,15 @@
+{% if collection.description != blank and settings.collection__desc_enabled %}
+<div class="bg-background p-3 mt-4 mb-4">
+	<expandable-content max-height="{{settings.collection_desc_crop_limit}}">
+  <div class="expandable-content mb-3">
+    <div
+      class="prose text-base w-full max-w-full content" >
+     
+        {{ collection.description | replace: '<img', '<img loading="lazy"' | replae: '<iframe', '<iframe loading="lazy"' }}
+      
+    </div>
+  </div>
+</expandable-content>
+
+</div>
+  {% endif %}

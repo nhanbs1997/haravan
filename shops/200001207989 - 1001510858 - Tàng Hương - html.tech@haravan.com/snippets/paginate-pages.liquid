@@ -1,0 +1,37 @@
+{% assign query = '?' %}
+
+{%if paginate.parts.size > 1 %}
+<nav class="pages w-full mt-6 mb-6 text-center">
+	<ul class="pagination inline-flex mx-auto items-center  gap-2 md:gap-4">
+		{%assign pageTotalMin = 7 -%}
+		{% if paginate.previous %}
+		<li class="page-item hidden md:block"><a class="page-link w-[3.6rem] h-[3.6rem] flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform" data-page="{{ paginate.current_page | minus: 1 }}"
+href="{{ paginate.previous.url }}"><i class="icon icon-carret-left" aria-hidden="true"></i>
+			</a></li>
+		{% else %}  
+		<li class="page-item hidden md:block disabled"><a class="page-link w-[3.6rem] h-[3.6rem] border-transparent border flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform" href="#"><i class="icon icon-carret-left"></i></a></li>
+		{% endif %}
+		{% for part in paginate.parts %}
+		
+		
+		{% if part.is_link %}
+			<li class="page-item"><a class="page-link w-[3.6rem] h-[3.6rem] border-transparent border flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform"  data-page="{{part.title}}" href="{{part.url}}">{{ part.title }}</a></li>
+		{% else %}
+		{% if part.title == paginate.current_page %}
+			<li class="active page-item disabled"><a class="page-link text-secondary border border-secondary w-[3.6rem] h-[3.6rem] flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform" href="javascript:;">{{ part.title }}</a></li>
+		{% else %}
+			<li class="page-item"><a class="page-link w-[3.6rem] h-[3.6rem] border-transparent border flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform" href="javascript:;">{{ part.title }}</a></li>
+		{% endif %}
+		{% endif %}
+		{% endfor %}
+
+		{% if paginate.next %}
+		<li class="page-item hidden md:block"><a class="page-link w-[3.6rem] h-[3.6rem] flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform"  data-page="{{ paginate.current_page | plus: 1 }}"
+										  href="{{ paginate.next.url }}"><i class="icon icon-carret-right" aria-hidden="true"></i>
+			</a></li>
+		{% else %}
+		<li class="page-item hidden md:block disabled"><a class="page-link w-[3.6rem] h-[3.6rem] flex items-center justify-center rounded bg-background hover:bg-neutral-50 active:scale-95 transition-transform" href="#"><i class="icon icon-carret-right"></i></a></li>
+		{% endif %}
+	</ul>
+</nav>
+{% endif %}

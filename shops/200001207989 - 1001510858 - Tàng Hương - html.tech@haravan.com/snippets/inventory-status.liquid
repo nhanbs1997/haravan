@@ -1,0 +1,51 @@
+{%- if product.selected_or_first_available_variant.inventory_management != blank -%}
+  {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
+    {%- assign inventory_threshold =  settings.inventory_threshold | times: 1 -%}
+    {%- if product.selected_or_first_available_variant.inventory_quantity <= inventory_threshold -%}
+      {% capture inventory_status %}
+	    <span class="font-semibold  text-warning flex items-center gap-1 ">
+    	  {%- if settings.inventory_count_enabled -%}
+       		 còn  {{product.selected_or_first_available_variant.inventory_quantity  }} sản phẩm
+    	  {%- else -%}
+    		  Sắp hết hàng
+    	  {%- endif -%}
+    	  </span>
+   	   {%- endcapture -%}
+    {%- else -%}
+    {% capture inventory_status %}
+		<span class="font-semibold text-success flex items-center gap-1">
+			<i class="icon icon-tick"></i>
+			  {%- if settings.inventory_count_enabled -%}
+				còn  {{ product.selected_or_first_available_variant.inventory_quantity  }} sản phẩm
+			  {%- else -%}
+				Sẵn trong kho
+			  {%- endif -%}
+		</span>
+    {%- endcapture -%}
+{%- endif -%}
+
+  {%- else -%}
+      {% capture inventory_status %}
+    {%- if product.selected_or_first_available_variant.inventory_policy == 'continue' -%}
+		<span class="font-semibold text-success flex items-center gap-1">
+		<i class="icon icon-tick"></i>
+		  Sẵn trong kho
+		</span>
+		{%- else -%}
+		<span class="font-semibold text-error">
+		Hết hàng
+		</span>
+		{%- endif -%}
+
+    {%- endcapture -%}
+
+  {%- endif -%}
+  {%- endif -%}
+{% if inventory_status %}
+<div class="inventory-status flex items-center gap-3">
+	<div class="w-[88px] text-neutral-400">
+    Trạng thái
+    </div>
+    {{ inventory_status }}
+</div>
+{%-endif -%}

@@ -1,0 +1,29 @@
+<script>
+	let elementDesktop = $("#desktop-lang")[0]; 
+	let elementTablet = $("#desktop-lang")[0]; 
+	let elementMobile = $("#desktop-lang")[0]; 
+
+    function detectHTML (element) {
+    var arrTags = [];
+
+    function buildTagsArray(el) {
+        if (el && el.tagName !== "BODY") {
+            arrTags.push({ tag: ">" + el.tagName, index: $(el).index() });
+            buildTagsArray(el.parentElement);
+        }
+    }
+
+    buildTagsArray(element);
+
+    var selector = "";
+    for (var i = arrTags.length - 1; i >= 0; i--) {
+        var index = arrTags[i].index;
+        selector += selector ? "-" + index : index;
+    }
+
+    return selector;
+};
+    var position =  detectHTML(elementDesktop); 
+	var positionTablet = detectHTML(elementTablet)
+	var positionSmartphone = detectHTML(elementMobile)
+</script>

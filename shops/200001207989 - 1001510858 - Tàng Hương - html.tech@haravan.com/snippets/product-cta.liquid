@@ -1,0 +1,19 @@
+{%if product.variants.size > 1 -%} 
+		{% assign cta_lable = 'Tùy chọn' -%}
+	{% else %}
+	{% assign cta_lable = 'Thêm vào giỏ' -%}
+
+	
+  {% endif %}
+<input type="hidden" name="id" value="{{ product.variants[0].id }}" />
+<div 
+	  class="btn bg-relative addtocart-btn font-semibold add_to_cart  flex justify-center items-center gap-3"
+	  data-product="{{product.url}}"
+	  data-portal="#quick-view-product"
+	  data-action="{%if product.variants.size > 1 %}{{ settings.add_cart_variants}}{%else-%}addtocart{% endif -%}"
+>
+  {% include 'loading-icon' %}
+<span class="flex items-center justify-center">
+	<i class="icon icon-cart text-[2rem]" ></i>
+  </span>
+</div>

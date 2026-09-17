@@ -1,0 +1,43 @@
+<div class="card-article grid grid-rows-[auto_1fr] bg-background rounded-sm overflow-hidden group">
+  <div class="card-article__image aspect-video flex items-center justify-center overflow-hidden">
+    <a href="{{ article.url }}" title="{{ article.title }}">
+			{% if article.image != null %}
+		<img
+        loading="lazy"
+        class="aspect-video object-contain group-hover:scale-105 transition-transform duration-300"
+        src="{{ article.image.src | img_url: 'large' }}"  alt="{{ article.title }}"
+	    width="331" height="186"
+      >
+		{%else%}
+			<img loading="lazy"   class="aspect-video object-cover group-hover:scale-105 transition-transform duration-300" 
+				 src="https://placehold.co/331x186/png" width="331" height="186"
+				 alt="{{ article.title }}" title="{{ article.title }}"/>
+		{% endif %}
+      
+    </a>
+  </div>
+  <div class="card-article__body h-full p-3 lg:p-4 flex flex-col gap-2-5 md:gap-4">
+    <div>
+      <p class="card-article__category font-semibold text-xs text-secondary mb-1">{{ article.blog.name }}</p>
+      <p class="card-article__title font-semibold">
+        <a href="{{ article.url }}" title="{{ article.title }}"
+          class="link line-clamp-2 break-word"
+        > {{ article.title }} </a>
+      </p>
+    </div>
+    <div class="card-article__desc break-word hidden md:line-clamp-3 text-neutral-200">
+   {{ article.content | strip_html | truncatewords: 25 }}
+    </div> 
+    <div class="flex gap-2 justify-between items-center pt-2  mt-auto md:pt-3 border-t border-neutral-50 flex-wrap">
+      <div class="cart-article__date  text-xs md:text-sm text-neutral-200 flex gap-1  items-center whitespace-nowrap">
+        <i class="icon icon-calendar"></i>
+       {{ article.published_at  | date:'%d/%m/%Y'  }}	  
+      </div>
+		{% if article.content != blank -%}
+      <a href="{{ article.url }}" title="Xem chi tiết" class="btn font-semibold  text-secondary border border-secondary hover:bg-secondary hover:text-background whitespace-nowrap md:w-auto w-full p-2 md:p-3 md:px-6 text-xs md:text-sm "
+        >Xem chi tiết
+      </a>
+		{% endif %}
+    </div>
+  </div>
+</div>

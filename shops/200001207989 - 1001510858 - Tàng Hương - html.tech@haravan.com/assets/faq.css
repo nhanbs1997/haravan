@@ -1,0 +1,293 @@
+.ega-dropdown {
+    height: 0;
+    overflow: hidden;
+    padding: 0px 30px;
+    transition: all .3s ease-out;
+    font-size: 16px;
+    line-height: 1.4
+}
+
+.ega-dropdown.show {
+    height: auto
+}
+
+.ega-faq {
+    background-color: #fff;
+    color: #6e6e6e;
+    float: none;
+    display: table-cell;
+    width: 1%
+}
+
+.ega-faq .ega-heading {
+    color: #252525;
+    font-size: 40px;
+    font-weight: bold
+}
+
+.ega-faq .ega-heading--border {
+    position: relative
+}
+
+.ega-faq .ega-heading--border:before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    top: -10px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background: var(--link-color)
+}
+
+.ega-faq .ega-heading--border:after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    top: -10px;
+    left: 50px;
+    width: 10px;
+    height: 3px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background: var(--link-color)
+}
+
+.ega-faq .ega-heading--center:before {
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+.ega-faq .ega-heading--center:after {
+    top: -10px;
+    left: calc(50% + 30px)
+}
+
+@media (max-width: 576px) {
+    .ega-faq .ega-heading {
+        font-size: 32px
+    }
+}
+
+
+.ega-faq__header .ega-heading {
+    font-weight: bold;
+    color: #252525
+}
+
+.ega-faq .ega-form__control,
+.ega-faq .ega-btn {
+    font-size: inherit
+}
+
+.ega-faq .ega-form__control {
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    background: #f3f5fe;
+    color: #6e6e6e;
+    border: none;
+    width: 100%
+}
+
+.ega-faq .ega-form__control:not(textarea) {
+    height: calc(1.5em + 1.75em + 2px)
+}
+
+.ega-faq .ega-btn {
+    background: var(--link-color);
+    color: #fff;
+    border: none;
+    font-weight: bold
+}
+
+.ega-faq-icon {
+    display: block;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    color: var(--link-color)
+}
+
+.ega-faq-icon:before,
+.ega-faq-icon:after {
+    content: '';
+    display: block;
+    position: absolute;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border-style: solid;
+    transition: all .3s ease-out
+}
+
+.ega-faq-icon:before {
+    left: 0;
+    right: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border-width: 2px 0 0
+}
+
+.ega-faq-icon:after {
+    left: 50%;
+    bottom: 0;
+    top: 0;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    border-width: 0 0 0 2px
+}
+
+.ega-faq .ega-questions__item [data-ega-role="dropdown"] {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    padding: 10px 30px;
+	padding-left: 0px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 0;
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 400;
+    position: relative
+}
+
+.ega-faq .ega-questions__item [data-ega-role="dropdown"]:hover {
+    color: var(--link-color)
+}
+
+.ega-faq .ega-questions__item [data-ega-role="dropdown"].show {
+    color: var(--link-color)
+}
+
+.ega-faq .ega-questions__item [data-ega-role="dropdown"].show .ega-faq-icon {
+    color: #6e6e6e
+}
+
+.ega-faq .ega-questions__item [data-ega-role="dropdown"].show .ega-faq-icon:after {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg)
+}
+
+@media (max-width: 576px) {
+    .ega-faq .ega-questions__item [data-ega-role="dropdown"] {
+        padding: 10px 15px
+    }
+}
+
+.ega-faq .ega-questions__item .ega-dropdown {
+    border-color: #eee
+}
+
+.ega-faq .ega-questions__item .ega-dropdown.show {
+    padding-top: 16px;
+    padding-right: 30px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    border-bottom: 1px solid #eee
+}
+
+.ega-faq__form {
+    background: #fff;
+    padding: 20px 40px;
+    box-shadow: 5px 7px 30px rgba(72, 73, 121, 0.15)
+}
+
+.ega-faq__form .ega-btn {
+    width: 100%;
+    padding: 10px 20px
+}
+
+.ega-faq__form h2 {
+    font-size: 21px
+}
+
+.ega-faq__form-success {
+    color: #03d626
+}
+
+@media (max-width: 576px) {
+    .ega-faq__form {
+        padding: 20px 15px
+    }
+}
+
+.ega-faq-section {
+    padding-top: 40px;
+    padding-bottom: 70px
+}
+
+.ega-faq-section__wrapper {
+    padding-bottom: 20px
+}
+
+.ega-faq-infor {
+    padding: 45px 50px 40px 50px;
+    border: none;
+    text-align: center
+}
+
+.ega-faq-infor__icon {
+    box-shadow: 7px 5px 30px 0 rgba(72, 73, 121, 0.15);
+    background: #fff;
+    width: 70px;
+    height: 70px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 23px;
+    border-radius: 4px
+}
+
+.ega-faq-infor__icon img {
+    width: 38px
+}
+
+.ega-faq-infor__button {
+    font-weight: bold;
+    color: var(--link-color);
+    position: relative;
+    display: inline-block;
+    margin-top: 15px
+}
+
+.ega-faq-infor__button:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    background: var(--link-color);
+    width: 20px;
+    height: 4px;
+    transition: all .3s ease-out;
+    transform-origin: 0 center;
+    transform: scaleX(0);
+    border-radius: 4px
+}
+
+.ega-faq-infor__button:hover {
+    color:var(--link-color)
+}
+
+.ega-faq-infor__button:hover:after {
+    transform: scaleX(1)
+}

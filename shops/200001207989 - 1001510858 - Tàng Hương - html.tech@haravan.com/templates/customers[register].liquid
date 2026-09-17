@@ -1,0 +1,62 @@
+{% include 'breadcrumb' %}
+<section class="section section-main-login">
+  <div class="container">
+    <div class="grid grid-cols-1  lg:grid-cols-custom justify-center gap-gutter" style="--grid-col: 50%">
+      <div class="bg-background rounded-lg px-3 py-4 md:p-6 mb-6">
+       	<div class=' text-center'>
+				<h1 class="text-h4 font-semibold mb-2">Đăng ký tài khoản</h1>
+				<span class="or">Bạn đã có tài khoản ? Đăng nhập
+					<a href="/account/login" style="text-decoration: underline;" class="btn-link-style  btn-style margin-right-0">tại đây</a></span>
+		</div>
+		  	<div class="page-login py-3 ">
+						<div id="login">
+							<h2 class="text-center text-base font-semibold">
+								Thông tin cá nhân
+							</h2>
+							{% form "create_customer" %}
+							{% for field in form.errors %}
+							 <div class="alert bg-relative rounded-sm text-error my-2 p-2">
+								{{ form.errors | default_errors }}
+							</div>
+							{% endfor %}
+							<div class="form-signup clearfix space-y-4">
+							 
+										<fieldset class="form-group">
+											<label class="label block mb-1 ">Họ <span class="required">*</span></label>
+											<input type="text" class="form-input" value="" name="customer[last_name]" id="lastName"  placeholder="Họ" required >
+										</fieldset>
+									 
+										<fieldset class="form-group">
+											<label class="label block mb-1">Tên <span class="required">*</span></label>
+											<input type="text" class="form-input" value="" name="customer[first_name]" id="firstName"  placeholder="Tên" required >
+										</fieldset>
+							 
+										<fieldset class="form-group">	
+											<label class="label block mb-1">Số điện thoại <span class="required">*</span></label>
+											<input placeholder="Số điện thoại" type="text" pattern="\d+" id="Phone" class="form-input" name="customer[phone]" required>
+										</fieldset>
+ 
+							  
+										<fieldset class="form-group">
+											<label class="label block mb-1">Email <span class="required">*</span></label>
+											<input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" class="form-input" value="" name="customer[email]" id="email"  placeholder="Email" required="">
+										</fieldset>
+							 
+										<fieldset class="form-group">
+											<label class="label block mb-1">Mật khẩu <span class="required">*</span> </label>
+											<input type="password" class="form-input" value="" name="customer[password]" id="password" placeholder="Mật khẩu" required >
+										</fieldset>
+							 
+								 <div class="mb-3 mt-5 text-center pt-3">
+									<button type="submit" value="Đăng ký" class="btn bg-primary text-white w-full font-semibold max-w-[32rem]  btn_register ">Đăng ký</button>
+
+								</div>
+							</div>
+							{% endform %}
+              {% include 'social-login' -%}
+						</div>
+					</div>
+      </div>
+    </div>
+  </div>
+</section>

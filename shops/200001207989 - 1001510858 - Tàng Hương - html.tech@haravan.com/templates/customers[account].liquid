@@ -1,0 +1,124 @@
+{% include 'breadcrumb' %} 
+<div class="op_address"></div>
+<section class="section section-main-account" style="--section-margin: 0px 0px 40px; --section-margin-mb: 0px 0px 20px">
+	<div class="container">
+		<div class="">
+			<div  class="grid grid-cols-1  lg:grid-cols-custom justify-center gap-4" style="--grid-col: 2fr 9fr">
+				<div>
+					{% include 'account-sidebar', active: 'account' %}
+				</div>
+				<div class="bg-background rounded-lg px-3 py-4 md:p-6 mb-6">
+				 <h1 class="text-h4 font-semibold mb-2">Thông tin tài khoản</h1>
+                <div class="form-signup name-account m992 space-y-2">
+                    <p><strong>Họ tên:</strong>  
+                    {% if customer.default_address.first_name == empty and customer.default_address.last_name == empty %}
+    							{{ customer.last_name }} {{ customer.first_name }} 
+    							{% else %}
+    							{{ customer.default_address.last_name }} {{ customer.default_address.first_name }}
+    							{% endif %}
+                    </p>
+                    <p> <strong>Email:</strong> {{ customer.email }}</p>
+                    {% if customer.default_address.phone != null and customer.default_address.phone != "" %}
+                    <p> <strong>Điện thoại:</strong> {{ customer.default_address.phone }} </p>
+                    {%endif%}
+                    {% if customer.default_address.company != null and customer.default_address.company != "" %}
+                    <p><strong>Công ty:</strong> {{ customer.default_address.company }}</p>
+                    {%endif%}
+                    {%if customer.default_address%}
+                    <p><strong>Địa chỉ :</strong> {% if customer.default_address.address1 != null and customer.default_address.address1 != "" %}{{ customer.default_address.address1 }},{%endif%} {% if customer.default_address.district != null and customer.default_address.district != "" %}{{ customer.default_address.district }},{%endif%} {% if customer.default_address.city != null and customer.default_address.city != "" %}{{ customer.default_address.city }},{%endif%} {% if customer.default_address.country != null and customer.default_address.country != "" %}{{ customer.default_address.country }}{%endif%}</p>
+                    {%endif%}
+                </div>
+           <h2 class="text-h4 font-semibold mb-2 mt-6">Đơn hàng của bạn</h2>
+                <div class="col-xs-12 col-sm-12 col-lg-12 no-padding">
+                    <div class="my-account">
+                        <div class="dashboard">
+
+                            <div class="recent-orders">
+                                <div class="table-responsive-block tab-all " style="overflow-x:auto;">
+                                    <table class="table table-cart table-order w-full" id="my-orders-table">
+                                        <thead class="thead-default">
+                                            <tr>
+                                                <th>Đơn hàng</th>
+                                                <th>Ngày</th>
+                                                <th>Địa chỉ</th>
+                                                <th>Giá trị đơn hàng</th>
+                                                <th>TT thanh toán</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {% if customer.orders.size > 0 %}
+                                            {% for order in customer.orders %}
+                                            <tr class="first odd">
+												<td><a href="{{order.customer_url}}" class="link font-semibold">{{ order.name }} </a></td>
+                                                <td>{{ order.created_at | date: '%d/%m/%Y' }}</td>
+                                                <td>
+                                                    {% if order.shipping_address %}
+                                                    {% if order.shipping_address.address1 != null and order.shipping_address.address1 != "" %}
+                                                    {{ order.shipping_address.address1 }},
+                                                    {%endif%}
+                                                    {% if order.shipping_address.district != null and order.shipping_address.district != "" %}
+                                                    {{ order.shipping_address.district }}{{ order.shipping_address.company }},{%endif%} {% if order.shipping_address.city != null and order.shipping_address.city != "" %}{{ order.shipping_address.street }} {{ order.shipping_address.city }},{%endif%} {{ order.shipping_address.country }} <!-- {{ order.shipping_address.province }} -->
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <span class="price">{{ order.total_price | money }}</span>
+                                                </td>
+                                                <td>
+                                              {% if order.cancelled %}
+                                                    <span style="color: red;">Đã hủy</span>
+                                              {% else %}
+                                                     <span>
+                                                      <strong>{{ order.financial_status  | replace : 'pending', 'Chờ xử lý' | replace : 'paid', 'Đã hoàn tất'}}</strong>
+                                                    </span>
+                                                  {%endif%}
+                                                </td>
+												{%comment-%}
+                                                <td>
+                                                    {% case order.status %}
+                                                    {% when 'cancelled' %}
+                                                    <span style="color: red;">Đã hủy</span>
+                                                    {% else %}
+                                                    {% case order.fulfillment_status %}
+                                                    {% when 'fulfilled' %}
+                                                    <span class="span_{{ order.fulfillment_status }}">
+                                                        <strong>Chuyển toàn bộ</strong>
+                                                    </span>
+                                                    {% when 'partial' %}
+                                                    <span class="span_{{ order.fulfillment_status }}">
+                                                        <strong>Chuyển một phần</strong>
+                                                    </span>
+                                                    {% else %}
+                                                    <span class="span_{{ order.fulfillment_status }}">Chưa chuyển</span>
+                                                    {% endcase %}
+                                                    {% endcase %}
+                                                </td>
+												{%endcomment-%}
+                                            </tr>
+                                            {% endfor %}
+                                            {% else %}
+                                            <tr>
+                                                <td colspan="6">
+                                                    <p class="py-3">Không có đơn hàng nào.</p>
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                        </tbody>
+
+
+                                    </table>
+
+                                </div>
+
+                                <div class="paginate-pages pull-right page-account text-right col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                  
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

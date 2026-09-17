@@ -1,0 +1,46 @@
+<facet-drawer data-collection="{{collection.id | default: 0}}">
+<div  class="collection-filter h-full hidden {%if has_sidebar %}
+xl:block {% endif %}">
+	<div class="facet-overlay absolute z-0 w-full h-full inset-x-0 xl:hidden bg-[rgba(0,0,0,0.5)]" data-toggle-facet >	
+	</div>
+	<div class="facet-inner overflow-auto bg-background  h-full  xl:h-auto px-5 md:rounded-sm max-w-[32rem] z-10 relative ml-auto">
+	
+	 <form class="facet-form">
+	
+      <div class="filter-container flex flex-col rounded-sm bg-neutral-50 ">
+	 	<div class="facet-header xl:hidden flex justify-center items-center md:py-5 py-4 bg-background relative">
+		 	<button type="button" data-toggle-facet class="absolute left-0 btn border border-neutral-50 rounded-full p-1 inline-flex items-center justify-center w-[3.6rem] h-[3.6rem]">
+				<i class="icon icon-arrow-left"></i>
+			 </button>
+			   <div >
+					Lọc
+					<span 
+					  class="filter-count w-5 h-5 md:w-6 md:h-6 inline-flex items-center justify-center bg-[#EE1926] text-white rounded-full  ml-1">0</span>
+				</div>
+		 </div>
+			  {% for filter in filter_list%}
+		  	{% if settings[filter] %}
+		  		  {% capture filter_title %}{{ filter }}_title{% endcapture %}
+		  		  {% capture filter_order %}{{ filter }}_order{% endcapture %}
+				  {% case filter %}
+		  			 {% when 'filter_vendor' %}
+		  			  {% include 'aside-filter-vendor' %}
+		  			 {% when 'filter_type' %}
+		  			  {% include 'aside-filter-type' %}
+		  			 {% when 'filter_price' %}
+		  			  {% include 'aside-filter-price' %}
+		  			 {% when 'filter_tag1' %}
+		  			  {% include 'aside-filter-tag1' %}
+		  			 {% else %}
+		  			   {% include 'aside-filter-tag' %}
+		  		  {% endcase %}
+		  	{% endif %}
+		 {% endfor %}
+		
+        </div>
+		</form>
+
+      </div>
+		
+    </div>
+</facet-drawer>

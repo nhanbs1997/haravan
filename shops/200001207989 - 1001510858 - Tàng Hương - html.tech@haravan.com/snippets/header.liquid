@@ -1,0 +1,99 @@
+<header class="header flex items-center justify-center  top-0 py-4-5 h-max ">
+  <div class="container">
+    <div class="header-wrapper items-center flex justify-between gap-3 lg:grid lg:gap-2
+      
+      {% unless linklists[settings.main_menu].links.size > 0 %}
+        xl:grid-cols-[auto_1fr] lg:grid-cols-[3fr_auto_3fr] 
+        {% else %}
+      lg:grid-cols-[3fr_auto_3fr] 
+      {% endunless %}
+      flex-wrap ">
+     <div class=" menu-opener {% unless linklists[settings.main_menu].links.size > 0 %} xl:hidden {% endunless %} ">
+        <portal-opener>
+          <div
+          
+            data-portal="#menu-drawer"
+            class="hamburger-button cursor-pointer link group inline-flex  items-center  justify-center gap-3  active:scale-95 transition-all duration-150"
+            id="toggle-menu-mobile"
+            
+          >
+            <div class="w-[3.6rem] h-[3.6rem] gap-[3px] inline-flex flex-col justify-center items-center rounded-full border border-[rgba(0,0,0,0.1)]">
+            {% for i in (1..3) %}
+              <span class="h-[2px] w-4  bg-neutral-200 block  group-hover:bg-[var(--color-link)]"></span>
+            {% endfor %}
+            </div>
+            <span class="font-semibold hidden xl:block">{{ settings.main_menu_title }}</span>
+          </div>
+        </portal-opener>
+      </div>
+      <div class="flex gap-2 items-center transition-all duration-150 {% if linklists[settings.main_menu].links.size > 0 %}mx-auto {% endif %}">
+        {% comment %} <div class=" menu-opener">
+          <portal-opener>
+            <button
+              type="button"
+              data-portal="#menu-drawer"
+              class="hamburger-button inline-flex  items-center  justify-center flex-col gap-1  w-[3.6rem] h-[3.6rem]  h rounded-full hover:bg-neutral-50 active:scale-95 transition-all duration-150"
+              id="toggle-menu-mobile"
+              aria-label="menu-button"
+            >
+              {% for i in (1..3) %}
+                <span class="h-[2px] w-5 bg-neutral-200"></span>
+              {% endfor %}
+            </button>
+          </portal-opener>
+        </div> {% endcomment %}
+        <a href="/" class="logo-wrapper mx-auto" title="{{shop.name}}">
+          {% if settings.logo_use_image %}
+            <img
+              src="{{ 'logo.png' | asset_url }}"
+              alt="logo {{ shop.name }}"
+              width="{{settings.logo_width}}"
+              height="{{settings.logo_height}}"
+            >
+          {% else %}
+            <span class="text-h4 text-primary font-bold">{{ shop.name }}</span>
+          {% endif %}
+        </a>
+      </div>
+
+      <div class="header-icon-wrapper flex items-center justify-end  gap-2 xl:gap-5.5 ">
+		  {%if settings.wishlist_enabled %}
+           <a href="{{ settings.wishlist_page_url}}" id="onAppWishList_btn_page" class="relative header-icon-group hidden md:flex gap-2 items-center account-group  hover:bg-neutral-50 active:scale-95 transition-all duration-150 px-1 py-1 rounded-sm ">
+          <div class="header-icon w-[3.6rem] h-[3.6rem] p-1 rounded-full flex items-center justify-center border border-neutral-50">
+            <i class="fa fa-heart">
+	    <p  id="onAppWishList_numberLike" ></p>
+          	</i>
+          </div>
+          </a>
+        {% endif -%}
+        <portal-opener class=" search-opener ">
+          <a
+            data-portal="#search-drawer"
+            href="/search"
+            title="tìm kiếm"
+            class=" header-icon-group flex gap-2 items-center cart-group  hover:bg-neutral-50 active:scale-95 transition-all duration-150  md:px-2 pl-2 py-1 rounded-sm "
+          >
+            <div class="header-icon w-[3.6rem] h-[3.6rem]  p-2 rounded-full flex items-center justify-center relative border border-neutral-50 ">
+              <i class="icon icon-search text-5"></i>
+            </div>
+          </a>
+        </portal-opener>
+        {% if shop.customer_accounts_enabled %}
+          <a
+            href="{% if customer%}/account{%else%}/account/login{%endif%}"
+            title="{% if customer%}{{customer.name}}{%else%}Đăng nhập{%endif%}"
+            class="header-icon-group hidden md:flex gap-2 items-center cart-group  hover:bg-neutral-50 active:scale-95 transition-all duration-150  md:px-2 pl-2 py-1 rounded-sm "
+          >
+            <div class="header-icon w-[3.6rem] h-[3.6rem]  p-2 rounded-full flex items-center justify-center relative border border-neutral-50 ">
+              <i class="icon icon-user"></i>
+            </div>
+          </a>
+        {% endif %}
+        <portal-opener>
+          {% include 'mini-cart' %}
+        </portal-opener>
+      </div>
+    </div>
+  </div>
+</header>
+{% include 'nav' -%}

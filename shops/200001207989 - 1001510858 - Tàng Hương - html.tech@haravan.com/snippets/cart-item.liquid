@@ -1,0 +1,57 @@
+<div class="cart-item grid lg:grid-cols-[var(--cart-template)] gap-[var(--table-gap)] relative"  data-line-index="{{forloop.index}}">
+  <div class="lg:px-3 lg:py-4 flex gap-3 cart-product-col">
+   <a class="cart-item__image flex items-center rounded-sm border-neutral-50 border overflow-hidden" 
+    href="{{  item.product.url }}"
+     title="{{ item.product.title }}">
+     <img
+       src="{{ item.image | img_url: 'small' }}"
+       class="aspect-square object-contain" alt="{{ item.product.title }}">
+   </a>
+   <div>
+     <p class="cart-item__name font-semibold  "><a href="{{ item.product.url }}"
+     title="{{ item.product.title }}" class="link">{{ item.product.title }}</a></p>
+   {%if item.variant.title != 'Default Title' %}
+     <span class="cart-item__variant text-neutral-200">{{ item.variant.title  }}</span>
+   {% endif %}
+   </div>
+ </div>
+    <div class="lg:px-3 lg:py-4 hidden lg:block cart-unit-price-col">
+   <div class="price">{{ item.variant.price | money}}</div>
+   {% if item.variant.price <  item.variant.compare_at_price %}
+   <div class="compare-price line-through">{{ item.variant.compare_at_price | money}}</div>
+   {% endif %}
+ </div>
+ <div class="lg:px-3 lg:py-4 flex  lg:justify-center cart-quantity-col">
+    <quantity-input>
+       <div class="custom-number-input cart-item-quantity flex flex-row h-10 border border-neutral-50 relative bg-background rounded-sm overflow-hidden h-[3.8rem] w-[13rem]">
+           <button type="button" name="minus" class="h-full w-20  cursor-pointer outline-non p-2">
+             <i class="m-auto icon icon-minus"></i>
+           </button>
+           <input
+             type="number"
+             class="focus:outline-none form-quantity w-full focus:ring-transparent text-base  font-semibold text-md  md:text-basecursor-default flex items-center outline-none bg-transparent border-none text-center"
+             name="Lines"
+        data-line-index="{{forloop.index}}"
+             value="{{item.quantity}}"
+             min="1"
+         {%if  product.selected_or_first_available_variant != blank and inventory_management  product.selected_or_first_available_variant.inventory_policy == 'deny'  %}
+       max="{{ product.selected_or_first_available_variant.inventory_quantity}}"
+      {%endif%}
+           >
+           <button type="button" name="plus" class=" h-full w-20 rounded-r cursor-pointer p-2">
+             <i class="m-auto icon icon-plus"></i>
+           </button>
+       </div>
+     </quantity-input>
+ </div>
+  <div class="lg:px-3 lg:py-4   lg:text-right cart-total-col">
+  {% include 'loading-icon'  -%}
+   <div class="price"> {{ item.line_price | money }}</div>
+ 
+ </div>
+ <div class="lg:px-3 lg:py-4 text-right cart-remove-col">
+   <remove-cart-button data-line-index="{{forloop.index}}">
+     <i class="icon icon-cross text-neutral-200 cursor-pointer"></i>
+   </remove-cart-button>
+ </div>
+</div>

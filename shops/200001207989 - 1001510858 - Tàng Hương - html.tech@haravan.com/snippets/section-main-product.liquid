@@ -1,0 +1,154 @@
+{% include 'product-item-logic' %}
+{% assign promotion_divider = settings.product_promotion_heading | handleize -%}
+{% assign specifications_divider = settings.product_specifications_title | handleize -%}
+{% assign content = '' -%}
+{% assign promotion = '' -%}
+{% assign specifications = '' -%}
+{% assign promotion_content = '' -%}
+{% assign specifications_content = '' -%}
+{% assign content = product.description -%}
+{% assign specifications_title = '<h6>' | append: settings.product_specifications_title | append: '</h6>' -%}
+
+{% assign product_content_arr = product.description | split: '<h6' -%}
+
+{% for content_item in product_content_arr -%}
+  {% if forloop.index > 0 -%}
+    {% if content_item contains '</h6>' -%}
+      {% assign content_item_title = content_item | split: '</h6>' | first | strip_html -%}
+      {% assign content_item_title_handleize = content_item_title | handleize -%}
+      {% if content_item_title_handleize contains promotion_divider -%}
+        {% assign promotion_content = content_item | split: '</h6>' | last -%}
+        {% assign promotion_title = content_item_title -%}
+      {% endif -%}
+      {% if content_item_title_handleize contains specifications_divider -%}
+        {% assign specifications_inside = content_item| split: '</h6>'| last | split: '<table>'| last| split: '</table>'| first-%}
+        {% assign specifications = specifications_inside | prepend: '<table>' | append: '</table>' -%}
+        {% assign specifications_content = '<h6'| append: content_item_title | append: '</h6>'| append: specifications -%}
+      {% endif -%}
+    {% endif -%}
+  {% endif -%}
+{% endfor -%}
+{% if promotion_content != '' -%}
+  {% assign content = content | remove: promotion_content -%}
+  {% assign content = content | remove: promotion_title -%}
+{% endif -%}
+{% if specifications_content != blank -%}
+  {% assign content = content | split: specifications_title | first -%}
+{% endif -%}
+{% assign content = content | remove: '<h6></h6>'| remove: '<h6</h6>' -%}
+
+<div class="main-product pb-5 bg-background">
+  <div class="container bg-background lg:bg-transparent">
+    <product-form id="main-product-{{product.id}}">
+      <div class="product-detail  lg:gap-x-[6.4rem] gap-x-6 grid grid-cols-1 auto-rows-min lg:grid-cols-2  relative">
+        <div
+          class="product-gallery-wrapper bg-background min-h-0 min-w-0 relative lg:rounded-lg "
+          style="height:fit-content"
+        >
+          <div class="">
+            {% include 'product-gallery' %}
+            {% unless template contains 'quickview' %}
+              {% if settings.product_share_enabled %}
+                <div class="mb-3">
+                {% include 'share-buttons' %}
+                </div>
+              {% endif %}
+            {% endunless %}
+          </div>
+        </div>
+
+        <div class="product-form-wrapper lg:row-start-1 lg:row-end-5   lg:col-start-2">
+          <div
+            class="
+              bg-background  lg:rounded-l  md:py-6 lg:p-6 relative
+              {% unless template contains 'quickview' %}
+              lg:sticky lg:top-[calc(var(--header-height)+1.2rem)]
+              {% endunless %}
+            "
+          >
+            {% include 'product-detail' %}
+            {% unless template contains 'quickview' %}
+              {% if settings.product_policies_enabled %}
+                {% include 'product-policies' %}
+              {% endif %}
+            {% endunless -%}
+          </div>
+        </div>
+      </div>
+    </product-form>
+  </div>
+</div>
+
+{% unless template contains 'quickview' %}
+  <div class="">
+    <div class="product-description relative">
+      <tabs-component>
+        <div class="tab-nav container tab-nav--style3 hiddden  hidden lg:flex justify-center items-center ">
+          <button class="tab-btn btn rounded-0 active font-semibold " aria-controls="product-content">
+            Đặc điểm nổi bật
+          </button>
+          {% if specifications_content != blank %}
+            <button class="tab-btn btn  rounded-0 font-semibold " aria-controls="product-specifications">
+              {{ settings.product_specifications_title }}
+            </button>
+          {% endif %}
+          {% if settings.product_review_tab_enabled and settings.reviews_enabled %}
+            {% assign product_review_tab_enabled = true -%}
+            <button class="tab-btn btn  rounded-0 font-semibold " aria-controls="product-review">
+              {{ settings.product_review_heading }}
+            </button>
+          {% endif %}
+        </div>
+
+        <div class="tab-content  bg-white py-5" id="product-content">
+          <div class="container lg:w-4/6 mx-auto">
+            <h3 class="text-base text-center block lg:hidden border-b border-neutral-50 pb-3 font-semibold mb-5">
+              {{ settings.product_desc_title }}
+            </h3>
+            <expandable-content max-height="{{settings.product_desc_crop_limit}}px">
+              <div class="expandable-content  mb-3">
+                <div
+                  class="prose text-base w-full max-w-full content"
+                  id="ega-uti-editable-content"
+                  data-platform="haravan"
+                  data-id="{{ product.id }}"
+                >
+                  {% if content != blank %}
+                    {{ content | replace: '<img', '<img loading="lazy"' | replae: '<iframe', '<iframe loading="lazy"' }}
+                  {% else %}
+                    Nội dung đang được cập nhật
+                  {% endif %}
+                </div>
+              </div>
+            </expandable-content>
+          </div>
+        </div>
+        {% if specifications_content != blank %}
+          <div class="tab-content hidden py-5 bg-white" id="product-specifications">
+            <div class="container lg:w-4/6 mx-auto">
+              <h3 class="text-base text-center block lg:hidden border-b border-neutral-50 pb-3 font-semibold mb-5">
+                {{ settings.product_specifications_title }}
+              </h3>
+              <div class="product-specifications">
+                <expandable-content max-height="{{settings.product_specifications_crop_limit}}px">
+                  <div class="expandable-content  mb-3">
+                    <div class="content">
+                      {{ specifications_content | split: specifications_title | last }}
+                    </div>
+                  </div>
+                </expandable-content>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+        {% if product_review_tab_enabled -%}
+          <div class="tab-content hidden py-5 bg-white" id="product-review">
+            <div class="container lg:w-4/6 mx-auto">
+            {% include 'product-review-tab' -%}
+            </div>
+          </div>
+        {% endif -%}
+      </tabs-component>
+    </div>
+  </div>
+{% endunless %}

@@ -1,0 +1,211 @@
+{% include 'breadcrumb' -%} 
+{{'compare-product.css' | asset_url | stylesheet_tag}}
+
+<section class="section main-page " style="--section-margin: 0px 0px 40px; --section-margin-mb: 0px 0px 20px">
+	<div class="container py-2">
+		<div class='content-page bg-background rounded-lg p-3 md:p-6 mb-6'>
+			<div class='compare-product__table item_product_main'>
+				<div class='compare-product__main'>
+	  			  <div class='compare-product__box'></div>
+				</div>
+				{% if settings.use_compare_product_overview -%}
+				<strong class='compare-product__heading'>{{ settings.compare_product_type_heading }}</strong>
+				<div class='compare-product__overview'>
+  				  <div class='compare-product__box'></div>
+				</div>
+				{% endif -%}
+				{% if settings.use_compare_product_variants -%}
+  				  <strong class='compare-product__heading'>{{ settings.compare_product_variants_heading }}</strong>
+				<div class='compare-product__variants'>
+  				  <div class='compare-product__box'></div>
+				</div>
+				{% endif -%}
+				{% if settings.use_compare_product_specifications -%}
+  				  <strong class='compare-product__heading'>{{ settings.product_specifications_title }}</strong>
+
+				<div class='compare-product__specifications'>
+				  <div class='compare-product__box'></div>
+				</div>
+				{% endif -%}
+				{% if settings.use_compare_product_content -%}
+					<strong class='compare-product__heading'>{{ settings.compare_product_content_heading }}</strong>
+
+					<div class='compare-product__content'>
+					  <div class='compare-product__box'></div>
+					</div>
+					{% endif -%}
+			</div>
+		</div>
+	</div>
+</section>
+
+<script type="text/custom-template" data-template='product-main'>
+  <div class='compare-product__item'>
+      <span class='compare-product__remove js-compare-product-remove' data-id='${id}' title='Xóa sản phẩm'>✕</span>
+		<div class='image_thumb pos-relative embed-responsive mb-3'>
+		  <img src='${image}' alt='${title}'/>
+	    </div>
+		<a href='${url}' title='${title}'>
+
+		<h3 class='product-name text-base font-semibold '>${title}</h3>
+		<div class="price-box">
+		  <span class="price">${priceFormat}</span>
+		  <span class="compare-price line-through">${priceCompareFormat}</span>
+	</a>
+
+	</div>
+	</div>
+</script>
+
+{% if settings.use_compare_product_overview -%}
+<script type="text/custom-template" data-template='product-overview'>
+  <div class='compare-product__item'>
+    <ul>
+	  {% if settings.use_compare_product_type -%}
+	  <li>{{ settings.compare_product_type_heading }} ${type}</li>
+	  {% endif -%}
+	  {% if settings.use_compare_product_vendor -%}
+	  <li>{{ settings.compare_product_vendor_heading }} ${vendor}</li>
+	  {% endif -%}
+	</ul>
+	</div>
+</script>
+{% endif -%}
+
+{% if settings.use_compare_product_variants -%}
+<script type="text/custom-template" data-template='product-variants'>
+  <div class='compare-product__item'>
+    ${variantsHTML}
+	</div>
+</script>
+{% endif -%}
+
+{% if settings.use_compare_product_specifications -%}
+<script type="text/custom-template" data-template='product-specifications'>
+  <div class='compare-product__item'>
+    ${specificationsHTML}
+	</div>
+</script>
+{% endif -%}
+ 
+
+{% if settings.use_compare_product_content -%}
+	<script type="text/custom-template" data-template='product-content'>
+	  <div class='compare-product__item prose text-base w-full max-w-full content'>
+		${content}
+		</div>
+	</script>
+	{% endif -%}
+	
+<script>
+	var compareStorageKey = window.themeConfigs.compareProStorage
+	function render(props) {
+		return function(tok, i) {
+			return (i % 2) ? props[tok] : tok;
+		};
+	}
+	document.addEventListener('DOMContentLoaded', function () {
+		const compareList = JSON.parse(localStorage.getItem(compareStorageKey)) || [];
+		if (compareList && compareList.length) {
+			let data = [];
+			const renderProducts = function () {
+				if (data && data.length) {
+						const productMain = $("script[data-template='product-main']").text().split(/\$\{(.+?)\}/g);
+					    $('.compare-product__main .compare-product__box').html('');
+						$('.compare-product__main .compare-product__box').append(data.map(function (item) {
+							return productMain.map(render(item)).join('')
+						}))
+
+						{% if settings.use_compare_product_overview -%}
+						const productOverview = $("script[data-template='product-overview']").text().split(/\$\{(.+?)\}/g);
+					    $('.compare-product__overview .compare-product__box').html('');
+						$('.compare-product__overview .compare-product__box').append(data.map(function (item) {
+							return productOverview.map(render(item)).join('')
+						}))
+						{% endif -%}
+
+						{% if settings.use_compare_product_variants -%}
+						const productVariants = $("script[data-template='product-variants']").text().split(/\$\{(.+?)\}/g);
+						let hasVariants = false;
+					    $('.compare-product__variants .compare-product__box').html('');
+						$('.compare-product__variants .compare-product__box').append(data.map(function (item) {
+							let variantsHTML = '';
+							if (item.variants.length > 1 || (item.variants.length === 1 && item.variants[0][0].indexOf('Default Title'))) {
+								hasVariants = true;
+								variantsHTML = item.variants.map(function (variant) {
+									return `<li>${variant.join(' / ')}</li>`
+								})
+								variantsHTML = '<ul>' + variantsHTML.join('') + '</ul>';
+							}
+							item.variantsHTML = variantsHTML;
+							return productVariants.map(render(item)).join('')
+						}))
+						if (!hasVariants) {
+							$('.compare-product__variants').hide();
+						}
+						{% endif -%}
+						
+                        const specificationsTitle = 'h6:contains("{{settings.product_specifications_title}}")';
+						const promotionTitle = 'h6:contains("{{settings.product_promotion_heading}}")';
+						{% if settings.use_compare_product_specifications -%}
+						const productSpecifications = $("script[data-template='product-specifications']").text().split(/\$\{(.+?)\}/g);
+						let hasSpecifications = false;
+					    $('.compare-product__specifications .compare-product__box').html('');
+						$('.compare-product__specifications .compare-product__box').append(data.map(function (item) {
+							const $content = $('<div>' + item.content + '</div>');
+							let specificationsHTML = '';
+							if ($content.find(specificationsTitle).length) {
+								hasSpecifications = true;
+								specificationsHTML = $content.find(`${specificationsTitle} + table`);
+								specificationsHTML = '<table>' + specificationsHTML.html() + '</table>';
+							}
+							item.specificationsHTML = specificationsHTML
+							return productSpecifications.map(render(item)).join('');
+						}))
+						if (!hasSpecifications) {
+							$('.compare-product__specifications').hide();
+						}
+						{% endif %}
+						{% if settings.use_compare_product_content -%}
+							const productContent = $("script[data-template='product-content']").text().split(/\$\{(.+?)\}/g);
+							$('.compare-product__content .compare-product__box').html('');
+							$('.compare-product__content .compare-product__box').append(data.map(function (item) {
+								return productContent.map(render(item)).join('')
+							}))
+							$(`.compare-product__content ${specificationsTitle}, .compare-product__content ${specificationsTitle} + *, .compare-product__content ${promotionTitle}, .compare-product__content ${promotionTitle} + *`).hide();
+							{% endif -%}
+				      
+					} else {
+					$('.content-page').text('Chưa có sản phẩm')
+				}
+				$('.compare-product__header-count').text(data.length)
+			}
+			const searchTerm = '(id:product=' + compareList.join(')||(id:product=') + ')';
+			$.ajax({
+				type: 'GET',
+				dataType: 'json',
+				url: `/search?q=filter=${searchTerm}&view=compare`,
+				success: function (resp) {
+					data = resp;
+					renderProducts();
+				}
+			})
+			
+			$(document).on('click', '.js-compare-product-remove', function(e) {
+				const id = $(this).data('id');
+				const newCompareList = JSON.parse(localStorage.getItem(compareStorageKey)) || []
+				console.log((newCompareList.indexOf(id) > -1), id, newCompareList)
+				if (newCompareList.indexOf(id.toString()) > -1) {
+					newCompareList.splice(newCompareList.indexOf(id), 1);
+					localStorage.setItem(compareStorageKey, JSON.stringify(newCompareList));
+					data = data.filter(function (item) {
+						return +item.id !== +id
+					})
+					renderProducts();
+				}
+			})
+		} else {
+			$('.content-page').text('Chưa có sản phẩm')
+		}
+	})
+</script>

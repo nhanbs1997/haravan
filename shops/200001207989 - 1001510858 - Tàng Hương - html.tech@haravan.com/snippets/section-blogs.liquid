@@ -1,0 +1,65 @@
+{% include 'section-styles', key: 'section_blogs' %}
+
+<section class="section section-blogs" style="{{ section_style }}">
+     <tabs-section>
+   {% for i in (1..2) %}
+			{% capture tab_enabled %}section_blogs_tab_{{i}}_enabled{% endcapture %}
+			{% capture tab_url %}section_blogs_tab_{{i}}_url{% endcapture %}
+				{% if settings[tab_enabled] %}
+						{% assign main_blog =  tab_url %}
+		 				{% break -%}
+				{% endif %}
+          {% endfor %}
+	<div class="container">
+		<div class="heading-bar">
+			<h2 class=" heading font-semibold   w-auto mx-auto text-center">
+          <a class="tab-url" href="/{{ settings[main_blog] }}" title="{{ settings.section_blogs_title }}"> {{ settings.section_blogs_title }} </a>
+        </h2>
+      
+	</div>
+		<ul class="heading-tabs mt-3 mb-4 md:mt-[var(--spacing-7)]  md:mb-6 w-fit max-w-full overflow-auto list-none flex  md:gap-3 gap-2 font-semibold   mx-auto whitespace-nowrap"
+			
+		>
+	  {% for i in (1..2) %}
+		{% capture tab_enabled %}section_blogs_tab_{{i}}_enabled{% endcapture %}
+		{% capture tab_title %}section_blogs_tab_{{i}}_title{% endcapture %}
+		{% capture tab_id%}section_blogs_tab_{{i}}{%endcapture%}
+			{% if settings[tab_enabled] %}
+				<li   aria-controls="{{tab_id}}" class="tab-btn cursor-pointer heading-tab px-5 py-2 bg-white rounded-pill text-secondary font-semibold  hover:text-foreground {%if forloop.first%} active  {%endif%} inline-flex items-center md:gap-3 gap-2">
+				{{ settings[tab_title] }}
+				</li>
+			{% endif %}
+	  {% endfor %}
+	</ul>
+		{% for i in (1..2) %}
+		{% capture tab_enabled %}section_blogs_tab_{{i}}_enabled{% endcapture %}
+		{% capture tab_url %}section_blogs_tab_{{i}}_url{% endcapture %}
+		{% capture tab_id%}section_blogs_tab_{{i}}{%endcapture%}
+		{% assign blog =  settings[tab_url] %}
+		<div  class="tab-content {% unless forloop.first%}hidden{% endunless %}" id="{{tab_id}}" data-url="/{{blog}}" >
+			
+			{%if settings[tab_enabled] %}
+				<div class="article-list grid 
+							{% if blogs[blog].articles.size > 0 %}
+							grid-cols-2 md:grid-cols-2 lg:grid-cols-4
+							{% endif %}
+							gap-2 mt-2 ">
+					{% if blog == blank or blogs[blog] == blank or  blogs[blog].articles.size == 0 %}
+					<div class="bg-background p-4">
+						 Bài viết đang được cập nhật...
+					</div>
+					{% endif %}
+					{% for article in blogs[blog].articles limit: settings.section_blogs_limit %}
+					  {% include 'article-card' %}
+					{% endfor %}
+				</div>
+      	{% if blogs[blog].articles.size > 0 %}
+			      <a href="{{blogs[blog].url}}" title="xem thêm" class="tab-url link text-primary tab-viewmore btn bg-background items-center gap-1 flex  w-full rounded-sm justify-center mt-2 font-semibold py-2.5 border-0 ">Xem tất cả <i class="icon icon-carret-right"></i> </a>
+				{% endif %}
+			{%endif %}
+		</div>
+    	
+		{% endfor %}
+    </div>
+</tabs-section>
+</section>

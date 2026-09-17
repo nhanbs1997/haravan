@@ -1,0 +1,23 @@
+{% assign padding = key | append: '_padding' -%}
+{% assign margin = key | append: '_margin'-%}
+{% assign padding_mb = key | append: '_padding_mb' -%}
+{% assign margin_mb = key | append: '_margin_mb' -%}
+
+{% assign section_padding = settings[padding] | default: '0'-%}
+{% assign section_margin = settings[margin]  | default: '0'-%}
+{% assign section_padding_mb = settings[padding_mb] | default: '0'-%}
+{% assign section_margin_mb = settings[margin_mb]  | default: '0'-%}
+{% if  settings[margin] -%}
+	{% assign section_margin = settings[margin] | replace: ' ', ' 0 '-%}
+{% endif-%}
+{% if  settings[margin_mb] -%}
+	{% assign section_margin_mb = settings[margin_mb]| replace: ' ', ' 0 '-%}
+{% endif-%}
+{% capture style-%}
+--section-padding: {{ section_padding }};
+--section-margin: {{ section_margin }};
+--section-padding-mb: {{ section_padding_mb }};
+--section-margin-mb: {{ section_margin_mb }};
+{{ custom_style -}}
+{% endcapture -%}
+{% assign section_style =  style | strip_newlines-%}

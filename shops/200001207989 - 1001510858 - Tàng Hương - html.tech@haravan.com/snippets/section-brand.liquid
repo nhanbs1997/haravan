@@ -1,0 +1,28 @@
+{% include 'section-styles', key: 'brand' %}
+{% assign quantity = settings.brand_items_display %}
+<section class="section section-brand" style="{{ section_style }}">
+  <div class="container">
+    <div class="overflow-hidden  bg-background rounded-sm ">
+    <div class=" overflow-auto flex flex-nowrap lg:grid lg:grid-cols-custom" style="--grid-col:repeat({{quantity}},1fr)">
+        {% for i in (1..16) %}
+			{% capture brand_enabled -%}brand_{{i}}_enabled{%endcapture -%}
+			{% capture brand_link -%}brand_{{i}}_link{%endcapture -%}
+			{% capture brand_image -%}brand_{{i}}.png{%endcapture -%}
+			{% capture brand_alt -%}brand_{{i}}_alt{%endcapture -%}
+			{% if settings[brand_enabled] %}
+            <div class="brand-item w-auto lg:w-full flex-shrink-0 flex-grow-0 overflow-hidden">
+                <a href="{{ settings[brand_link] }}" title="{{ settings[brand_alt] }}" >
+                    <img class="object-contain transition-transform hover:scale-105 duration-300 ease-out" 
+						 width="179"
+						 height="80"
+						 loading="lazy"
+						 src="{{ brand_image | asset_url }}" 
+						 alt="{{ settings[brand_alt] }}">
+                </a>
+            </div>
+			{% endif %}
+        {% endfor %}
+    </div>
+ </div>
+</div>
+</section>

@@ -1,0 +1,37 @@
+{% capture hot_product_custom_style %}
+	--color-hot-product-bg: {{ settings.hot_product_bg }}
+{% endcapture %}
+
+{% include 'section-styles', key: 'hot_product', custom_style: hot_product_custom_style  %}
+
+<section class="section section-hot-product" style="{{section_style}}">
+    <div class="container">
+        <div class="hot-product-list grid  gap-gutter">
+			
+			{% if settings.hot_product_handle == blank  and collections[settings.hot_product_coll] -%}
+				{% assign hot_product = collections[settings.hot_product_coll].products | first-%}
+			{%else %}
+						{% assign hot_product = all_products[settings.hot_product_handle]  -%}
+
+			{% endif -%}
+			{%if  hot_product != blank %}
+                <div class="hot-product px-3 py-4 pt-4 pb-0 xl:pt-[var(--spacing-9)] ">
+                {% include 'product-grid-item', product:hot_product %}
+                </div>
+			{% endif %}
+			{% assign count = 0 -%}
+            {% for pro in collections[settings.hot_product_coll].products   %}
+				{% if hot_product.id != pro.id -%}
+                <div  class="hot-product-item" >
+                {% include 'product-grid-item',product: pro %}
+                </div>
+						{% assign count = count | plus: 1-%}
+				{% if count == 8 -%}
+						{%break-%}
+				{% endif %}
+			{% endif -%}
+              {% endfor %}
+              
+        </div>
+    </div>
+</section>

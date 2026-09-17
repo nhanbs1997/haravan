@@ -1,0 +1,106 @@
+/* toc */
+
+.toc-title {
+	cursor: pointer;
+    font-size: 18px;
+	display :none;
+}
+.toc-title.active{
+		display :flex;
+		gap: 10px;
+	align-items: center
+}
+.toc-title .icon{
+ 	transition: transform .3s ease-out;
+}
+.toc-title.open .icon{
+	transform: rotate(90deg);
+}
+
+li.toc-list-item + li.toc-list-item {
+  margin-top: 8px;
+}
+
+.toc-list-item ol {
+  margin-top: 8px;
+}
+
+.toc-link::before{
+	content: none!important 
+}
+a.toc-link{
+	color: var(--color-link)!important;
+	font-weight: normal!important
+}
+.toc-list li::before{
+		color: var(--color-link)!important;
+
+}
+a.toc-link:hover{
+	text-decoration: underline
+}
+
+ol.toc-list  {
+  counter-reset: section;                
+  list-style-type: none;
+}
+
+.toc-list  li::before {
+  counter-increment: section;           
+  content: counters(section, ".") " "; 
+}
+
+.fixed-toc{
+    position: fixed;
+    left: 0;
+    top: 50%!important;
+    transform: translateY(-50%);
+	z-index: 1000;
+}
+
+.fixed-toc button.btn.toc-toggle-btn {
+	color: var(--color-primary);
+    border: 1px solid;
+    padding: 5px;
+    width: 32px;
+    height: 32px;
+    line-height: 1;
+    margin-left: 10px;
+	background: white;
+	opacity: 0.6
+}
+.fixed-toc button.btn.toc-toggle-btn:hover{
+	opacity: 1
+
+}
+.fixed-toc .fixed-toc-content{
+	width: 300px;
+    background: #ffff;
+    position: absolute;
+    top: 0!important;
+    z-index: 9999;
+    padding: 15px;
+    border: 1px solid;
+    border-radius: 5px;
+    font-size: 14px;
+    max-height: 75vh;
+    overflow-y: auto;
+    transform: translateY(-50%) translateX(-100%);
+	transition: transform .3s ease-out;
+}
+.fixed-toc.open .fixed-toc-content {
+	    transform: translateY(-50%);
+}
+
+.toc-wrapper:has(.js-toc:empty){
+	display: none
+}  
+
+
+
+.ega-cate-shortcode{
+	background-color: var(--color-background-body);
+}
+.article-share .share-group{
+  justify-content: flex-start;
+}

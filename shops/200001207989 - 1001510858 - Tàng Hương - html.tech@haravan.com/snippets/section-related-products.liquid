@@ -1,0 +1,92 @@
+{% assign related_tag = '' -%}
+{% assign tag_related_products= settings.tag_related_products| append: '_' -%}
+{% for tag in product.tags %}
+{% if tag contains tag_related_products-%}
+{% assign related_tag = tag -%}
+{% break %}
+{% endif -%}
+{% endfor%}
+{% assign type_related_products = settings.type_related_products -%}
+{% assign collection_ids = product.collections | map: 'id' | join : ' || '  %}
+{% for coll in product.collections %}
+	{% if coll.products_count > 1 %}
+			{% assign related_collection = coll %}
+			{% assign related_url = coll.url %}
+      {% assign collection_id = coll.id  %}
+			{% break %}
+	{% endif%}
+{% endfor %}
+{% if settings.type_related_products  == 'collection' -%}
+  {% capture query_string -%}(id:product<>{{product.id}}) &&  (collectionid:product={{collection_id}}){% endcapture%}
+	{% assign related_url = related_collection.url %}
+{%	endif %}
+  
+{% if settings.type_related_products  == 'tag' -%}
+    {% capture query_string -%}
+		(id:product<>{{product.id}}) && (tag:product={{related_tag}})
+	 {% endcapture%}
+	{%if related_tag != blank -%})
+	 {% capture related_url -%}/search?q=filter=(tag:product={{related_tag}}){% endcapture%}
+		{% else %}
+	 {% capture related_url -%}{% endcapture%}
+	{%	endif %}
+{% endif -%}
+  
+{% if settings.type_related_products  == 'tag_collection' -%}
+	{%if related_tag != blank -%}
+		{% capture query_string -%}
+			(id:product<>{{product.id}}) && (tag:product={{related_tag}} || (collectionid:product={{collection_id}}))
+		{% endcapture%}
+		{% capture related_url -%}/search?q=filter=(tag:product=({{related_tag}}) || (collectionid:product={{collection_id}})){% endcapture%}
+		{% else -%}
+	  {% capture query_string -%}(id:product<>{{product.id}}) &&  (collectionid:product={{collection_id}}){% endcapture%}
+		{% assign related_url = related_collection.url %}
+	{%endif -%}
+{%endif -%}
+  
+
+
+<section class="section section-related-products section-products" style="--section-margin: 64px 0 64px 0;--section-margin-mb: 32px 0 32px 0">
+	<div class="container">
+		<div class="heading-bar py-3 px-5  text-center  mb-2">
+			<h2 class="heading font-semibold text-secondary">
+				<a href="{{ related_url }}" title="{{ settings.related_products_title }}">
+					{{ settings.related_products_title }}
+				</a>
+			</h2>
+		</div>
+	  <related-products class="releated-products w-full" data-query="{{query_string | strip }}" {%if settings.related_products_empty_message != blank %}
+						data-empty-content="{{settings.related_products_empty_message}}"{% endif %}
+						data-limit="{{settings.limit_related_products}}"
+						>
+		  	<ega-carousel>
+				 <script data-type="swiper-params" type="application/json">
+				{
+				  "spaceBetween": 8,
+				  "slidesPerView": 2,
+				   "breakpoints": {
+					"768": {
+					  "slidesPerView": 2
+					},
+					"1024": {
+					  "slidesPerView": 3
+					},
+					"1200": {
+					  "slidesPerView": 4
+					}
+				  }
+				}
+			  </script>
+				
+			  	<div class="swiper md:pb-[var(--spacing-12)]">
+					
+					<div class="swiper-wrapper   product-list h-inherit">
+					</div>
+					 <div class="swiper-button-prev md:flex hidden" onclick="event.stopPropagation()"></div>
+              <div class="swiper-button-next  md:flex hidden" onclick="event.stopPropagation()"></div>
+				</div>
+			  
+			  </ega-carousel>
+		  </related-products>
+	</div>
+</section>

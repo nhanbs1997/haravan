@@ -1,0 +1,49 @@
+<coupon-drawer lass="portal portal--drawer" id="coupon-drawer" data-type="drawer" data-animation="slide-in-right"
+  style="--dialog-max-width:52rem">
+
+  <dialog class="portal-dialog">
+    <div class=" w-full h-full flex ">
+      <div class="portal-overlay"></div>
+      <div class="portal-inner  grid grid-rows-[auto_1fr_auto] w-full ml-auto bg-background  h-screen px-4 pb-4 animation">
+        <div class="portal-header px-3 pb-3 pt-5 ">
+          <div class="font-semibold text-h6 md:text-h4 flex items-center gap-2">
+            <i class="icon icon-arrow-left text-h6 md:text-h4  cursor-pointer" id="PortalClose-coupon-drawer"></i> Chọn mã giảm giá
+          </div>
+        </div>
+        <div class="coupon-list py-4"></div>
+		  <div>
+			  
+		  </div>
+      </div>
+    </div>
+  </dialog>
+</coupon-drawer>
+
+<coupon-modal class="portal portal--modal portal--modal-sm" id="coupon-modal" data-type="modal" data-animation="fade-in">
+  <dialog class="portal-dialog">
+    <div class=" flex items-center justify-center w-full h-full p-3">
+      <div class="portal-overlay"></div>
+      <div class="portal-inner animation ">
+		  		<button  type="button"
+                  id="PortalClose-coupon-modal"
+                  class="portal-close-button w-[3.2rem] h-[3.2rem] rounded-full border border-white text-white flex items-center justify-center active:scale-95 transition-transform hover:animate-spin"
+                >
+                  <i class="icon icon-cross "> </i>
+                </button>
+		  <div class=" p-3 md:p-5 rounded-lg  bg-background   h-full grid grid grid-rows-[auto_1fr_auto]">
+		<div class="coupon-header  border-b pb-2.5 border-dashed border-neutral-50"></div>
+		  <div class="coupon-desc "></div>
+		  <div class="coupon-act grid grid-cols-2 gap-3 border-t  pt-2.5 border-dashed border-neutral-50">
+			<button id="PortalClose-coupon-item-modal" class="btn  border border-neutral-50 hover:bg-neutral-100 py-1.5 ">Đóng</button>
+		 	<copy-button data-copied-text="Đã sao chép"  >
+                <input type="hidden" value="" />
+                <button type="button" class="btn copy-button w-full  text-primary border border-primary hover:bg-primary hover:text-white  py-1.5 ">
+  					Sao chép
+      			</button>
+        </copy-button>
+		  </div>
+		</div>
+      </div>
+    </div>
+  </dialog>
+</coupon-modal>

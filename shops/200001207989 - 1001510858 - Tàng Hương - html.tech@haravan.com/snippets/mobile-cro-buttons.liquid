@@ -1,0 +1,139 @@
+<div data-template="{{ template }}" class="cro-btns sticky md:hidden block z-10 min-h-[5.6rem] bottom-0 left-0  slide-in-bottom  {%if cart.item_count == 0 and template contains 'cart' %} hidden {% endif %}">
+  <div class=" bg-background rounded-t-sm w-full min-h-[5.6rem] px-2 justify-between items-center inline-flex slide-in-bottom" style="box-shadow:var(--shadow-l)">
+    {% unless template contains 'cart' -%}
+      <div class="cro-btns-container w-full h-full justify-center items-center gap-0.5 grid grid-cols-[repeat(auto-fit,minmax(0,1fr))]">
+      {% assign show_cro_mb = false -%}
+      {% unless template contains 'product' or template contains 'cart' -%}
+        {% assign buttons = '1,2,3,mess,hotline' | split: ',' %}
+      {% endunless -%}
+      {% if template contains 'product' and settings.cro_add_cart_enabled -%}
+        {% assign buttons = 'mess,hotline,cart,addtocart' | split: ',' - %}
+                {% endif -%}
+        {% for i in buttons -%}
+          {% capture cro_btn_positon -%}cro_btn_{{i}}_position{% endcapture -%}
+          {% capture cro_btn_title -%}cro_btn_{{i}}_title{% endcapture -%}
+          {% capture cro_btn_url -%}cro_btn_{{i}}_url{% endcapture -%}
+          {% capture cro_btn_icon -%}cro-btn-{{i}}-icon.png{% endcapture -%}
+          {% if settings[cro_btn_positon] != '0' -%}
+            {% assign url = settings[cro_btn_url] -%}
+            {% if i == 'hotline' -%}
+              {% assign phone = settings.phone -%}
+              {% assign url = 'tel:' | append: phone -%}
+            {% endif -%}
+            {% if settings[cro_btn_positon] != '0' and settings.cro_enabled -%}
+              {% unless i == 'cart' or i == 'addtocart' - %}
+                      <a class="cro-btn-item cro-btn-item--{{i}} w-auto flex-shrink-0 flex-grow-0 h-full py-0.5 px-0.5  text-foreground h-full flex flex-col justify-center items-center gap-0.5"
+                        title="{{ settings[cro_btn_title] }}" 
+                		 {%if i == 'hotline' %}href="{{url}}" {%else -%}
+                href="{{ settings[cro_btn_url] }}"
+              {% endif -%}
+              style="order:{{ settings[cro_btn_positon] }}">
+              <div class="w-4 h-4 relative ">
+                <img class="w-full h-full object-contain" alt="{{settings[cro_btn_title]}}" src="{{ cro_btn_icon | asset_url | img_url : 'small'   }}" loading="lazy" />
+
+              </div>
+              <div class="text-ellipsis overflow-hidden  max-w-full text-xs text-center line-clamp-1">{{ settings[cro_btn_title] }}</div>
+            </a>
+          {% endunless -%}
+        {% endif -%}
+      {% endif -%}
+
+      {% if i == 'cart' and settings.cro_btn_cart_enabled -%}
+        <portal-opener style="order:6">
+          <a
+            class="cro-btn-item cro-btn-item--{{i}} w-auto flex-shrink-0 flex-grow-0 h-full py-0.5 px-0.5  text-foreground h-full flex flex-col justify-center items-center gap-0.5"
+            title="{{ settings[cro_btn_title] }}"
+            {% unless template contains 'cart' %}
+            data-portal="#cart-drawer"
+            {% endunless %}
+            href="/cart">
+            <div class="w-4 h-4 relative">
+              <img class="w-full h-full object-contain" alt="{{settings[cro_btn_title]}}" src="{{ cro_btn_icon | asset_url | img_url : 'small'   }}" loading="lazy" />
+              <span class="cart-count flex items-center count_item count_item_pr justify-center rounded-full absolute font-semibold">{{ cart.item_count }}</span>
+            </div>
+            <div class="text-ellipsis overflow-hidden  max-w-full text-xs text-center line-clamp-1">Giỏ hàng</div>
+          </a>
+        </portal-opener>
+      {% endif -%}
+
+      {% if i == 'addtocart' -%}
+        {% include 'product-item-logic' -%}
+        <portal-opener style="order:6;    grid-column: span 3;">
+          <div class="cro-btn-item  w-full cro-btn-item--{{i}}" style=" min-width: 104px;">
+
+            <button
+              data-product="{{product.url}}"
+              data-portal="#quick-view-product"
+              {% if sold_out %}
+              disabled
+              {% endif %}
+              class="text-center  w-full line-clamp-1 font-semibold  btn bg-[var(--color-addtocart-bg)] text-[var(--color-addtocart)] btn-add-to-cart w-full ">
+              {% if booking_product %}
+                Đặt ngay
+              {% else %}
+                {% if sold_out -%}
+                  Hết hàng
+                {% else -%}
+                  Thêm vào giỏ{% endif -%}
+              {% endif -%}
+            </button>
+          </div>
+        </portal-opener>
+      {% endif -%}
+    {% endfor -%}
+
+  </div>
+{% endunless -%}
+{% if template contains 'cart' -%}
+  <div class="cro-btn-item w-full  divide-dashed divide-y divide-neutral-50">
+
+    {% if settings.cart_coupon_enabled %}
+      <div>
+        <portal-opener>
+          <div class="cart-voucer text-neutral-300 py-2 flex items-center justify-between w-full" data-portal="#coupon-drawer">
+            <p>Mã giảm giá</p>
+            <button type="button" class="flex items-center">
+              Chọn
+              <i class="icon icon-carret-right ml-2  flex items-center"></i>
+            </button>
+          </div>
+        </portal-opener>
+      </div>
+    {% endif %}
+    <div class="cart-bottom grid grid-cols-2 gap-3 py-2">
+      <div class="cart-total py-2 md:py-4 flex items-start justify-between w-full">
+        <p class="font-semibold">TỔNG CỘNG
+        </p>
+        <div class="text-right">
+          <div class="price">{{ cart.total_price | money }}</div>
+          {% if settings.vat_note_enabled %}
+            <span class="cart-vat-note text-sm text-neutral-200">{{ settings.vat_note }}</span>
+          {% endif %}
+        </div>
+      </div>
+      <div class="cart-submit">
+        {% assign checkout_disabled = false %}
+
+        {% if settings.cart_limit_enabled -%}
+          {% assign cart_limit = settings.cart_limit | times: 1 %}
+          {% assign cart_total = cart.total_price %}
+          {% if cart_total < cart_limit %}
+            {% assign checkout_disabled = true %}
+          {% endif %}
+        {% endif %}
+        <button
+          type="submit"
+          onclick="window.location.href='/checkout'"
+          class="btn w-full btn--large font-semibold  bg-primary text-white inline-flex  justify-center items-center gap-2"
+          {% if checkout_disabled %}
+          disabled
+          {% endif %}>
+          THANH TOÁN
+          <i class="icon icon-arrow-login"></i>
+
+        </button>
+
+      </div>
+    </div>
+  </div>
+{% endif -%}</div></div>

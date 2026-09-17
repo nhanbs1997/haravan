@@ -1,0 +1,16 @@
+{% assign cart_collection = collections[settings.cart_collection] %}
+{% if cart_collection.product_count > 0 %}
+<section class="section section-collection-cart" style="--section-margin: 32px 0 32px 0;--section-margin-mb: 32px 0 32px 0">
+	<div class="container">
+		<div class="heading-bar py-3 px-5 bg-background text-center rounded-sm mb-2">
+			<h2 class="heading font-semibold text-secondary">
+				<a href="{{ settings..url }}" title="{{ settings.cart_collection_title }}">
+					{{ settings.cart_collection_title }}
+				</a>
+			</h2>
+		</div>
+		<div class="grid gird-cols-2 md:grid-cols-4 gap-gutter">
+		</div>
+	</div>
+</section>
+{% endif %}

@@ -1,0 +1,14 @@
+{%- if settings.social_login_enabled -%}
+<div class="block social-login--facebooks margin-top-20 text-center ">
+								  <p class="text-center text-secondary mt-3 mb-3">Hoặc đăng nhập bằng</p>
+                 <div class="grid-cols-2 gap-gutter">
+                  	<button class="btn btn-google p-0" id="btn-google-login">
+                      <img  width="129px" height="37px" src="{{ 'gp-btn.svg' | asset_url}}" alt="google login" loading="lazy" />
+                    </button>
+            				<button class="btn btn-facebook p-0" id="btn-facebook-login">
+                      <img  width="129px" height="37px" src="{{ 'fb-btn.svg' | asset_url}}" alt="facebook login" loading="lazy" />
+                    </button>
+                 </div>
+            				<div id="google-one-tap-login"></div>
+							</div>
+  {% endif%}

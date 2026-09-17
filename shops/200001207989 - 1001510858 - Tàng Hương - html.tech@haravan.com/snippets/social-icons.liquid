@@ -1,0 +1,72 @@
+<div class="flex gap-3">
+  {% if settings.social_facebook_link != blank %}
+	<div class="facebook  border border-neutral-50 rounded-sm flex items-center justify-center w-[3.6rem] h-[3.6rem] hover:bg-neutral-50">
+		<a href="{{ settings.social_facebook_link }}" target="_blank" aria-label="Facebook" title="Facebook">
+		  <img
+			src="{{ 'facebook.png' | asset_url }}"
+			width="20"
+			height="20"
+			alt="facebook footer"
+			loading="lazy"
+		  >
+		</a>
+	 </div>                                    
+  {% endif %}
+  {%if settings.social_youtube_link != blank %}
+	  <div class="youtube border border-neutral-50 rounded-sm flex items-center justify-center w-[3.6rem] h-[3.6rem] hover:bg-neutral-50">
+		<a
+		  href="{{ settings.social_youtube_link }}"
+		  target="_blank"
+		  title="Youtube"
+		  aria-label="Youtube"
+		>
+		  <img
+			src="{{ 'youtube.png' | asset_url }}"
+			width="20"
+			height="20"
+			alt="youtube footer"
+			loading="lazy"
+		  >
+		</a>
+	  </div>
+ {% endif %}
+  {%if settings.social_tiktok_link != blank %}
+  <div class="tiktok border border-neutral-50 rounded-sm flex items-center justify-center w-[3.6rem] h-[3.6rem] hover:bg-neutral-50">
+    <a href="{{ settings.social_tiktok_link }}" target="_blank" title="Tiktok" aria-label="Tiktok">
+      <img
+        src="{{ 'tiktok.png' | asset_url }}"
+        width="20"
+        height="20"
+        alt="tiktok footer"
+        loading="lazy"
+      >
+    </a>
+  </div> 
+  {%endif%}
+  {%if settings.social_instagram_link != blank %}
+  <div class="instgram border border-neutral-50 rounded-sm flex items-center justify-center w-[3.6rem] h-[3.6rem] hover:bg-neutral-50">
+    <a href="{{ settings.social_instagram_link }}" target="_blank" title="Instgram" aria-label="Instgram">
+      <img
+          src="{{ 'instagram.png' | asset_url }}"
+        width="20"
+        height="20"
+        alt="instgram footer"
+        loading="lazy"
+      >
+    </a>
+  </div>
+  {% endif %}
+   {%if settings.social_zalo_link != blank %}
+  <div class="instgram border border-neutral-50 rounded-sm flex items-center justify-center w-[3.6rem] h-[3.6rem] hover:bg-neutral-50">
+    <a href="{{ settings.social_zalo_link }}" target="_blank" title="Zalo" aria-label="Zalo">
+      <img
+          src="{{ 'zalo.png' | asset_url }}"
+        width="20"
+        height="20"
+        alt="zalo footer"
+        loading="lazy"
+      >
+    </a>
+  </div>
+  {% endif %}
+</div>

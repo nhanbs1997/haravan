@@ -1,0 +1,101 @@
+{% assign prices = settings.filter_price_node | split: ';' -%}
+{% if prices.size > 1 %}
+  <aside class="aside-item filter-price md:py-5 py-4" style="order: {{ settings[filter_order] | default: 0 }}">
+    <div class="aside-title">
+      <h2 class="title-head margin-top-0 text-base font-semibold mb-3">
+        {{ settings[filter_title] }}
+      </h2>
+    </div>
+    <div class="aside-content filter-group">
+      <ul class="space-y-3">
+        {% for price in prices %}
+          {% assign price = price | strip -%}
+          {% if price != blank -%}
+            {% if forloop.index == 1 -%}
+              <li class="filter-item filter-item--check-box link">
+                <label
+                  class="custom-radio cursor-pointer flex gap-2 items-center"
+                  for="filter-lower-{{ price | handleize }}"
+                >
+                  <input
+                    class="form-radio"
+					name="price_min"
+                    type="radio"
+                    id="filter-lower-{{price | handleize }}"
+                    data-group="price"
+                    data-field="price_min"
+                    data-value="Giá dưới {{ price | times: 100 | money }}"
+                    value="0:{{ price | replace: '.' | replace: 'đ' }}"
+                    data-operator="OR"
+                  >
+                  Giá dưới {{ price | times: 100 | money }}
+                </label>
+              </li>
+            {% elsif forloop.index == forloop.length %}
+              <li class="filter-item filter-item--check-box link">
+                <label
+                  class="custom-radio cursor-pointer flex gap-2 items-center"
+                  for="filter-{{ price_old | handleize }}-{{ price | handleize }}"
+                >
+                  <input
+                    class="form-radio"
+					name="price_min"
+                    type="radio"
+                    id="filter-{{ price_old | handleize }}-{{ price | handleize }}"
+                    data-group="price"
+                    data-field="price_min"
+                    data-value="{{price_old | times: 100 | money}} - {{price | times: 100 | money}}"
+                    value="{{ price_old | replace: '.' | replace: 'đ' }}:{{ price | replace: '.' | replace: 'đ' }}"
+                    data-operator="OR"
+                  >
+                  {{ price_old | times: 100 | money }} - {{ price | times: 100 | money }}
+                </label>
+              </li>
+              <li class="filter-item filter-item--check-box link">
+                <label
+                  class="custom-radio cursor-pointer flex gap-2 items-center"
+                  for="filter-upper-{{ price | handleize }}"
+                >
+                  <input
+                    class="form-radio"
+					name="price_min"
+                    type="radio"
+                    id="filter-upper-{{price | handleize }}"
+                    data-group="price"
+                    data-field="price_min"
+                    data-value="Giá trên {{ price | times: 100 | money }}"
+                    value="{{ price | replace: '.' | replace: 'đ' }}:max"
+                    data-operator="OR"
+                  >
+                  Giá trên {{ price | times: 100 | money }}
+                </label>
+              </li>
+            {% else %}
+              <li class="filter-item filter-item--check-box link">
+                <label
+                  class="custom-radio cursor-pointer flex gap-2 items-center"
+                  for="filter-{{ price_old | handleize }}-{{ price | handleize }}"
+                >
+                  <input
+                    class="form-radio"
+					name="price_min"
+                    type="radio"
+                    id="filter-{{ price_old | handleize }}-{{ price | handleize }}"
+                    data-group="price"
+                    data-field="price_min"
+                    data-value="{{price_old | times: 100 | money}} - {{price | times: 100 | money}}"
+                    value="{{ price_old | replace: '.' | replace: 'đ' }}:{{ price | replace: '.' | replace: 'đ' }}"
+                    data-operator="OR"
+                  >
+                  {{ price_old | times: 100 | money }} - {{ price | times: 100 | money }}
+                </label>
+              </li>
+            {% endif %}
+          {% endif %}
+            {% assign price_old = price -%}
+
+        {% endfor %}
+      </ul>
+    </div>
+  </aside>
+{% endif %}

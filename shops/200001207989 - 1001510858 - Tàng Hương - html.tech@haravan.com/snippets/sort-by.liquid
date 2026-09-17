@@ -1,0 +1,29 @@
+{% assign sort_options = 'manual;name:asc;name:desc;price_min:asc;price_min:desc;created_on:desc;created_on:asc' | split: ';'%}
+{% assign sort_option_names = 'Mặc định;Tên A → Z;Tên Z → A;Giá tăng dần;Giá giảm dần;Mới nhất;Cũ nhất' | split: ';' %}
+{% assign default_sort_by = 'manual;alpha-asc;apha-desc;price-asc;price-desc;created-desc;created-asc' | split: ';' %}
+
+<div
+  class="flex text-xs w-full md:w-auto  md:text-base md:gap-6 items-center justify-between md:ml-auto md:rounded-0 rounded-sm  md:p-0 ">
+  {% if has_sidebar %}
+  <button   class="btn flex xl:hidden gap-1 bg-white border border-neutral-50 items-center" type="button" data-toggle-facet >
+    <svg xmlns="http://www.w3.org/2000/svg"  class="icon w-4" viewBox="0 0 20 20" fill="none">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.79166 6.45835C9.79166 5.53788 10.5379 4.79169 11.4583 4.79169C12.3788 4.79169 13.125 5.53788 13.125 6.45835C13.125 7.37883 12.3788 8.12502 11.4583 8.12502C10.5379 8.12502 9.79166 7.37883 9.79166 6.45835ZM8.60878 7.08335C8.89489 8.39384 10.062 9.37502 11.4583 9.37502C12.8546 9.37502 14.0218 8.39384 14.3079 7.08335H17.5C17.8452 7.08335 18.125 6.80353 18.125 6.45835C18.125 6.11317 17.8452 5.83335 17.5 5.83335H14.3079C14.0218 4.52286 12.8546 3.54169 11.4583 3.54169C10.062 3.54169 8.89489 4.52286 8.60878 5.83335H2.5C2.15482 5.83335 1.875 6.11317 1.875 6.45835C1.875 6.80353 2.15482 7.08335 2.5 7.08335H8.60878ZM4.79166 13.125C4.79166 12.2045 5.53786 11.4583 6.45833 11.4583C7.3788 11.4583 8.125 12.2045 8.125 13.125C8.125 14.0455 7.3788 14.7917 6.45833 14.7917C5.53786 14.7917 4.79166 14.0455 4.79166 13.125ZM6.45833 16.0417C5.06203 16.0417 3.8949 15.0605 3.60879 13.75H2.5C2.15482 13.75 1.875 13.4702 1.875 13.125C1.875 12.7798 2.15482 12.5 2.5 12.5H3.60879C3.8949 11.1895 5.06203 10.2083 6.45833 10.2083C7.85463 10.2083 9.02176 11.1895 9.30787 12.5H17.5C17.8452 12.5 18.125 12.7798 18.125 13.125C18.125 13.4702 17.8452 13.75 17.5 13.75H9.30787C9.02176 15.0605 7.85463 16.0417 6.45833 16.0417Z" fill="currentColor" fill-opacity="0.1"/>
+    </svg>
+    Lọc
+    <span 
+      class="filter-count w-5 h-5 md:w-6 md:h-6 inline-flex items-center justify-center bg-[#EE1926] text-white rounded-full  ml-1">0</span>
+  </button>
+  {% endif %}
+
+  <div class="sort-mobile whitespace-nowrap flex items-center gap-2 ml-auto">
+    <label for="sort-mobile" class="labbel text-neutral-100"> Sắp xếp </label>
+    <sort-by data-collection="{{collection.id | default: 0}}">
+      <select name="sort_by" id="sort-mobile" class="form-select  bg-white rounded-pill border-neutral-50">
+        {% for option in sort_options %}
+        <option value="{{ option }}" {% if collection.default_sort_by == default_sort_by[forloop.index0] %}selected {%endif %}>{{ sort_option_names[forloop.index0] }}</option>
+        {% endfor %}
+      </select>
+    </sort-by>
+
+  </div>
+</div>

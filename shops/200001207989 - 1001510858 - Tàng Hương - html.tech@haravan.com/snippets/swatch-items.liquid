@@ -1,0 +1,70 @@
+{% if settings.swatch_items_enabled -%}
+
+{% assign color_label_list = settings.swatch_color_label | downcase | split: '#' -%}
+{% assign max_option = 3 -%}
+		  {% for option in product.options -%}
+		  	{% assign is_color = false -%}
+		    {% assign option_downcase = option | downcase -%}
+		  	{% if  color_label_list contains option_downcase -%}
+		  		{% assign color_index = forloop.index -%}
+		  		{% assign is_color = true -%}
+		  		{% break -%}
+		  	{% endif -%}
+		  {% endfor -%}
+		  {%if is_color -%}
+		  	{% assign option_color = 'option' | append: color_index -%}
+		  	{% assign color_list = product.variants | map: option_color | uniq -%}
+			   <div class="card-product__option-wrapper flex flex-wrap  gap-2 py-1 w-full items-center">
+				{% for color in color_list -%}
+				   	 {% if forloop.index > max_option -%}
+				   	{% assign other_options = color_list.size | minus : max_option -%}
+				   <portal-opener>
+				    <div   data-product="{{product.url}}"
+						 {%if settings.add_cart_variants == 'quickview' %}
+						  data-portal="#quick-view-product"
+						 {% else %}
+						 	onclick="window.location.href='{{product.url}}'"
+						 {% endif %}
+				
+						  data-action="{%if product.variants.size > 1 %}{{ settings.add_cart_variants}}{%else-%}{% endif -%}"
+						  class="font-semibold link cursor-pointer">+{{other_options}}</div>
+				   </portal-opener>
+				  	
+				   		{% break -%}
+				   {% endif -%}
+					{% assign variant_image = '' -%}
+				   					{% assign color_bg = nil  %}
+          
+				   {% for variant in product.variants -%}
+				   		{%if variant[option_color] == color -%}
+				   			{%if settings.swatch_type == 'image' -%}
+				   					{% assign variantId = variant.id -%}
+				   				{% if variant.image  -%}
+				   					{% assign color_bg = variant.image.src  %}
+				  					{% break -%}
+				   				{%endif -%}
+				   				{% else -%}
+				   				{% assign variantId = variant.id -%}
+				   				{% break -%}
+				   			{%endif -%}
+				   		
+				   		{% endif -%}
+				   {% endfor -%}
+				   {% assign color_var = color | downcase | strip | handleize -%}
+				    <div data-variantId="{{variantId}}" {% if color_bg %}data-image="{{color_bg | img_url: 'large'}}"{% endif %} class="card-product__option selected relative group/option " style="--color-swatch: var(--swatch-{{color_var}})">
+						<span class="card-product__option-name whitespace-nowrap px-1.5 py-1 absolute  left-1/2 -translate-x-1/2 rounded-sm bg-black text-xs text-white opacity-0  group-hover/option:opacity-100  -top-[2.6rem] transition duration-300 ease-out ">
+						  {{ color }}
+						</span>
+						<div
+						  class="card-product__option-dot card-product__option-dot-{{settings.swatch_size}} w-5 h-5 md:w-6 md:h-6    bg-[var(--color-swatch)] border border-neutral-50  rounded-sm  overflow-hidden {%if color_bg %} cursor-pointer {% endif %}"
+						>
+							{% if color_bg -%}
+							<img class="aspect-square object-cover w-full h-full" width="48" height="48" src="{{color_bg | img_url : 'icon' }}" alt="{{color}}" loading="lazy" />
+							{% endif -%}
+						</div>
+					  </div>
+				  
+				{% endfor -%}
+			  </div>
+{% endif -%}
+{% endif -%}

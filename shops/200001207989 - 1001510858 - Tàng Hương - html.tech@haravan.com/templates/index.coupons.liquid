@@ -1,0 +1,9 @@
+{% layout none -%}
+<div class="coupon-list">
+{%for i in (1..8)-%}
+{% include 'coupon-configs' -%}
+{%if show -%} 
+	{%- include 'coupon-item' -%}
+{%endif-%}
+{%endfor-%}
+</div>

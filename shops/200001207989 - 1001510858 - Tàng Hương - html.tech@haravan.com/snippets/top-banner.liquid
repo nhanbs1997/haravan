@@ -1,0 +1,37 @@
+{% if settings.top_banner_enabled -%}
+<div class="top-banner position-relative" style="background: {{settings.top_banner_color | default: 'transparent'}}">
+	<div class="text-center px-0" >
+		{% if settings.top_banner_mb -%}
+		<a class="position-relative block md:hidden" 
+		   style="max-height: {{settings.top_banner_mb_height}}px;height:  calc( {{settings.top_banner_mb_height}} * 100vw /{{settings.top_banner_mb_width}} )"
+		   href="{{settings.top_banner_url}}" 
+		   title="{{settings.top_banner_alt}}">
+			<img class='img-fluid position-absolute mx-auto ' src="{{'top_banner_mb.jpg' |asset_url}}" 
+				 style="left:0"
+				 alt="{{settings.top_banner_alt}}"
+				 width="{{settings.top_banner_mb_width}}"
+				 height="{{settings.top_banner_mb_height}}"
+				 loading="lazy"
+				 >
+		</a>
+		{% endif -%}
+		<a class="position-relative{%if settings.top_banner_mb %} hidden md:block{%else%} block {%endif%}" 
+		   style="max-height: {{settings.top_banner_height}}px;height:  calc({{settings.top_banner_height}} * 100vw /{{settings.top_banner_width}})"
+		   href="{{settings.top_banner_url}}" 
+		   title="{{settings.top_banner_alt}}">
+			<picture>
+				<source media="(max-width: 480px)" srcset="{{'top_banner.jpg' |asset_url | img_url:'large' }}">
+				<img class='img-fluid position-absolute mx-auto' src="{{'top_banner.jpg' |asset_url}}" 
+					 style="left:0"
+					 alt="{{settings.top_banner_alt}}"
+					 width="{{settings.top_banner_width}}"
+					 height="{{settings.top_banner_height}}"
+					 loading="lazy"
+					 >
+			</picture>
+		</a>
+		
+	</div>
+</div>
+
+{% endif -%}

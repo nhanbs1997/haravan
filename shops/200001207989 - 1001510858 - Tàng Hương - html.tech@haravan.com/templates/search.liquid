@@ -1,0 +1,99 @@
+{% include 'breadcrumb' %}
+<section class="section section-main-search" style="--section-margin: 0px 0px 40px; --section-margin-mb: 0px 0px 20px">
+  <div class="container">
+    {% if search.performed %}
+      {% paginate search.results by 10 %}
+        {% if search.results_count == 0 %}
+          <div class="bg-background rounded-lg px-3 py-4 md:p-6 mb-2 text-center">
+          
+
+            <div class="grid grid-cols-1  lg:grid-cols-custom justify-center gap-gutter" style="--grid-col: 80%">
+              <div class="bg-background rounded-lg px-3 py-4 md:p-6 mb-6 text-center">
+                <h1 class="text-h4 font-semibold mb-2">Nhập từ khóa để tìm kiếm sản phẩm</h1>
+                <div class="search-bar mx-auto mt-5" style="--search-button-size: 4.4rem; max-width: 60rem">
+                  <form
+                    action="/search"
+                    method="get"
+                    class="m-0 flex bg-background pl-5 py-3 rounded-full items-center relative border border-[var(--color-search)]"
+                    role="search"
+                  >
+                    <input
+                      type="text"
+                      name="q"
+                      value="{{ search.terms}}"
+                      autocomplete="off"
+                      class="border-0 bg-transparent focus:ring-transparent p-0 w-full text-base text-foreground"
+                      required
+                      placeholder="Tìm theo tên sản phẩm..."
+                    >
+                    <input type="hidden" name="type" value="product">
+                    <button
+                      type="submit"
+                      aria-label="search"
+                      class="search-button btn rounded-0 right-0 flex items-center justify-center text-foreground rounded-tr-full rounded-br-full absolute   bg-[var(--color-search)] text-white"
+                    >
+                      <i class="icon icon-search"></i>
+                    </button>
+                  </form>
+                </div>
+                <p class=" mt-5 text-error">
+              Không tìm thấy bất kỳ kết quả nào với từ khóa "{{ search.terms }}".
+            </p>
+				</div>
+            </div>
+          </div>
+
+        {% else %}
+          <div class="bg-background rounded-lg px-3 py-4 md:p-6 mb-2 text-center">
+            <h2 class="text-h4 font-semibold mb-2">Kết quả tìm kiếm:</h2>
+       
+          </div>
+          <div class="product-list grid gap-gutter grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 ">
+            {% for product in search.results %}
+              {% include 'product-grid-item' %}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if paginate.pages > 1 %}
+	  <div class="lg:mt-6 lg:pt-6">
+		            {% include 'paginate-pages' %}
+	  </div>
+        {% endif %}
+      {% endpaginate %}
+
+    {% else %}
+      <div class="grid grid-cols-1  lg:grid-cols-custom justify-center gap-gutter" style="--grid-col: 80%">
+        <div class="bg-background rounded-lg px-3 py-4 md:p-6 mb-6 text-center">
+          <h1 class="text-h4 font-semibold mb-2">Nhập từ khóa để tìm kiếm sản phẩm</h1>
+          <div class="search-bar mx-auto mt-5" style="--search-button-size: 4.4rem; max-width: 60rem">
+            <form
+              action="/search"
+              method="get"
+              class="m-0 flex bg-background pl-5 py-3 rounded-full items-center relative border border-[var(--color-search)]"
+              role="search"
+            >
+              <input
+                type="text"
+                name="q"
+                value=""
+                autocomplete="off"
+                class="border-0 bg-transparent focus:ring-transparent p-0 w-full text-base text-foreground"
+                required
+                placeholder="Tìm theo tên sản phẩm..."
+              >
+              <input type="hidden" name="type" value="product">
+              <button
+                type="submit"
+                aria-label="search"
+                class="search-button rounded-0 btn right-0 flex items-center justify-center text-foreground rounded-tr-full rounded-br-full absolute   bg-[var(--color-search)] text-white"
+              >
+                <i class="icon icon-search"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>

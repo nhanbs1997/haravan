@@ -1,0 +1,178 @@
+<footer class="bg-white">
+  <div class="container">
+    <div
+      class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-x-gutter gap-y-6 pt-6 pb-3  md:pt-[var(--spacing-10)] md:pb-[var(--spacing-12)]"
+    >
+      <div class="footer-col">
+        {% if settings.fot_use_logo %}
+          <a class="footer-logo mb-3 block" href="/" title="logo {{ shop.name }}">
+            <img
+              class="object-contain"
+              loading="lazy"
+              src="{{ 'logo-footer.png'  | asset_url }}"
+              alt="logo {{ shop.name }}"
+              width="{{ settings.footer_logo_width }}"
+              height="{{ settings.footer_logo_height }}"
+            >
+          </a>
+        {% endif %}
+
+        {% if settings.fot_use_contact %}
+          <div class="contact-group mb-5">
+            <div class="flex gap-1 items-start mb-3">
+              <i class="icon icon-location text-neutral-200"></i>
+              <div class="">
+                <p class="text-forground">Địa chỉ</p>
+                <p class="font-semibold">
+                  {% if settings.address and settings.address != blank -%}
+                    <span>{{ settings.address }}</span>
+                  {% else %}
+                    <span>{{ shop.address }}, {{ shop.province }}, {{ shop.country }}</span>
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+            <div class="xl:flex grid gap-2" style="column-gap: var(--spacing-8);">
+              <div class="flex gap-1 items-start">
+                <i class="icon icon-call text-neutral-200"></i>
+                <div class="">
+                  <p class="text-forground">Hotline</p>
+                  <a
+                    class="font-semibold text-primary link"
+                    href="tel:{{ settings.phone | default: shop.phone_number | remove: ' ' }}"
+                    title="{{ settings.phone | default: shop.phone_number | remove: ' ' }}"
+                  >
+                    {{- settings.phone | default: shop.phone_number -}}
+                  </a>
+                </div>
+              </div>
+              <div class="flex gap-1 items-start">
+                <i class="icon icon-sms text-neutral-200"></i>
+                <div class="">
+                  <p class="text-forground">Email</p>
+                  <a class="font-semibold link"
+					 title="{{ settings.email | default:shop.customer_email }}"
+					 href="mailto:{{ settings.email | default:shop.customer_email }}">
+                    {{- settings.email | default: shop.customer_email -}}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        {% if settings.fot_use_social %}
+          <div class="social-icons">
+            <p class="font-semibold mb-3">{{ settings.fot_social_title }}</p>
+            {% include 'social-icons' %}
+          </div>
+        {% endif %}
+      </div>
+      <div class="footer-col">
+		    <details open class="footer-details">
+		  	<summary class="text-base font-semibold mb-2 flex items-center justify-between">
+			    {{ settings.fot_c2_title -}}
+           		   {% if linklists[settings.fot_c2_menu].links.size > 0 %}
+				<i class="icon icon-carret-right inline-block md:hidden"></i>
+				{% endif %}
+			 </summary>
+				
+          {% if linklists[settings.fot_c2_menu].links.size > 0 %}
+            <ul class="list-menu space-y-4  list-disc pl-5">
+              {% for link in linklists[settings.fot_c2_menu].links %}
+                <li class="li_menu">
+                  <a class="link" href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+		  </details>
+        
+      </div>
+      <div class="footer-col ">
+		  <details open class="footer-details">
+		  	<summary class="text-base font-semibold mb-2 flex items-center justify-between">
+			    {{ settings.fot_c3_title }}
+				 {% if linklists[settings.fot_c3_menu].links.size > 0 %}
+           		  <i class="icon icon-carret-right inline-block md:hidden"></i>
+				          {% endif %}
+
+			 </summary>
+			  
+          {% if linklists[settings.fot_c3_menu].links.size > 0 %}
+            <ul class="list-menu space-y-4  list-disc pl-5">
+              {% for link in linklists[settings.fot_c3_menu].links %}
+                <li class="li_menu">
+                  <a class="link" href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+		  </details>
+         
+        <div class="mt-6">
+          <p class="text-base font-semibold mb-2">
+            {{ settings.subs_fot_hotline_group_title }}
+          </p>
+          <ul class=" list-menu space-y-4  list-disc pl-5">
+            {% if settings.subs_fot_hotline_1_text != blank %}
+              <li>
+                <a class="link" href="tel:{{ settings.subs_fot_hotline_1_num  | strip_html }}" title="{{ settings.subs_fot_hotline_1_text }}" >
+                  {{ settings.subs_fot_hotline_1_text }}
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.subs_fot_hotline_2_text != blank %}
+              <li>
+                <a class="link" href="tel:{{ settings.subs_fot_hotline_2_num | strip_html}}" title="{{ settings.subs_fot_hotline_2_text }}">
+                  {{ settings.subs_fot_hotline_2_text }}
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      <div class="footer-col">
+        {% if settings.subs_fot_subscribe_enabled %}
+          {% include 'subcribe-email' %}
+        {% endif %}
+        {% if settings.subs_fot_payment_enabled %}
+          <div class="trust-badges mt-6">
+            <p class="font-semibold mb-3">{{ settings.subs_fot_payment_title }}</p>
+            <a href="{{ settings.subs_fot_payment_link }}" title="{{ settings.subs_fot_payment_title }}" target="_blank">
+              <img
+                class="h-auto"
+                src="{{ 'footer-trustbadge.png' | asset_url | img_url: 'grande' }}"
+                alt=""
+                width="246"
+                height="53"
+                loading="lazy"
+              >
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="footer-copyright border-t border-neutral-50 py-3 text-center gap-2 grid gird-cols-1 md:grid-cols-[1fr_auto] items-center" >
+      {%assign copyrightName = "Tàng Hương"-%}
+      {%assign copyrightUrl = "https://tanghuong.vn"-%}
+      
+      {%capture copyrightContent-%}
+          © Bản quyền thuộc về <a class="font-semibold link" href="{{copyrightUrl-}}" title="{{ copyrightName  }}" rel="nofollow" target="_blank">{{copyrightName-}}</a>
+      {%endcapture-%}
+      
+      {%if settings.copyright_content != "" and settings.copyright_content != _blank-%}
+          {%assign copyrightContent = settings.copyright_content-%}
+      {%endif-%}
+      
+      <span class="wsp">
+          {{copyrightContent}} | Cung cấp bởi {%if template contains 'index'%}<a class="font-semibold link" href="https://www.haravan.com/?utm_campaign=poweredby&utm_medium=haravan&utm_source=onlineshop" rel="nofollow" title="Haravan" target="_blank">Haravan</a>{%else%}<a class="font-semibold link" href="javascript:;">Haravan</a>{%endif%}
+      </span>
+		{% if settings.logo_bct_enabled -%}
+		<a href="{{settings.logo_bct_url}} "  rel="nofollow"  target="_blank">
+			<img class="mx-auto"  src="{{ 'logo-bct.png' | asset_url | img_url: 'medium' }}" alt="{{settings.logo_bct_alt}}" loading="lazy" width="102" height="32" />
+		</a>
+		{% endif -%}
+    </div>
+	</div>
+</footer>

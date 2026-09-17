@@ -1,0 +1,42 @@
+{% if settings.product_review_tab_enabled and settings.reviews_enabled -%}
+  <h3 class="text-base text-center block lg:hidden border-b border-neutral-50 pb-3 font-semibold mb-5">
+                            {{ settings.product_review_title }}
+	</h3>
+<div>
+  {% if settings.reviews_app == 'productreviews' -%}
+    <div class="productDetail--box box-detail-reviews mg-top">
+				<div class="product-customer hrv-product-reviews" id="hrv-product-reviews"  data-id="{{ product.id }}"> 
+				
+					<div class="product-customer-reviews">
+						<h2 class="hrv-product-reviews-heading text-h4 d-none">Khách hàng nhận xét</h2>
+						<div class="hrv-product-reviews-summary" id="hrv-product-reviews-summary">
+							{{ product.metafields.src.productreviews }} 
+						</div> 
+						<div class="hrv-product-reviews-list" id="hrv-product-reviews-list">
+							{{ product.metafields.src.reviewlist_0 }}
+							{{ product.metafields.src.reviewlist_1 }}
+							{{ product.metafields.src.reviewlist_2 }}
+							{{ product.metafields.src.reviewlist_3 }}
+							{{ product.metafields.src.reviewlist_4 }}
+							{{ product.metafields.src.reviewlist_5 }}
+							{{ product.metafields.src.reviewlist_6 }}
+							{{ product.metafields.src.reviewlist_7 }}
+							{{ product.metafields.src.reviewlist_8 }}
+							{{ product.metafields.src.reviewlist_9 }}        
+						</div>
+					</div>
+				</div>
+			</div>
+  {% endif %}
+  {% if settings.reviews_app == 'easyreview' -%}
+      <div id="startbap_product_reviews" class="starbap-widget starbap-review-widget" data-product-title="{{product.title}}" data-url="{{product.url}}" data-img="{{product.featured_image}}" data-id="{{product.id}}" data-customer="{{customer.email}} ">
+
+    {{product.metafields.starbap["starbaprv.widget"]}}
+    
+    <div style="clear:both"></div>
+    
+    </div>
+  {% endif -%}
+ </div>
+                
+{% endif -%}

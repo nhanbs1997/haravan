@@ -1,0 +1,6 @@
+{% layout none -%}
+{% if search.results.size > 0 -%}
+{% for product in search.results  limit: 20-%}
+	{% include 'product-grid-item' -%}
+{% endfor -%}
+{% endif -%}

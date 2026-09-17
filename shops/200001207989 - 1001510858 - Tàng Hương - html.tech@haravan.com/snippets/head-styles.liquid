@@ -1,0 +1,42 @@
+<link rel="preload" href="{{ 'quicksand-regular.ttf'|asset_url }}" as="font" type="font/truetype" crossorigin >
+ 
+<style>
+@font-face {
+		font-family: 'Quicksand';
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url({{'quicksand-regular.ttf'|asset_url}}) format('truetype');
+	}
+	@font-face {
+		font-family: 'Quicksand';
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url({{'quicksand-semibold.ttf'|asset_url}}) format('truetype');
+
+	}
+</style>
+{% include 'style-tag', url : 'vendors.css' -%}
+{% include 'style-tag', url : 'components.css'  -%}
+{% include 'style-tag', url : 'icon.css'-%}
+{% include 'style-tag', url : 'global.css'-%}
+
+{% if template contains 'article' or template contains 'blog'%}
+<link rel="stylesheet" href="{{ 'article-style.css' | asset_url }}">
+{% endif %}
+
+{% if template contains 'customer' %}
+
+<link rel="stylesheet" href="{{ 'account-style.css' | asset_url }}">
+
+{% endif %}
+{% include 'style-tag', url : 'custom.css'-%}
+
+<link rel="stylesheet" href="{{ 'quickview.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'cart-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'quickview.css' | asset_url | stylesheet_tag }}</noscript>	
+<noscript>{{ 'cart-drawer.css' | asset_url | stylesheet_tag }}</noscript>	
+
+{% include 'css-variables' %}

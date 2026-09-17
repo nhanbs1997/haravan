@@ -1,0 +1,24 @@
+{% if settings.tiktok_embed_code != blank -%}
+{% include 'section-styles', key: 'titkok_embed'   %}
+
+
+{% include 'section-styles', key: 'tiktok_embed'  %}
+<section class="section section-tiktok-embed" style="{{ section_style }}">
+  <div class="container overflow-hidden md:px-container px-0 flex items-center justify-center">
+	  <div class="w-full relative px-container py-6">
+		  <img src="{{ 'tiktok-embed-bg.jpg' | asset_url }}" 
+			   loading="lazy"
+			   width="1200"
+			   height="443"
+			   alt="tiktok-background"
+			   class="object-cover w-full h-full absolute z-0 top-0 left-0" 
+			   />
+		  <div class="relative z-[1] w-full tiktok-embed-wrapper mx-auto flex items-center" style="aspect-ratio: 780 / 494; max-width: 78rem">
+			  {% assign lazyloadScript = '<script data-lazyload data-src=' -%}
+			  {{ settings.tiktok_embed_code | replace: '<script async src=' , lazyloadScript | replace: '<script src=' ,lazyloadScript  }}
+		  </div>
+	  </div>
+   	
+  </div>
+</section>
+{% endif -%}

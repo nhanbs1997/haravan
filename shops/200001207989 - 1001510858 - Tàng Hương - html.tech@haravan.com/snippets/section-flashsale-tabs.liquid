@@ -1,0 +1,141 @@
+{% assign coll = settings.flashsale_coll %}
+{% capture flashsale_id %}section-flashsale-{{ collections[coll].id | default: 0 }}{% endcapture %}
+{% capture coll_custom_style %}
+--color-flashsale-bg: {{ settings.flashsale_bg | default: '#01049E' }};
+--color-flashsale-title: {{ settings.flashsale_text_color | default: '#fff' }};
+--color-flashsale-timer-bg: {{ settings.flashsale_timer_bg | default: '#01049E' }};
+--color-flashsale-timer: {{ settings.flashsale_timer_color | default: '#fff' }};
+--color-flashsale-process: {{ settings.flashsale_process_background | default: '#01049E' }};
+--color-flashsale-tab-bg : {{ settings.flashsale_tab_bg | default: '#01049E' }};
+--color-flashsale-tab : {{ settings.flashsale_tab_color | default: '#000' }};
+{%if template contains 'flashsale' %}
+	background-color: {{ settings.flashsale_bg }};
+{% endif %}
+{% endcapture %}
+
+{% include 'section-styles', key: 'flashsale_tabs', custom_style: coll_custom_style %}
+<section
+  class="section section-flashsale {%if is_landing_page %} landing-page-section {% else %}  overflow-hidden {% endif %} relative  w-full"
+  id="{{ flashsale_id }}"
+  style="{{ section_style }}"
+>
+  <flashsale-tabs class="container block px-0 lg:px-[var(--container-padding)]">
+    <div class=" bg-[var(--color-flashsale-bg)]   lg:rounded">
+      <div class=" -mx-[var(--container-padding)]  text-[var(--color-flashsale-title)] px-4 md:px-6 py-4">
+        <div class="flex  flex-wrap lg:flex-nowrap items-center justify-center lg:justify-between  mx-auto mb-4 gap-3 md:gap-4">
+          <div class="flex items-center gap-2 md:gap-3">
+			{%if settings.flashsale_icon_enabled %}
+            <img
+              src="{{ 'flashsale_icon.png' | asset_url }}"
+              alt="{{ settings.flashsale_title }}"
+              width="48"
+              height="48"
+              class=" w-6 lg:w-[48px] h-auto"
+            >
+              {%endif %}
+            {% if settings.flashsale_title != blank -%}
+              <h2 class="text-h4 text-center lg:text-h1  font-bold flashsale-heading">
+                <a href="{% if settings.flashsale_url %}{{ settings.flashsale_url }} {% else %}{{ collections[coll].url }} {% endif %}" title="{{settings.flashsale_title}}">
+                  {{ settings.flashsale_title -}}
+                </a>
+              </h2>
+            {% endif -%}
+          </div>
+          <div
+            {% unless settings.flashsale_timer_enabled %}
+              style="display:none"
+            {% endunless %}
+          >
+            {% for i in (1..3) -%}
+              {% capture tab_enabled %}flashsale_{{i}}_enabled{% endcapture -%}
+              {% capture flashsale_id %}section-flashsale-{{i}}{% endcapture -%}
+              {% capture prefix %}flashsale_{{i}}{% endcapture -%}
+              {% if settings[tab_enabled] -%}
+                {% include 'countdown-timer', prefix: prefix %}
+              {% endif -%}
+            {% endfor -%}
+          </div>
+        </div>
+        <div class="flashsale-nav  bg-relative   mx-auto overflow-hidden mb-4 ">
+          <ul class=" grid grid-cols-3 text-center gap-3 md:gap-4 overflow-auto">
+            {% for i in (1..3) -%}
+              {% capture tab_enabled %}flashsale_{{i}}_enabled{% endcapture -%}
+              {% capture tab_title %}flashsale_{{i}}_title{% endcapture -%}
+              {% capture flashsale_id %}section-flashsale-{{i}}{% endcapture -%}
+              {% if settings[tab_enabled] -%}
+                <li aria-controls="{{flashsale_id}}" class="tab-btn flashsale-tab  py-1.5 relative z-[1]">
+                  <span class="block md:text-h4 font-semibold ">{{ settings[tab_title] }}</span>
+                  <span class="status opacity-0 md:text-h-5 font-semibold"> Đã kết thúc </span>
+                </li>
+              {% endif -%}
+            {% endfor -%}
+          </ul>
+        </div>
+      </div>
+      {% unless is_landing_page -%}
+        <div class="relative items-start  pb-0.5 rounded-[16px] overflow-hidden p-0.5   ">
+          {% comment %}
+            <div
+              class="flashsale-background w-full h-full  absolute top-0 left-0 lg:left-1/2 lg:top-1/2   lg:-translate-x-1/2  lg:-translate-y-1/2 bg-[var(--color-flashsale-bg)] z-0 lg:rounded-[2.4rem]"
+            ></div>
+          {% endcomment %}
+          <div class="overflow-hidden lg:px-0 lg:pb-0 pb-[var(--container-padding)] px-[var(--container-padding)]">
+            {% for i in (1..3) -%}
+              {% capture tab_enabled %}flashsale_{{i}}_enabled{% endcapture -%}
+              {% capture tab_title %}flashsale_{{i}}_title{% endcapture -%}
+              {% capture flashsale_id %}section-flashsale-{{i}}{% endcapture -%}
+              {% capture tab_coll %}flashsale_{{i}}_coll{% endcapture %}
+              {% if settings[tab_enabled] -%}
+                {% assign coll = settings[tab_coll] %}
+                <div class="tab-content {% unless forloop.first%}hidden{% endunless %}" id="{{flashsale_id}}">
+                  {% include 'flashsale-products' -%}
+                </div>
+              {% endif -%}
+            {% endfor -%}
+            <div class="flashsale-end-message hidden  ">
+              <div class=" text-center py-6   p-gutter w-full h-full relative mx-auto z-0 rounded">
+                <p class="text-h4 font-semibold">Flash Sale đã kết thúc</p>
+                <p>Hãy quay lại vào các chương trình Flash sale sau bạn nhé!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% comment %} Do not hide flash sale news{% endcomment %}
+      {% else %}
+        <div class="container py-6">
+          {% for i in (1..3) -%}
+            {% capture tab_enabled %}flashsale_{{i}}_enabled{% endcapture -%}
+            {% capture tab_title %}flashsale_{{i}}_title{% endcapture -%}
+            {% capture flashsale_id %}section-flashsale-{{i}}{% endcapture -%}
+            {% capture tab_coll %}flashsale_{{i}}_coll{% endcapture %}
+            {% if settings[tab_enabled] -%}
+              {% assign coll = settings[tab_coll] %}
+              <div class="tab-content {% unless forloop.first%}hidden{% endunless %}" id="{{flashsale_id}}">
+                {% assign is_empty_coll = false %}
+                {% if coll == blank or collections[coll] == blank or collections[coll].products_count == 0 %}
+                  {% assign is_empty_coll = true -%}
+                {% endif -%}
+
+                {% if is_empty_coll %}
+                  <div class="p-4  mx-gutter">Sản phẩm đang được cập nhật...</div>
+                {% else -%}
+                  <div class="grid grid-cols-2 lg:grid-cols-4 gap-gutter">
+                    {% for product in collections[coll].products %}
+                      {% include 'product-grid-item', product: product, is_flashsale: true %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif -%}
+          {% endfor -%}
+          <div class="flashsale-end-message hidden  ">
+            <div class=" text-center py-6  p-gutter w-full h-full relative mx-auto z-0 rounded">
+              <p class="text-h4 font-semibold">Flash Sale đã kết thúc</p>
+              <p>Hãy quay lại vào các chương trình Flash sale sau bạn nhé!</p>
+            </div>
+          </div>
+        </div>
+      {% endunless %}
+    </div>
+  </flashsale-tabs>
+</section>

@@ -1,0 +1,56 @@
+{% capture countdown_type -%}{{prefix}}_countdown_type{% endcapture -%}
+{% capture start_date -%}{{prefix}}_start_date{% endcapture -%}
+{% capture end_date -%}{{prefix}}_end_date{% endcapture -%}
+{% capture begin_date -%}{{prefix}}_begin_date{% endcapture -%}
+{% capture start_time -%}{{prefix}}_start_time{% endcapture -%}
+{% capture end_time -%}{{prefix}}_end_time{% endcapture -%}
+{% capture not_started_label -%}flashsale_not_started_label{% endcapture -%}
+{% capture on_going_label -%}flashsale_ongoing_label{% endcapture -%}
+{% capture ended_label -%}flashsale_ended_label{% endcapture -%}
+
+{% capture timer_configs -%}
+{% if settings[countdown_type] == blank or settings[countdown_type] == 'dates' -%}
+  {% if shop.domain == 'ega-gear.myharavan.com'%}
+	{%if timesEnd %}
+		{% assign timesStart = timesEnd -%}
+		{% else %}
+		{% assign timesStart = "now"  -%}
+	{% endif %}
+		{% assign step =   86400 | times: 3 -%}
+		{% assign timesEnd = timesStart | date: "%s" | plus: step   -%}
+		data-countdown-type="dates"  
+		data-start-date="{{ timesStart | date: "%d/%m/%Y 00:00:00"   }}" 
+		data-end-date="{{ timesEnd  | date: "%d/%m/%Y 00:00:00"  }}"
+	{%else -%}
+		data-countdown-type="dates"  data-start-date="{{ settings[start_date] }}" data-end-date="{{ settings[end_date] }}"
+	{%endif %}
+
+		{% else -%}
+{% assign week = '' -%}
+{% for d in (0..6) -%}
+	{% assign date_in_week = prefix | append : '_day_' | append: d -%}
+	{%if settings[date_in_week] -%}
+		{% assign week = week | append: d -%}
+		{% unless forloop.last -%}{% assign week = week | append: ',' -%}{% endunless -%}
+	{% endif -%}
+{% endfor -%}
+data-countdown-type="hours"  data-start-date="{{ settings[begin_date] }}" data-start-time="{{ settings[start_time] }}" 
+data-end-time="{{settings[end_time]}}" data-week="{{week}}"
+{% endif -%}
+{% endcapture %}
+<countdown-timer data-id="{{flashsale_id}}" {{ timer_configs }}>
+      <div class="flashsale__countdown-timer  flex-wrap  flashsale__countdown-wrapper flex items-center gap-2 md:gap-5 lg:w-auto w-full justify-center">
+        <span class="flashsale__countdown-label text-center hidden" data-label="not-started">
+			{{ settings[not_started_label] }}
+        </span>
+		    <span class="flashsale__countdown-label text-center hidden" data-label="ongoing">
+			{{ settings[on_going_label] }}
+        </span>
+		    <span class="flashsale__countdown-label  text-center hidden" data-label="ended">
+			{{ settings[ended_label] }}
+        </span>
+        <div class="flashsale__countdown hidden">
+          
+        </div>
+      </div>
+</countdown-timer>

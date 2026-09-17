@@ -1,0 +1,71 @@
+
+.starbap-prev-badgetext{
+  margin-left: 4px
+}
+// APP Buy X get Y
+.product-buyxgety{
+      display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2);
+    border: 1px solid var(--color-neutral-50);
+    border-radius: var(--rounded);
+    margin-top: 1.2rem;
+}
+
+.buyxgety_item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+input.radio-product {
+    height: var(--spacing-4);
+    width: var(--spacing-4);
+    cursor: pointer;
+    border-width: 1px;
+    border-color: var(--color-neutral-50);
+    color: var(--color-secondary);
+}
+.buyxgety_image {
+      width: 4.8rem;
+}
+
+.bxy__tt1{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-1)
+}
+.bxy__tt1 span {
+      font-weight: 600;
+    color: var(--color-price);
+}
+
+.buyxgety_item_title a {
+      font-weight: 600;
+}
+.buyxgety_item_title a:hover {
+      color: var(--color-link)
+}
+
+#onAppWishList_numberLike {
+    color: var(--color-cart-bubble);
+    background-color: var(--color-cart-bubble-bg);
+    width: 1.6rem;
+    height: 1.6rem;
+    font-size: 1rem;
+    right: 12px;
+    top: 10px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.6rem;
+    position: absolute;
+    border-radius: 100%;
+      font-family: var(--font-body-family);
+}
+
+@media(min-width: 976px){
+  .header-wrapper:has(#onAppWishList_btn_page){
+    grid-template-columns: 3fr 5fr auto
+  }
+}

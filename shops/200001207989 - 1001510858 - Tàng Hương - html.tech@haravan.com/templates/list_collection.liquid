@@ -1,0 +1,64 @@
+{% include 'breadcrumb' %}
+{% if settings.collection_results_per_page != null %}
+  {% assign product_per_page = settings.collection_results_per_page %}
+{% else %}
+  {% assign product_per_page = 9 %}
+{% endif %}
+<div class="main-container col2-left-layout">
+  <div class="container">
+    <div class="row">
+      <div class="col-main col-sm-9 col-sm-push-3">
+        <article class="col-main">
+           <div class="page-title">
+            <h2>Danh mục sản phẩm</h2>
+          </div>
+            <div class="category-products pull-left wow bounceInUp animated">
+                <ul class="pdt-list products-grid zoomOut play">
+                  {% for collection in collections %}
+                    {% if collection.products.size > 0 %}
+                      <li class="item item-animate {% cycle '','','last' %}">
+                        <div class="col-item">
+                          <div class="item-inner">
+                            <div class="product-wrapper">
+                              <div class="thumb-wrapper">
+                                <a href="{{ collection.url }}" class="thumb flip">
+                                  <span class="face">
+                                    {% if collection.image %}
+                                      <img src="{{ collection.image.src | img_url:'large' }}" title="{{ collection.title }}" width="268" alt="{{ collection.title }}">
+                                    {% else %}
+                                      <img src="{{ collection.products.first.featured_image.src | img_url:'large' }}" title="{{ collection.title }}" width="268" alt="{{ collection.title }}">
+                                    {% endif %}
+                                  </span>
+                                  <span class="face back">
+                                    {% if collection.image %}
+                                      <img src="{{ collection.image.src | img_url:'large' }}" title="{{ collection.title }}" width="268" alt="{{ collection.title }}">
+                                    {% else %}
+                                      <img src="{{ collection.products.first.featured_image.src | img_url:'large' }}" title="{{ collection.title }}" width="268" alt="{{ collection.title }}">
+                                    {% endif %}
+                                  </span>
+                              </a>
+                              </div>
+                            </div>
+                            <div class="item-info">
+                              <div class="info-inner">
+                                <div class="item-title"> <a href="{{ collection.url}}" title="{{ product.title }}">{{ collection.title }} </a> </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+            </div>
+        </article>
+      </div>
+      {% include 'sidebar-collection' %}
+     </div>
+   </div>
+</div>
+
+
+
+
+

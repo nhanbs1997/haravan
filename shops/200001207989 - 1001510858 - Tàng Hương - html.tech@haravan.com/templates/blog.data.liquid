@@ -1,0 +1,20 @@
+{% layout none -%}
+
+{% paginate blog.articles by 24 -%}
+<div  class="data">
+	{% if blog.articles_count > 0 -%}
+	{% for article in blog.articles %}
+	{% include 'article-card' -%}
+	{% endfor %}
+	{% else -%}
+	<div class="pt-3">
+		<div class="alert alert-warning alert-dismissible margin-top-15 section" role="alert">
+			Bài viết đang được cập nhật.
+		</div>
+	</div>
+	{% endif -%}
+	
+</div>
+
+
+{% endpaginate -%}

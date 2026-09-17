@@ -1,0 +1,192 @@
+<style>
+  html {
+       box-sizing: border-box;
+       font-size: 62.5%;
+       height: 100%;
+ }
+ :root {
+   /*
+     replace font family and font weight
+   */
+   --font-body-family: 'Quicksand', sans-serif;
+   --font-body-weight: 400;
+   --font-headings-family: 'Quicksand', sans-serif;
+   --font-headings-weight: 600;
+
+   /* For text color */
+   --color-foreground: {{ settings.foreground_color }};
+
+   /* For background color */
+   --color-background: #FFFFFF;
+
+	 --color-background-body: {{ settings.body_color | default: '#F2F6F3' }};
+
+   /* For primary color : button, link  */
+
+   --color-primary: {{ settings.primary_color }};
+
+   /* base on design  */
+   --color-secondary: {{ settings.secondary_color }};
+   {% comment %} --color-tertiary: #000; {% endcomment %}
+ --color-link:  {{ settings.link_color }} ;
+   /* For cta color */
+   --color-accent: #FFE711;
+
+   --color-neutral-50 : #EBEBEB;
+   --color-neutral-100 : #BFBFBF;
+   --color-neutral-200 : #999999;
+   --color-neutral-300 : #666666;
+   --color-neutral-400 : #464646;
+
+
+   /* For line border color or shadow color */
+   --color-label: var(--color-neutral-200);
+   --color-price:  {{ settings.price_color }};
+   --color-price-compare: {{ settings.compare_price_color }};
+   --color-sale-bg: {{ settings.sale_bg_color }};
+   --color-sale: {{ settings.sale_color }};
+   --color-addtocart: {{ settings.addtocart_color }};
+   --color-addtocart-bg: {{ settings.addtocart_bg_color }};
+   --color-coupon-primary: {{ settings.coupon_button_color }};
+   --color-coupon-secondary: {{ settings.coupon_text_color }};
+
+   /* For error state */
+   --color-error: #EE1926;
+
+   /* For success state */
+   --color-success: #2BAD14 ;
+
+   /* For warning state */
+   --color-warning: #F2BC1B;
+
+  /* header */
+  --color-header: var(--color-foreground);
+  --color-header-bg:  var(--color-background);
+  --header-height: 8.4rem;
+  --logo-width : 14.4rem;
+  --color-cart-bubble: #FFFFFF;
+  --color-cart-bubble-bg: #EE1926;
+  --color-search: var(--color-primary);
+  --color-sub-header-bg: {{ settings.sub_menu_bg_color }};
+  --color-sub-header: {{ settings.sub_menu_color }};
+  --color-sub-header-link: {{ settings.sub_menu_hover_color }};
+   
+   /* Font size for body text */
+   --font-size-body: 1.4rem;
+
+   /* Font size for text h1 - h6 */
+   --font-size-h1: 4.8rem;
+   --font-size-h2: 4rem;
+   --font-size-h3: 3.2rem;
+   --font-size-h4: 2.8rem;
+   --font-size-h5: 2rem;
+   --font-size-h6: 1.6rem;
+
+   /*  if any title different
+   --font-title-1: 3rem;
+   --font-title-2: 2.25rem;
+   */
+
+   /* Rounded config */
+   --rounded: 0.8rem;
+   --rounded-lg: calc( var(--rounded) * 1.5 );
+   --rounded-sm: calc( var(--rounded) / 2 );
+   --rounded-xs: calc( var(--rounded) / 4 );
+   --rounded-full: 9999px;
+
+   --rounded-button: 9999px;
+   --rounded-input: 0.4rem;
+
+
+
+   /* Spacing */
+
+     /**
+      * ---------------------------------------------------------------------
+      * SPACING VARIABLES
+      *
+      * We are using a spacing inspired from frameworks like Tailwind CSS.
+      * ---------------------------------------------------------------------
+      */
+      --spacing-0-5: 0.2rem; /* 2px */
+      --spacing-1: 0.4rem; /* 4px */
+      --spacing-1-5: 0.6rem; /* 6px */
+      --spacing-2: 0.8rem; /* 8px */
+      --spacing-2-5: 1rem; /* 10px */
+      --spacing-3: 1.2rem; /* 12px */
+      --spacing-3-5: 1.4rem; /* 14px */
+      --spacing-4: 1.6rem; /* 16px */
+      --spacing-4-5: 1.8rem; /* 18px */
+      --spacing-5: 2rem; /* 20px */
+      --spacing-5-5: 2.2rem; /* 22px */
+      --spacing-6: 2.4rem; /* 24px */
+      --spacing-6-5: 2.6rem; /* 26px */
+      --spacing-7: 2.8rem; /* 28px */
+      --spacing-7-5: 3rem; /* 30px */
+      --spacing-8: 3.2rem; /* 32px */
+      --spacing-8-5: 3.4rem; /* 34px */
+      --spacing-9: 3.6rem; /* 36px */
+      --spacing-9-5: 3.8rem; /* 38px */
+      --spacing-10: 4rem; /* 40px */
+      --spacing-11: 4.4rem; /* 44px */
+      --spacing-12: 4.8rem; /* 48px */
+      --spacing-14: 5.6rem; /* 56px */
+      --spacing-16: 6.4rem; /* 64px */
+      --spacing-18: 7.2rem; /* 72px */
+      --spacing-20: 8rem; /* 80px */
+      --spacing-24: 9.6rem; /* 96px */
+
+      /* Container */
+
+   --container-padding: var(--spacing-3);
+   --grid-gutter: var(--spacing-2);
+
+   --shadow-l: 0px 2rem 4.8rem 0px rgba(51, 51, 51, 0.20);
+   --navigation-width: 40rem;
+	{% assign color_configs =  settings.swatch_color_configs | newline_to_br | remove: '<' |remove: '/>' | split: 'br' -%}
+
+	 {% for color in color_configs -%}
+	 {% assign color_name = color | split: ':' | first -%}
+	 {% assign color_value = color | split: ':'| last -%}
+		 {% if color_name != blank and color_value != blank -%}
+	 		{% assign var_name = color_name | downcase | strip | handleize  %}
+	 		--swatch-{{var_name}}: {{color_value}};
+		 {% endif -%}
+	 {% endfor -%}
+ }
+
+ @media(max-width: 767px){
+   :root {
+     --logo-width: 11.7rem;
+     --header-height: 6.8rem
+     
+   }
+	 
+ }
+ 
+ body {
+   grid-template-columns: 100%;
+   min-height: 100%;
+   margin: 0;
+   font-size: var(--font-size-body);
+   letter-spacing: -0.004em;
+   line-height: calc( 20 / 14 );
+   font-family: var(--font-body-family);
+   font-weight: var(--font-body-weight);
+   background-color: var(--color-background-body);
+	 scroll-behavior: smooth;
+ }
+ .section {
+   padding: var(--section-padding,  0);
+   margin: var(--section-margin, 2rem 0 0 0);
+ }
+
+ @media(max-width: 975px){
+   
+.section {
+   padding: var(--section-padding-mb,0);
+   margin: var(--section-margin-mb, 2rem 0 0 0);
+ }
+
+  }
+</style>

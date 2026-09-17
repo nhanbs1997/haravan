@@ -1,0 +1,62 @@
+{% assign equal_price = product.price -%}
+{% assign percent_range = equal_price | times: settings.equalprice_percent | divided_by: 100 -%}
+{% assign min_price = equal_price | minus: percent_range | divided_by: 100 -%}
+{% assign max_price = equal_price | plus: percent_range | divided_by: 100 -%}
+{% assign collection_id = product.collections.first.id -%}
+
+{% assign equal_price_from = '' -%}
+{% case settings.equalprice_from -%}
+{% when 'collection' -%}
+{% assign equal_price_from = '&&(collectionid:product=' | append: collection_id | append: ')' -%}
+{% when 'type' -%}
+{% assign equal_price_from = '&&(product_type:product=' | append: product.type | append: ')'-%}
+{% endcase -%}
+
+{% capture query_string  -%}
+ (id:product<>{{product.id}}&&(price:product >={{min_price}})&&(price:product <={{max_price}}))
+{% endcapture -%}
+{% capture search_url -%}/search?q=filter=(id:product<>{{product.id}}&&(price:product >={{min_price}})&&(price:product <={{max_price}})){%endcapture-%}
+
+<section id="equalprice-products" class="section section-products section-equal-price-products" style="--section-margin: 64px 0 64px 0;--section-margin-mb: 32px 0 32px 0">
+	<div class="container">
+		<div class="heading-bar py-3 px-5  text-center mb-2">
+			<h2 class="heading font-semibold ">
+					{{ settings.equalprice_heading }}
+			</h2>
+		</div>
+	  <related-products class="releated-products w-full" data-query="{{query_string | strip }}"
+						 data-limit="{{settings.equalprice_limit}}"
+						{%if settings.equalprice_empty_message != blank %}
+						data-empty-content="{{settings.equalprice_empty_message}}"{% endif %}
+						>
+		  	<ega-carousel>
+				 <script data-type="swiper-params" type="application/json">
+				{
+				  "spaceBetween": 8,
+				  "slidesPerView": 2,
+				   "breakpoints": {
+					"768": {
+					  "slidesPerView": 2
+					},
+					"1024": {
+					  "slidesPerView": 3
+					},
+					"1200": {
+					  "slidesPerView": 4
+					}
+				  }
+				}
+			  </script>
+				
+			  	<div class="swiper lg:pb-[var(--spacing-10)]">
+					
+					<div class="swiper-wrapper  product-list h-inherit">
+					</div>
+					 <div class="swiper-button-prev md:flex hidden" onclick="event.stopPropagation()"></div>
+              <div class="swiper-button-next  md:flex hidden" onclick="event.stopPropagation()"></div>
+				</div>
+			  
+			  </ega-carousel>
+		  </related-products>
+	</div>
+</section>

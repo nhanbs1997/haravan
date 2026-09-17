@@ -1,0 +1,25 @@
+{% include 'breadcrumb' %}
+<section class="section main-page " style="--section-margin: 0px 0px 40px; --section-margin-mb: 0px 0px 20px">
+  <div id="onAppWishList_page" style="display: none" class="container">
+    <div class="grid grid-cols-1  lg:grid-cols-custom justify-center gap-gutter" style="--grid-col: 100%">
+      <div>
+        <div class="mb-6">
+          <div class="heading-bar py-3 md:px-5 px-3 bg-background  rounded-sm flex flex-wrap items-center  md:gap-6">
+            <h2 class=" text-h5 md:text-h4 font-semibold text-secondary md:w-auto w-full text-center">
+              Danh sách sản phẩm yêu thích
+            </h2>
+            <button id="onAppWishList_removeAll" class="btn ml-auto">Xóa tất cả</button>
+          </div>
+          <div class="wish-list grid grid-cols-2  lg:grid-cols-4 gap-gutter mt-2"></div>
+          <div class="recommend hidden">
+            <h4>Có thể bạn quan tâm</h4>
+            <div class=""></div>
+          </div>
+        </div>
+      </div>
+      <div id="onAppWishList_nextPageWishList">
+        <button id="nextPageWishList" class="col-md-12 btn btn-info">xem thêm</button>
+      </div>
+    </div>
+  </div>
+</section>

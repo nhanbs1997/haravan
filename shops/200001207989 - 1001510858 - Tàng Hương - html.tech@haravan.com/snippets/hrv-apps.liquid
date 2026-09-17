@@ -1,0 +1,17 @@
+
+<script>
+  var formatMoney = '{{ shop.money_format }}';
+</script>
+{% if settings.reviews_enabled and settings.reviews_app == 'easyreview' -%}
+  {% include 'starbap-products-reviews' %}
+{% endif -%}
+{%- if settings.promotion_hrvapp_use %}
+  {%- if settings.promotion_hrvapp == 'appcombo' -%}
+    <script type="text/javascript" src="{{ 'app-combo.js'  | asset_url }}" defer></script>
+  {%- elsif settings.promotion_hrvapp == 'appbuyxgety' -%}
+    <script type="text/javascript" src="{{ 'ega-app-buyxgety.js' | asset_url }}" defer></script>
+  {%- endif -%}
+{%- endif -%}
+{% if settings.wishlist_enabled -%}
+  {% include 'hrv.wishlist' %}
+{% endif -%}

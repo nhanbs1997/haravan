@@ -1,0 +1,28 @@
+{%if settings.quickview_enabled %}
+	<quick-view class="portal portal--modal" 
+				id="quick-view-product" 
+				data-type="modal"
+				data-animation="scale-in-hor-left"> 
+		<dialog class="portal-dialog">
+			<div class=" flex items-center justify-center w-full h-full">
+				<div class="portal-overlay"></div>
+						
+            <div class="portal-inner    h-full  " >
+				  <button  type="button"
+                  id="PortalClose-quick-view-product"
+						  data-animation="fade-in"
+                  class="portal-close-button animation rounded-full w-[3.2rem] h-[3.2rem]  border border-white text-white flex items-center justify-center active:scale-95 transition-transform hover:animate-spin"
+                >
+                  <i class="icon icon-cross"> </i>
+                </button>
+				<div class="product-wrapper animation  bg-background  w-full h-full  md:rounded-lg">
+					
+				</div>
+				{% include 'loading-icon' %}
+              </div>
+			</div>
+          
+        </dialog>
+			
+	</quick-view>
+{%endif%}

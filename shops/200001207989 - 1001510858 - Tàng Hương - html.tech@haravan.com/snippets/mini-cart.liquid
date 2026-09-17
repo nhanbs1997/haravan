@@ -1,0 +1,19 @@
+<a
+  {% unless template contains 'cart' %}
+    data-portal="#cart-drawer"
+  {% endunless %}
+  href="/cart"
+  title="Giỏ hàng"
+  class="mini-cart header-icon-group flex gap-2 items-center cart-group  hover:bg-neutral-50 active:scale-95 transition-all duration-150  md:px-2 pl-2 py-1 rounded-sm"
+>
+  <div class="header-icon w-[3.6rem] h-[3.6rem]  p-2 rounded-full flex items-center justify-center relative border border-neutral-50">
+    <i class="icon icon-cart"></i>
+    <span class="cart-count  flex items-center count_item count_item_pr justify-center rounded-full absolute font-semibold">
+      {{- cart.item_count -}}
+    </span>
+  </div>
+  <div class=" block hidden md:block">
+    <span class="text-xs ">Giỏ hàng</span>
+    <span class="font-semibold hidden block  price count_item ">{{ cart.item_count }}</span>
+  </div>
+</a>

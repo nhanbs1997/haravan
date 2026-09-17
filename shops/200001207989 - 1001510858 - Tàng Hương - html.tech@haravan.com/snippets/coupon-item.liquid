@@ -1,0 +1,29 @@
+<coupon-item>
+  <div class="coupon-item flex items-center bg-background px-3 py-3 rounded-lg relative ">
+    <div class=" border border-dashed border-neutral-50 rounded-lg p-3 h-inhiret">
+      <div class="grid grid-cols-2 justify-between items-center mb-1.5 gap-1">
+        <div class="coupon-item__code font-semibold text-secondary whitespace-nowrap text-ellipsis overflow-hidden "><span class="swiper-no-swiping">
+        {{ title }}
+        </span> </div>
+        <div class="coupon-item__end-date text-sm text-right">
+       {% if date != blank %}
+      <span class="text-neutral-300" data-expired-date="{{date}}-{{time}}">HSD: {{ date }} </span>
+       {% endif %}
+        </div>
+      </div>
+      <div class="coupon-item__summary mb-2.5 text-xs ">{{ desc }}</div>
+        <div class="coupon-item__rules mb-2.5 hidden ">{{ info | newline_to_br}}</div>
+      <div class="coupon-item__action grid grid-cols-2 gap-3 ">
+        <button  data-portal="#coupon-modal" class="btn text-xs font-semibold border border-primary text-primary hover:bg-primary hover:text-white py-1.5 ">Điều kiện</button>
+       <copy-button data-copied-text="Đã sao chép"  >
+                  <input type="hidden" value="{{ code }}" />
+                  <button type="button" class="btn text-xs font-semibold copy-button w-full  text-white border border-primary bg-primary  py-1.5 ">
+              Sao chép
+              </button>
+          </copy-button>
+       
+      </div>
+    
+    </div>
+  </div>
+</coupon-item>

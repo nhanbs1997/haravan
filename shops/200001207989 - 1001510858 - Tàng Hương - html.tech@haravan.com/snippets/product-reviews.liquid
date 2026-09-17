@@ -1,0 +1,21 @@
+{%  if settings.reviews_enabled -%}
+{% if settings.reviews_app == 'productreviews' -%}
+<div class="proloop--review">
+				<!--  check review -->
+				{%-assign rate_review = product.metafields.src.product_loop | append: ""-%}
+				{% assign rate_number = '' %}
+				{%-if rate_review != ''-%}
+				{%-assign rate_number = rate_review | remove: ' đánh giá'-%}
+				{%-endif-%}
+				<div class="haravan-product-reviews-badge" data-id="{{ product.id }}"> {{rate_number}} </div>
+</div>	
+  {% endif -%}
+  {% if settings.reviews_app == 'easyreview' -%}
+  <div class="starbaprv-widget starbaprv-preview-badge starbaprv-preview-badge--with-link" data-id="{{product.id}}" data-url="{{product.handle}}">
+      {% if product.metafields.starbap['starbaprv.badge']%}
+      {{product.metafields.starbap['starbaprv.badge']}}
+      {% endif %}
+  </div>
+    {% endif-%}
+  {% endif -%}
+  

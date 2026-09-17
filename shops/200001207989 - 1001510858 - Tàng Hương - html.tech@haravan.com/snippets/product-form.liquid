@@ -1,0 +1,89 @@
+{% assign hide_cta = false %}
+
+{% if contact_item %}
+  {% assign hide_cta = true %}
+{% endif %}
+{% assign curr_variant = product.selected_or_first_available_variant %}
+	{% unless curr_variant %}
+			{% assign curr_variant = product.variants[0] %}
+		{% endunless %}
+{% if curr_variant.available == false or product.available == false %}
+  {% assign hide_cta = true %}
+{% endif %}
+
+<div class="product-cta mb-0 mt-4 ">
+  
+    <div class="{% if curr_variant.available == true  %} hidden {% endif %} btn--soldout  font-semibold mt-2 btn bg-neutral-50 w-full "  style="pointer-events:none">
+      HẾT HÀNG
+    </div>
+	
+  <form
+    class="{% if hide_cta  %} hidden {% endif %}"
+    enctype="multipart/form-data"
+    id="add-to-cart-form"
+    action="/cart/add"
+    method="post"
+  >
+	<input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+
+	 {% if settings.buynow_enabled or settings.product_add_to_cart_enabled %}
+    <div class="flex items-center gap-3 mb-4 ">
+      <div class="w-[88px] text-neutral-400"> Số lượng </div>
+      <quantity-input>
+        <div class="custom-number-input product-quantity">
+          <div class="flex flex-row h-10 border border-neutral-50 relative bg-background rounded-pill overflow-hidden h-[3.8rem] w-[13rem]">
+            <button type="button" name="minus" class="h-full w-20  cursor-pointer outline-non p-2">
+              <i class="m-auto icon icon-minus"></i>
+            </button>
+            <input
+              type="number"
+              class="focus:outline-none form-quantity w-full focus:ring-transparent text-base  font-semibold text-md  md:text-basecursor-default flex items-center outline-none bg-transparent border-none text-center"
+              name="quantity"
+              value="1"
+              min="1"
+		      {%if  product.selected_or_first_available_variant != blank and product.selected_or_first_available_varian.inventory_management and product.selected_or_first_available_variant.inventory_policy == 'deny'  %}
+			  max="{{ product.selected_or_first_available_variant.inventory_quantity}}"
+			 {%endif%}
+            >
+            <button type="button" name="plus" class=" h-full w-20 rounded-r cursor-pointer p-2">
+              <i class="m-auto icon icon-plus"></i>
+            </button>
+          </div>
+        </div>
+      </quantity-input>
+      </div>
+	 {% endif %}
+	
+    {% if settings.inventory_status_enabled -%}
+      {% include 'inventory-status' -%}
+  {% endif -%}
+	
+	  <div class="flex gap-2 mt-4 border-t border-neutral-50 pt-4" >
+    
+		  {% if settings.buynow_enabled %}
+    <button
+	  name="buynow"
+      class=" font-semibold  btn bg-[var(--color-addtocart-color)] text-[var(--color-addtocart-bg)] border border-[var(--color-addtocart-bg)]  hover:bg-[var(--color-addtocart-bg)] hover:text-[var(--color-addtocart)] btn-buynow w-full"
+    >
+		<span>    {{ settings.product_buynow_content }} </span>
+				 {% include 'loading-icon' %}
+
+    </button>
+	{% endif %}
+  {% if settings.product_add_to_cart_enabled %}
+    <button
+    name="addtocart"
+      class=" font-semibold  btn bg-[var(--color-addtocart-bg)] text-[var(--color-addtocart)] btn-add-to-cart w-full"
+    >
+     <span> {{ settings.product_addtocart_content }}</span>
+   {% include 'loading-icon' %}
+    </button>
+  {% endif %}
+	  </div>
+	
+  </form>
+</div>
+<script data-type="product-json" data-id="{{product.id}}"   type="application/json">
+  {{ product | json | strip_html}}
+</script>

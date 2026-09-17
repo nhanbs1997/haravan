@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="{{ 'addthis-sharing.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'addthis-sharing.css' | asset_url | stylesheet_tag }}</noscript>	
+<div class="addThis_listSharing hidden">
+	{% if settings.backtotop_enabled %}
+<a href="#" id="back-to-top" class="backtop back-to-top flex items-center justify-center"  title="Lên đầu trang">
+	<i class="icon icon-carret-up"></i>
+</a>
+{% endif %}
+	{%- if settings.addThis_listSharing_enabled -%}
+
+	<ul class="addThis_listing list-unstyled  md:block hidden">
+		
+		{%- if settings.addthis_icon1_enabled -%}
+		<li class="addThis_item">
+			<a class="addThis_item--icon" href="tel:{{settings.phone}}" rel="nofollow" >
+				<img class="img-fluid" src="{{'addthis-phone.svg'| asset_url}}" alt="{{settings.addthis_icon1_tootlip}}" loading="lazy" width="44" height="44" />
+				<span class="tooltip-text">{{settings.addthis_icon1_tootlip}}</span>
+			</a>
+		</li>
+		{%- endif -%}
+		{%- if settings.addthis_icon2_enabled -%}
+		<li class="addThis_item">
+			<a class="addThis_item--icon" href="{{settings.zalo}}" target="_blank"  rel="nofollow">
+				<img class="img-fluid" src="{{'addthis-zalo.svg'| asset_url}}" alt="{{settings.addthis_icon2_tootlip}}" loading="lazy" width="44" height="44" />
+				<span class="tooltip-text">{{settings.addthis_icon2_tootlip}}</span>
+			</a>
+		</li>
+		{%- endif -%}
+		{% if settings.addthis_icon3_enabled %}
+			<li class="addThis_item">
+				<a class="addThis_item--icon" href="{{settings.messenger}}" target="_blank"  rel="nofollow">
+					<img class="img-fluid" src="{{'addthis-messenger.svg'| asset_url}}" alt="{{settings.addthis_icon3_tootlip}}" loading="lazy" width="44" height="44" />
+					<span class="tooltip-text">{{settings.addthis_icon3_tootlip}}</span>
+				</a>
+			</li>
+		{%- endif -%}
+
+	</ul>
+	{%- endif -%}
+</div>
+{% comment %} {% if settings.addthis_icon3_enabled %}
+	<!-- Messenger Plugin chat Code -->
+		<div id="fb-root"></div>
+
+	<!-- Your Plugin chat code -->
+	<div id="fb-customer-chat" class="fb-customerchat">
+	</div>
+
+	<script>
+
+		$(document).ready(() => {
+			const page_id = "{{settings.page_id}}"
+			if(page_id && window.outerWidth  > 600){
+			$(window).one(' mousemove touchstart scroll', () => {
+				var chatbox = document.getElementById('fb-customer-chat');
+				if(chatbox){
+				chatbox.setAttribute("page_id", page_id);
+									 chatbox.setAttribute("attribution", "biz_inbox");
+				}
+				window.fbAsyncInit = function() {
+					FB.init({
+						xfbml            : true,
+						version          : 'v12.0'
+					});
+				};
+
+				(function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) return;
+					js = d.createElement(s); js.id = id;
+					js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));
+			})
+			}
+		})
+
+	</script>
+{% endif %} {% endcomment %}

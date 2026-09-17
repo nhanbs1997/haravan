@@ -1,0 +1,260 @@
+{% include 'breadcrumb' %}
+{% assign has_sidebar = settings.aside_filter_enabled %}
+{% if settings.aside_category_blog_menu != blank %}
+	{% assign has_sidebar = true %}
+{% endif %}
+
+{% if settings.blogs_aside_enabled and blogs[settings.blogs_aside_url].articles_count > 0 %}
+	{% assign has_sidebar = true %}
+{% endif %}
+{% capture related_article -%}
+	{% if settings.blogs_related_enabled and  blog.articles.size > 1 -%}
+	<aside class="bg-background mt-5    h-auto px-5   z-10 relative flex flex-col rounded-sm">
+		<div class="blog-aside aside-item blog-aside-article  aside-item md:py-5 py-4 border-t border-neutral-50">
+			
+		<div class="aside-title">
+			<h2 class="title-head margin-top-0 text-base font-semibold mb-3"><span><a class="link" href="{{blog.url}}" title="{{ settings.blogs_related_title }}">{{ settings.blogs_related_title }}</a></span></h2>
+		</div>
+		<div class="aside-content-article aside-content margin-top-0">
+			<div class="blog-image-list space-y-3 ">
+				{% assign count = 0 -%}
+					{% assign article_related_list_limit = settings.blogs_related_limit -%}
+					{% assign current_handle = article.handle -%}
+					{% for art in blog.articles -%}
+					{% assign art_handle = art.handle -%}
+					{% if current_handle != art_handle -%}
+						{%include 'article-card-media', article: art%}
+					{% assign count = count | plus: 1 -%}
+					{% if count == article_related_list_limit -%}
+					{% break -%}
+					{% endif -%}
+					{% endif -%}
+					{% endfor -%}
+			</div>
+		</div>
+	 </div>
+	</aside>
+	{% endif -%}
+{% endcapture -%}
+<section class="section main-article " style="--section-margin: 0px 0px 40px; --section-margin-mb: 0px 0px 20px">
+	<div class="container md:px-gutter px-0 article-wraper " >
+		
+	 	<div class="grid grid-cols-1 {% if has_sidebar %} lg:grid-cols-[calc(100%_-_32.8rem)_32rem]  {% endif %} gap-gutter">
+			<div class="w-full">
+			 <div class="bg-background md:rounded-sm p-3 md:p-6 mb-6">
+				{% if settings.article_featured_image_enabled and article.image != null %}
+					<div class="article-image">
+						<picture>
+							<source media="(max-width: 480px)" srcset="{{ article.image.src | img_url: "large" -}}">
+	
+						<img  src="{{ article.image.src }}"
+							alt="{{ article.title | escape }}" class="w-auto max-w-full mx-auto mb-4 h-auto"
+							width="1280"
+							height="425"
+						/>
+						</picture>
+						</div>
+					{% endif %}
+				<h1 class="text-h4 font-semibold mb-2">{{ article.title }}</h1>
+				<div class="flex items-center justify-between mb-5 flex-wrap">
+				  <div class="cart-article__date   text-neutral-200 flex gap-1  items-center whitespace-nowrap">
+					<i class="icon icon-calendar"></i>
+				 {{ article.published_at  | date:'%d/%m/%Y'  }}	  
+				  </div>
+
+				</div>
+				{% if article.content != balnk and settings.article_toc_used and settings.article_toc_heading != blank -%}
+					<div class="toc-wrapper mt-5 mb-5 px-3 py-3 border border-neutral-50 rounded-sm ">
+						<div class="toc-title mb-2 open font-semibold uppercase">Nội dung bài viết 
+						<i class="icon icon-carret-rigth"></i>
+						</div>
+						<div class="js-toc">
+
+						</div>
+					</div>
+				{% endif -%}
+		
+					<div class="article-content js-toc-content ">
+						<div class="rte" id="ega-uti-editable-content" data-platform='haravan'
+							data-id="{{article.id}}" data-blog-id={{blog.id}}>
+							{% if article.content and article.content != '' -%}
+							<div class="prose text-base w-full max-w-full content ">
+							{% include 'shortcode' load: article.content %}
+							</div>
+							{% else -%}
+							<p class="ega-color--secondary">
+								Nội dung "{{article.title}}" đang được cập nhật
+							</p>
+							{% endif -%}
+						</div>
+					</div>
+					<div class="my-5 article-share">
+						{% include  'share-buttons' %}
+							</div>
+			</div>
+			{% if blog.comments_enabled -%}
+			<div class="bg-background md:rounded-sm  md:p-6 p-3 mb-6">
+				{% form "new_comment", article -%}
+					
+					<div class="form-coment clear-fix">
+				
+						<div class="grid gap-gutter">
+						<div class="">
+							<h5  class="text-h4 font-semibold ">Viết bình luận của bạn</h5>
+						</div>
+							<div class="grid md:grid-cols-2 gap-gutter">
+								<fieldset>
+									<input placeholder="Họ tên" type="text" class="form-input "
+										value="{{ customer.name }}" id="full-name" name="comment[author]"
+										Required>
+								</fieldset>
+								<fieldset >
+									<input placeholder="Email"
+										pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" type="email"
+										class="form-input" value="{{ customer.email }}" name="comment[email]"
+										Required>
+								</fieldset>
+							</div>
+								
+							<fieldset>
+								<textarea placeholder="Nội dung" class="form-textarea" id="comment"
+									name="comment[body]" rows="6" Required>{{ form.body }}</textarea>
+							</fieldset>
+							{% if comment and comment.created_at -%}
+							<p class="alert bg-relative rounded-sm text-success my-2 p-2">
+								{% if blog.moderated -%}
+								Bạn đã đăng bình luận thành công. Chúng tôi sẽ đăng bình luận của bạn sau khi
+								được kiểm duyệt.
+								{% else -%}
+								Bạn đã đăng bình luận thành công. Xin cảm ơn!
+								{% endif -%}
+							</p>
+							{% endif -%}
+							{% if form.errors.size > 0 -%}
+							<div class="alert bg-relative rounded-sm text-error my-2 p-2">{{ form.errors | default_errors }}</div>
+							{% endif -%}
+							<div
+								class="text-center ">
+								<button type="submit" class="btn bg-primary text-white w-full max-w-[32rem] font-semibold">Gửi
+									bình luận</button>
+							</div>
+						</div>
+					</div> 
+				{% endform -%}
+				
+			</div>
+				{% if article.comments_count > 0 -%}
+					<div class="bg-background md:rounded-sm  md:p-6 p-3">
+
+					<div id="article-comments">
+						<h5 class=" text-base font-semibold mb-3 uppercase">Bình luận 
+						</h5>
+						<div class="space-y-2 divide-y divide-neutral-50">
+							
+						{% for comment in article.comments -%}
+						<div class="article-comment clearfix flex gap-2 py-4">
+							<figure class="article-comment-user-image mr-3">
+								<img loading="lazy"
+									 class="w-6 h-6 rounded-full object-cover"
+									src="https://www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}?s=110&d=identicon"
+									alt="binh-luan" >
+							</figure>
+
+							<div class="article-comment-user-comment media-body">
+								<p class="user-name-comment"><strong>{{ comment.author }}</strong>
+									<a href="#article_comments"
+										class="btn-link pull-xs-right hidden">Trả lời</a>
+								</p>
+								<small class="article-comment-date-bull text-neutral-200 ">{{ comment.created_at | sdate:'%d/%m/%Y' }}</small>
+								<p class="cm">{{ comment.content }}</p>
+
+							</div>
+						</div>
+						{% endfor -%}
+							
+						</div>
+					</div>
+				</div>
+			
+				{% endif %}
+				{% endif %}
+		
+			</div>
+			{% if has_sidebar %}
+					{% include 'blogs-sidebar', related_article: related_article %}
+			{% endif %}
+		</div>
+	</div>
+</section>
+
+<div id="fixed-toc" class="fixed-toc">
+	<button class="btn rounded-sm toc-toggle-btn hamburger-button gap-1 flex flex-col items-center justify-center" >
+		   {% for i in (1..3) %}
+          <span class="block h-[2px] w-5 bg-primary"></span>
+        {% endfor %}
+			
+	</button>
+	<div class="fixed-toc-content">
+		<div class="toc-title mb-2 open font-weight-bold">Nội dung bài viết 	
+			<span class="toc-toggle-btn toc-toggle-btn ml-auto mb-2"><i class="icon icon-cross"></i> </span>
+		
+	</div>
+</div>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.min.js"></script>
+<script>
+	$(document).ready(()=>{
+		const tocHeadings = "{{settings.article_toc_heading}}" ;
+    if(!tocHeadings) return;
+		function toSlug(string){
+			return string.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '').replace(/^-/, '');
+		}
+		$('.js-toc-content :header').each(function(){
+			let heading = $(this)
+			heading.attr('id', toSlug(heading.text()))
+		})
+		tocbot.init({
+			// Where to render the table of contents.
+			tocSelector: '.js-toc',
+			// Where to grab the headings to build the table of contents.
+			contentSelector: '.js-toc-content',
+			// Which headings to grab inside of the contentSelector element.
+			headingSelector: tocHeadings,
+			// For headings inside relative or absolute positioned containers within content.
+			hasInnerContainers: true,
+			isCollapsedClass: 'is-collapsedd',
+			collapsibleClass: 'is-collapsibled',
+			collapseDepth : 8,
+			headingsOffset: 100,
+			scrollSmoothOffset: -100,
+			scrollSmooth : true })
+		
+		$('.toc-title').click(function(){
+			$(this).toggleClass('open')
+			$('.js-toc').toggle()
+		})
+		$('.fixed-toc-content').append($('.js-toc').html())
+				$('.toc-list-item').length ? 	$('.toc-title').addClass('active') : $('.fixed-toc').remove()
+
+		$('.toc-toggle-btn').click(function(){
+			$(this).parents('.fixed-toc').toggleClass('open')
+		})
+	let observer = new IntersectionObserver((entries, observer) => { 
+      entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+          $('.fixed-toc').removeClass('open').hide()
+        }else{
+		          $('.fixed-toc').show()
+
+		}
+      });
+    }, {
+      threshold: 0,
+    });
+    document.querySelectorAll('.toc-wrapper').forEach(div => { observer.observe(div) });
+		
+		
+	})
+</script>

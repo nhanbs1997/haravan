@@ -1,0 +1,113 @@
+<div class="blog-sidebar w-full ml-auto   xl:max-w-[32rem]">
+  <div class="bg-background mb-5  h-auto px-5  z-10 relative flex flex-col rounded-sm">
+    {% if linklists[settings.aside_category_blog_menu] -%}
+      <aside class="aside-item blog-sidebar aside-item md:py-5 py-4">
+        <div class="aside-title">
+          <h2 class="title-head margin-top-0 text-base font-semibold mb-3">
+            <span>{{ settings.aside_category_blog_title }}</span>
+          </h2>
+        </div>
+        <div class="aside-content">
+          <nav class="nav-category navbar-toggleable-md">
+               <ul class="space-y-3 ">
+              {% for link in linklists[settings.aside_category_blog_menu].links %}
+                {% if linklists[link.handle] %}
+                  <li class="nav-item ">
+                    <details>
+                      <summary class="flex items-center justify-between">
+                          <a href="{{ link.url }}" class=" nav-link link {% if link.active %}active{% endif %}">
+                            {{ link.title }}
+                          </a>
+                          <i class="icon icon-carret-right summary-icon cursor-pointer transition duration-150"></i>
+                      </summary>
+                      <ul class="dropdown-menu mt-3 pl-2 flex flex-col gap-2">
+                        {% for childlink in linklists[link.handle].links %}
+                          {% if linklists[childlink.handle] %}
+                            <li class="dropdown-submenu nav-item">
+								    <details>
+										 <summary class="flex items-center justify-between">
+                              <a class="nav-link link" href="{{ childlink.url }}">{{ childlink.title }} </a>
+                                       <i class="icon icon-carret-right summary-icon cursor-pointer transition duration-150"></i>
+							</summary>
+
+                              <ul class="dropdown-menu pl-2 flex flex-col gap-1 mt-2">
+                                {% for childlink2 in linklists[childlink.handle].links %}
+                                  <li class="nav-item lv3">
+                                    <a class="nav-link link" href="{{ childlink2.url }}">{{ childlink2.title }} </a>
+                                  </li>
+                                {% endfor %}
+                              </ul>
+								</details>
+                            </li>
+                          {% else %}
+                            <li class="nav-item">
+                              <a class="nav-link link" href="{{ childlink.url }}">{{ childlink.title }} </a>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                    </details>
+                  </li>
+                {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link link" href="{{ link.url }}">{{ link.title }} </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </nav>
+        </div>
+      </aside>
+    {% endif -%}
+    {% if settings.blogs_aside_enabled %}
+      <aside class="blog-aside aside-item blog-aside-article  aside-item md:py-5 py-4 border-t border-neutral-50">
+        <div class="aside-title">
+          <h2 class="title-head margin-top-0 text-base font-semibold mb-3">
+            <span
+              ><a class="link" href="{{settings.blogs_aside_url}}" title="{{ settings.blogs_aside_title }}">
+                {{- settings.blogs_aside_title -}}
+              </a></span
+            >
+          </h2>
+        </div>
+        <div class="aside-content-article aside-content margin-top-0">
+          <div class="blog-image-list space-y-3 ">
+            {% assign blog_sizes = blogs[settings.blogs_aside_url].articles_count %}
+            {% if blog_sizes >= 1 %}
+              {% for article in blogs[settings.blogs_aside_url].articles limit: settings.blogs_aside_limit %}
+                {% include 'article-card-media' %}
+              {% endfor %}
+            {% else %}
+              <p class="">Đang cập nhật bài viết</p>
+            {% endif %}
+          </div>
+        </div>
+      </aside>
+    {% endif %}
+  </div>
+  {% if blog.all_tags.size > 0 and settings.blogs_aside_tag_enabled -%}
+    <div class="bg-background mt-5    h-auto px-5   z-10 relative flex flex-col rounded-sm">
+      <aside class="blog-aside aside-item blog-aside-article  aside-item md:py-5 py-4 border-t border-neutral-50">
+        <div class="aside-title">
+          <h2 class="title-head margin-top-0 text-base font-semibold mb-3">{{ settings.blogs_aside_tag_title }}</h2>
+        </div>
+        <div class="aside-content-article aside-content  mt-3 ">
+          <div class="blog-tag-list flex flex-wrap gap-2">
+            {%- for tag in blog.all_tags -%}
+              <a
+                class="border px-3 py-1 rounded-sm border-secondary text-secondary hover:bg-secondary hover:text-background"
+                href="/blogs/all/tagged/{{ tag | handle }}"
+                title="{{ tag }}"
+              >
+                {{- tag -}}
+              </a>
+              {%- unless forloop.last %} {% endunless %}
+            {%- endfor -%}
+          </div>
+        </div>
+      </aside>
+    </div>
+  {% endif %}
+	    {{ related_article }}
+
+</div>

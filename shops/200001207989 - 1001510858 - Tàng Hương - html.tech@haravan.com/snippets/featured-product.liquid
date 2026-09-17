@@ -1,0 +1,27 @@
+{%-if product %}
+{% include 'product-item-logic' %}
+  <div class="main-product pb-5 product-shortcode not-prose" >
+    <div class="container bg-background lg:bg-transparent">
+		<product-form id="main-product-{{product.id}}">
+      <div  class="product-detail  gap-y-3 lg:gap-y-0 gap-x-6 grid grid-cols-1 auto-rows-min lg:grid-cols-2 relative">
+        <div
+          class="product-gallery-wrapper bg-background min-h-0 min-w-0 relative lg:rounded-lg "
+          style="height:fit-content"
+        >
+          <div class="mx-auto ">
+            {% include 'product-gallery' %}
+				
+          </div>
+        </div>
+		  
+        <div class="product-form-wrapper lg:row-start-1 lg:row-end-5  h-full  lg:col-start-2">
+          <div class="bg-background  lg:rounded-l  md:py-6 lg:p-6 relative overflow-auto h-full ">
+            {% include 'product-detail' %}
+          </div>
+        </div>
+	
+      </div>
+    </product-form>
+			</div>
+  </div>
+{% endif -%}

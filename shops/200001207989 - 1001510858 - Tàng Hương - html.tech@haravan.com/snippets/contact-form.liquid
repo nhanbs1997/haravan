@@ -1,0 +1,67 @@
+<div class="py-4">
+  <h2 class="text-h5 font-semibold mb-2">Liên hệ với chúng tôi</h2>
+  {% form 'contact' %}
+    {% if form.errors.size > 0 %}
+        {% for field in form.errors %}
+            <div class="alert bg-relative rounded-sm text-error my-2 p-2">
+                <span>{{ form.errors.messages[field] }}</span>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% if form.posted_successfully %}
+        <p class="alert bg-relative rounded-sm text-success my-2 p-2">
+        <span>Bạn đã gửi tin nhắn thành công</span>
+        </p>
+    {% endif %}
+    <div class="form-signup clearfix">
+      <div class="group_contact space-y-3">
+        <fieldset class="form-group ">
+          <input
+            placeholder="Họ tên*"
+            type="text"
+            class="form-input"
+            required
+            value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.first_name }} {{ customer.last_name }}{% endif %}"
+            name="contact[Name]"
+          >
+        </fieldset>
+        <fieldset class="form-group ">
+          <input
+            placeholder="Email*"
+            type="email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            required
+            id="email1"
+            class="form-input"
+            value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+            name="contact[email]"
+          >
+        </fieldset>
+        <fieldset class="form-group ">
+          <input
+            placeholder="Số điện thoại*"
+            type="text"
+            class="form-input"
+            required
+            pattern="\d+"
+            name="contact[Phone]"
+            value="{{form.phone}}"
+          >
+        </fieldset>
+        <fieldset class="form-group ">
+          <textarea
+            placeholder="Nhập nội dung*"
+            name="contact[body]"
+            id="comment"
+            class="form-textarea"
+            rows="5"
+            Required
+          ></textarea>
+        </fieldset>
+        <div class="">
+          <button type="submit" class="btn bg-primary text-white font-semibold btn-lienhe">Gửi liên hệ của bạn</button>
+        </div>
+      </div>
+    </div>
+  {% endform %}
+</div>

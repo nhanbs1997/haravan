@@ -1,0 +1,28 @@
+<ul class=" pt-3 flex gap-2 flex-col">
+            {% for i in (1..4) %}
+				{% capture cart_policies_enabled %}cart_policies_{{i}}_enabled{% endcapture %}
+				{% capture cart_policies_title %}cart_policies_{{i}}_title{% endcapture %}
+				{% capture cart_policies_text %}cart_policies_{{i}}_text{% endcapture %}
+				{% capture cart_policies_image %}cart_policies_image_{{i}}.png{% endcapture %}
+				{% if settings[cart_policies_enabled] %}
+				  <li class="item relative flex gap-2 items-start">
+					<div class="max-w-5">
+					  <img
+						class="object-contain"
+						loading="lazy"
+						width="20"
+						height="20"
+						src="{{ cart_policies_image | asset_url}}"
+						alt="{{ settings[cart_policies_title] }}"
+					  >
+					</div>
+					<div class="">
+ 						<p class="font-semibold">
+							{{ settings[cart_policies_title] }}
+						</p>
+						<span class="text-xs text-neutral-200"> {{ settings[cart_policies_text] }} </span>
+					</div>
+				  </li>
+				{% endif %}
+            {% endfor %}
+</ul>

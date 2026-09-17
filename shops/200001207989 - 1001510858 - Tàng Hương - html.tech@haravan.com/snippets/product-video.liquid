@@ -1,0 +1,47 @@
+{% assign videoImg = ''%}
+{% assign videoItem = '' %}
+{%capture videoUrl -%}https://www.youtube.com/embed/{{video_id}}?width=800&height=450&autoplay=1{% endcapture -%}
+{%capture youtubeThumb %}https://img.youtube.com/vi/{{video_id}}/maxresdefault.jpg{%endcapture-%}
+
+{%if video_id %}
+{%capture videoImg -%}
+{% for image in product.images %}
+	{%if image.src contains "video"-%} 
+		{%assign videoThumb = image.src -%}
+		{%assign hasVideoImage = true -%}
+		{%break-%}
+	{%endif-%}																																													 
+{% endfor %}
+ 
+  <div class="swiper-slide {%if is_thumb %}swiper-slide-thumb-active  {% endif %} aspect-square flex items-center justify-center relative {{gallery_class}}" 
+		 data-src="{{ videoUrl }}"
+			data-href="{{ videoThumb | default : youtubeThumb}}">
+        	{% include 'product-frame', frame_size: 600 %}
+          <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          {% if boolVideo %}
+            <span class="text-neutral-50 ">
+              <i class="icon icon-play text-h1"></i>
+            </span>
+          {% endif %}
+        </div>
+		   <img
+            class="object-contain aspect-square rounded-lg scale-[var(--image-scale)] gallery-main-img"
+            src="{%if videoThumb%}{{ videoThumb | img_url:'grande' }}{%else%}{{youtubeThumb}}{%endif%}"
+			 alt="{{ product.title}}"
+          >
+        </div>
+{% endcapture -%}
+
+{%capture  videoItem-%}
+<div class="swiper-slide {%if is_thumb and videoDropboxThumb == blank %}swiper-slide-thumb-active   {% endif %}  cursor-pointer">
+            <div class=" flex items-center justify-center aspect-square">
+          <img
+            class="object-cover aspect-square "
+            src="{%if videoThumb%}{{ videoThumb | img_url:'grande' }}{%else%}{{youtubeThumb}}{%endif%}"
+            width="64"
+            height="64"
+          >
+          </div>
+        </div>
+{%endcapture -%}
+{%endif-%}

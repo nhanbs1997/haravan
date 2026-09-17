@@ -1,0 +1,47 @@
+<link rel="preload" as="script" media="all" href="{{ 'vendors.js' | asset_url  }}" >
+{{ 'vendors.js' | asset_url | script_tag }}
+<link rel="preload" as="script" media="all" href="{{ 'jquery.js' | asset_url  }}" >
+ {{ 'jquery.js' | asset_url | script_tag }}
+  <script src="{{ 'api.jquery.js' | haravan_asset_url }}"></script>
+
+{% if template contains 'customer' %}
+  {{ 'haravan_common.js' | haravan_asset_url | script_tag }}
+  {{ 'customer_area.js'  | haravan_asset_url | script_tag }}
+{% endif %}
+<script>
+window.themeConfigs = {
+  mbBreakpoint: window.matchMedia("(max-width: 767px)"),
+  lgBreakpoint: window.matchMedia("(max-width: 975px)"),
+  addToCartAction: "{{settings.add_to_cart_action | default: 'drawer'}}",
+  compareProStorage: "egaCompareProducts",
+  searchStorage: "egaSearchtorage",
+  recentStorage: "egaRecentProduct",
+  quantityUpdate: "EGA:quantity-update",
+  productAddEvent: "EGA:product-add",
+  cartUpdateEvent: "EGA:cart-update",
+  copmareProUpdate: "EGA:compare-update",
+  firstInteraction: "EGA:first-interaction",
+  countdownUpdate: "EGA:countdown-update",
+  productLoaded: "EGA:product-loaded",
+  facetUpdate: "EGA:facet-update",
+  tabUpdate: "EGA:tab-update",
+  error: "EGA:on-error",
+  quickViewShow: "EGA:quickview-show",
+  variantChanged: "EGA:variant-changed",
+  newsletterFormAction: "{{settings.newsletter_form_action}}",
+  vendorsJSLink: "{{ 'defer-vendors.js' | asset_url }}",
+  vendorsCssLink: "{{ 'defer-vendors.css' | asset_url }}",
+  defaultTransitionTime: 400
+	
+};
+window.flashsaleConfigs = {
+	openingText : "{{settings.flashsale_opening_text}}",
+	soldText: "{{settings.flashsale_sold_text}}",
+	runOutText : "{{settings.flashsale_run_out_soon_text}}",
+	runOutQty : {{settings.flashsale_run_out_soon_qty | default: 0 }},
+	randomtMin : {{settings.flashsale_random_min | default: 0 }},
+	randomMax : {{ settings.flashsale_random_max | default: 100 }},
+}
+const {publish, subscribe,validateInput, convertTime, defineElement, playAnimation, serializeForm,serializeFormToObject } = window.EGATheme
+
+</script>

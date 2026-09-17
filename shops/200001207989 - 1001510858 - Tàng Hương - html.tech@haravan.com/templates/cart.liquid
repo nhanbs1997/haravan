@@ -1,0 +1,6 @@
+{% include 'breadcrumb' %} 
+{% include 'cart-related-query'%}
+{% include 'section-main-cart' %}
+{% if settings.cart_collection_enabled -%}
+{% include 'cart-related-products', query_string: query_string %}
+{% endif -%}

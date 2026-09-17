@@ -1,0 +1,10 @@
+<h1 class="hidden">{{ shop.name }} - {{ shop.description }}</h1>
+{% assign totalSections = 0 %}
+{% assign countSection = 0 %}
+{% for i in (1..17) %}
+    {% capture enable %}home_section_{{ i }}{% endcapture %}
+    {% if settings[enable] and settings[enable] != 'none' %}
+		{% assign countSection = countSection | plus: 1 %}
+            {% include settings[enable] %}
+    {% endif %}
+{% endfor %}

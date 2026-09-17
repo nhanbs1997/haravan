@@ -1,0 +1,106 @@
+{%if settings.sale_pop_enabled-%} 
+<link rel="stylesheet" href="{{ 'sales-pop.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'sales-pop.css' | asset_url | stylesheet_tag }}</noscript>	
+<div id="ega-sale-pop" class="sales-pop hidden">
+	<div class="sale-pop-wrap">
+
+	</div>
+	<div class="sale-pop-close">
+		<i class="icon icon-cross"></i>
+	</div>	
+
+</div>
+<script>
+	var salePopArr = [];
+	let timePerPop = 15000;
+	let timeDelay = {{settings.sale_pop_delay | default: 1500}};
+	let salesPopDesc = `{{settings.sale_pop_desc}}`;
+	let count = 0;
+	let fakerScript ="https://mixcdn.egany.com/themes/assets/faker.js"
+	let customerGender = {{settings.sale_pop_customer_gender| default: 'undefined'}};
+	{%assign salePopColl = settings.sale_pop_coll-%}
+	{%capture salePopArr -%}
+	{%for pd in collections[salePopColl].products-%}
+	{
+		"img_url": "{{ pd.featured_image.src | img_url:'medium' -}}",
+		"pd_title": "{{pd.title-}}",
+		"pd_url": "{{pd.url-}}",
+	}{%unless forloop.last -%}, {%endunless -%}
+		{%endfor-%}
+		{%endcapture%}
+		salePopArr = [{{salePopArr}}]	
+
+		function showSalePop() {		
+			if(!faker) return
+			$('#ega-sale-pop.salepop-show').removeClass('salepop-show').addClass('salespop-close');
+			let pdRanIndex = Math.floor(Math.random() * salePopArr.length),
+				salePopProduct = salePopArr[pdRanIndex],
+				randomMin = `${Math.floor(Math.random() * 59) + 1} phút`;
+			const name= `${faker.name.lastName(customerGender)} ${faker.name.firstName(customerGender)}`
+			const phone = `${faker.phone.phoneNumber().replace(' ')}`
+			const address = faker.random.arrayElement(faker.locales.vi.address.city_root)
+			const desc = salesPopDesc
+			.replace(`[name]`, name)
+			.replace(`[phone]`, `xxx${phone.substr(phone.length - 8)}`)
+			.replace(`[time]`, randomMin)
+			.replace('[address]', address)
+			const salesPopContent = `	
+			<div class="sale-pop-img">
+			<img src="${salePopProduct.img_url}" class="img-fluid" loading="lazy" alt="${salePopProduct.title}" width="180" height="180"/>
+				</div>
+			<div class="sale-pop-body">
+			<div class="sale-pop-name">
+			<a href="${salePopProduct.pd_url}">${salePopProduct.pd_title}</a>
+				</div>
+			<span class="sale-pop-desc">${desc}</span>
+				</div>
+`
+			$('.sale-pop-wrap').html(salesPopContent)
+			setTimeout(()=>{
+				$('#ega-sale-pop').addClass('salepop-show').removeClass('salespop-close');
+				setTimeout(()=>{
+					$('#ega-sale-pop.salepop-show').removeClass('salepop-show').addClass('salespop-close');
+					setTimeout(()=>{
+						showSalePop()
+					},timeDelay)
+				},10000)
+			},3000)
+
+
+		}
+
+
+	function initSalesPop() {
+		if(!salePopArr.length) return;
+		setTimeout(()=>{
+		$.getScript(fakerScript).then(()=>{
+		if(faker){
+				showSalePop()
+			}
+		})
+		
+		},timeDelay)
+
+
+	}
+
+	$(document).ready(() => {
+		$('#ega-sale-pop').removeClass('hidden');
+			initSalesPop()
+			$(".sale-pop-close").click(function () {
+				$("#ega-sale-pop").removeClass('salepop-show').removeClass('salespop-close');
+			})
+			$(".sale-pop-cta").click(function (e) {
+				e.preventDefault();
+				$(".sale-pop-regis").show();
+			})
+			$(".regis-close").click(function () {
+				$(".sale-pop-regis").hide();
+			})
+	})
+
+
+</script>
+
+{%endif-%}

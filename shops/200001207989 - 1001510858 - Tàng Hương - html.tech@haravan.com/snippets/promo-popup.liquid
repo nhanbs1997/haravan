@@ -1,0 +1,27 @@
+{%if settings.banner_popup_enabled %}
+	<promo-popup class="portal portal--modal" 
+				id="promo-popup" 
+				data-type="modal"
+				data-animation="fade-in"> 
+		<dialog class="portal-dialog">
+			<div class=" flex items-center justify-center w-full h-full">
+				  <div class="portal-overlay"></div>
+            <div class="relative z-10 animation p-6 md:p-4" >
+				<button  type="button"
+                  id="PortalClose-promo-popup"
+                  class="portal-close-button w-[3.2rem] h-[3.2rem] rounded-full border border-white text-white flex items-center justify-center active:scale-95 transition-transform hover:animate-spin"
+                >
+                  <i class="icon icon-cross"> </i>
+                </button>
+				 <a href="{{ settings.banner_popup_url -}}" title="{{settings.banner_popup_alt}}">
+                        <img loading="lazy" class="object-contain" src="{{ 'banner-popup-img.png' | asset_url -}}"
+                             alt="{{ settings.banner_popup_alt -}}" width="{{ settings.banner_popup_width }}"
+                             height="{{ settings.banner_popup_height }}"/>
+                    </a>
+              </div>
+			</div>
+          
+        </dialog>
+			
+	</promo-popup>
+{%endif%}

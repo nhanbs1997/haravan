@@ -1,0 +1,105 @@
+{% include 'section-styles', key: section %}
+<section class="section section-product-tabs {{section}}" style="{{ section_style }}">
+  {% capture title %}{{section}}_title{% endcapture %}
+  {% capture card_style %}{{section}}_card{% endcapture %}
+  {% capture main_url %}{{section}}_url{% endcapture %}
+  {% capture limit %}{{section}}_limit{% endcapture %}
+	{% for i in (1..3) %}
+			{% capture tab_enabled %}{{section}}_tab_{{i}}_enabled{% endcapture %}
+			{% capture tab_coll %}{{section}}_tab_{{i}}_coll{% endcapture %}
+			{% if settings[tab_enabled] %}
+				{% assign main_url =  settings[tab_coll] -%}
+					{% assign main_url =  collections[main_url].url -%}
+
+			{% endif %}
+   {% endfor %}
+  <tabs-section data-type="{% if settings[card_style] == 'row'%}.card-product--horizontal{%else%}.card-product--vertical{%endif%}">
+    <div class="container">
+      <div class="heading-bar">
+        <h2 class=" heading font-semibold   w-auto mx-auto text-center">
+          <a class="tab-url" href="{{ main_url }}" title="{{ settings[title] }}"> {{ settings[title] }} </a>
+        </h2>
+      
+     
+      </div>
+	  <ul
+		class="heading-tabs mt-3 mb-4 md:mt-[var(--spacing-7)]  md:mb-6 w-fit max-w-full overflow-auto list-none flex  md:gap-3 gap-2 font-semibold   mx-auto whitespace-nowrap">
+		{% for i in (1..3) %}
+		  {% capture tab_enabled %}{{section}}_tab_{{i}}_enabled{% endcapture %}
+		  {% capture tab_title %}{{section}}_tab_{{i}}_title{% endcapture %}
+		  {% capture tab_id %}{{section}}_tab_{{i}}{% endcapture %}
+		  {% if settings[tab_enabled] %}
+			<li
+				aria-controls="{{tab_id}}"
+			  class="tab-btn cursor-pointer heading-tab px-5 py-2 bg-white rounded-pill text-secondary font-semibold  hover:text-foreground {%if forloop.first%} active  {%endif%} inline-flex items-center md:gap-3 gap-2">
+				  {{ settings[tab_title] }}
+			</li>
+		  {% endif %}
+		{% endfor %}
+	  </ul>
+		  {% assign grid = 'grid-cols-2 lg:grid-cols-3 xl:grid-cols-6' %}
+		 {% assign aspect = 'aspect-ratio: 344 / 496 ' %}
+
+		  {% if settings[card_style] == 'row'%}
+			{% assign grid = 'grid-cols-1 md:grid-cols-2  xl:grid-cols-4' %}
+		{% assign aspect = 'aspect-ratio: 351 / 205 ' %}
+		 {% endif %}
+		 {% assign active_count = 0  %}
+
+		  {% for i in (1..3) %}
+		
+			{% capture tab_enabled %}{{section}}_tab_{{i}}_enabled{% endcapture %}
+			{% capture tab_coll %}{{section}}_tab_{{i}}_coll{% endcapture %}
+			{% capture tab_id %}{{section}}_tab_{{i}}{% endcapture %}
+			{% if settings[tab_enabled] %}
+			{% assign coll =  settings[tab_coll] %}
+			{% assign active_count = active_count | plus: 1  %}
+			 <div class="tab-content {% unless forloop.first%}hidden{% endunless %}" id="{{tab_id}}"  
+				{% if collections[coll].id  %}   data-url="{{collections[coll].url}}" {%if active_count > 1 %}data-content-url="{{collections[coll].url}}?view=data"{%endif %} {% endif %}
+				  data-limit="{{settings[limit]}}"
+				  >
+				<div class="product-list grid tab-content-inner  {% if collections[coll].products_count > 0 %} {{grid}}	{% endif %} gap-[1px] mt-2">
+				{%if active_count == 1 %}
+				 {% if coll == blank or collections[coll] == blank or collections[coll].products_count == 0 %}
+					<div class="bg-background p-4">
+						 Sản phẩm đang được cập nhật...
+					</div>
+				{% endif %}
+					{% for pro in collections[coll].products limit: settings[limit] %}
+					{% if settings[card_style] == 'row'%}
+						{% include 'product-row-item', product: pro %}
+					{% else %}
+						{% include 'product-grid-item', product: pro %}
+					 {% endif %}
+				  {% endfor %}
+					{% else -%}
+					{% if collections[coll].products_count > 0 %}  
+					<div class="placeholder col-span-full bg-background p-6 flex items-center justify-center">
+						<div class="flex items-center justify-center loading mx-auto w-full md:w-1/4 " style="{{aspect}} ">
+									{% include "loading-icon" %}
+						</div>
+						
+					</div>
+					{%else%}
+						<div class="bg-background p-4">
+						 Sản phẩm đang được cập nhật...
+					</div>
+					{% endif %}
+
+				{% endif %}
+				</div>
+        {% if collections[coll].products_count > 0 %}  
+				<a href="{{collections[coll].url}}" title="xem thêm"
+				  class="btn tab-viewmore link text-primary bg-background items-center gap-1 flex  w-full rounded-sm justify-center mt-2 {% unless settings[card_style] == 'row'%}md:mt-6 {% endunless%} font-semibold py-2.5 border-0 ">Xem
+				  tất cả <i class="icon icon-carret-right"></i> </a>
+
+		  	  </div>
+				{% endif %}
+          
+			{% endif %}
+          {% endfor %}
+     
+
+    </div>
+  </tabs-section>
+</section>

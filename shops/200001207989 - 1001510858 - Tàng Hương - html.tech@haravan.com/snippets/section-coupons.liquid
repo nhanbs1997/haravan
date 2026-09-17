@@ -1,0 +1,48 @@
+{% include 'section-styles', key: 'coupon' %}
+
+<section class="section section-coupons" style="{{ section_style }}">
+  <div class="container">
+    <ega-carousel>
+      <script data-type="swiper-params" type="application/json">
+        {
+          "speed": 1000,
+          "spaceBetween": 8,
+          "slidesPerView": 1,
+		  "centerInsufficientSlides": true,
+		  "preventClicks" : false,
+		  
+          "pagination": {
+            "el": ".section-coupons .swiper-pagination",
+            "clickable": true
+          },
+          "breakpoints": {
+            "768": {
+              "slidesPerView": 2.5
+            },
+        
+            "1200": {
+              "spaceBetween": 24,
+              "slidesPerView": 4
+            }
+          }
+        }
+      </script>
+      <div class="swiper overflow-hidden w-full">
+            <div class="swiper-wrapper grid  max-w-max h-auto gap-gutter  grid-flow-col auto-cols-[100%] grid-cols-[100%] md:grid-cols-[repeat(8,40%)]  xl:grid-cols-4 ">
+			{%for i in (1..8)-%}
+			{% include 'coupon-configs' -%}
+			
+			{%if show -%} 
+			
+			<div class="swiper-slide w-full p-2 g" >
+				{%include 'coupon-item' -%}
+			</div>
+			{%endif-%}
+			{%endfor-%}
+         
+        </div>
+        <div class="swiper-pagination static mt-2"></div>
+      </div>
+    </ega-carousel>
+  </div>
+</section>

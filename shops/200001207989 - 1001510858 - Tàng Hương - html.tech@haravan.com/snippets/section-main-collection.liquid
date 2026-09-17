@@ -1,0 +1,58 @@
+{% assign has_sidebar = settings.aside_filter_enabled %}
+{% assign filter_list = 'filter_price,filter_vendor,filter_type,filter_tag1,filter_tag2' | split: ',' %}
+{% assign all_filter_disabled = true %}
+{% for fitler in filter_list %}
+  {% if settings[fitler] and has_sidebar %}
+    {% assign all_filter_disabled = false %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% if all_filter_disabled %}
+  {% assign has_sidebar = false %}
+{% endif %}
+<section
+  class="section"
+  id="product-list-{{collection.id | default: 0}}"
+  style="--section-margin: 32px 0 32px 0;--section-margin-mb: 32px 0 32px 0"
+>
+  <div class="container">
+    <div class="grid grid-cols-1 {% if has_sidebar %} xl:grid-cols-[9fr_3fr] {% endif %} gap-gutter">
+      <div>
+        <h1 class="text-h3 mb-3 md:text-h1 text-center md:text-left font-semibold text-primary">
+          {% if collection.handle == 'all' %}Tất cả sản phẩm{% else %}{{ collection.title }}{% endif %}
+        </h1>
+        <div class=" mb-2 py-3 flex flex-wrap items-center gap-3">
+          {% include 'sort-by' %}
+          <div class="filter-items overflow-hidden md:order-first"></div>
+
+        </div>
+
+        {% if settings.collection_desc_position == 'top' %}
+          {% include 'collection-description' %}
+        {% endif %}
+        <div class="product-list">
+          {% paginate collection.products by settings.collection_number_product -%}
+            <div class="grid grid-cols-2 lg:grid-cols-4 {% if has_sidebar %}   xl:grid-cols-4 {% else %}   xl:grid-cols-5  {% endif %}  gap-2 mt-2 ">
+              {% if collection.products.size > 0 -%}
+                {% for product in collection.products %}
+                  {% include 'product-grid-item' -%}
+                {% endfor %}
+              {% else -%}
+                <div class="bg-background p-4 rouded-sm" style="grid-column: 1 / -1">Sản phẩm đang được cập nhật</div>
+              {% endif -%}
+              <div class="mt-6 lg:pt-6" style="grid-column: 1 / -1">
+                {% if paginate.pages > 1 -%}
+                  {% include 'collection-paginate' -%}
+                {% endif -%}
+              </div>
+            </div>
+          {% endpaginate -%}
+        </div>
+        {% if settings.collection_desc_position == 'bottom' %}
+          {% include 'collection-description' %}
+        {% endif %}
+      </div>
+      {% include 'collection-filter' %}
+    </div>
+  </div>
+</section>

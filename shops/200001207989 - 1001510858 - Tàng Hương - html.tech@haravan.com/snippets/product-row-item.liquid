@@ -1,0 +1,105 @@
+{% include 'product-item-logic' %}
+<card-product class="h-inherit"   data-prefetch="{{ product.url }}"
+>
+<div class="item_product_main h-full card-product card-product--horizontal group relative transition duration-300 ease-out">
+  
+  <form
+    action="/cart/add"
+    method="post"
+    data-id="product-actions-{{ product.id }}"
+    enctype="multipart/form-data"
+    class="bg-background  h-full  relative z-10 m-0  rounded-sm overflow-hidden"
+  >
+
+    <div class="card-product__top md:row-span-full p-2 md:p-3">
+		<div class="relative  rounded-sm overflow-hidden">
+			   <div class="card-product__badges absolute top-2 left-2 z-10 flex items-center gap-2">
+          {% include 'product-tag-promo', promo_index: 1 %}
+          {% if boolVideo %}
+            <span class="text-neutral-50">
+              <i class="icon icon-play"></i>
+            </span>
+          {% endif %}
+      </div>
+			<a
+    class="link aspect-square flex items-center justify-center"
+    href="{{ product.url }}"
+    title="{{ product.title }}"
+  >
+ 		{% include 'product-frame' %}
+
+        <img
+          class="aspect-square rounded-lg  w-auto max-h-full object-contain absolute  top-1/2 left-1/2   -translate-x-1/2 -translate-y-1/2 scale-[var(--image-scale)]  transition duration-300 ease-out {% if hover_image %} group-hover/card:opacity-0  {% endif %}"
+          width="480"
+          height="480"
+          decoding="async"
+          loading="lazy"
+          style="--image-scale: 0.8;"
+          src="{{ product.featured_image.src | img_url:'large' }}"
+          alt="{{ product.title }}"
+        >
+        {% if hover_image  -%}
+          <img
+            class="aspect-square rounded-lg  w-auto max-h-full object-contain  opacity-0 scale-[var(--image-scale)] absolute  top-1/2 left-1/2   -translate-x-1/2 -translate-y-1/2 z-0 group-hover/card:opacity-1 group-hover/card:z-[1] group-hover/card:opacity-100 transition duration-300 ease-out"
+            width="480"
+            height="480"
+            decoding="async"
+            loading="lazy"
+            style="--image-scale: 0.8;"
+            src="{{ product.images[1].src | img_url:'medium' }}"
+            alt="{{ product.title }}"
+          >
+        {% endif -%}
+        {% if sold_out %}
+          <div class="badge badge--soldout lg:px-[var(--spacing-10)] lg:py-4 px-4 py-2 absolute font-semibold whitespace-nowrap scale-50  top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 backdrop-blur-sm">
+            HẾT HÀNG
+          </div>
+        {% endif %}
+			</a>
+		</div> 
+   
+    </div>
+ 
+      <div class="card-product__body ">
+       			<a
+    href="{{ product.url }}"
+    title="{{ product.title }}"
+	class="flex link flex-col gap-2 md:gap-2 px-3 py-2 md:p-4 md:pb-3"
+  >
+		  <div class="card-product__title text-base font-semibold line-clamp-2 ">
+
+       {{ product.title }}
+		
+        </div>
+           {% include 'product-price' -%}
+		 {% include 'swatch-items' -%}
+	
+						</a>
+		   {% if settings.add_cart_enabled  %}
+		{% unless sold_out == true or contact_item %}
+			<div class="card-product__cta hidden">
+		<input type="hidden" name="id" value="{{ product.variants[0].id }}" />
+			<button 
+				  class="btn  add_to_cart p-2  rounded-full border border-neutral-50 flex justify-center items-center gap-3"
+				  aria-label="Thêm vào giỏ"
+				  data-product="{{product.url}}"
+				  data-portal="#quick-view-product"
+				  data-action="{%if product.variants.size > 1 %}{{ settings.add_cart_variants}}{%else-%}addtocart{% endif -%}"
+			>
+			  {% include 'loading-icon' %}
+			<span class="flex items-center gap-1 ">
+				<i class="icon icon-cart" ></i> Thêm vào giỏ
+			  </span>
+			</button>
+			</div>
+		  {% endunless %}
+		  {% endif %}
+      </div>
+      <div class="card-product__badges hidden space-y-2 col-span-full lg:col-start-2 md:p-4 lg:pt-0 p-2 border-t lg:border-t-0 border-neutral-50 ">
+        {% include 'product-tag-promo', promo_index: 2 -%}
+        {% include 'product-tag-promo', promo_index: 3 -%}
+      </div>
+  </form>
+
+</div>
+	</card-product>

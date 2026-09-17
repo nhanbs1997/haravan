@@ -1,0 +1,36 @@
+<div class="email-subscribe flex flex-col gap-2" >
+  <p class="font-semibold">{{ settings.subs_fot_subscribe_title }}</p>
+  <p class=" mb-1">
+   {{ settings.subs_fot_subscribe_desc }}
+  </p>
+{%- capture formFooter -%}
+  		{%- form 'customer' -%}
+  <div id="mc-form"  class="newsletter-form  flex gap-1 items-center w-full">
+    <div class="flex gap-1 w-full">
+      <input type="email" name="email" id="subscribe-email" class="form-input rounded-full"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required style="--rounded-input: 9999px" placeholder="Email của bạn...">
+      <button type="submit" class="button_subscribe subscribe btn bg-primary text-white rounded-full shrink-0">Đăng ký</button>
+    </div>
+	
+  </div>
+	  <div class="mailchimp-alerts mt-2 ">
+		<div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
+		{%- if form.posted_successfully? -%}	
+      <div class="mailchimp-success alert bg-relative rounded-sm text-success my-2 p-2 ">
+      Cám ơn bạn đã đăng ký email theo dõi!
+      </div>
+      {% endif -%}
+      
+      <!-- mailchimp-success end -->
+      {%- if form.errors -%}
+            	{%- for field in form.errors -%}
+							
+		<div class=" mailchimp-error alert bg-relative rounded-sm text-error my-2 p-2 "> {{ form.errors.messages[field] }} </div>
+      
+								{%- endfor -%} 
+      {% endif -%}
+      <!-- mailchimp-error end -->
+		</div>
+  {% endform -%}
+  {% endcapture %}
+  {{ formFooter | replace:'script','noscript' }}
+</div>

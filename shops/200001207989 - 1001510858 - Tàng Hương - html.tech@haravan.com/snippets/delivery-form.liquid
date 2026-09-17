@@ -1,0 +1,47 @@
+<div class="cart-delivery-time py-4">
+      <div class="grid gap-2">
+		   <div class="flex items-center">
+        <div class="flex items-center ">
+			<input id="use-delivery" type="hidden" name="attributes[{{settings.delivery_heading}}]" value="cart.attributes[{{settings.delivery_heading}}]">
+          <input id="delivery-enabled" 
+				 {% if cart.attributes[settings.delivery_heading] == "có" %}checked{% endif %}
+				 type="checkbox" class="form-checkbox" >
+        </div>
+        <div class="ml-2 text-sm">
+          <label for="delivery-enabled" class="">{{settings.delivery_heading}}</label>
+        </div>
+      </div>
+        <div>
+          <label for="delivery-date-input" class="label block mb-1 text-base">{{ settings.delivery_date_title }}</label>
+          <div class="relative">
+            <i class="icon icon-calendar text-neutral-200 top-1/2 left-2 -translate-y-1/2 absolute"></i>
+			<datepicker-input class="datepicker-input">
+				<input type="text" value="{{cart.attributes[settings.delivery_date_title]}}"
+					   name="attributes[{{settings.delivery_date_title}}]" id="delivery-date-input"
+					   class="form-input pl-2 pl-[var(--spacing-6-5)] py-2.5 min-h-[4rem]">
+			  </datepicker-input>
+          </div>
+        </div>
+        <div>
+          <label for="delivery-time" class="label block mb-1 text-base ">{{ settings.delivery_time_title }}</label>
+          <select
+            id="delivery-time"
+		    name="attributes[{{settings.delivery_time_title}}]"
+            class="form-select min-h-[4rem]  px-2 py-2.5 border-neutral-50"
+          >
+            <option selected value="">{{settings.delivery_time_default}}</option>
+			 {% assign option_list = settings.delivery_time | split: ';'-%}
+			  {% for option in option_list -%}
+			  	{%if option != blank 0%}
+				<option value="{{option | strip}}" 
+						{%if option == cart.attributes[settings.delivery_time_title]%} selected {%endif%}>
+					{{option | strip}}
+			  	</option>
+			  {% endif -%}
+			  {% endfor -%}
+          </select>
+        </div>
+      
+      </div>
+   
+    </div>

@@ -1,0 +1,147 @@
+{%-if customer-%}
+<script>window.location = "/account"</script>
+{%-else-%}
+{% include 'breadcrumb' %}
+<section class="section section-main-login">
+  <div class="container">
+    <div class="grid grid-cols-1  lg:grid-cols-custom justify-center gap-gutter" style="--grid-col: 50%">
+      <div class="bg-background rounded-lg px-3 py-4 md:p-6 mb-6">
+        <div class="space-y-4">
+          <div class="text-center">
+            <h1 class="text-h4 font-semibold mb-2">Đăng nhập tài khoản</h1>
+            <p class="mb-0">
+              Bạn chưa có tài khoản ?
+              <a href="/account/register" class="link" style="text-decoration: underline; "> Đăng ký tại đây</a>
+            </p>
+          </div>
+          <div>
+            <div id="login" class="space-y-3">
+              {% form 'customer_login' %}
+                {% for field in form.errors %}
+                  <div class="alert bg-relative rounded-sm text-error my-2 p-2">
+                    {{ form.errors.messages[field] -}}
+                  </div>
+                  <br>
+                {% endfor %}
+
+                <div class="form-signup space-y-4">
+                  <fieldset class="form-group">
+                    <label class="label block mb-1">Email <span class="required">*</span></label>
+                    <input
+                      type="email"
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$"
+                      class="form-input "
+                      value=""
+                      name="email"
+                      id="customer_email"
+                      placeholder="Email"
+                      Required
+                    >
+                  </fieldset>
+                  <fieldset class="form-group">
+                    <label class="label block mb-1">Mật khẩu <span class="required">*</span> </label>
+                    <input
+                      type="password"
+                      class="form-input "
+                      value=""
+                      name="password"
+                      id="customer_password"
+                      placeholder="Mật khẩu"
+                      Required
+                    >
+                    <span class="block mt-2"
+                      >Quên mật khẩu?
+                      <a
+                        href="#"
+                        class="link underline"
+                        onclick="showRecoverPasswordForm();return false;"
+                      >
+                        Nhấn vào đây
+                      </a></span
+                    >
+                  </fieldset>
+
+                  <div class="mb-3 text-center pt-3">
+                    <button
+                      class="btn bg-primary text-white btn-login w-full font-semibold max-w-[32rem]"
+                      type="submit"
+                      value="Đăng nhập"
+                    >
+                      Đăng nhập
+                    </button>
+                  </div>
+                </div>
+              {% endform %}
+            </div>
+            {% if form.posted_successfully %}
+              <div class="alert bg-relative rounded-sm text-success my-2 p-2">
+                <p>Chúng tôi đã gửi 1 email đến bạn. Vui lòng kiểm tra để đặt lại mật khẩu</p>
+              </div>
+            {% endif %}
+            <div id="recover-password" style="display:none;" class="form-signup page-login text-center">
+				<div class="mb-3">
+					  <h2 class="text-base font-semibold mb-2">Đặt lại mật khẩu</h2>
+              			<p>Chúng tôi sẽ gửi cho bạn một email để kích hoạt việc đặt lại mật khẩu.</p>
+				</div>
+            
+              {% form 'recover_customer_password' %}
+                {% for field in form.errors %}
+                  <div class="alert bg-relative rounded-sm text-error my-2 p-2">
+                    {{ form.errors.messages[field] }}
+                  </div>
+                {% endfor %}
+                <div class="form-signup clearfix">
+                  <fieldset class="form-group">
+                    <input
+                      type="email"
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$"
+                      class="form-input"
+                      value=""
+                      name="email"
+                      id="recover-email"
+                      placeholder="Email"
+                      Required
+                    >
+                  </fieldset>
+                </div>
+
+                <div class="action_bottom my-3 flex flex-col justify-center items-center gap-3 mt-5">
+                  <button
+                    class="btn bg-primary text-white w-full font-semibold max-w-[32rem] btn-recover "
+                    type="submit"
+                  >
+                    Lấy lại mật khẩu
+                  </button>
+                  <a
+                    href="#"
+                    class="link underline block"
+                    onclick="hideRecoverPasswordForm();return false;"
+                    >Quay lại</a
+                  >
+                </div>
+              {% endform %}
+            </div>
+            {% include 'social-login' -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript">
+  function showRecoverPasswordForm() {
+    document.getElementById('recover-password').style.display = 'block';
+    document.getElementById('login').style.display = 'none';
+  }
+
+  function hideRecoverPasswordForm() {
+    document.getElementById('recover-password').style.display = 'none';
+    document.getElementById('login').style.display = 'block';
+  }
+
+  if (window.location.hash == '#recover') {
+    showRecoverPasswordForm();
+  }
+</script>
+{%-endif-%}

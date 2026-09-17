@@ -1,0 +1,41 @@
+<compare-qv
+  class="portal portal--modal"
+  id="quick-view-compare"
+  data-type="modal"
+  data-animation="slide-in-bottom"
+>
+  <dialog class="portal-dialog">
+    <div class=" flex items-center justify-center w-full">
+      <div class="portal-overlay "></div>
+      <div class="portal-inner bg-background rounded-sm animation">
+		   <button
+                  type="button"
+                  id="PortalClose-quick-view"
+                  class="absolute active:scale-95 transition-transform right-0 p-3 bg-background rounded-sm flex items-center justify-center gap-2"
+                >
+			   			   Thu gọn
+                  <i class="icon icon-carret-down"> </i>
+                </button>
+			<div class="compare-product-list">
+		
+		  </div>	
+		
+	</div>
+    </div>
+  </dialog>
+</compare-qv>
+
+  <portal-opener class="compare-opener hidden">
+			<div
+			  class=" cursor-pointer font-semibold btn rounded-full bg-background border border-primary text-primary"
+			  data-portal="#quick-view-compare"
+			>
+			  <p class="flex items-center gap-1">
+				  	  <span class="line-clamp-1" >  So sánh </span>
+				  				  	  <span class="compare-count" > </span>
+
+				  <i class="ico icon-arrow-swap"></i>
+				 </p>
+			
+			</div>
+		  </portal-opener>

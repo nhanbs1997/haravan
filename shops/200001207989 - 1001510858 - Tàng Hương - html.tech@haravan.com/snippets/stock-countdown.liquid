@@ -1,0 +1,23 @@
+{% unless contact_item %}
+{% if settings.flashsale_show_quantity -%}
+  	{% assign max_quanitty  = nil -%}
+{% for tag in product.tags -%}
+	{% if tag contains 'soluong' -%}
+		{% assign max_quanitty = tag | split: '_' | last -%}
+		{% break -%}
+	{% endif -%}
+{% endfor -%}
+{% assign real_qunatity = 0 -%}
+  {% assign is_stock_management = false -%}
+{% for variant in product.variants -%}
+	{% if variant.available and variant.inventory_quantity > 0 and variant.inventory_management != '' -%}
+		{% assign real_qunatity = real_qunatity | plus: variant.inventory_quantity  -%}
+  {% assign is_stock_management = true -%}
+	{% endif -%}
+{% endfor -%}
+<stock-countdown class="stock-countdown" {%if is_stock_management > 0 %}data-stock-management="true"{%endif%}  data-id="{{flashsale_id}}" data-product-id="{{product.id}}" data-type="tag" data-max-qty="{{max_quanitty}}" 
+				 data-real-qty="{{real_qunatity}}" {%if product.available %}data-available="true" {% endif %} >
+
+</stock-countdown>
+{% endif -%}
+{% endunless %}

@@ -1,0 +1,49 @@
+{% assign column_per_row = settings.coll_per_row %}
+
+{% capture coll_custom_style %}
+     color: {{ settings.coll_color }};
+	--color-collection-item: {{settings.coll_color_bg | default: 'transparent'}};
+	--grid-col-desktop:repeat(auto-fit, minmax(calc(100% / {{column_per_row}} - 1px ), 1fr));
+	--grid-col-mobile:repeat({{column_per_row | divided_by: 2}},1fr); 
+{% endcapture %}
+
+{% include 'section-styles', key: 'coll', custom_style: coll_custom_style  %}
+
+<section class="section section-collection-list relative" style="{{ section_style }}">
+  <img src="{{ 'coll_bg.jpg' | asset_url }}" loading="lazy" alt="collection background" class="absolute w-full h-full object-cover top-0 left-0 ">
+
+  <div class="container overflow-hidden md:px-container px-0 relative z-[1] py-[32px] md:py-[40px]">
+    <div class="overflow-auto md:px-0 px-container">
+      <div
+        class="collection-list    grid mx-auto grid-cols-[var(--grid-col-mobile)]  lg:grid-cols-[var(--grid-col-desktop)] gap-[1px] rounded overflow-auto "
+ 
+      >
+        {% for i in (1..16) %}
+		  {% capture coll_enabled %}coll_{{i}}_enabled{%endcapture%}
+		  {% capture coll_icon %}coll_{{i}}.png{% endcapture %}
+		  {% capture coll_title %}coll_{{i}}_title{% endcapture %}
+		  {% capture coll_link %}coll_{{i}}_link{% endcapture %}
+		  {%if settings[coll_enabled] %}
+          <a
+            href="{{ settings[coll_link] }}"
+            title="{{ settings[coll_title] }}"
+            class="collection-item  text-center flex flex-col items-center gap-1 lg:gap-3 p-2 xl:p-2.5 group hover:brightness-[0.98] "
+          >
+            <div class="collection-item-thumb w-[5.2rem] h-[5.2rem] lg:w-[8.8rem] lg:h-[8.8rem]  flex items-center justify-center rounded-full overflow-hidden">
+              <img
+                class="object-contain transition-transform relative z-10 group-hover:scale-110 duration-200"
+                width="120"
+                height="120"
+                src="{{ coll_icon  | asset_url |img_url: 'small' }}"
+                alt="{{ settings[coll_title] }}"
+                loading="lazy"
+              >
+            </div>
+            <span class="text-sm font-semibold lg:text-base line-clamp-2"> {{ settings[coll_title] }} </span>
+          </a>
+		  {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
