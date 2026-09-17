@@ -1,0 +1,50 @@
+{% layout 'en' %}
+{%- comment -%} Template: Customer Login {%- endcomment -%}
+<div class="account-page">
+  <div class="container">
+    <div class="account-card">
+
+      <div id="customer-login">
+        <h1 class="account-card__title">Log in</h1>
+        {% form 'customer_login' %}
+        {{ form.errors | default_errors }}
+        <div class="account-form">
+          <div class="account-form__field">
+            <label for="customer_email">Email</label>
+            <input type="email" id="customer_email" name="customer[email]" placeholder="email@email.com" autocomplete="email" required>
+          </div>
+          {% if form.password_needed %}
+          <div class="account-form__field">
+            <label for="customer_password">Password</label>
+            <input type="password" id="customer_password" name="customer[password]" placeholder="••••••••" autocomplete="current-password" required>
+          </div>
+          {% endif %}
+          <button type="submit" class="btn btn-primary btn-full">Log in</button>
+          <div class="account-form__links">
+            <a href="/account/register">Create account</a>
+            <a href="#" onclick="document.getElementById('recover-password').style.display='block';document.getElementById('customer-login').style.display='none';return false;">Forgot password?</a>
+          </div>
+        </div>
+        {% endform %}
+      </div>
+
+      <div id="recover-password" style="display:none;">
+        <h1 class="account-card__title">Reset password</h1>
+        {% form 'recover_customer_password' %}
+        {{ form.errors | default_errors }}
+        <div class="account-form">
+          <div class="account-form__field">
+            <label for="recover-email">Email</label>
+            <input type="email" id="recover-email" name="email" placeholder="email@email.com" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Send reset link</button>
+          <div class="account-form__links">
+            <a href="#" onclick="document.getElementById('recover-password').style.display='none';document.getElementById('customer-login').style.display='block';return false;">Back to login</a>
+          </div>
+        </div>
+        {% endform %}
+      </div>
+
+    </div>
+  </div>
+</div>

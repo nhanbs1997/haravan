@@ -1,0 +1,24 @@
+{% layout none %}
+{%- paginate search.results by settings.pagination_limit -%}
+<div data-products data-total="{{ paginate.items }}">
+  {%- if search.results.size == 0 -%}
+  <div class="coll__empty">
+    <svg class="coll__empty-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+    </svg>
+    <p class="coll__empty-title">Không tìm thấy sản phẩm phù hợp</p>
+    <p class="coll__empty-desc">Thử bỏ bớt bộ lọc hoặc chọn tiêu chí khác.</p>
+    <button type="button" class="coll__empty-btn" id="emptyClearBtn">Xóa bộ lọc</button>
+  </div>
+  {%- endif -%}
+  {%- for product in search.results -%}
+    {%- if product.object_type == 'product' -%}
+    {%- include 'product-loop', product: product -%}
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+<div data-pagi>
+  {%- assign pagi_class = 'filter-pagi' -%}
+  {%- include 'pagination' -%}
+</div>
+{%- endpaginate -%}

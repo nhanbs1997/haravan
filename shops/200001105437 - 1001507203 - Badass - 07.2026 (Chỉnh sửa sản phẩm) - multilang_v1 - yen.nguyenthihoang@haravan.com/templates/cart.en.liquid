@@ -1,0 +1,29 @@
+{% layout 'en' %}
+{%- comment -%}
+  Template: Cart — BADASS
+  Mô tả: Giỏ hàng theo Figma. Các section tách thành snippet:
+    - cart-steps    : step bar 4 mốc + promo "Mua thêm"
+    - cart-item     : 1 dòng sản phẩm (trong vòng lặp)
+    - cart-summary  : panel Tạm tính / Giảm giá / Giá sau giảm + checkout
+    - cart-empty    : trạng thái giỏ trống
+  JS: assets/cart.js  |  Popup: cart-buymore-popup
+{% endcomment %}
+
+<link rel="preload stylesheet" href="{{ 'cart.scss.css' | asset_url }}" as="style">
+
+<div class="bs_cart" id="cartPage" data-cart-total="{{ cart.total_price }}">
+  <div class="container">
+
+    {%- include 'en_breadcrumb' -%}
+
+    <div class="bs_cart__content" id="cartContent">
+      {%- include 'en_cart-page-inner' -%}
+    </div>
+
+  </div>
+</div>
+
+{%- include 'en_cart-buymore-popup' -%}
+{%- include 'en_cart-recently-viewed' -%}
+
+<script fetchpriority="low" defer src="{{ 'en_cart.js' | asset_url }}"></script>

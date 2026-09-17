@@ -1,0 +1,63 @@
+{%- comment -%}
+  Snippet: sidebar-menu
+  Mô tả: Mobile menu drawer (slide từ trái)
+{% endcomment %}
+
+<div class="sidebar sidebar--left sidebar-menu" id="sidebar-menu">
+  <div class="sidebar__inner">
+
+    <div class="sidebar__head">
+      <span class="sidebar__spacer" aria-hidden="true"></span>
+      <div class="sidebar__logo">
+        <a href="/" aria-label="{{ shop.name }}">
+          {%- if settings.en_logo_url != blank -%}
+          <img src="{{ settings.en_logo_url }}" alt="{{ shop.name }}" loading="lazy" decoding="async">
+          {%- else -%}
+          <img src="{{ 'en_logo.png' | asset_url }}" alt="{{ shop.name }}" loading="lazy" decoding="async">
+          {%- endif -%}
+        </a>
+      </div>
+      <button class="sidebar__close" data-action="close-menu" aria-label="Close menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="sidebar__body">
+      <ul class="mobile-menu">
+        {%- assign main_menu = linklists[settings.en_header_mainmenu] -%}
+        {%- if main_menu -%}
+          {%- for link in main_menu.links limit: 10 -%}
+            {%- assign is_sale = false -%}
+            {%- assign link_title_upper = link.title | upcase -%}
+            {%- if link_title_upper contains 'SALE' -%}{%- assign is_sale = true -%}{%- endif -%}
+          <li class="mobile-menu__item{% if link.active %} is-active{% endif %}{% if is_sale %} mobile-menu__item--sale{% endif %}{% if linklists[link.handle].links != empty %} has-sub{% endif %}">
+            <a class="{% if is_sale %} mobile-menu__link--sale{% endif %}" href="{{ link.url }}" title="{{ link.title | escape }}">
+              <span>
+                {{ link.title | escape }}
+                {%- if is_sale -%}
+                <span class="mobile-menu__sale-badge" aria-hidden="true">{{ settings.en_header_sale_badge | default: '-50%' | escape }}</span>
+                {%- endif -%}
+              </span>
+              
+            </a>
+            {%- if linklists[link.handle].links != empty -%}
+            <button type="button" class="mobile-menu__arrow" aria-label="Open submenu {{ link.title | escape }}" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            {%- endif -%}
+            {%- if linklists[link.handle].links != empty -%}
+            <ul class="mobile-menu__sub">
+              <li class="mobile-menu__back"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Turn around</a></li>
+              {%- for child in linklists[link.handle].links -%}
+              <li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>
+              {%- endfor -%}
+            </ul>
+            {%- endif -%}
+          </li>
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+    </div>
+
+  </div>
+</div>

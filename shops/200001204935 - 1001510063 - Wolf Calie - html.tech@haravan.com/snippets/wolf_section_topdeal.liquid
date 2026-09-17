@@ -1,0 +1,53 @@
+<div class="wolf-top-deal mb-4 mt-5">
+	<div class="container">
+		<div class="wolf-bts-title d-flex flex-column flex-lg-row justify-content-between align-items-center mb-3">
+			<h4 class="text-uppercase h4 fw-semibold mb-0">{{ settings.section_pro_3 }}</h4>
+			<ul class="nav nav-tabs tabs-title tab-desktop ajax clearfix mt-3 mt-lg-0 wolf-scroll-mb" role="tablist">
+				{%- for link in linklists[settings.section_pro_3_url].links limit: settings.section_pro_3_tab -%}
+				<li class="pt-2 pb-2 pe-3 ps-3 text-uppercase tab-link {% if forloop.first %}has-content current{% endif %}" data-tab="tab-{{ forloop.index }}" data-url="{{ link.url }}" data-collection-handle="{{ link.object.handle }}" role="tab" title="{{ link.title }}">{{ link.title | escape }}</li>
+				{%- endfor -%}
+			</ul>
+		</div>
+		<div class="wolf-bts-ajax-tabs">
+			{%- for link in linklists[settings.section_pro_3_url].links limit: settings.section_pro_3_tab -%}
+			<div class="tab-{{ forloop.index }} tab-content {% if forloop.first %}current{% endif %}">
+				<div class="row g-3">
+					{%- if forloop.first -%}
+					{%- assign col_handle = link.object.handle -%}
+					{%- assign products = collections[col_handle].products -%}
+					{%- assign collection_image = collections[col_handle].image.src -%}
+					<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+						<img class="rounded-4 img-fluid mt-2" src="{{ collection_image | default: 'https://cdn.hstatic.net/themes/200001127691/1001446790/14/noimage.jpg?v=9' }}" alt="Ảnh danh mục {{ link.title | escape }}" loading="lazy" >
+					</div>
+					<div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 mt-1 mt-lg-3">
+						{%- if products.size > 0 -%}
+						<div class="bts-swiper swiper">
+							<div class="swiper-wrapper mb-3">
+								{%- for product in products limit: settings.section_pro_3_limit -%}
+								<div class="swiper-slide">
+									{%- include 'wolf-product-grid' -%}
+								</div>
+								{%- endfor -%}
+							</div>
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>
+							<div class="swiper-pagination"></div>
+						</div>
+						<div class="wolf-ajax-view-more d-flex justify-content-center mt-3">
+							<a href="{{ collections[col_handle].url }}" class="btn rounded-pill fw-semibold" title="Xem thêm">Xem thêm</a>
+						</div>
+						{%- else -%}
+						<div class="alert alert-danger mt-2" role="alert">Danh mục này đang cập nhật</div>
+						{%- endif -%}
+					</div>
+					{%- else -%}
+					<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+						<div class="text-center mt-2 mb-2"><div class="spinner-border text-primary" role="status"> <span class="visually-hidden">Loading...</span> </div></div>
+					</div>
+					{%- endif -%}
+				</div>
+			</div>
+			{%- endfor -%}
+		</div>
+	</div>
+</div>

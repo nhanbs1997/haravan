@@ -1,0 +1,21 @@
+<div class="section_scrolling pb-4 pt-4">
+	<div class="marquee-container">
+		<div class="marquee marquee-left" role="marquee">
+			{%- for a in (1..4) -%}
+			<div class="marquee-content">
+				{%- for i in (1..6) -%}
+				{%- capture enmarquee -%}product_coupon_enable_{{i}}{%- endcapture -%}
+				{%- capture contentmarquee -%}product_coupon_code_{{i}}{%- endcapture -%}
+				{%- capture linkmarquee -%}product_coupon_max_{{i}}{%- endcapture -%}
+				{%- if settings[enmarquee] -%}
+				<p class="marquee-item marquee-text mb-0 me-2 ms-2 me-sm-4 ms-sm-4 wolf-content-{{forloop.index}}">
+					<a href="{{ settings[linkmarquee]}}" title="{{ settings[contentmarquee]}}">{{ settings[contentmarquee]}}</a>
+				</p>
+				<p class="marquee-item marquee-text mb-0 me-2 ms-2 me-sm-4 ms-sm-4">-</p>
+				{%- endif -%}
+				{%- endfor -%}
+			</div>
+			{%- endfor -%}
+		</div>
+	</div>
+</div>

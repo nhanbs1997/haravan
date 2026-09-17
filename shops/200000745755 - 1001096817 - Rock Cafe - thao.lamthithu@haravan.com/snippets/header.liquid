@@ -1,0 +1,7 @@
+{% if settings.header_home_selected == 'header_style1' %}
+{%- include 'header-01'-%}
+{%- elseif settings.header_home_selected == 'header_style2'-%}
+{%- include 'header-02'-%}
+{%- else -%}
+{%- include 'header-03'-%}
+{% endif %}

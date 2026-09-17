@@ -1,0 +1,27 @@
+{%- assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+{%- assign _hero_img = settings.en_bs_about_hero_img | default: '' -%}
+{%- assign _hero_img_mb = settings.en_bs_about_hero_img_mb | default: _hero_img -%}
+
+<section class="about-hero">
+  <picture class="about-hero__picture">
+    {%- unless _hero_img_mb == blank -%}
+    <source media="(max-width: 767px)" srcset="{{ _hero_img_mb }}">
+    {%- endunless -%}
+    {%- if _hero_img != blank -%}
+    <img
+      src="{{ _hero_img }}"
+      alt="{{ shop.name | escape }} - Về chúng tôi"
+      class="about-hero__img"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      width="1440" height="617">
+    {%- else -%}
+    <img
+      src="{{ _blank }}"
+      alt="{{ shop.name | escape }}"
+      class="about-hero__img about-hero__img--placeholder"
+      width="1440" height="617">
+    {%- endif -%}
+  </picture>
+</section>

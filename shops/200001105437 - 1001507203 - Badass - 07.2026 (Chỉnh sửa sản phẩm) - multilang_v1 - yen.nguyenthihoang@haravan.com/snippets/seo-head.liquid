@@ -1,0 +1,30 @@
+{%- comment -%}
+  Snippet: seo-head
+  Mô tả: SEO pagination (prev/next), noindex cho trang phân trang
+{%- endcomment -%}
+
+{%- if template contains 'collection' or template contains 'blog' or template contains 'search' -%}
+  {%- assign _pagiItems = collection.products -%}
+  {%- assign _limit = settings.pagination_limit | default: 20 -%}
+  {%- if template contains 'blog' -%}
+    {%- assign _pagiItems = blog.articles -%}
+    {%- assign _limit = 12 -%}
+  {%- elsif template contains 'search' -%}
+    {%- assign _pagiItems = search.results -%}
+    {%- assign _limit = 12 -%}
+  {%- endif -%}
+
+  {%- paginate _pagiItems by _limit -%}
+    {%- if paginate.pages > 1 -%}
+      {%- if paginate.current_page > 1 and template != 'search' -%}
+      <meta name="robots" content="noindex, follow">
+      {%- endif -%}
+      {%- if paginate.previous -%}
+      <link rel="prev" href="{{ paginate.previous.url }}">
+      {%- endif -%}
+      {%- if paginate.next -%}
+      <link rel="next" href="{{ paginate.next.url }}">
+      {%- endif -%}
+    {%- endif -%}
+  {%- endpaginate -%}
+{%- endif -%}

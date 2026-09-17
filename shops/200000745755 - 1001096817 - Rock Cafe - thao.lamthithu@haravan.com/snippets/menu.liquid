@@ -1,0 +1,214 @@
+<nav class="navbar-mainmenu">
+	<ul class="menuList-main">
+		{%- assign htmlSubchild = '' -%}
+		{%- for link in linklists[settings.mainmenu_link].links -%}
+
+		{%- if linklists[link.handle].links == empty -%}
+		<li class="{% if link.active  %}active{% endif %}">
+			<a href="{{link.url}}" title="{{ link.title }}"> 
+				{{ link.title }}
+			</a>
+		</li>
+		{%- else -%}
+		
+		{%- capture html_content_child -%}
+		{% for link_vl_1 in linklists[link.handle].links %}
+		{% if  linklists[link_vl_1.handle].links == empty %}
+		<div class="ui-menu-item col-lg-3">
+			<a href="{{ link_vl_1.url }}" title="{{ link_vl_1.title }}"> 
+				{{ link_vl_1.title }}
+			</a>
+		</div>
+		{% else %}
+		<div class="ui-menu-item has-submenu col-lg-3">
+			<a href="{{ link_vl_1.url }}" title="{{ link_vl_1.title }}"> 
+				{{ link_vl_1.title }}	
+				{%comment%}<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 128 128"><g><path d="m44 108c-1.023 0-2.047-.391-2.828-1.172-1.563-1.563-1.563-4.094 0-5.656l37.172-37.172-37.172-37.172c-1.563-1.563-1.563-4.094 0-5.656s4.094-1.563 5.656 0l40 40c1.563 1.563 1.563 4.094 0 5.656l-40 40c-.781.781-1.805 1.172-2.828 1.172z" fill="currentColor" data-original="currentColor"></path></g></svg>{%endcomment%}
+			</a>
+			<ul class="subchildmenu-item">
+				{% for link_vl_2 in linklists[link_vl_1.handle].links %}
+				{% if  linklists[link_vl_2.handle].links == empty %}
+				<li class="{% if link_vl_2.active  %}active{% endif %}">
+					<a href="{{ link_vl_2.url }}" title="{{ link_vl_2.title }}"> 
+						{{ link_vl_2.title }}	
+					</a>
+				</li>
+				{% else %}
+				<li class=" has-submenu {% if link_vl_2.active  %}active{% endif %}">
+					<a href="{{ link_vl_2.url }}" title="{{ link_vl_2.title }}"> 
+						{{ link_vl_2.title }}
+						<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 128 128"><g><path d="m44 108c-1.023 0-2.047-.391-2.828-1.172-1.563-1.563-1.563-4.094 0-5.656l37.172-37.172-37.172-37.172c-1.563-1.563-1.563-4.094 0-5.656s4.094-1.563 5.656 0l40 40c1.563 1.563 1.563 4.094 0 5.656l-40 40c-.781.781-1.805 1.172-2.828 1.172z" fill="currentColor" data-original="currentColor"></path></g></svg>
+					</a>
+					<ul class="menuList-submain">
+						{% for link_vl_3 in linklists[link_vl_2.handle].links %}
+						<li>
+							<a href="{{ link_vl_3.url }}" title="{{ link_vl_3.title }}"> 
+								{{ link_vl_3.title }}	
+							</a>
+						</li>
+						{% endfor %}
+					</ul>
+				</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+		{% endfor %}
+		{%-endcapture-%}
+		{%-assign htmlSubchild = html_content_child -%} 
+		
+		<li class="has-submenu {% if link.active  %}active{% endif %} {% if settings.mega_menu_1_text == link.title or settings.mega_menu_2_text == link.title or settings.mega_menu_3_text == link.title %}fullwidth{% endif %}">
+			<a href="{{ link.url }}" title="{{ link.title }}">
+				{{ link.title }}
+				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" x="0" y="0" viewBox="0 0 128 128"><g><path d="m64 88c-1.023 0-2.047-.391-2.828-1.172l-40-40c-1.563-1.563-1.563-4.094 0-5.656s4.094-1.563 5.656 0l37.172 37.172 37.172-37.172c1.563-1.563 4.094-1.563 5.656 0s1.563 4.094 0 5.656l-40 40c-.781.781-1.805 1.172-2.828 1.172z"></path></g></svg>
+			</a>
+			{%- if settings.mega_menu_1_text == link.title -%}
+			<div class="menuList-submain multicolumn">
+				<div class="multicolumn-container">
+					<div class="subchildmenu {% unless settings.mega_menu_1_img_show %}subchildmenu-full{% endunless %} d-flex flex-wrap">
+						{{htmlSubchild}}
+					</div>
+					{%- if settings.mega_menu_1_img_show -%}
+					<div class="menuBanner">
+						<a href="{{ settings.mega_menu_1_link }}">
+							<img class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ 'mega_menu_1_img.jpg' | asset_url }}" alt="{{ link.title }}">
+						</a>
+					</div>
+					{%- endif -%}
+				</div>
+			</div>
+			{%- elsif settings.mega_menu_2_text == link.title -%}
+			<div class="menuList-submain multicolumn">
+				<div class="multicolumn-container">
+					<div class="subchildmenu {% unless settings.mega_menu_2_img_show %}subchildmenu-full{% endunless %} d-flex flex-wrap">
+						{{htmlSubchild}}
+					</div>
+					{%- if settings.mega_menu_2_img_show -%}
+					<div class="menuBanner">
+						<a href="{{ settings.mega_menu_2_link }}">
+							<img class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ 'mega_menu_2_img.jpg' | asset_url }}" alt="{{ link.title }}">
+						</a>
+					</div>
+					{%- endif -%}
+				</div>
+			</div>
+			{%- elsif settings.mega_menu_3_text == link.title -%}
+			<div class="menuList-submain multicolumn">
+				<div class="multicolumn-container">
+					<div class="subchildmenu {% unless settings.mega_menu_3_img_show %}subchildmenu-full{% endunless %} d-flex flex-wrap">
+						{{htmlSubchild}}
+					</div>
+					{%- if settings.mega_menu_3_img_show -%}
+					<div class="menuBanner">
+						<a href="{{ settings.mega_menu_3_link }}">
+							<img class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ 'mega_menu_3_img.jpg' | asset_url }}" alt="{{ link.title }}">
+						</a>
+					</div>
+					{%- endif -%}
+				</div>
+			</div>
+			{%- elsif settings.mega_menu_4_text == link.title -%}
+			<div class="menuList-submain multicolumn">
+				<div class="multicolumn-container">
+					<div class="subchildmenu {% unless settings.mega_menu_4_img_show %}subchildmenu-full{% endunless %} d-flex flex-wrap">
+						{{htmlSubchild}}
+					</div>
+					{%- if settings.mega_menu_4_img_show -%}
+					<div class="menuBanner">
+						<a href="{{ settings.mega_menu_4_link }}">
+							<img class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ 'mega_menu_4_img.jpg' | asset_url }}" alt="{{ link.title }}">
+						</a>
+					</div>
+					{%- endif -%}
+				</div>
+			</div>
+			{%- elsif settings.mega_menu_5_text == link.title -%}
+			<div class="menuList-submain multicolumn">
+				<div class="multicolumn-container">
+					<div class="subchildmenu {% unless settings.mega_menu_5_img_show %}subchildmenu-full{% endunless %} d-flex flex-wrap">
+						{{htmlSubchild}}
+					</div>
+					{%- if settings.mega_menu_5_img_show -%}
+					<div class="menuBanner">
+						<a href="{{ settings.mega_menu_5_link }}">
+							<img class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ 'mega_menu_5_img.jpg' | asset_url }}" alt="{{ link.title }}">
+						</a>
+					</div>
+					{%- endif -%}
+				</div>
+			</div>
+			{%- elsif settings.mega_menu_6_text == link.title -%}
+			<div class="menuList-submain multicolumn">
+				<div class="multicolumn-container">
+					<div class="subchildmenu {% unless settings.mega_menu_6_img_show %}subchildmenu-full{% endunless %} d-flex flex-wrap">
+						{{htmlSubchild}}
+					</div>
+					{%- if settings.mega_menu_6_img_show -%}
+					<div class="menuBanner">
+						<a href="{{ settings.mega_menu_6_link }}">
+							<img class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ 'mega_menu_6_img.jpg' | asset_url }}" alt="{{ link.title }}">
+						</a>
+					</div>
+					{%- endif -%}
+				</div>
+			</div>
+			{%- else -%}
+			<ul class="menuList-submain">
+				{% for link_vl_1 in linklists[link.handle].links %}
+				{% if  linklists[link_vl_1.handle].links == empty %}
+				<li class="{% if link_vl_1.active  %}active{% endif %}">
+					<a href="{{ link_vl_1.url }}" title="{{ link_vl_1.title }}"> 
+						{{ link_vl_1.title }}
+					</a>
+				</li>
+				{% else %}
+				<li class="has-submenu {% if link_vl_1.active  %}active{% endif %}">
+					<a href="{{ link_vl_1.url }}" title="{{ link_vl_1.title }}"> 
+						{{ link_vl_1.title }}	
+						<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 128 128"><g><path d="m44 108c-1.023 0-2.047-.391-2.828-1.172-1.563-1.563-1.563-4.094 0-5.656l37.172-37.172-37.172-37.172c-1.563-1.563-1.563-4.094 0-5.656s4.094-1.563 5.656 0l40 40c1.563 1.563 1.563 4.094 0 5.656l-40 40c-.781.781-1.805 1.172-2.828 1.172z" fill="currentColor" data-original="currentColor"></path></g></svg>
+					</a>
+					<ul class="menuList-submain">
+						{% for link_vl_2 in linklists[link_vl_1.handle].links %}
+						{% if  linklists[link_vl_2.handle].links == empty %}
+						<li class="{% if link_vl_2.active  %}active{% endif %}">
+							<a href="{{ link_vl_2.url }}" title="{{ link_vl_2.title }}"> 
+								{{ link_vl_2.title }}	
+							</a>
+						</li>
+						{% else %}
+						<li class=" has-submenu {% if link_vl_2.active  %}active{% endif %}">
+							<a href="{{ link_vl_2.url }}" title="{{ link_vl_2.title }}"> 
+								{{ link_vl_2.title }}
+								<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 128 128"><g><path d="m44 108c-1.023 0-2.047-.391-2.828-1.172-1.563-1.563-1.563-4.094 0-5.656l37.172-37.172-37.172-37.172c-1.563-1.563-1.563-4.094 0-5.656s4.094-1.563 5.656 0l40 40c1.563 1.563 1.563 4.094 0 5.656l-40 40c-.781.781-1.805 1.172-2.828 1.172z" fill="currentColor" data-original="currentColor"></path></g></svg>
+							</a>
+							<ul class="menuList-submain">
+								{% for link_vl_3 in linklists[link_vl_2.handle].links %}
+								<li>
+									<a href="{{ link_vl_3.url }}" title="{{ link_vl_3.title }}"> 
+										{{ link_vl_3.title }}	
+									</a>
+								</li>
+								{% endfor %}
+							</ul>
+						</li>
+						{% endif %}
+						{% endfor %}
+					</ul>
+				</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+			{%- endif -%}
+		</li>
+		{% endif %}
+		{% endfor %}
+		<li class="item-live d-none"> 
+			{%- if settings.header_live_show -%} 
+			<div class="header-box-live">
+				<button type="button" class="btn-live">{{settings.header_live_txt}}</button>
+			</div>
+			{%- endif -%}
+		</li>
+	</ul>  
+</nav>

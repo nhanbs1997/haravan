@@ -1,0 +1,195 @@
+{%-if settings.toolbar_bottom_show-%}
+{%- if settings.toolbar_bottom_selected == 'toolbar_style_1' or settings.toolbar_bottom_selected == 'toolbar_style_2' -%}
+{%- assign classtoolbar = 'has-toolbar' -%}
+{%-endif-%}
+{%-endif-%}
+<footer class="mainFooter  {{classtoolbar }}">
+	<div class="footer-newsletter">
+		<div class="container-fluid">
+			<div class="wrapbox-newsletter">
+				{%- if settings.home_newsletter_show %}
+				<div class="newsletter-block newsletter-widthAuto">
+					<div class="newsletter-title">
+						{%- if settings.home_newsletter_title != blank %}<h3>{{settings.home_newsletter_title}}</h3>{%- endif -%}
+					</div>				
+					<div class="newsletter-content newsletter-form">
+						{%- capture formFooter -%}
+						{%- form 'customer' -%}
+						{%- if form.posted_successfully? -%}<p id="newsletter-success" class="d-none popup-form-success success">Cám ơn bạn đã đăng ký email theo dõi!</p>{% endif %}
+						<div class="form-group input-group">
+							<input type="hidden" id="newsletter-tags" name="contact[tags]" value="Đăng kí nhận tin" />     
+							<input required type="email" name="contact[email]" class="form-control newsletter-input" id="newsletter-email" 
+										 pattern="^(.)+@[A-Za-z0-9]([A-Za-z0-9.\-]*[A-Za-z0-9])?\.[A-Za-z]{1,13}$" placeholder="Nhập email của bạn" aria-label="Email Address">
+							<div class="input-group-btn"><button type="submit"  class="button dark cta-submitform newsletter-btn">Đăng ký</button></div>
+						</div>
+						<div class="sitebox-recaptcha d-none" >
+							This site is protected by reCAPTCHA and the Google
+							<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> 
+							and <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a> apply.
+						</div>	
+						{%- endform -%}
+						{%- endcapture -%}
+						{{ formFooter | replace: 'script', 'noscript' | replace:'noscript src=', 'noscript data-src=' }}
+						<p class="newsletter-error"></p>
+					</div>
+				</div>
+				{%- endif -%}
+
+				{%-if settings.social_link_facebook != blank or settings.social_link_twitter != blank or settings.social_link_instagram != blank or settings.social_link_google != blank or settings.social_link_youtube != blank-%}
+				<div class="newsletter-block newsletter-social d-none d-md-flex">
+					<div class="newsletter-title">
+						<h3>Kết nối với chúng tôi</h3>
+					</div>
+					<div class="newsletter-content">
+						<ul class="footerNav-social">											
+							{%-if settings.social_link_facebook != blank -%}<li><a href="{{settings.social_link_facebook}}" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a></li>	{%-endif-%}
+							{%-if settings.social_link_twitter != blank -%}<li><a href="{{settings.social_link_twitter}}" target="_blank" rel="noopener" title="Twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a></li>	{%-endif-%}
+							{%-if settings.social_link_instagram != blank -%}<li><a href="{{settings.social_link_instagram}}" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram"><i class="fa fa-instagram"></i></a></li>	{%-endif-%}
+							{%-if settings.social_link_google != blank -%}<li><a href="{{settings.social_link_google}}" target="_blank" rel="noopener" title="Google Plus" aria-label="Google Plus"><i class="fa fa-google-plus"></i></a></li>	{%-endif-%}
+							{%-if settings.social_link_youtube != blank -%}<li><a href="{{settings.social_link_youtube}}" target="_blank" rel="noopener" title="Youtube" aria-label="Youtube"><i class="fa fa-youtube-play"></i></a></li>	{%-endif-%}
+						</ul>
+					</div>
+				</div>
+				{%-endif-%}
+			</div>
+		</div>
+	</div>
+	<div class="footer-container">
+		{%-comment-%}
+		<div class="footer-expand-title">
+			<p>
+				Thông tin thêm 
+				<span class="arrow-up"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+			</p>
+		</div>
+		{%-endcomment-%}
+		<div class="footer-expand-collapsed ">
+			<div class="container-fluid">
+				<div class="row">
+					{% if settings.footer_about_show %}
+					<div class="col-lg-3 col-md-12 col-12 widget-footer">
+						<h4 class="title-footer">{{settings.footer_about_title}}</h4>
+						<div class="content-footer block-collapse row">
+							<div class="col-lg-12 col-md-12 col-12">
+								{%-comment-%}
+								<div class="ft-logo">
+									{% if settings.use_logo %}
+									<a href="{{shop.url}}"  itemprop="url">
+										<img itemprop="logo" src="{{ 'logo-footer.png' | asset_url}}" alt="{{ shop.name }}" class="img-responsive logoimg lazyload"/>
+									</a>	
+									{% else %}
+									<h2><a href="{{shop.url}}" itemprop="url">{{ shop.name }}</a></h2>
+									{% endif %}
+								</div>
+								<p>{{settings.footer_about_desc}}</p>
+								{%-endcomment-%}
+								<p>{{settings.footer_about_desc}}</p>
+								<div class="address-footer">
+									<ul>
+										{%- if settings.footer-address != empty -%}<li class="contact-1"><i class="fa fa-map-marker" aria-hidden="true"></i> {{settings.footer-address}}</li>{%- endif -%}
+										{%- if settings.footer-tell != empty -%}<li class="contact-2"><i class="fa fa-phone" aria-hidden="true"></i> {{settings.footer-tell}}</li>{%- endif -%}
+										{%- if settings.footer-email != empty -%}<li class="contact-4"><i class="fa fa-envelope" aria-hidden="true"></i> {{settings.footer-email}}</li>{%- endif -%}
+									</ul>
+								</div>
+								<ul class="footerNav-social d-md-none">											
+									{%-if settings.social_link_facebook != blank -%}<li><a href="{{settings.social_link_facebook}}" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook"><i class="fa fa-facebook"></i></a></li>	{%-endif-%}
+									{%-if settings.social_link_twitter != blank -%}<li><a href="{{settings.social_link_twitter}}" target="_blank" rel="noopener" title="Twitter" aria-label="Twitter"><i class="fa fa-twitter"></i></a></li>	{%-endif-%}
+									{%-if settings.social_link_instagram != blank -%}<li><a href="{{settings.social_link_instagram}}" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram"><i class="fa fa-instagram"></i></a></li>	{%-endif-%}
+									{%-if settings.social_link_google != blank -%}<li><a href="{{settings.social_link_google}}" target="_blank" rel="noopener" title="Google Plus" aria-label="Google Plus"><i class="fa fa-google-plus"></i></a></li>	{%-endif-%}
+									{%-if settings.social_link_youtube != blank -%}<li><a href="{{settings.social_link_youtube}}" target="_blank" rel="noopener" title="Youtube" aria-label="Youtube"><i class="fa fa-youtube-play"></i></a></li>	{%-endif-%}
+								</ul>
+								<div class="footer-payment">
+									<div class="payment-title">{{settings.payment_footer_title}}</div>
+									<ul class="payment-icon">
+										{%- for i in (1..6) -%}
+										{%- capture show_payment -%}payment_{{i}}_show{%- endcapture -%}
+										{%- capture icon_payment -%}payment_{{i}}_img.png{%- endcapture -%}
+										{%- capture alt_payment -%}payment_{{i}}_alt{%- endcapture -%}
+										{%- if settings[show_payment] -%}
+										<li><img class="lazyload" data-src="{{ icon_payment | asset_url }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="{{settings[alt_payment]}}" title="{{settings[alt_payment]}}"></li>
+										{%- endif -%}
+										{%- endfor -%}
+									</ul>
+								</div>
+								{% if settings.footer_logobct_show %}
+								<div class="logo-footer">
+									<a href="{{settings.footer_logobct_link}}" target="_blank" rel="noreferrer">
+										<img class="lazyload" data-src="{{'footer_logobct_img.png' | asset_url  }}" 
+												 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+												 alt="{{settings.footer_logobct_alt}}" >
+									</a>
+								</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					{% endif %}
+					{% if settings.footer_linklist1_show %}
+					<div class="col-lg-3 col-md-12 col-12 widget-footer">
+						<h4 class="title-footer">{{settings.footer_linklist1_title}}</h4>
+						<div class="content-footer block-collapse">				
+							<ul class="footerNav-link">
+								{%for link in linklists[settings.footer_linklist1_menu].links%}
+								<li class="item">
+									<a href="{{link.url}}" title="{{link.title}}">{{link.title}}</a>
+								</li>
+								{%endfor%}	
+							</ul>		
+							<div class="footer-shipment">
+								<div class="shipment-title">{{settings.shipment_footer_title}}</div>
+								<ul class="shipment-icon">
+									{%- for i in (1..6) -%}
+									{%- capture show_shipment -%}shipment_{{i}}_show{%- endcapture -%}
+									{%- capture icon_shipment -%}shipment_{{i}}_img.png{%- endcapture -%}
+									{%- capture alt_shipment -%}shipment_{{i}}_alt{%- endcapture -%}
+									{%- if settings[show_shipment] -%}
+									<li><img class="lazyload" data-src="{{ icon_shipment | asset_url }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="{{settings[alt_shipment]}}" title="{{settings[alt_shipment]}}"></li>
+									{%- endif -%}
+									{%- endfor -%}
+								</ul>
+							</div>
+						</div>
+					</div>
+					{% endif %}
+					{% if settings.footer_linklist2_show %}
+					<div class="col-lg-3 col-md-12 col-12 widget-footer">
+						<h4 class="title-footer">{{settings.footer_linklist2_title}}</h4>
+						<div class="content-footer block-collapse">				
+							<ul class="footerNav-link">
+								{%for link in linklists[settings.footer_linklist2_menu].links%}
+								<li class="item">
+									<a href="{{link.url}}" title="{{link.title}}">{{link.title}}</a>
+								</li>
+								{%endfor%}	
+							</ul>			
+						</div>
+					</div>
+					{% endif %}
+					{% if settings.footer_linklist3_show %}
+					<div class="col-lg-3 col-md-12 col-12 widget-footer">
+						<h4 class="title-footer">{{settings.footer_linklist3_title}}</h4>
+						<div class="content-footer block-collapse">				
+							<ul class="footerNav-link">
+								{%for link in linklists[settings.footer_linklist3_menu].links%}
+								<li class="item">
+									<a href="{{link.url}}" title="{{link.title}}">{{link.title}}</a>
+								</li>
+								{%endfor%}	
+							</ul>			
+						</div>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="footer-copyright text-center">
+				<div class="container">
+					<p>Copyright © {{ "now" | date: "%Y" }} <a href="{{ shop.url }}"> {{ shop.name }}</a>. 
+						{{ powered_by_link  | replace:'target=', 'rel="nofollow noopener" target=' }}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+

@@ -1,0 +1,107 @@
+<button type="button" class="close-menu-button btn btn-category position-fixed me-auto ms-auto justify-content-center align-items-center rounded-pill"><svg width="24" height="24" class="me-2"><use xlink:href="#icon-close" /></svg> Đóng</button>
+<div class="wolf-menu-root rounded-4" id="menu-popup">
+	{%- if settings.menu-collection-enable -%}
+	<div class="wolf-menu-feature-collections">
+		<h5 class="wolf-menu-feature-collections-title mb-3 text-center text-uppercase">{{ settings.menu-collection-title }}</h5>
+		<div class="row g-3">
+			{%- for i in (1..4) -%}
+			{%- capture menuimage -%}menu-collection-img-{{i}}.jpg{%- endcapture -%}
+			{%- capture menuurl -%}menu-collection-img-{{i}}-url{%- endcapture -%}
+			{%- capture menualt -%}menu-collection-img-{{i}}-alt{%- endcapture -%}
+			<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
+				<a href="{{ settings[menuurl] }}" title="{{ settings[menualt] }}" class="d-flex flex-column">
+					<img width="640" height="360" src="{{ menuimage | asset_url }}" alt="{{ settings[menualt] }}" loading="lazy" class="img-fluid d-block mb-2 rounded-4" >
+					<p class="mb-0">{{ settings[menualt] }}</p>
+				</a>
+			</div>
+			{%- endfor -%}
+		</div>
+	</div>
+	{%- endif -%}
+	<div class="menu-main-content rounded-4">
+		<div id="nav" class="nav row">
+			{%- if linklists[settings.main_menu].links.size > 0 -%}
+			{%- for link in linklists[settings.main_menu].links -%}
+			{%- capture img -%}{{ link.url | remove_first: "/collections/" }}{%- endcapture -%}
+			{%- if linklists[link.handle] -%}
+			<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12 nav-root nav-item mb-3 has-childs{% if link.active %} active{% endif %}">
+				<a href="{{ link.url }}" class="nav-link nav-link-1 d-flex pe-0 ps-0 align-items-center pt-0" title="{{ link.title }}">
+					<span class="text-uppercase fw-semibold">{{ link.title }}</span>
+					<span class="submenu-toggle ms-auto d-none">
+						<svg width="24" height="24" class="icon-toggle"><use xlink:href="#icon-chevron-down" /></svg>
+					</span>
+				</a>
+				<div class="dropdown-menu-1 dropdown-menu position-relative border-0 shadow-none small-scrollbar">
+					{%- for childlink in linklists[link.handle].links -%}
+					{%- capture img2 -%}{{ childlink.url | remove_first: "/collections/" }}{%- endcapture -%}
+					{%- if linklists[childlink.handle] -%}
+					<div class="dropdown-submenu nav-item-lv2 has-childs2 shadow-none">
+						<a class="nav-link nav-link-2 d-flex align-items-center pe-0 ps-0" href="{{ childlink.url }}" title="{{ childlink.title }}">
+							{%- if collections.[img2].image.src != null -%}
+							<img src="{{ collections.[img2].image.src }}" alt="Danh mục {{ childlink.title }}" width="40" height="40" class="rounded-circle img-fluid d-flex" loading="lazy" >
+							{%- else -%}
+							<img src="{{ 'noimage.jpg' | asset_url}}" alt="Danh mục {{ childlink.title }}" width="40" height="40" class="rounded-circle img-fluid d-flex" loading="lazy" >
+							{%- endif -%}
+							<span class="ms-2">{{ childlink.title }}</span>
+							<span class="submenu-toggle ms-auto">
+								<svg width="24" height="24" class="icon-toggle"><use xlink:href="#icon-chevron-down" /></svg>
+							</span>
+						</a>
+						<div class="dropdown-menu-2 dropdown-menu position-relative border-0 shadow-none ps-4">
+							{%- for childlink2 in linklists[childlink.handle].links -%}
+							<a class="nav-link" href="{{ childlink2.url }}" title="{{ childlink2.title }}">{{ childlink2.title }}</a>
+							{%- endfor -%}
+						</div>
+					</div>
+					{%- else -%}
+					<div class="nav-item-lv2">
+						<a class="nav-link nav-link-2 d-flex align-items-center pe-0 ps-0" href="{{ childlink.url }}" title="{{ childlink.title }}">
+							{%- if collections.[img2].image.src != null -%}
+							<img src="{{ collections.[img2].image.src }}" alt="Danh mục {{ childlink.title }}" width="40" height="40" class="rounded-circle img-fluid d-flex" loading="lazy" >
+							{%- else -%}
+							<img src="{{ 'noimage.jpg' | asset_url}}" alt="Danh mục {{ childlink.title }}" width="40" height="40" class="rounded-circle img-fluid d-flex" loading="lazy" >
+							{%- endif -%}
+							<span class="ms-2">{{ childlink.title }}</span>
+						</a>
+					</div>
+					{%- endif -%}
+					{%- endfor -%}
+				</div>
+			</div>
+			{%- else -%}
+			<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12 nav-root nav-item mb-3 {% if link.active %}active{% endif %}">
+				<a class="nav-link d-flex pe-0 ps-0 pt-0" href="{{ link.url }}" title="{{ link.title }}">
+					<span class="text-uppercase fw-semibold">{{ link.title }}</span>
+				</a>
+			</div>
+			{%- endif -%}
+			{%- endfor -%}
+			{%- else -%}
+			<div class="col-xxl-12">
+				<div class="alert alert-warning mb-0" role="alert">Menu đang cập nhật.</div>
+			</div>
+			{%- endif -%}
+		</div>
+	</div>
+	<div class="menu-main-content main-menu-button-mobile rounded-4 mt-3 d-flex d-md-none">
+		<ul class="d-flex ps-0 mb-0 justify-content-between w-100">
+			{%- if settings.stores_header_enable -%}
+			<li>
+				<a href="{{ pages[settings.stores_header_url].url }}" title="{{ settings.stores_header_title }}" class="btn btn-menu-mobile border-0 d-flex flex-column justify-content-center align-items-center text-center p-0">
+					<svg width="24" height="24"><use xlink:href="#icon-store" /></svg> Cửa hàng
+				</a>
+			</li>
+			{%- endif -%}
+			<li>
+				<a href="/account/" title="Tài khoản" class="btn btn-menu-mobile border-0 d-flex flex-column justify-content-center align-items-center text-center p-0">
+					<svg width="24" height="24"><use xlink:href="#icon-user" /></svg> Tài khoản
+				</a>
+			</li>
+			<li>
+				<a href="/lien-he/" title="Liên hệ" class="btn btn-menu-mobile border-0 d-flex flex-column justify-content-center align-items-center text-center p-0">
+					<svg width="24" height="24"><use xlink:href="#icon-location" /></svg> Liên hệ
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>

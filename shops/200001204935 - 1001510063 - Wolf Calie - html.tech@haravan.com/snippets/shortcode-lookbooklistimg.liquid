@@ -1,0 +1,34 @@
+{%- capture listimage1 -%}{%- include 'shortcode-render' render:'listimage1' -%}{%- endcapture -%}
+{%- capture listalt1 -%}{%- include 'shortcode-render' render:'listalt1' -%}{%- endcapture -%}
+{%- capture listimage2 -%}{%- include 'shortcode-render' render:'listimage2' -%}{%- endcapture -%}
+{%- capture listalt2 -%}{%- include 'shortcode-render' render:'listalt2' -%}{%- endcapture -%}
+{%- capture listimage3 -%}{%- include 'shortcode-render' render:'listimage3' -%}{%- endcapture -%}
+{%- capture listalt3 -%}{%- include 'shortcode-render' render:'listalt3' -%}{%- endcapture -%}
+{%- capture listimage4 -%}{%- include 'shortcode-render' render:'listimage4' -%}{%- endcapture -%}
+{%- capture listalt4 -%}{%- include 'shortcode-render' render:'listalt4' -%}{%- endcapture -%}
+<div class="lookbook-listimg pb-4">
+	<div class="container">
+		<div class="row g-2 wolf-scroll-mb">
+			<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-7">
+				<div class="lookbook-listimg-img-item">
+					<img src="{{ listimage1 }}" alt="{{ listalt1 }}" class="img-fluid" loading="lazy" >
+				</div>
+			</div>
+			<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-7">
+				<div class="lookbook-listimg-img-item">
+					<img src="{{ listimage2 }}" alt="{{ listalt2 }}" class="img-fluid" loading="lazy" >
+				</div>
+			</div>
+			<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-7">
+				<div class="lookbook-listimg-img-item">
+					<img src="{{ listimage3 }}" alt="{{ listalt3 }}" class="img-fluid" loading="lazy" >
+				</div>
+			</div>
+			<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 col-7">
+				<div class="lookbook-listimg-img-item">
+					<img src="{{ listimage4 }}" alt="{{ listalt4 }}" class="img-fluid" loading="lazy" >
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,715 @@
+<script>
+if (typeof jQuery === 'undefined' || typeof Haravan === 'undefined') {
+    console.error('jQuery or Haravan is not loaded. FBT logic requires them.');
+}
+$(document).ready(function() {
+    if (!$('body').hasClass('template-product')) {
+        return;
+    }
+    let FBT_PRODUCT_ALIASES = [];
+    if (typeof fbt_product_aliases_string !== 'undefined' && fbt_product_aliases_string) {
+        FBT_PRODUCT_ALIASES = fbt_product_aliases_string.split(',').map(alias => alias.trim()).filter(alias => alias.length > 0);
+    } else {
+    }
+    const $mainProductItem = $('.fbt-main-product');
+    const mainProductId = parseInt($mainProductItem.data('product-id')); 
+    const mainProductSelectedVariantIdInput = $mainProductItem.find('.fbt-selected-variant-id'); 
+    const $bundleProductPlaceholders = $('.fbt-bundle-product');
+    const $fbtTotalElement = $('#fbt-calculated-total');
+    const $fbtAddToCartButton = $('#fbt-add-to-cart-button');
+    const $modal = $('#fbt-variant-selector-modal');
+    const $modalProductImage = $modal.find('.modal-product-image');
+    const $modalProductTitle = $modal.find('.modal-product-title');
+    const $modalProductOriginalPrice = $modal.find('.modal-product-original-price');
+    const $modalProductCurrentPrice = $modal.find('.modal-product-current-price');
+    const $modalProductOptions = $modal.find('.modal-product-options');
+    const $modalQuantityInput = $modal.find('#modal-product-quantity');
+    const $modalStockInfo = $modal.find('.modal-stock-info');
+    const $modalConfirmButton = $modal.find('#fbt-modal-confirm-button');
+    let allProductsData = {};
+    let selectedVariants = {};
+    let currentModalProduct = null;
+    function formatMoney(amount, format) {
+        if (amount === 0) {
+            return 'Liên hệ';
+        }
+        return Haravan.formatMoney(amount, format || "{{ shop.money_format }}");
+    }
+    function getProductData(productAlias) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: `/products/${productAlias}.js`,
+                dataType: 'json',
+                success: function(product) {
+                    resolve(product);
+                },
+                error: function(xhr, status, error) {
+                    console.error(`[FBT] Error loading product ${productAlias}:`, error);
+                    reject(error);
+                }
+            });
+        });
+    }
+    function initializeMainProductSelection() {
+        const mainProductVariantId = parseInt(mainProductSelectedVariantIdInput.val()); 
+        const initialMainVariant = product_variants_json.find(v => v.id === mainProductVariantId);
+
+        if (initialMainVariant) {
+            const isMainProductAvailable = initialMainVariant.price > 0 && initialMainVariant.available;
+            selectedVariants[mainProductId] = {
+                variant_id: mainProductVariantId,
+                product_id: mainProductId,
+                quantity: 1,
+                price: initialMainVariant.price,
+                selected_options: {},
+                is_selected: isMainProductAvailable 
+            };
+            if (typeof product_options_json !== 'undefined' && product_options_json && product_options_json.length > 0) { // Kiểm tra null/undefined
+                product_options_json.forEach((optionObj, index) => { 
+                    const optionName = optionObj.name;
+                    if (initialMainVariant[`option${index + 1}`]) {
+                        selectedVariants[mainProductId].selected_options[optionName] = initialMainVariant[`option${index + 1}`];
+                    }
+                });
+            }
+            if (!isMainProductAvailable) {
+                $mainProductItem.find('.fbt-product-checkbox').prop('checked', false).prop('disabled', true);
+                $mainProductItem.find('.fbt-unavailable-overlay').removeClass('d-none').find('.overlay-text').text(initialMainVariant.available ? 'Giá 0đ' : 'Hết hàng'); 
+                console.warn(`[FBT] Main product "${initialMainVariant.name || initialMainVariant.title}" is unavailable or has 0 price. Auto-unselecting.`);
+            } else {
+                 $mainProductItem.find('.fbt-product-checkbox').prop('checked', true).prop('disabled', false);
+                 $mainProductItem.find('.fbt-unavailable-overlay').addClass('d-none');
+            }
+
+        } else {
+            console.error("[FBT] Initial main product variant not found in product_variants_json. Auto-unselecting.");
+            selectedVariants[mainProductId] = {
+                variant_id: null, 
+                product_id: mainProductId,
+                quantity: 0,
+                price: 0,
+                selected_options: {},
+                is_selected: false 
+            };
+            $mainProductItem.find('.fbt-product-checkbox').prop('checked', false).prop('disabled', true);
+            $mainProductItem.find('.fbt-unavailable-overlay').removeClass('d-none').find('.overlay-text').text('Không tìm thấy biến thể');
+        }
+        updateFbtTotal(); 
+    }
+
+    function updateFbtTotal() {
+        let total = 0;
+        for (const productId in selectedVariants) {
+            const variant = selectedVariants[productId];
+            if (variant.is_selected) {
+                total += variant.price * variant.quantity;
+            }
+        }
+        $fbtTotalElement.text(formatMoney(total));
+        const anyProductSelected = Object.values(selectedVariants).some(v => v.is_selected);
+        $fbtAddToCartButton.prop('disabled', !anyProductSelected);
+    }
+
+    function renderBundleProduct(product, productIndex) {
+        const $placeholder = $bundleProductPlaceholders.eq(productIndex);
+        if (!$placeholder.length) return;
+
+        $placeholder.removeClass('d-none');
+        $placeholder.data('product-id', product.id);
+        $placeholder.attr('data-product-id', product.id);
+
+        const defaultVariant = product.variants.find(v => v.available && v.price > 0) || product.variants[0]; 
+        if (!defaultVariant) {
+            $placeholder.html(`
+                <label class="fbt-checkbox-wrapper">
+                    <input type="checkbox" class="fbt-product-checkbox form-check-input" disabled>
+                    <span class="checkmark"></span>
+                </label>
+                <div class="fbt-product-info-wrapper">
+                    <div class="fbt-unavailable-overlay">
+                        <span class="overlay-text">Không có sẵn</span>
+                    </div>
+                    <p class="text-danger">Sản phẩm này hiện không có sẵn biến thể hợp lệ.</p>
+                </div>
+            `);
+            selectedVariants[product.id] = {
+                variant_id: null, 
+                product_id: product.id,
+                quantity: 0,
+                price: 0,
+                selected_options: {},
+                is_selected: false
+            };
+            updateFbtTotal();
+            return;
+        }
+
+        const isBundleProductAvailable = defaultVariant.price > 0 && defaultVariant.available;
+
+        selectedVariants[product.id] = {
+            variant_id: defaultVariant.id,
+            product_id: product.id,
+            quantity: 1,
+            price: defaultVariant.price,
+            selected_options: {},
+            is_selected: isBundleProductAvailable 
+        };
+        if (product.options && product.options.length > 0) {
+            product.options.forEach((optionObj, index) => { 
+                const optionName = optionObj.name; 
+                selectedVariants[product.id].selected_options[optionName] = defaultVariant[`option${index + 1}`];
+            });
+        }
+
+        const firstImage = product.images.length > 0 ? product.images[0] : 'https://cdn.hstatic.net/themes/200001127691/1001446790/14/noimage.jpg?v=148'; 
+
+        $placeholder.html(`
+            <label class="fbt-checkbox-wrapper">
+                <input type="checkbox" class="fbt-product-checkbox form-check-input" data-product-id="${product.id}" ${isBundleProductAvailable ? 'checked' : 'disabled'}>
+                <span class="checkmark"></span>
+            </label>
+            <div class="fbt-product-info-wrapper">
+                <div class="fbt-unavailable-overlay ${isBundleProductAvailable ? 'd-none' : ''}">
+                    <span class="overlay-text">${isBundleProductAvailable ? '' : (defaultVariant.available ? 'Giá 0đ' : 'Hết hàng')}</span>
+                </div>
+                <img src="${Haravan.resizeImage(firstImage, 'large')}" alt="${product.title}" class="img-fluid mb-2 rounded">
+                <h5 class="product-title mb-1"><a href="${product.url}" title="${product.title}">${product.title}</a></h5>
+                <div class="product-price mb-2">${formatMoney(defaultVariant.price)}</div>
+                <div class="product-variant-info text-muted small">${defaultVariant.title}</div>
+                <input type="hidden" class="fbt-selected-variant-id" value="${defaultVariant.id}">
+                <input type="hidden" class="fbt-quantity" value="1">
+                <button type="button" class="btn btn-sm btn-outline-secondary mt-2 fbt-change-variant-btn" data-product-id="${product.id}">Chọn thuộc tính</button>
+            </div>
+        `);
+        updateFbtTotal();
+
+        if ((product.variants.length === 1 && product.variants[0].title === 'Default Title') || !isBundleProductAvailable) {
+            $placeholder.find('.fbt-change-variant-btn').hide();
+        } else {
+            $placeholder.find('.fbt-change-variant-btn').show();
+        }
+    }
+
+    async function loadFbtProducts() {
+        if (FBT_PRODUCT_ALIASES.length === 0) {
+            $('.fbt-container').hide();
+            return;
+        }
+
+        if (FBT_PRODUCT_ALIASES.length < $('.fbt-add-sign').length) {
+            $('.fbt-add-sign').addClass('d-none');
+        }
+
+        initializeMainProductSelection(); 
+
+        for (let i = 0; i < FBT_PRODUCT_ALIASES.length; i++) {
+            const productAlias = FBT_PRODUCT_ALIASES[i];
+            const $placeholder = $bundleProductPlaceholders.eq(i);
+            if (!$placeholder.length) continue;
+            $placeholder.removeClass('d-none');
+            $placeholder.html(`
+                <label class="fbt-checkbox-wrapper">
+                    <input type="checkbox" class="fbt-product-checkbox form-check-input" disabled>
+                    <span class="checkmark"></span>
+                </label>
+                <div class="fbt-product-info-wrapper">
+                    <div class="fbt-unavailable-overlay">
+                        <span class="overlay-text">Đang tải...</span>
+                    </div>
+                    <div class="loading-spinner"></div>
+                </div>
+            `);
+            try {
+                const product = await getProductData(productAlias);
+                allProductsData[product.id] = product;
+                renderBundleProduct(product, i); 
+            } catch (error) {
+                $placeholder.html(`
+                    <label class="fbt-checkbox-wrapper">
+                        <input type="checkbox" class="fbt-product-checkbox form-check-input" disabled>
+                        <span class="checkmark"></span>
+                    </label>
+                    <div class="fbt-product-info-wrapper">
+                        <div class="fbt-unavailable-overlay">
+                            <span class="overlay-text">Lỗi tải SP</span>
+                        </div>
+                        <p class="text-danger small mt-2">Không tải được SP này.</p>
+                    </div>
+                `);
+                selectedVariants[product.id] = {
+                    variant_id: null, product_id: product.id, quantity: 0, price: 0, selected_options: {}, is_selected: false
+                };
+                console.error(`[FBT] Could not load product with alias ${productAlias}.`);
+            }
+        }
+        updateFbtTotal();
+    }
+    function renderModalOptions(product, currentSelectedVariantId) {
+        $modalProductOptions.empty();
+
+        let currentSelectedOptions = {};
+        if (selectedVariants[product.id]) {
+            currentSelectedOptions = selectedVariants[product.id].selected_options || {};
+        } else {
+            const defaultVariant = product.variants.find(v => v.id === currentSelectedVariantId) || 
+                                   product.variants.find(v => v.available && v.price > 0) || 
+                                   product.variants[0];
+            if (defaultVariant) {
+                if (product.options && product.options.length > 0) {
+                    product.options.forEach((optionObj, index) => { 
+                        const optionName = optionObj.name;
+                        currentSelectedOptions[optionName] = defaultVariant[`option${index + 1}`];
+                    });
+                }
+            }
+        }
+        if (product.options && product.options.length > 0) {
+            product.options.forEach((optionObj, optionIndex) => { 
+                const optionName = optionObj.name;
+
+                const optionValues = [];
+                product.variants.forEach(variant => {
+                    const value = variant[`option${optionIndex + 1}`];
+                    if (value && !optionValues.includes(value)) {
+                        optionValues.push(value);
+                    }
+                });
+
+                if (optionValues.length === 0) return;
+
+                const lowerCaseOptionName = optionName.toLowerCase();
+                const isColorSwatch = lowerCaseOptionName.includes('màu') || lowerCaseOptionName.includes('color');
+
+                const $optionGroup = $(`<div class="option-group" data-option-index="${optionIndex + 1}"></div>`);
+                $optionGroup.append(`<span class="option-label">${optionName}:</span>`);
+                const $optionsContainer = $('<div class="options-container d-flex gap-2"></div>');
+
+                optionValues.forEach(value => {
+                    const isSelected = currentSelectedOptions[optionName] === value;
+                    const cleanValue = value.toLowerCase().replace(/\s/g, '-');
+					const cleanValueNoDiacritics = wolf_convertVietnamese(cleanValue).toLowerCase();
+					
+                    let $optionElement;
+                    if (isColorSwatch) {
+                        $optionElement = $(`
+                            <div class="swatch-color-item color-${cleanValueNoDiacritics} ${isSelected ? 'active' : ''}" 
+                                 data-option-name="${optionName}" 
+                                 data-option-value="${value}" 
+                                 style="border: 1px solid #ccc; ${cleanValue === 'white' ? 'border-color: #999;' : ''}" title="${value}">
+                                 ${value}
+                            </div>
+                        `);
+                    } else {
+                        $optionElement = $(`
+                            <button type="button" class="option-button ${isSelected ? 'active' : ''}" 
+                                    data-option-name="${optionName}" 
+                                    data-option-value="${value}" title="${value}">${value}</button>
+                        `);
+                    }
+                    $optionsContainer.append($optionElement);
+                });
+                $optionGroup.append($optionsContainer);
+                $modalProductOptions.append($optionGroup);
+            });
+        }
+        updateModalVariant(product);
+    }
+
+    function updateModalVariant(product) {
+        const selectedOptions = {};
+        if (product.options && product.options.length > 0) {
+            $modalProductOptions.find('.option-group').each(function() {
+                let optionName = $(this).find('.option-label').text().replace(':', '').trim();
+                const selectedValue = $(this).find('.option-button.active, .swatch-color-item.active').data('option-value');
+                if (selectedValue) {
+                    selectedOptions[optionName] = selectedValue;
+                }
+            });
+        }
+        
+        let foundVariant = null;
+        product.variants.forEach(variant => {
+            let matches = true;
+            if (product.options && product.options.length > 0) {
+                product.options.forEach((optionObj, index) => { 
+                    const optionName = optionObj.name;
+                    if (selectedOptions[optionName] && variant[`option${index + 1}`] !== selectedOptions[optionName]) {
+                        matches = false;
+                    }
+                });
+            } else {
+                
+            }
+            if (matches) {
+                foundVariant = variant;
+            }
+        });
+
+        currentModalProduct.selectedVariant = foundVariant;
+
+        if (foundVariant) {
+            $modalProductCurrentPrice.text(formatMoney(foundVariant.price));
+            if (foundVariant.compare_at_price > foundVariant.price) {
+                $modalProductOriginalPrice.text(formatMoney(foundVariant.compare_at_price)).show();
+            } else {
+                $modalProductOriginalPrice.hide();
+            }
+
+            if (foundVariant.featured_image) {
+                $modalProductImage.attr('src', Haravan.resizeImage(foundVariant.featured_image.src, 'grande'));
+            } else if (product.images.length > 0) {
+                $modalProductImage.attr('src', Haravan.resizeImage(product.images[0].src, 'grande'));
+            }
+
+            const isAvailableAndPriced = foundVariant.available && foundVariant.price > 0;
+            if (isAvailableAndPriced) {
+                $modalStockInfo.text('Còn hàng').removeClass('text-danger').addClass('text-success');
+                $modalConfirmButton.prop('disabled', false);
+            } else {
+                let statusText = foundVariant.available ? 'Giá 0đ' : 'Hết hàng';
+                if (!foundVariant.available && foundVariant.price === 0) statusText = 'Hết hàng & Giá 0đ';
+
+                $modalStockInfo.text(statusText).removeClass('text-success').addClass('text-danger');
+                $modalConfirmButton.prop('disabled', true);
+            }
+        } else {
+            $modalProductCurrentPrice.text('---');
+            $modalProductOriginalPrice.hide();
+            $modalStockInfo.text('Không tìm thấy biến thể').removeClass('text-success').addClass('text-danger');
+            $modalConfirmButton.prop('disabled', true);
+            if (product.images.length > 0) {
+                $modalProductImage.attr('src', Haravan.resizeImage(product.images[0].src, 'grande'));
+            }
+        }
+
+        if (product.options && product.options.length > 0) {
+            product.options.forEach((optionObj, optionIndex) => { 
+                const optionName = optionObj.name;
+                $modalProductOptions.find(`.option-group[data-option-index="${optionIndex + 1}"] .option-button, .option-group[data-option-index="${optionIndex + 1}"] .swatch-color-item`).each(function() {
+                    const $thisOption = $(this);
+                    const optionValue = $thisOption.data('option-value');
+                    let tempSelectedOptions = { ...selectedOptions };
+                    tempSelectedOptions[optionName] = optionValue;
+                    let hasAvailableVariantForThisOption = false;
+                    product.variants.forEach(variant => {
+                        let matches = true;
+                        product.options.forEach((innerOptionObj, idx) => { 
+                            const innerOptionName = innerOptionObj.name;
+                            if (tempSelectedOptions[innerOptionName] && variant[`option${idx + 1}`] !== tempSelectedOptions[innerOptionName]) {
+                                matches = false;
+                            }
+                        });
+                        if (matches && variant.available && variant.price > 0) {
+                            hasAvailableVariantForThisOption = true;
+                        }
+                    });
+
+                    if (hasAvailableVariantForThisOption) {
+                        $thisOption.removeClass('disabled');
+                    } else {
+                        $thisOption.addClass('disabled');
+                    }
+                });
+            });
+        }
+    }
+
+    $(document).on('change', '.fbt-product-checkbox', function() {
+        const productId = parseInt($(this).data('product-id'));
+        const isChecked = $(this).is(':checked');
+
+        if (selectedVariants[productId]) {
+            selectedVariants[productId].is_selected = isChecked;
+        }
+        updateFbtTotal();
+    });
+    $(document).on('click', '.fbt-bundle-product:not(.fbt-main-product) .fbt-change-variant-btn', function() { 
+        const productId = parseInt($(this).data('product-id'));
+        currentModalProduct = allProductsData[productId];
+        if (!currentModalProduct) {
+            console.error("[FBT] Product data not found for modal:", productId);
+            return;
+        }
+        const initialVariantId = selectedVariants[productId] ? selectedVariants[productId].variant_id : (currentModalProduct.variants.find(v => v.available && v.price > 0) || currentModalProduct.variants[0]).id;
+        const initialQuantity = selectedVariants[productId] ? selectedVariants[productId].quantity : 1;
+        const initialImage = currentModalProduct.variants.find(v => v.id === initialVariantId)?.featured_image?.src || 
+                             (currentModalProduct.images.length > 0 ? currentModalProduct.images[0] : 'https://cdn.hstatic.net/themes/200001127691/1001446790/14/noimage.jpg?v=148');
+        $modalProductImage.attr('src', Haravan.resizeImage(initialImage, 'large'));
+        $modalProductTitle.text(currentModalProduct.title);
+        $modalQuantityInput.val(initialQuantity);
+
+        renderModalOptions(currentModalProduct, initialVariantId);
+        $modal.modal('show');
+    });
+
+    $modalProductOptions.on('click', '.option-button:not(.disabled), .swatch-color-item:not(.disabled)', function() {
+        const $this = $(this);
+        const optionName = $this.data('option-name'); 
+        $this.closest('.options-container').find(`.option-button[data-option-name="${optionName}"], .swatch-color-item[data-option-name="${optionName}"]`).removeClass('active');
+        $this.addClass('active');
+        updateModalVariant(currentModalProduct);
+    });
+
+    $modal.on('click', '.quantity-minus', function() {
+        let currentVal = parseInt($modalQuantityInput.val());
+        if (!isNaN(currentVal) && currentVal > 1) {
+            $modalQuantityInput.val(currentVal - 1);
+        }
+    });
+    $modal.on('click', '.quantity-plus', function() {
+        let currentVal = parseInt($modalQuantityInput.val());
+        if (!isNaN(currentVal)) {
+            $modalQuantityInput.val(currentVal + 1);
+        }
+    });
+    $modalQuantityInput.on('change', function() {
+        let val = parseInt($(this).val());
+        if (isNaN(val) || val < 1) {
+            $(this).val(1);
+        }
+    });
+    $modalConfirmButton.on('click', function() {
+        if (currentModalProduct && currentModalProduct.selectedVariant) {
+            const variant = currentModalProduct.selectedVariant;
+            const quantity = parseInt($modalQuantityInput.val());
+            const isVariantAvailable = variant.available && variant.price > 0;
+            selectedVariants[currentModalProduct.id] = {
+                variant_id: variant.id,
+                product_id: currentModalProduct.id,
+                quantity: quantity,
+                price: variant.price,
+                selected_options: {},
+                is_selected: isVariantAvailable 
+            };
+            if (currentModalProduct.options && currentModalProduct.options.length > 0) {
+                currentModalProduct.options.forEach((optionObj, index) => { 
+                    const optionName = optionObj.name;
+                    selectedVariants[currentModalProduct.id].selected_options[optionName] = variant[`option${index + 1}`];
+                });
+            }
+            const $productItemUI = $(`.fbt-bundle-product[data-product-id="${currentModalProduct.id}"]`);
+            $productItemUI.find('.product-price').text(formatMoney(variant.price));
+            $productItemUI.find('.product-variant-info').text(variant.title);
+            $productItemUI.find('.fbt-selected-variant-id').val(variant.id);
+            $productItemUI.find('.fbt-quantity').val(quantity);
+            $productItemUI.find('.fbt-product-checkbox')
+                .prop('checked', isVariantAvailable)
+                .prop('disabled', !isVariantAvailable);
+            if (!isVariantAvailable) {
+                let overlayText = variant.available ? 'Giá 0đ' : 'Hết hàng';
+                if (!variant.available && variant.price === 0) overlayText = 'Hết hàng & Giá 0đ';
+                $productItemUI.find('.fbt-unavailable-overlay').removeClass('d-none').find('.overlay-text').text(overlayText);
+                $productItemUI.find('.fbt-change-variant-btn').hide(); 
+            } else {
+                $productItemUI.find('.fbt-unavailable-overlay').addClass('d-none');
+                if (currentModalProduct.variants.length > 1 || currentModalProduct.variants[0].title !== 'Default Title') {
+                    $productItemUI.find('.fbt-change-variant-btn').show();
+                }
+            }
+            updateFbtTotal();
+            $modal.modal('hide');
+        }
+    });
+    $(document).on('change', '.select-swatch .swatch-list-element input[type="radio"]', function() {
+        const $this = $(this);
+        const optionIndex = parseInt($this.closest('.swatch').data('option-index')); 
+        const selectedValue = $this.val(); 
+        let tempSelectedOptionsForMainProduct = {};
+        $('.select-swatch .swatch').each(function() {
+            const currentOptionIndex = parseInt($(this).data('option-index'));
+            const optionNameFromProductOptions = product_options_json && product_options_json[currentOptionIndex] ? product_options_json[currentOptionIndex].name : null;
+            const currentSelectedValue = $(this).find('input[type="radio"]:checked').val();
+            if (optionNameFromProductOptions && currentSelectedValue) {
+                tempSelectedOptionsForMainProduct[optionNameFromProductOptions] = currentSelectedValue;
+            }
+        });
+        const optionNameClicked = product_options_json && product_options_json[optionIndex] ? product_options_json[optionIndex].name : null;
+        if (optionNameClicked) {
+             tempSelectedOptionsForMainProduct[optionNameClicked] = selectedValue;
+        }
+        let foundMainVariant = null;
+        product_variants_json.forEach(variant => {
+            let matches = true;
+            if (typeof product_options_json !== 'undefined' && product_options_json && product_options_json.length > 0) { 
+                product_options_json.forEach((optionObj, index) => { 
+                    const optionName = optionObj.name;
+                    if (tempSelectedOptionsForMainProduct[optionName] && variant[`option${index + 1}`] !== tempSelectedOptionsForMainProduct[optionName]) {
+                        matches = false;
+                    }
+                });
+            }
+            if (matches) {
+                foundMainVariant = variant;
+            }
+        });
+
+        if (foundMainVariant) {
+            const isMainVariantAvailable = foundMainVariant.price > 0 && foundMainVariant.available;
+            selectedVariants[mainProductId] = {
+                variant_id: foundMainVariant.id,
+                product_id: mainProductId,
+                quantity: parseInt($mainProductItem.find('.fbt-quantity').val()), 
+                price: foundMainVariant.price,
+                selected_options: tempSelectedOptionsForMainProduct,
+                is_selected: isMainVariantAvailable 
+            };
+            $mainProductItem.find('.product-price').text(formatMoney(foundMainVariant.price));
+            $mainProductItem.find('.product-price').data('current-price', foundMainVariant.price);
+            $mainProductItem.find('.product-variant-info').text(foundMainVariant.title);
+            mainProductSelectedVariantIdInput.val(foundMainVariant.id); 
+            $mainProductItem.find('.fbt-product-checkbox')
+                .prop('checked', isMainVariantAvailable)
+                .prop('disabled', !isMainVariantAvailable);
+            if (!isMainVariantAvailable) {
+                let overlayText = foundMainVariant.available ? 'Giá 0đ' : 'Hết hàng';
+                if (!foundMainVariant.available && foundMainVariant.price === 0) overlayText = 'Hết hàng & Giá 0đ';
+                $mainProductItem.find('.fbt-unavailable-overlay').removeClass('d-none').find('.overlay-text').text(overlayText);
+            } else {
+                $mainProductItem.find('.fbt-unavailable-overlay').addClass('d-none');
+            }
+            updateFbtTotal();
+        } else {
+            console.warn("[FBT] No main product variant found for selected options:", tempSelectedOptionsForMainProduct);
+            selectedVariants[mainProductId].is_selected = false;
+            mainProductSelectedVariantIdInput.val(''); 
+            $mainProductItem.find('.fbt-product-checkbox').prop('checked', false).prop('disabled', true);
+            $mainProductItem.find('.fbt-unavailable-overlay').removeClass('d-none').find('.overlay-text').text('Không tìm thấy biến thể');
+            updateFbtTotal();
+        }
+    });
+    $(document).on('change', '#product-selectors', function() {
+        const newVariantId = parseInt($(this).val());
+        const mainProductData = product_variants_json.find(v => v.id === newVariantId);
+        if (mainProductData) {
+            let newSelectedOptions = {};
+            if (typeof product_options_json !== 'undefined' && product_options_json && product_options_json.length > 0) { // Kiểm tra null/undefined
+                product_options_json.forEach((optionObj, index) => {
+                    const optionName = optionObj.name; 
+                    if (mainProductData[`option${index + 1}`]) {
+                        newSelectedOptions[optionName] = mainProductData[`option${index + 1}`];
+                    }
+                });
+            }
+            const isMainVariantAvailable = mainProductData.price > 0 && mainProductData.available;
+            selectedVariants[mainProductId] = {
+                variant_id: mainProductData.id,
+                product_id: mainProductId,
+                quantity: parseInt($mainProductItem.find('.fbt-quantity').val()),
+                price: mainProductData.price,
+                selected_options: newSelectedOptions,
+                is_selected: isMainVariantAvailable 
+            };
+            $mainProductItem.find('.product-price').text(formatMoney(mainProductData.price));
+            $mainProductItem.find('.product-price').data('current-price', mainProductData.price);
+            $mainProductItem.find('.product-variant-info').text(mainProductData.title);
+            mainProductSelectedVariantIdInput.val(mainProductData.id); 
+            $mainProductItem.find('.fbt-product-checkbox')
+                .prop('checked', isMainVariantAvailable)
+                .prop('disabled', !isMainVariantAvailable);
+            if (!isMainVariantAvailable) {
+                let overlayText = mainProductData.available ? 'Giá 0đ' : 'Hết hàng';
+                if (!mainProductData.available && mainProductData.price === 0) overlayText = 'Hết hàng & Giá 0đ';
+                $mainProductItem.find('.fbt-unavailable-overlay').removeClass('d-none').find('.overlay-text').text(overlayText);
+            } else {
+                $mainProductItem.find('.fbt-unavailable-overlay').addClass('d-none');
+            }
+            updateFbtTotal();
+        } else {
+             console.warn("[FBT] No main product variant found for selected dropdown value:", newVariantId);
+            selectedVariants[mainProductId].is_selected = false;
+            mainProductSelectedVariantIdInput.val(''); 
+            $mainProductItem.find('.fbt-product-checkbox').prop('checked', false).prop('disabled', true);
+            $mainProductItem.find('.fbt-unavailable-overlay').removeClass('d-none').find('.overlay-text').text('Không tìm thấy biến thể');
+            updateFbtTotal();
+        }
+    });
+    $fbtAddToCartButton.on('click', function() {
+        const itemsToAdd = [];
+        let hasUnavailableItem = false;
+        for (const productId in selectedVariants) {
+            const variantInfo = selectedVariants[productId];
+            if (!variantInfo.is_selected) {
+                continue; 
+            }
+            let currentProductData;
+            let currentVariant = null;
+            if (parseInt(productId) === mainProductId) {
+                const mainVariantId = parseInt(mainProductSelectedVariantIdInput.val()); 
+                currentVariant = product_variants_json.find(v => v.id === mainVariantId);
+                currentProductData = {
+                    id: mainProductId,
+                    title: $mainProductItem.find('.product-title').text(),
+                    variants: product_variants_json
+                };
+            } else {
+                currentProductData = allProductsData[productId];
+                currentVariant = currentProductData ? currentProductData.variants.find(v => v.id === variantInfo.variant_id) : null;
+            }
+            if (!currentVariant || !currentVariant.available || currentVariant.price === 0) {
+                const productTitle = currentProductData ? currentProductData.title : 'Sản phẩm không xác định';
+                alert(`Sản phẩm "${productTitle}" hoặc biến thể đã chọn hiện không có sẵn hoặc giá 0đ. Vui lòng kiểm tra lại.`);
+                hasUnavailableItem = true;
+                break;
+            }
+
+            itemsToAdd.push({
+                variant_id: currentVariant.id,
+                quantity: variantInfo.quantity
+            });
+        }
+
+        if (hasUnavailableItem) {
+            return;
+        }
+
+        if (itemsToAdd.length === 0) {
+            alert('Không có sản phẩm nào được chọn để thêm vào giỏ hàng.');
+            return;
+        }
+        $(this).prop('disabled', true).text('Đang thêm...');
+		console.log("[FBT Debug] Type of Haravan:", typeof Haravan);
+        console.log("[FBT Debug] Type of Haravan.addItems:", typeof Haravan.addItems);
+        const addPromises = itemsToAdd.map(item => {
+            return new Promise((resolve, reject) => {
+                if (typeof Haravan.addItem === 'function') {
+                    Haravan.addItem(item.variant_id, item.quantity, resolve, reject);
+                } else {
+                    reject(new Error("Haravan.addItem is not a function."));
+                }
+            });
+        });
+
+        Promise.all(addPromises)
+            .then(function(results) {
+                Haravan.getCart(function(cart) {
+                    console.log('[FBT] All items added to cart:', cart);
+                    $(this).prop('disabled', false).text('Thêm tất cả vào giỏ hàng');
+                    if (itemsToAdd.length > 0 && cart.items.length > 0) {
+                        lastAddedProduct = cart.items.find(item => item.variant_id === itemsToAdd[0].variant_id);
+                        if (!lastAddedProduct) {
+                            lastAddedProduct = cart.items[0];
+                        }
+                    } else {
+                        lastAddedProduct = null;
+                    }
+                    shouldLoadRecommendedProducts = true;
+
+                    if (typeof updateAndShowSlideCart === 'function') {
+                        updateAndShowSlideCart();
+                    } else {
+                        console.warn("[FBT] updateAndShowSlideCart function not found. Redirecting to cart page as fallback.");
+                        window.location.href = '/cart';
+                    }
+                }.bind(this));
+
+            }.bind(this))
+            .catch(function(error) {
+                console.error('[FBT] Error adding one or more items to cart:', error);
+                const errorMessage = error.message || 'Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.';
+                alert(errorMessage);
+                $(this).prop('disabled', false).text('Thêm tất cả vào giỏ hàng');
+            }.bind(this));
+    });
+    loadFbtProducts(); 
+});
+</script>

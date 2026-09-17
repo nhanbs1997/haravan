@@ -1,0 +1,85 @@
+{%- assign col_menu = settings.product_menu -%}
+{%- for link in linklists[settings.product_menu].links -%}
+{%- if link.object -%}
+{%- if link.active -%}
+{%- assign col_menu_title = link.title -%}
+{%- assign col_menu = link.handle -%}
+{%- endif -%}
+{%- for childlink in linklists[link.handle].links -%}
+{%- if childlink.active -%}
+{%- assign check_active_menu = true -%}
+{%- endif -%}
+{%- for childlink2 in linklists[childlink.handle].links -%}
+{%- if childlink2.active -%}
+{%- assign check_active_menu = true -%}
+{%- endif -%}
+{%- endfor -%}
+{%- endfor -%}
+{%- if link.active or check_active_menu -%}
+{%- if linklists[link.handle] != null -%}
+{%- for childlink in linklists[link.handle].links -%}
+{%- if childlink.active -%}
+{%- assign col_menu_title = link.title -%}
+{%- assign col_menu = link.handle -%}
+{%- endif -%}
+{%- for childlink2 in linklists[childlink.handle].links -%}
+{%- if childlink2.active -%}
+{%- assign col_menu_title = childlink.title -%}
+{%- assign col_menu = childlink.handle -%}
+{%- endif -%}
+{%- endfor -%}
+{%- endfor -%}
+{%- endif -%}
+{%- endif -%}
+{%- endif -%}
+{%- assign check_active_menu = false -%}
+{%- endfor -%}
+{%- if linklists[col_menu].links.size > 0 -%}
+<div class="wolf-subcategories mb-2 swiper rounded-4">
+	<div class="swiper-wrapper">
+		{%- for link in linklists[col_menu].links -%}
+		{%- capture img -%}{{ link.url | remove_first: "/collections/" }}{%- endcapture -%}
+		<div class="swiper-slide">
+			<a class="position-relative text-center d-flex justify-content-center align-items-center rounded-4 cate-item {% if link.active %}active{% endif %}" href="{{ link.url }}" title="{{ link.title }}">
+				{%- if collections[img].image.src != null -%}
+				<img src="{{ collections[img].image.src }}" alt="{{ link.title }}" class="img-fluid rounded-4" loading="lazy" />
+				{%- else -%}
+				<img src="{{ 'noimage.jpg' | asset_url }}" alt="{{ link.title }}" class="img-fluid rounded-4" loading="lazy" />
+				{%- endif -%}
+				<span class="cate-info-title position-absolute d-flex text-uppercase">{{ link.title }}</span>
+			</a>
+		</div>
+		{%- endfor -%}
+	</div>
+	<div class="swiper-button-prev"></div>
+	<div class="swiper-button-next"></div>
+</div>
+<script>
+	var swiper_slider = new Swiper('.wolf-subcategories', {
+		speed: 1000,
+		spaceBetween: 10,
+		breakpoints: {
+			1: {
+				slidesPerView: 3,
+				spaceBetween: 10
+			},
+			768: {
+				slidesPerView: 4,
+				spaceBetween: 10
+			},
+			992: {
+				slidesPerView: 6,
+				spaceBetween: 10
+			},
+			1024: {
+				slidesPerView: 6,
+				spaceBetween: 10
+			}
+		},
+		navigation: {
+			nextEl: '.wolf-subcategories .swiper-button-next',
+			prevEl: '.wolf-subcategories .swiper-button-prev',
+		}
+	});
+</script>
+{%- endif -%}

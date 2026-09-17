@@ -1,0 +1,25 @@
+{%- assign _tab_artworks  = settings.en_account_tab_artworks_url  | default: '/account?view=my_product.en' -%}
+{%- assign _tab_orders    = settings.en_account_tab_orders_url    | default: '/account?view=orders.en' -%}
+{%- assign _tab_account   = settings.en_account_tab_account_url   | default: '/ mohammad' -%}
+{%- assign _tab_wishlist  = settings.en_account_tab_wishlist_url  | default: '/account?view=wishlist.en' -%}
+{%- assign _tab_addresses = settings.en_account_tab_addresses_url | default: '/ mohammad/states' -%}
+
+<div class="account-card__top">
+	<div class="account-cover__name">
+		<div class="account-cover__badge">WELCOME BACK!</div>
+		<h1 class="account-cover__fullname" id="account-fullname">{{ customer.name }}</h1>
+	</div>
+	<a href="/account/logout" class="account-cover__logout">Log Out</a>
+</div>
+
+
+<div class="account-tabs">
+	<a href="{{ _tab_artworks }}" class="account-tabs__item{% if active_tab == 'my_product' %} active{% endif %}">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M2 6.95C2 5.8 2 5.225 2.218 4.783C2.41 4.393 2.727 4.076 3.117 3.884C3.559 3.666 4.134 3.666 5.284 3.666H18.716C19.866 3.666 20.441 3.666 20.883 3.884C21.273 4.076 21.59 4.393 21.782 4.783C22 5.225 22 5.8 22 6.95V17.05C22 18.2 22 18.775 21.782 19.217C21.59 19.607 21.273 19.924 20.883 20.116C20.441 20.334 19.866 20.334 18.716 20.334H5.284C4.134 20.334 3.559 20.334 3.117 20.116C2.727 19.924 2.41 19.607 2.218 19.217C2 18.775 2 18.2 2 17.05V6.95Z" stroke="currentColor" stroke-width="1.5"/><path d="M2 16L7.586 10.414C7.961 10.039 8.149 9.851 8.364 9.783C8.554 9.723 8.758 9.723 8.948 9.783C9.163 9.851 9.351 10.039 9.726 10.414L14 14.688" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 14.688L15.586 13.102C15.961 12.727 16.149 12.539 16.364 12.471C16.554 12.411 16.758 12.411 16.948 12.471C17.163 12.539 17.351 12.727 17.726 13.102L22 17.376" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+		<span>MY FALLON</span>
+	</a>
+	<a href="{{ _tab_orders }}" class="account-tabs__item{% if active_tab == 'orders' %} active{% endif %}">THE CHALLENGE</a>
+	<a href="{{ _tab_account }}" class="account-tabs__item{% if active_tab == 'account' %} active{% endif %}">APPRECTION</a>
+	<a href="{{ _tab_wishlist }}" class="account-tabs__item{% if active_tab == 'wishlist' %} active{% endif %}">WISHLIT</a>
+	<a href="{{ _tab_addresses }}" class="account-tabs__item{% if active_tab == 'addresses' %} active{% endif %}">SAVALIAL</a>
+</div>

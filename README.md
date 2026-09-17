@@ -16,9 +16,11 @@ cd haravan
 git pull --ff-only origin main
 ```
 
-Workflow tự kiểm tra remote `origin` và nhánh `main`; nếu working tree sạch, nó tự
-đồng bộ GitHub trước khi fetch/pull. Khi có thay đổi chưa commit, workflow giữ nguyên
-checkout và cảnh báo để người dùng commit/push trước lượt tiếp theo.
+Workflow tự kiểm tra remote `origin` và nhánh `main`, tự commit source local (gồm file
+mới/xóa), pull và merge source mới nhất rồi push GitHub trước thao tác Haravan.
+Nếu conflict, workflow hủy merge và dừng, giữ commit local; không force-push.
+File bị ignore, thông tin đăng nhập, backup và dữ liệu ticket không được tự commit.
+Snapshot Git không tự triển khai các thay đổi lên Haravan.
 
 Trước khi đổi máy:
 
@@ -226,6 +228,7 @@ tab trong cửa sổ hiện tại của người dùng. Lookup Inside dùng đú
 workflow, được tái sử dụng tuần tự cho các Org ID, không mở nhiều tab Inside. Nếu không
 tạo được cửa sổ độc lập, workflow dừng trước khi mở tab và báo rõ.
 
-Khi chạy lại cùng theme trong tối đa 30 phút, workflow tự dùng theme local nếu metadata
-file không đổi, nên bỏ qua backup và fetch/pull. Dùng `-ForceFetch` để lấy bản remote mới
-nhất hoặc `-ReuseMinutes <số phút>` để đổi thời gian tái sử dụng cho một lượt chạy.
+Mỗi yêu cầu chỉnh theme, kể cả yêu cầu tiếp nối cùng ticket, phải backup local rồi
+fetch/pull code mới nhất từ đúng theme Haravan trước khi sửa. Không tái sử dụng cache
+để bỏ qua pull. Nếu pull lỗi hoặc chỉ tải một phần, dừng chỉnh sửa và báo rõ.
+`ticket:prepare` luôn fetch mới; `-ReuseMinutes` chỉ chấp nhận `0`.

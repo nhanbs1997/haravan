@@ -1,0 +1,51 @@
+/* haravan-audit:v2 */
+window.BS = window.BS || {};
+BS.FeaturedCollections = BS.FeaturedCollections || {
+  initOne: function(wrap) {
+    var track   = wrap.querySelector('[data-bsfc-track]');
+    var prevBtn = wrap.querySelector('[data-bsfc-prev]');
+    var nextBtn = wrap.querySelector('[data-bsfc-next]');
+    if (!track) return;
+
+    function getScrollAmount() {
+      var card = track.querySelector('.bs_featured-collections__card');
+      if (!card) return 300;
+      return card.offsetWidth + 12;
+    }
+
+    function updateButtons() {
+      if (!prevBtn || !nextBtn) return;
+      var atStart = track.scrollLeft <= 4;
+      var atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+      prevBtn.classList.toggle('is-hidden', atStart);
+      nextBtn.classList.toggle('is-hidden', atEnd);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function() {
+        track.scrollBy({ left: -getScrollAmount() * 2, behavior: 'smooth' });
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        track.scrollBy({ left: getScrollAmount() * 2, behavior: 'smooth' });
+      });
+    }
+
+    track.addEventListener('scroll', updateButtons, { passive: true });
+    updateButtons();
+  },
+
+  init: function() {
+    var wraps = document.querySelectorAll('.bs_featured-collections__wrap');
+    wraps.forEach(function(wrap) {
+      BS.FeaturedCollections.initOne(wrap);
+    });
+  }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof BS !== 'undefined' && BS.FeaturedCollections) {
+    BS.FeaturedCollections.init();
+  }
+});

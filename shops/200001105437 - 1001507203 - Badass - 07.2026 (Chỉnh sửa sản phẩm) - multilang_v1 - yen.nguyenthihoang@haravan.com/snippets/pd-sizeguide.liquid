@@ -1,0 +1,97 @@
+{%- comment -%}
+  Snippet: pd-sizeguide
+  Mo ta: Popup modal huong dan chon size (1 man, khong tab).
+         O nhap chieu cao/can nang -> goi y size tu Google Sheet theo tag SP.
+  Settings:
+    pd_size_guide_show         : bat/tat modal
+    pd_size_guide_tag_N        : tag kich hoat (1..10)
+    pd_size_guide_sheet_N      : link Google Sheet tuong ung
+    pd_size_guide_image_N      : URL anh bang size theo tag
+    pd_size_guide_image        : URL anh bang size mac dinh (fallback)
+    pd_size_guide_html         : HTML noi dung bang size
+{%- endcomment -%}
+
+{%- if settings.pd_size_guide_show -%}
+{%- assign _sg_sheet_url = '' -%}
+{%- assign _sg_matched_tag = '' -%}
+{%- assign _sg_image_url = '' -%}
+{%- for i in (1..10) -%}
+  {%- if _sg_sheet_url == blank -%}
+    {%- assign _sg_tag_key = 'pd_size_guide_tag_' | append: i -%}
+    {%- assign _sg_sheet_key = 'pd_size_guide_sheet_' | append: i -%}
+    {%- assign _sg_image_key = 'pd_size_guide_image_' | append: i -%}
+    {%- assign _sg_tag = settings[_sg_tag_key] | strip -%}
+    {%- assign _sg_sheet = settings[_sg_sheet_key] | strip -%}
+    {%- assign _sg_image = settings[_sg_image_key] | strip -%}
+    {%- if _sg_tag != blank and _sg_sheet != blank -%}
+      {%- assign _sg_tag_l = _sg_tag | downcase -%}
+      {%- for _tag in product.tags -%}
+        {%- assign _ptag_l = _tag | downcase | strip -%}
+        {%- if _ptag_l == _sg_tag_l and _sg_sheet_url == blank -%}
+          {%- assign _sg_sheet_url = _sg_sheet -%}
+          {%- assign _sg_matched_tag = _sg_tag -%}
+          {%- assign _sg_image_url = _sg_image -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if _sg_image_url == blank -%}
+  {%- assign _sg_image_url = settings.pd_size_guide_image | strip -%}
+{%- endif -%}
+
+<div class="pd-sizeguide" id="pdSizeGuideModal"
+  data-size-guide-sheet="{{ _sg_sheet_url | escape }}"
+  data-size-guide-tag="{{ _sg_matched_tag | escape }}"
+  hidden>
+  <div class="pd-sizeguide__overlay" data-close></div>
+  <div class="pd-sizeguide__panel" role="dialog" aria-modal="true" aria-labelledby="pdSgTitle">
+
+    <button type="button" class="pd-sizeguide__close" data-close aria-label="Đóng">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div class="pd-sizeguide__header">
+      <h3 class="pd-sizeguide__title" id="pdSgTitle">{{ settings.pd_size_guide_title | default: 'Hướng dẫn chọn size' }}</h3>
+    </div>
+
+    <div class="pd-sizeguide__body">
+      <div class="pd-sizeguide__pane is-active">
+
+        <div class="pd-sizeguide__inputs">
+          <div class="pd-sizeguide__input-row">
+            <label class="pd-sizeguide__input-label" for="sgHeightInput">Chiều cao (cm)</label>
+            <input type="number" inputmode="numeric" class="pd-sizeguide__input" id="sgHeightInput"
+              min="140" max="210" step="1" placeholder="VD: 170" aria-label="Chiều cao (cm)">
+          </div>
+          <div class="pd-sizeguide__input-row">
+            <label class="pd-sizeguide__input-label" for="sgWeightInput">Cân nặng (kg)</label>
+            <input type="number" inputmode="numeric" class="pd-sizeguide__input" id="sgWeightInput"
+              min="40" max="120" step="1" placeholder="VD: 65" aria-label="Cân nặng (kg)">
+          </div>
+        </div>
+
+        <div class="pd-sizeguide__suggest-row" id="sgSuggestRow">
+          <span class="pd-sizeguide__suggest-label">Gợi ý:</span>
+          <div class="pd-sizeguide__suggest-pills" id="sgSuggestPills">
+            <span class="pd-sizeguide__pill pd-sizeguide__pill--empty">Nhập chiều cao &amp; cân nặng để xem gợi ý</span>
+          </div>
+        </div>
+
+        <div class="pd-sizeguide__chart" id="sgChartWrap">
+          {%- if _sg_image_url != blank -%}
+          <img class="pd-sizeguide__chart-img" id="sgChartImage" src="{{ _sg_image_url }}" alt="{{ settings.pd_size_guide_title | default: 'Bảng size' }}" loading="lazy" width="900" height="1200">
+          {%- endif -%}
+          {%- if settings.pd_size_guide_html != blank -%}
+          <div class="pd-sizeguide__rich" id="sgChartRich">{{ settings.pd_size_guide_html }}</div>
+          {%- endif -%}
+          {%- if _sg_image_url == blank and settings.pd_size_guide_html == blank -%}
+          <p class="pd-sizeguide__empty" id="sgChartEmpty">Chưa có bảng size. Vui lòng cập nhật trong phần cài đặt theme.</p>
+          {%- endif -%}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{%- endif -%}

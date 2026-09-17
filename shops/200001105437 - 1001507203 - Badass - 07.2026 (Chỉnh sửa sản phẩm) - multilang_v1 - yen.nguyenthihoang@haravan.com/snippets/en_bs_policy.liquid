@@ -1,0 +1,41 @@
+{% comment %}haravan-audit:v2{% endcomment %}
+{% if settings.en_bs_policy_show %}
+<link rel="preload stylesheet" href="{{ 'bs_policy.scss.css' | asset_url }}" as="style">
+
+{%- assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+
+<section class="bs_policy" data-filename="bs_policy" data-reveal>
+  <div class="container">
+    {%- unless settings.en_bs_policy_title == blank -%}
+    <h2 class="bs_feedback__heading">{{ settings.en_bs_policy_title | escape }}</h2>
+    {%- endunless -%}
+    
+    <div class="bs_policy__list">
+
+      {%- for i in (1..4) -%}
+        {%- capture _show_key -%}en_bs_policy_show_{{ i }}{%- endcapture -%}
+        {%- capture _icon_key -%}en_bs_policy_icon_{{ i }}{%- endcapture -%}
+        {%- capture _text_key -%}en_bs_policy_text_{{ i }}{%- endcapture -%}
+        {%- assign _icon = settings[_icon_key] -%}
+        {%- assign _text = settings[_text_key] -%}
+        {%- if settings[_show_key] and _text != blank -%}
+        <div class="bs_policy__item">
+          {%- unless _icon == blank -%}
+          <div class="bs_policy__icon" aria-hidden="true">
+            <img class="lazyload isHideTBT"
+              src="{{ _blank }}"
+              data-src="{{ _icon }}"
+              alt=""
+              width="40" height="40"
+              loading="lazy" decoding="async">
+          </div>
+          {%- endunless -%}
+          <p class="bs_policy__text">{{ _text | escape }}</p>
+        </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+    </div>
+  </div>
+</section>
+{% endif %}

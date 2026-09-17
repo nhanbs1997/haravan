@@ -1,0 +1,542 @@
+<div id="recommended-products-section" class="recommended-products-section p-3">
+	<div class="recommended-products-header text-center mb-3">
+		<h3 class="h4 mb-0">{{ settings.cart-recommend-title }}</h3>
+	</div>
+	<div class="swiper-container" id="recommended-products-swiper">
+		<div class="swiper-wrapper"></div>
+		<div class="swiper-pagination"></div>
+		<div class="swiper-button-next"></div>
+		<div class="swiper-button-prev"></div>
+	</div>
+</div>
+
+<div id="slide-cart" class="slide-cart">
+	<div class="slide-cart-header">
+		<button class="slide-cart-close" aria-label="Đóng giỏ hàng">&times;</button>
+		<h2>Giỏ hàng của bạn</h2>
+		<div class="shipping-countdown" id="shipping-progress-bar">
+			<p class="mb-1"><span id="countdown-amount"></span></p>
+			<div class="progress-bar-container">
+				<div class="progress-bar" id="shipping-progress"></div>
+			</div>
+		</div>
+		<div id="gift-notification-container" style="margin-top: 10px; opacity: 0; transform: translateY(-10px); transition: all 0.5s ease-in-out; font-size: 14px;"></div>
+	</div>
+	<div class="slide-cart-body">
+		<div id="cart-items-list" class="cart-items-list">
+		</div>
+	</div>
+	<div class="slide-cart-footer" id="slide-cart-footer">
+		<div id="recommended-products-mobile-section" class="mb-3" style="display: none;">
+			<h5 class="text-center mb-3">{{ settings.cart-recommend-title }}</h5>
+			<div class="swiper-container" id="recommended-products-mobile-swiper">
+				<div class="swiper-wrapper">
+				</div>
+			</div>
+		</div>
+		<div class="cart-total">
+			<span>Tổng cộng:</span>
+			<span id="cart-total-price">0 VND</span>
+		</div>
+		<a href="/checkout" class="btn btn-checkout">Thanh toán</a>
+		<a href="/cart" class="btn btn-view-cart">Xem giỏ hàng</a>
+	</div>
+</div>
+<div class="slide-cart-overlay"></div>
+<script>
+	const ENABLE_FREE_GIFT = {{ settings.enable_free_gift }};
+	const ENABLE_FREE_SHIPPING_PROGRESS = {{ settings.free_shipping_enable }};
+	const FREE_SHIPPING_THRESHOLD = {{ settings.free_shipping_price }} * 100;
+	const GIFT_THRESHOLD_1M = {{ settings.free_gift_limit_1 }} * 100;
+	const GIFT_VARIANT_ID_1M = {{ settings.free_gift_variant_1 }};
+	const GIFT_THRESHOLD_1M5 = {{ settings.free_gift_limit_2 }} * 100;
+	const GIFT_VARIANT_ID_1M5 = {{ settings.free_gift_variant_2 }};
+	const FIXED_RECOMMENDED_COLLECTION_URL = '/collections/{{settings.cart-recommend-col}}?view=ajaxflashsale';
+	let lastAddedProduct = null;
+	let hasLoadedRecommendedProducts = false; 
+	function formatMoneyHaravan(amount, format) {
+	return Haravan.formatMoney(amount, format || "{{ shop.money_format }}");
+	}
+	function showGiftNotification(giftName) {
+	let $giftNotificationContainer = $('#gift-notification-container');
+	if ($giftNotificationContainer.length === 0) {
+	$('#shipping-progress-bar').after('<div id="gift-notification-container" style="margin-top: 10px; opacity: 0; transform: translateY(-10px); transition: all 0.5s ease-in-out; font-size: 14px;"></div>');
+	$giftNotificationContainer = $('#gift-notification-container');
+	}
+	const notificationHtml = `<div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-bottom: 0;"><strong>Chúc mừng!</strong> Bạn đã nhận được quà tặng: <strong>${giftName}</strong><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+	$giftNotificationContainer.html(notificationHtml);
+	$giftNotificationContainer.css({ opacity: 1, transform: 'translateY(0)' });
+	setTimeout(() => {
+		const $currentAlert = $giftNotificationContainer.find('.alert');
+		if ($currentAlert.hasClass('show')) {
+			$giftNotificationContainer.css({ opacity: 0, transform: 'translateY(-10px)' });
+			setTimeout(() => $giftNotificationContainer.empty(), 500);
+		}
+	}, 5000);
+	}
+	function manageGifts(cart) {
+		if (!ENABLE_FREE_GIFT) {
+			const giftItemsInCart = cart.items.filter(item =>
+				item.variant_id === GIFT_VARIANT_ID_1M ||
+				item.variant_id === GIFT_VARIANT_ID_1M5
+			);
+			if (giftItemsInCart.length > 0) {
+				const removalPromises = giftItemsInCart.map(giftItem => {
+					return new Promise((resolve, reject) => {
+						Haravan.changeItem(giftItem.variant_id, 0, resolve, reject);
+					});
+				});
+				return Promise.all(removalPromises).then(() => {
+					return new Promise((resolve) => Haravan.getCart(resolve));
+				});
+			}
+			return Promise.resolve(cart);
+		}
+		const currentTotalPrice = cart.total_price;
+		let giftToAdd = null;
+		let giftToRemove = null;
+		const hasGift1 = cart.items.some(item => item.variant_id === GIFT_VARIANT_ID_1M);
+		const hasGift2 = cart.items.some(item => item.variant_id === GIFT_VARIANT_ID_1M5);
+		let giftNameAdded = null;
+		if (currentTotalPrice >= GIFT_THRESHOLD_1M5) {
+			if (!hasGift2) {
+				giftToAdd = GIFT_VARIANT_ID_1M5;
+				giftNameAdded = "Quà tặng đặc biệt 1M5";
+			}
+			if (hasGift1) {
+				giftToRemove = GIFT_VARIANT_ID_1M;
+			}
+		} else if (currentTotalPrice >= GIFT_THRESHOLD_1M) {
+			if (!hasGift1) {
+				giftToAdd = GIFT_VARIANT_ID_1M;
+				giftNameAdded = "Quà tặng 1M";
+			}
+			if (hasGift2) {
+				giftToRemove = GIFT_VARIANT_ID_1M5;
+			}
+		} else {
+			if (hasGift1) {
+				giftToRemove = GIFT_VARIANT_ID_1M;
+			}
+			if (hasGift2) {
+				giftToRemove = GIFT_VARIANT_ID_1M5;
+			}
+		}
+		const giftActions = [];
+		if (giftToRemove) {
+			giftActions.push(new Promise((resolve, reject) => {
+				Haravan.changeItem(giftToRemove, 0, resolve, reject);
+			}));
+		}
+		if (giftToAdd) {
+			const existingGift = cart.items.find(item => item.variant_id === giftToAdd);
+			if (!existingGift || existingGift.quantity === 0) {
+				giftActions.push(new Promise((resolve, reject) => {
+					Haravan.addItem(giftToAdd, 1, (item) => {
+						if (giftNameAdded) {
+							showGiftNotification(item.product_name || giftNameAdded);
+						}
+						resolve(item);
+					}, reject);
+				}));
+			}
+		}
+		return Promise.all(giftActions)
+			.then(() => {
+			return new Promise((resolve) => {
+				Haravan.getCart(resolve);
+			});
+		})
+			.catch(error => {
+			return new Promise((resolve) => {
+				Haravan.getCart(resolve);
+			});
+		});
+	}
+	let recommendedSwiper = null;
+	let recommendedMobileSwiper = null;
+	function loadRecommendedProducts(collectionUrl) {
+		const isMobileView = window.innerWidth < 768;
+		const $swiperContainer = isMobileView ? $('#recommended-products-mobile-swiper') : $('#recommended-products-swiper');
+		const $swiperWrapper = $swiperContainer.find('.swiper-wrapper');
+		$('#recommended-products-mobile-section').hide();
+		$('#recommended-products-section').hide();
+		$swiperWrapper.empty();
+		$.ajax({
+			url: collectionUrl,
+			type: 'GET',
+			dataType: 'html',
+			success: function(responseHtml) {
+				const $responseContent = $('<div>').html(responseHtml);
+				const $productItems = $responseContent.find('.product-item');
+				if ($productItems.length === 0) {
+					return;
+				}
+				let filteredProductItems = [];
+				$productItems.each(function() {
+					const $productItem = $(this);
+					const currentVariantId = $productItem.find('.add-to-cart-btn').data('variant-id');
+					if (lastAddedProduct && currentVariantId && currentVariantId === lastAddedProduct.variant_id) {
+						return true;
+					}
+					if (currentVariantId && (currentVariantId === GIFT_VARIANT_ID_1M || currentVariantId === GIFT_VARIANT_ID_1M5)) {
+						return true;
+					}
+					if (isMobileView) {
+						const productTitle = $productItem.find('.wolf-product-title a').text();
+						const productUrl = $productItem.find('.wolf-product-title a').attr('href');
+						const imageUrl = $productItem.find('.wolf-product-main-image img').attr('src');
+						const price = $productItem.find('.wolf-product-box-price span').text();
+						const comparePrice = $productItem.find('.wolf-product-box-price del').text();
+						const mobileProductHtml = `
+											<div class="swiper-slide recommended-product-card-mobile">
+											<a href="${productUrl}" class="d-flex text-decoration-none text-dark justify-content-start align-items-center">
+											<div class="product-image-small me-2" style="width: 60px; height: 60px; flex-shrink: 0; overflow: hidden; border-radius: 5px;">
+											<img src="${imageUrl}" alt="${productTitle}" style="width: 100%; height: 100%; object-fit: cover;">
+												</div>
+											<div class="product-details-small text-start flex-grow-1">
+											<h6 class="product-name-small mb-1" style="font-size: 0.85em; line-height: 1.2; max-height: 2.4em; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${productTitle}</h6>
+											<div class="product-price-small d-flex align-items-center">
+											<span class="price me-2" style="font-weight: bold; color: var(--color-primary, #000); font-size: 0.9em;">${price}</span>
+											${comparePrice ? `<span class="old-price text-muted text-decoration-line-through" style="font-size: 0.75em; color: #888;">${comparePrice}</span>` : ''}
+												</div>
+												</div>
+												</a>
+												</div>`;
+						filteredProductItems.push(mobileProductHtml);
+					} else {
+						$productItem.addClass('swiper-slide recommended-product-card');
+						filteredProductItems.push($productItem[0].outerHTML);
+					}
+				});
+				if (filteredProductItems.length > 0) {
+					$swiperWrapper.append(filteredProductItems.join(''));
+
+					if (isMobileView) {
+						if (recommendedMobileSwiper) {
+							recommendedMobileSwiper.destroy(true, true);
+						}
+						recommendedMobileSwiper = new Swiper('#recommended-products-mobile-swiper', {
+							slidesPerView: 1.5,
+							spaceBetween: 10,
+							breakpoints: {
+								0: { slidesPerView: 1.5, spaceBetween: 10 },
+								480: { slidesPerView: 2.2, spaceBetween: 10 },
+							}
+						});
+						$('#recommended-products-mobile-section').show();
+					} else {
+						if (recommendedSwiper) {
+							recommendedSwiper.destroy(true, true);
+						}
+						recommendedSwiper = new Swiper('#recommended-products-swiper', {
+							slidesPerView: 2,
+							spaceBetween: 10,
+							navigation: {
+								nextEl: '.swiper-button-next',
+								prevEl: '.swiper-button-prev',
+							},
+							pagination: {
+								el: '#recommended-products-swiper .swiper-pagination',
+								dynamicBullets: true
+							},
+							breakpoints: {
+								320: { slidesPerView: 2, spaceBetween: 8 },
+								768: { slidesPerView: 3, spaceBetween: 10 },
+								992: { slidesPerView: 4, spaceBetween: 10 },
+								1200: { slidesPerView: 4, spaceBetween: 10 },
+							}
+						});
+						$('#recommended-products-section').show();
+					}
+					if (typeof window.comparison !== 'undefined' && window.comparison.init) {
+						window.comparison.init();
+					}
+					if (typeof initSwatchImageSwitcher !== 'undefined') {
+						initSwatchImageSwitcher();
+					}
+					var modal = $('#quick-view-product');
+					var btn = $('.quick-view');
+					btn.off('click').on('click', function () {
+						modal.modal('show');
+					});
+					hasLoadedRecommendedProducts = true; 
+				} else {
+					$('#recommended-products-mobile-section').hide();
+					$('#recommended-products-section').hide();
+					hasLoadedRecommendedProducts = false;
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error("Error loading recommended products:", error);
+				$('#recommended-products-mobile-section').hide();
+				$('#recommended-products-section').hide();
+				hasLoadedRecommendedProducts = false;
+			}
+		});
+	}
+	function updateAndShowSlideCart() {
+		Haravan.getCart(function(initialCart) {
+			$('.cart-item-count').text(initialCart.item_count);
+		});
+		Haravan.getCart(function(cart) {
+			manageGifts(cart).then(updatedCart => {
+				const cartItemsList = $('#cart-items-list');
+				cartItemsList.empty();
+				$('.cart-item-count').text(updatedCart.item_count);
+				if (updatedCart.item_count === 0) {
+					cartItemsList.html('<div class="d-flex flex-column justify-content-center align-items-center cart-empty-message"><svg width="150" height="150" class="mb-2"><use xlink:href="#icon-cart-empty"></use></svg><p>Giỏ hàng của bạn đang trống.</p></div>');
+					$('#recommended-products-section').hide();
+					$('#recommended-products-mobile-section').hide();
+					$('#shipping-progress-bar').hide();
+					$('#slide-cart-footer').hide();
+					$('#gift-notification-container').empty().css({ opacity: 0, transform: 'translateY(-10px)' });
+					if (ENABLE_FREE_SHIPPING_PROGRESS) {
+						$('#shipping-progress-bar').hide();
+						$('#countdown-amount').text('Đơn hàng của bạn chưa đủ điều kiện miễn phí vận chuyển.');
+						$('#shipping-progress').css('width', '0%');
+					} else {
+						$('#shipping-progress-bar').hide();
+					}
+					$('#cart-total-price').text(formatMoneyHaravan(0));
+					hasLoadedRecommendedProducts = false;
+				} else {
+					$('#slide-cart-footer').show();
+					if (ENABLE_FREE_SHIPPING_PROGRESS) {
+						$('#shipping-progress-bar').show();
+						const remainingAmount = FREE_SHIPPING_THRESHOLD - updatedCart.total_price;
+						const countdownAmountElement = $('#countdown-amount');
+						const shippingProgress = $('#shipping-progress');
+						if (remainingAmount <= 0) {
+							countdownAmountElement.text('Đơn hàng của bạn được miễn phí vận chuyển');
+							shippingProgress.css('width', '100%');
+						} else {
+							countdownAmountElement.text(`Thêm ${formatMoneyHaravan(remainingAmount)} nữa để được miễn phí vận chuyển!`);
+							const progress = (updatedCart.total_price / FREE_SHIPPING_THRESHOLD) * 100;
+							shippingProgress.css('width', `${Math.min(progress, 100)}%`);
+						}
+					} else {
+						$('#shipping-progress-bar').hide();
+					}
+					let sortedItems = [...updatedCart.items];
+					if (lastAddedProduct) {
+						const lastAddedIndex = sortedItems.findIndex(item => item.variant_id === lastAddedProduct.variant_id);
+						if (lastAddedIndex > -1) {
+							const item = sortedItems.splice(lastAddedIndex, 1)[0];
+							sortedItems.unshift(item);
+						}
+					}
+					$.each(sortedItems, function(index, item) {
+						const isGift = (ENABLE_FREE_GIFT && (item.variant_id === GIFT_VARIANT_ID_1M || item.variant_id === GIFT_VARIANT_ID_1M5));
+						const displayVariantTitle = (item.variant_title === "Default Title") ? "" : `<p>${item.variant_title}</p>`;
+						const itemHtml = `
+<div class="cart-item ${isGift ? 'is-gift' : ''} ${item.variant_id === (lastAddedProduct ? lastAddedProduct.variant_id : null) ? 'last-added' : ''}" data-variant-id="${item.variant_id}">
+<div class="cart-item-image">
+<img src="${Haravan.resizeImage(item.image, 'compact')}" alt="${item.title}">
+	</div>
+<div class="cart-item-details">
+<h4><a href="${item.url}" title="${item.product_title}">${item.product_title}</a></h4>
+${displayVariantTitle}
+${isGift ?
+							  '<span class="cart-item-price gift-price">Quà tặng</span>' :
+						`<span class="cart-item-price">${formatMoneyHaravan(item.line_price)}</span>`
+						}
+<div class="cart-item-actions">
+${isGift ?
+							  '<span class="gift-quantity">SL: 1</span>' :
+						`<div class="cart-item-quantity">
+<button class="quantity-minus" data-variant-id="${item.variant_id}" data-quantity="${item.quantity - 1}">-</button>
+<input type="number" class="quantity-input" value="${item.quantity}" min="1" data-variant-id="${item.variant_id}">
+<button class="quantity-plus" data-variant-id="${item.variant_id}" data-quantity="${item.quantity + 1}">+</button>
+	</div>
+<button class="cart-item-remove" data-variant-id="${item.variant_id}" title="Xoá sản phẩm"><svg width="20" height="20"><use xlink:href="#icon-trash" /></svg></button>`
+						}
+	</div>
+	</div>
+	</div>`;
+						cartItemsList.append(itemHtml);
+					});
+					$('#cart-total-price').text(formatMoneyHaravan(updatedCart.total_price));
+					if (!hasLoadedRecommendedProducts) {
+						loadRecommendedProducts(FIXED_RECOMMENDED_COLLECTION_URL);
+					} else {
+						const isMobileView = window.innerWidth < 768;
+						if (isMobileView) {
+							$('#recommended-products-mobile-section').show();
+						} else {
+							$('#recommended-products-section').show();
+						}
+					}
+				}
+				$('#slide-cart').addClass('is-open');
+				$('.slide-cart-overlay').addClass('is-visible');
+			});
+		});
+	}
+	$(document).ready(function() {
+		$(document).on('click', '.open-slide-cart', function(e) {
+			e.preventDefault();
+			updateAndShowSlideCart();
+		});
+		$(document).on('click', '.slide-cart-close, .slide-cart-overlay', function() {
+			$('#slide-cart').removeClass('is-open');
+			$('.slide-cart-overlay').removeClass('is-visible');
+			$('#recommended-products-section').hide();
+			$('#recommended-products-mobile-section').hide();
+			$('#gift-notification-container').empty().css({ opacity: 0, transform: 'translateY(-10px)' });
+		});
+		$(document).on('click', '.add-to-cart-btn', function(e) {
+			e.preventDefault();
+			const $this = $(this);
+			hasLoadedRecommendedProducts = false; 
+			$this.prop('disabled', true).html('<svg width="24" height="24" class="me-2"><use xlink:href="#icon-cart" /></svg><span class="txt-main">Đang thêm...</span>');
+			let postData;
+			const $form = $this.closest('form');
+			if ($form.length > 0) {
+				postData = $form.serialize();
+			} else {
+				alert("Có lỗi xảy ra: Không thể thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.");
+				$this.prop('disabled', false).html('<svg width="24" height="24" class="me-2"><use xlink:href="#icon-cart" /></svg><span class="txt-main">Thêm vào giỏ</span>');
+				hasLoadedRecommendedProducts = true;
+				return;
+			}
+			$.ajax({
+				type: 'POST',
+				url: '/cart/add.js',
+				data: postData,
+				dataType: 'json',
+				success: function(item) {
+					lastAddedProduct = item;
+					updateAndShowSlideCart();
+					$this.prop('disabled', false).html('<svg width="24" height="24" class="me-2"><use xlink:href="#icon-cart" /></svg><span class="txt-main">Đã thêm</span>');
+					setTimeout(() => $this.html('<svg width="24" height="24" class="me-2"><use xlink:href="#icon-cart" /></svg><span class="txt-main">Thêm vào giỏ</span>'), 2000);
+					if ($this.closest('#quick-view-product').length > 0) {
+						$('#quick-view-product').modal('hide');
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					const errorMessage = jqXHR.responseJSON && jqXHR.responseJSON.description ? jqXHR.responseJSON.description : 'Có lỗi xảy ra khi thêm sản phẩm.';
+					alert(errorMessage);
+					$this.prop('disabled', false).html('<svg width="24" height="24" class="me-2"><use xlink:href="#icon-cart" /></svg><span class="txt-main">Thêm vào giỏ</span>');
+					hasLoadedRecommendedProducts = true;
+				}
+			});
+		});
+		$(document).on('click', '.cart-item-quantity .quantity-minus, .cart-item-quantity .quantity-plus', function() {
+			const $this = $(this);
+			const variantId = $this.data('variant-id');
+			const newQuantity = parseInt($this.data('quantity'));
+			const isGiftItem = (ENABLE_FREE_GIFT && (variantId === GIFT_VARIANT_ID_1M || variantId === GIFT_VARIANT_ID_1M5));
+			if (isGiftItem) {
+				return;
+			}
+			if (newQuantity < 1) {
+				Haravan.removeItem(variantId, function(cart) {
+					updateAndShowSlideCart();
+				}, function(XMLHttpRequest, textStatus) {
+					Haravan.onError(XMLHttpRequest, textStatus);
+					if ($('body').hasClass('template-cart')) {
+						location.reload();
+					} else {
+						updateAndShowSlideCart();
+					}
+				});
+				return;
+			}
+			Haravan.changeItem(variantId, newQuantity, function(cart) {
+				if ($('body').hasClass('template-cart')) {
+					location.reload();
+				} else {
+					updateAndShowSlideCart();
+				}
+			}, function(XMLHttpRequest, textStatus) {
+				Haravan.onError(XMLHttpRequest, textStatus);
+				if ($('body').hasClass('template-cart')) {
+					location.reload();
+				} else {
+					updateAndShowSlideCart();
+				}
+			});
+		});
+		$(document).on('change', '.cart-item-quantity input.quantity-input', function() {
+			const $this = $(this);
+			const variantId = $this.data('variant-id');
+			let newQuantity = parseInt($this.val());
+			const isGiftItem = (ENABLE_FREE_GIFT && (variantId === GIFT_VARIANT_ID_1M || variantId === GIFT_VARIANT_ID_1M5));
+			if (isGiftItem) {
+				$this.val(1);
+				return;
+			}
+			if (isNaN(newQuantity) || newQuantity < 1) {
+				newQuantity = 1;
+				$this.val(newQuantity);
+			}
+			Haravan.changeItem(variantId, newQuantity, function(cart) {
+				if ($('body').hasClass('template-cart')) {
+					location.reload();
+				} else {
+					updateAndShowSlideCart();
+				}
+			}, function(XMLHttpRequest, textStatus) {
+				Haravan.onError(XMLHttpRequest, textStatus);
+				if ($('body').hasClass('template-cart')) {
+					location.reload();
+				} else {
+					updateAndShowSlideCart();
+				}
+			});
+		});
+		$(document).on('click', '.cart-item-remove', function() {
+			const $this = $(this);
+			const variantId = $this.data('variant-id');
+			const isGiftItem = (ENABLE_FREE_GIFT && (variantId === GIFT_VARIANT_ID_1M || variantId === GIFT_VARIANT_ID_1M5));
+			if (isGiftItem) {
+				return;
+			}
+			Haravan.removeItem(variantId, function(cart) {
+				if ($('body').hasClass('template-cart')) {
+					location.reload();
+				} else {
+					updateAndShowSlideCart();
+				}
+			}, function(XMLHttpRequest, textStatus) {
+				Haravan.onError(XMLHttpRequest, textStatus);
+				if ($('body').hasClass('template-cart')) {
+					location.reload();
+				} else {
+					updateAndShowSlideCart();
+				}
+			});
+		});
+		$(document).on('change', '#cart-note', function() {
+			const note = $(this).val();
+			Haravan.updateCartNote(note, function(cart) {
+			}, function(XMLHttpRequest, textStatus) {
+				Haravan.onError(XMLHttpRequest, textStatus);
+			});
+		});
+	});
+	var originalHaravanOnCartUpdate = Haravan.onCartUpdate;
+	Haravan.onCartUpdate = function(cart) {
+		if (originalHaravanOnCartUpdate) {
+			originalHaravanOnCartUpdate(cart);
+		}
+		$('.cart-item-count').text(cart.item_count);
+	};
+	var originalHaravanOnItemAdded = Haravan.onItemAdded;
+	Haravan.onItemAdded = function(item) {
+		if (originalHaravanOnItemAdded) {
+			originalHaravanOnItemAdded(item);
+		}
+		lastAddedProduct = item;
+		hasLoadedRecommendedProducts = false; 
+		if (!$('body').hasClass('template-cart')) {
+			updateAndShowSlideCart();
+		}
+	};
+	$(document).ready(function() {
+		Haravan.getCart(function(cart) {
+			$('.cart-item-count').text(cart.item_count);
+		});
+	});
+</script>

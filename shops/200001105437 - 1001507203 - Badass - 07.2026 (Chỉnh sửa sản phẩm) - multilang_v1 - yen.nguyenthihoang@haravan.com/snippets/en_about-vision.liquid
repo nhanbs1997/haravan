@@ -1,0 +1,103 @@
+{%- assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+
+<section class="about-vision">
+
+  <div class="about-vision__banner-block">
+    <div class="about-vision__banner-img-wrap">
+      {%- unless settings.en_bs_about_vision_img == blank -%}
+      <img
+        class="about-vision__banner-img lazyload isHideTBT"
+        src="{{ _blank }}"
+        data-src="{{ settings.en_bs_about_vision_img }}"
+        alt="{{ settings.en_bs_about_vision_title | default: shop.name | escape }}"
+        loading="lazy" decoding="async"
+        width="1600" height="400">
+      {%- else -%}
+      <div class="about-vision__banner-placeholder" aria-hidden="true"></div>
+      {%- endunless -%}
+    </div>
+
+    {%- unless settings.en_bs_about_vision_title == blank and settings.en_bs_about_vision_subtitle == blank -%}
+    <div class="about-vision__text-block">
+      <div class="container">
+        {%- unless settings.en_bs_about_vision_title == blank -%}
+        <h2 class="about-vision__title">{{ settings.en_bs_about_vision_title }}</h2>
+        {%- endunless -%}
+        {%- unless settings.en_bs_about_vision_subtitle == blank -%}
+        <p class="about-vision__subtitle">{{ settings.en_bs_about_vision_subtitle }}</p>
+        {%- endunless -%}
+      </div>
+    </div>
+    {%- endunless -%}
+  </div>
+
+  <div class="container">
+    <div class="about-vision__cards-wrap" id="visionCardsWrap">
+      <div class="about-vision__cards" id="visionCardsTrack">
+        {%- for i in (1..4) -%}
+          {%- capture _tk %}en_bs_about_vision_title_{{ i }}{% endcapture -%}
+          {%- capture _dk %}en_bs_about_vision_desc_{{ i }}{% endcapture -%}
+          {%- capture _ik %}en_bs_about_vision_icon_{{ i }}{% endcapture -%}
+          {%- unless settings[_tk] == blank and settings[_dk] == blank -%}
+          <div class="about-vision__card">
+            {%- unless settings[_ik] == blank -%}
+            <div class="about-vision__card-icon">
+              <img src="{{ settings[_ik] }}" alt="{{ settings[_tk] | escape }}" width="72" height="72" loading="lazy" decoding="async">
+            </div>
+            {%- endunless -%}
+            <div class="about-vision__card-body">
+              {%- unless settings[_tk] == blank -%}
+              <p class="about-vision__card-title">{{ settings[_tk] }}</p>
+              {%- endunless -%}
+              {%- unless settings[_dk] == blank -%}
+              <p class="about-vision__card-desc">{{ settings[_dk] }}</p>
+              {%- endunless -%}
+            </div>
+          </div>
+          {%- endunless -%}
+        {%- endfor -%}
+      </div>
+
+      <button type="button" class="about-vision__nav about-vision__nav--prev is-hidden" data-vision-prev aria-label="Previous">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+      </button>
+      <button type="button" class="about-vision__nav about-vision__nav--next" data-vision-next aria-label="Next">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+</section>
+
+<script>
+(function() {
+  'use strict';
+  var wrap  = document.getElementById('visionCardsWrap');
+  var track = document.getElementById('visionCardsTrack');
+  if (!wrap || !track) return;
+  var prevBtn = wrap.querySelector('[data-vision-prev]');
+  var nextBtn = wrap.querySelector('[data-vision-next]');
+
+  function getStep() {
+    var card = track.querySelector('.about-vision__card');
+    if (!card) return 280;
+    var gap = parseInt(window.getComputedStyle(track).columnGap || window.getComputedStyle(track).gap) || 12;
+    return card.offsetWidth + gap;
+  }
+  function update() {
+    var scrollable = track.scrollWidth - track.clientWidth > 4;
+    if (!scrollable) {
+      if (prevBtn) prevBtn.classList.add('is-hidden');
+      if (nextBtn) nextBtn.classList.add('is-hidden');
+      return;
+    }
+    if (prevBtn) prevBtn.classList.toggle('is-hidden', track.scrollLeft <= 4);
+    if (nextBtn) nextBtn.classList.toggle('is-hidden', track.scrollLeft + track.clientWidth >= track.scrollWidth - 4);
+  }
+  if (prevBtn) prevBtn.addEventListener('click', function() { track.scrollBy({ left: -getStep(), behavior: 'smooth' }); });
+  if (nextBtn) nextBtn.addEventListener('click', function() { track.scrollBy({ left: getStep(), behavior: 'smooth' }); });
+  track.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+</script>

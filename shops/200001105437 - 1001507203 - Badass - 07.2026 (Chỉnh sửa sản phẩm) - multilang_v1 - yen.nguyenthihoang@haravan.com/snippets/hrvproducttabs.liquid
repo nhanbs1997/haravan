@@ -1,0 +1,65 @@
+{% assign tabs = product.metafields.hrvptabs.tabs %} 
+ 
+{% if tabs %} 
+{% assign tabList = tabs | append: '' | split: '@@###@@' %} 
+ 
+<div class="hrvproduct-tabs"> 
+  <ul class="tabs clearfix"> 
+    {% for tab in tabList %} 
+    {% assign tabTitle = tab | split: '@@##@@' | first %} 
+    <li{% if forloop.first %} class="active"{% endif %}><a href="#tab{{ forloop.index }}">{{ tabTitle }}</a></li> 
+    {% endfor %} 
+  </ul> 
+  {% for tab in tabList %} 
+  {% assign tabContent = tab | split: '@@##@@' | last %} 
+  <div class="tabs-content {% if forloop.first %}active{% endif %}" id="tab{{ forloop.index }}"> 
+    {{ tabContent }} 
+  </div> 
+  {% endfor %} 
+</div> 
+ 
+<style> 
+.hrvproduct-tabs .tabs { 
+    border-bottom: 2px solid #E05543; 
+} 
+.hrvproduct-tabs .tabs li { 
+    display: inline-block; 
+    float: left; 
+    transition: all 0.5s; 
+    -webkit-transition: background 0.5s; 
+    font-weight: bold; 
+    color: #53A1CC; 
+} 
+.hrvproduct-tabs .tabs li.active, 
+.hrvproduct-tabs .tabs li:hover { 
+    background-color: #E05543; 
+    color: #FFFFFF; 
+} 
+.hrvproduct-tabs .tabs li a { 
+    padding: 8px 12px !important; 
+    text-transform: uppercase; 
+    display: inline-block; 
+    color: inherit; 
+} 
+.hrvproduct-tabs .tabs-content { 
+    display: none; 
+    padding: 10px; 
+} 
+.hrvproduct-tabs .tabs-content.active { 
+    display: block; 
+} 
+</style> 
+<script>  
+var menu = $('.hrvproduct-tabs .tabs li');  
+var menuLinks = $('.hrvproduct-tabs .tabs li a');  
+var tabsContent = $('.hrvproduct-tabs .tabs-content');  
+menuLinks.click(function (e) {  
+  e.preventDefault();  
+   var targetBlock = $(this).attr('href');  
+   menu.removeClass('active');  
+  $(this).parent('li').addClass('active'); 
+  tabsContent.hide();  
+   $(targetBlock).fadeIn(500); 
+}); 
+</script> 
+{% endif %} 

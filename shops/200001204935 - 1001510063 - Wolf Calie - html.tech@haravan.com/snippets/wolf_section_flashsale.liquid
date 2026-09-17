@@ -1,0 +1,27 @@
+<div class="flash-sale-tabs mb-3 mt-0 pt-3 pb-3 pt-md-5 pb-md-5">
+	<div class="container">
+		<div class="flash-sale-tabs-header d-flex gap-2 flex-column flex-sm-row justify-content-between align-items-center mb-3">
+			<img src="{{'banner3_title_img.png' | asset_url }}" alt="{{ settings.banner3_title }}" class="img-fluid flash-sale-img" loading="lazy" >
+			<div id="WolfCountdown" class="rounded-4 d-flex align-items-center" data-target-date="{{ settings.saletimes-1 }}"></div>
+			<a class="rounded-pill flash-sale-view-more fw-semibold d-none d-lg-flex align-items-center" href="{{ settings.saletimes-col-1 }}" title="{{ settings.saletimes-col-2 }}">{{ settings.saletimes-col-2 }} <svg width="24" height="24"><use xlink:href="#icon-arrow-right" /></svg></a>
+		</div>
+		<div class="flash-sale-tabs-content rounded-4 mt-4 mt-md-5">
+			{%- if collections[settings.saletimes-col-1].products_count > 0 -%}
+			<div class="row g-2 wolf-scroll-tab-not-mb">
+				{%- for product in collections[settings.saletimes-col-1].products limit: settings.saletimes-col-limit-1 -%}
+				<div class="col-20-percent col-lg-3 col-md-5 col-6 product-item mt-0">
+					{%- include 'wolf-product-grid' -%}
+				</div>
+				{%- endfor -%}
+			</div>
+			{%- else -%}
+			<div class="alert alert-danger" role="alert">
+				Danh mục này đang cập nhật nội dung.
+			</div>
+			{%- endif -%}
+		</div>
+		<div class="flash-sale-more mt-4 d-flex d-lg-none justify-content-center">
+			<a class="rounded-pill flash-sale-view-more fw-semibold align-items-center" href="{{collections[settings.saletimes-col-1].url  }}" title="{{ settings.saletimes-col-2 }}">{{ settings.saletimes-col-2 }} <svg width="24" height="24"><use xlink:href="#icon-arrow-right" /></svg></a>
+		</div>
+	</div>
+</div>

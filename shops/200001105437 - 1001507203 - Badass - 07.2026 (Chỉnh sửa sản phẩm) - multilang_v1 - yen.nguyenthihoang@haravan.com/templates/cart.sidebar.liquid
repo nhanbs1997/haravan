@@ -1,0 +1,9 @@
+{%- layout none -%}
+{%- comment -%}
+  Template: cart.sidebar (alternate view)
+  Endpoint: /cart?view=sidebar
+  Mô tả: Render phần nội dung BÊN TRONG .sidebar__inner của mini cart để
+         swap qua AJAX sau mỗi thao tác giỏ hàng (không reload trang).
+  Trả về đúng HTML của snippet 'sidebar-cart-inner' (step bar, promo, items, footer).
+{%- endcomment -%}
+{%- include 'sidebar-cart-inner' -%}

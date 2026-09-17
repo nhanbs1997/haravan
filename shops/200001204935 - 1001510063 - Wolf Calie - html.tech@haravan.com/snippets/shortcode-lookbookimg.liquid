@@ -1,0 +1,14 @@
+{%- capture title -%}{%- include 'shortcode-render' render:'title' -%}{%- endcapture -%}
+{%- capture image -%}{%- include 'shortcode-render' render:'image' -%}{%- endcapture -%}
+{%- capture imagemb -%}{%- include 'shortcode-render' render:'imagemb' -%}{%- endcapture -%}
+<div class="lookbook-top-img">
+	<picture>
+		<source 
+				media="(min-width: 768px)"
+				srcset="{{ image }}">
+		<source 
+				media="(max-width: 767px)"
+				srcset="{{ imagemb }}">
+		<img src="{{ image }}" alt="{{ title }}" class="img-fluid" loading="lazy" >
+	</picture>
+</div>

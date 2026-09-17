@@ -1,0 +1,237 @@
+<div class="layoutPage-about-two">
+	<section class="section-parallax section-about02-breadcrumb">
+		<div class="headtitle-block">
+			<div class="container"><h1>{{page.title}}</h1></div>
+			{%- include 'breadcrumb' -%}
+		</div> 	
+	</section>
+	
+	{%- if settings.about02_infor_show -%}
+	<section class="section-about02-introduce">
+		<div class="container">
+			<div class="wrap-content text-center">
+				<div class="row">
+					<div class="col-md-8 offset-md-2">
+						{% if settings.about02_infor_title != blank %}<h2>{{settings.about02_infor_title}}</h2>{% endif %}
+						{% if settings.about02_infor_desc != blank %}<p>{{settings.about02_infor_desc}}</p>{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{%- endif -%}
+	
+	{%- if settings.about02_information_1_show or settings.about02_information_2_show or settings.about02_information_3_show -%}
+	<section class="section-about02-information">
+		<div class="container">
+			<div class="wrapbox-content">
+				<div class="row rowFlex">
+					{%- for i in (1..3) -%}		
+					{%- capture aboutInformation_show -%}about02_information_{{i}}_show{%- endcapture -%}
+					{%- capture aboutInformation_icon -%}about02_information_{{i}}_ico.png{%- endcapture -%}
+					{%- capture aboutInformation_text -%}about02_information_{{i}}_text{%- endcapture -%}
+					{%- capture aboutInformation_desc -%}about02_information_{{i}}_desc{%- endcapture -%}
+
+					{%- if settings[aboutInformation_show] -%}
+					<div class="col-lg-4 col-md-12 col-12 information-column">
+						<div class="information-area">
+							<div class="information-area--thumb banner-hover-effect">
+								<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+										 class="lazyload" data-src="{{ aboutInformation_icon | asset_url }}" alt="{{ settings[aboutInformation_text] }}"/>
+							</div>
+							<div class="information-area--content">
+								<h3>{{settings[aboutInformation_text]}}</h3>
+								<p>{{settings[aboutInformation_desc]}}</p>
+							</div>
+						</div>
+					</div>
+					{%- endif -%}
+					{%- endfor -%}
+				</div>
+			</div>
+		</div>
+	</section>
+	{%- endif -%}
+	
+	{%- if settings.about02_ecosystem_show -%}
+	<section class="section-about02-ecosystem">
+		<div class="container">
+			<div class="wrapbox-head">
+				{%- if settings.about02_ecosystem_title2 != blank -%}<p class="line text-center"><span>{{ settings.about02_ecosystem_title2 }}</span></p>{%- endif -%}
+				{%- if settings.about02_ecosystem_title1 != blank -%}<h2>{{ settings.about02_ecosystem_title1 }}</h2>{%- endif -%}
+			</div>
+			<div class="row rowFlex">
+				<div class="col-lg-4 col-md-12 col-12">
+					<div class="wrapbox-content left">
+						{%- for i in (1..3) -%}
+						{%- capture show_item -%}about02_ecosystem_{{i}}_show{%- endcapture -%}
+						{%- capture icon -%}about02_ecosystem_{{i}}_ico.png{%- endcapture -%}
+						{%- capture title -%}about02_ecosystem_{{i}}_text{%- endcapture -%}
+						{%- capture desc -%}about02_ecosystem_{{i}}_desc{%- endcapture -%}
+
+						{%- if settings[show_item] -%}
+						<div class="wrapbox-area">
+							<div class="wrapbox-area--thumb">
+								<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+										 class="lazyload" data-src="{{ icon | asset_url }}" alt="{{ settings[aboutInformation_text] }}"/>
+
+							</div>
+							<div class="wrapbox-area--detail">
+								{%- if settings[title] != blank -%}<h3>{{settings[title]}}</h3>{%- endif -%}
+								{%- if settings[desc] != blank -%}<p>{{settings[desc]}}</p>{%- endif -%}
+							</div>
+						</div>
+						{%- endif -%}
+						{%- endfor -%}
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-12 col-12">
+					<div class="box-media text-center">
+						<img src="{{ 'about02_ecosystem_img.jpg' | asset_url }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+								 alt=" "/>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-12 col-12">
+					<div class="wrapbox-content right">
+						{%- for i in (4..6) -%}
+						{%- capture show_item -%}about02_ecosystem_{{i}}_show{%- endcapture -%}
+						{%- capture icon -%}about02_ecosystem_{{i}}_ico.png{%- endcapture -%}
+						{%- capture title -%}about02_ecosystem_{{i}}_text{%- endcapture -%}
+						{%- capture desc -%}about02_ecosystem_{{i}}_desc{%- endcapture -%}
+
+						{%- if settings[show_item] -%}
+						<div class="wrapbox-area">
+							<div class="wrapbox-area--detail">
+								{%- if settings[title] != blank -%}<h3>{{settings[title]}}</h3>{%- endif -%}
+								{%- if settings[desc] != blank -%}<p>{{settings[desc]}}</p>{%- endif -%}
+							</div>
+							<div class="wrapbox-area--thumb">
+								<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+										 class="lazyload" data-src="{{ icon | asset_url }}" alt="{{ settings[aboutInformation_text] }}"/>
+							</div>
+						</div>
+						{%- endif -%}
+						{%- endfor -%}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{%- endif -%}
+	
+	{%- if settings.about02_client_1_show or settings.about02_client_2_show or settings.about02_client_3_show or settings.about02_client_4_show -%}
+	<section class="section-about02-client">
+		<div class="container">
+			<div class="wrapbox-content">
+				<div class="wrapbox-detail">
+					<div class="owl-carousel" id="about02-slide-client">
+						{%- for i in (1..4) -%}
+						{%- capture item_show -%}about02_client_{{i}}_show{%- endcapture -%}
+						{%- capture img -%}about02_client_{{i}}_img.png{%- endcapture -%}
+						{%- capture client_name -%}about02_client_{{i}}_name{%- endcapture -%}
+						{%- capture client_desc -%}about02_client_{{i}}_desc{%- endcapture -%}
+						{%- if settings[item_show] -%}
+						<div class="wrapbox-item">
+							<div class="box-img">
+								<img src="{{ img | asset_url }}" alt="{{settings[client_name]}}">
+							</div>
+							<p class="box-desc">{{settings[client_desc]}}</p>
+							<p class="box-author"><span>{{settings[client_name]}}</span></p>
+						</div>
+						{%- endif -%}
+						{%- endfor -%}
+					</div>
+					
+					{%- comment -%}
+					<div class="box-img-effect1" id="item1">
+						<img src="https://demo2wpopal.b-cdn.net/freshio/wp-content/uploads/2020/08/h3_leaf-4.png" alt="image 1">
+					</div>
+					<div class="box-img-effect2" id="item2">
+						<img src="https://demo2wpopal.b-cdn.net/freshio/wp-content/uploads/2020/08/h3_leaf-1.png" alt="image 1">
+					</div>
+					<div class="box-img-effect3" id="item3">
+						<img src="https://demo2wpopal.b-cdn.net/freshio/wp-content/uploads/2020/08/h3_leaf-2.png" alt="image 1">
+					</div>
+					{%- endcomment -%}
+				</div>
+			</div>
+		</div>
+	</section>
+	{%- endif -%}
+	
+	{%- if settings.about02_alternate_show -%}
+	<section class="section-about02-alternate">
+		<div class="container">
+			{%- for i in (1..2) -%}
+			{%- capture alternate_show -%}about02_alternate_{{i}}_show{%- endcapture -%}
+			{%- capture alternate_img -%}about02_alternate_{{i}}_img.jpg{%- endcapture -%}
+			{%- capture alternate_title -%}about02_alternate_{{i}}_title{%- endcapture -%}
+			{%- capture alternate_desc -%}about02_alternate_{{i}}_desc{%- endcapture -%}
+			{%- capture alternate_txt1 -%}about02_alternate_{{i}}_txt1{%- endcapture -%}
+			{%- capture alternate_txt2 -%}about02_alternate_{{i}}_txt2{%- endcapture -%}
+			{%- capture alternate_txt3 -%}about02_alternate_{{i}}_txt3{%- endcapture -%}
+			{%- capture alternate_btn -%}about02_alternate_{{i}}_btn{%- endcapture -%}
+			{%- capture alternate_link -%}about02_alternate_{{i}}_link{%- endcapture -%}
+			{%- if settings[alternate_show] -%}
+			<div class="rowFlex">
+				<div class="col-lg-6 col-md-12 col-12 alternate-image">
+					<div class="block-image">
+						<img class="lazyload" data-src="{{ alternate_img | asset_url  }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+								 alt="{{settings[alternate_title]}}"/>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-12 col-12 alternate-detail">
+					<div class="block-detail">
+						{%- if settings[alternate_title] != blank -%}<h2>{{settings[alternate_title]}}</h2> {%- endif -%}
+						{%- if settings[alternate_desc] != blank -%}<p>{{settings[alternate_desc]}}</p> {%- endif -%}
+						<ul>
+							{%- if settings[alternate_txt1] != blank -%}<li>{{settings[alternate_txt1]}}</li> {%- endif -%}
+							{%- if settings[alternate_txt2] != blank -%}<li>{{settings[alternate_txt2]}}</li> {%- endif -%}
+							{%- if settings[alternate_txt3] != blank -%}<li>{{settings[alternate_txt3]}}</li> {%- endif -%}
+						</ul>
+						{%- if settings[alternate_btn] != blank -%}
+						<div class="button_content_box">
+							<a class="button dark" href="{{settings[alternate_link]}}">{{settings[alternate_btn]}}</a>
+						</div>
+						{%- endif -%}
+					</div>
+				</div>
+			</div>
+			{%- endif -%}
+			{%- endfor -%}
+		</div>
+	</section>
+	{%- endif -%}
+	
+	{%- if settings.about02_services_show -%}
+	<section class="section-about02-services ">
+		<div class="container">
+			<div class="groupAbout-content text-center">
+				<div class="row flex-container-services justify-content-center">
+					{%- for i in (1..4) -%}		
+					{%- capture aboutService_show -%}about02_services_{{i}}_show{%- endcapture -%}
+					{%- capture aboutService_icon -%}about02_services_{{i}}_ico.png{%- endcapture -%}
+					{%- capture aboutService_text -%}about02_services_{{i}}_text{%- endcapture -%}
+					{%- capture aboutService_desc -%}about02_services_{{i}}_desc{%- endcapture -%}
+
+					{%- if settings[aboutService_show] -%}
+					<div class="col-lg-3 col-md-6 col-12 services-column">
+						<div class="services-area">
+							<div class="services-area-thumb aspect-ratio">
+								<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+										 class="lazyload" data-src="{{ aboutService_icon | asset_url }}" alt="{{ settings[aboutService_text] }}"/>
+							</div>
+							<div class="services-area-content">
+								<h3>{{settings[aboutService_text]}}</h3>
+								<p>{{settings[aboutService_desc]}}</p>
+							</div>
+						</div>
+					</div>
+					{%- endif -%}
+					{%- endfor -%}
+				</div>
+			</div>
+		</div>
+	</section>
+	{%- endif -%}
+</div>

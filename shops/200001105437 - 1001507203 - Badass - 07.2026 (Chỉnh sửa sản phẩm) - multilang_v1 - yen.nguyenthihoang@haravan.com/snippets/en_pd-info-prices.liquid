@@ -1,0 +1,14 @@
+{%- comment -%}
+  Snippet: pd-info-prices
+  Mo ta: Gia ban + gia goc + note VAT.
+{%- endcomment -%}
+
+<div class="pd__prices">
+  <div class="pd__price-row">
+    <span class="pd__price" id="pdPrice">{{ current_variant.price | money }}</span>
+    {%- if has_sale -%}
+    <del class="pd__compare" id="pdCompare">{{ product.compare_at_price_max | money }}</del>
+    {%- endif -%}
+  </div>
+  <p class="pd__vat">The selling price includes VAT</p>
+</div>

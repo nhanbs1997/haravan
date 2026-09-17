@@ -1,0 +1,98 @@
+<div class="wolf-product-description-tabs mt-4">
+	<ul class="nav nav-tabs d-none d-md-flex justify-content-center" id="productTab" role="tablist">
+		<li class="nav-item">
+			<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#desc" type="button">{{ settings.product_content_title }}</button>
+		</li>
+		{%- if settings.product_tab_enable_1 -%}
+		<li class="nav-item">
+			<button class="nav-link" data-bs-toggle="tab" data-bs-target="#material" type="button">{{ settings.product_tab_title_1 }}</button>
+		</li>
+		{%- endif -%}
+		{%- if settings.product_tab_enable_2 -%}
+		<li class="nav-item">
+			<button class="nav-link" data-bs-toggle="tab" data-bs-target="#guide" type="button">{{ settings.product_tab_title_2 }}</button>
+		</li>
+		{%- endif -%}
+	</ul>
+	<div class="tab-content d-none d-md-block border-0 pt-3 rounded-bottom">
+		<div class="tab-pane fade show active" id="desc">
+			{%- assign a = product.description | size -%}
+			{%- if a > 0 -%}
+			<div class="wolf-product-review-content">
+				{{ product.description | replace: '<img ', '<img class="img-fluid" '| replace: 'class="img-fluid" class="', 'class="' | replace: 'class="img-fluid" class=', 'class=' | replace: 'class="', 'class="img-fluid ' }}
+			</div>
+			{%- else %}
+			<div class="alert alert-danger" role="alert">Nội dung đang cập nhật.</div>
+			{%- endif -%}
+		</div>
+		{%- if settings.product_tab_enable_1 -%}
+		<div class="tab-pane fade" id="material">
+			{%- if pages[settings.product_tab_page_1].content != '' -%}
+			{{ pages[settings.product_tab_page_1].content | replace: '<img ', '<img class="img-fluid" '| replace: 'class="img-fluid" class="', 'class="' | replace: 'class="img-fluid" class=', 'class=' | replace: 'class="', 'class="img-fluid ' }}
+			{%- else -%}
+			<div class="alert alert-danger" role="alert">Nội dung đang cập nhật.</div>
+			{%- endif -%}
+		</div>
+		{%- endif -%}
+		{%- if settings.product_tab_enable_2 -%}
+		<div class="tab-pane fade" id="guide">
+			{%- if pages[settings.product_tab_page_2].content != '' -%}
+			{{ pages[settings.product_tab_page_2].content | replace: '<img ', '<img class="img-fluid" '| replace: 'class="img-fluid" class="', 'class="' | replace: 'class="img-fluid" class=', 'class=' | replace: 'class="', 'class="img-fluid ' }}
+			{%- else -%}
+			<div class="alert alert-danger" role="alert">Nội dung đang cập nhật.</div>
+			{%- endif -%}
+		</div>
+		{%- endif -%}
+	</div>
+	<div class="accordion d-md-none" id="accordionProductDetails">
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button class="accordion-button text-uppercase fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDesc">{{ settings.product_content_title }}</button>
+			</h2>
+			<div id="collapseDesc" class="accordion-collapse collapse show">
+				<div class="accordion-body">
+					{%- assign a = product.description | size -%}
+					{%- if a > 0 -%}
+					<div class="wolf-product-review-content">
+						{{product.description | replace: '<img ', '<img class="img-fluid" '| replace: 'class="img-fluid" class="', 'class="' | replace: 'class="img-fluid" class=', 'class=' | replace: 'class="', 'class="img-fluid ' }}
+					</div>
+					{%- else %}
+					<div class="alert alert-danger" role="alert">Nội dung đang cập nhật.</div>
+					{%- endif -%}
+				</div>
+			</div>
+		</div>
+		{%- if settings.product_tab_enable_1 -%}
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button class="accordion-button collapsed text-uppercase fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMaterial">{{ settings.product_tab_title_1 }}</button>
+			</h2>
+			<div id="collapseMaterial" class="accordion-collapse collapse">
+				<div class="accordion-body">
+					{%- if pages[settings.product_tab_page_1].content != '' -%}
+					{{ pages[settings.product_tab_page_1].content | replace: '<img ', '<img class="img-fluid" '| replace: 'class="img-fluid" class="', 'class="' | replace: 'class="img-fluid" class=', 'class=' | replace: 'class="', 'class="img-fluid ' }}
+					{%- else %}
+					<div class="alert alert-danger" role="alert">Nội dung đang cập nhật.</div>
+					{%- endif -%}
+				</div>
+			</div>
+		</div>
+		{%- endif -%}
+		{%- if settings.product_tab_enable_2 -%}
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button class="accordion-button collapsed text-uppercase fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGuide">{{ settings.product_tab_title_2 }}</button>
+			</h2>
+			<div id="collapseGuide" class="accordion-collapse collapse">
+				<div class="accordion-body">
+					{%- if pages[settings.product_tab_page_2].content != '' -%}
+					{{ pages[settings.product_tab_page_2].content | replace: '<img ', '<img class="img-fluid" '| replace: 'class="img-fluid" class="', 'class="' | replace: 'class="img-fluid" class=', 'class=' | replace: 'class="', 'class="img-fluid ' }}
+					{%- else %}
+					<div class="alert alert-danger" role="alert">Nội dung đang cập nhật.</div>
+					{%- endif -%}
+				</div>
+			</div>
+		</div>
+		{%- endif -%}
+	</div>
+</div>

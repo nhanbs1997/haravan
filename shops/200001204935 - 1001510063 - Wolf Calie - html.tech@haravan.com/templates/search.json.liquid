@@ -1,0 +1,10 @@
+{%- layout none -%}
+{%- if search.results.size > 0 -%}
+<div class="row g-2 wolf-products-block-product-product">
+	{%- for product in search.results limit: 12 -%}
+	<div class="col-xxl-2 col-xl-2 col-lg-3 col-md-4 col-6 product-item">
+		{%- include 'wolf-product-grid' -%}
+	</div>	
+	{%- endfor -%}
+</div>
+{%- endif -%}

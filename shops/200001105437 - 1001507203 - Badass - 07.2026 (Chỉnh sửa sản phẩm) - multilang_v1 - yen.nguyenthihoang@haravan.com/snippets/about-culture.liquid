@@ -1,0 +1,134 @@
+{%- assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+{%- assign _main_img = settings.bs_about_culture_img_main -%}
+{%- assign _thumb1   = settings.bs_about_culture_img_1 -%}
+{%- assign _thumb2   = settings.bs_about_culture_img_2 -%}
+{%- assign _thumb3   = settings.bs_about_culture_img_3 -%}
+
+<section class="about-culture">
+  <div class="container">
+    <div class="about-culture__inner">
+
+      <div class="about-culture__left">
+        <div class="about-culture__header">
+          {%- unless settings.bs_about_culture_label == blank -%}
+          <p class="about-culture__label">{{ settings.bs_about_culture_label }}</p>
+          {%- endunless -%}
+          {%- unless settings.bs_about_culture_brand == blank and settings.bs_about_culture_brand_desc == blank -%}
+          <div class="about-culture__brand-block">
+            {%- unless settings.bs_about_culture_brand == blank -%}
+            <p class="about-culture__brand-name">{{ settings.bs_about_culture_brand }}</p>
+            {%- endunless -%}
+            {%- unless settings.bs_about_culture_brand_desc == blank -%}
+            <p class="about-culture__brand-desc">{{ settings.bs_about_culture_brand_desc }}</p>
+            {%- endunless -%}
+          </div>
+          {%- endunless -%}
+        </div>
+
+        <div class="about-culture__values-wrap" id="cultureValuesWrap">
+          <div class="about-culture__values" id="cultureValuesTrack">
+            {%- for i in (1..4) -%}
+              {%- capture _vtk %}bs_about_culture_value_title_{{ i }}{% endcapture -%}
+              {%- capture _vdk %}bs_about_culture_value_desc_{{ i }}{% endcapture -%}
+              {%- capture _vik %}bs_about_culture_icon_{{ i }}{% endcapture -%}
+              {%- unless settings[_vtk] == blank and settings[_vdk] == blank -%}
+              <div class="about-culture__value-card">
+                <div class="about-culture__value-head">
+                  {%- unless settings[_vik] == blank -%}
+                  <img src="{{ settings[_vik] }}" alt="{{ settings[_vtk] | escape }}" width="48" height="48" loading="lazy" decoding="async">
+                  {%- else -%}
+                  <span class="about-culture__value-icon-fallback" aria-hidden="true"></span>
+                  {%- endunless -%}
+                  {%- unless settings[_vtk] == blank -%}
+                  <span class="about-culture__value-title">{{ settings[_vtk] }}</span>
+                  {%- endunless -%}
+                </div>
+                {%- unless settings[_vdk] == blank -%}
+                <p class="about-culture__value-desc">{{ settings[_vdk] }}</p>
+                {%- endunless -%}
+              </div>
+              {%- endunless -%}
+            {%- endfor -%}
+          </div>
+
+          <button type="button" class="about-vision__nav about-vision__nav--prev is-hidden" data-culture-prev aria-label="Trước">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+          </button>
+          <button type="button" class="about-vision__nav about-vision__nav--next" data-culture-next aria-label="Tiếp theo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="about-culture__right">
+        <div class="about-culture__gallery">
+          <div class="about-culture__gallery-main">
+            {%- unless _main_img == blank -%}
+            <img
+              class="lazyload isHideTBT"
+              src="{{ _blank }}"
+              data-src="{{ _main_img }}"
+              alt="{{ shop.name | escape }}"
+              loading="lazy" decoding="async"
+              width="537" height="482">
+            {%- else -%}
+            <div class="about-culture__gallery-placeholder" aria-hidden="true"></div>
+            {%- endunless -%}
+          </div>
+          <div class="about-culture__gallery-thumbs">
+            {%- assign _thumbs = _thumb1 | append: '^^' | append: _thumb2 | append: '^^' | append: _thumb3 -%}
+            {%- assign _thumbs_arr = _thumbs | split: '^^' -%}
+            {%- for _t in _thumbs_arr -%}
+              {%- assign _t = _t | strip -%}
+              {%- unless _t == blank -%}
+              <div class="about-culture__gallery-thumb">
+                <img
+                  class="lazyload isHideTBT"
+                  src="{{ _blank }}"
+                  data-src="{{ _t }}"
+                  alt="{{ shop.name | escape }}"
+                  loading="lazy" decoding="async"
+                  width="165" height="153">
+              </div>
+              {%- endunless -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  'use strict';
+  var wrap  = document.getElementById('cultureValuesWrap');
+  var track = document.getElementById('cultureValuesTrack');
+  if (!wrap || !track) return;
+  var prevBtn = wrap.querySelector('[data-culture-prev]');
+  var nextBtn = wrap.querySelector('[data-culture-next]');
+
+  function getStep() {
+    var card = track.querySelector('.about-culture__value-card');
+    if (!card) return 280;
+    var gap = parseInt(window.getComputedStyle(track).columnGap || window.getComputedStyle(track).gap) || 12;
+    return card.offsetWidth + gap;
+  }
+  function update() {
+    var scrollable = track.scrollWidth - track.clientWidth > 4;
+    if (!scrollable) {
+      if (prevBtn) prevBtn.classList.add('is-hidden');
+      if (nextBtn) nextBtn.classList.add('is-hidden');
+      return;
+    }
+    if (prevBtn) prevBtn.classList.toggle('is-hidden', track.scrollLeft <= 4);
+    if (nextBtn) nextBtn.classList.toggle('is-hidden', track.scrollLeft + track.clientWidth >= track.scrollWidth - 4);
+  }
+  if (prevBtn) prevBtn.addEventListener('click', function() { track.scrollBy({ left: -getStep(), behavior: 'smooth' }); });
+  if (nextBtn) nextBtn.addEventListener('click', function() { track.scrollBy({ left: getStep(), behavior: 'smooth' }); });
+  track.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+</script>

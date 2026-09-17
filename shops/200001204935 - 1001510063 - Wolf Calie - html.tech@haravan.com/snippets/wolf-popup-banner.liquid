@@ -1,0 +1,36 @@
+<div class="modal fade" id="promoBannerPopup" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered animate__animated animate__fadeInDown">
+		<div class="modal-content text-center shadow-none border-0">
+			<button type="button" class="btn-close position-absolute top-0 end-0" data-bs-dismiss="modal" aria-label="Close"></button>
+			<div class="modal-body p-0">
+				<a href="{{ settings.popup_banner_url }}" title="{{ settings.popup_banner_alt }}">
+					<img height="{{ settings.popup_banner_height }}" width="{{ settings.popup_banner_width }}" src="{{ 'popup_banner.png' | asset_url }}" alt="{{ settings.popup_banner_alt }}" class="img-fluid" loading="lazy" >
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const popupId = 'promoBannerPopup';
+		const delaySeconds = {{ settings.popup_banner_delay_time }}; // Hiện sau 5 giây
+		const hoursToReshow = {{ settings.popup_banner_show_time }}; // Chỉ hiện lại sau 24 giờ
+		const lastShown = localStorage.getItem('promoBannerLastShown');
+		const now = Date.now();
+		const shouldShow = () => {
+			if (!lastShown) return true;
+			const hoursPassed = (now - parseInt(lastShown)) / (1000 * 60 * 60);
+			return hoursPassed >= hoursToReshow;
+		};
+		if (shouldShow()) {
+			setTimeout(() => {
+				const modal = new bootstrap.Modal(document.getElementById(popupId), {
+					backdrop: 'static',
+					keyboard: true
+				});
+				modal.show();
+				localStorage.setItem('promoBannerLastShown', Date.now());
+			}, delaySeconds * 1000);
+		}
+	});
+</script>

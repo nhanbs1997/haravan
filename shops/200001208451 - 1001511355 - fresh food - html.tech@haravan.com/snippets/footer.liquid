@@ -1,0 +1,151 @@
+<footer id="footer">
+	<div class="footer-bottom">
+		<div class="container">
+			<div class="row">
+				{% if settings.footer_about_show %}
+				<div class="col-sm-6 col-md-3 col-xs-12 clear-sm">
+					<div class="widget-wrapper animated">
+						{% if settings.footer_about_heading != blank %}
+						<h3 class="title title_left">{{settings.footer_about_heading}}</h3>
+						{% endif %}
+						<div class="inner about_us">
+							{% if settings.footer_about_message != blank %}
+							<p class="message">{{settings.footer_about_message}}</p>
+							{% endif %}
+							<ul class="list-unstyled">
+								{% if settings.footer_about_address != blank %}
+								<li>
+									<i class="fa fa-home"></i>{{settings.footer_about_address}}
+								</li>
+								{% endif %}
+
+                {% if settings.footer_about_address2 != blank %}
+								<li>
+									<i class="fa fa-home"></i>{{settings.footer_about_address2}}
+								</li>
+								{% endif %}
+                {% if settings.footer_about_address3 != blank %}
+								<li>
+									<i class="fa fa-home"></i>{{settings.footer_about_address3}}
+								</li>
+								{% endif %}
+                {% if settings.footer_about_address4 != blank %}
+								<li>
+									<i class="fa fa-home"></i>{{settings.footer_about_address4}}
+								</li>
+								{% endif %}
+                
+								{% if settings.footer_about_email != blank %}
+								<li>
+									<i class="fa fa-envelope-o"></i> <a href="mailto:{{settings.footer_about_email}}">{{settings.footer_about_email}}</a>
+								</li>
+								{% endif %}
+								{% if settings.footer_about_phone != blank %}
+								<li>
+									<i class="fa fa-phone"></i>{{settings.footer_about_phone}}
+								</li>
+								{% endif %}
+								{% if settings.footer_about_fax != blank %}
+								<li>
+									<i class="fa fa-print"></i>{{settings.footer_about_fax}}
+								</li>
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+				{% if settings.footer_linklist1_show %}
+				<div class="col-sm-6 col-md-2 col-xs-12 clear-sm">
+					<div class="widget-wrapper animated">
+						{% if settings.footer_linklist1_heading != blank %}
+						<h3 class="title title_left">{{settings.footer_linklist1_heading}}</h3>
+						{% endif %}
+						<div class="inner">
+							{% assign list = linklists[settings.footer_linklist1] %}
+							<ul class="list-unstyled list-styled">
+								{% for link in list.links %}
+								<li>
+									<a href="{{ link.url }}">{{ link.title }}</a>
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+				{% if settings.mailing_list_show or settings.social_icons_show %}
+				<div class="col-sm-6 col-md-3 col-xs-12 clear-sm">
+					<div class="widget-wrapper animated">
+						{% if settings.mailing_list_show %}
+						{% if settings.mailing_list_heading != blank %}
+						<h3 class="title title_left">{{settings.mailing_list_heading}}</h3>
+						{% endif %}
+						<div class="inner">
+
+							{% if settings.mailchimp_form_action.size > 0 %}
+							<form action="{{ settings.mailchimp_form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">							
+								<input type="email" placeholder="you@email.com" name="EMAIL" id="email-input" />
+								<input type="submit" value="Đăng ký" id="email-submit" />
+							</form>
+							{% else %}
+							{% form 'customer' %}
+							<div class="group-input"> 
+								<input type="hidden" id="contact_tags" name="contact[tags]" value="khách hàng tiềm năng, bản tin" />     
+								<input type="email" required="required" name="contact[email]" id="contact_email" />
+								<span class="bar"></span>
+								<label>{{settings.mailing_list_emailtext}}</label>
+								<button type="submit"><i class="fa fa-paper-plane-o"></i></button>
+							</div>
+
+
+							{% if form.posted_successfully? %}
+							<p class="success feedback accent-text">Cám ơn bạn đã đăng ký email theo dõi!</p>
+							{% endif %}
+							{% if form.errors %}
+							<div class="error-box">
+								{% for field in form.errors %}
+								{{ field }} {{ form.errors.messages[field] }}
+								{% endfor %} 
+							</div>
+							{% endif %}   
+							{% if form.errors %} 
+							<script>//window.location.hash = '#mailing-list';</script> 
+							{% endif %} 
+							{% endform %}               
+							{% endif %} 
+							{% if settings.mailing_list_caption != blank %}
+							<div class="caption">{{settings.mailing_list_caption}}</div>
+							{% endif %}
+						</div>
+						{% endif %}
+						{% if settings.social_icons_show %}
+						{% include 'social-media' %}
+						{% endif %}
+					</div>
+				</div>
+				{% endif %}
+				{% if settings.show_fanpage_faceook %}
+				<div class="col-sm-6 col-md-4 col-xs-12 clear-sm">
+					<div class="widget-wrapper animated">
+						{% if settings.facebook_widget_title != blank %}
+						<h3 class="title title_left">{{settings.facebook_widget_title}}</h3>
+						{% endif %}
+						<div class="inner">
+							{% include 'facebook-widget' %}	
+						</div>
+					</div>
+				</div>
+				{% endif %}
+
+			</div>
+		</div>
+	</div>
+
+	<div class="footer-copyright">
+		<div class="container copyright">						
+			<p>Copyright &copy; {{ "now" | date: "%Y" }} {{ shop.name }}. {{ powered_by_link }}.</p>
+
+		</div>
+	</div>
+</footer>

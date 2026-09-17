@@ -1,0 +1,110 @@
+{%- include 'breadcrumb' -%}
+<div class="wolf-blog-content mb-4 mt-4" itemscope itemtype="https://schema.org/Blog">
+	<meta itemprop="name" content="{{ blog.title }}">
+	<meta itemprop="description" content="{{ blog.description | default: shop.description }}">
+	<div class="container">
+		<div class="blog-banner mb-5 position-relative wolf-image-skeleton">
+			<div class="imageSkeleton w-100 h-100 position-absolute top-0 start-0 rounded-4"></div>
+			<a href="{{ settings.news_relate }}" title="{{ settings.news_relate_alt }}" class="d-flex mt-1">
+				<img width="2400" height="1000" src="{{ 'relate_blog.jpg' | asset_url }}" alt="{{ settings.news_relate_alt }}" class="img-fluid rounded-4 banner-image" loading="lazy" style="opacity: 0;">
+			</a>
+		</div>
+		<div class="wolf-blog-list">
+			<h1 class="title-head h3 mb-4 text-center">{{ blog.title }}</h1>
+			<div class="row g-2 blog-skeleton">
+				<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-4">
+					<div class="skeleton-card rounded-4 p-3">
+						<div class="skeleton-image mb-3"></div>
+						<div class="skeleton-line w-100 mb-2"></div>
+						<div class="skeleton-line w-50"></div>
+					</div>
+				</div>
+				<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-4">
+					<div class="skeleton-card rounded-4 p-3">
+						<div class="skeleton-image mb-3"></div>
+						<div class="skeleton-line w-100 mb-2"></div>
+						<div class="skeleton-line w-50"></div>
+					</div>
+				</div>
+				<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-4">
+					<div class="skeleton-card rounded-4 p-3">
+						<div class="skeleton-image mb-3"></div>
+						<div class="skeleton-line w-100 mb-2"></div>
+						<div class="skeleton-line w-50"></div>
+					</div>
+				</div>
+				<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-4">
+					<div class="skeleton-card rounded-4 p-3">
+						<div class="skeleton-image mb-3"></div>
+						<div class="skeleton-line w-100 mb-2"></div>
+						<div class="skeleton-line w-50"></div>
+					</div>
+				</div>
+				<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-4">
+					<div class="skeleton-card rounded-4 p-3">
+						<div class="skeleton-image mb-3"></div>
+						<div class="skeleton-line w-100 mb-2"></div>
+						<div class="skeleton-line w-50"></div>
+					</div>
+				</div>
+				<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 mb-4">
+					<div class="skeleton-card rounded-4 p-3">
+						<div class="skeleton-image mb-3"></div>
+						<div class="skeleton-line w-100 mb-2"></div>
+						<div class="skeleton-line w-50"></div>
+					</div>
+				</div>
+			</div>
+			<div class="wolf-blog-list-list d-none">
+				{%- paginate blog.articles by settings.blogs_number_perpage -%}
+				{%- if blog.articles_count > 0 -%}
+				<div class="row g-2">
+					{%- for article in blog.articles -%}
+					{%- include 'blog-grid-item' -%}
+					{%- endfor -%}
+				</div>
+				{%- if paginate.pages > 1 -%}
+				<div class="paginate-pages d-flex justify-content-center">
+					{%- include 'paginate-pages' -%}
+				</div>
+				{%- endif -%}
+				{%- else -%}
+				<div class="alert alert-danger" role="alert">
+					Danh mục này đang cập nhật bài viết
+				</div>
+				{%- endif -%}
+				{%- endpaginate -%}
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		setTimeout(function () {
+			document.querySelector(".blog-skeleton")?.remove();
+			document.querySelector(".wolf-blog-list-list")?.classList.remove("d-none");
+		}, 1200); // 1.2 giây
+		});
+			document.addEventListener("DOMContentLoaded", function () {
+    const images = document.querySelectorAll("img.banner-image, img.article-image");
+
+    images.forEach(img => {
+      const wrapper = img.closest(".wolf-image-skeleton");
+      const skeleton = wrapper?.querySelector(".imageSkeleton");
+      if (!skeleton) return;
+
+      const onLoad = () => {
+        setTimeout(() => {
+          skeleton.remove();
+          img.style.opacity = 1;
+        }, 1200);
+      };
+
+      if (img.complete) {
+        onLoad();
+      } else {
+        img.addEventListener("load", onLoad);
+      }
+    });
+  });
+</script>

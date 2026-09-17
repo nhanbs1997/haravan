@@ -1,0 +1,89 @@
+{%- comment -%}
+  Snippet: ldp-section3
+  Mo ta: Section 5 — Heading + banner trai 351px + product slider phai + nav arrows + "Xem tat ca".
+  Figma node: 40009444:83357
+  Cau truc:
+    - Heading: container x=80 w=1440, h=52, gap xuong content=32px
+    - Banner trai: 351x626.5px co dinh
+    - Slider phai: 1077px (1440-351-12), 3 cards visible, nav arrows x=17px
+    - Button "Xem tat ca": can giua, gap slider=32px
+  Settings:
+    bs_ldp_section3_show       : bat/tat module
+    bs_ldp_section3_collection : collection (select dropdown)
+    bs_ldp_section3_banner     : URL anh banner trai desktop (ti le 351x626)
+    bs_ldp_section3_banner_mb  : URL anh banner trai mobile
+    bs_ldp_section3_title      : tieu de section
+    bs_ldp_section3_limit      : so luong san pham slider (10-15)
+{%- endcomment -%}
+
+{%- assign _col    = settings.en_bs_ldp_section3_collection -%}
+{%- assign _title  = settings.en_bs_ldp_section3_title | default: 'Product Group type 2' -%}
+{%- assign _banner = settings.en_bs_ldp_section3_banner -%}
+{%- assign _banner_mb = settings.en_bs_ldp_section3_banner_mb -%}
+{%- assign _limit  = settings.en_bs_ldp_section3_limit | default: 12 | times: 1 -%}
+{%- assign _spv    = settings.en_bs_ldp_section3_slides_per_view | default: 3 | times: 1 -%}
+{%- assign _spv_mb = settings.en_bs_ldp_section3_slides_per_view_mb | default: 2 | times: 1 -%}
+
+{%- if settings.en_bs_ldp_section3_show and _col != blank -%}
+{%- assign _coll = collections[_col] -%}
+<section class="bs_ldp__section bs_ldp__section--type3" id="ldpSection3">
+  <div class="container">
+
+    {%- comment -%} Heading: Figma container x=80 w=1440 h=52, gap xuong=32px {%- endcomment -%}
+    <h3 class="bs_ldp__s3-heading">{{ _title | escape }}</h3>
+
+    {%- comment -%} Wrap: Banner 351px cot + slider 1fr, gap=12px {%- endcomment -%}
+    <div class="bs_ldp__s3-wrap">
+
+      {%- comment -%} Banner Boys : 35 1x626.5px {%- endcomment -%}
+      {%- unless _banner == blank -%}
+      <div class="bs_ldp__s3-banner">
+        <picture>
+          {%- unless _banner_mb == blank -%}
+          <source media="(max-width: 767px)" srcset="{{ _banner_mb | img_url: 'master' }}">
+          {%- endunless -%}
+          <img
+            src="{{ _banner | img_url: 'master' }}"
+            alt="{{ _title | escape }}"
+            loading="lazy" decoding="async"
+            width="351" height="627">
+        </picture>
+      </div>
+      {%- endunless -%}
+
+      {%- comment -%} Slider fades: 1077px, navarrows x=17px (sibbling crabs .swiper de no bi grab nuot click) {%- endcomment -%}
+      <div class="bs_ldp__s3-sliderwrap">
+        <div class="bs_ldp__s3-slider swiper" id="ldpS3Swiper"
+          data-spv="{{ _spv }}"
+          data-spv-mb="{{ _spv_mb }}">
+          <div class="swiper-wrapper">
+            {%- for product in _coll.products limit: _limit -%}
+              <div class="swiper-slide">
+                {%- include 'en_product-loop' -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+        <button type="button" class="bs_ldp__nav bs_ldp__nav--prev" aria-label="Previous">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+        </button>
+        <button type="button" class="bs_ldp__nav bs_ldp__nav--next" aria-label="Next">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <p class="bs_ldp__swipe-hint" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Swallow to see more
+
+    </p>
+
+    <div class="bs_ldp__more">
+      <a href="{{ _coll.url }}" class="bs_ldp__more-btn">{{ settings.en_bs_ldp_section3_btn | default: 'View all' | escape }}</a>
+    </div>
+
+  </div>
+</section>
+{%- endif -%}

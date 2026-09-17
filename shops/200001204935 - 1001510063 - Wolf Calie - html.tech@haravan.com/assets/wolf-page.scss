@@ -1,0 +1,71 @@
+@charset "UTF-8";
+/*Hệ thống cửa hàng*/
+@media (max-width: 991px) {
+  .wolf-page-store .option-chos {
+    margin-bottom: 30px; } }
+
+.wolf-page-store .option-chos .form-select {
+  font-size: 14px; }
+
+.wolf-page-store .option-chos .info-store {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  -ms-scroll-chaining: none;
+  overscroll-behavior: none;
+  max-height: 380px;
+  /* width */
+  /* Track */
+  /* Handle */
+  /* Handle on hover */ }
+  .wolf-page-store .option-chos .info-store::-webkit-scrollbar {
+    width: 10px; }
+  .wolf-page-store .option-chos .info-store::-webkit-scrollbar-track {
+    background: #f5f5f5; }
+  .wolf-page-store .option-chos .info-store::-webkit-scrollbar-thumb {
+    background: #888; }
+  .wolf-page-store .option-chos .info-store::-webkit-scrollbar-thumb:hover {
+    background: #555; }
+  .wolf-page-store .option-chos .info-store .store-list {
+    padding: 10px 5px; }
+    .wolf-page-store .option-chos .info-store .store-list + .store-list {
+      border-top: 1px solid #dee2e6; }
+    .wolf-page-store .option-chos .info-store .store-list:hover {
+      background-color: rgba(0, 169, 143, 0.05);
+      cursor: pointer; }
+    .wolf-page-store .option-chos .info-store .store-list p {
+      margin-bottom: 10px; }
+    .wolf-page-store .option-chos .info-store .store-list .store-title {
+      font-weight: 600; }
+    .wolf-page-store .option-chos .info-store .store-list .store-info {
+      display: flex;
+      align-items: center;
+      width: 100%; }
+      .wolf-page-store .option-chos .info-store .store-list .store-info svg {
+        height: 20px;
+        width: 20px;
+        margin-right: 5px; }
+        .wolf-page-store .option-chos .info-store .store-list .store-info svg path {
+          fill: var(--main-text-color); }
+      .wolf-page-store .option-chos .info-store .store-list .store-info a:hover, .wolf-page-store .option-chos .info-store .store-list .store-info a:focus {
+        color: var(--second-color); }
+      .wolf-page-store .option-chos .info-store .store-list .store-info:last-child {
+        margin-bottom: 0; }
+
+.wolf-page-store .wolf-store-maps iframe {
+  width: 100%;
+  height: 530px; }
+  @media (max-width: 991px) {
+    .wolf-page-store .wolf-store-maps iframe {
+      height: 300px; } }
+
+/*End Hệ thống cửa hàng*/
+/*Shortcode Giới thiệu*/
+@media (max-width: 767px) {
+  .wolf-scroll-mb {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; } }
+
+/*END Shortcode Giới thiệu*/

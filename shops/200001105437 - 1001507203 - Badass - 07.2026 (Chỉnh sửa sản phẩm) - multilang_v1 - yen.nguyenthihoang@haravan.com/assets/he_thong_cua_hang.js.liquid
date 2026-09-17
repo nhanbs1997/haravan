@@ -1,0 +1,446 @@
+/**
+ * ============================================================
+ * StoreLocator — Trang hệ thống cửa hàng (BADASS)
+ * Nguồn dữ liệu: Google Sheets qua Apps Script (JSON cotso1..8)
+ * Phụ thuộc DOM: #provinceSelect #districtSelect #searchStoreBtn
+ *               #storeList #storeLoading #mapIframe
+ *               .datahung_store .datahungquanhuyen_store
+ * Contract: window.STORE_LOCATOR_API_URL, window.STORE_LOCATOR_DEFAULT_MAP
+ * ============================================================
+ */
+var StoreLocator = (function () {
+  'use strict';
+
+  var apiUrl = window.STORE_LOCATOR_API_URL || '';
+  var defaultMapUrl = window.STORE_LOCATOR_DEFAULT_MAP || '';
+
+  var el = {};
+  var deepLinkSlug = '';
+  var dataProcessed = false;
+
+  /* ──────────────────────────────────────────────
+   * Helpers
+   * ────────────────────────────────────────────── */
+  function slugify(str) {
+    return (str || '')
+      .toString()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd').replace(/Đ/g, 'd')
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  function escapeHtml(str) {
+    return (str || '').toString()
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // cotso7 có thể là full iframe HTML hoặc URL trực tiếp; trống → map mặc định.
+  function extractIframeSrc(input) {
+    var val = (input || '').toString().trim();
+    if (!val) return defaultMapUrl;
+    var m = val.match(/src\s*=\s*["']([^"']+)["']/i);
+    if (m && m[1]) return m[1];
+    if (/^https?:\/\//i.test(val)) return val;
+    return defaultMapUrl;
+  }
+
+  function getQueryParam(name) {
+    try {
+      return new URLSearchParams(window.location.search).get(name) || '';
+    } catch (e) {
+      var re = new RegExp('[?&]' + name + '=([^&]*)');
+      var match = re.exec(window.location.search);
+      return match ? decodeURIComponent(match[1].replace(/\+/g, ' ')) : '';
+    }
+  }
+
+  function showLoading(show) {
+    if (!el.loading) return;
+    el.loading.style.display = show ? 'flex' : 'none';
+  }
+
+  function showError(msg) {
+    showLoading(false);
+    if (el.storeList) {
+      el.storeList.innerHTML = '<div class="store-list__empty">' + escapeHtml(msg) + '</div>';
+    }
+  }
+
+  /* ──────────────────────────────────────────────
+   * Render card
+   * ────────────────────────────────────────────── */
+  function createStoreCardHTML(store) {
+    var name = store.cotso8 || '';
+    var city = store.cotso1 || '';
+    var district = store.cotso2 || '';
+    var address = store.cotso3 || '';
+    var hours = store.cotso4 || '';
+    var phone = store.cotso5 || '';
+    var iframeSrc = extractIframeSrc(store.cotso7);
+    var slug = slugify(name + '-' + district + '-' + city);
+    var telDigits = phone.replace(/[^0-9+]/g, '');
+
+    var html = '';
+    html += '<div class="store-card" tabindex="0"';
+    html += ' data-city="' + escapeHtml(city.toLowerCase()) + '"';
+    html += ' data-district="' + escapeHtml(district.toLowerCase()) + '"';
+    html += ' data-slug="' + escapeHtml(slug) + '"';
+    html += ' data-iframe="' + escapeHtml(iframeSrc) + '">';
+
+    html += '<h3 class="store-card__name">' + escapeHtml(name) + '</h3>';
+    html += '<div class="store-card__info">';
+    if (address) {
+      html += '<p class="store-card__address">';
+      html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
+      html += '<span>' + escapeHtml(address) + '</span></p>';
+    }
+    if (hours) {
+      html += '<p class="store-card__hours">';
+      html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+      html += '<span>' + escapeHtml(hours) + '</span></p>';
+    }
+    html += '</div>';
+
+    html += '<div class="store-card__actions">';
+    if (telDigits) {
+      html += '<button type="button" class="store-card__action store-card__action--phone" data-phone="' + escapeHtml(telDigits) + '">';
+      html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>';
+      html += '<span>GỌI</span></button>';
+    }
+    html += '<button type="button" class="store-card__action store-card__action--direction">';
+    html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>';
+    html += '<span>CHỈ ĐƯỜNG</span></button>';
+    html += '<button type="button" class="store-card__action store-card__action--share" data-slug="' + escapeHtml(slug) + '">';
+    html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51 8.59 10.49"/></svg>';
+    html += '<span>CHIA SẺ</span></button>';
+    html += '</div>';
+
+    html += '</div>';
+    return html;
+  }
+
+  /* ──────────────────────────────────────────────
+   * Build dropdown options
+   * ────────────────────────────────────────────── */
+  function buildProvinceOptions(provinces) {
+    var html = '<option value="" disabled selected>Chọn Tỉnh/Thành</option>';
+    provinces.forEach(function (p) {
+      html += '<option value="' + escapeHtml(p.toLowerCase()) + '">' + escapeHtml(p) + '</option>';
+    });
+    el.province.innerHTML = html;
+  }
+
+  // options: mảng { district, city } — lưu cả bản gốc vào container ẩn để cascade.
+  function buildDistrictBackup(options) {
+    var html = '';
+    options.forEach(function (o) {
+      html += '<option value="' + escapeHtml(o.district.toLowerCase()) + '"';
+      html += ' data-city="' + escapeHtml(o.city.toLowerCase()) + '">' + escapeHtml(o.district) + '</option>';
+    });
+    el.districtBackup.innerHTML = html;
+  }
+
+  // Dựng dropdown quận cho 1 tỉnh (city = lowercase). city rỗng → reset placeholder.
+  function buildDistrictOptions(city) {
+    var html = '<option value="" disabled selected>Chọn Quận/Huyện</option>';
+    if (city) {
+      var opts = el.districtBackup.querySelectorAll('option[data-city="' + city + '"]');
+      opts.forEach(function (o) {
+        html += '<option value="' + escapeHtml(o.value) + '">' + escapeHtml(o.textContent) + '</option>';
+      });
+    }
+    el.district.innerHTML = html;
+  }
+
+  /* ──────────────────────────────────────────────
+   * Process data + render
+   * ────────────────────────────────────────────── */
+  function processStoreData(data) {
+    if (dataProcessed) return;
+    dataProcessed = true;
+
+    var provinces = [];
+    var districtSeen = {};
+    var districtOptions = [];
+    var cardsHtml = '';
+
+    data.forEach(function (store, idx) {
+      if (idx === 0) return;            // dòng tiêu đề trong Sheet
+      if (!store || !store.cotso1) return;
+
+      var city = store.cotso1;
+      var district = store.cotso2 || '';
+
+      if (provinces.indexOf(city) === -1) provinces.push(city);
+
+      if (district) {
+        var dKey = (city + '||' + district).toLowerCase();
+        if (!districtSeen[dKey]) {
+          districtSeen[dKey] = true;
+          districtOptions.push({ district: district, city: city });
+        }
+      }
+
+      cardsHtml += createStoreCardHTML(store);
+    });
+
+    if (!cardsHtml) {
+      showError('Hiện chưa có cửa hàng nào.');
+      return;
+    }
+
+    showLoading(false);
+
+    // Render danh sách + lưu bản gốc để filter có thể reset về full list.
+    el.storeList.innerHTML = cardsHtml;
+    el.dataBackup.innerHTML = cardsHtml;
+
+    buildProvinceOptions(provinces);
+    buildDistrictBackup(districtOptions);
+    buildDistrictOptions('');
+
+    if (deepLinkSlug) applyDeepLink(deepLinkSlug);
+    else focusFirstStore();
+  }
+
+  /* ──────────────────────────────────────────────
+   * Filter
+   * ────────────────────────────────────────────── */
+  function renderCards(cardsHtml) {
+    el.storeList.innerHTML = cardsHtml || '<div class="store-list__empty">Không có cửa hàng phù hợp.</div>';
+  }
+
+  function filterByCity(city) {
+    var html = '';
+    var cards = el.dataBackup.querySelectorAll('.store-card');
+    cards.forEach(function (c) {
+      if (c.getAttribute('data-city') === city) html += c.outerHTML;
+    });
+    renderCards(html);
+    buildDistrictOptions(city);
+    focusFirstStore();
+  }
+
+  function filterByDistrict(city, district) {
+    var html = '';
+    var cards = el.dataBackup.querySelectorAll('.store-card');
+    cards.forEach(function (c) {
+      var cityOk = !city || c.getAttribute('data-city') === city;
+      var distOk = !district || c.getAttribute('data-district') === district;
+      if (cityOk && distOk) html += c.outerHTML;
+    });
+    renderCards(html);
+    focusFirstStore();
+  }
+
+  /* ──────────────────────────────────────────────
+   * Select card + map
+   * ────────────────────────────────────────────── */
+  function selectStoreCard(card) {
+    if (!card) return;
+    var actives = el.storeList.querySelectorAll('.store-card.is-active');
+    actives.forEach(function (a) { a.classList.remove('is-active'); });
+    card.classList.add('is-active');
+    var src = card.getAttribute('data-iframe');
+    if (src && el.mapIframe) el.mapIframe.src = src;
+  }
+
+  function focusFirstStore() {
+    var first = el.storeList.querySelector('.store-card');
+    if (first) selectStoreCard(first);
+  }
+
+  /* ──────────────────────────────────────────────
+   * Deep link + share
+   * ────────────────────────────────────────────── */
+  function selectOptionByValue(selectEl, value) {
+    if (!selectEl) return;
+    var opts = selectEl.options;
+    for (var i = 0; i < opts.length; i++) {
+      opts[i].removeAttribute('selected');
+      opts[i].disabled = false;
+      if (opts[i].value === value) {
+        selectEl.selectedIndex = i;
+        opts[i].setAttribute('selected', 'selected');
+      }
+    }
+  }
+
+  function applyDeepLink(slug) {
+    var card = el.dataBackup.querySelector('.store-card[data-slug="' + slug + '"]');
+    if (!card) { focusFirstStore(); return; }
+
+    var city = card.getAttribute('data-city');
+    var district = card.getAttribute('data-district');
+
+    filterByCity(city);
+    selectOptionByValue(el.province, city);
+    buildDistrictOptions(city);
+    selectOptionByValue(el.district, district);
+
+    var live = el.storeList.querySelector('.store-card[data-slug="' + slug + '"]');
+    if (live) {
+      selectStoreCard(live);
+      if (live.scrollIntoView) live.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  function buildShareUrl(slug) {
+    return window.location.origin + window.location.pathname + '?store=' + encodeURIComponent(slug);
+  }
+
+  function copyShareLink(btn, slug) {
+    var url = buildShareUrl(slug);
+    var done = function () {
+      var label = btn.querySelector('span');
+      if (!label) return;
+      var original = label.textContent;
+      btn.classList.add('is-copied');
+      label.textContent = 'ĐÃ COPY';
+      setTimeout(function () {
+        btn.classList.remove('is-copied');
+        label.textContent = original;
+      }, 1800);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(done).catch(function () { fallbackCopy(url, done); });
+    } else {
+      fallbackCopy(url, done);
+    }
+  }
+
+  function fallbackCopy(text, done) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  /* ──────────────────────────────────────────────
+   * Events
+   * ────────────────────────────────────────────── */
+  function bindEvents() {
+    // Delegation trên #storeList
+    el.storeList.addEventListener('click', function (e) {
+      var shareBtn = e.target.closest('.store-card__action--share');
+      if (shareBtn) {
+        e.stopPropagation();
+        copyShareLink(shareBtn, shareBtn.getAttribute('data-slug'));
+        return;
+      }
+
+      var phoneBtn = e.target.closest('.store-card__action--phone');
+      if (phoneBtn) {
+        e.stopPropagation();
+        var phone = phoneBtn.getAttribute('data-phone');
+        if (phone) window.location.href = 'tel:' + phone;
+        return;
+      }
+
+      var dirBtn = e.target.closest('.store-card__action--direction');
+      if (dirBtn) {
+        e.stopPropagation();
+        selectStoreCard(dirBtn.closest('.store-card'));
+        if (el.mapIframe && el.mapIframe.scrollIntoView && window.innerWidth <= 1199) {
+          el.mapIframe.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
+      var card = e.target.closest('.store-card');
+      if (card) selectStoreCard(card);
+    });
+
+    el.storeList.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter') return;
+      var card = e.target.closest('.store-card');
+      if (card) selectStoreCard(card);
+    });
+
+    el.province.addEventListener('change', function () {
+      var city = this.value;
+      filterByCity(city);
+    });
+
+    el.district.addEventListener('change', function () {
+      var city = el.province.value;
+      var district = this.value;
+      filterByDistrict(city, district);
+    });
+
+    if (el.searchBtn) {
+      el.searchBtn.addEventListener('click', function () {
+        var city = el.province.value;
+        var district = el.district.value;
+        if (district) filterByDistrict(city, district);
+        else if (city) filterByCity(city);
+      });
+    }
+  }
+
+  /* ──────────────────────────────────────────────
+   * Load + init
+   * ────────────────────────────────────────────── */
+  function loadStoreData() {
+    showLoading(true);
+    fetch(apiUrl, {
+      redirect: 'follow',
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && data.length) processStoreData(data);
+        else showError('Không tải được dữ liệu cửa hàng.');
+      })
+      .catch(function () {
+        showError('Không tải được dữ liệu cửa hàng. Vui lòng thử lại sau.');
+      });
+  }
+
+  function cacheDom() {
+    el.province = document.getElementById('provinceSelect');
+    el.district = document.getElementById('districtSelect');
+    el.searchBtn = document.getElementById('searchStoreBtn');
+    el.storeList = document.getElementById('storeList');
+    el.loading = document.getElementById('storeLoading');
+    el.mapIframe = document.getElementById('mapIframe');
+    el.dataBackup = document.querySelector('.datahung_store');
+    el.districtBackup = document.querySelector('.datahungquanhuyen_store');
+  }
+
+  function init() {
+    cacheDom();
+    if (!el.storeList) return;
+
+    if (!apiUrl) {
+      showError('Chưa cấu hình API URL. Vui lòng nhập "Google Apps Script URL" trong phần Cấu hình Trang hệ thống cửa hàng.');
+      return;
+    }
+
+    deepLinkSlug = getQueryParam('store');
+    loadStoreData();
+    bindEvents();
+  }
+
+  return { init: init };
+})();
+
+document.addEventListener('DOMContentLoaded', function () {
+  StoreLocator.init();
+});

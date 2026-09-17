@@ -1,0 +1,17 @@
+{%- if collection.description.size > 0 -%}
+{%- if h5_content_below.size > 0 -%}
+{%- include 'shortcode' load: h5_content_below -%}
+{%- else -%}
+<div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 order-1 order-sm-1 order-md-1 order-lg-2 mb-lg-0 mb-3">
+	<a href="{{ settings.collection_banner_url_1 }}" class="collection-header-image" title="{{ settings.collection_banner_alt_1 }}">
+		<img width="{{ settings.collection_banner_width }}" height="{{ settings.collection_banner_height }}" src="{{ 'collection_banner_1.jpg' | asset_url }}" alt="{{ settings.collection_banner_alt_1 }}" class="img-fluid rounded-4" loading="lazy" >
+	</a>
+</div>
+{%- endif -%}
+{%- else -%}
+<div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 order-1 order-sm-1 order-md-1 order-lg-2 mb-lg-0 mb-3">
+	<a href="{{ settings.collection_banner_url_1 }}" class="collection-header-image" title="{{ settings.collection_banner_alt_1 }}">
+		<img width="{{ settings.collection_banner_width }}" height="{{ settings.collection_banner_height }}" src="{{ 'collection_banner_1.jpg' | asset_url }}" alt="{{ settings.collection_banner_alt_1 }}" class="img-fluid rounded-4" loading="lazy" >
+	</a>
+</div>
+{%- endif -%}

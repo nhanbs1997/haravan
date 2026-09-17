@@ -1,0 +1,46 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+<link rel="preload" as="script" href="{{ 'option_selection.js' | haravan_asset_url }}" />
+{{ 'option_selection.js' | haravan_asset_url | script_tag }}
+<script type="text/javascript" src="{{ 'api.jquery.js' | haravan_asset_url }}"></script>
+<link rel="preload" as="script" href="{{ 'wolf-main.js' | asset_url }}" >
+{{ 'wolf-main.js' | asset_url | script_tag | remove: 'type="text/javascript"'}}
+{%- if template contains 'article' -%}
+{%- if settings.article_slider_enable -%}
+<link rel="preload" as="script" href="{{ 'wolf-article.js' | asset_url }}" >
+{{ 'wolf-article.js' | asset_url | script_tag | remove: 'type="text/javascript"'}}
+{%- endif -%}
+{%- endif -%}
+{%- if template contains 'index' -%}
+<link rel="preload" as="script" href="{{ 'wolf-index.js' | asset_url }}" >
+{{ 'wolf-index.js' | asset_url | script_tag | remove: 'type="text/javascript"'}}
+{%- endif -%}
+{%- unless template contains 'lookbook' -%}
+{%- if template contains 'collection' -%}
+<link rel="preload" as="script" href="{{ 'wolf-collection.js' | asset_url }}" >
+{{ 'wolf-collection.js' | asset_url | script_tag | remove: 'type="text/javascript"'}}
+{%- endif -%}
+{%- endunless -%}
+{%- if template contains 'product'  -%}
+<link rel="preload" as="script" href="{{ 'picbox.js' | asset_url }}" >
+{{ 'picbox.js' | asset_url | script_tag | remove: 'type="text/javascript"'}}
+{%- endif -%}
+{%- if template contains 'cart' -%}
+{%- include 'wolf-cart-page' -%}
+{%- else -%}
+{%- include 'wolf-slide-cart' -%}
+{%- endif -%}
+{%- if template contains 'product'  -%}
+{%- include 'wolf-fbt-logic' -%}
+{%- endif -%}
+{%- if settings.iwish_enable -%}
+{%- include 'wolf-wishlist' -%}
+{%- endif -%}
+{%- if template contains 'cart' -%}
+<link rel="preload" as="script" href="{{ 'sweetalert-min.js' | asset_url }}" >
+{{ 'sweetalert-min.js' | asset_url | script_tag }}
+{%- endif -%}
+{%- if settings.quickview_enable -%}			
+{%- include 'quickview-template' -%}
+<link rel="preload" as="script" href="{{ 'quickview.js' | asset_url }}" >
+<script defer src="{{ 'quickview.js' | asset_url }}"></script>
+{%- endif -%}

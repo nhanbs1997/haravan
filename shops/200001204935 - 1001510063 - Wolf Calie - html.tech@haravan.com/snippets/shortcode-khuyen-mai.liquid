@@ -1,0 +1,28 @@
+{%- capture productdanhmuc -%}{%- include 'shortcode-render' render:'danhmuc' -%}{%- endcapture -%}
+{%- capture productlimit -%}{%- include 'shortcode-render' render:'limit' -%}{%- endcapture -%}
+{%- capture producttitle -%}{%- include 'shortcode-render' render:'title' -%}{%- endcapture -%}
+{%- assign productalias = productdanhmuc | handle -%}
+<div class="wolf-collections-sales mb-4 mt-4 rounded-4 position-relative"> 
+	<h4 class="wolf-products-block-product-title d-flex justify-content-center position-absolute mb-0">
+		<a class="position-relative rounded-bottom-3 text-uppercase" href="{{ productalias | prepend: '/' }}" title="{{ producttitle }}">{{ producttitle }}</a>
+	</h4>
+	<div class="block-product-sale p-2 pt-5">
+		{%- assign count = collections[productalias].products_count -%}
+		{%- if count > 0 -%}
+		<div class="swiper wolf-slider-nav wolf-sale-swiper">
+			<div class="swiper-wrapper">
+				{%- for product in collections[productalias].products limit: productlimit -%}
+				<div class="swiper-slide">
+					{%- include 'wolf-product-grid' -%}
+				</div>
+				{%- endfor -%}
+			</div>
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-pagination"></div>
+		</div>
+		{%- else -%}
+		<div class="alert alert-danger" role="alert">Danh mục <strong>{{ producttitle }}</strong> đang cập nhật sản phẩm.</div>
+		{%- endif -%}
+	</div>
+</div>

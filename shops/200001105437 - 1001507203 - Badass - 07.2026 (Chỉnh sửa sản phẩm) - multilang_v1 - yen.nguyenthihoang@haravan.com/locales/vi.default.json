@@ -1,0 +1,38 @@
+{
+  "general": {
+    "search": "Tìm kiếm",
+    "cart": "Giỏ hàng",
+    "account": "Tài khoản",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "logout": "Đăng xuất",
+    "add_to_cart": "Thêm vào giỏ",
+    "buy_now": "Mua ngay",
+    "sold_out": "Hết hàng",
+    "view_more": "Xem thêm",
+    "close": "Đóng"
+  },
+  "product": {
+    "price": "Giá",
+    "quantity": "Số lượng",
+    "description": "Mô tả",
+    "vendor": "Thương hiệu",
+    "type": "Loại",
+    "sku": "SKU"
+  },
+  "cart": {
+    "title": "Giỏ hàng của bạn",
+    "empty": "Chưa có sản phẩm nào trong giỏ hàng",
+    "subtotal": "Tạm tính",
+    "total": "Tổng tiền",
+    "checkout": "Thanh toán",
+    "continue_shopping": "Tiếp tục mua sắm"
+  },
+  "customer": {
+    "login_title": "Đăng nhập",
+    "register_title": "Tạo tài khoản",
+    "account_title": "Tài khoản",
+    "orders_title": "Đơn hàng",
+    "addresses_title": "Sổ địa chỉ"
+  }
+}

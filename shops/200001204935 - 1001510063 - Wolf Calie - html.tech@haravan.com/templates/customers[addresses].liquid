@@ -1,0 +1,461 @@
+{%- include 'breadcrumb' -%}
+<section class="wolf-customer-account mt-5 mb-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12">
+				<div class="wolf-block-account-function mb-3">
+					<h5 class="title-account">Trang tài khoản</h5>
+					<p class="wolf-hi-account">Xin chào, <span>{{ customer.name }}</span> !</p>
+					<ul class="list-group">
+						<li class="list-group-item"><a class="title-info" title="Thông tin tài khoản" href="/account/">Thông tin tài khoản</a></li>
+						{%- if settings.iwish_enable -%}
+						<li class="list-group-item"><a class="title-info" href="{{ pages[settings.wishlist_page].url }}" title="Danh sách yêu thích">Danh sách yêu thích (<span class="js-wishlist-count">0</span>)</a></li>
+						{%- endif -%}
+						<li class="list-group-item"><a class="title-info active" href="javascript:void(0);" title="Sổ địa chỉ ({{ customer.addresses_count }})">Sổ địa chỉ ({{ customer.addresses_count }})</a></li>
+						<li class="list-group-item"><a class="title-info" href="/account/logout" title="Đăng xuất">Đăng xuất</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-xxl-9 col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12">
+				<div class="wolf-order-details-heading d-flex flex-column flex-sm-row align-items-center mb-3 pb-3 border-bottom">
+					<h1 class="title-head h4 mb-2 me-sm-auto">Địa chỉ của bạn</h1>
+					<button class="btn-edit-addr btn btn-primary btn-more" type="button" onclick="Haravan.CustomerAddress.toggleNewForm(); return false;">Thêm địa chỉ</button>
+				</div>
+				<div id="add_address" class="form-list modal_address modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Thêm địa chỉ mới</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+							</div>
+							<div class="modal-body">
+								{%- form 'customer_address', customer.new_address -%}
+								<div class="form_address row dark-mode-form">
+									<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+										<div class="form-floating mb-3">
+											<input type="text" name="address[first_name]" class="form-control" data-validation-error-msg="Không được để trống" required data-validation="required" value="{{form.first_name}}" autocapitalize="words">
+											<label for="floatingFirstName">Họ<span class="required">*</span></label>
+										</div>
+									</div>
+                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+										<div class="form-floating mb-3">
+											<input type="text" name="address[last_name]" class="form-control" data-validation-error-msg="Không được để trống" required data-validation="required" value="{{form.last_name}}" autocapitalize="words">
+											<label for="floatingLastName">Tên<span class="required">*</span></label>
+										</div>
+									</div>
+									<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+										<div class="form-floating mb-3">
+											<input type="number" class="form-control" id="Phone" pattern="\d+" name="address[phone]" required maxlength="12" value="{{form.phone}}">
+											<label for="floatingPhone">Số điện thoại<span class="required">*</span></label>
+										</div>
+									</div>
+									<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control" name="address[company]" value="{{form.company}}" >
+											<label for="floatingCompany">Công ty</label>
+										</div>
+									</div>
+									<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="form-floating mb-3">
+											<select name="address[country]" class="form-control" id="address_country_new" required data-default="{{form.country | default: 'Vietnam'}}" >{{ country_option_tags }}</select>
+											<label for="floatingCountry">Quốc gia</label>
+										</div>
+									</div>
+									<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="form-floating mb-3" id="address_province_container_new" style="display:none">
+											<select name="address[province]" value="{{form.province}}" class="form-control add" required id="address_province_new" data-default="{{ form.province }}"></select>
+											<label for="floatingProvince">Tỉnh thành<span class="required">*</span></label>
+										</div>
+									</div>
+									<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control" required name="address[address1]" value="{{form.address1}}" >
+											<label for="floatingAddress1">Địa chỉ 1<span class="required">*</span></label>
+										</div>
+									</div>
+                  <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control" name="address[address2]" value="{{form.address2}}" >
+											<label for="floatingAddress2">Địa chỉ 2</label>
+										</div>
+									</div>
+									<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+										<div class="form-floating mb-3">
+											<input type="text" class="form-control" name="address[zip]" value="{{form.zip}}" >
+											<label for="floatingZip">Mã Zip</label>
+										</div>
+									</div>
+								</div>
+								<div class="form-check mb-2">
+									{{ form.set_as_default_checkbox }}
+									<label class="form-check-label" for="address_default_address_{{form.id}}">Đặt là địa chỉ mặc định?</label>
+								</div>
+								<div class="modal-footer">
+									<button class="btn article-readmore btn-secondary" data-bs-dismiss="modal" aria-label="Đóng" type="button"  onclick="Haravan.CustomerAddress.toggleNewForm(); return false;">Hủy</button>
+									<button class="btn btn-primary btn-submit" id="addnew" type="submit">Thêm địa chỉ</button>	
+								</div>
+								{%- endform -%}
+							</div>
+						</div>
+					</div>
+				</div>
+				{%- paginate customer.addresses by 3 -%}
+				<div class="row total_address">
+					{%- for address in customer.addresses -%}
+					<div id="view_address_{{address.id}}" class="customer_address col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+						<div class="address_info">
+							<div class="address-group">
+								<div class="address form-signup">
+									<p class="wolf-default-name">
+										<strong>Họ tên: </strong>{{address.last_name }} {{ address.first_name }}
+										{%- if address.id == customer.default_address.id -%}
+										<span class="address-default badge text-bg-primary">Mặc định</span>
+										{%- endif -%}
+									</p>
+									<p>
+										<strong>Địa chỉ: </strong>
+										{%- if address.address1 != null and address.address1 != "" -%}
+										{{address.address1}},
+										{%- endif -%}
+										{%- if address.ward != null and address.ward != "" -%}
+										{{ address.ward}},
+										{%- endif -%}
+										{%- if address.district != null and address.district != "" -%}
+										{{ address.district }},
+										{%- endif -%}
+										{%- if address.province != null and address.province != "" -%}
+										{{ address.province}},
+										{%- endif -%}
+										{%- if address.country != null and address.country != "" -%}
+										{{ address.country }}
+										{%- endif -%}
+									</p>
+									{%- if address.phone != null and  address.phone != "" -%}
+									<p><strong>Số điện thoại:</strong> <a href="tel:{{ address.phone }}" title="Điện thoại: {{ address.phone }}">{{ address.phone }}</a></p>
+									{%- endif -%}
+									{%- if address.company != null and address.company != "" -%}
+									<p><strong>Công ty:</strong> {{ address.company }}</p>
+									{%- endif -%}
+								</div>
+							</div>
+							<div id="tool_address_{{address.id}}" class="btn-address">
+								<p class="btn-row">
+									<button class="btn-edit-addr btn btn-success btn-edit" type="button" data-bs-toggle="modal" data-bs-target="#edit_address_{{address.id}}">Sửa Địa Chỉ</button>
+									<button class="{% if address.id == customer.default_address.id %}d-none {% endif %}btn btn-dark-address btn-edit-addr btn-delete btn btn-danger" type="button" onclick="Haravan.CustomerAddress.destroy({{address.id}});return false">Xóa Địa Chỉ</button>
+								</p>
+							</div>
+						</div>
+					</div>
+					{%- endfor -%}
+					{%- for address in customer.addresses -%}
+					<div id="edit_address_{{address.id}}" class="form-list modal_address modal modal_edit_address modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Chỉnh sửa địa chỉ</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								{%- form 'customer_address', address -%}
+								<div class="modal-body dark-mode-form">
+									<div class="form_address row">
+										<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+											<div class="form-floating mb-3">
+												<input type="text" name="address[last_name]" class="form-control" required value="{{ form.last_name }}" autocapitalize="words">
+												<label>Họ<span class="required">*</span></label>
+											</div>
+										</div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+											<div class="form-floating mb-3">
+												<input type="text" name="address[first_name]" class="form-control" required value="{{ form.first_name }}" autocapitalize="words">
+												<label>Tên<span class="required">*</span></label>
+											</div>
+										</div>
+										<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+											<div class="form-floating mb-3">
+												<input type="number"  pattern="\d+" class="form-control" required id="Phone" name="address[phone]" maxlength="12" value="{{form.phone}}">
+												<label for="floatingPhone">Số điện thoại<span class="required">*</span></label>
+											</div>	
+										</div>
+										<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control" name="address[company]" value="{{form.company}}" >
+												<label for="floatingCompany">Công ty</label>
+											</div>
+										</div>
+										<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+											<div class="form-floating mb-3">
+												<select name="address[country]" class="form-control" required id="address_country_{{ form.id }}" data-default="{{form.country}}" >{{form.country}}{{ country_option_tags }}</select>
+												<label for="floatingCountry">Quốc gia</label>
+											</div>
+										</div>
+										<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+											<div class="form-floating mb-3" id="address_province_container_{{ address.id }}" style="display:none">
+												<select name="address[province]" value="{{form.province}}" required data-default="{{form.province}}" class="form-control add province myselect" id="mySelect3_{{address.id}}"  data-address-type="province" data-address-zone="{{address.id}}" data-select2-id="select2-data-billingProvince"></select>
+												<label for="floatingProvince">Tỉnh thành<span class="required">*</span></label>
+											</div>
+										</div>
+										<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control" required name="address[address1]" value="{{form.address1}}" >
+												<label for="floatingAddress1">Địa chỉ 1<span class="required">*</span></label>
+											</div>
+										</div>
+                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control" name="address[address2]" value="{{form.address2}}" >
+												<label for="floatingAddress2">Địa chỉ 2</label>
+											</div>
+										</div>
+										<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control" name="address[zip]" value="{{form.zip}}" >
+												<label for="floatingZip">Mã Zip</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-check mb-2{% if address.id == customer.default_address.id %} d-none{% endif %}">
+										{{ form.set_as_default_checkbox }}
+										<label class="form-check-label" for="checkeditaddress{{address.id}}">Đặt là địa chỉ mặc định?</label>
+									</div>	
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-dark-address btn-fix-addr btn-secondary" data-bs-dismiss="modal" aria-label="Đóng" type="button" data-form="edit_address_{{address.id}}">Hủy</button>
+									<button class="btn btn-primary btn-submit" id="update">Cập nhật</button>												
+								</div>
+								{%- endform -%}
+							</div>
+						</div>
+					</div>
+					{%- endfor -%}
+				</div> 
+				{%- if paginate.pages > 1 -%} 
+				<div class="paginate-pages d-flex justify-content-center">
+					{%- include 'paginate-pages' -%} 
+				</div>
+				{%- endif -%}
+				{%- endpaginate -%}
+			</div>
+		</div>
+	</div>
+</section>
+<!--yeu cau su dung jquery 3. trở lên-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+	//Page address
+	new Haravan.CountryProvinceSelector('address_country_new', 'address_province_new', {hideElement: 'address_province_container_new'});  
+	{% for address in customer.addresses %}
+	new Haravan.CountryProvinceSelector('address_country_{{address.id}}', 'address_province_{{address.id}}', {hideElement: 'address_province_container_{{address.id}}'});
+	{% endfor %}
+							   $(document).ready(function() {
+		var elements = $("input, select, textarea");
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].oninvalid = function(e) {
+				e.target.setCustomValidity("");
+				if (!e.target.validity.valid) {
+					e.target.setCustomValidity(e.target.getAttribute("requiredmsg"));
+				}
+			};
+			elements[i].oninput = function(e) {
+				e.target.setCustomValidity("");
+			};
+		}
+		$('.mySelect2').each(function(){
+			var old = $(this).attr('data-default');			  
+			$(this).val(old);
+			$(this).change();
+		})
+		$('.btn-close').on('click', function(e){
+			e.preventDefault();
+			$('html').removeClass('no-scroll');
+			$('.not-vn').removeClass('hidden');
+			Address.bind().refresh();
+			$('.mySelect2').each(function(){
+				var old = $(this).attr('data-default');			  
+				$(this).val(old);
+				$(this).change();
+			})
+			setTimeout( function() {
+				$('input').prop('selected', false);
+			}, 500)
+			$('.form-group input').each(function(){
+				if($(this).val() != ""){
+					$(this).addClass("has-content");
+				}else{
+					$(this).removeClass("has-content");
+				}
+			})
+		});
+		$('.btn-fix-addr').click(function(e){
+			$(this).parents('.collapse').removeClass('in').hide();
+		})
+	})
+	$('fieldset').click(function(){
+		$(this).find('input').focus();
+	});
+	$(document).on('click', '.btn-more', function (e) {
+		e.preventDefault();
+
+		// Mở modal Bootstrap
+		const modal = new bootstrap.Modal(document.getElementById('add_address'));
+		modal.show();
+
+		// Khóa scroll nền
+		$('html').addClass('no-scroll');
+
+		// Reset lại các select2 về mặc định
+		$('.mySelect2').each(function () {
+			var old = $(this).attr('data-default');
+			$(this).val(old).trigger('change');
+		});
+
+		// Kiểm tra quốc gia
+		if ($("#customer_address select[name='Country'] option:selected").val() !== 'Vietnam') {
+			$('.not-vn').addClass('hidden');
+		} else {
+			$('.not-vn').removeClass('hidden');
+		}
+
+		// Gọi các hàm liên quan
+		Address.bind().refresh();
+
+		// Kiểm tra input có dữ liệu => thêm class
+		$('.form-group input').each(function () {
+			if ($(this).val() !== "") {
+				$(this).addClass("has-content");
+			} else {
+				$(this).removeClass("has-content");
+			}
+		});
+	});
+	if ($( window ).width() > 768) {
+		$(function(){
+			setInterval(function() {
+				if($('.modal_address').find("select[name='Country'] option:selected").val() != 'Vietnam') {
+					if ($(".modal_address input[name='FullName']").val() === '') {
+						if ($('.help-block.form-error').length) {
+							//$('.modal_address').css("height","515px");
+						}else {
+							//$('.modal_address').css("height","495px");
+						}
+					}else {
+						//$('.modal_address').css("height","495px");
+					}
+				} else if ($('.modal_address').find("select[name='Country'] option:selected").val() === 'Vietnam') {
+					if ($(".modal_address input[name='FullName']").val() !== '') {
+						//$('.modal_address').css("height","545px");
+					}else {
+						if ($('.help-block.form-error').length) {
+							//$('.modal_address').css("height","575px");
+						}else {
+							//$('.modal_address').css("height","545px");
+						}
+					}
+				}else {
+					$('.modal_address').css("height","545px");
+				}
+				if($('.modal_edit_address').find("select[name='Country'] option:selected").val() != 'Vietnam') {
+					if ($(".modal_edit_address input[name='FullName']").val() === '') {
+						if ($('.help-block.form-error').length) {
+							//$('.modal_edit_address').css("height","515px");
+						}else {
+							//$('.modal_edit_address').css("height","495px");
+						}
+					}else {
+						//$('.modal_edit_address').css("height","495px");
+					}
+				} else if ($('.modal_edit_address').find("select[name='Country'] option:selected").val() === 'Vietnam') {
+					if ($(".modal_edit_address input[name='FullName']").val() !== '') {
+						//$('.modal_edit_address').css("height","545px");
+					}else {
+						if ($('.help-block.form-error').length) {
+							//$('.modal_edit_address').css("height","575px");
+						}else {
+							//$('.modal_edit_address').css("height","545px");
+						}
+					}
+				}else {
+					//$('.modal_edit_address').css("height","545px");
+				}
+
+			}, 500);
+		})
+	}
+	$(function(){    
+		$("select[name='Country']").change(function(){
+			if( $(this).val() != 'Vietnam'){
+				$('.not-vn').addClass('hidden');
+			}else {
+				$('.not-vn').removeClass('hidden');
+			}
+		}); 
+	});
+	$(document).on('click', '.btn-edit', function(e) {
+		$('.op_address').toggleClass('opened');
+		var ctr = $(this).attr('aria-controls');			
+		$('#'+ctr).show();
+		$('html').toggleClass('no-scroll');
+		Address.bind().refresh();
+		var idform = $(this).data('form');
+		$('.mySelect2').each(function(){
+			var old = $(this).attr('data-default');			  
+			$(this).val(old);
+			$(this).change();
+		})
+		if( $('#'+idform).find("select[name='Country']").data('default') != 'Vietnam'){
+			$('.not-vn').addClass('hidden');
+		}else {
+			$('.not-vn').removeClass('hidden');
+		}
+		$('#'+idform).each(function() {
+			var thisform = $(this);
+			$(thisform).find('.province').each(function(){
+				if($(thisform).find('.province').data('default') != ""){
+					$(thisform).find('.province').addClass("has-content");
+				}else{
+					$(thisform).find('.province').removeClass("has-content");
+				}
+			})
+			$(thisform).find('.district').each(function(){
+				if($(thisform).find('.district').data('default') != ""){
+					$(thisform).find('.district').addClass("has-content");
+				}else{
+					$(thisform).find('.district').removeClass("has-content");
+				}
+			})
+			$(thisform).find('.ward').each(function(){
+				if($(thisform).find('.ward').data('default') != ""){
+					$(thisform).find('.ward').addClass("has-content");
+				}else{
+					$(thisform).find('.ward').removeClass("has-content");
+				}
+			})
+		});
+	});
+	$(window).load(function(){
+		setTimeout(function(){
+			$('.form-group input').each(function(){
+				if($(this).val() != ""){
+					$(this).addClass("has-content");
+				}else{
+					$(this).removeClass("has-content");
+				}
+			})
+			$('.form-group select').each(function(){
+				$('.form-group .add').val("Vietnam");
+				if($(this).val() != ""){
+					$(this).addClass("has-content");
+				}else{
+					$(this).removeClass("has-content");
+				}
+			})
+			$(".form-group input,.form-group select").focusout(function(){
+				if($(this).val() != ""){
+					$(this).addClass("has-content");
+				}else{
+					$(this).removeClass("has-content");
+				}
+			})
+		},500);
+		return false;
+	});
+</script>

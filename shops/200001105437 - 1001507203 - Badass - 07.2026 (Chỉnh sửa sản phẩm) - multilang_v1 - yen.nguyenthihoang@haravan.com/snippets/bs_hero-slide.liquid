@@ -1,0 +1,120 @@
+{% comment %}haravan-audit:v2{% endcomment %}
+{% if settings.bs_hero_show %}
+<link rel="preload stylesheet" href="{{ 'bs_hero-slide.scss.css' | asset_url }}" as="style">
+
+{%- assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+{%- assign _total = 1 -%}
+{%- for i in (2..6) -%}
+  {%- capture _show_k %}bs_hero_show_{{ i }}{% endcapture -%}
+  {%- if settings[_show_k] -%}{%- assign _total = _total | plus: 1 -%}{%- endif -%}
+{%- endfor -%}
+{%- assign _total_pad = _total | prepend: '0' | slice: -2, 2 -%}
+
+<section class="bs_hero-slide" data-filename="bs_hero-slide" id="heroSlider"
+  data-autoplay="{{ settings.bs_hero_autoplay | default: '5000' }}"
+  data-autoplay-enabled="{{ settings.bs_hero_autoplay_enable }}"
+  data-total="{{ _total }}">
+  <div class="bs_hero-slide__track" id="heroSliderTrack">
+
+    {% for i in (1..6) %}
+      {% capture show_key %}bs_hero_show_{{ i }}{% endcapture %}
+      {% capture img_desk %}bs_hero_imgdesk_{{ i }}{% endcapture %}
+      {% capture img_mb %}bs_hero_imgmb_{{ i }}{% endcapture %}
+      {% capture link_key %}bs_hero_link_{{ i }}{% endcapture %}
+      {% capture show_btn_title %}bs_hero_showbtntitle_{{ i }}{% endcapture %}
+      {% capture title_key %}bs_hero_title_{{ i }}{% endcapture %}
+      {% capture show_btn_key %}bs_hero_btn_{{ i }}_show{% endcapture %}
+      {% capture btn_key %}bs_hero_btn_{{ i }}{% endcapture %}
+      {% capture alt_key %}bs_hero_alt_{{ i }}{% endcapture %}
+
+      {% if i == 1 or settings[show_key] %}
+      {%- capture video_key %}bs_hero_video_{{ i }}{% endcapture -%}
+      {%- assign _has_video = false -%}
+      {%- unless settings[video_key] == blank -%}{%- assign _has_video = true -%}{%- endunless -%}
+      <div class="bs_hero-slide__slide" data-index="{{ i }}">
+
+        {%- if _has_video -%}
+        <div class="bs_hero-slide__picture">
+          <video
+            class="bs_hero-slide__video"
+            src="{{ settings[video_key] }}"
+            autoplay muted loop playsinline
+            preload="{% if i == 1 %}auto{% else %}none{% endif %}"
+            aria-hidden="true"></video>
+        </div>
+        {%- else -%}
+        {%- if settings[link_key] != blank -%}<a href="{{ settings[link_key] }}" class="bs_hero-slide__link">{%- endif -%}
+        <picture class="bs_hero-slide__picture">
+          {%- unless settings[img_mb] == blank -%}
+          <source media="(max-width: 767px)" srcset="{{ settings[img_mb] }}">
+          {%- endunless -%}
+          {% if i == 1 %}
+          <img src="{{ settings[img_desk] | default: _blank }}"
+            alt="{{ settings[alt_key] | default: shop.name | escape }}"
+            class="bs_hero-slide__img{% if settings[img_desk] == blank %} is-placeholder{% endif %}"
+            loading="eager" fetchpriority="high"
+            width="1600" height="900">
+          {% else %}
+          <img src="{{ _blank }}"
+            data-src="{{ settings[img_desk] }}"
+            alt="{{ settings[alt_key] | default: shop.name | escape }}"
+            class="bs_hero-slide__img lazyload"
+            loading="lazy" decoding="async"
+            width="1600" height="900">
+          {% endif %}
+        </picture>
+        {%- if settings[link_key] != blank -%}</a>{%- endif -%}
+        {%- endif -%}
+
+        <div class="bs_hero-slide__overlay" aria-hidden="true"></div>
+        {%- if settings[show_btn_title] -%}
+        <div class="bs_hero-slide__content">
+          <div class="container">
+            <div class="bs_hero-slide__content-inner">
+              <div class="bs_hero-slide__text-group">
+                {%- if i == 1 -%}
+                <h1 class="bs_hero-slide__title">{%- unless settings[title_key] == blank -%}{{ settings[title_key] | escape }}{%- else -%}NEW VIBE COLLECTION{%- endunless -%}</h1>
+                {%- else -%}
+                <h2 class="bs_hero-slide__title">{%- unless settings[title_key] == blank -%}{{ settings[title_key] | escape }}{%- else -%}NEW VIBE COLLECTION{%- endunless -%}</h2>
+                {%- endif -%}
+                {%- if settings[show_btn_key] -%}
+                <a href="{{ settings[link_key] | escape }}" class="bs_hero-slide__btn">
+                  {{ settings[btn_key] | default: 'Khám phá' | escape }}
+                </a>
+                {%- endif -%}
+              </div>
+
+              <div class="bs_hero-slide__counter" aria-label="Slide {{ i }} / {{ _total }}">
+                <p class="bs_hero-slide__counter-text">
+                  <span class="bs_hero-slide__counter-current">01</span><span class="bs_hero-slide__counter-sep"> / {{ _total_pad }}</span>
+                </p>
+                <div class="bs_hero-slide__progress" aria-hidden="true">
+                  <div class="bs_hero-slide__progress-track"></div>
+                  <div class="bs_hero-slide__progress-fill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {%- endif -%}
+      </div>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+
+  <button class="bs_hero-slide__nav bs_hero-slide__nav--prev" aria-label="Slide trước" id="heroSliderPrev">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M19 12H5M5 12l7 7M5 12l7-7"/>
+    </svg>
+  </button>
+  <button class="bs_hero-slide__nav bs_hero-slide__nav--next" aria-label="Slide tiếp theo" id="heroSliderNext">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M5 12h14M14 5l7 7-7 7"/>
+    </svg>
+  </button>
+
+</section>
+
+<script fetchpriority="low" defer src="{{ 'bs_hero-slide.js' | asset_url }}"></script>
+{% endif %}

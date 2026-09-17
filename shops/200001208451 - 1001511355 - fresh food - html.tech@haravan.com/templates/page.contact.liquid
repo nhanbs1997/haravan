@@ -1,0 +1,72 @@
+<div id="page">
+	<div class="col-md-12 col-xs-12" id="layout-page">
+
+		<span class="header-contact header-page clearfix">
+			<h1>{{ page.title }}</h1>
+		</span>
+
+		<div class="content-contact content-page">
+			{% if settings.show_google_maps and settings.google_maps_code != blank %}
+			<p class="text-center">
+				{{ settings.google_maps_code }}
+			</p>
+			{% endif %}
+
+			<div class="col-md-7 col-sm-12 col-xs-12 contactFormWrapper" id="col-left ">
+				<h3>Viết nhận xét</h3>
+				<hr class="line-left"/>
+				<p>
+					Nếu bạn có thắc mắc gì, có thể gửi yêu cầu cho chúng tôi, và chúng tôi sẽ liên lạc lại với bạn sớm nhất có thể .
+				</p>
+				{% form 'contact' %}
+				{% if form.posted_successfully? %}
+				<div class="alert alert-success">
+					Cám ơn bạn đã liên hệ! Chúng tôi sẽ trả lời ngay khi có thể
+				</div>
+				{% endif %}
+
+
+				<div class="form-group">
+					<label for="contactFormName" class="sr-only">Tên</label>
+					<input required type="text" id="contactFormName" class="form-control input-lg" name="contact[name]" placeholder="Tên của bạn" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+				</div>
+				<div class="form-group">
+					<label for="contactFormEmail" class="sr-only">Email</label>
+					<input required type="email" name="contact[email]" placeholder="Email của bạn" id="contactFormEmail" class="form-control input-lg" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+				</div>
+				<div class="form-group">
+					<label for="contactFormMessage" class="sr-only">Nội dung</label>
+					<textarea required rows="6" name="contact[body]" class="form-control" placeholder="Viết bình luận" id="contactFormMessage">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+				</div>
+
+				<input type="submit" class="btn btn-primary btn-lg btn-rb" value="Gửi liên hệ" />
+
+				{% endform %}
+
+			</div>
+
+			<div class="col-md-5 sm-12 col-xs-12 " id="col-right">
+				<h3>Chúng tôi ở đây</h3>
+				<hr class="line-right"/>
+				<h3 class="name-company">{{settings.footer_company}}</h3>
+				<p>	{{settings.footer_text}}	</p>
+				<ul class="info-address">
+					<li>
+						<i class="glyphicon glyphicon-map-marker"></i>
+						<span>{{settings.footer_address}}</span>
+					</li>
+					<li>
+						<i class="glyphicon glyphicon-envelope"></i>
+						<span>{{settings.footer_email}}</span>
+					</li>
+
+					<li>
+						<i class="glyphicon glyphicon-phone-alt"></i> 
+						<span>{{settings.footer_phone}}</span>
+					</li>
+
+				</ul>
+
+			</div>
+		</div>
+	</div>

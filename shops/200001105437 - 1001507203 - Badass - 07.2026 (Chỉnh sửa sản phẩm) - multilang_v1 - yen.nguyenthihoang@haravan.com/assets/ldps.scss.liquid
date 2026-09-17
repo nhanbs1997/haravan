@@ -1,0 +1,804 @@
+/* ============================================================
+   Landing Page — BADASS
+   Scope: .bs_ldp (template = page.landing)
+   Figma node: 40009444-83091
+   ============================================================ */
+
+.bs_ldp {
+  --ldp-primary: #0a6174;
+  --ldp-primary-dark: #003f4e;
+  --ldp-white: #fff;
+  --ldp-dark: #0a0a0a;
+  --ldp-text-sub: #6b7280;
+  --ldp-radius: 12px;
+}
+
+/* ══ 1. HERO SLIDE ══════════════════════════════════════════ */
+.bs_ldp__hero {
+  width: 100%;
+  overflow: hidden;
+}
+.bs_ldp__hero-slide {
+  width: 100%;
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+}
+
+/* ══ 2. COUNTDOWN + VOUCHERS ════════════════════════════════
+   Figma node: 40009444:83096
+   Background: gradient 0.35deg — bottom #fafafa → #e9fffe → #067284 → top #0a6174
+   ─────────────────────────────────────────────────────────── */
+
+/* Section wrapper */
+.ldp-promo {
+  background: linear-gradient(
+    0.35deg,
+    #fafafa 1.07%,
+    #e9fffe 15.75%,
+    #067284 46.19%,
+    #0a6174 98.93%
+  );
+  padding-bottom: 40px;
+}
+
+/* Inner: flex column, gap 24px — căn theo container chuẩn của theme
+   (max-width 1440px, padding 16px mobile / 80px desktop) để đồng bộ layout */
+.ldp-promo__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+@media (min-width: 992px) {
+  .ldp-promo__inner {
+    padding-left: var(--container-padding-desk);
+    padding-right: var(--container-padding-desk);
+  }
+}
+
+/* ── Countdown ─────────────────────────────────────────────── */
+/* Figma: pt-80px, text white, center. Padding ngang đã do .ldp-promo__inner lo */
+.ldp-promo__countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-top: 80px;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+}
+
+/* Title: Heading/H3 — font-heading 500, 36px/52px, -1px, uppercase */
+.ldp-promo__countdown-title {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 52px;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin: 0;
+  color: #fff;
+}
+
+/* Boxes row: gap 12px */
+.ldp-promo__cd-boxes {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Each box: rgba(0,63,78,0.75), bo 8px, min 76×50px, p-10px */
+.ldp-promo__cd-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 76px;
+  min-height: 50px;
+  padding: 10px;
+  background: rgba(0, 63, 78, 0.75);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Number: Title/LG/Bold — font-body 500, 24px/34px, -0.2px */
+.ldp-promo__cd-num {
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 34px;
+  letter-spacing: -0.2px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* Label: Badge/Badge2 — font-heading 400, 13px/13px, -0.1px */
+.ldp-promo__cd-label {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 13px;
+  letter-spacing: -0.1px;
+  color: #fff;
+  min-width: 100%;
+  text-align: center;
+}
+
+/* ── Voucher cards row ─────────────────────────────────────── */
+/* Figma: gap 12px, 4 cards flex-1 min-w-294px. Padding ngang do .ldp-promo__inner lo */
+.ldp-promo__vouchers {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ldp-promo__vouchers::-webkit-scrollbar { display: none; }
+
+/* ── Single voucher card ───────────────────────────────────── */
+/* Figma: flex row, flex-1, min-w-294px, bg white, bo 12px */
+.ldp-voucher {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 294px;
+  align-items: stretch;
+  background: #fff;
+  border-radius: 12px;
+  overflow: visible;
+  position: relative;
+}
+
+/* Left: icon area — bg white, bo trái 12px theo card.
+   Figma: block icon bị rotate-180 + scale-y nên pr-12 hiển thị thành pl-12;
+   icon 72×71 nằm trong vùng có padding đều ~12px. */
+.ldp-voucher__left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 12px;
+  background: #fff;
+  border-radius: 12px 0 0 12px;
+}
+
+/* Icon wrap: 72×71px */
+.ldp-voucher__icon-wrap {
+  width: 72px;
+  height: 71px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Divider: dashed vertical (đoạn giữa, chừa 2 đầu cho notch) + 2 notch tròn ăn vào background.
+   Figma: đường dashed cao ~122.834px / card 157px → chừa ~17px mỗi đầu. */
+.ldp-voucher__divider {
+  position: relative;
+  width: 1px;
+  align-self: stretch;
+  flex-shrink: 0;
+}
+.ldp-voucher__divider::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 17px;
+  bottom: 17px;
+  border-left: 1.5px dashed #d4d4d4;
+}
+
+/* Notch: hình tròn màu gradient của section, ăn vào 2 đầu divider (hiệu ứng tem vé) */
+.ldp-voucher__notch {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(
+    0.35deg,
+    #fafafa 1.07%,
+    #e9fffe 15.75%,
+    #067284 46.19%,
+    #0a6174 98.93%
+  );
+  z-index: 1;
+}
+/* Bug fix: notch bottom dùng màu teal thay vì transparent — khớp với gradient top section */
+.ldp-voucher__notch--top    { top: -10px; background: #0a6174; }
+.ldp-voucher__notch--bottom { bottom: -10px; background: #fafafa; }
+
+/* Right: content — flex col, gap 20px, py-12px pr-10px, pl ~15px (nửa block divider 30px) */
+.ldp-voucher__right {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 12px 10px 12px 15px;
+}
+
+/* Info group: gap 12px */
+.ldp-voucher__info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Title group: gap 1px */
+.ldp-voucher__title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* Voucher title: Title/LG/Bold — font-body 500, 24px/34px, -0.2px, primary */
+.ldp-voucher__title {
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 34px;
+  letter-spacing: -0.2px;
+  color: #0a6174;
+  margin: 0;
+  width: 100%;
+}
+
+/* Desc: Badge/Badge2 — font-heading 400, 13px/13px, -0.1px, dark */
+.ldp-voucher__desc {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 13px;
+  letter-spacing: -0.1px;
+  color: #0a0a0a;
+  margin: 0;
+  width: 100%;
+}
+
+/* Expiry: 11px, #6b7280 */
+.ldp-voucher__exp {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 13px;
+  letter-spacing: -0.1px;
+  color: #6b7280;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Copy button: Button/MD — font-heading 600, 14px, -0.1px, uppercase, pill */
+.ldp-voucher__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 32px;
+  background: #0a6174;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 14px;
+  letter-spacing: -0.1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+.ldp-voucher__btn:hover,
+.ldp-voucher__btn:focus-visible { background: #085566; }
+.ldp-voucher__btn:disabled { opacity: 0.7; cursor: default; }
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 991px) {
+  .ldp-promo__countdown { padding-top: 60px; }
+  .ldp-promo__countdown-title {
+    font-size: 26px;
+    line-height: 38px;
+    letter-spacing: -0.5px;
+    white-space: normal;
+  }
+}
+@media (max-width: 767px) {
+  .ldp-promo__countdown { padding-top: 40px; }
+  .ldp-promo__countdown-title {
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: -0.3px;
+  }
+  .ldp-promo__cd-boxes { gap: 8px; }
+  .ldp-promo__cd-box {
+    min-width: 56px;
+    min-height: 46px;
+    padding: 8px 6px;
+    border-radius: 6px;
+  }
+  .ldp-promo__cd-num { font-size: 20px; line-height: 28px; }
+  .ldp-promo__cd-label { font-size: 11px; }
+  .ldp-promo__vouchers { gap: 8px; padding-bottom: 4px; }
+  .ldp-voucher { min-width: 240px; }
+  .ldp-voucher__title { font-size: 18px; line-height: 26px; }
+  .ldp-voucher__left { padding: 8px 10px; }
+  .ldp-voucher__icon-wrap { width: 56px; height: 56px; }
+  .ldp-voucher__icon-wrap svg { width: 56px; height: 56px; }
+  .ldp-voucher__right { padding: 10px 8px 10px 12px; gap: 12px; }
+  .ldp-voucher__btn { padding: 8px 20px; font-size: 12px; min-height: 36px; }
+}
+
+/* ══ 3. PRODUCT SECTIONS (shared) ═══════════════════════════ */
+.bs_ldp__section { padding: 32px 0; }
+@media (min-width: 768px) { .bs_ldp__section { padding: 48px 0; } }
+@media (min-width: 992px) { .bs_ldp__section { padding: 60px 0; } }
+
+/* Dùng .container chuẩn của theme (định nghĩa trong general.scss) — không tự định nghĩa riêng */
+
+/* Nav arrows (shared) */
+.bs_ldp__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ldp-white);
+  border: 1px solid #e5e5e5;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.15s, border-color 0.15s;
+  color: var(--ldp-dark);
+}
+.bs_ldp__nav:hover { background: var(--ldp-primary); color: var(--ldp-white); border-color: var(--ldp-primary); }
+.bs_ldp__nav--prev { left: -18px; }
+.bs_ldp__nav--next { right: -18px; }
+@media (max-width: 767px) {
+  .bs_ldp__nav--prev { left: 4px; }
+  .bs_ldp__nav--next { right: 4px; }
+}
+
+/* "Xem tat ca" button */
+.bs_ldp__more {
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+}
+@media (min-width: 992px) { .bs_ldp__more { padding-top: 32px; } }
+/* Bug fix: hover state thực sự đổi màu sang dark */
+.bs_ldp__more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 32px;
+  border: 1px solid var(--ldp-primary);
+  border-radius: 100px;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: transparent;
+  color: var(--ldp-primary);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+@media (min-width: 768px) {
+  .bs_ldp__more-btn { min-height: 48px; padding: 12px 40px; font-size: 14px; }
+}
+.bs_ldp__more-btn:hover {
+  background: var(--ldp-primary);
+  color: var(--ldp-white);
+  border-color: var(--ldp-primary);
+}
+
+/* ── Section Type 1: Banner left + cards right ────────────── */
+/* Figma: container 1440px, hàng trên = banner 714px + gap 12px + 2 cards 714px */
+.bs_ldp__s1-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+@media (min-width: 992px) {
+  /* 50/50 split khớp Figma 714px + 714px trong 1440px */
+  .bs_ldp__s1-top { grid-template-columns: 1fr 1fr; }
+}
+
+/* Banner trái: h=627px */
+.bs_ldp__s1-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  /* Mobile: tỉ lệ 4:3 bằng padding-top hack */
+  padding-top: 75%;
+  height: 0;
+}
+.bs_ldp__s1-banner picture,
+.bs_ldp__s1-banner img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+@media (min-width: 992px) {
+  /* Desktop: bỏ padding hack, chiều cao cố định */
+  .bs_ldp__s1-banner {
+    padding-top: 0;
+    height: 100%;
+    min-height: 627px;
+  }
+}
+
+/* Overlay: title nằm ở y=443 trong banner h=627 → bottom ~184px */
+.bs_ldp__s1-banner-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 40%, transparent 70%);
+}
+
+/* Title overlay banner section 1 */
+.bs_ldp__s1-banner-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: -0.3px;
+  color: #fff;
+  margin: 0;
+  text-transform: uppercase;
+}
+@media (min-width: 768px) {
+  .bs_ldp__s1-banner-title { font-size: 28px; line-height: 40px; }
+}
+@media (min-width: 992px) {
+  .bs_ldp__s1-banner-title { font-size: 36px; line-height: 52px; letter-spacing: -1px; }
+}
+
+/* 2 cards phải: grid 2 cột, gap 12px, khớp Figma 351px + 12px + 351px */
+.bs_ldp__s1-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  align-content: start;
+}
+
+/* Hàng dưới: grid 4 cột cố định, gap 12px — khớp Figma 4 product cards */
+.bs_ldp__s1-bottom {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 768px) {
+  .bs_ldp__s1-bottom { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ── Section Type 2: Full banner + product slider ─────────── */
+/* Figma: banner 1600×533px full-bleed, slider x=80 w=1440 (container), nav arrows x=28/1508 */
+
+/* Banner section 2: full-width, responsive height */
+.bs_ldp__s2-banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* Mobile: tỉ lệ 16:7 ≈ padding-top 43.75% */
+  padding-top: 44%;
+  height: 0;
+  margin-bottom: 16px;
+}
+.bs_ldp__s2-banner picture,
+.bs_ldp__s2-banner img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+@media (min-width: 768px) {
+  /* Tablet: tỉ lệ 3:1 ≈ 33% */
+  .bs_ldp__s2-banner { padding-top: 33%; }
+}
+@media (min-width: 992px) {
+  /* Desktop: chiều cao cố định 533px theo Figma */
+  .bs_ldp__s2-banner { padding-top: 0; height: 533px; }
+}
+
+/* Overlay: title căn theo container, padding dọc 32px */
+.bs_ldp__s2-banner-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-top: 80px;
+  padding-bottom: 32px;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 40%, transparent 70%);
+}
+
+/* Title: Heading/H3 — font-heading 500, 36px/52px, -1px, uppercase, white */
+.bs_ldp__s2-title {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 34px;
+  letter-spacing: -0.5px;
+  color: #fff;
+  margin: 0;
+  text-transform: uppercase;
+}
+@media (min-width: 992px) {
+  .bs_ldp__s2-title {
+    font-size: 36px;
+    line-height: 52px;
+    letter-spacing: -1px;
+  }
+}
+
+/* Wrapper: position relative cho nav arrows (sibling), KHÔNG overflow hidden để arrows offset âm không bị cắt */
+.bs_ldp__s2-sliderwrap {
+  position: relative;
+}
+
+/* Slider: overflow hidden để clip slides */
+.bs_ldp__s2-slider {
+  overflow: hidden;
+  .swiper-wrapper { display: flex; }
+}
+@media (max-width: 767px) {
+  .bs_ldp__s2-sliderwrap .bs_ldp__nav { display: none; }
+}
+
+/* Nav arrows: Figma x=28 (left) / x=1508 (right) trong frame w=1544 bắt đầu từ x=28.
+   Container padding=80px → arrows lòi ra ngoài container ~52px.
+   Đặt là sibling của slider (trong sliderwrap) để không bị overflow:hidden cắt. */
+.bs_ldp__s2-sliderwrap .bs_ldp__nav--prev { left: -52px; }
+.bs_ldp__s2-sliderwrap .bs_ldp__nav--next { right: -52px; }
+@media (max-width: 1199px) {
+  .bs_ldp__s2-sliderwrap .bs_ldp__nav--prev { left: -20px; }
+  .bs_ldp__s2-sliderwrap .bs_ldp__nav--next { right: -20px; }
+}
+@media (max-width: 767px) {
+  .bs_ldp__s2-sliderwrap .bs_ldp__nav--prev { left: 4px; }
+  .bs_ldp__s2-sliderwrap .bs_ldp__nav--next { right: 4px; }
+}
+
+/* ── Section Type 3: Heading + banner left (351px) + slider right ─── */
+/* Figma: container x=80 w=1440, heading h=52, gap heading→content=32px */
+
+/* Heading: Heading/H3 — font-heading 500, 36px/52px, -1px, uppercase */
+.bs_ldp__s3-heading {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: -0.3px;
+  color: #0a0a0a;
+  margin: 0 0 20px;
+  text-transform: uppercase;
+}
+@media (min-width: 768px) {
+  .bs_ldp__s3-heading { font-size: 28px; line-height: 40px; letter-spacing: -0.7px; margin-bottom: 28px; }
+}
+@media (min-width: 992px) {
+  .bs_ldp__s3-heading { font-size: 36px; line-height: 52px; letter-spacing: -1px; margin-bottom: 32px; }
+}
+
+/* Wrap: banner 351px cố định + slider chiếm phần còn lại, gap=12px */
+.bs_ldp__s3-wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  min-width: 0;
+}
+@media (min-width: 992px) {
+  .bs_ldp__s3-wrap { grid-template-columns: 351px 1fr; align-items: start; }
+}
+
+/* Banner trái section 3: mobile padding-top = 120% (tỉ lệ thoải mái hơn 142%) */
+.bs_ldp__s3-banner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  padding-top: 120%;
+  height: 0;
+}
+.bs_ldp__s3-banner picture,
+.bs_ldp__s3-banner img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+@media (min-width: 992px) {
+  /* Desktop: bỏ padding hack, để banner fill chiều cao thực tế của slider */
+  .bs_ldp__s3-banner {
+    padding-top: 0;
+    height: 100%;
+    min-height: 400px;
+  }
+}
+
+/* Sliderwrap: position relative cho nav arrows */
+.bs_ldp__s3-sliderwrap {
+  position: relative;
+  min-width: 0;
+}
+
+/* Slider */
+.bs_ldp__s3-slider {
+  overflow: hidden;
+}
+.bs_ldp__s3-slider .swiper-wrapper { display: flex; }
+.bs_ldp__s3-slider .swiper-slide { height: auto; }
+
+@media (max-width: 767px) {
+  .bs_ldp__s3-sliderwrap .bs_ldp__nav { display: none; }
+}
+
+/* Nav arrows: Figma x=16.8 (left) / x=1017 (right) trong slider w=1077 → left/right 17px.
+   Đặt là sibling của slider (trong sliderwrap) để click không bị grabCursor nuốt. */
+.bs_ldp__s3-sliderwrap .bs_ldp__nav--prev { left: 17px; }
+.bs_ldp__s3-sliderwrap .bs_ldp__nav--next { right: 17px; }
+@media (max-width: 767px) {
+  .bs_ldp__s3-sliderwrap .bs_ldp__nav--prev { left: 4px; }
+  .bs_ldp__s3-sliderwrap .bs_ldp__nav--next { right: 4px; }
+}
+
+/* ══ ANIMATIONS ══════════════════════════════════════════════
+   1. Scroll Reveal      — sections/cards fade-in + slide-up
+   3. Voucher hover/ripple
+   4. Hero Parallax      — CSS containment (JS lo transform)
+   5. Product stagger    — delay tự động qua JS inline style
+   ─────────────────────────────────────────────────────────── */
+
+/* ── 1. Scroll Reveal ─────────────────────────────────────── */
+/* Trạng thái ban đầu: ẩn + dịch xuống 28px */
+.ldp-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  /* delay được gán inline bởi JS (stagger per element) */
+}
+
+/* Trạng thái đã reveal */
+.ldp-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section wrapper: fade-in không translateY (tránh double-shift với children) */
+.ldp-promo.ldp-reveal,
+.bs_ldp__section.ldp-reveal {
+  transform: none;
+}
+.ldp-promo.ldp-revealed,
+.bs_ldp__section.ldp-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Không reveal nếu người dùng tắt animation */
+@media (prefers-reduced-motion: reduce) {
+  .ldp-reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── 3. Voucher hover + ripple ────────────────────────────── */
+.ldp-voucher {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+.ldp-voucher:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(10, 97, 116, 0.16);
+}
+
+/* Ripple keyframe (tạo bởi JS) */
+@keyframes ldpRipple {
+  to { transform: scale(2.5); opacity: 0; }
+}
+
+/* ── 4. Hero Parallax ─────────────────────────────────────── */
+/* Containment để parallax không gây reflow toàn trang */
+#ldpHeroSlider {
+  overflow: hidden;
+  contain: layout;
+  will-change: transform;
+}
+#ldpHeroSlider .bs_hero-slide__track {
+  will-change: transform;
+  /* JS gán transform: translateY(Xpx) */
+}
+/* Tắt parallax ở mobile — JS cũng không chạy ở ≤767px */
+@media (max-width: 767px) {
+  #ldpHeroSlider .bs_hero-slide__track { transform: none !important; }
+}
+
+/* ── 5. Stagger (product cards) ───────────────────────────── */
+/* Cards trong .bs_ldp__s1-bottom và swiper slides:
+   opacity + slide ban đầu (trước reveal), delay qua JS inline style */
+.bs_ldp__s1-bottom .product-card,
+.bs_ldp__s2-slider .product-card,
+.bs_ldp__s3-slider .product-card {
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+/* ══ RESPONSIVE BSUNG ═══════════════════════════════════════ */
+
+/* ── Swipe hint cho slider mobile ── */
+.bs_ldp__swipe-hint {
+  display: none;
+}
+@media (max-width: 767px) {
+  .bs_ldp__swipe-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding-top: 10px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: #737373;
+  }
+  .bs_ldp__swipe-hint svg {
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+}
+
+/* ── Tablet (768–991px) tweaks ── */
+@media (min-width: 768px) and (max-width: 991px) {
+  /* Section 1 top: banner full-width rồi cards 2 cột bên dưới */
+  .bs_ldp__s1-top { grid-template-columns: 1fr; }
+
+  /* Section 3 wrap: banner full-width rồi slider */
+  .bs_ldp__s3-wrap { grid-template-columns: 1fr; }
+  .bs_ldp__s3-banner { padding-top: 50%; }
+
+  /* Nav arrows: không bị cắt ở tablet */
+  .bs_ldp__s2-sliderwrap .bs_ldp__nav--prev { left: -10px; }
+  .bs_ldp__s2-sliderwrap .bs_ldp__nav--next { right: -10px; }
+  .bs_ldp__s3-sliderwrap .bs_ldp__nav--prev { left: 4px; }
+  .bs_ldp__s3-sliderwrap .bs_ldp__nav--next { right: 4px; }
+}
+
+/* ── Container padding cho mobile ── */
+@media (max-width: 767px) {
+  .bs_ldp__s2-banner { margin-bottom: 12px; }
+  .bs_ldp__s1-top { gap: 8px; margin-bottom: 8px; }
+  .bs_ldp__s1-cards { gap: 8px;display: flex; }
+  .bs_ldp__s1-card{
+    flex: 0 0 calc(50% - 4px);
+    max-width: calc(50% - 4px);
+  }
+  .bs_ldp__s1-bottom { gap: 8px; }
+}

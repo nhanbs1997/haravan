@@ -1,0 +1,65 @@
+.wolf-scroll-mb{
+	@media(max-width: 767px){
+		display: flex;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+	}
+}
+.wolf-scroll-tab{
+	@media(max-width: 991px){
+		display: flex;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: auto;
+		&::-webkit-scrollbar {
+			-webkit-appearance: none;
+			width: 4px;
+			height: 4px;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: #828282;
+			background-clip: padding-box;
+		}
+		&::-webkit-scrollbar-track {
+			background-color: #e0e0e0;
+		}
+	}
+}
+.wolf-scroll-tab-not-mb{
+	@media(min-width: 768px) and (max-width: 991px){
+		display: flex;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: auto;
+		&::-webkit-scrollbar {
+			-webkit-appearance: none;
+			width: 4px;
+			height: 4px;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: #828282;
+			background-clip: padding-box;
+		}
+		&::-webkit-scrollbar-track {
+			background-color: #e0e0e0;
+		}
+	}
+}
+.lookbook-listimg{
+	.lookbook-listimg-img-item{
+		transition: all 0.2s ease-in-out;
+		img{
+			transition: all 0.2s ease-in-out;
+		}
+		&:hover{
+			transform: translateY(-3px);
+			img{
+			border-radius: 10px;
+			}
+		}
+	}
+}

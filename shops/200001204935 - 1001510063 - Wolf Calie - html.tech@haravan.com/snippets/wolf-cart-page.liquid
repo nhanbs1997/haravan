@@ -1,0 +1,320 @@
+<script>
+if (typeof jQuery === 'undefined') {
+    console.error('jQuery is not loaded. cart-page-logic.js.liquid requires jQuery.');
+}
+const ENABLE_FREE_GIFT = {{ settings.enable_free_gift }};
+const ENABLE_FREE_SHIPPING_PROGRESS = {{ settings.free_shipping_enable }};
+const FREE_SHIPPING_THRESHOLD_CART = {{ settings.free_shipping_price }} * 100;
+const GIFT_THRESHOLD_1M_CART = {{ settings.free_gift_limit_1 }} * 100;
+const GIFT_VARIANT_ID_1M_CART = {{ settings.free_gift_variant_1 }};
+const GIFT_THRESHOLD_1M5_CART = {{ settings.free_gift_limit_2 }} * 100;
+const GIFT_VARIANT_ID_1M5_CART = {{ settings.free_gift_variant_2 }};
+let isCartPageUpdating = false; 
+function formatMoneyHaravan(amount, format) {
+  return Haravan.formatMoney(amount, format || "{{ shop.money_format }}");
+}
+function isGiftItemCart(item) {
+	if (!ENABLE_FREE_GIFT) return false; 
+  	return item.variant_id === GIFT_VARIANT_ID_1M_CART || item.variant_id === GIFT_VARIANT_ID_1M5_CART;
+}
+function createCartItemHtml(item) {
+    const isGift = isGiftItemCart(item);
+    const variantTitleHtml = (item.variant_title && item.variant_title !== 'Default Title') 
+        ? `<p class="card-text text-muted small variant-title-color">${item.variant_title}</p>` 
+        : '';
+    return `
+        <div class="card cart-item-container ${isGift ? 'is-gift-item' : ''}" data-variant-id="${item.variant_id}">
+            <div class="card-body">
+                <div class="row align-items-center g-2">
+                    <div class="col-3 col-md-2">
+                        <img src="${Haravan.resizeImage(item.image, 'compact')}" alt="${item.product_title}" class="img-fluid rounded-4">
+                    </div>
+                    <div class="col-9 col-md-10">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h5 class="card-title mb-2 h5"><a href="${item.url}" title="${item.product_title}" class="text-decoration-none">${item.product_title}</a></h5>
+                                ${variantTitleHtml}
+                            </div>
+                            <button type="button" class="btn cart-item-remove-btn ${isGift ? 'd-none' : ''}" aria-label="Xóa sản phẩm" data-variant-id="${item.variant_id}"><svg width="20" height="20"><use xlink:href="#icon-trash" /></svg></button>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="cart-card-text">${isGift ? 'Quà tặng' : 'Giá:'}</div>
+                            <div class="item-price fw-bold">
+                                ${isGift ? 'Quà tặng' : formatMoneyHaravan(item.price)}
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2 wolf-item-qty ${isGift ? 'd-none' : ''}">
+                            <div class="cart-card-text">Số lượng:</div>
+                            ${isGift ? `
+                                <span class="item-gift-quantity fw-bold">1</span>
+                            ` : `
+                                <div class="input-group input-group-sm cart-item-quantity-controls" style="width: 120px;">
+                                    <button class="btn btn-outline-secondary quantity-minus" type="button" data-variant-id="${item.variant_id}">-</button>
+                                    <input type="number" class="form-control text-center quantity-input" value="${item.quantity}" min="1" data-variant-id="${item.variant_id}" name="updates[]">
+                                    <button class="btn btn-outline-secondary quantity-plus" type="button" data-variant-id="${item.variant_id}">+</button>
+                                </div>
+                            `}
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center wolf-item-sub-total ${isGift ? 'd-none' : ''}">
+                            <div class="cart-card-text">Tổng:</div>
+                            <div class="item-total-price fw-bold">
+                                ${isGift ? '0₫' : formatMoneyHaravan(item.line_price)}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+function manageGiftsCartPage(cart) {
+	if (!ENABLE_FREE_GIFT) {
+        // Nếu quà tặng bị tắt, kiểm tra và xóa bất kỳ quà tặng nào đang có trong giỏ
+        const giftItemsInCart = cart.items.filter(item => 
+            item.variant_id === GIFT_VARIANT_ID_1M_CART || 
+            item.variant_id === GIFT_VARIANT_ID_1M5_CART
+        );
+        
+        if (giftItemsInCart.length > 0) {
+            const removalPromises = giftItemsInCart.map(giftItem => {
+                return new Promise((resolve, reject) => {
+                    Haravan.changeItem(giftItem.variant_id, 0, resolve, reject);
+                });
+            });
+            return Promise.all(removalPromises).then(() => {
+                return new Promise((resolve) => Haravan.getCart(resolve));
+            });
+        }
+        return Promise.resolve(cart); // Trả về giỏ hàng hiện tại nếu không cần xóa
+    }
+    const currentTotalPrice = cart.total_price;
+    let giftToAdd = null;
+    let giftToRemove = null;
+    const hasGift1 = cart.items.some(item => item.variant_id === GIFT_VARIANT_ID_1M_CART);
+    const hasGift2 = cart.items.some(item => item.variant_id === GIFT_VARIANT_ID_1M5_CART);
+    if (currentTotalPrice >= GIFT_THRESHOLD_1M5_CART) {
+        if (!hasGift2) {
+            giftToAdd = GIFT_VARIANT_ID_1M5_CART;
+        }
+        if (hasGift1) {
+            giftToRemove = GIFT_VARIANT_ID_1M_CART;
+        }
+    } else if (currentTotalPrice >= GIFT_THRESHOLD_1M_CART) {
+        if (!hasGift1) {
+            giftToAdd = GIFT_VARIANT_ID_1M_CART;
+        }
+        if (hasGift2) {
+            giftToRemove = GIFT_VARIANT_ID_1M5_CART;
+        }
+    } else {
+        if (hasGift1) {
+            giftToRemove = GIFT_VARIANT_ID_1M_CART;
+        }
+        if (hasGift2) {
+            giftToRemove = GIFT_VARIANT_ID_1M5_CART;
+        }
+    }
+    const giftActions = [];
+    if (giftToRemove && cart.items.some(item => item.variant_id === giftToRemove && item.quantity > 0)) {
+        giftActions.push(new Promise((resolve, reject) => {
+            Haravan.changeItem(giftToRemove, 0, resolve, reject);
+        }));
+    }
+    if (giftToAdd && !cart.items.some(item => item.variant_id === giftToAdd && item.quantity > 0)) {
+        giftActions.push(new Promise((resolve, reject) => {
+            Haravan.addItem(giftToAdd, 1, resolve, reject);
+        }));
+    }
+    return Promise.all(giftActions)
+        .then(() => {
+            return new Promise((resolve) => {
+                Haravan.getCart(resolve);
+            });
+        })
+        .catch(error => {
+            return new Promise((resolve) => {
+                Haravan.getCart(resolve);
+            });
+        });
+}
+function toggleCartDisplay(itemCount) {
+    if (itemCount === 0) {
+        $('.cart-form-wrapper').hide();
+        $('.empty-cart-message-container').show();
+    } else {
+        $('.cart-form-wrapper').show();
+        $('.empty-cart-message-container').hide();
+    }
+}
+function updateCartPageUI(cart) {
+    $('#cart-total-price-desktop').text(formatMoneyHaravan(cart.total_price));
+    $('.cart-item-count').text(cart.item_count); 
+    const countdownAmountElementCartPage = $('#shipping-progress-bar #countdown-amount');
+    const shippingProgressCartPage = $('#shipping-progress-bar #shipping-progress');
+	if (ENABLE_FREE_SHIPPING_PROGRESS) {
+		$('#shipping-progress-bar').show();
+		const remainingAmountCartPage = FREE_SHIPPING_THRESHOLD_CART - cart.total_price;
+		if (remainingAmountCartPage <= 0) {
+			countdownAmountElementCartPage.text('Đơn hàng của bạn đã đủ điều kiện miễn phí vận chuyển!');
+			shippingProgressCartPage.css('width', '100%');
+		} else {
+			countdownAmountElementCartPage.text(`Thêm ${formatMoneyHaravan(remainingAmountCartPage)} nữa để được miễn phí vận chuyển!`);
+			const progress = (cart.total_price / FREE_SHIPPING_THRESHOLD_CART) * 100;
+			shippingProgressCartPage.css('width', `${Math.min(progress, 100)}%`);
+		}
+	} else {
+        $('#shipping-progress-bar').hide();
+    }
+    const cartItemsMap = new Map(cart.items.map(item => [item.variant_id, item]));
+    const $cartItemsWrapper = $('.cart-items-wrapper');
+    $('.cart-item-container[data-variant-id]').each(function() {
+        const $itemContainer = $(this);
+        const currentVariantId = parseInt($itemContainer.data('variant-id'));
+        if (cartItemsMap.has(currentVariantId)) {
+            const item = cartItemsMap.get(currentVariantId);
+            const isGift = isGiftItemCart(item);
+            const $quantityInput = $itemContainer.find('.quantity-input');
+            if ($quantityInput.length) {
+                 $quantityInput.val(item.quantity);
+            }
+            if (isGift) {
+                $itemContainer.find('.item-price').text('Quà tặng');
+                $itemContainer.find('.item-total-price').text('0₫');
+            } else {
+                $itemContainer.find('.item-price').text(formatMoneyHaravan(item.price));
+                $itemContainer.find('.item-total-price').text(formatMoneyHaravan(item.line_price));
+            }
+            if (isGift) {
+                $itemContainer.find('.cart-item-quantity-controls').hide();
+                $itemContainer.find('.item-gift-quantity').show().text('1');
+                $itemContainer.find('.cart-item-remove-btn').hide(); 
+                $itemContainer.addClass('is-gift-item');
+            } else {
+                $itemContainer.find('.cart-item-quantity-controls').show();
+                $itemContainer.find('.item-gift-quantity').hide();
+                $itemContainer.find('.cart-item-remove-btn').show();
+                $itemContainer.removeClass('is-gift-item');
+            }
+            cartItemsMap.delete(currentVariantId);
+        } else {
+            $itemContainer.remove();
+        }
+    });
+    cartItemsMap.forEach(function(item) {
+        const newItemHtml = createCartItemHtml(item);
+        $cartItemsWrapper.append(newItemHtml);
+    });
+    toggleCartDisplay(cart.item_count);
+    isCartPageUpdating = false;
+}
+function getCartAndManageGiftsCartPage() {
+    if (isCartPageUpdating) {
+        return; 
+    }
+    isCartPageUpdating = true;
+    Haravan.getCart(function(cart) {
+        manageGiftsCartPage(cart)
+            .then(updatedCart => {
+                updateCartPageUI(updatedCart);
+            })
+            .catch(error => {
+                isCartPageUpdating = false;
+            });
+    });
+}
+$(document).ready(function() {
+  if ($('body').hasClass('template-cart')) {
+    $(document).on('click', '.cart-item-quantity-controls .quantity-minus, .cart-item-quantity-controls .quantity-plus', function() {
+      const $this = $(this);
+      const $itemContainer = $this.closest('.cart-item-container');
+      const variantId = $itemContainer.data('variant-id');
+      const $quantityInput = $itemContainer.find('.quantity-input');
+      let currentQuantity = parseInt($quantityInput.val());
+      if (isNaN(currentQuantity)) {
+          currentQuantity = 1;
+      }
+      let newQuantity;
+      if ($this.hasClass('quantity-minus')) {
+        newQuantity = currentQuantity - 1;
+        if (newQuantity < 0) newQuantity = 0; 
+      } else {
+        newQuantity = currentQuantity + 1;
+      }
+      if (isGiftItemCart({variant_id: variantId})) {
+                return;
+            }
+      $this.prop('disabled', true); 
+      $quantityInput.prop('disabled', true);
+      $quantityInput.val(newQuantity); 
+      Haravan.changeItem(variantId, newQuantity, function(cart) {
+          getCartAndManageGiftsCartPage(); 
+          $this.prop('disabled', false); 
+          $quantityInput.prop('disabled', false);
+      }, function(XMLHttpRequest, textStatus) {
+        Haravan.onError(XMLHttpRequest, textStatus);
+        getCartAndManageGiftsCartPage(); 
+        $this.prop('disabled', false); 
+        $quantityInput.prop('disabled', false);
+      });
+    });
+    $(document).on('change', '.cart-item-quantity-controls input.quantity-input', function() {
+      const $this = $(this);
+      const $itemContainer = $this.closest('.cart-item-container');
+      const variantId = $itemContainer.data('variant-id');
+      let newQuantity = parseInt($this.val());
+      if (isGiftItemCart({variant_id: variantId})) {
+                $this.val(1); 
+                return;
+            }
+      if (isNaN(newQuantity) || newQuantity < 1) {
+        newQuantity = 1;
+        $this.val(newQuantity);
+      }
+      $this.prop('disabled', true);
+      Haravan.changeItem(variantId, newQuantity, function(cart) {
+          getCartAndManageGiftsCartPage(); 
+          $this.prop('disabled', false); 
+      }, function(XMLHttpRequest, textStatus) {
+        Haravan.onError(XMLHttpRequest, textStatus);
+        getCartAndManageGiftsCartPage(); 
+        $this.prop('disabled', false); 
+      });
+    });
+    $(document).on('click', '.cart-item-remove-btn', function() {
+      const $this = $(this);
+      const $itemContainer = $this.closest('.cart-item-container');
+      const variantId = $itemContainer.data('variant-id');
+      if (isGiftItemCart({variant_id: variantId})) {
+                return;
+            }
+      $this.prop('disabled', true);
+      Haravan.removeItem(variantId, function(cart) {
+          getCartAndManageGiftsCartPage(); 
+          $this.prop('disabled', false); 
+      }, function(XMLHttpRequest, textStatus) {
+        Haravan.onError(XMLHttpRequest, textStatus);
+        getCartAndManageGiftsCartPage(); 
+        $this.prop('disabled', false); 
+      });
+    });
+    $(document).on('change', '#cart-note', function() {
+      const note = $(this).val();
+      Haravan.updateCartNote(note, function(cart) {
+      }, function(XMLHttpRequest, textStatus) {
+        Haravan.onError(XMLHttpRequest, textStatus);
+      });
+    });
+    getCartAndManageGiftsCartPage();
+    const originalHaravanOnCartUpdateForCartPage = Haravan.onCartUpdate;
+    Haravan.onCartUpdate = function(cart) {
+        if (originalHaravanOnCartUpdateForCartPage) {
+            originalHaravanOnCartUpdateForCartPage(cart); 
+        }
+        if ($('body').hasClass('template-cart')) {
+            getCartAndManageGiftsCartPage(); 
+        } else {
+        }
+    };
+  }
+});
+</script>

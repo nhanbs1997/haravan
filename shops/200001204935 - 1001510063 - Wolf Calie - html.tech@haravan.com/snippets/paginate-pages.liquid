@@ -1,0 +1,23 @@
+<ul class="pagination gap-2">
+	{%- if paginate.previous -%}
+	<li class="page-item"><a class="page-link link-next-pre rounded-4" href="{{ paginate.previous.url }}" title="Trang sau"><svg width="24" height="24"><use xlink:href="#icon-arrow-left" /></svg></a></li>
+	{%- else -%} 
+	<li class="page-item disabled"><span class="page-link rounded-4" title="Trang sau"><svg width="24" height="24"><use xlink:href="#icon-arrow-left" /></svg></span></li>
+	{%- endif -%}
+	{%- for part in paginate.parts -%}
+	{%- if part.is_link -%}
+	<li class="page-item"><a class="page-link rounded-4" href="{{ part.url }}" title="Trang {{ part.title }}">{{ part.title }}</a></li>
+	{%- else -%}
+	{%- if part.title == paginate.current_page -%}
+	<li class="active page-item disabled"><span class="page-link rounded-4" title="Trang {{ part.title }}">{{ part.title }}</span></li>
+	{%- else -%}
+	<li class="page-item"><a class="page-link rounded-4" href="{{ part.url }}" title="Trang {{ part.title }}">{{ part.title }}</a></li>
+	{%- endif -%}
+	{%- endif -%}
+	{%- endfor -%}
+	{%- if paginate.next -%}
+	<li class="page-item hidden-xs"><a class="page-link link-next-pre rounded-4" href="{{ paginate.next.url }}" title="Trang tiếp theo"><svg width="24" height="24"><use xlink:href="#icon-arrow-right" /></svg></a></li>
+	{%- else -%}
+	<li class="page-item disabled"><span class="page-link rounded-4" title="Trang tiếp theo"><svg width="24" height="24"><use xlink:href="#icon-arrow-right" /></svg></span></li>
+	{%- endif -%}
+</ul>

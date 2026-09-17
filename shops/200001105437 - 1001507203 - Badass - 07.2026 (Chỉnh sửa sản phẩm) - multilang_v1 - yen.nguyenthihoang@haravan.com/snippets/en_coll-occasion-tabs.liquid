@@ -1,0 +1,113 @@
+{%- assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+
+{%- comment -%}
+  Source of truth: settings.bs_coll_occasions (phân tách bằng dấu phẩy).
+  Ảnh: lookup bs_occ_title_1..8 khớp tên → bs_occ_img_N.
+
+  Logic:
+  - collection.tags có tag khớp với bs_coll_occasions → chỉ hiện các item khớp (+ ảnh)
+  - collection.tags không khớp cái nào → hiện full danh sách settings
+{% endcomment %}
+{%- assign _occasions = settings.en_bs_coll_occasions | default: 'Wearing daily, at home, at parties, at work, at sports' | split: ',' -%}
+
+{%- comment -%} Kiểm tra collection có tag dịp dùng nào khớp settings không {% endcomment %}
+{%- assign _has_occ_tag = false -%}
+{%- for occ in _occasions -%}
+  {%- assign _occ = occ | strip -%}
+  {%- unless _occ == blank -%}
+    {%- assign _occ_l = _occ | downcase -%}
+    {%- for ctag in collection.tags -%}
+      {%- assign _ctag_l = ctag | downcase | strip -%}
+      {%- if _ctag_l == _occ_l -%}
+        {%- assign _has_occ_tag = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endunless -%}
+{%- endfor -%}
+
+{%- assign _has_occ = false -%}
+{%- for occ in _occasions -%}
+  {%- assign _occ = occ | strip -%}
+  {%- unless _occ == blank -%}
+    {%- assign _show_occ = true -%}
+    {%- if _has_occ_tag -%}
+      {%- assign _show_occ = false -%}
+      {%- assign _occ_l = _occ | downcase -%}
+      {%- for ctag in collection.tags -%}
+        {%- assign _ctag_l = ctag | downcase | strip -%}
+        {%- if _ctag_l == _occ_l -%}
+          {%- assign _show_occ = true -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+    {%- if _show_occ -%}{%- assign _has_occ = true -%}{%- endif -%}
+  {%- endunless -%}
+{%- endfor -%}
+
+{%- if _has_occ -%}
+<div class="coll__subcats-wrap" id="occasionTabsWrap">
+  <div class="coll__subcats coll__subcats--occasions" id="occasionTabs" role="tablist" aria-label="Filter on Use">
+
+    {%- for occ in _occasions -%}
+      {%- assign _occ = occ | strip -%}
+      {%- unless _occ == blank -%}
+
+        {%- assign _show_occ = true -%}
+        {%- if _has_occ_tag -%}
+          {%- assign _show_occ = false -%}
+          {%- assign _occ_l = _occ | downcase -%}
+          {%- for ctag in collection.tags -%}
+            {%- assign _ctag_l = ctag | downcase | strip -%}
+            {%- if _ctag_l == _occ_l -%}
+              {%- assign _show_occ = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+
+        {%- if _show_occ -%}
+          {%- assign _occ_img = '' -%}
+          {%- assign _occ_l = _occ | downcase -%}
+          {%- for i in (1..8) -%}
+            {%- assign _t_key = 'en_bs_occ_title_' | append: i -%}
+            {%- assign _img_key = 'en_bs_occ_img_' | append: i -%}
+            {%- assign _card_title = settings[_t_key] | strip -%}
+            {%- assign _card_title_l = _card_title | downcase -%}
+            {%- if _card_title_l == _occ_l and settings[_img_key] != blank -%}
+              {%- assign _occ_img = settings[_img_key] -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+      <button type="button" class="coll__subcat"
+        data-occasion-tab
+        data-filter-type="occasion"
+        data-filter-val="(tag:product={{ _occ | url_encode }})"
+        data-filter-label="{{ _occ | escape }}"
+        role="tab" aria-selected="false" aria-controls="collGrid">
+        {%- if _occ_img != blank -%}
+        <div class="coll__subcat-img">
+          <img class="lazyload isHideTBT"
+            src="{{ _blank }}"
+            data-src="{{ _occ_img }}"
+            alt="{{ _occ | escape }}"
+            width="230" height="330"
+            loading="lazy" decoding="async">
+        </div>
+        {%- else -%}
+        <div class="coll__subcat-img coll__subcat-img--empty"></div>
+        {%- endif -%}
+        <span class="coll__subcat-name">{{ _occ | escape }}</span>
+      </button>
+        {%- endif -%}
+
+      {%- endunless -%}
+    {%- endfor -%}
+
+  </div>
+  <button type="button" class="coll__subcats-nav coll__subcats-nav--prev" data-subcat-prev aria-label="Previous">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+  </button>
+  <button type="button" class="coll__subcats-nav coll__subcats-nav--next" data-subcat-next aria-label="Next">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+  </button>
+</div>
+{%- endif -%}

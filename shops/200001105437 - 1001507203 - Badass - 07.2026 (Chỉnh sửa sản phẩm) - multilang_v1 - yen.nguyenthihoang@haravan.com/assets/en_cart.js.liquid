@@ -1,0 +1,60 @@
+/* ============================================================
+   Cart Page — BADASS
+   - Checkbox đồng ý điều khoản → enable/disable nút thanh toán
+
+   Lưu ý kiến trúc: toàn bộ thao tác giỏ hàng (qty +/- , xóa, đổi
+   biến thể) do TF.Cart trong general.js xử lý qua event delegation
+   ở cấp document — dùng chung cho cả mini cart (.sc__item) và trang
+   cart (.bs_cart__item). Mỗi mutation gọi /cart/*.js rồi render lại
+   nội dung bằng AJAX partial (#cartContent / #sidebarCartInner) —
+   KHÔNG reload trang. Vì #cartContent bị swap nên checkbox điều khoản
+   phải bind lại sau mỗi lần render → expose BSCartPage.bindTerms().
+   ============================================================ */
+
+(function () {
+  'use strict';
+
+  var BSCartPage = {
+    // Bind checkbox điều khoản → enable/disable nút thanh toán.
+    // Idempotent: gọi lại được sau khi #cartContent được swap qua AJAX.
+    bindTerms: function () {
+      var agree = document.getElementById('cartAgree');
+      var btn = document.getElementById('btnCheckout');
+      if (!agree || !btn) return;
+      if (agree._bsBound) return;   // tránh bind trùng
+      agree._bsBound = true;
+
+      var sync = function () {
+        if (agree.checked) {
+          btn.classList.remove('is-disabled');
+          btn.removeAttribute('aria-disabled');
+        } else {
+          btn.classList.add('is-disabled');
+          btn.setAttribute('aria-disabled', 'true');
+        }
+      };
+      agree.addEventListener('change', sync);
+      btn.addEventListener('click', function (e) {
+        if (!agree.checked) {
+          e.preventDefault();
+          agree.focus();
+          if (window.TF && TF.Helpers && TF.Helpers.showToast) {
+            TF.Helpers.showToast('Please agree to the terms of purchase');
+          }
+        }
+      });
+      sync();
+    },
+
+    init: function () {
+      if (!document.getElementById('cartPage')) return;
+      this.bindTerms();
+    }
+  };
+
+  window.BSCartPage = BSCartPage;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { BSCartPage.init(); });
+  } else { BSCartPage.init(); }
+})();

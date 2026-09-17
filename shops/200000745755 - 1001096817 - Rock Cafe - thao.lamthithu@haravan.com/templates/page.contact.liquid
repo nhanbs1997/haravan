@@ -1,0 +1,100 @@
+<div class="layout-pageContact">	
+	{%- include 'breadcrumb' -%}
+	<div class="wrapper-bodycontact">
+		<div class="heading-pageDetail d-none"><div class="container"><h1>{{ page.title }}</h1></div></div>
+		<div class="wrapbox-content-contact">
+			<div class="container pd-top">	
+				<div class="row widthContent">
+					<div class="col-lg-6 col-md-12 col-12 wrapbox-content-left">
+						<div class="box-info-contact">
+							<h2>Thông tin liên hệ</h2>
+							<div class="wrapbox-contact">
+								<ul class="infoList-contact row">
+									{%- if settings.contact_address != blank -%}
+									<li class="col-md-12 col-xs-12">
+										<span><i class="fa fa-map-marker"></i></span>
+										<p><strong>Địa chỉ</strong><br>{{settings.contact_address}}</p>
+									</li>
+									{%- endif -%}
+									{%- if settings.contact_phone != blank -%}
+									<li class="col-md-12 col-xs-12">
+										<span><i class="fa fa-phone"></i></span>
+										<p><a class="cta-clicktocall" href="tel:{{settings.contact_phone  | replace: '.', ''| replace: ' ', ''}}" rel="noopener"><strong>Điện thoại</strong><br>{{settings.contact_phone}}</a></p>
+									</li>
+									{%- endif -%}
+								</ul>
+								<ul class="infoList-contact row">
+									{%- if settings.contact_time != blank -%}
+									<li class="col-md-12 col-xs-12">
+										<span><i class="fa fa-calendar"></i></span>
+										<p><strong>Thời gian làm việc</strong><br>{{settings.contact_time}}</p>
+									</li>
+									{%- endif -%}
+									{%- if settings.contact_email != blank -%}
+									<li class="col-md-12 col-xs-12">
+										<span><i class="fa fa-envelope-o"></i></span>
+										<p><strong>Email</strong><br>{{settings.contact_email}}</p>
+									</li>
+									{%- endif -%}
+								</ul>
+							</div>
+
+						</div> 
+						<div class="box-send-contact">
+							<h2>Gửi thắc mắc cho chúng tôi</h2>
+							<p>Nếu bạn có thắc mắc gì, có thể gửi yêu cầu cho chúng tôi, và chúng tôi sẽ liên lạc lại với bạn sớm nhất có thể .</p>
+							<div id="col-left contactFormWrapper">
+								{% form 'contact' %}
+								{% if form.posted_successfully? %}
+								<div class="alert alert-success">
+									Cám ơn bạn đã liên hệ! Chúng tôi sẽ trả lời ngay khi có thể
+								</div>
+								{% endif %}
+								<div class="contact-form">
+									<div class="row">
+										<div class="col-sm-12 col-xs-12">
+											<div class="input-group">
+												<input required type="text" name="contact[name]" class="form-control" placeholder="Tên của bạn" aria-describedby="basic-addon1">
+											</div>
+										</div>
+										<div class="col-sm-6 col-xs-12">
+											<div class="input-group">
+												<input required type="text" name="contact[email]" class="form-control" placeholder="Email của bạn" aria-describedby="basic-addon1">
+											</div>
+										</div>
+										<div class="col-sm-6 col-xs-12">
+											<div class="input-group">
+												<input pattern="[0-9]{10,12}" required type="text" name="contact[phone]" class="form-control" placeholder="Số điện thoại của bạn" aria-describedby="basic-addon1">
+											</div>
+										</div>
+										<div class="col-sm-12 col-xs-12">
+											<div class="input-group">
+												<textarea required name="contact[body]" placeholder="Nội dung"></textarea>
+												<div class="sitebox-recaptcha " >
+													This site is protected by reCAPTCHA and the Google
+													<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> 
+													and <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a> apply.
+												</div>	
+											</div>
+										</div>
+										<div class="col-sm-12 col-xs-12">
+											<button class="button dark cta-submitform">Gửi cho chúng tôi</button>
+										</div>
+									</div>
+								</div>
+								{% endform %}
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-12 col-12 wrapbox-content-right">
+							{% if settings.google_maps_show and settings.google_maps_code != blank %}
+							<div class="box-map-contact">
+								{{ settings.google_maps_code }}
+							</div>
+							{% endif %}
+						</div>
+				</div>			
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,209 @@
+{%- include 'breadcrumb' -%} 
+<div class="wolf-page-content wolf-page-store mb-5 mt-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2">
+				<h1 class="title-head title-head h4">{{ page_title }}</h1>
+			</div>
+			<div class="col-xxl-5 col-xl-5 col-lg-6 col-md-12 col-12 option-chos dark-mode-form">
+				<div class="group-city group mb-3">
+					<select id="city" class="form-select">
+						<option value="ALL" selected>Chọn tỉnh thành</option>
+						{%- for link in linklists[settings.list_city]links -%}
+						<option value="{{link.title}}">{{link.title}}</option>
+						{%- endfor -%}
+					</select>
+				</div>
+				<div class="group-district group mb-3">
+					<select class="form-select" id="district" disabled>
+						<option value="ALL" selected>Chọn quận/huyện</option>
+					</select>
+				</div>
+				<div class="group-ward group mb-3">
+					<select class="form-select" id="ward" class="select" disabled>
+						<option value="ALL">Chọn phường/xã</option>
+					</select>
+				</div>
+				<div class="info-store info-block"></div>
+			</div>
+			<div class="col-xxl-7 col-xl-7 col-lg-6 col-md-12 col-12 wolf-store-maps">
+				<div class="wrapcontact">
+					{{ settings.store_default_iframe }}
+				</div>
+				<div class="pagebody d-none">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.518104241413!2d106.650981814287!3d10.771573662229935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ec073c87139%3A0x10ef6fd79e84aa6f!2zNzAgTOG7ryBHaWEsIFBoxrDhu51uZyAxNSwgUXXhuq1uIDExLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1648374861399!5m2!1svi!2s" width="600" height="450"></iframe>	
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function ($) {
+		showlocation();		
+		$('.store-list .store-name').click(function(){
+			var urls = $(this).attr('data-url');
+			$('.wrapcontact').addClass('d-none');
+			$('.pagebody').removeClass('d-none');
+			$('.pagebody iframe').attr('src',urls);
+		});
+	});
+	var citytarget = '';
+	$('.group-city select').change(function () {
+		var optionSelected = $("option:selected", this);
+		var valueSelected = this.value;
+		citytarget = this.value;
+		if (valueSelected != 'ALL') {
+			$('.store-list').addClass('d-none');
+			$('.store-list').each(function(){
+				$('.store-list').addClass('d-none');
+				$('.store-list').each(function(){
+					if (valueSelected === $(this).attr('data-local')) {
+						$(this).removeClass('d-none');
+					} 
+				}); 
+			});
+			$('#district').removeAttr('disabled', 'disabled');
+			$('.group-ward select').html('<option value="ALL">Chọn phường/xã</option>');
+			$('#ward').attr('disabled', 'disabled');
+			showDistrict();
+			removeDuplicate();
+		} else {
+			$('.store-list').each(function(){
+				$('.store-list').removeClass('d-none');
+			});
+			$('#district').attr('disabled', 'disabled');
+			$('#ward').attr('disabled', 'disabled');
+			$('.group-district select').html('<option value="ALL">Chọn quận/huyện</option>');
+			$('.group-ward select').html('<option value="ALL">Chọn phường/xã</option>');
+		}
+	});
+	var districttarget = '';
+	$('.group-district select').on('change', function (e) {
+		var oSelected = $("option:selected", this);
+		var oSelectedCity = $("option:selected", '.group-city select');
+		$(this).attr("selected", "selected");
+		var valSelected = oSelected.data('district');
+		var valCity = oSelected.data('city');
+		var valSelectedCity = oSelectedCity.val();
+		var valueSelected = oSelected.val();
+		districttarget = valSelected;
+		if (valueSelected != 'ALL') {
+			$('.store-list').addClass('d-none');
+			$('.store-list').each(function(){
+				if (valSelected === $(this).attr('data-district') && valCity === $(this).attr('data-city')) {
+					$(this).removeClass('d-none');
+				} 
+			}); 
+			$('#ward').removeAttr('disabled');
+			$('.group-ward select').html('<option value="ALL">Chọn phường/xã</option>');
+			showWard();
+			removeDuplicateward();
+		} else {
+			$('.store-list').each(function(){
+				if(valSelectedCity === $(this).attr('data-local')){
+					$(this).removeClass('d-none');
+				}
+			}); 
+			$('#ward').attr('disabled', 'disabled');
+			$('.group-ward select').html('<option value="ALL">Chọn phường/xã</option>');
+		}
+	});
+	/*Theo phường xã*/
+	$('.group-ward select').on('change', function (e) {
+		var oSelected = $("option:selected", this);
+		var oSelectedDistrict = $("option:selected", '.group-district select');
+		$(this).attr("selected", "selected");
+		var valSelected = oSelected.data('ward');
+		var valueSelected = oSelected.val();
+		var valCity = oSelected.data('local');
+		var valSelectedDistrict = oSelectedDistrict.data('district');
+		if (valueSelected != 'ALL') {
+			$('.store-list').addClass('d-none');
+			$('.store-list').each(function(){
+				if (valSelected === $(this).attr('data-ward') && valSelectedDistrict === $(this).attr('data-district')) {
+					$(this).removeClass('d-none');
+				} 
+			}); 
+			$('#ward').removeAttr('disabled');
+		} else {
+			$('.store-list').each(function(){
+				if(valSelectedDistrict === $(this).attr('data-district')){
+					$(this).removeClass('d-none');
+				}
+			}); 
+		}
+	});
+	var dataFix = [
+		{{ pages[settings.store_list].content | strip_html }}
+	];
+	function showlocation(local){	
+		var cityString = "";
+		dataFix.forEach(function(data){
+			cityString += '<div data-local="'+ data.city +'" data-district="'+ data.district +'" data-ward="'+ data.ward +'" class="store-list">'
+				+		    '<div class="store-name" data-url="'+data.url+'">'
+				+           '<p class="store-title">'+data.name+'</p>'
+				+           '<p class="store-info"><svg viewBox="0 0 24 24"><path d="M12,1C7.58,1,4,4.58,4,9c0,7.08,8,14,8,14s8-6.92,8-14C20,4.58,16.42,1,12,1z M12,12c-1.66,0-3-1.34-3-3s1.34-3,3-3 s3,1.34,3,3S13.66,12,12,12z"></path></svg> '+data.address+'</p>'
+				+           '<p class="store-info"><svg viewBox="0 0 24 24"><path d="M16.5562 12.9062L16.1007 13.359C16.1007 13.359 15.0181 14.4355 12.0631 11.4972C9.10812 8.55901 10.1907 7.48257 10.1907 7.48257L10.4775 7.19738C11.1841 6.49484 11.2507 5.36691 10.6342 4.54348L9.37326 2.85908C8.61028 1.83992 7.13596 1.70529 6.26145 2.57483L4.69185 4.13552C4.25823 4.56668 3.96765 5.12559 4.00289 5.74561C4.09304 7.33182 4.81071 10.7447 8.81536 14.7266C13.0621 18.9492 17.0468 19.117 18.6763 18.9651C19.1917 18.9171 19.6399 18.6546 20.0011 18.2954L21.4217 16.883C22.3806 15.9295 22.1102 14.2949 20.8833 13.628L18.9728 12.5894C18.1672 12.1515 17.1858 12.2801 16.5562 12.9062Z" /></svg> <a href="tel:'+data.phone+'">'+data.phone+'</a></p>'
+				+           '</div>'
+				+			'</div>	';
+		})	
+		$('.info-store').html(cityString);
+	} 
+	function showDistrict(local) {
+		var district = "";
+		var locals = citytarget;
+		dataFix.forEach(function(data){
+			if (data.city === locals) {
+				district += '<option data-local="'+ data.city +'" data-district="'+data.district+'" data-ward="'+data.ward+'"  value="'+ data.city +'" class="district-list">'
+					+				'<span class="district-name">'+data.district+'</span>'
+					+			'</option>';
+			}
+		})	
+		$('#district').html('<option value="ALL">Chọn quận/huyện</option>' + district);
+	}
+	function showWard(local) {
+		var ward = "";
+		var locals = districttarget;
+		console.log(locals, 'dx');
+		dataFix.forEach(function(data){
+			if (data.district === locals) {
+				ward += '<option data-local="'+ data.city +'" data-district="'+data.district+'" data-ward="'+data.ward+'" value="'+ data.district +'" class="ward-list">'
+					+				'<span class="ward-name">'+data.ward+'</span>'
+					+			'</option>';
+			}
+		})	
+		$('#ward').html('<option value="ALL">Chọn phường xã</option>' + ward);
+	}
+	function removeDuplicate() {
+		var map = {};
+		$('#district option').each(function () {
+			if (map[$(this).attr('data-district')]) {
+				$(this).remove()
+			}
+			map[$(this).attr('data-district')] = true;
+		})
+	}
+	function removeDuplicateward() {
+		var map = {};
+		$('#ward option').each(function () {
+			if (map[$(this).attr('data-ward')]) {
+				$(this).remove()
+			}
+			map[$(this).attr('data-ward')] = true;
+		})
+	}
+	function awe_convertVietnamese(str) { 
+		str= str.toUpperCase();
+		str= str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a"); 
+		str= str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e"); 
+		str= str.replace(/ì|í|ị|ỉ|ĩ/g,"i"); 
+		str= str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o"); 
+		str= str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u"); 
+		str= str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y"); 
+		str= str.replace(/đ/g,"d"); 
+		str= str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'| |\"|\&|\#|\[|\]|~|$|_/g,"-");
+		str= str.replace(/-+-/g,"-");
+		str= str.replace(/^\-+|\-+$/g,""); 
+		return str; 
+	}
+</script>

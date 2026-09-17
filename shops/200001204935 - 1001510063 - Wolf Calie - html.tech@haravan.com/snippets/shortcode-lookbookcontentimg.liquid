@@ -1,0 +1,31 @@
+{%- capture lbcicontent -%}{%- include 'shortcode-render' render:'lbcicontent' -%}{%- endcapture -%}
+{%- capture lbciimage1 -%}{%- include 'shortcode-render' render:'lbciimage1' -%}{%- endcapture -%}
+{%- capture lbcialt1 -%}{%- include 'shortcode-render' render:'lbcialt1' -%}{%- endcapture -%}
+{%- capture lbciimage2 -%}{%- include 'shortcode-render' render:'lbciimage2' -%}{%- endcapture -%}
+{%- capture lbcialt2 -%}{%- include 'shortcode-render' render:'lbcialt2' -%}{%- endcapture -%}
+{%- capture lbciimage3 -%}{%- include 'shortcode-render' render:'lbciimage3' -%}{%- endcapture -%}
+{%- capture lbcialt3 -%}{%- include 'shortcode-render' render:'lbcialt3' -%}{%- endcapture -%}
+<div class="lookbook-listimg-withtext py-4">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 offset-md-3 lookbook-listimg-withtext-content pb-5 text-center">{{ lbcicontent }}</div>
+		</div>
+		<div class="row g-2 wolf-scroll-mb">
+			<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-7">
+				<div class="lookbook-listimg-img-item">
+					<img src="{{ lbciimage1 }}" alt="{{ lbcialt1 }}" class="img-fluid" loading="lazy" >
+				</div>
+			</div>
+			<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-7">
+				<div class="lookbook-listimg-img-item">
+					<img src="{{ lbciimage2 }}" alt="{{ lbcialt2 }}" class="img-fluid" loading="lazy" >
+				</div>
+			</div>
+			<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-6 col-7">
+				<div class="lookbook-listimg-img-item">
+					<img src="{{ lbciimage3 }}" alt="{{ lbcialt3 }}" class="img-fluid" loading="lazy" >
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,43 @@
+{%- comment -%}
+  Snippet: og-tags
+  Mô tả: Facebook Open Graph tags
+{%- endcomment -%}
+
+{%- if template contains 'product.en' -%}
+<meta property="og:type" content="product">
+<meta property="og:title" content="{{ product.metafields.hrvmultilang_en.title | append: '' | default: product.title | strip_html | escape }}">
+<meta property="og:image" content="https:{{ product.featured_image.src | product_img_url: 'grande' | remove: 'http:' | remove: 'https:' }}">
+<meta property="og:price:amount" content="{{ product.price | money_without_currency | remove: '.' | remove: ',' | remove: '₫' | strip }}">
+<meta property="og:price:currency" content="{{ shop.currency }}">
+{%- elsif template contains 'article.en' -%}
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ article.title | strip_html | escape }}">
+{%- if article.image -%}
+<meta property="og:image" content="https:{{ article.image.src | remove: 'http:' | remove: 'https:' }}">
+{%- elsif settings.en_share_fb_home_url != blank -%}
+<meta property="og:image" content="{{ settings.en_share_fb_home_url }}">
+{%- endif -%}
+{%- elsif template contains 'collection.en' -%}
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ collection.metafields.hrvmultilang_en.title | append: '' | default: collection.title | strip_html | escape }}">
+{%- if collection.image -%}
+<meta property="og:image" content="https:{{ collection.image.src | remove: 'http:' | remove: 'https:' }}">
+{%- elsif settings.en_share_fb_home_url != blank -%}
+<meta property="og:image" content="{{ settings.en_share_fb_home_url }}">
+{%- endif -%}
+{%- else -%}
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ page_title | strip_html | escape }}">
+{%- assign _og_img = settings.en_share_fb_home_url | default: settings.en_logo_url -%}
+{%- unless _og_img == blank -%}
+<meta property="og:image" content="{{ _og_img }}">
+{%- endunless -%}
+{%- endif -%}
+
+{%- if page_description -%}
+<meta property="og:description" content="{{ page_description | strip_html | strip_newlines | escape }}">
+{%- else -%}
+<meta property="og:description" content="{{ shop.name }}">
+{%- endif -%}
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:site_name" content="{{ shop.name }}">

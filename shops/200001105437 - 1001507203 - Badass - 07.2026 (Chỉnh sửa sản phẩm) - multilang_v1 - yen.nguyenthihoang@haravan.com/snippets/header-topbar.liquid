@@ -1,0 +1,58 @@
+{%- if settings.topbar_show -%}
+
+{%- comment -%} Build danh sách nội dung (bỏ blank) {%- endcomment -%}
+{%- assign _tb_texts = '' -%}
+{%- unless settings.topbar_text == blank -%}
+  {%- assign _tb_texts = _tb_texts | append: settings.topbar_text | append: '||' -%}
+{%- endunless -%}
+{%- unless settings.topbar_text_2 == blank -%}
+  {%- assign _tb_texts = _tb_texts | append: settings.topbar_text_2 | append: '||' -%}
+{%- endunless -%}
+{%- unless settings.topbar_text_3 == blank -%}
+  {%- assign _tb_texts = _tb_texts | append: settings.topbar_text_3 | append: '||' -%}
+{%- endunless -%}
+{%- assign _tb_arr = _tb_texts | split: '||' -%}
+{%- assign _tb_count = _tb_arr.size -%}
+{%- if _tb_arr.last == '' -%}{%- assign _tb_count = _tb_count | minus: 1 -%}{%- endif -%}
+
+{%- assign _tb_speed = settings.topbar_speed | default: 3500 | times: 1 -%}
+
+<div class="topbar" id="topbar" aria-label="Thông báo"
+  data-topbar-speed="{{ _tb_speed }}">
+  {%- if _tb_count > 1 -%}
+  <div class="topbar__multi" id="topbarMulti" aria-live="polite">
+    {%- for _t in _tb_arr -%}
+      {%- unless _t == blank -%}
+      <span class="topbar__item{% if forloop.first %} is-active{% endif %}" aria-hidden="{% unless forloop.first %}true{% else %}false{% endunless %}">{{ _t }}</span>
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+  {%- else -%}
+  <div class="topbar__track">
+    <span class="topbar__text">{{ settings.topbar_text | default: '' }}</span>
+    <span class="topbar__text" aria-hidden="true">{{ settings.topbar_text | default: '' }}</span>
+  </div>
+  {%- endif -%}
+</div>
+
+{%- if _tb_count > 1 -%}
+<script>
+(function() {
+  var el = document.getElementById('topbarMulti');
+  if (!el) return;
+  var items = el.querySelectorAll('.topbar__item');
+  if (items.length < 2) return;
+  var speed = parseInt(document.getElementById('topbar').getAttribute('data-topbar-speed')) || 3500;
+  var cur = 0;
+  setInterval(function() {
+    items[cur].classList.remove('is-active');
+    items[cur].setAttribute('aria-hidden', 'true');
+    cur = (cur + 1) % items.length;
+    items[cur].classList.add('is-active');
+    items[cur].setAttribute('aria-hidden', 'false');
+  }, speed);
+})();
+</script>
+{%- endif -%}
+
+{%- endif -%}

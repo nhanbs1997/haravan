@@ -1,0 +1,119 @@
+<div class="modal fade" id="nearestStore" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="nearestStoreModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="nearestStoreModalLabel">Cửa hàng gần bạn nhất</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div id="storeLoading" class="text-center">
+					<p class="loading-text">Đang tìm vị trí của bạn và tính toán khoảng cách...</p>
+				</div>
+				<div id="storeError" class="text-danger text-center" style="display: none;"></div>
+				<div id="storeListContainer" class="list-group">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	const stores = [
+		{{ pages[settings.store_list].content | strip_html }}
+	];
+	let cachedPosition = null;
+	let isGettingLocation = false;
+	function getDistance(lat1, lon1, lat2, lon2) {
+		const R = 6371;
+		lat1 = parseFloat(lat1);
+		lon1 = parseFloat(lon1);
+		lat2 = parseFloat(lat2);
+		lon2 = parseFloat(lon2);
+		const dLat = (lat2 - lat1) * Math.PI / 180;
+		const dLon = (lon2 - lon1) * Math.PI / 180;
+		const a =
+			  Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+			  Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+			  Math.sin(dLon / 2) * Math.sin(dLon / 2);
+		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		const distance = R * c;
+		return distance;
+	}
+
+	function getUserLocation(callback) {
+		if (cachedPosition) {
+			callback(cachedPosition);
+			return;
+		}
+		if (isGettingLocation) return;
+		isGettingLocation = true;
+
+		navigator.geolocation.getCurrentPosition(
+			position => {
+				isGettingLocation = false;
+				cachedPosition = position.coords;
+				callback(position.coords);
+			},
+			error => {
+				isGettingLocation = false;
+				callback(null, error);
+			}
+		);
+	}
+
+	const findNearestStoreBtn = document.getElementById('findNearestStoreBtn');
+	const storeListContainer = document.getElementById('storeListContainer');
+	const storeLoading = document.getElementById('storeLoading');
+	const storeError = document.getElementById('storeError');
+
+	findNearestStoreBtn.addEventListener('click', () => {
+		storeListContainer.innerHTML = '';
+		storeError.style.display = 'none';
+		storeLoading.style.display = 'block';
+
+		getUserLocation((coords, error) => {
+			storeLoading.style.display = 'none';
+
+			if (coords) {
+				storeError.style.display = 'none';
+
+				const userLat = coords.latitude;
+				const userLng = coords.longitude;
+
+				const sortedStores = stores.map(store => {
+					const distance = getDistance(userLat, userLng, store.latitude, store.longitude);
+					return { ...store, distance };
+				}).sort((a, b) => a.distance - b.distance);
+
+				storeListContainer.innerHTML = sortedStores.map(store => `
+<a href="#" class="list-group-item list-group-item-action">
+<strong>${store.name}</strong><br>
+${store.address}<br>
+<small>Cách bạn: ${store.distance.toFixed(2)} km</small>
+	</a>
+`).join('');
+				return;
+			}
+			let message = "Không thể lấy vị trí của bạn.";
+			if (error) {
+				if (error.code === 1) {
+					message = "Bạn đã từ chối chia sẻ vị trí. Hiện thị toàn bộ danh sách cửa hàng.";
+					storeError.style.display = 'none';
+					storeListContainer.innerHTML = stores.map(store => `
+<a href="#" class="list-group-item list-group-item-action">
+<strong>${store.name}</strong><br>
+${store.address}
+	</a>
+`).join('');
+					return;
+				} else if (error.code === 2) message = "Không thể xác định vị trí.";
+				else if (error.code === 3) message = "Lấy vị trí quá lâu.";
+			}
+			storeError.textContent = message;
+			storeError.style.display = 'block';
+			storeListContainer.innerHTML = '';
+		});
+	});
+</script>

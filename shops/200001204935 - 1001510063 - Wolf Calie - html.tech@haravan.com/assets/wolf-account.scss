@@ -1,0 +1,149 @@
+@charset "UTF-8";
+a {
+  color: var(--second-color); }
+  a:hover, a:focus {
+    color: var(--main-color); }
+
+.price-color {
+  color: var(--main-color) !important;
+  font-weight: 600; }
+
+.required {
+  color: red; }
+
+.wolf-btn-main {
+  width: 100%;
+  height: 50px;
+  color: var(--second-color);
+  border: none;
+  font-size: 16px;
+  line-height: 46px;
+  background-color: rgba(0, 169, 143, 0.1);
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 600; }
+  .wolf-btn-main:hover, .wolf-btn-main:focus {
+    color: #fff;
+    background-color: var(--second-color); }
+
+.wolf-account-content .wolf-account-title {
+  font-size: 20px;
+  color: var(--main-text-color); }
+
+.social-login a:hover {
+  opacity: 0.7; }
+
+@media (min-width: 768px) {
+  .max-widths {
+    max-width: 250px; } }
+
+#my-orders-table thead th {
+  font-weight: 600; }
+
+@media (max-width: 767px) {
+  #my-orders-table thead {
+    display: none; } }
+
+@media (max-width: 767px) {
+  #my-orders-table {
+    display: flex; }
+    #my-orders-table tbody {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 auto;
+      width: 100%; }
+    #my-orders-table tr {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 auto;
+      width: 100%; }
+      #my-orders-table tr td {
+        display: inline-block;
+        padding-left: 0;
+        padding-right: 0;
+        border: none; }
+        #my-orders-table tr td:before {
+          font-weight: 500;
+          padding-right: 3px; }
+        #my-orders-table tr td:nth-of-type(1):before {
+          content: "Đơn hàng:"; }
+        #my-orders-table tr td:nth-of-type(2):before {
+          content: "Ngày đặt hàng:"; }
+        #my-orders-table tr td:nth-of-type(3):before {
+          content: "Địa chỉ:"; }
+        #my-orders-table tr td:nth-of-type(4):before {
+          content: "Giá trị đơn hàng:"; }
+        #my-orders-table tr td:nth-of-type(5):before {
+          content: "TT Thanh toán:"; }
+      #my-orders-table tr + tr {
+        border-top: 1px solid #dee2e6;
+        margin-top: 10px;
+        padding-top: 10px; } }
+
+.wolf-order-details .order-detail-status span {
+  font-weight: 500;
+  color: var(--second-color); }
+
+#order_details img {
+  max-width: 100%; }
+
+#order_details thead th {
+  font-weight: 600; }
+
+@media (max-width: 767px) {
+  #order_details thead {
+    display: none; } }
+
+@media (max-width: 767px) {
+  #order_details {
+    display: flex; }
+    #order_details tbody {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 auto;
+      width: 100%; }
+    #order_details tr {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 auto;
+      width: 100%; }
+      #order_details tr td {
+        display: inline-block;
+        padding-left: 0;
+        padding-right: 0;
+        border: none; }
+        #order_details tr td:before {
+          font-weight: 500;
+          content: attr(data-title); }
+      #order_details tr + tr {
+        border-top: 1px solid #dee2e6;
+        margin-top: 10px;
+        padding-top: 10px; } }
+
+#order_details .content_right .title-order {
+  color: var(--main-text-color);
+  font-weight: 500; }
+  #order_details .content_right .title-order:hover, #order_details .content_right .title-order:focus {
+    color: var(--second-color); }
+
+.table.totalorders tr td {
+  border: none;
+  padding-left: 0;
+  padding-right: 0; }
+  .table.totalorders tr td:first-child {
+    text-align: left;
+    font-weight: 600; }
+  .table.totalorders tr td:last-child {
+    text-align: right;
+    color: var(--second-color); }
+
+.wolf-customer-account .list-group .list-group-item {
+  background-color: transparent; }
+  .wolf-customer-account .list-group .list-group-item a {
+    color: var(--main-text-color); }
+    .wolf-customer-account .list-group .list-group-item a:hover, .wolf-customer-account .list-group .list-group-item a:focus {
+      color: var(--second-color); }
+
+.wolf-customer-account .table > :not(caption) > * > * {
+  background-color: transparent; }

@@ -1,0 +1,122 @@
+{% layout 'en' %}
+<div class="layout-account {%if settings.en_hrloyalty_icon_used%}layoutAccount-hidden{%endif%}">
+	<div class="account-cover">
+		{% include 'en_account-cover' %}
+		<div class="account-cover__overlay">
+			<div class="account-card">
+				{%- assign active_tab = 'my_product' -%}
+				{% include 'en_account-header' %}
+
+				<div class="account-tabpane">
+					<div class="account-section__heading">
+						<span class="heading-normal">{{ settings.en_account_artworks_title_normal | default: 'Tranh' }}</span>
+						<span class="heading-special">{{ settings.en_account_artworks_title_special | default: 'MINE' }}</span>
+					</div>
+
+					{%- assign products = customer.metafields.bigpen.products -%}
+					<div id="account-products-wrap">
+						<div class="account-products__grid" id="account-products-grid"></div>
+						<p class="account-empty" id="account-empty-msg" style="display: none;">You haven't. Oh, here we go.</p>
+					</div>
+
+					<script>
+						document.addEventListener('DOMContentLoaded', function() {
+							var grid = document.getElementById('account-products-grid');
+							var emptyMsg = document.getElementById('account-empty-msg');
+							
+							function getSizedImageUrl(src, size) {
+								if (!src) return '';
+								if (src.indexOf('no-image') !== -1) return src;
+								var match = src.match(/\.(jpg|jpeg|gif|png|bmp|bitmap|tiff|tif)(\?v=\d+)?$/i);
+								if (match) {
+									var prefix = src.split(match[0]);
+									var suffix = match[0];
+									return prefix[0] + '_' + size + suffix;
+								}
+								return src;
+							}
+							
+							function renderProductsData(productMap) {
+								try {
+									var productsData = {{ products  }};
+									var products = [];
+									
+									if (productsData && productsData !== 'null' && productsData !== '') {
+										products = typeof productsData === 'string' ? JSON.parse(productsData) : productsData;
+										if (typeof products === 'string') {
+											products = JSON.parse(products);
+										}
+									}
+
+									if (Array.isArray(products) && products.length > 0) {
+										var html = '';
+										products.forEach(function(product) {
+											var title = product.name || '';
+											var url = productMap[title] || product.url || product.product_url || '#';
+						
+											if (url === '#' && title) {
+												var slug = title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+												url = '/products/' + slug;
+											}
+
+											var rawImg = product.imageurl || ''; 
+											var imgSrc = getSizedImageUrl(rawImg, 'grande');
+											var vendor = '';
+
+											html += '<div class="account-product__card">';
+											html += '	<div class="account-product__thumb">';
+											html += '		<a href="' + url + '">';
+											html += '			<img class="lazyload" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="' + imgSrc + '" alt="' + title.replace(/"/g, '&quot;') + '">';
+											html += '		</a>';
+											html += '	</div>';
+											html += '	<div class="account-product__info">';
+											html += '		<h3 class="account-product__title">' + title + '</h3>';
+											if (vendor) {
+												html += '		<p class="account-product__vendor">' + vendor + '</p>';
+											}
+											html += '	</div>';
+											html += '</div>';
+										});
+										grid.innerHTML = html;
+									} else {
+										emptyMsg.style.display = 'block';
+									}
+								} catch (e) {
+									console.error('Error When parse product data:', e);
+									emptyMsg.style.display = 'block';
+								}
+							}
+
+							// Lấy sitemap để xử lý url chi tiết của sản phẩm
+							fetch('/sitemap_products_1.xml')
+								.then(function(res) { return res.text(); })
+								.then(function(xmlText) {
+									var parser = new DOMParser();
+									var xmlDoc = parser.parseFromString(xmlText, "text/xml");
+									var urls = xmlDoc.getElementsByTagName("url");
+									var productMap = {};
+                  debugger
+									for (var i = 0; i < urls.length; i++) {
+										var locs = urls[i].getElementsByTagName("loc");
+										var titles = urls[i].getElementsByTagName("image:title");
+										if (locs.length > 0 && titles.length > 0) {
+											var titleContent = titles[0].textContent.trim();
+											var locContent = locs[0].textContent.trim();
+											productMap[titleContent] = locContent;
+										}
+									}
+									renderProductsData(productMap);
+								})
+								.catch(function(err) {
+									console.error('Do Not Load sitemap:', err);
+									renderProductsData({});
+								});
+						});
+					</script>
+
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,26 @@
+{%- comment -%}
+  Snippet: pd-policy
+  Mo ta: 4 o chinh sach (icon + text) duoi nut ATC.
+{%- endcomment -%}
+
+{%- assign _has_policy = false -%}
+{%- if settings.pd_policy_text_1 != blank or settings.pd_policy_text_2 != blank or settings.pd_policy_text_3 != blank or settings.pd_policy_text_4 != blank -%}
+  {%- assign _has_policy = true -%}
+{%- endif -%}
+
+{%- if _has_policy -%}
+<div class="pd__policy">
+  {%- for i in (1..4) -%}
+    {%- capture _text_key -%}pd_policy_text_{{ i }}{%- endcapture -%}
+    {%- capture _icon_key -%}pd_policy_icon_{{ i }}{%- endcapture -%}
+    {%- if settings[_text_key] != blank -%}
+    <div class="pd__policy-item">
+      {%- if settings[_icon_key] != blank -%}
+      <img src="{{ settings[_icon_key] }}" alt="" width="40" height="40" loading="lazy">
+      {%- endif -%}
+      <span>{{ settings[_text_key] | escape }}</span>
+    </div>
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+{%- endif -%}

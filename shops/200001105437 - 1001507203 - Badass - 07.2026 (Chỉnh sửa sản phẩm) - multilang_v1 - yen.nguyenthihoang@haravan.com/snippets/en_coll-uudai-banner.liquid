@@ -1,0 +1,56 @@
+{%- assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+
+{%- assign _slide_count = 0 -%}
+{%- for i in (1..4) -%}
+  {%- capture _k %}en_bs_uudai_banner_{{ i }}{% endcapture -%}
+  {%- unless settings[_k] == blank -%}{%- assign _slide_count = _slide_count | plus: 1 -%}{%- endunless -%}
+{%- endfor -%}
+
+{%- assign _autoplay = settings.en_bs_uudai_banner_autoplay -%}
+{%- assign _speed_ms = settings.en_bs_uudai_banner_speed | default: 5 | times: 1000 -%}
+
+{%- if settings.en_bs_uudai_banner_show and _slide_count > 0 -%}
+<section class="uudai-banner">
+  <div class="swiper uudai-banner__swiper" id="uudaiBannerSwiper"
+    data-autoplay="{% if _autoplay %}1{% else %}0{% endif %}"
+    data-speed="{{ _speed_ms }}">
+    <div class="swiper-wrapper">
+      {%- for i in (1..4) -%}
+        {%- capture _imgk %}en_bs_uudai_banner_{{ i }}{% endcapture -%}
+        {%- capture _mbk  %}en_bs_uudai_banner_{{ i }}_mb{% endcapture -%}
+        {%- capture _lnk  %}en_bs_uudai_banner_{{ i }}_link{% endcapture -%}
+        {%- assign _img = settings[_imgk] -%}
+        {%- unless _img == blank -%}
+          {%- assign _img_mb = settings[_mbk] | default: _img -%}
+          {%- assign _link = settings[_lnk] -%}
+          <div class="swiper-slide uudai-banner__slide">
+            {%- if _link != blank -%}<a href="{{ _link }}" class="uudai-banner__link">{%- endif -%}
+            <picture class="uudai-banner__picture">
+              {%- unless settings[_mbk] == blank -%}
+              <source media="(max-width: 767px)" srcset="{{ _img_mb }}">
+              {%- endunless -%}
+              <img
+                class="uudai-banner__img{% if forloop.first %}{% else %} lazyload isHideTBT{% endif %}"
+                {% if forloop.first %}src="{{ _img }}" fetchpriority="high"{% else %}src="{{ _blank }}" data-src="{{ _img }}"{% endif %}
+                alt="{{ collection.metafields.hrvmultilang_en.title | append: '' | default: collection.title | escape }} - Ưu đãi {{ i }}"
+                width="1600" height="533"
+                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" decoding="async">
+            </picture>
+            {%- if _link != blank -%}</a>{%- endif -%}
+          </div>
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if _slide_count > 1 -%}
+    <div class="uudai-banner__pagination" id="uudaiBannerPagination"></div>
+    <button type="button" class="uudai-banner__nav uudai-banner__nav--prev" id="uudaiBannerPrev" aria-label="Banner first">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button type="button" class="uudai-banner__nav uudai-banner__nav--next" id="uudaiBannerNext" aria-label="Banner After">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}

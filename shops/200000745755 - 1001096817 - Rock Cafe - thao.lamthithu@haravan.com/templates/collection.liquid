@@ -1,0 +1,662 @@
+{%- assign check_filer = false -%}
+{%- if settings.collection_filter_show -%}
+{%- assign check_filter = true -%}
+{%- endif -%}
+{%- assign checkFilter = false -%}
+{%- if settings.collection_filter_show -%} 
+{%- assign checkFilter = true -%} 
+{%- endif -%}
+
+<div class="layout-collections">
+	{%- paginate collection.products by settings.collection_pagination_limit -%}
+	{%- include 'breadcrumb' -%}
+	<div class="wrapper-mainCollection">
+		<div class="collection-listproduct" id="collection-body">
+			<div class="wrapper-filter">
+				{%- include 'collection-filter' -%}
+				<div class="overlay-filter"></div>
+			</div>
+			{%- if settings.collection_image_show -%}
+			<div class="wrapper-collection-header banner-header ">
+				<div class="d-flex flex-wrap">
+					<div class="collection-banner col-lg-6 col-12 pl-0 pr-0">
+						{%- if collection.image != blank -%}
+						<img src="{{ collection.image.src }}" alt="{{collection.title}}"/>
+						{%- else -%}
+						<img src="{{ 'collection_banner.jpg' | asset_url }}" alt="{{collection.title}}"/>
+						{%- endif -%}
+					</div>
+					<div class="collection-heading col-lg-6 col-12 ">
+						<h1>{%if collection.handle == 'all'%}Tất cả sản phẩm{%else%}{{collection.title}}{%endif%}</h1>
+						{%- if collection.description != blank -%}
+						<div class="collection-desc">
+							<div class="collection-desc__info">{{ collection.description }}</div>
+							<p class="collection-desc__view "><span>Xem thêm >></span>	</p>
+						</div>
+						{%- endif -%}
+					</div>
+				</div>
+			</div>
+			{%- else -%}
+			<div class="wrapper-collection-header">
+				<div class="container">	
+					<div class="collection-heading">
+						<h1>{%if collection.handle == 'all'%}Tất cả sản phẩm{%else%}{{collection.title}}{%endif%}</h1>
+						{%- if collection.description != blank -%}
+						<div class="collection-desc">
+							<div class="collection-desc__info">{{ collection.description }}</div>
+							<p class="collection-desc__view "><span>Xem thêm >></span>	</p>
+						</div>
+						{%- endif -%}
+					</div>
+				</div>
+			</div>
+			{%- endif -%}
+		
+			<div class="wrapper-collection-hrvpmo hrvpmo-grids">	
+				<div class="container">
+					<div class="hrv-pmo-coupon" data-hrvpmo-layout="grids"></div>
+					<div class="hrv-pmo-discount" data-hrvpmo-layout="grids"></div>
+				</div>
+			</div>
+		
+			<div class="collection-content">
+				<div class="collection-heading">
+					<div class="collection-heading__content">
+						{%- if settings.collection_filter_show or settings.collection_sortby -%}
+						<div class="line-collection-content">
+							<div class="container">	
+								<div class="dFlex-row">
+									<div class="heading-box">
+										<div class="filter-box">							
+											{%- if settings.collection_filter_show -%}
+											<p class="title-filter">
+												<span>{{settings.collection_filter_title}}</span>
+												<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="m16 133.612h260.513c7.186 29.034 33.45 50.627 64.673 50.627s57.487-21.593 64.673-50.627h90.141c8.836 0 16-7.164 16-16s-7.164-16-16-16h-90.142c-7.185-29.034-33.449-50.628-64.673-50.628s-57.488 21.594-64.673 50.628h-260.512c-8.836 0-16 7.164-16 16s7.164 16 16 16zm325.186-50.628c19.094 0 34.628 15.534 34.628 34.627 0 19.094-15.534 34.628-34.628 34.628s-34.628-15.534-34.628-34.628c0-19.093 15.534-34.627 34.628-34.627zm-325.186 189.016h90.142c7.186 29.034 33.449 50.627 64.673 50.627s57.487-21.593 64.673-50.627h260.512c8.836 0 16-7.164 16-16s-7.164-16-16-16h-260.513c-7.186-29.034-33.449-50.628-64.673-50.628s-57.487 21.594-64.673 50.628h-90.141c-8.836 0-16 7.164-16 16s7.163 16 16 16zm154.814-50.628c19.094 0 34.628 15.534 34.628 34.628 0 19.093-15.534 34.627-34.628 34.627s-34.628-15.534-34.628-34.627c0-19.094 15.534-34.628 34.628-34.628zm325.186 157.016h-90.142c-7.186-29.034-33.449-50.628-64.673-50.628s-57.487 21.594-64.673 50.628h-260.512c-8.836 0-16 7.164-16 16s7.164 16 16 16h260.513c7.186 29.034 33.449 50.628 64.673 50.628s57.487-21.594 64.673-50.628h90.141c8.836 0 16-7.164 16-16s-7.163-16-16-16zm-154.814 50.628c-19.094 0-34.628-15.534-34.628-34.628s15.534-34.628 34.628-34.628 34.628 15.534 34.628 34.628-15.534 34.628-34.628 34.628z" fill="#000000" data-original="#000000" class=""></path></g></svg>
+											</p>
+											{%- endif -%}
+										</div>
+									</div>
+									<div class="heading-sortbyfilter">
+										<div class="collection-sortbyfilter-container">
+											<div class="collection-sortby-filter">
+												{%- if settings.collection_sortby and collection.products_count > 0 -%}
+												<div class="collection-sortby">
+													<div class="layered_filter_title boxstyle-mb" data-layered-click="#layered_sortby_mobile">
+														<p class="title_filter">
+															<span class="icon-filter"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></span>
+															<span class="icon-close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></span>										
+															{{settings.collection_sortby_title}}
+														</p>
+													</div>
+												</div>
+												{%- endif -%}
+											</div>
+											<div class="collection-sortby-option layered_filter_mobileContent" id="layered_sortby_mobile" >
+												<ul class="sort-by sort-by-content">
+													{% unless collection.handle == 'all' %}	<li><span data-value="manual" data-filter="">Sản phẩm nổi bật</span></li>{% endunless %}
+													<li><span data-value="price-ascending" data-filter="(price:product=asc)">Giá: Tăng dần</span></li>
+													<li><span data-value="price-descending" data-filter="(price:product=desc)">Giá: Giảm dần</span></li>
+													<li><span data-value="title-ascending" data-filter="(title:product=asc)">Tên: A-Z</span></li>
+													<li><span data-value="title-descending" data-filter="(title:product=desc)">Tên: Z-A</span></li>
+													<li><span data-value="created-ascending" data-filter="(updated_at:product=asc)">Cũ nhất</span></li>
+													<li><span data-value="created-descending" data-filter="(updated_at:product=desc)">Mới nhất</span></li>
+													<li><span data-value="best-selling" data-filter="(sold_quantity:product=desc)">Bán chạy nhất</span></li>
+													<li><span data-value="quantity-descending" data-filter="(quantity:product=desc)">Tồn kho giảm dần</span></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{%- endif -%}
+						<div class="container">	
+							<div class="collection-filter-tags">
+								<div class="heading-box">
+									<div class="filter-box noBorder">							
+										<span class="title-count"><b>
+											{{collection.all_products_count}}
+											</b> sản phẩm
+										</span>
+									</div>
+								</div>
+								<div class="layered_filter_tags">
+									<div class="filter_tags"></div>
+									<div class="filter_tags"></div>
+									{% if settings.use_vendor_filter %}
+									<div class="filter_tags">			
+										{{settings.vendor_title}}: <b></b>		
+										<span class="filter_tags_remove">
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 50 50" xml:space="preserve">
+												<path fill="#333" d="M9.016 40.837a1.001 1.001 0 0 0 1.415-.001l14.292-14.309 14.292 14.309a1 1 0 1 0 1.416-1.413L26.153 25.129 40.43 10.836a1 1 0 1 0-1.415-1.413L24.722 23.732 10.43 9.423a1 1 0 1 0-1.415 1.413l14.276 14.293L9.015 39.423a1 1 0 0 0 .001 1.414z" />
+											</svg>
+										</span>
+									</div>
+									{% endif %}
+									{% if settings.use_price_filter %}	
+									<div class="filter_tags">{{settings.title_tag_3}}: <b></b>
+										<span class="filter_tags_remove">
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 50 50" xml:space="preserve">
+												<path fill="#333" d="M9.016 40.837a1.001 1.001 0 0 0 1.415-.001l14.292-14.309 14.292 14.309a1 1 0 1 0 1.416-1.413L26.153 25.129 40.43 10.836a1 1 0 1 0-1.415-1.413L24.722 23.732 10.43 9.423a1 1 0 1 0-1.415 1.413l14.276 14.293L9.015 39.423a1 1 0 0 0 .001 1.414z" />
+											</svg>
+										</span>
+									</div>
+									{% endif %}	
+									{% if settings.use_color_filter %}
+									<div class="filter_tags">{{settings.color_title}}: <b></b>
+										<span class="filter_tags_remove">
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 50 50" xml:space="preserve">
+												<path fill="#333" d="M9.016 40.837a1.001 1.001 0 0 0 1.415-.001l14.292-14.309 14.292 14.309a1 1 0 1 0 1.416-1.413L26.153 25.129 40.43 10.836a1 1 0 1 0-1.415-1.413L24.722 23.732 10.43 9.423a1 1 0 1 0-1.415 1.413l14.276 14.293L9.015 39.423a1 1 0 0 0 .001 1.414z" />
+											</svg>
+										</span>
+									</div>
+									{% endif %}	
+									{% if settings.use_tag_custom_2 %}
+									<div class="filter_tags">{{settings.tag_title_custom_2}}: <b></b>
+										<span class="filter_tags_remove">
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 50 50" xml:space="preserve">
+												<path fill="#333" d="M9.016 40.837a1.001 1.001 0 0 0 1.415-.001l14.292-14.309 14.292 14.309a1 1 0 1 0 1.416-1.413L26.153 25.129 40.43 10.836a1 1 0 1 0-1.415-1.413L24.722 23.732 10.43 9.423a1 1 0 1 0-1.415 1.413l14.276 14.293L9.015 39.423a1 1 0 0 0 .001 1.414z" />
+											</svg>
+										</span>
+									</div>
+									{% endif %}	
+									<div class="filter_tags filter_tags_remove_all"><span>Xóa hết </span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container container-pd-parent">	
+					<div class="collection-wraper">
+						<div class="wraplist-collection">
+							<div class="row listProduct-row listProduct-filter">
+								{%- if collection.products.size == 0 -%}
+								<div class="col-md-12 product-noloop">
+									<div class="collection-alert-no"><p>Chưa có sản phẩm nào trong danh mục này</p></div>
+								</div>
+								{%- else -%}
+								{%- for product in collection.products limit: settings.collection_pagination_limit -%}
+								{%- include 'product-loop' with collection.handle, section:'collection' -%}
+								{%- endfor -%}	
+								{%- endif -%}				
+							</div>
+							{%- if collection.products.size > 0 -%}	
+							<div class="collection-loadmore text-center">
+								{%- if paginate.pages > 1 and paginate.pages > paginate.current_page  -%}	
+								<a class="button btn-loadmore" data-page="{{paginate.current_page | plus: 1 }}" data-collectionid="{{ collection.id }}" data-collectionhd="{{ collection.url }}" href="javascript:void(0);">Xem thêm sản phẩm</a>
+								{%- endif -%}	
+							</div>
+							{%- endif -%}	
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	{%- endpaginate -%}
+	<input type="text" class="d-none" id="coll-handle" value="{% if collection.handle == 'all' %}(collectionid:product>0){% else %}(collectionid:product={{collection.id}}){% endif %}" />
+</div>
+<script>
+	var hasChangeSort = false;
+	var activeFilter = {{settings.collection_filter_show}};
+	var activeSort = {{settings.collection_sortby}};
+	function sortby() {
+		var parent = this;
+		var collectionsort = "{{ collection.sort_by | default: collection.default_sort_by  }}";
+		Haravan.queryParams = {};
+		if (location.search.length) {
+			for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+				aKeyValue = aCouples[i].split('=');
+				if (aKeyValue.length > 1) {
+					Haravan.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+				}
+			}
+		}
+		jQuery('.sort-by li').each(function(){
+			if($(this).find('span').data('value') == collectionsort){
+				$(this).addClass('active');
+			}
+		});
+	}
+	function closeFilterMobile() {
+		$('.collection-filter').find('.layered_filter_parent').removeClass('show-filter');	
+		setTimeout(function(){ 
+			$('.collection-filter').find('.layered_filter_parent').fadeOut();	
+			$(".layered_filter_parent .overlays-rgba").remove(); 
+		}, 100);
+	}
+</script>
+<script>
+	var query = "", total_page = 0, total_product = 0, cur_page = 1, str = "", sortByPicked = '';	
+	jQuery(document).ready(function(){
+		sortby();
+		jQuery('.sort-by li').click(function(){
+			hasChangeSort = true;
+			if($(this).hasClass('active')){}
+			else{
+				var defaultSort = $(this).find('span').data('value');
+				$('.sort-by li').removeClass('active');
+				$('.checkbox-sortby li').removeClass('active');
+				$(this).addClass('active');
+				$('.checkbox-sortby li span[data-value="'+ defaultSort +'"]').parent().addClass('active');
+				Stringfilter();			
+			}
+		})
+		jQuery('.checkbox-sortby li').click(function(){
+			if($(this).hasClass('active')){}
+			else{
+				$('.checkbox-sortby li').removeClass('active');
+				$(this).addClass('active');	
+			}
+			/*if ($(".layered_filter_sortby").length > 0) {
+					closeFilterMobile()
+				}*/
+		})
+		jQuery('.checkbox-list li > input').click(function(){
+			jQuery(this).parent().toggleClass('active');	
+			Stringfilter();	
+			var indexTitle = jQuery(this).parents('.filter_group').index();
+			if (jQuery(this).parents('.filter_group').find('li.active').length > 0 ){
+				var textFilter = [];
+				jQuery(this).parents('.filter_group').find('li.active').each(function(){
+					var textVal = $(this).find('label').html();
+					textFilter.push(textVal);
+				});
+				//console.log(textFilter)
+				$('.filter_tags:eq('+indexTitle+') b').html(textFilter.join(',')).parent().addClass('opened');
+				if ($('.filter_tags:not(.filter_tags_remove_all).opened').length > 1 ){
+					$('.filter_tags_remove_all').addClass('opened');
+				}
+			}
+			else{
+				$('.filter_tags:eq('+indexTitle+') b').html('').parent().removeClass('opened');
+				$('.filter_tags_remove_all').removeClass('opened');
+			}
+
+			if($('.checkbox-list li.active').length == 0){
+				$('.btn-collection.btn_clear_filter').hide();
+			} else {
+				$('.btn-collection.btn_clear_filter').show();
+			}
+			//console.log($('.checkbox-list li.active').length)
+		});	
+		jQuery('.filter_tags_remove').click(function(){
+			$(this).parent().removeClass('opened').find('b').html();
+			var indexClick = $(this).parent().index();
+			$('.filter_group:eq('+indexClick+') li.active input').prop('checked', false);
+			$('.filter_group:eq('+indexClick+') li.active').removeClass('active');
+			if($('.filter_tags:not(.filter_tags_remove_all).opened').length == 1){
+				$('.filter_tags_remove_all').removeClass('opened');
+			}
+			if($('.checkbox-list li.active').length == 0){
+				LoadOrigin();
+				hasChangeSort = false;
+			}
+			else{
+				Stringfilter();
+			}
+		});
+		jQuery('.filter_tags_remove_all').click(function(){
+			$('.checkbox-list li.active input').prop('checked', false);
+			$('.checkbox-list li.active').removeClass('active');
+			$('.filter_tags b').html('').parent().removeClass('opened');
+			$('.filter_tags_remove_all').removeClass('opened');
+			hasChangeSort = false;
+			LoadOrigin();
+		});
+		jQuery('.btn_clear_filter').on("click",function(){
+			$('.checkbox-list li.active input').prop('checked', false);
+			$('.checkbox-list li.active').removeClass('active');
+			$('.filter_tags b').html('').parent().removeClass('opened');
+			$('.filter_tags_remove_all').removeClass('opened');
+			$('.btn-collection.btn_clear_filter').hide();
+			hasChangeSort = false;
+			LoadOrigin();	
+		});	
+		jQuery('#apply-btn-filter').on("click",function(){	
+			if($('.checkbox-list li.active').length == 0){
+				var dataSort = $('.checkbox-sortby li.active').find('span').data('value');
+				$('.sort-by li span[data-value="'+ dataSort +'"]').trigger('click');
+			}else{
+				Stringfilter();		
+			}
+			closeFilterMobile();	
+		});
+		jQuery('#clear-btn-filter').on("click",function(){
+			if($('.checkbox-list li.active').length == 0){
+				var originSort = $('.sort-by li.active').find('span').data('value');
+				$('.checkbox-sortby li').removeClass('active');
+				$('.checkbox-sortby li span[data-value="'+ originSort +'"]').parent().addClass('active');
+			}else{
+				$('.checkbox-list li.active input').prop('checked', false);
+				$('.checkbox-list li.active').removeClass('active');
+				$('.filter_tags b').html('').parent().removeClass('opened');
+				$('.filter_tags_remove_all').removeClass('opened');
+				hasChangeSort = false;
+				LoadOrigin();
+			}
+			closeFilterMobile();	
+		});	 
+		var Stringfilter = function(){ 
+			var q="", gia="",vendor="",color="", size="", sortBy = "";
+			var handle_coll = $('#coll-handle').val();
+
+			var pathName = window.location.pathname;
+			if(pathName.indexOf('vendors') > -1 ){
+				handle_coll = '(vendor:product contains '+paramUrl.q.replaceAll('-',' ')+')';
+				//console.log(handle_coll)
+			}
+			if(pathName.indexOf('types') > -1 ){
+				handle_coll = '(product_type:product='+paramUrl.q.replaceAll('-',' ')+')';
+			}
+			var str_url = 'filter=';
+			q = "("+handle_coll;
+
+			jQuery('.filter-price ul.checkbox-list li.active').each(function(){
+				gia = gia + jQuery(this).find('input').data('price') + '||';
+			})
+			gia=gia.substring(0,gia.length -2);
+			if(gia != ""){
+				gia='('+gia+')';
+				q+='&&'+gia;
+			}
+
+			jQuery('.filter-brand ul.checkbox-list li.active').each(function(){
+				vendor = vendor + jQuery(this).find('input').data('vendor') + '||';
+			})
+			vendor=vendor.substring(0,vendor.length -2);
+			if(vendor != ""){
+				vendor='('+vendor+')';
+				q+='&&'+vendor;
+			}
+
+			jQuery('.filter-color ul.checkbox-list li.active').each(function(){
+				color = color + jQuery(this).find('input').data('color') + '||';
+				//size2 = size2 + jQuery(this).data('s') + '--';
+			})
+			color=color.substring(0,color.length -2);
+			if(color != ""){
+				color='('+color+')';
+				q+='&&'+color;
+			}
+			jQuery('.filter-size ul.checkbox-list li.active').each(function(){
+				size = size + jQuery(this).find('input').data('size') + '||';
+			})
+			size=size.substring(0,size.length -2);
+			if(size != ""){
+				size='('+size+')';
+				q+='&&'+size;
+			}
+			if ($('.sort-by').length > 0) {
+				$('.sort-by li').each(function(){
+					if($(this).hasClass('active')){
+						if ($(this).find('span').data('value') == 'manual') {
+							sortBy = '';
+						} else {
+							sortBy = '&sortby=' + $(this).find('span').data('filter');
+						}
+					}
+				});
+				sortByPicked = sortBy;
+			}
+			//console.log(str_url + q)
+			str_url += encodeURIComponent(q) + ")";
+			str = str_url;
+
+			jQuery.ajax({ // lấy tổng số trang của kết quả filter
+				url: "/search?q="+str_url+"&view=pagesize",	
+				async: false,
+				success:function(data){
+					data = JSON.parse(data);
+					total_page = parseInt(data.pages);
+					total_product = parseInt(data.products);
+				}
+			})
+			if(cur_page <= total_page){
+				jQuery.ajax({
+					url : "/search?q="+str_url+"&view=filter"+sortBy,
+					success: function(data){
+						setTimeout(function(){ 
+							$(".product-noloop").remove();
+							$(".listProduct-filter").html('');	
+							$(".listProduct-filter").html(data);	
+							$('.title-count b').html(total_product);
+							if(productReviewsApp &&  productReviewsProloop){ ProductReviews.init(); }
+							if(promotionApp){	
+								if (promotionApp_name == 'app_combo'){
+									comboApp.showGiftLabel();				
+								}
+								else{	
+									buyXgetY.showGiftLabel();	
+								}
+							}	
+							if($(window).width() > 1200){
+								$('[data-toggle="popover"]').popover({
+									container: 'body'
+								})
+							}
+							if(total_page > 1){
+								$('.wraplist-collection .collection-loadmore').addClass('loadmore-filter').show();
+								$('.wraplist-collection .collection-loadmore a').attr('data-page',cur_page+1);
+							}
+							else{
+								$('.wraplist-collection .listProduct-filter').siblings(':not(h3)').hide();
+							}	
+						},300);
+					}
+				});
+			} else {
+				jQuery(".listProduct-filter").html('');	
+				jQuery(".listProduct-filter").append('<div class="col-md-12 product-noloop"><div class="collection-alert-no"><p>Không tìm thấy kết quả. Vui lòng thử lại!</p></div></div>');
+				jQuery('.wraplist-collection .collection-loadmore').hide();
+				jQuery(".title-count b").html("0");
+			}
+			var x = $('#collection-body').offset().top;
+			HRT.All.smoothScroll(x, 500); 
+		}
+		var LoadOrigin = function(){
+			var view = "?view=data", pageView = '?view=pagesize';			
+			cur_page = 1;	
+			var collectionHd = "{{collection.url}}";				
+			var urlQuery = collectionHd+view;
+
+			var pathName = window.location.pathname;
+			if(pathName.indexOf('vendors') > -1 || pathName.indexOf('types') > -1){
+				collectionHd = pathName + '?q='+paramUrl.q;
+				urlQuery = pathName + '?q='+paramUrl.q+view.replace('?','&');
+			}
+
+			if ($('.sort-by').length > 0) {
+				$('.sort-by li').each(function(){
+					if($(this).hasClass('active')){
+						if ($(this).find('span').data('value') == 'manual') {
+							sortBy = '';
+						} else {
+							sortBy = '&sort_by=' + $(this).find('span').data('value');
+						}
+					}
+				});
+				sortByPicked = sortBy;
+			}
+
+			$.ajax({
+				url: collectionHd + (collectionHd.indexOf('?') > -1?pageView.replace('?','&'):pageView),	
+				type: 'GET',
+				async: false,
+				success:function(data){					
+					data = JSON.parse(data);
+					total_page = parseInt(data.pages);
+					total_product = parseInt(data.products);
+				}
+			});
+
+			$.ajax({
+				url: urlQuery+'&page='+cur_page+sortByPicked,
+				type: 'GET',
+				async: false,
+				success:function(data){
+					$('.wraplist-collection .listProduct-filter').html('');
+					if(cur_page >= total_page && total_page > 1){ 
+						$('.wraplist-collection .listProduct-filter').siblings(':not(h3)').hide();
+					}
+					else{
+						setTimeout(function(){ 
+							$('.wraplist-collection .listProduct-filter').append(data).addClass('loaded');
+							$('.title-count b').html(total_product);
+							$('.collection-loadmore .btn-loadmore').attr('data-page',cur_page+1);
+							$('.collection-loadmore').find('.btn-loadmore').removeClass('btn-loading')
+							$('.collection-loadmore').show();
+							if(productReviewsApp &&  productReviewsProloop){ ProductReviews.init(); }
+							if(promotionApp){	
+								if (promotionApp_name == 'app_combo'){
+									comboApp.showGiftLabel();				
+								}
+								else{	
+									buyXgetY.showGiftLabel();	
+								}
+							}	
+							if($(window).width() > 1200){
+								$('[data-toggle="popover"]').popover({
+									container: 'body'
+								})
+							}
+						}, 400);
+					}
+				}
+			});
+
+			var x = $('#collection-body').offset().top;
+			HRT.All.smoothScroll(x, 500);
+		}
+		$(document).on("click","#collection-body .collection-loadmore .btn-loadmore:not(.btn-loading)", function(e){
+			e.preventDefault();
+			$(this).addClass('btn-loading');
+			var btn = $(this);
+			var view = "?view=data", pageView = '?view=pagesize';			
+			var link = parseInt($(this).attr("data-page"));		
+			var collectionHd = "{{collection.url}}";				
+			var urlQuery = collectionHd+view;
+			var pathName = window.location.pathname;
+
+			if(pathName.indexOf('vendors') > -1 || pathName.indexOf('types') > -1){
+				collectionHd = pathName + '?q='+paramUrl.q;
+				urlQuery = pathName + '?q='+paramUrl.q+view.replace('?','&');
+			}
+
+			if ($('.sort-by').length > 0) {			
+				if($('.sort-by li.active').length > 0){	
+					if ($('.sort-by li.active').find('span').data('value') == 'manual') {
+						sortBy = '';
+					} 
+					else {
+						if((hasChangeSort) || $('.checkbox-list li.active').length > 0){
+							sortBy = '&sortby=' + $('.sort-by li.active').find('span').data('filter');
+						}
+						else{
+							sortBy = '&sort_by=' + $('.sort-by li.active').find('span').data('value');
+						}
+					}
+				}
+				else{
+					sortBy = '';				
+				}
+				sortByPicked = sortBy;
+			}
+
+			if(hasChangeSort == false && $('.checkbox-list li.active').length == 0){
+				$.ajax({
+					url: collectionHd + (collectionHd.indexOf('?') > -1?pageView.replace('?','&'):pageView),	
+					type: 'GET',
+					async: false,
+					success:function(data){				
+						data = JSON.parse(data);
+						total_page = parseInt(data.pages);
+					}
+				});		
+
+				$.ajax({
+					url: urlQuery+'&page='+link+sortByPicked,					
+					type: 'GET',
+					async: false,
+					success:function(data){
+						setTimeout(function(){ 
+							$('.wraplist-collection .listProduct-filter').append(data).addClass('loaded');
+							$('.collection-loadmore').find('.btn-loadmore').removeClass('btn-loading');
+							if(productReviewsApp &&  productReviewsProloop){	ProductReviews.init();	}
+							if(promotionApp){	
+								if (promotionApp_name == 'app_combo'){
+									comboApp.showGiftLabel();				
+								}
+								else{	
+									buyXgetY.showGiftLabel();	
+								}
+							}	
+							if($(window).width() > 1200){
+								$('[data-toggle="popover"]').popover({
+									container: 'body'
+								})
+							}
+
+							if(link == 1){
+								$('.wraplist-collection .listProduct-filter').html('');
+							}
+							if(link >= total_page){ 
+								$('.wraplist-collection .listProduct-filter').siblings(':not(h3)').hide();
+							}
+						}, 350);
+					}
+				});
+				$(this).attr('data-page',link+1);
+			}
+			else{
+				jQuery.ajax({
+					url : "/search?q="+str+"&view=filter"+sortByPicked+'&page='+link,
+					success: function(data){
+						jQuery(".product-noloop").remove();					
+						setTimeout(function(){ 
+							$('.wraplist-collection .listProduct-filter').append(data).addClass('loaded');
+							$('.collection-loadmore').find('.btn-loadmore').removeClass('btn-loading');
+							if(productReviewsApp &&  productReviewsProloop){ ProductReviews.init(); }
+							if(promotionApp){	
+								if (promotionApp_name == 'app_combo'){
+									comboApp.showGiftLabel();				
+								}
+								else{	
+									buyXgetY.showGiftLabel();	
+								}
+							}	
+							if(link >= total_page && total_page > 1){
+								$('.wraplist-collection .listProduct-filter').siblings(':not(h3)').hide();
+							}
+							else{
+								btn.attr('data-page',link+1);
+							}
+							if($(window).width() > 1200){
+								$('[data-toggle="popover"]').popover({
+									container: 'body'
+								})
+							}
+						}, 350);
+					}
+				});
+			}
+		});
+		$(document).on('click', '.heading-box .title-filter', function(e){
+			e.preventDefault();
+			$(".layered_filter_parent").append('<div class="overlays-rgba"></div>'); 
+			$('.collection-filter').find('.layered_filter_parent').fadeIn(100);	
+			$('.collection-filter').find('.layered_filter_parent').addClass('show-filter');	
+		});	
+		$(document).on('click', '.layered_filter_parent .close_filter,.layered_filter_parent .overlays-rgba', function(e){
+			e.preventDefault();
+			if($('.checkbox-list li.active').length == 0){
+				var originSort = $('.sort-by li.active').find('span').data('value');
+				$('.checkbox-sortby li').removeClass('active');
+				$('.checkbox-sortby li span[data-value="'+ originSort +'"]').parent().addClass('active');
+			}
+			closeFilterMobile();
+		});	
+	});
+</script>

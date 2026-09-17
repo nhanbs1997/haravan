@@ -1,0 +1,52 @@
+<script src="//hstatic.net/0/0/global/design/js/jquery.min.1.11.0.js"></script>
+<script src="//hstatic.net/0/0/global/design/js/bootstrap.min.js"></script>
+{{ 'option_selection.js' | haravan_asset_url | script_tag }}
+{{ 'api.jquery.js' | haravan_asset_url | script_tag }}
+{% if template contains 'customers' %}
+{{ 'haravan_common.js' | haravan_asset_url | script_tag }}
+{{ 'customer_area.js'  | haravan_asset_url | script_tag }}
+{% endif %}
+<script>
+var formatMoney = '{{ shop.money_format }}';
+</script>
+{{'default_script.min.js'  | asset_url | script_tag }}
+{{'default_style.min.css' | asset_url | stylesheet_tag }}
+{%comment %}
+các file js min
+{{'modernizr.min.js' | asset_url | script_tag }}
+{{'jquery.mmenu.all.min.js' | asset_url | script_tag }}
+{{'jquery.lazy.min.js'  | asset_url | script_tag }}
+{{ '//hstatic.net/0/0/global/design/js/owl.carousel.js' | script_tag }}
+{{ '//hstatic.net/0/0/global/design/css/owl.carousel.css' | stylesheet_tag }}
+	{{'jquery.mmenu.all.css' | asset_url | stylesheet_tag }}
+{{'//hstatic.net/770/1000108770/10/2016/8-15/animate.min.css'| stylesheet_tag }}
+{% endcomment%}
+<!--[if lt IE 9]>
+<script src="//hstatic.net/0/0/global/design/theme-default/html5shiv.js"></script>
+<![endif]-->
+<script src="//hstatic.net/0/0/global/design/theme-default/jquery-migrate-1.2.0.min.js"></script>
+{{'//hstatic.net/0/0/global/design/theme-default/jquery.touchSwipe.min.js' | script_tag}}
+
+<script data-target=".product-resize"  data-parent=".products-resize" data-img-box=".image-resize" src="//hstatic.net/0/0/global/design/js/fixheightproductv2.js"></script>
+
+<script src="//hstatic.net/0/0/global/design/js/haravan.plugin.1.0.js"></script>
+{%if product%}
+{{ 'jquery.elevatezoom.min.js' | asset_url | script_tag }}
+{%endif%}
+
+{{ '//hstatic.net/0/0/global/design/theme-default/jquery.flexslider.js'  | script_tag }}
+{{'//hstatic.net/0/0/global/design/theme-default/flexslider.css' | stylesheet_tag }}
+
+{{ 'scripts.js'  | asset_url | script_tag }}
+{% unless settings.base_font contains 'Arial'%}
+{% if settings.base_font %}
+<link rel="stylesheet" type="text/css" href="//hstatic.net/0/0/global/design/member/fonts-master/{{settings.base_font | replace: ' ', '' | downcase}}.css">
+{% endif %}
+{% endunless %}
+{% include 'fb-open-graph-tags' %}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//hstatic.net/0/0/global/design/css/bootstrap.3.3.1.css">
+<!-- Latest compiled and minified JavaScript -->
+<link href='//hstatic.net/0/0/global/design/plugins/font-awesome/4.6.3/css/font-awesome.min.css' rel='stylesheet' type='text/css'  media='all'  />
+
+{{ 'styles.css' | asset_url | stylesheet_tag }}

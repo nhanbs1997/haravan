@@ -1,0 +1,84 @@
+{%- assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+
+<section class="about-story">
+  <div class="container">
+
+    {%- unless settings.en_bs_about_story_title == blank and settings.en_bs_about_story_intro == blank -%}
+    <div class="about-story__head">
+      {%- unless settings.en_bs_about_story_title == blank -%}
+      <h2 class="about-story__title">{{ settings.en_bs_about_story_title }}</h2>
+      {%- endunless -%}
+      {%- unless settings.en_bs_about_story_intro == blank -%}
+      <p class="about-story__intro">{{ settings.en_bs_about_story_intro }}</p>
+      {%- endunless -%}
+    </div>
+    {%- endunless -%}
+
+    <div class="about-story__body">
+      <div class="about-story__media">
+        {%- unless settings.en_bs_about_story_img == blank -%}
+        <img
+          class="about-story__img lazyload isHideTBT"
+          src="{{ _blank }}"
+          data-src="{{ settings.en_bs_about_story_img }}"
+          alt="{{ shop.name | escape }}"
+          loading="lazy" decoding="async"
+          width="714" height="536">
+        {%- else -%}
+        <div class="about-story__img-placeholder" aria-hidden="true"></div>
+        {%- endunless -%}
+      </div>
+
+      <div class="about-story__content">
+        <div class="about-story__quote-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="80" height="59" viewBox="0 0 80 59" fill="none">
+            <path opacity="0.15" d="M43.2845 35.5425C43.2845 32.1799 43.7146 28.8172 44.5748 25.4545C45.5132 22.0137 46.9599 18.7683 48.915 15.7185C50.9482 12.5904 53.5288 9.73607 56.6569 7.15543C59.7849 4.49658 63.5777 2.26784 68.0352 0.469208C68.4262 0.312805 68.7781 0.195503 69.0909 0.117302C69.4037 0.0391007 69.7556 0 70.1466 0C71.9453 0 73.4311 0.664712 74.6041 1.99413C75.7771 3.32356 76.3636 4.77028 76.3636 6.33431C76.3636 7.50733 75.9726 8.64125 75.1906 9.73607C74.4868 10.8309 73.5093 11.6129 72.2581 12.0821C68.739 13.4115 65.9238 15.0538 63.8123 17.0088C61.7009 18.9638 59.9804 21.0753 58.651 23.3431C59.2766 23.1867 59.824 23.1085 60.2933 23.1085C60.7625 23.1085 61.3099 23.1085 61.9355 23.1085C64.3597 23.1085 66.6667 23.5777 68.8563 24.5161C71.0459 25.4545 72.9619 26.7449 74.6041 28.3871C76.2463 30.0293 77.5367 31.9453 78.4751 34.1349C79.4917 36.3245 80 38.6706 80 41.173C80 43.6755 79.4917 46.0215 78.4751 48.2111C77.5367 50.3226 76.2463 52.1603 74.6041 53.7243C72.9619 55.2884 71.0459 56.5396 68.8563 57.478C66.6667 58.4164 64.3597 58.8856 61.9355 58.8856C58.7292 58.8856 55.9531 58.26 53.607 57.0088C51.3392 55.7576 49.4233 54.0762 47.8592 51.9648C46.2952 49.7752 45.1222 47.2727 44.3402 44.4575C43.6364 41.6422 43.2845 38.6706 43.2845 35.5425ZM0 35.5425C0 32.1799 0.430108 28.8172 1.29032 25.4545C2.22874 22.0137 3.67546 18.7683 5.6305 15.7185C7.66373 12.5904 10.2444 9.73607 13.3724 7.15543C16.5005 4.49658 20.2933 2.26784 24.7507 0.469208C25.1417 0.312805 25.4936 0.195503 25.8065 0.117302C26.1193 0.0391007 26.4712 0 26.8622 0C28.6608 0 30.1466 0.664712 31.3196 1.99413C32.5709 3.32356 33.1965 4.77028 33.1965 6.33431C33.1965 7.50733 32.8055 8.64125 32.0235 9.73607C31.2414 10.8309 30.2639 11.6129 29.0909 12.0821C25.5718 13.4115 22.7175 15.0538 20.5279 17.0088C18.4164 18.9638 16.696 21.0753 15.3666 23.3431C15.9922 23.1867 16.5396 23.1085 17.0088 23.1085C17.5562 23.1085 18.1427 23.1085 18.7683 23.1085C21.1926 23.1085 23.4995 23.5777 25.6891 24.5161C27.8788 25.4545 29.7947 26.7449 31.437 28.3871C33.0792 30.0293 34.3695 31.9453 35.3079 34.1349C36.2463 36.3245 36.7155 38.6706 36.7155 41.173C36.7155 43.6755 36.2463 46.0215 35.3079 48.2111C34.3695 50.3226 33.0792 52.1603 31.437 53.7243C29.7947 55.2884 27.8788 56.5396 25.6891 57.478C23.4995 58.4164 21.1926 58.8856 18.7683 58.8856C15.5621 58.8856 12.7859 58.26 10.4399 57.0088C8.09384 55.7576 6.13881 54.0762 4.57478 51.9648C3.01075 49.7752 1.83773 47.2727 1.05572 44.4575C0.351906 41.6422 0 38.6706 0 35.5425Z" fill="#00B8CD"/>
+          </svg>
+        </div>
+        <div class="about-story__content-inner">
+          {%- unless settings.en_bs_about_story_heading == blank -%}
+          <h3 class="about-story__heading">{{ settings.en_bs_about_story_heading }}</h3>
+          {%- endunless -%}
+
+          {%- unless settings.en_bs_about_story_block1_lead == blank and settings.en_bs_about_story_block1_list == blank -%}
+          <div class="about-story__block">
+            {%- unless settings.en_bs_about_story_block1_lead == blank -%}
+            <p class="about-story__text-lead">{{ settings.en_bs_about_story_block1_lead }}</p>
+            {%- endunless -%}
+            {%- unless settings.en_bs_about_story_block1_list == blank -%}
+            <ul class="about-story__list">
+              {%- assign _b1 = settings.en_bs_about_story_block1_list | newline_to_br | split: '<br />' -%}
+              {%- for _li in _b1 -%}
+                {%- assign _li = _li | strip -%}
+                {%- unless _li == blank -%}<li>{{ _li }}</li>{%- endunless -%}
+              {%- endfor -%}
+            </ul>
+            {%- endunless -%}
+          </div>
+          {%- endunless -%}
+
+          {%- unless settings.en_bs_about_story_block2_lead == blank and settings.en_bs_about_story_block2_list == blank -%}
+          <div class="about-story__block">
+            {%- unless settings.en_bs_about_story_block2_lead == blank -%}
+            <p class="about-story__text-lead">{{ settings.en_bs_about_story_block2_lead }}</p>
+            {%- endunless -%}
+            {%- unless settings.en_bs_about_story_block2_list == blank -%}
+            <ul class="about-story__list">
+              {%- assign _b2 = settings.en_bs_about_story_block2_list | newline_to_br | split: '<br />' -%}
+              {%- for _li in _b2 -%}
+                {%- assign _li = _li | strip -%}
+                {%- unless _li == blank -%}<li>{{ _li }}</li>{%- endunless -%}
+              {%- endfor -%}
+            </ul>
+            {%- endunless -%}
+          </div>
+          {%- endunless -%}
+
+          {%- unless settings.en_bs_about_story_tagline == blank -%}
+          <p class="about-story__tagline">{{ settings.en_bs_about_story_tagline }}</p>
+          {%- endunless -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

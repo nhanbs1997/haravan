@@ -1,0 +1,97 @@
+{%- comment -%}
+  Template: search — Trang kết quả tìm kiếm (server-render tĩnh).
+  Tái dùng style trang collection (coll.scss): heading, lưới sản phẩm, empty state, pagination.
+  Chỉ render kết quả là sản phẩm (object_type == 'product').
+  AJAX filter/sort: xem search.filter.liquid (chưa wire vào trang này — phương án A tĩnh).
+{%- endcomment -%}
+
+{%- paginate search.results by settings.pagination_limit -%}
+
+<link rel="preload stylesheet" href="{{ 'coll.scss.css' | asset_url }}" as="style">
+
+<div id="search-page" class="coll coll--search">
+  <div class="container">
+
+    {%- include 'breadcrumb' -%}
+
+    <div class="coll__heading">
+      <h1 class="coll__title">
+        {%- if search.terms == blank -%}
+          Tìm kiếm
+        {%- else -%}
+          Kết quả tìm kiếm: "{{ search.terms | strip_html | escape }}"
+        {%- endif -%}
+        <span class="coll__count">({{ search.results_count | default: paginate.items }})</span>
+      </h1>
+    </div>
+
+    {%- capture _grid -%}
+      {%- for product in search.results -%}
+        {%- if product.object_type == 'product' -%}
+          {%- include 'product-loop' -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+
+    {%- if _grid contains 'product-card' -%}
+    <div class="coll__grid" id="collGrid">
+      {{ _grid }}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+    <div class="coll__pagi">
+      <div class="pagination" data-current="{{ paginate.current_page }}" data-pages="{{ paginate.pages }}">
+        <div class="pagination__inner">
+          {%- if paginate.previous -%}
+          <a class="pagination__item pagination__prev" href="{{ paginate.previous.url }}" aria-label="Trang trước">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          {%- endif -%}
+
+          {%- if paginate.current_page >= 4 -%}
+            {%- assign _firstpage = paginate.previous.url | split: 'page' -%}
+            <a class="pagination__item" href="{{ _firstpage.first | append: 'page=1' }}">1</a>
+            {%- if paginate.current_page > 4 -%}<span class="pagination__item pagination__dots">…</span>{%- endif -%}
+          {%- endif -%}
+
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}
+            <a class="pagination__item" href="{{ part.url }}">{{ part.title }}</a>
+            {%- else -%}
+            <span class="pagination__item{% if part.title == paginate.current_page %} is-current{% endif %}">{{ part.title }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- if paginate.next -%}
+          <a class="pagination__item pagination__next" href="{{ paginate.next.url }}" aria-label="Trang sau">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    {%- endif -%}
+
+    {%- else -%}
+    <div class="coll__empty">
+      <svg class="coll__empty-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+      </svg>
+      <p class="coll__empty-title">Không tìm thấy sản phẩm phù hợp</p>
+      <p class="coll__empty-desc">
+        {%- if search.terms == blank -%}
+          Nhập từ khóa để tìm sản phẩm bạn cần.
+        {%- else -%}
+          Thử từ khóa khác hoặc kiểm tra lại chính tả.
+        {%- endif -%}
+      </p>
+      <a href="/" class="coll__empty-btn">Về trang chủ</a>
+    </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{%- include 'recently-viewed' -%}
+
+{%- endpaginate -%}

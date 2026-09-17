@@ -1,0 +1,6 @@
+{%- if settings.free_shipping_enable -%}
+<div class="progress js-free-shipping mt-3 mb-3" data-value="{{ settings.free_shipping_price }}">
+	<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+	<span class="free-shipping-content js-free-shipping-text"></span>
+</div>
+{%- endif -%}

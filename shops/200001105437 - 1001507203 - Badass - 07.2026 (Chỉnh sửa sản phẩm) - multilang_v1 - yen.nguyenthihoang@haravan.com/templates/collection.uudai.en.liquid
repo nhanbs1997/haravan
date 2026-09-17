@@ -1,0 +1,54 @@
+{% layout 'en' %}
+{%- paginate collection.products by settings.en_pagination_limit -%}
+
+<link rel="preload stylesheet" href="{{ 'coll.scss.css' | asset_url }}" as="style">
+<link rel="preload stylesheet" href="{{ 'coll-uudai.scss.css' | asset_url }}" as="style">
+
+<div class="coll__sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+<input type="hidden" id="coll-handle" value="{% if collection.handle == 'all' %}collectionid:product>0{% else %}collectionid:product={{ collection.id }}{% endif %}">
+
+<div id="collection-page" class="coll coll--uudai" data-handle="{{ collection.url }}" data-id="{{ collection.id }}" data-style="uudai">
+
+  <div class="container">
+    {%- include 'en_coll-breadcrumb' -%}
+  </div>
+
+  {%- include 'en_coll-uudai-banner' -%}
+
+  {%- include 'en_coll-uudai-vouchers' -%}
+
+  {%- include 'en_coll-filterbar' -%}
+
+  <div class="container">
+    <div class="coll__body">
+
+      {%- include 'en_coll-sidebar' -%}
+
+      <div class="coll__main">
+        <div class="coll__grid" id="collGrid">
+          {%- for product in collection.products -%}
+          {%- include 'en_product-loop' -%}
+          {%- endfor -%}
+        </div>
+        <div class="coll__pagi" id="collPagi">
+          {%- include 'en_pagination' -%}
+        </div>
+        <div class="coll__filter-pagi" id="collFilterPagi"></div>
+      </div>
+
+    </div>
+  </div>
+ 
+</div>
+
+<script fetchpriority="low" defer src="{{ 'en_coll.js' | asset_url }}"></script>
+<script fetchpriority="low" defer src="{{ 'en_coll-uudai.js' | asset_url }}"></script>
+
+<div class="container">
+  {%- include 'en_coll-description' -%}
+</div>
+
+{%- include 'en_recently-viewed' -%}
+
+{%- endpaginate -%}

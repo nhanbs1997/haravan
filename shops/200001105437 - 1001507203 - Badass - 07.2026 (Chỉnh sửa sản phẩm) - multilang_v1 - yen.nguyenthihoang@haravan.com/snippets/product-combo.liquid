@@ -1,0 +1,279 @@
+{%- comment -%}
+  Snippet: product-combo
+  Mô tả: Section Combo tĩnh — placeholder cho API Combo sau này
+  Vị trí: Dưới pd__policy trong product.liquid
+{% endcomment %}
+
+{%- if settings.promotion_hrvapp_use and settings.promotion_hrvapp == 'appcombo' -%}
+<div class="pd-combo" id="pdCombo">
+  <div class="pd-combo__head">
+    <h3 class="pd-combo__title">Combo</h3>
+  </div>
+
+  <div class="pd-combo__list" id="comboList">
+
+    <div class="pd-combo__item">
+      <label class="pd-combo__radio">
+        <input type="radio" name="combo-select" value="1" checked>
+        <span class="pd-combo__radio-dot"></span>
+      </label>
+      <div class="pd-combo__product">
+        <div class="pd-combo__img">
+          <img src="{{ product.featured_image | product_img_url: 'small' }}" alt="{{ product.title | escape }}" width="80" height="120" loading="lazy">
+        </div>
+        <div class="pd-combo__info">
+          <p class="pd-combo__name">{{ product.title }}</p>
+          <div class="pd-combo__prices">
+            <span class="pd-combo__price">{{ product.price_min | money }}</span>
+            {%- if product.compare_at_price_max > product.price_min -%}
+            <del class="pd-combo__compare">{{ product.compare_at_price_max | money }}</del>
+            {%- endif -%}
+          </div>
+          <div class="pd-combo__selects">
+            {%- comment -%} Xác định index option size / màu (−1 nếu không có) {% endcomment %}
+            {%- assign _size_idx = -1 -%}
+            {%- assign _color_idx = -1 -%}
+            {%- for opt in product.options -%}
+              {%- assign _ol = opt | downcase -%}
+              {%- if _ol contains 'size' or _ol contains 'kích' or _ol contains 'cỡ' -%}
+                {%- assign _size_idx = forloop.index0 -%}
+              {%- elsif _ol contains 'màu' or _ol contains 'color' or _ol contains 'colour' -%}
+                {%- assign _color_idx = forloop.index0 -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if _size_idx >= 0 -%}
+            <div class="pd-combo__select-wrap">
+              <select class="pd-combo__select" data-combo-size data-opt-index="{{ _size_idx }}" aria-label="Chọn size">
+                {%- assign _seen = '' -%}
+                {%- for v in product.variants -%}
+                  {%- assign _sv = v.options[_size_idx] -%}
+                  {%- assign _chk = ',' | append: _seen | append: ',' -%}
+                  {%- assign _ndl = ',' | append: _sv | append: ',' -%}
+                  {%- unless _chk contains _ndl -%}
+                  <option value="{{ _sv | escape }}">{{ _sv | escape }}</option>
+                  {%- assign _seen = _seen | append: _sv | append: ',' -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+              </select>
+              <svg class="pd-combo__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            {%- endif -%}
+
+            {%- if _color_idx >= 0 -%}
+            <div class="pd-combo__select-wrap">
+              <select class="pd-combo__select pd-combo__select--color" data-combo-color data-opt-index="{{ _color_idx }}" aria-label="Chọn màu">
+                {%- assign _seen_c = '' -%}
+                {%- for v in product.variants -%}
+                  {%- assign _cv = v.options[_color_idx] -%}
+                  {%- assign _chkc = ',' | append: _seen_c | append: ',' -%}
+                  {%- assign _ndlc = ',' | append: _cv | append: ',' -%}
+                  {%- unless _chkc contains _ndlc -%}
+                    {%- assign _cv_lower = _cv | downcase | strip -%}
+                    {%- assign _chex = '' -%}
+                    {%- for i in (1..20) -%}
+                      {%- assign _sn = 'bs_swatch_name_' | append: i -%}
+                      {%- assign _sh = 'bs_swatch_hex_' | append: i -%}
+                      {%- if settings[_sn] != blank -%}
+                        {%- assign _snl = settings[_sn] | downcase | strip -%}
+                        {%- if _snl == _cv_lower -%}{%- assign _chex = settings[_sh] -%}{%- endif -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  <option value="{{ _cv | escape }}" data-hex="{{ _chex }}">{{ _cv | escape }}</option>
+                  {%- assign _seen_c = _seen_c | append: _cv | append: ',' -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+              </select>
+              <svg class="pd-combo__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pd-combo__item" id="comboItemApp">
+      <label class="pd-combo__radio">
+        <input type="radio" name="combo-select" value="2">
+        <span class="pd-combo__radio-dot"></span>
+      </label>
+      <div class="pd-combo__product">
+        <div class="pd-combo__img pd-combo__img--placeholder">
+          <div class="pd-combo__img-empty"></div>
+        </div>
+        <div class="pd-combo__info">
+          <p class="pd-combo__name pd-combo__name--placeholder">Sản phẩm combo</p>
+          <div class="pd-combo__prices">
+            <span class="pd-combo__price pd-combo__price--placeholder">—</span>
+          </div>
+          <div class="pd-combo__selects">
+            <div class="pd-combo__select-wrap">
+              <select class="pd-combo__select" disabled>
+                <option>Size</option>
+              </select>
+              <svg class="pd-combo__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="pd-combo__select-wrap">
+              <select class="pd-combo__select" disabled>
+                <option>Màu</option>
+              </select>
+              <svg class="pd-combo__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pd-combo__divider"></div>
+
+  <div class="pd-combo__footer">
+    <div class="pd-combo__summary">
+      <div class="pd-combo__summary-row">
+        <span class="pd-combo__summary-label">Tổng tiền:</span>
+        <span class="pd-combo__summary-total" id="comboTotal">{{ product.price_min | money }}</span>
+      </div>
+      <div class="pd-combo__summary-row">
+        <span class="pd-combo__summary-label">Tiết kiệm:</span>
+        <span class="pd-combo__summary-save" id="comboSave">—</span>
+      </div>
+    </div>
+    <button type="button" class="pd-combo__atc" id="comboAtcBtn">
+      THÊM VÀO GIỎ HÀNG
+    </button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var elCombo   = document.getElementById('pdCombo');
+  var elAtc     = document.getElementById('comboAtcBtn');
+  var elTotal   = document.getElementById('comboTotal');
+  var elSave    = document.getElementById('comboSave');
+
+  if (!elCombo || !elAtc) return;
+
+  var productData = window.productInfo || null;
+
+  function formatMoney(cents) {
+    /* Đồng nhất ký hiệu ₫ với product-detail.js + server (| money) */
+    if (window.Haravan && Haravan.formatMoney && window.shop && window.shop.moneyFormat) {
+      try { return Haravan.formatMoney(cents, window.shop.moneyFormat).replace(/,/g, '.'); } catch (e) {}
+    }
+    return (cents / 100).toLocaleString('vi-VN') + '\u20ab';
+  }
+
+  /* ── Đọc variant đã chọn ở item 1 (match theo tổ hợp size + màu) ── */
+  function getSelectedVariantId() {
+    var item1 = elCombo.querySelector('.pd-combo__item:first-child');
+    if (!item1) return null;
+
+    var sizeSel  = item1.querySelector('[data-combo-size]');
+    var colorSel = item1.querySelector('[data-combo-color]');
+
+    /* Khớp variant theo cả size lẫn màu nếu có productData */
+    if (productData && productData.variants) {
+      var sizeIdx  = sizeSel  ? parseInt(sizeSel.getAttribute('data-opt-index'), 10)  : -1;
+      var colorIdx = colorSel ? parseInt(colorSel.getAttribute('data-opt-index'), 10) : -1;
+      var sizeVal  = (sizeSel  && !sizeSel.disabled)  ? sizeSel.value  : null;
+      var colorVal = (colorSel && !colorSel.disabled) ? colorSel.value : null;
+
+      var matched = null;
+      productData.variants.forEach(function (v) {
+        if (matched) return;
+        var ok = true;
+        if (sizeIdx  >= 0 && sizeVal  != null && v.options[sizeIdx]  !== sizeVal)  ok = false;
+        if (colorIdx >= 0 && colorVal != null && v.options[colorIdx] !== colorVal) ok = false;
+        if (ok) matched = v;
+      });
+      if (matched) return matched.id;
+    }
+
+    /* Fallback: dùng variant đang chọn trên trang chính */
+    var mainSelect = document.getElementById('product-select');
+    if (mainSelect && mainSelect.value) return parseInt(mainSelect.value, 10);
+    return null;
+  }
+
+  /* ── Tính và hiển thị tổng tiền ──────────────────────────── */
+  function updateSummary() {
+    if (!productData) return;
+    var varId = getSelectedVariantId();
+    var variant = varId
+      ? productData.variants.find(function (v) { return v.id === varId; })
+      : productData.variants[0];
+    if (!variant) return;
+
+    var price    = variant.price;        /* cents */
+    var compare  = variant.compare_at_price || 0;
+    var saving   = compare > price ? compare - price : 0;
+
+    elTotal.textContent = formatMoney(price);
+    elSave.textContent  = saving > 0 ? '- ' + formatMoney(saving) : '\u2014';
+  }
+
+  /* ── Thêm vào giỏ (item 1 duy nhất — item 2 chờ app) ────── */
+  function addToCart() {
+    var varId = getSelectedVariantId();
+    if (!varId) {
+      if (window.TF && TF.Helpers) TF.Helpers.showToast('Vui lòng chọn size');
+      return;
+    }
+
+    elAtc.disabled = true;
+    elAtc.textContent = 'ĐANG THÊM...';
+
+    var body = 'id=' + varId + '&quantity=1';
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+      body: body,
+      credentials: 'same-origin'
+    })
+      .then(function (r) { return r.text().then(function (t) { return { ok: r.ok, text: t }; }); })
+      .then(function (res) {
+        if (!res.ok) {
+          var msg = 'Không thể thêm vào giỏ';
+          try { var d = JSON.parse(res.text); msg = d.description || d.message || msg; } catch (e) {}
+          if (window.TF && TF.Helpers) TF.Helpers.showToast(msg);
+          return;
+        }
+        elAtc.textContent = 'ĐÃ THÊM ✓';
+        if (window.TF && TF.Cart && TF.Cart.render) TF.Cart.render(true);
+        setTimeout(function () { elAtc.textContent = 'THÊM VÀO GIỎ HÀNG'; }, 1600);
+      })
+      .catch(function () {
+        if (window.TF && TF.Helpers) TF.Helpers.showToast('Có lỗi xảy ra');
+      })
+      .finally(function () {
+        setTimeout(function () { elAtc.disabled = false; }, 1600);
+      });
+  }
+
+  /* ── Bind events ─────────────────────────────────────────── */
+  elAtc.addEventListener('click', addToCart);
+
+  /* Cập nhật tổng tiền khi đổi select size / màu */
+  elCombo.addEventListener('change', function (e) {
+    if (e.target.classList.contains('pd-combo__select')) {
+      updateSummary();
+    }
+  });
+
+  /* Đồng bộ với variant chọn trên trang chính (size buttons) */
+  document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('pd__size-btn')) {
+      setTimeout(updateSummary, 50);
+    }
+  });
+
+  /* Init */
+  updateSummary();
+})();
+</script>
+{%- endif -%}

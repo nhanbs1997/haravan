@@ -1,0 +1,116 @@
+<div id="blog" class="page-content main-content content-pages" data-sticky_parent>
+	{% paginate blog.articles by settings.pagination_blog_limit %}
+	<!-- Begin content -->
+	<div class="blog-content col-md-12 col-sm-12 col-xs-12">
+		<div class="row"> 
+			<div class="col-md-3  col-sm-12 col-xs-12 leftsidebar-col" data-sticky_column>
+				<!-- Begin sidebar blog -->
+				{% include 'blog_sidebar' %}
+				<!-- End sidebar blog -->
+			</div>
+			<div class="col-md-9 col-sm-12 col-xs-12 " id="blog-container" data-sticky_column>
+				<div class="row">
+					<div class="articles clearfix" id="layout-page">
+						<div class="col-md-12  col-sm-12 col-xs-12">
+							<h1>{{blog.title}}</h1>
+						</div>
+						{%if blog.articles.size == 0%}
+						<p class="col-md-12  col-sm-12 col-xs-12">Chưa có bài viết nào trong mục này</p>
+						{%else%}
+						<!-- Begin: Nội dung blog -->      
+						{% for article in blog.articles limit: settings.pagination_blog_limit %}
+						{% assign no_image = false %}
+						{% if article.image %}
+						{% comment %} Lấy hình Featured {% endcomment %}
+						{% assign imageUrl = article.image.src | product_img_url : 'large' %}
+						{% else %}
+
+						{% comment %}Kiểm tra trích dẫn và content có hình hay ko{% endcomment %}
+						{% assign imageUrl = '' %}
+						{% if article.excerpt contains 'src=' %}
+						{% assign imageExcerptNotNull = true %}
+						{% else %}
+						{% assign imageExcerptNotNull = false %}
+						{% endif %}
+						{% if article.content contains 'src=' %}
+						{% assign imageContentNotNull = true %}
+						{% else %}
+						{% assign imageContentNotNull = false %}
+						{% endif %}
+
+						{% comment %}Nếu có Excerpt or Content cắt hình{% endcomment %}
+						{% if imageExcerptNotNull %}
+						{% assign arrayUrl = article.excerpt | split : 'src="' %}
+						{% else %}
+						{% if imageContentNotNull %}
+						{% assign arrayUrl = article.content | split : 'src="' %}
+						{% endif %}
+						{% endif %}
+
+						{% comment %}Truyền hình vào biến imageUrl{% endcomment %}
+						{% if imageExcerptNotNull == false and imageContentNotNull == false %}
+						{% capture blog_no_image %}{{ 'blog_no_image.jpg' | asset_url }}{% endcapture %}
+						{% assign imageUrl = blog_no_image %}
+						{% else %}
+						{% assign imageUrl = arrayUrl[1] | split : '"'%}
+						{% if imageUrl contains '//hstatic' %}
+						{% assign imageUrl = imageUrl.first | product_img_url : 'large' %}
+						{% else %}
+						{% assign imageUrl = imageUrl.first %}
+						{% endif %}
+						{% endif %}
+						{% endif %}
+						<div class="news-content">
+							{% if no_image == false %}
+							<div class="col-md-5 col-xs-12 col-sm-12 img-article">
+								<div class="art-img">
+									<img src="{{ imageUrl }}" alt="" >
+								</div>
+							</div>
+							{%endif%}
+
+							<div class="{% if no_image == false %} col-md-7 col-sm-12 {%else%}col-sm-12{%endif%} col-xs-12" >
+								<!-- Begin: Nội dung bài viết -->
+								<h2 class="title-article"><a href="{{ article.url }}">{{ article.title }}</a></h2>
+								<div class="body-content">
+									<ul class="info-more">
+										<li><i class="fa fa-calendar-o"></i><time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d/%m/%Y' }}</time></li>
+										<li><i class="fa fa-file-text-o"></i><a href="#"> {{blog.title}}	</a> </li>
+										{% if blog.comments_enabled? %}
+										<li>
+
+											<i class="comment-icon fa fa-comment-o"></i>
+											<a href="{{ article.url }}#comments">
+												{{ article.comments_count }}<span> {{ article.comments_count | pluralize: 'Bình luận','Bình luận' }}</span>
+											</a>
+										</li>
+										{% endif %}	
+									</ul>
+									<p>{{ article.content | strip_html | truncatewords: 40 }}</p>
+								</div>
+								<!-- End: Nội dung bài viết -->	
+								<a class="readmore btn-rb clear-fix" href="{{ article.url }}" role="button">Xem tiếp <span class="fa fa-angle-double-right"></span></a>
+							</div>
+
+
+						</div>
+						<hr class="line-blog"/>
+						{% endfor %}
+						{%endif%}
+						<!-- End: Nội dung blog --> 
+
+					</div>
+					<div class="col-md-12">
+						<!-- Begin: Phân trang blog --> 
+						{% include 'pagination-default' %}
+						<!-- End: Phân trang blog --> 
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<!-- End content -->
+	{% endpaginate %}
+</div>

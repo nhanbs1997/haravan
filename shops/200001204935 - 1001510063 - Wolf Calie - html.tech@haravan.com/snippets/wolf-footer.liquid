@@ -1,0 +1,179 @@
+<footer class="wolf-footer pt-5 pb-5 mt-3">
+	<div class="container">
+		<div class="row wolf-footer-top pb-3 mb-5">
+			<div class="col-xxl-4 col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12">
+				<p class="h4">{{ settings.title_col_13 }}</p>
+				<p>{{ settings.url_menu_13 }}</p>
+			</div>
+			<div class="col-xxl-5 col-xl-5 col-lg-5 col-md-7 col-sm-12 col-12">
+				<div class="footer-phone-email d-flex flex-column flex-md-row gap-3">
+					<div class="footer-phone d-flex flex-column">
+						<div class="d-flex gap-2 justify-content-start align-items-center mb-2">
+							<svg width="20" height="20"><use xlink:href="#icon-phone" /></svg>
+							<a href="tel:{{ settings.url_menu_1 | remove: ' '}}" class="reason d-flex justify-content-start flex-column ms-2" title="{{ settings.title_col_1 }} {{ settings.url_menu_1 }}">
+								<span class="reason-title">{{ settings.title_col_1 }}</span>
+								<span class="reason-content">{{ settings.url_menu_1 }}</span>
+							</a>
+						</div>
+						<div class="d-flex gap-2 justify-content-start align-items-center">
+							<svg width="20" height="20"><use xlink:href="#icon-phone" /></svg>
+							<a href="tel:{{ settings.url_menu_12 | remove: ' '}}" class="reason d-flex justify-content-start flex-column ms-2" title="{{ settings.title_col_12 }} {{ settings.url_menu_12 }}">
+								<span class="reason-title">{{ settings.title_col_12 }}</span>
+								<span class="reason-content">{{ settings.url_menu_12 }}</span>
+							</a>
+						</div>
+					</div>
+					<div class="footer-email d-flex flex-column">
+						<div class="d-flex gap-2 justify-content-start align-items-center mb-2">
+							<svg width="20" height="20"><use xlink:href="#icon-email" /></svg>
+							<a href="tel:{{ settings.store_email }}" class="reason d-flex justify-content-start flex-column ms-2" title="Email: {{ settings.store_email | default:store.customer_email }}">
+								<span class="reason-title">Email:</span>
+								<span class="reason-content">{{ settings.store_email }}</span>
+							</a>
+						</div>
+						<div class="d-flex gap-2 justify-content-start align-items-center">
+							<svg width="20" height="20"><use xlink:href="#icon-location" /></svg>
+							<p class="reason d-flex justify-content-start flex-column ms-2 mb-0">
+								{{ settings.store_address }}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-5 col-sm-12 col-12">
+				<ul class="d-grid gap-1 grid-5 footer-social mt-3">
+					<li>
+						<a href="{{settings.social_fb }}" class="d-flex justify-content-center align-items-center rounded-4" title="Theo dõi Facebook {{store.name}}" target="_blank">
+							<img class="lazyload img-fluid rounded-4" src="{{'social_fb_img.svg' | asset_url}}" alt="Facebook" width="60" height="60" loading="lazy" >
+						</a>
+					</li>
+					<li>
+						<a href="{{settings.social_insta }}" class="d-flex justify-content-center align-items-center rounded-4" title="Theo dõi Instagram {{store.name}}" target="_blank">
+							<img class="lazyload img-fluid rounded-4" src="{{'social_insta_img.svg' | asset_url}}" alt="Instagram" width="60" height="60" loading="lazy" >
+						</a>
+					</li>
+					<li>
+						<a href="{{settings.social_shopee }}" class="d-flex justify-content-center align-items-center rounded-4" title="Theo dõi Shopee {{store.name}}" target="_blank">
+							<img class="lazyload img-fluid rounded-4" src="{{'social_shopee_img.svg' | asset_url}}" alt="Shopee" width="60" height="60" loading="lazy" >
+						</a>
+					</li>
+					<li>
+						<a href="{{settings.social_lazada }}" class="d-flex justify-content-center align-items-center rounded-4" title="Theo dõi Lazada {{store.name}}" target="_blank">
+							<img class="lazyload img-fluid rounded-4" src="{{'social_lazada_img.svg' | asset_url}}" alt="Lazada" width="60" height="60" loading="lazy" >
+						</a>
+					</li>
+					<li>
+						<a href="{{settings.social_tiktok }}" class="d-flex justify-content-center align-items-center rounded-4" title="Theo dõi Tiktok {{store.name}}" target="_blank">
+							<img class="lazyload img-fluid rounded-4" src="{{'social_tiktok_img.svg' | asset_url}}" alt="Tiktok" width="60" height="60" loading="lazy" >
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row align-items-start mt-5">
+			<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 wolf-footer-menu">
+				<p class="h5 mb-2">{{settings.title_col_2}}</p>
+				{%- if linklists[settings.url_menu_2].links.size > 0 -%}
+				<ul>
+					{%- for link in linklists[settings.url_menu_2].links -%}
+					<li class="mb-2"><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+					{%- endfor -%}
+				</ul>
+				{%- else -%}
+				<div class="alert alert-warning" role="alert">Menu đang cập nhật.</div>
+				{%- endif -%}
+			</div>
+			<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 wolf-footer-menu mt-md-0 mt-sm-3 mt-3">
+				<p class="h5 mb-2">{{settings.title_col_3}}</p>
+				{%- if linklists[settings.url_menu_3].links.size > 0 -%}
+				<ul>
+					{%- for link in linklists[settings.url_menu_3].links -%}
+					<li class="mb-2"><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+					{%- endfor -%}
+				</ul>
+				{%- else -%}
+				<div class="alert alert-warning" role="alert">Menu đang cập nhật.</div>
+				{%- endif -%}
+			</div>
+			<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 wolf-footer-menu mt-lg-0 mt-md-3 mt-sm-3 mt-3">
+				<p class="h5 mb-2">{{settings.title_col_6}}</p>
+				{%- if linklists[settings.title_link_6].links.size > 0 -%}
+				<ul>
+					{%- for link in linklists[settings.title_link_6].links -%}
+					<li class="mb-2"><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+					{%- endfor -%}
+				</ul>
+				{%- else -%}
+				<div class="alert alert-warning" role="alert">Menu đang cập nhật.</div>
+				{%- endif -%}
+			</div>
+			<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 wolf-footer-menu wolf-footer-payment mt-lg-0 mt-md-3 mt-sm-3 mt-3">
+				<p class="h5 mb-2">{{settings.title_col_5}}</p>
+				<ul class="d-grid gap-1 grid-4">
+					{%- for i in (1..10) -%}
+					{%- capture penable -%}payment_enable_{{i}}{%- endcapture -%}
+					{%- capture pimage -%}payment_{{i}}.svg{%- endcapture -%}
+					{%- capture palt -%}payment_alt_{{i}}{%- endcapture -%}
+					{%- if settings[penable] -%}
+					<li>
+						<img class="img-fluid" src="{{ pimage | asset_url }}" alt="{{ settings[palt] }}" width="70" height="44" loading="lazy" >
+					</li>
+					{%- endif -%}
+					{%- endfor -%}
+				</ul>
+				{%- if settings.zalo-buy-enable -%}
+				<a href="{{ settings.zalo-buy-link }}" class="zalo-app d-flex flex-row align-items-center mt-3" title="{{ settings.zalo-buy-title }}">
+					<div class="flex-shrink-0">
+						<img src="{{ 'zalo-buy-qrcode.jpg' | asset_url }}" alt="{{ settings.zalo-buy-title }}" width="200" height="200" loading="lazy" >
+					</div>
+					<div class="flex-grow-1 ms-2">
+						<p class="zalo-header fw-medium mb-1 h5">{{ settings.zalo-buy-title }}</p>
+						<p class="zalo-content mb-0">{{ settings.zalo-buy-content }}</p>
+					</div>
+				</a>
+				{%- endif -%}
+			</div>
+		</div>
+		<div class="row">
+			{%- if settings.dkkd_enable -%}
+			<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-4">
+				<div class="d-flex flex-column flex-lg-row justify-content-between align-items-center copyright-bct">
+					<div class="copyright">
+						<p class="mb-1">© Bản quyền thuộc về <b>{% if settings.copyright != blank %}{{ settings.copyright }}{% else %}Wolf Themes{% endif %}</b>.<span class="split-copyright"></span> {{ powered_by_link  | replace:'target=', 'rel="nofollow noopener" target=' }}</p>
+						<p class="bct-text mb-2">{{ settings.title_col_4 }}</p>
+					</div>
+					<a href="{{ settings.dkkd_link }}" title="Đăng ký Bộ Công Thương" class="dkkd d-flex">
+						<img class="img-fluid" src="{{'dkkd.png' | asset_url}}" alt="Đăng ký Bộ Công Thương" width="150" height="45" loading="lazy" >
+					</a>
+				</div>
+			</div>
+			{%- else -%}
+			<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-4">
+				<div class="copyright text-center">
+					© Bản quyền thuộc về <b>{% if settings.copyright != blank %}{{ settings.copyright }}{% else %}Wolf Themes{% endif %}</b>.<span class="split-copyright"></span> {{ powered_by_link  | replace:'target=', 'rel="nofollow noopener" target=' }}
+				</div>
+			</div>
+			{%- endif -%}
+		</div>
+	</div>
+</footer>
+{%- if settings.backtotop_enable -%}
+<div class="wolf-back-top rounded-3">
+	<svg width="24" height="24"><use xlink:href="#icon-back-to-top"></use></svg>
+</div>
+<script>
+	const backToTopBtn = document.querySelector(".wolf-back-top");
+	window.addEventListener("scroll", function () {
+		if (window.scrollY > 300) {
+			backToTopBtn.classList.add("active");
+		} else {
+			backToTopBtn.classList.remove("active");
+		}
+	});
+
+	backToTopBtn.addEventListener("click", function (e) {
+		e.preventDefault();
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	});
+</script>
+{%- endif -%}

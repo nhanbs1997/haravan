@@ -1,0 +1,212 @@
+{%- comment -%}
+  Snippet: ldp-hero
+  Mô tả: Section 1 — Hero slider của Landing Page.
+         Layout giống bs_hero-slide (full-height, overlay, title, btn, counter/progress, nav arrows, swipe).
+         Dùng lại CSS class .bs_hero-slide__* và JS BS.HeroSlide.
+         Khác biệt: settings key dùng bs_ldp_hero_*, id dùng ldpHeroSlider (tránh xung đột với heroSlider trang chủ).
+  Settings:
+    bs_ldp_hero_show              : bật/tắt section
+    bs_ldp_hero_autoplay_enable   : bật autoplay
+    bs_ldp_hero_autoplay          : delay autoplay (ms)
+    bs_ldp_hero_imgdesk_X         : ảnh desktop slide X
+    bs_ldp_hero_imgmb_X           : ảnh mobile slide X
+    bs_ldp_hero_link_X            : link nút slide X
+    bs_ldp_hero_title_X           : tiêu đề slide X
+    bs_ldp_hero_btn_X             : nhãn nút slide X
+    bs_ldp_hero_alt_X             : alt text slide X
+    bs_ldp_hero_show_X            : bật/tắt slide X (X = 2..6)
+{% endcomment %}
+
+{%- unless settings.bs_ldp_hero_show == false -%}
+
+{%- assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+
+{%- comment -%} Đếm tổng số slide đang bật {% endcomment %}
+{%- assign _total = 1 -%}
+{%- for i in (2..6) -%}
+  {%- capture _show_k -%}bs_ldp_hero_show_{{ i }}{%- endcapture -%}
+  {%- if settings[_show_k] -%}{%- assign _total = _total | plus: 1 -%}{%- endif -%}
+{%- endfor -%}
+{%- assign _total_pad = _total | prepend: '0' | slice: -2, 2 -%}
+
+<link rel="preload stylesheet" href="{{ 'bs_hero-slide.scss.css' | asset_url }}" as="style">
+
+<section class="bs_hero-slide" id="ldpHeroSlider"
+  data-autoplay="{{ settings.bs_ldp_hero_autoplay | default: '5000' }}"
+  data-autoplay-enabled="{{ settings.bs_ldp_hero_autoplay_enable | default: '1' }}"
+  data-total="{{ _total }}">
+
+  <div class="bs_hero-slide__track" id="ldpHeroSliderTrack">
+
+    {%- for i in (1..6) -%}
+      {%- capture _show_k  -%}bs_ldp_hero_show_{{ i }}{%- endcapture -%}
+      {%- capture _show_title_cta  -%}bs_ldp_hero_showbtntitle_{{ i }}{%- endcapture -%}
+      {%- capture _desk_k  -%}bs_ldp_hero_imgdesk_{{ i }}{%- endcapture -%}
+      {%- capture _mb_k    -%}bs_ldp_hero_imgmb_{{ i }}{%- endcapture -%}
+      {%- capture _link_k  -%}bs_ldp_hero_link_{{ i }}{%- endcapture -%}
+      {%- capture _title_k -%}bs_ldp_hero_title_{{ i }}{%- endcapture -%}
+      {%- capture _btn_k   -%}bs_ldp_hero_btn_{{ i }}{%- endcapture -%}
+      {%- capture _alt_k   -%}bs_ldp_hero_alt_{{ i }}{%- endcapture -%}
+
+      {%- if i == 1 or settings[_show_k] -%}
+      <div class="bs_hero-slide__slide" data-index="{{ i }}">
+
+        {%- if settings[_link_k] != blank -%}<a href="{{ settings[_link_k] }}" class="bs_hero-slide__link">{%- endif -%}
+        <picture class="bs_hero-slide__picture">
+          {%- unless settings[_mb_k] == blank -%}
+          <source media="(max-width: 767px)" srcset="{{ settings[_mb_k] }}">
+          {%- endunless -%}
+          {%- if i == 1 -%}
+            <img
+              src="{{ settings[_desk_k] | default: _blank }}"
+              alt="{{ settings[_alt_k] | default: shop.name | escape }}"
+              class="bs_hero-slide__img{% if settings[_desk_k] == blank %} is-placeholder{% endif %}"
+              loading="eager" fetchpriority="high"
+              width="1600" height="900">
+          {%- else -%}
+            <img
+              src="{{ _blank }}"
+              data-src="{{ settings[_desk_k] }}"
+              alt="{{ settings[_alt_k] | default: shop.name | escape }}"
+              class="bs_hero-slide__img lazyload"
+              loading="lazy" decoding="async"
+              width="1600" height="900">
+          {%- endif -%}
+        </picture>
+        {%- if settings[_link_k] != blank -%}</a>{%- endif -%}
+
+        <div class="bs_hero-slide__overlay" aria-hidden="true"></div>
+        {%- if settings[_show_title_cta] -%}
+        <div class="bs_hero-slide__content">
+          <div class="container">
+            <div class="bs_hero-slide__content-inner">
+
+              <div class="bs_hero-slide__text-group">
+                <h2 class="bs_hero-slide__title">
+                  {%- unless settings[_title_k] == blank -%}
+                    {{ settings[_title_k] | escape }}
+                  {%- else -%}
+                    NEW VIBE COLLECTION
+                  {%- endunless -%}
+                </h2>
+                {%- unless settings[_link_k] == blank -%}
+                <a href="{{ settings[_link_k] | escape }}" class="bs_hero-slide__btn">
+                  {{ settings[_btn_k] | default: 'Khám phá' | escape }}
+                </a>
+                {%- endunless -%}
+              </div>
+
+              <div class="bs_hero-slide__counter" aria-label="Slide {{ i }} / {{ _total }}">
+                <p class="bs_hero-slide__counter-text">
+                  <span class="bs_hero-slide__counter-current">01</span>
+                  <span class="bs_hero-slide__counter-sep"> / {{ _total_pad }}</span>
+                </p>
+                <div class="bs_hero-slide__progress" aria-hidden="true">
+                  <div class="bs_hero-slide__progress-track"></div>
+                  <div class="bs_hero-slide__progress-fill"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+  </div>
+
+  <button class="bs_hero-slide__nav bs_hero-slide__nav--prev" id="ldpHeroSliderPrev" aria-label="Slide trước">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M19 12H5M5 12l7 7M5 12l7-7"/>
+    </svg>
+  </button>
+  <button class="bs_hero-slide__nav bs_hero-slide__nav--next" id="ldpHeroSliderNext" aria-label="Slide tiếp theo">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M5 12h14M14 5l7 7-7 7"/>
+    </svg>
+  </button>
+
+</section>
+
+{%- comment -%}
+  JS: BS.HeroSlide.init() trong bs_hero-slide.js dùng getElementById('heroSlider').
+  ldp-hero dùng id khác (ldpHeroSlider) nên cần init riêng bên dưới.
+{% endcomment %}
+<script>
+(function() {
+  function initLdpHero() {
+    var slider = document.getElementById('ldpHeroSlider');
+    if (!slider) return;
+    var track = document.getElementById('ldpHeroSliderTrack');
+    var slides = track.querySelectorAll('.bs_hero-slide__slide');
+    var prevBtn = document.getElementById('ldpHeroSliderPrev');
+    var nextBtn = document.getElementById('ldpHeroSliderNext');
+    var total = slides.length;
+    if (total === 0) return;
+    var current = 0;
+    var autoplayDelay = parseInt(slider.getAttribute('data-autoplay')) || 5000;
+    var autoplayEnabled = slider.getAttribute('data-autoplay-enabled') !== '0';
+    var autoplayTimer = null;
+    var isAnimating = false;
+
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function goTo(index) {
+      if (isAnimating || index === current) return;
+      isAnimating = true;
+      slides[current].classList.remove('is-active');
+      slides[current].classList.add('is-leaving');
+      current = (index + total) % total;
+      slides[current].classList.add('is-active');
+      slides.forEach(function(s) {
+        if (s.classList.contains('is-leaving')) {
+          setTimeout(function() { s.classList.remove('is-leaving'); isAnimating = false; }, 700);
+        }
+      });
+      updateCounter();
+      resetAutoplay();
+    }
+
+    function updateCounter() {
+      slides.forEach(function(slide) {
+        var cur  = slide.querySelector('.bs_hero-slide__counter-current');
+        var fill = slide.querySelector('.bs_hero-slide__progress-fill');
+        if (cur)  cur.textContent = pad(current + 1);
+        if (fill) fill.style.width = ((current + 1) / total * 100) + '%';
+      });
+    }
+
+    function startAutoplay() {
+      if (!autoplayEnabled || total <= 1) return;
+      autoplayTimer = setInterval(function() { goTo(current + 1); }, autoplayDelay);
+    }
+
+    function resetAutoplay() { clearInterval(autoplayTimer); startAutoplay(); }
+
+    slides[0].classList.add('is-active');
+    updateCounter();
+
+    if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+    var startX = 0;
+    slider.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', function(e) {
+      var diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
+    }, { passive: true });
+
+    startAutoplay();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLdpHero);
+  } else {
+    initLdpHero();
+  }
+})();
+</script>
+
+{%- endunless -%}

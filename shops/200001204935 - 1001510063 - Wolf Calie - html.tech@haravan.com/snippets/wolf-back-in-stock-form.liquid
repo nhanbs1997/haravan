@@ -1,0 +1,80 @@
+<div id="back-in-stock-form" {% if product.available %}class="d-none"{% endif %}>
+	<div class="alert alert-danger">
+		<h4 class="title-product title-head h4 mb-3 text-center text-danger">{{ settings.back-in-stock-form-title }}</h4>
+		<form id="notify-form" class="dark-mode-form">
+			<input type="hidden" name="sproduct_id" id="sproduct_id" value="{{ product.title }}">
+			<input type="hidden" name="svariant_id" id="svariant_id">
+			<div class="input-group">
+				<input class="form-control border-0" autocomplete="off" type="email" id="scustomer_email" name="scustomer_email" placeholder="Nhập địa chỉ Email" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required >
+				<button type="submit" class="btn btn-danger">Gửi thông tin</button>
+			</div>
+		</form>
+		<div id="form-stock-response" class="text-success mt-2 d-none"></div>
+	</div>
+</div>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('notify-form');
+  const responseBox = document.getElementById('form-stock-response');
+  const submitButton = form?.querySelector('button[type="submit"]');
+
+  if (!form || !responseBox || !submitButton) return;
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    responseBox.classList.add('d-none');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Đang gửi...';
+
+    const formData = new FormData(form);
+    const email = formData.get('scustomer_email');
+    const productId = formData.get('sproduct_id');
+    const variantId = formData.get('svariant_id');
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      responseBox.textContent = 'Vui lòng nhập email hợp lệ.';
+      responseBox.classList.remove('d-none');
+      responseBox.classList.add('text-danger');
+      submitButton.disabled = false;
+      submitButton.textContent = 'Gửi thông tin';
+      return;
+    }
+
+    const params = new URLSearchParams();
+    params.append('scustomer_email', email);
+    params.append('sproduct_id', productId);
+    params.append('svariant_id', variantId);
+
+    fetch('https://script.google.com/macros/s/{{ settings.back-in-stock-form-api }}/exec', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: params.toString()
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then(data => {
+        responseBox.textContent = data.result === 'success'
+          ? 'Thông tin của bạn đã được gửi thành công! Chúng tôi sẽ liên hệ khi sản phẩm có hàng.'
+          : data.message || 'Có lỗi xảy ra, vui lòng thử lại.';
+        responseBox.classList.remove('d-none');
+        responseBox.classList.add(data.result === 'success' ? 'text-success' : 'text-danger');
+      })
+      .catch(err => {
+        console.error('Lỗi gửi form:', err);
+        // Giả định thành công nếu dữ liệu đã lưu vào Google Sheet
+        responseBox.textContent = 'Thông tin của bạn đã được gửi thành công! Chúng tôi sẽ liên hệ khi sản phẩm có hàng.';
+        responseBox.classList.remove('d-none');
+        responseBox.classList.add('text-success');
+      })
+      .finally(() => {
+        form.reset();
+        submitButton.disabled = false;
+        submitButton.textContent = 'Gửi thông tin';
+      });
+  });
+});
+</script>

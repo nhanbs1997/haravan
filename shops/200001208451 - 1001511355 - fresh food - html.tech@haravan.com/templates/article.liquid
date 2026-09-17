@@ -1,0 +1,150 @@
+<div id="article" class="content-pages main-content article-detail clearfix " data-sticky_parent>
+	<div class="col-md-12 col-sm-12 col-xs-12 article" >
+		<div class="row">
+			<!-- Begin article -->
+			<div class="article-body">
+				<div class="col-md-3 col-sm-12 col-xs-12   leftsidebar-col" data-sticky_column>
+					{% include 'blog_sidebar' %}
+					<!-- End sidebar -->
+				</div>
+				<div class="col-md-9 col-sm-12 col-xs-12   articles " id="layout-page"  data-sticky_column>
+					<span class="clearfix">
+						<h1 class="sb-title-article">{{article.title}}</h1>
+					</span>
+
+					<div class="content-page row">
+						<div class="col-md-12 col-sm-12 col-xs-12 article-content">
+
+							<div class="body-content">
+								<ul class="info-more">
+									<li><i class="fa fa-calendar-o"></i><time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d/%m/%Y' }}</time></li>
+									<li><i class="fa fa-file-text-o"></i><a href="#"> {{blog.title}}	</a> </li>
+									{% if blog.comments_enabled? %}
+									<li>
+
+										<i class="comment-icon fa fa-comment-o"></i>
+										<a href="{{ article.url }}#comments">
+											{{ article.comments_count }}<span> {{ article.comments_count | pluralize: 'Bình luận','Bình luận' }}</span>
+										</a>
+									</li>
+									{% endif %}	
+								</ul>
+								<div class="article-pages">
+									{{ article.content }}
+								</div>
+							</div>
+
+						</div>
+						{% if blog.comments_enabled? %}						
+						<!-- Begin article comments -->
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:20px;">
+							<div role="tabpanel" class="product-comment">
+								<!-- Nav tabs -->
+								<ul class="nav visible-lg visible-md" role="tablist">
+									<li role="presentation" class="active">
+										<a data-spy="scroll" data-target="#comment" href="#comment" aria-controls="comment" role="tab">Viết bình luận</a>
+									</li>
+
+								</ul>
+								<!-- Tab panes -->
+
+								<div id="comment">
+									<!-- Begin comments -->
+
+									<div id="comments" class="comments ">
+										<div class="comment_form">
+											{% form "new_comment", article %}
+											{% if form.posted_successfully? %}
+											{% if blog.moderated? %}
+											<p class="subtext success">Bình luận thành công! Tuy nhiên, lời bình cần được kiểm duyệt trước khi đăng lên</p>
+											{% else %}
+											<p class="subtext success">Bình luận của bạn đã được đăng lên</p>
+											{% endif %}
+											{% endif %}
+
+											{% if form.errors %}
+											<p class="subtext error">Thông tin bạn nhập chưa đầy đủ</p>
+											{% endif %}
+											<div class="row">
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<div class="form-group">
+														<input type="text" id="comment_author" name="comment[author]" size="40" class="text form-control" placeholder="Tên của bạn " required="required" />
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<div class="form-group">
+														<input type="text" id="comment_email" name="comment[email]" size="40" class="text form-control" placeholder="Email của bạn" required="required"/>
+													</div>
+												</div>
+											</div>
+											<div class="form-group">												
+												<textarea id="comment_body" name="comment[body]" cols="40" rows="5" class="text form-control" placeholder="Viết bình luận ..." required="required">{{form.body}}</textarea>
+											</div>			
+											{{form.captcha_html}}
+											{% if blog.moderated? %}
+											<div class="notice">Bình luận của bạn sẽ được duyệt trước khi đăng lên</div>
+											{% endif %}
+											{%comment%}
+											<span class="pull-right">
+												<small>Tối thiểu 20 ký tự</small>
+											</span>
+											{%endcomment%}
+											<button type="submit" class="readmore btn-rb clear-fix" id="comment-submit" >Gửi bài viết</button>
+											{% endform %}
+										</div>
+									</div>
+
+									<!-- End comments -->
+								</div>
+								{% if article.comments.size > 0 or comment.created_at %}
+								<div class="title-bl">
+									<h2>Bình luận</h2>
+								</div>
+
+								<div id="binhluan">
+
+
+
+
+									{% if comment and comment.created_at %}
+									<div id="comment-{{ comment.id }}" class="comment border-bottom clearfix">
+										<h3 class="author">
+											<strong>{{ comment.author }}</strong>
+											<span class="date">{{ comment.created_at | date: '%d/%m/%Y' }}</span>
+										</h3>
+										<div>{{ comment.content }}</div>
+									</div> <!-- /.comment -->
+									{% endif %}
+
+									{% for comment in article.comments %}
+									<div id="comment-{{ comment.id }}" class="comment border-bottom clearfix">
+										<h3 class="author">
+											<strong>{{ comment.author }}</strong>
+											<span class="date">{{ comment.created_at | date: '%d/%m/%Y' }}</span>
+										</h3>
+										<div>{{ comment.content }}</div>
+									</div> <!-- /.comment -->
+									{% endfor %}
+
+
+								</div>
+
+								{% endif %}
+
+							</div>
+						</div>
+						<!-- End article comments -->
+
+						{%endif%}
+					</div>
+
+				</div>   
+				<!-- End article--> 
+
+
+				<!-- Begin sidebar -->
+
+			</div>    
+		</div>
+	</div>
+</div>

@@ -1,0 +1,80 @@
+{%- include 'breadcrumb' -%}
+<div class="wolf-contact-page mb-4 mt-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+				<div class="contact-info">
+					<h1 class="title-head h4 mb-2">{{ settings.title_contact_1 }}</h1>
+					{%- if settings.des_foo != "" or settings.des_foo != null -%}
+					<div class="des-foo mb-3">{{ settings.des_foo }}</div>
+					{%- endif -%}
+					<ul class="time_work">
+						<li class="item">
+							<b>Địa chỉ:</b>
+							{{ settings.store_address }}
+						</li>
+						<li class="item">
+							<b>Hotline:</b> <a class="fone" href="tel:{{settings.store_phone | remove: ' '}}" title="{{ settings.store_phone }}">{{ settings.store_phone }}</a>
+						</li>
+						<li class="item">
+							<b>Email:</b> <a href="mailto:{{settings.store_email }}"  title="{{ settings.store_email }}">{{ settings.store_email }}</a>
+						</li>
+					</ul>
+				</div>
+				<div class="form-contact mb-5 dark-mode-form mt-2 mb-2">
+					<h4 class="title-head h4 mb-3">{{settings.title_contact_2}}</h4>
+					{%- form 'contact' -%}
+					{%- if form.errors.size > 0 -%}
+					<div class="alert alert-danger" role="alert">
+						<ol class="list-group list-group-numbered">
+							{%- for field in form.errors -%}
+							<li class="list-group-item">{{ form.errors.messages[field] }}</li>
+							{%- endfor -%}
+						</ol>
+					</div>
+					{%- endif -%}
+					{%- if form.posted_successfully? -%}
+					<div class="alert alert-success" role="alert">Bạn đã gửi tin nhắn thành công</div>
+					{%- endif -%}
+					<div class="group_contact">
+						<div class="row">
+							<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+								<div class="form-floating mb-3">
+									<input placeholder="Họ và tên" type="text" class="form-control" required value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.first_name }} {{ customer.last_name }}{% endif %}" name="contact[name]" />
+									<label for="contact[Name]">Họ và tên*</label>
+								</div>
+							</div>
+							<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-3">
+								<div class="form-floating">
+									<input placeholder="Email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required id="email1" class="form-control" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" name="contact[email]" />
+									<label for="contact[email]">Email*</label>
+								</div>
+							</div>
+							<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+								<div class="form-floating">
+									<input type="number" placeholder="Điện thoại" name="contact[phone]" class="form-control" pattern="\d+" maxlength="12" required />
+									<label for="contact[phone]">Điện thoại*</label>
+								</div>
+							</div>
+							<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<div class="form-floating">
+									<textarea placeholder="Nội dung" name="contact[body]" id="comment" class="form-control mb-3" required></textarea>
+									<label for="contact[body]">Nội dung*</label>
+								</div>
+							</div>
+							<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+								<div class="d-grid gap-2">
+									<button type="submit" class="btn btn-primary wolf-btn-main rounded-3">Gửi tin nhắn</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endform %}
+				</div>
+			</div>
+			<div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 wolf-contact-map">
+				{{ settings.contactr_contact_maps }}
+			</div>
+		</div>
+	</div>
+</div>

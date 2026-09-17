@@ -1,0 +1,56 @@
+{%- paginate collection.products by settings.pagination_limit -%}
+
+<div class="coll__sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+<input type="hidden" id="coll-handle" value="{% if collection.handle == 'all' %}collectionid:product>0{% else %}collectionid:product={{ collection.id }}{% endif %}">
+
+<div id="collection-page" class="coll" data-handle="{{ collection.url }}" data-id="{{ collection.id }}">
+
+  <div class="container">
+    {%- include 'coll-breadcrumb' -%}
+
+    <div class="coll__heading">
+      <h1 class="coll__title">
+        {{ collection.title }}
+        <span class="coll__count" id="collCount">({{ collection.products_count }})</span>
+      </h1>
+    </div>
+    {%- if settings.bs_subcat_show -%}
+    {%- include 'coll-subcats' -%}
+    {%- endif -%}
+  </div>
+
+  {%- include 'coll-filterbar' -%}
+
+  <div class="container">
+    <div class="coll__body">
+
+      {%- include 'coll-sidebar' -%}
+
+      <div class="coll__main">
+        <div class="coll__grid" id="collGrid">
+          {%- for product in collection.products -%}
+          {%- include 'product-loop' -%}
+          {%- endfor -%}
+        </div>
+        <div class="coll__pagi" id="collPagi">
+          {%- include 'pagination' -%}
+        </div>
+        <div class="coll__filter-pagi" id="collFilterPagi"></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<link rel="preload stylesheet" href="{{ 'coll.scss.css' | asset_url }}" as="style">
+<script fetchpriority="low" defer src="{{ 'coll.js' | asset_url }}"></script>
+
+<div class="container">
+  {%- include 'coll-description' -%}
+</div>
+
+{%- include 'recently-viewed' -%}
+
+{%- endpaginate -%}

@@ -1,0 +1,102 @@
+{%- include 'breadcrumb' -%}
+<section class="wolf-customer-account mt-4 mb-3">
+	<div class="container">
+		<div class="row">
+			{%- if form.posted_successfully -%}
+			<div class="alert alert-success">
+				<p>đổi mật khẩu thành công</p>
+			</div>
+			{%- endif -%}
+			<div class="col-xxl-3 col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12">
+				<div class="wolf-block-account-function mb-3">
+					<h5 class="title-account">Trang tài khoản</h5>
+					<p class="wolf-hi-account">Xin chào, <span>{{ customer.name }}</span> !</p>
+					<ul class="list-group">
+						<li class="list-group-item"><a class="title-info active" title="Thông tin tài khoản" href="javascript:void(0);">Thông tin tài khoản</a></li>
+						{%- if settings.iwish_enable -%}
+						<li class="list-group-item"><a class="title-info" href="{{ pages[settings.wishlist_page].url }}" title="Danh sách yêu thích">Danh sách yêu thích (<span class="js-wishlist-count">0</span>)</a></li>
+						{%- endif -%}
+						<li class="list-group-item"><a class="title-info" href="/account/addresses" title="Sổ địa chỉ ({{ customer.addresses_count }})">Sổ địa chỉ ({{ customer.addresses_count }})</a></li>
+						<li class="list-group-item"><a class="title-info" href="/account/logout" title="Đăng xuất">Đăng xuất</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-xxl-9 col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12">
+				<div class="wolf-block-account-content">
+					<h1 class="title-head h4 mb-2">Thông tin tài khoản</h1>
+					<div class="name-account">
+						<p><strong>Họ tên: </strong>{{ customer.name }}</p>
+						<p><strong>Email: </strong><a href="mailto:{{ customer.email }}" title="Email: {{ customer.email }}">{{ customer.email }}</a></p>
+						{%- if customer.default_address.phone != null and customer.default_address.phone != "" -%}
+						<p><strong>Điện thoại: </strong><a href="tel:{{ customer.default_address.phone }}" title="Điện thoại: {{ customer.default_address.phone }}">{{ customer.default_address.phone }}</a></p>
+						{%- endif -%}
+						{%- if customer.default_address.company != null and customer.default_address.company != "" -%}
+						<p><strong>Công ty: </strong>{{ customer.default_address.company }}</p>
+						{%- endif -%}
+						{%- if customer.default_address -%}
+						<p><strong>Địa chỉ: </strong> {% if customer.default_address.address1 != null and customer.default_address.address1 != "" %}{{ customer.default_address.address1 }},{% endif %} {% if customer.default_address.district != null and customer.default_address.district != "" %} {{ customer.default_address.district }},{% endif %} {% if customer.default_address.city != null and customer.default_address.city != "" %}{{ customer.default_address.city }},{% endif %} {% if customer.default_address.country != null and customer.default_address.country != "" %} {{ customer.default_address.country }}{% endif %}</p>
+						{%- endif -%}
+					</div>
+          <h2 class="title-head margin-top-0">Đơn hàng của bạn</h2>
+        				{% paginate customer.orders by 5 %}
+        				<div class="my-account">
+        					<div class="dashboard">
+        						<div class="recent-orders">
+        							<div class="table-responsive-block tab-all"style="overflow-x:auto;">
+        								<table class="table table-cart table-order" id="my-orders-table">
+        									<thead class="thead-default">
+        										<tr>
+        											<th>Đơn hàng</th>
+        											<th>Ngày</th>
+        											<th>Địa chỉ</th>
+        											<th>Giá trị đơn hàng</th>
+        											<th>TT thanh toán</th>
+        										</tr>
+        									</thead>
+        									<tbody>
+        										{% if customer.orders.size > 0 %}
+        										{% for order in customer.orders %}
+        										<tr class="first odd">
+        											<td>{{ order.name | link_to: order.customer_url }}</td>
+        											<td>{{ order.created_at | date: '%d/%m/%Y' }}</td>
+        											<td>
+        												{{ order.shipping_address.address1 }}{% if order.shipping_address.district != null %}, {{ order.shipping_address.district }}{% endif %}{% if order.shipping_address.province != null %}, {{ order.shipping_address.province }}{% endif %}{% if order.shipping_address.country != null %}, {{ order.shipping_address.country }}{% endif %}
+        											</td>
+        											<td>
+        												<span class="price">{{ order.total_price | money }}</span>
+        											</td>
+        											<td>
+        												{{ order.financial_status  | replace : 'pending', 'Chờ xử lý' | replace : 'paid', 'Đã hoàn tất'}}
+        											</td>
+        											
+        										</tr>
+        										{% endfor %}
+        										{% else %}
+        										<tr>
+        											<td colspan="6">
+        												<p>Không có đơn hàng nào.</p>
+        											</td>
+        										</tr>
+        										{% endif %}
+        									</tbody>
+        
+        
+        								</table>
+        
+        							</div>
+        
+        							<div class="paginate-pages pull-right page-account text-right col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        								{% if paginate.pages > 1 %}
+        								{% include 'paginate-pages' %}
+        								{% endif %}
+        							</div>
+        						</div>
+        					</div>
+        
+        				</div>
+        				{% endpaginate %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

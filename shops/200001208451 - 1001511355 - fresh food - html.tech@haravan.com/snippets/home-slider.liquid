@@ -1,0 +1,78 @@
+{% if settings.slide_1 != false or settings.slide_2 != false or settings.slide_3 != false or settings.slide_4 != false %}
+<!-- Begin slider -->
+<div class="slider-default bannerslider">
+	<div class="hrv-banner-container">
+		<div class="hrvslider">
+			<ul class="slides">
+				{% for i in (1..4) %}
+				{% capture show_slide %}slide_{{ i }}{% endcapture %}
+				{% capture image %}slideshow_{{ i }}.jpg{% endcapture %}
+				{% capture cap1 %}slide_{{i}}_cap_1{% endcapture %}
+				{% capture cap2 %}slide_{{i}}_cap_2{% endcapture %}
+				{% capture btn_link %}slide_{{i}}_btn{% endcapture %}
+				{% capture link %}slide_{{i}}_link{% endcapture %}
+				{% capture alt %}slide_{{i}}_alt{% endcapture %}
+
+				{% if settings[show_slide] %}
+				<li>
+					<a href="{{ settings[link] }}" class="hrv-url">
+							<img class="img-responsive" src="{{ image | asset_url }}" alt="{{ settings[alt] | escape }}" />
+					</a>
+					<div id="hrv-banner-caption{{i}}" class="hrv-caption hrv-banner-caption">
+						<div class="container">
+							<div class="hrv-caption-inner">
+								<div class="hrv-banner-content slider-{{i}}">
+									{% if settings[cap1] != empty %}	<h2 class="hrv-title1" >{{ settings[cap1] }}</h2>	{% endif %}					
+									{% if settings[cap2] != empty %}<h3 class="hrv-title2">{{ settings[cap2] }}</h3>	{% endif %}		
+									{% if settings[btn_link] != empty %}<a href="{{ settings[link] }}" class="hrv-url">{{ settings[btn_link] }}</a>{% endif %}
+								</div>	
+							</div>
+						</div>
+					</div>			
+				</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- End slider -->
+{% endif %}
+
+<script>
+jQuery(document).ready(function(){
+	if ( $('.slides li').size() > 0 ) {
+		$(".hrv-banner-container .slides").owlCarousel({
+			singleItem: true,
+			autoPlay : 5000,
+			items : 1,
+			itemsDesktop : [1199,1],
+			itemsDesktopSmall : [980,1],
+			itemsTablet: [768,1],
+			itemsMobile : [479,1],
+			slideSpeed : 500,
+			paginationSpeed : 500,
+			rewindSpeed : 500,
+			addClassActive: true,
+			navigation : true,
+			stopOnHover : true,
+			pagination : false,
+			scrollPerPage:true,
+			afterMove: nextslide,
+			afterInit: nextslide,
+		});
+		function nextslide() {
+			$(".hrv-banner-container .owl-item .hrv-banner-caption").css('display','none');
+			$(".hrv-banner-container .owl-item .hrv-banner-caption").removeClass('hrv-caption')
+			$(".hrv-banner-container .owl-item.active .hrv-banner-caption").css('display','block');
+
+			var heading = $('.hrv-banner-container .owl-item.active .hrv-banner-caption').clone().removeClass();
+			$('.hrv-banner-container .owl-item.active .hrv-banner-caption').remove();
+			$('.hrv-banner-container .owl-item.active>li').append(heading);
+			$('.hrv-banner-container .owl-item.active>li>div').addClass('hrv-banner-caption hrv-caption');
+		}
+
+	}
+})
+
+</script>

@@ -1,0 +1,185 @@
+<script>
+	function parseQueryString(url){
+		var str = url != undefined? '?'+url.split('?')[1] : window.location.search;
+		var objURL = {};
+		var count = 0;
+		if(str.indexOf("utm") > -1){
+			count = 1;
+		}
+		str.replace(
+			new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+			function($0, $1, $2, $3) {
+				objURL[$1] = $3;
+			}
+		);
+		return objURL;
+	};
+	var paramUrl = parseQueryString();
+</script>
+<script>
+	window.account = {
+		logged: {%if customer%}true{%else%}false{%endif%},
+		id: {%if customer%}{{customer.id}}{%else%}null{%endif%},
+		email: {%if customer%}"{{customer.email}}"{%else%}null{%endif%},
+		name: {%if customer%}"{{customer.name}}"{%else%}null{%endif%},
+		lastName: {%-if customer and customer.last_name != ''-%}"{{customer.last_name}}"{%-else-%}null{%-endif-%},
+		firstName: {%-if customer and customer.first_name != ''-%}"{{customer.first_name}}"{%-else-%}null{%-endif-%},
+		tag: "{%if customer%}{{customer.tags | join: ','}}{%endif%}"
+	}
+	{%- if template contains 'product.en' -%}
+		window.productDetail = {
+			data: {%if template contains 'product.en'%}{{ product | json }}{%else%}null{%endif%},
+			id: {%if template contains 'product.en'%}{{product.id}}{%else%}null{%endif%},
+			handle: {%if template contains 'product.en'%}"{{product.handle}}"{%else%}null{%endif%},
+			title: {%if template contains 'product.en'%}{{ product.metafields.hrvmultilang_en.title | append: '' | default: product.title | json }}{%else%}null{%endif%},
+			type: {%if template contains 'product.en'%}"{{product.type}}"{%else%}null{%endif%},
+			vendor: {%if template contains 'product.en'%}"{{product.vendor | replace: '"', ""}}"{%else%}null{%endif%},
+			sku: {%if template contains 'product.en'%}"{{product.variants[0].sku}}"{%else%}null{%endif%},
+			collection_title: [
+				{%-if template contains 'product.en'-%}
+					{%-for col in product.collections-%}
+						{{col.title | json}}{%- unless forloop.last-%},{%-endunless-%}
+					{%-endfor-%}
+				{%-else-%}null{%-endif-%}
+			],
+			collection_id: {%if template contains 'product.en'%}"{%- for col in product.collections -%}{{col.id}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}"{%else%}null{%endif%},
+			gift: false
+		}
+	{%- endif -%}
+	{%- if template contains 'collection.en' -%}
+		{%- assign collection_tags = collection.tags | join: ',' -%} 
+		var collection_tag = {{collection_tags | json}};
+	 	var collection_cate = false;
+	 	var default_sort = "{{ collection.sort_by | default: collection.default_sort_by }}";
+		var default_total = {{paginate.pages}};
+		var default_products = {{collection.all_products_count}};
+	{%- endif -%}
+	var num_per_page = Number({{settings.en_pagination_limit}});
+</script>
+<script>
+	/*-- Var --*/ 
+	var cartAttributes = {
+		{%-for attr in cart.attributes-%}
+		"{{attr.first}}": "{{attr.last}}"{%-unless forloop.last-%},{%-endunless-%}
+		{%-endfor-%}
+	};
+  var addressArrLength = {%if customer%}{{customer.addresses.size}}{%else%}0{%endif%};
+	var addressArr = [
+    {% if customer.addresses.size > 0 %}
+      {% for address in customer.addresses %}
+			{
+				"name" : "{{ address.last_name }} {{ address.first_name }}",
+				"phone" : "{{address.phone}}",
+				"address" : "{{address.address1}}",
+				"isDefault" : {%-if address == customer.default_address-%}true{%else%}false{%endif%}
+			}
+			{%unless forloop.last%},{%endunless%}
+		{% endfor %}
+    {% endif %}
+	];
+	var color_code = {
+		{%-for i in (1..21)-%}
+			{%-capture use_color-%}en_use_color_filter_{{i}}{%-endcapture-%}
+			{%-capture name_color-%}en_name_color_filter_{{i}}{%-endcapture-%}
+			{%-capture code_color-%}en_code_color_filter_{{i}}{%-endcapture-%}
+			{%-if settings[use_color] and settings[name_color].size > 0-%}
+			"{{settings[name_color]}}": '{{settings[code_color]}}'
+			 {%unless forloop.last%},{%endunless%}
+			{%-endif-%}
+		{%- endfor -%}
+	};
+</script>
+<script>
+	window.settings = {
+    collfilter: {
+      show: false,
+      useFilterColor: false,
+      useFilterSize: false,
+      useFilterMaterial: false,
+      useFilterPrice: false
+    }
+	}
+</script>
+<script>
+	/*-- Thumb cover --*/
+	{%-assign tags_frame = ""-%} {%-assign ico_frame = ""-%}
+	/*-- tag brand --*/
+	{%-assign tags_theme = ""-%} {%-assign ico_theme = ""-%}
+	/*-- tag normal --*/
+	{%-assign tags_normal = ""-%} {%-assign ico_normal = ""-%}
+	
+	{%-for i in (1..5)-%}
+		{%-capture use_frame-%}en_use_frame_{{i}}{%-endcapture-%}
+		{%-capture tag_frame-%}en_tag_frame_{{i}}{%-endcapture-%}
+		{%-capture icon_frame-%}en_img_frame_{{i}}{%-endcapture-%}
+		
+		{%-capture use_theme-%}en_use_icon_theme_{{i}}{%-endcapture-%}
+		{%-capture tag_theme-%}en_tag_icon_theme_{{i}}{%-endcapture-%}
+		{%-capture icon_theme-%}en_icon_theme_{{i}}{%-endcapture-%}
+		
+		{%-capture use_normal-%}en_use_icon_normal_{{i}}{%-endcapture-%}
+		{%-capture tag_normal-%}en_tag_icon_normal_{{i}}{%-endcapture-%}
+		{%-capture icon_normal-%}en_icon_normal_{{i}}{%-endcapture-%}
+		
+		{%-if settings[use_frame] and settings[tags_frame] != ""-%}
+			{%-assign tags_frame = tags_frame | append: ',' | append: settings[tag_frame]-%}
+		{%-else-%}
+			{%-assign tags_frame = tags_frame | append: ',' | append: 'null'-%}
+		{%-endif-%}
+		{%-if settings[use_frame] and settings[icon_frame] != ""-%}
+			{%-assign ico_frame = ico_frame | append: ',' | append: settings[icon_frame]-%}
+		{%-else-%}
+			{%-assign ico_frame = ico_frame | append: ',' | append: 'null'-%}
+		{%-endif-%}
+		
+		{%-if settings[use_theme] and settings[tag_theme] != ""-%}
+			{%-assign tags_theme = tags_theme | append: ',' | append: settings[tag_theme]-%}
+		{%-else-%}
+			{%-assign tags_theme = tags_theme | append: ',' | append: 'null'-%}
+		{%-endif-%}
+		{%-if settings[use_theme] and settings[icon_theme] != ""-%}
+			{%-assign ico_theme = ico_theme | append: ',' | append: settings[icon_theme]-%}
+		{%-else-%}
+			{%-assign ico_theme = ico_theme | append: ',' | append: 'null'-%}
+		{%-endif-%}
+		
+		{%-if settings[use_normal] and settings[tag_normal] != ""-%}
+			{%-assign tags_normal = tags_normal | append: ',' | append: settings[tag_normal]-%}
+		{%-else-%}
+			{%-assign tags_normal = tags_normal | append: ',' | append: 'null'-%}
+		{%-endif-%}
+		{%-if settings[use_normal] and settings[icon_normal] != ""-%}
+			{%-assign ico_normal = ico_normal | append: ',' | append: settings[icon_normal]-%}
+		{%-else-%}
+			{%-assign ico_normal = ico_normal | append: ',' | append: 'null'-%}
+		{%-endif-%}
+	{%-endfor-%}		
+
+	var TLF_tag = {
+		"frame": {
+			"tag": {{tags_frame | remove_first: ',' | json}},
+			"icon": {{ico_frame | remove_first: ',' | json}}
+		},
+		"theme": {
+			"tag": {{tags_theme | remove_first: ',' | json}},
+			"icon": {{ico_theme | remove_first: ',' | json}}
+		},
+		"normal": {
+			"tag": {{tags_normal | remove_first: ',' | json}},
+			"icon": {{ico_normal | remove_first: ',' | json}}
+		}
+	};
+	TLF_tag.frame.tag 	 =  TLF_tag.frame.tag.split(',');
+	TLF_tag.frame.icon  = 	TLF_tag.frame.icon.split(',');
+	TLF_tag.theme.tag 	 = 	TLF_tag.theme.tag.split(',');
+	TLF_tag.theme.icon  = 	TLF_tag.theme.icon.split(',');
+	TLF_tag.normal.tag  = 	TLF_tag.normal.tag.split(',');
+	TLF_tag.normal.icon = 	TLF_tag.normal.icon.split(',');
+</script>
+
+
+
+
+
+
+

@@ -1,0 +1,486 @@
+<div class="comparison-bar" id="comparison-bar">
+	<div class="container">
+		<div class="comparison-bar-main align-items-center d-flex flex-column flex-md-row">
+			<div class="d-flex flex-row gap-2 comparison-bar-slots">
+				<div class="comparison-slot" id="slot-1" data-slot="1"></div>
+				<div class="comparison-slot" id="slot-2" data-slot="2"></div>
+				<div class="comparison-slot" id="slot-3" data-slot="3"></div>
+				<div class="comparison-slot" id="slot-4" data-slot="4"></div>
+			</div>
+			<div class="d-flex flex-row flex-md-column ms-md-auto mt-md-0 mt-2 compare-button-group gap-2">
+				<button class="btn btn-success w-100 mb-0 mb-md-0 me-md-auto" id="compare-now">So sánh</button>
+				<div class="d-flex w-100 gap-2">
+					<button class="btn btn-danger w-50" id="clear-all" title="Xóa so sánh"><svg width="20" height="20"><use xlink:href="#icon-trash" /></svg></button>
+					<span class="btn btn-outline-secondary w-50 minimize-btn" title="Thu nhỏ"><svg width="20" height="20"><use xlink:href="#icon-minimize" /></svg></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<span class="restore-btn rounded-circle shadow" title="Mở rộng thanh so sánh"><svg width="20" height="20"><use xlink:href="#icon-expand" /></svg></span>
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-fullscreen-sm-down">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="searchModalLabel">Tìm sản phẩm muốn so sánh</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<input type="text" class="form-control mb-3" id="searchInput" placeholder="Nhập tên sản phẩm...">
+				<div id="searchResults"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="compareModal" tabindex="-1" aria-labelledby="compareModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="compareModalLabel">Bảng so sánh sản phẩm</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-bordered comparison-table table-striped table-hover">
+						<tbody id="comparison-table-body"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="toast-container">
+	<div id="compareToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="2000">
+		<div class="toast-body"></div>
+	</div>
+</div>
+<script>
+	(function() {
+    let selectedProducts = [];
+    let currentType = null;
+    let compareModalInstance = null;
+    let searchModalInstance = null;
+    function loadComparisonData() {
+        const savedProducts = localStorage.getItem('selectedProducts');
+        const savedType = localStorage.getItem('currentType');
+        if (savedProducts) {
+            try {
+                selectedProducts = JSON.parse(savedProducts);
+                selectedProducts = selectedProducts.map(product => ({
+                    ...product,
+                    colors: Array.isArray(product.colors) ? product.colors : [product.colors || 'Không có'],
+                    sizes: Array.isArray(product.sizes) ? product.sizes : [product.sizes || 'Không có']
+                }));
+                currentType = selectedProducts.length > 0 ? savedType : null;
+                updateComparisonBar();
+                updateButtonStates();
+                if (selectedProducts.length === 0) {
+                    localStorage.removeItem('currentType');
+                }
+            } catch (e) {
+                selectedProducts = [];
+                currentType = null;
+                localStorage.removeItem('selectedProducts');
+                localStorage.removeItem('currentType');
+            }
+        } else {
+            currentType = null;
+            localStorage.removeItem('currentType');
+        }
+    }
+    function saveComparisonData() {
+        localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
+        if (selectedProducts.length > 0) {
+            localStorage.setItem('currentType', currentType);
+        } else {
+            localStorage.removeItem('currentType');
+        }
+    }
+    function showToast(message, type = 'success') {
+        const toastElement = document.getElementById('compareToast');
+        if (!toastElement) return;
+        const toastBody = toastElement.querySelector('.toast-body');
+        toastBody.textContent = message;
+        toastElement.classList.remove('bg-success', 'bg-danger');
+        toastElement.classList.add(`bg-${type}`);
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }
+    function normalizeProduct(product) {
+        const productPrice = product.variants && product.variants[0]?.price > 0 ?
+            Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.variants[0].price / 100) :
+            "Liên hệ";
+        const productComparePrice = product.variants && product.variants[0]?.compare_at_price > product.variants[0]?.price ?
+            Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.variants[0].compare_at_price / 100) :
+            null;
+        const productAvailable = product.available ? "Còn hàng" : "Hết hàng";
+        const productVendor = product.vendor ?
+            `${product.vendor}` :
+            '<span>Đang cập nhật</span>';
+        const imageSrc = product.featured_image ?
+            Haravan.resizeImage(product.featured_image, 'large') :
+            "https://cdn.hstatic.net/themes/200001127691/1001446790/14/noimage.jpg?v=9";
+        const productContent = product.description || "<div class='no-content'>Nội dung đang cập nhật</div>";
+        let colors = ['Không có'];
+    let sizes = ['Không có'];
+    let otherOptions = [];
+    let otherOptionName = 'Tùy chọn khác';
+    if (product.options && Array.isArray(product.options) && product.variants && Array.isArray(product.variants)) {
+        const colorOptionIndex = product.options.findIndex(opt => opt.name && opt.name.toLowerCase().includes('màu sắc'));
+        const sizeOptionIndex = product.options.findIndex(opt => opt.name && opt.name.toLowerCase().includes('size'));
+        if (colorOptionIndex !== -1) {
+            if (colorOptionIndex === 0) {
+                colors = [...new Set(product.variants.map(v => v.option1).filter(Boolean))];
+            } else if (colorOptionIndex === 1) {
+                colors = [...new Set(product.variants.map(v => v.option2).filter(Boolean))];
+            } else if (colorOptionIndex === 2) {
+                colors = [...new Set(product.variants.map(v => v.option3).filter(Boolean))];
+            }
+        }
+        if (colors.length === 0) colors = ['Không có'];
+        if (sizeOptionIndex !== -1) {
+            if (sizeOptionIndex === 0) {
+                sizes = [...new Set(product.variants.map(v => v.option1).filter(Boolean))];
+            } else if (sizeOptionIndex === 1) {
+                sizes = [...new Set(product.variants.map(v => v.option2).filter(Boolean))];
+            } else if (sizeOptionIndex === 2) {
+                sizes = [...new Set(product.variants.map(v => v.option3).filter(Boolean))];
+            }
+        }
+        if (sizes.length === 0) sizes = ['Không có'];
+        const otherOptionNames = product.options.filter((opt, index) =>
+            index !== colorOptionIndex && index !== sizeOptionIndex && opt.name
+        );
+        if (otherOptionNames.length > 0) {
+            const firstOtherOptionName = otherOptionNames[0].name;
+            const firstOtherOptionIndex = product.options.findIndex(opt => opt.name === firstOtherOptionName);
+            if (firstOtherOptionIndex === 0) {
+                otherOptions = [...new Set(product.variants.map(v => v.option1).filter(Boolean))];
+            } else if (firstOtherOptionIndex === 1) {
+                otherOptions = [...new Set(product.variants.map(v => v.option2).filter(Boolean))];
+            } else if (firstOtherOptionIndex === 2) {
+                otherOptions = [...new Set(product.variants.map(v => v.option3).filter(Boolean))];
+            }
+            otherOptionName = firstOtherOptionName;
+        }
+    }
+        return {
+            handle: product.handle || '',
+            type: product.type || '',
+            title: product.title || '',
+            price: productPrice,
+            comparePrice: productComparePrice,
+            available: productAvailable,
+            vendor: productVendor,
+            image: imageSrc,
+            content: productContent,
+            url: product.url || '',
+            colors: colors.length > 0 ? colors : ['Không có'],
+            sizes: sizes.length > 0 ? sizes : ['Không có'],
+            otherOptions: otherOptions.length > 0 ? otherOptions.join(', ') : 'Không có',
+            otherOptionName: otherOptionName || 'Tùy chọn khác'
+        };
+    }
+    function updateButtonStates() {
+        document.querySelectorAll('.compare-btn').forEach(button => {
+            const handle = button.dataset.handle;
+            button.removeEventListener('click', handleCompareButtonClick);
+            button.addEventListener('click', handleCompareButtonClick);
+            if (selectedProducts.some(p => p.handle === handle)) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+    }
+    function updateComparisonBar() {
+        const bar = document.getElementById('comparison-bar');
+        const restoreBtn = document.querySelector('.restore-btn');
+        if (bar && selectedProducts.length > 0) {
+            bar.classList.add('active');
+            restoreBtn.style.display = 'none';
+        } else if (bar) {
+            bar.classList.remove('active');
+            restoreBtn.style.display = 'none';
+        }
+        document.querySelectorAll('.comparison-slot').forEach(slot => {
+            slot.innerHTML = '<span class="add-slot" title="Thêm sản phẩm so sánh">+</span>';
+            slot.classList.remove('filled');
+        });
+        selectedProducts.forEach((product, index) => {
+            const slot = document.getElementById(`slot-${index + 1}`);
+            if (slot) {
+                slot.innerHTML = `<div class="product-item"><img src="${product.image}" alt="${product.title}"><span class="remove-btn" data-handle="${product.handle}" title="Xóa sản phẩm"><svg class="icon" width="20" height="20"><use xlink:href="#icon-close" /></svg></span></div>`;
+                slot.classList.add('filled');
+            }
+        });
+        document.querySelectorAll('.add-slot').forEach(slot => {
+            slot.removeEventListener('click', openSearchModal);
+            slot.addEventListener('click', openSearchModal);
+        });
+        document.querySelectorAll('.remove-btn').forEach(btn => {
+            btn.removeEventListener('click', handleRemoveProduct);
+            btn.addEventListener('click', handleRemoveProduct);
+        });
+        function handleRemoveProduct() {
+            const handle = this.dataset.handle;
+            const product = selectedProducts.find(p => p.handle === handle);
+            selectedProducts = selectedProducts.filter(p => p.handle !== handle);
+            if (selectedProducts.length === 0) {
+                currentType = null;
+                localStorage.removeItem('currentType');
+            }
+            updateComparisonBar();
+            updateButtonStates();
+            saveComparisonData();
+            showToast(`Đã xóa ${product.title} khỏi so sánh`, 'success');
+        }
+    }
+    function openSearchModal() {
+        if (!searchModalInstance) {
+            console.error("Search modal instance is not initialized!");
+            return;
+        }
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        searchResults.innerHTML = '';
+        searchInput.value = '';
+        let searchTimeout = null;
+        const searchInputHandler = async function() {
+            clearTimeout(searchTimeout);
+            const query = this.value;
+            if (query.length < 2) {
+                searchResults.innerHTML = '';
+                return;
+            }
+            searchTimeout = setTimeout(async () => {
+                try {
+                    const response = await fetch(`/search?q=${encodeURIComponent(query)}&view=compare`);
+                    const data = await response.json();
+                    const products = data.products || [];
+                    searchResults.innerHTML = '';
+                    products.forEach(product => {
+                        if (!currentType || product.type === currentType) {
+                            const alias = product.url.split('/').pop();
+                            const isSelected = selectedProducts.some(p => p.handle === alias);
+                            if (!isSelected) {
+                                const div = document.createElement('div');
+                                div.className = 'mb-2 p-2 border rounded';
+                                div.innerHTML = `<div class="compare-search-product-item d-flex align-items-center justify-content-start">
+<div class="compare-search-product-item-image d-flex"><img src="${product.image}" class="img-fluid me-auto ms-auto"></div>
+<div class="compare-search-product-item-content ms-2 d-flex flex-column flex-grow-1">
+<div class="compare-search-product-item-name mb-2">${product.title} <span>(${product.type})</span></div>
+<div class="compare-search-product-item-price mb-2">${product.price}</div>
+<button class="btn btn-sm btn-primary float-end add-to-compare" data-handle="${alias}" data-type="${product.type}">Thêm</button>
+	</div></div>`;
+                                searchResults.appendChild(div);
+                            }
+                        }
+                    });
+                    document.querySelectorAll('.add-to-compare').forEach(btn => {
+                        btn.removeEventListener('click', handleAddProductFromSearch);
+                        btn.addEventListener('click', handleAddProductFromSearch);
+                    });
+                } catch (error) {
+                    console.error("Error searching products:", error);
+                    showToast('Lỗi khi tìm kiếm sản phẩm!', 'danger');
+                }
+            }, 300);
+        };
+        searchInput.removeEventListener('input', searchInputHandler);
+        searchInput.addEventListener('input', searchInputHandler);
+        searchModalInstance.show();
+    }
+    function handleAddProductFromSearch() {
+        const handle = this.dataset.handle;
+        const type = this.dataset.type;
+        Haravan.getProduct(handle, function(product) {
+            if (!product) {
+                showToast('Sản phẩm không tồn tại!', 'danger');
+                return;
+            }
+            const normalizedProduct = normalizeProduct(product);
+            if (currentType === null || type === currentType) {
+                if (selectedProducts.length < 4 && !selectedProducts.some(p => p.handle === handle)) {
+                    currentType = type;
+                    selectedProducts.push(normalizedProduct);
+                    updateComparisonBar();
+                    updateButtonStates();
+                    saveComparisonData();
+                    searchModalInstance.hide();
+                    showToast(`Đã thêm ${normalizedproduct.title} vào so sánh`, 'success');
+                } else {
+                    showToast(selectedProducts.some(p => p.handle === handle) ? 'Sản phẩm này đã được chọn!' : 'Chỉ được so sánh tối đa 4 sản phẩm!', 'danger');
+                }
+            } else {
+                showToast('Chỉ được so sánh các sản phẩm cùng loại!', 'danger');
+            }
+        });
+    }
+
+    function updateComparisonTable() {
+        const tableBody = document.getElementById('comparison-table-body');
+        if (!tableBody) return;
+        tableBody.innerHTML = '';
+        let headerRow = '<tr><th class="comparison-table-title">Sản phẩm</th>';
+        selectedProducts.forEach(product => {
+            headerRow += `<th><a href="${product.url}" class="product-name">${product.title}</a></th>`;
+        });
+        tableBody.innerHTML += headerRow + '</tr>';
+        let imageRow = '<tr><td class="comparison-table-title">Hình ảnh</td>';
+        selectedProducts.forEach(product => {
+            imageRow += `<td><img src="${product.image}" class="img-fluid rounded-4 product-img" alt="${product.title}"></td>`;
+        });
+        tableBody.innerHTML += imageRow + '</tr>';
+        let priceRow = '<tr><td class="comparison-table-title">Giá</td>';
+        selectedProducts.forEach(product => {
+            let priceHtml = `<span class="price">${product.price}</span>`;
+            if (product.comparePrice) {
+                priceHtml += `<span class="old-price ms-1">${product.comparePrice}</span>`;
+            }
+            priceRow += `<td>${priceHtml}</td>`;
+        });
+        tableBody.innerHTML += priceRow + '</tr>';
+        let availableRow = '<tr><td class="comparison-table-title">Tình trạng</td>';
+        selectedProducts.forEach(product => {
+            availableRow += `<td>${product.available}</td>`;
+        });
+        tableBody.innerHTML += availableRow + '</tr>';
+        let vendorRow = '<tr><td class="comparison-table-title">Thương hiệu</td>';
+        selectedProducts.forEach(product => {
+            vendorRow += `<td>${product.vendor}</td>`;
+        });
+        tableBody.innerHTML += vendorRow + '</tr>';
+        let colorRow = '<tr><td class="comparison-table-title">Màu sắc</td>';
+        selectedProducts.forEach(product => {
+            const colors = Array.isArray(product.colors) ? product.colors : [product.colors || 'Không có'];
+            const colorSpans = colors.map(color => {
+                const colorClass = `color-${wolf_convertVietnamese(color)}`;
+                return `<span class="color-comparison ${colorClass}">${color}</span>`;
+            }).join('');
+            colorRow += `<td><div class="d-flex justify-content-center align-items-center gap-2">${colorSpans}</div></td>`;
+        });
+        tableBody.innerHTML += colorRow + '</tr>';
+        let sizeRow = '<tr><td class="comparison-table-title">Size</td>';
+        selectedProducts.forEach(product => {
+            const sizes = Array.isArray(product.sizes) ? product.sizes : [product.sizes || 'Không có'];
+            const sizeSpans = sizes.map(size => {
+                const sizeClass = `size-${size.toLowerCase().replace(/\s+/g, '-')}`;
+                return `<span class="size-comparison ${sizeClass}">${size}</span>`;
+            }).join('');
+            sizeRow += `<td><div class="d-flex justify-content-center align-items-center gap-2">${sizeSpans}</div></td>`;
+        });
+        tableBody.innerHTML += sizeRow + '</tr>';
+        if (selectedProducts.some(p => p.otherOptions !== 'Không có')) {
+            let otherOptionRow = `<tr><td class="comparison-table-title">${selectedProducts[0].otherOptionName}</td>`;
+            selectedProducts.forEach(product => {
+                otherOptionRow += `<td>${product.otherOptions}</td>`;
+            });
+            tableBody.innerHTML += otherOptionRow + '</tr>';
+        }
+        let contentRow = '<tr class="d-none"><td class="comparison-table-title">Thông tin</td>';
+        selectedProducts.forEach(product => {
+            contentRow += `<td>${product.content}</td>`;
+        });
+        tableBody.innerHTML += contentRow + '</tr>';
+    }
+    function handleCompareButtonClick() {
+        const handle = this.dataset.handle;
+        const type = this.dataset.type;
+        Haravan.getProduct(handle, function(product) {
+            if (!product) {
+                showToast('Sản phẩm không tồn tại!', 'danger');
+                return;
+            }
+            const normalizedProduct = normalizeProduct(product);
+          console.log(normalizedProduct);
+            if (currentType === null || type === currentType) {
+                if (selectedProducts.length < 4 && !selectedProducts.some(p => p.handle === handle)) {
+                    currentType = type;
+                    selectedProducts.push(normalizedProduct);
+                    updateComparisonBar();
+                    updateButtonStates();
+                    saveComparisonData();
+                    showToast(`Đã thêm ${normalizedProduct.title} vào so sánh`, 'success');
+                } else if (selectedProducts.some(p => p.handle === handle)) {
+                    showToast('Sản phẩm này đã được chọn!', 'danger');
+                } else {
+                    showToast('Chỉ được so sánh tối đa 4 sản phẩm!', 'danger');
+                }
+            } else {
+                showToast('Chỉ được so sánh các sản phẩm cùng loại!', 'danger');
+            }
+        });
+    }
+    function initComparison() {
+        const compareModalElement = document.getElementById('compareModal');
+        if (compareModalElement && !compareModalInstance) {
+            compareModalInstance = new bootstrap.Modal(compareModalElement);
+        }
+        const searchModalElement = document.getElementById('searchModal');
+        if (searchModalElement && !searchModalInstance) {
+            searchModalInstance = new bootstrap.Modal(searchModalElement);
+        }
+        updateButtonStates();
+        const clearAllBtn = document.getElementById('clear-all');
+        if (clearAllBtn) {
+            clearAllBtn.removeEventListener('click', handleClearAll);
+            clearAllBtn.addEventListener('click', handleClearAll);
+        }
+        const minimizeBtn = document.querySelector('.minimize-btn');
+        const restoreBtn = document.querySelector('.restore-btn');
+        if (minimizeBtn) {
+            minimizeBtn.removeEventListener('click', handleMinimize);
+            minimizeBtn.addEventListener('click', handleMinimize);
+        }
+        if (restoreBtn) {
+            restoreBtn.removeEventListener('click', handleRestore);
+            restoreBtn.addEventListener('click', handleRestore);
+        }
+        const compareNowBtn = document.getElementById('compare-now');
+        if (compareNowBtn) {
+            compareNowBtn.removeEventListener('click', handleCompareNow);
+            compareNowBtn.addEventListener('click', handleCompareNow);
+        }
+        loadComparisonData();
+    }
+    function handleClearAll() {
+        selectedProducts = [];
+        currentType = null;
+        localStorage.removeItem('currentType');
+        updateComparisonBar();
+        updateButtonStates();
+        saveComparisonData();
+        showToast('Đã xóa tất cả sản phẩm so sánh', 'success');
+    }
+    function handleMinimize() {
+        const bar = document.getElementById('comparison-bar');
+        bar.classList.remove('active');
+        document.querySelector('.restore-btn').style.display = 'block';
+    }
+    function handleRestore() {
+        const bar = document.getElementById('comparison-bar');
+        if (selectedProducts.length > 0) {
+            bar.classList.add('active');
+            document.querySelector('.restore-btn').style.display = 'none';
+        }
+    }
+    function handleCompareNow() {
+        if (selectedProducts.length === 0) {
+            showToast('Vui lòng chọn ít nhất một sản phẩm để so sánh!', 'danger');
+            return;
+        }
+        updateComparisonTable();
+        if (compareModalInstance) {
+            compareModalInstance.show();
+        }
+    }
+    window.comparison = {
+        init: initComparison,
+        updateButtonStates: updateButtonStates
+    };
+})();
+document.addEventListener('DOMContentLoaded', () => {
+    window.comparison.init();
+});
+</script>

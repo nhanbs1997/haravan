@@ -1,0 +1,12 @@
+<div class="wolf-blog-item mb-3">
+	<a class="block-thumb mb-2 d-flex" href="{{ article.url }}" title="{{ article.title }}">
+		{%- if article.image != null -%}
+		<img width="750" height="500" class="img-fluid" src="{{ article.image.src}}"  alt="{{ article.title }}">
+		{%- else -%}
+		<img class="img-fluid" src="{{ 'noimage.jpg' | asset_url}}" alt="{{ article.title }}" title="{{ article.title }}"/>
+		{%- endif -%}
+	</a>
+	<div class="wolf-blog-item-title h4"><a href="{{ article.url }}" title="{{ article.title }}" class="line-clamp-2">{{ article.title }}</a></div>
+	<p class="wolf-blog-item-des mb-1">{{ article.content | strip_html | truncatewords: 45 }}</p>
+	<div class="single-post-date text-secondary">{{ article.published_at | date: '%d/%m/%Y' }}</div>
+</div>

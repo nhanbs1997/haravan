@@ -1,0 +1,20 @@
+<div class="wolf_section_promotion mb-3">
+	<div class="container">
+		<div class="row g-2 g-lg-3 wolf-scroll-mb">
+			{%- for i in (1..2) -%}
+			{%- capture pimg -%}img_promotion_{{i}}.jpg{%- endcapture -%}
+			{%- capture palt -%}alt_promotion_{{i}}{%- endcapture -%}
+			{%- capture plink -%}link_promotion_{{i}}{%- endcapture -%}
+			<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-8 col-8">
+				<a href="{{ settings[plink]}}" title="{{ settings[palt]}}" class="d-flex mt-1 rounded-4">
+					<img width="{{ settings.width_promotion_img }}" height="{{ settings.height_promotion_img }}" src="{{ pimg | asset_url }}" alt="{{ settings[palt]}}" class="img-fluid rounded-4" loading="lazy" >
+					<span class="wolf-promotion-overlay">
+						<span class="wolf-promotion-title">{{ settings[palt]}}</span>
+						<span class="wolf-promotion-cta">MUA NGAY</span>
+					</span>
+				</a>
+			</div>
+			{%- endfor -%}
+		</div>
+	</div>
+</div>

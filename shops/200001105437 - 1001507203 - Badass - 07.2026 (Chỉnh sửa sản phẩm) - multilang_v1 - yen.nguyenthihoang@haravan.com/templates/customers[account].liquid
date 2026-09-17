@@ -1,0 +1,39 @@
+{%- comment -%} Template: Customer Account {%- endcomment -%}
+<div class="account-page">
+  <div class="container">
+    <div class="account-card">
+      <div class="account-card__header">
+        <h1 class="account-card__title">Tài khoản</h1>
+        <a href="/account/logout" class="account-card__logout">Đăng xuất</a>
+      </div>
+
+      <div class="account-info">
+        <h3>Thông tin cá nhân</h3>
+        <p><strong>Họ tên:</strong> {{ customer.name }}</p>
+        <p><strong>Email:</strong> {{ customer.email }}</p>
+        {%- if customer.phone != blank -%}
+        <p><strong>Điện thoại:</strong> {{ customer.phone }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if customer.orders.size > 0 -%}
+      <div class="account-orders">
+        <h3>Đơn hàng gần đây</h3>
+        <div class="account-orders__list">
+          {%- for order in customer.orders limit: 10 -%}
+          <a href="{{ order.customer_url }}" class="account-orders__item">
+            <span class="order-name">{{ order.name }}</span>
+            <span class="order-date">{{ order.created_at | date: '%d/%m/%Y' }}</span>
+            <span class="order-total">{{ order.total_price | money }}</span>
+          </a>
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- endif -%}
+
+      <div class="account-links">
+        <a href="/account/addresses">Sổ địa chỉ</a>
+      </div>
+    </div>
+  </div>
+</div>

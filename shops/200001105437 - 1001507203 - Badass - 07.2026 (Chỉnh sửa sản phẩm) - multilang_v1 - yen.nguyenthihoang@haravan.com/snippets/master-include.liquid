@@ -1,0 +1,37 @@
+{%- comment -%}
+  Snippet: master-include
+  Mô tả: Load jQuery, khai báo biến global window.shop, window.account
+{%- endcomment -%}
+
+<script src="{{ 'jquery.min.js' | asset_url }}"></script>
+
+<script>
+  window.notLighthouse = window.notLighthouse || true;
+
+  window.shop = {
+    url: '{{ shop.url }}',
+    name: {{ shop.name | json }},
+    template: '{{ template }}',
+    currency: '{{ shop.currency }}',
+    moneyFormat: '{{ shop.money_format }}',
+    productJson: {{ product | json | default: 'null' }}
+  };
+
+  window.account = {
+    logged: {%- if customer -%}true{%- else -%}false{%- endif -%},
+    id: {%- if customer -%}{{ customer.id }}{%- else -%}null{%- endif -%},
+    email: {%- if customer -%}{{ customer.email | json }}{%- else -%}null{%- endif -%},
+    name: {%- if customer -%}{{ customer.name | json }}{%- else -%}null{%- endif -%}
+  };
+
+  {%- if settings.promotion_hrvapp_use -%}
+  window.promotionApp = true;
+  window.promotionAppName = '{{ settings.promotion_hrvapp }}';
+  {%- else -%}
+  window.promotionApp = false;
+  window.promotionAppName = '';
+  {%- endif -%}
+</script>
+
+{%- comment -%} Haravan notification hide {%- endcomment -%}
+<style>#haravan-notification{display:none!important}</style>

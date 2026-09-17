@@ -1,0 +1,301 @@
+{%- if settings.home_slider_show -%} {%- include 'homepage-slider' -%} {%- endif -%}
+{%- if settings.display_home_banner -%}
+<div class="section-home-banners home-banner" id="section-home-banner" >
+	<div class="container">
+		<div class="row">
+			<div class="item-home-banner col-12 col-lg-6">
+				<div class="item-home-banner-inner effect-image">
+					<div class="media-home-banner">
+						<a href="{{ settings.link_home_banner_1 }}" aria-label="{{ settings.title_home_banner_1 }}">
+							<picture>
+								<source media="(min-width:992px)" srcset="{{ 'img_home_banner_desktop_1.jpg' | asset_url }}">
+								<source media="(max-width:991px)" srcset="{{ 'img_home_banner_mobile_1.jpg' | asset_url }}">
+								<img src="{{ 'img_home_banner_desktop_1.jpg' | asset_url }}" alt="{{ settings.title_home_banner_1 }}">
+							</picture>
+						</a>
+					</div>
+					<div class="info-home-banner">
+						<h4><a href="{{ settings.link_home_banner_1 }}">{{ settings.title_home_banner_1 }}</a></h4>
+						<p>{{ settings.content_home_banner_1 }}</p>
+						<div class="action-home-banner">
+							<a class="btn-home-banner" href="{{ settings.link_home_banner_1 }}" aria-label="{{ settings.btn_home_banner_1 }}" >{{ settings.btn_home_banner_1 }}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="item-home-banner col-12 col-lg-6">
+				<div class="item-home-banner-inner effect-image">
+					<div class="media-home-banner">
+						<a href="{{ settings.link_home_banner_2 }}" aria-label="{{ settings.title_home_banner_2 }}">
+							<picture>
+								<source media="(min-width:992px)" srcset="{{ 'img_home_banner_desktop_2.jpg' | asset_url }}">
+								<source media="(max-width:991px)" srcset="{{ 'img_home_banner_mobile_2.jpg' | asset_url }}">
+								<img src="{{ 'img_home_banner_desktop_2.jpg' | asset_url }}" alt="{{ settings.title_home_banner_2 }}">
+							</picture>
+						</a>
+					</div>
+					<div class="info-home-banner">
+						<h4><a href="{{ settings.link_home_banner_2 }}" aria-label="{{ settings.title_home_banner_2 }}">{{ settings.title_home_banner_2 }}</a></h4>
+						<p>{{ settings.content_home_banner_2 }}</p>
+						<div class="action-home-banner">
+							<a class="btn-home-banner" href="{{ settings.link_home_banner_2 }}" aria-label="{{ settings.btn_home_banner_1 }}">{{ settings.btn_home_banner_2 }}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%- endif -%}
+<div class="section-home-hrvpmo hrvpmo-grids">
+	<div class="container">
+		<div class="hrv-pmo-coupon" data-hrvpmo-layout="grids"></div>
+		<div class="hrv-pmo-discount" data-hrvpmo-layout="grids"></div>
+	</div>
+</div>
+{%- if settings.display_home_category -%}
+<div  class="section-home-category  home-category owlStyle" id="section-home-category">
+	<div class="container">
+		<div class="sectionHeading">	<h3>{{ settings.title_home_category }}</h3>	</div>
+		<div class="sectionContent">
+			<div class="slider-category owl-carousel">
+				{%- for i in (1..8) -%}
+				{%- capture use -%}use_item_category_{{i}}{%- endcapture -%}
+				{%- if settings[use] -%}
+				{%- capture img -%}img_item_category_{{i}}.jpg{%- endcapture -%}
+				{%- capture link -%}link_item_category_{{i}}{%- endcapture -%}
+				{%- capture title -%}title_item_category_{{i}}{%- endcapture -%}
+				<div class="item-category">
+					<div class="media-category effect-image">
+						<a href="{{ settings[link] }}" aria-label="{{settings[title]}}"><img class="owl-lazy" data-src="{{ img | asset_url }}" alt="{{settings[title]}}" /></a>
+					</div>
+					<div class="title-category">
+						<h4><a href="{{ settings[link] }}" aria-label="{{settings[title]}}">{{ settings[title] }}</a></h4>
+					</div>
+				</div>
+				{%- endif -%}
+				{%- endfor -%}
+			</div>
+		</div>
+	</div>
+</div>
+{%- endif -%}
+
+{%- if settings.display_home_collection_1 -%}
+<section  class="section-home-collection">
+	<div class="container">
+		<div class="sectionHeading">
+			<h3>
+				<a href="{{collections[settings.handle_home_collection_1].url}}">
+					{%- if settings.title_home_collection_1 != blank -%}
+					{{settings.title_home_collection_1}}
+					{%- else -%}
+					{{collections[settings.handle_home_collection_1].title}}
+					{%- endif -%}
+				</a>
+			</h3>
+		</div>
+		<div class="sectionContent">
+			{%- assign collection_one_size = settings.limit_home_collection_1 -%}
+			{%- if collections[settings.handle_home_collection_1].products.size > 0 -%}
+			<div class="row list-collection">
+				{%- for product in collections[settings.handle_home_collection_1].products limit: collection_one_size -%}
+				{%- include 'product-loop' with section:'section_one' -%}
+				{%- endfor -%}
+			</div>
+			{%-if collections[settings.handle_home_collection_1].products.size > collection_one_size -%}
+			<div class="wraplist-ctas text-center">
+				<a href="{{collections[settings.handle_home_collection_1].url}}" 
+					 class="btn-collection button btnwhite dark">
+					Xem thêm sản phẩm
+					<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.707 9.293l-5-5a.999.999 0 10-1.414 1.414L14.586 9H3a1 1 0 100 2h11.586l-3.293 3.293a.999.999 0 101.414 1.414l5-5a.999.999 0 000-1.414z"></path></svg>
+				</a>
+			</div>
+			{%- endif -%}
+			{%- else -%}
+			<div class="row list-collection no-product">
+				{%- for product in (1..collection_one_size) -%}
+				{%- include 'product-loop-no' -%}
+				{%- endfor -%}
+			</div>
+			{%- endif -%}
+		</div>
+	</div>
+</section>
+{%- endif -%}
+
+{%- if settings.display_home_banner_bottom -%}
+<section id="section-banner-bottom" class="section-home-banners home-banner-bottom">
+	<div class="container">
+		<div class="line-banner-bottom">
+			<div class="col-banner media-banner">
+				<a href="{{ settings.link_banner_bottom_1 }}" aria-label="{{ settings.title_banner_bottom_1 }}">
+					<picture>
+						<source media="(min-width:992px)" srcset="{{ 'img_banner_bottom_desktop_1.jpg' | asset_url }}">
+						<source media="(max-width:991px)" srcset="{{ 'img_banner_bottom_mobile_1.jpg' | asset_url }}">
+						<img class="lazyload" data-src="{{ 'img_banner_bottom_desktop_1.jpg' | asset_url }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="{{ settings.title_banner_bottom_1 }}">
+					</picture>
+				</a>
+			</div>
+			<div class="col-banner text-banner">
+				<div class="info-banner-bottom">
+					<div class="title-text-banner">
+						<h4>
+							<a href="{{ settings.link_banner_bottom_1 }}" aria-label="{{ settings.title_banner_bottom_1 }}">{{ settings.title_banner_bottom_1 }}</a>
+						</h4>
+					</div>
+					<p class="des-text-banner">
+						{{ settings.des_banner_bottom_1 }}
+					</p>
+					<div class="action-banner-bottom">
+						<a class="btn-home-banner" href="{{ settings.link_banner_bottom_1 }}" aria-label="{{ settings.title_banner_bottom_1 }}">{{ settings.btn_banner_bottom_1 }}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="line-banner-bottom">
+			<div class="col-banner text-banner">
+				<div class="info-banner-bottom">
+					<div class="title-text-banner">
+						<h4>
+							<a href="{{ settings.link_banner_bottom_2 }}" aria-label="{{ settings.title_banner_bottom_2 }}">{{ settings.title_banner_bottom_2 }}</a>
+						</h4>
+					</div>
+					<p class="des-text-banner">
+						{{ settings.des_banner_bottom_2 }}
+					</p>
+					<div class="action-banner-bottom">
+						<a class="btn-home-banner" href="{{ settings.link_banner_bottom_2 }}" aria-label="{{ settings.title_banner_bottom_2 }}">{{ settings.btn_banner_bottom_2 }}</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-banner media-banner">
+				<a href="{{ settings.link_banner_bottom_2 }}" aria-label="{{ settings.title_banner_bottom_2 }}">
+					<picture>
+						<source media="(min-width:992px)" srcset="{{ 'img_banner_bottom_desktop_2.jpg' | asset_url }}">
+						<source media="(max-width:991px)" srcset="{{ 'img_banner_bottom_mobile_2.jpg' | asset_url }}">
+						<img class="lazyload" data-src="{{ 'img_banner_bottom_desktop_2.jpg' | asset_url }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="{{ settings.title_banner_bottom_2 }}">
+					</picture>
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+{%- endif -%}
+
+{%- if settings.display_home_collection_2 -%}
+<section class="section-home-collection">
+	<div class="container">
+		<div class="sectionHeading">
+			<h3>
+				<a href="{{collections[settings.handle_home_collection_2].url}}">
+					{%- if settings.title_home_collection_2 != blank -%}
+					{{settings.title_home_collection_2}}
+					{%- else -%}
+					{{collections[settings.handle_home_collection_2].title}}
+					{%- endif -%}
+				</a>
+			</h3>
+		</div>
+		<div class="sectionContent">
+			{%- assign collection_two_size = settings.limit_home_collection_2 -%}
+			{%- if collections[settings.handle_home_collection_2].products.size > 0 -%}
+			<div class="row list-collection">
+				{%- for product in collections[settings.handle_home_collection_2].products limit: collection_two_size -%}
+				{%- include 'product-loop' with section:'section_two'  -%}
+				{%- endfor -%}
+			</div>
+			{%-if collections[settings.handle_home_collection_2].products.size > collection_two_size -%}
+			<div class="wraplist-ctas text-center">
+				<a href="{{collections[settings.handle_home_collection_2].url}}" 
+					 class="btn-collection button btnwhite dark">
+					Xem thêm sản phẩm
+					<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.707 9.293l-5-5a.999.999 0 10-1.414 1.414L14.586 9H3a1 1 0 100 2h11.586l-3.293 3.293a.999.999 0 101.414 1.414l5-5a.999.999 0 000-1.414z"></path></svg>
+				</a>
+			</div>
+			{%- endif -%}
+			{%- else -%}
+			<div class="row list-collection no-product">
+				{%- for product in (1..collection_two_size) -%}
+				{%- include 'product-loop-no' -%}
+				{%- endfor -%}
+			</div>
+			{%- endif -%}
+		</div>
+	</div>
+</section>
+{%- endif -%}
+
+{%- if settings.display_home_blog -%}
+<section id="section-home-blog" class="section-home-blog home-blog owlStyle">
+	<div class="container">
+		<div class="sectionHeading">
+			<h3>
+				<a href="{{blogs[settings.handle_home_blog].url}}">
+					{%- if settings.title_home_blog != blank -%}
+					{{settings.title_home_blog}}
+					{%- else -%}
+					{{blogs[settings.handle_home_blog].title}}
+					{%- endif -%}
+				</a>
+			</h3>
+		</div>
+		<div class="sectionContent">
+			{%- if blogs[settings.handle_home_blog].articles.size > 0 -%}
+			<div class="slider-home-blog owl-carousel">
+				{%- for article in blogs[settings.handle_home_blog].articles limit: settings.limit_home_blog -%}
+				{%- include 'article-loop' -%}
+				{%- endfor -%}
+			</div>
+			{%- else -%}
+			<p>Đang cập nhật bài viết</p>
+			{%- endif -%}
+		</div>
+	</div>
+</section>
+{%- endif -%}
+
+{%- if settings.display_home_intro -%}
+<section class="section-home-intro">
+	<div class="container">
+		<div class="home-intro">
+			<div class="home-intro--titles"><h2>{{ settings.title_home_intro }}</h2></div>
+			<div class="home-intro--content">{{ settings.content_home_intro }}</div>
+		</div>
+	</div>
+</section>
+{%- endif -%}
+
+{%- if settings.display_home_policy -%}
+<section class="section-home-policy ">
+	<div class="container">
+		<div class="row">
+			{%- for i in (1..4) -%}
+			{%- capture use -%}use_item_policy_{{i}}{%- endcapture -%}
+			{%- if settings[use] -%}
+			{%- capture title -%}title_item_policy_{{i}}{%- endcapture -%}
+			{%- capture link -%}link_item_policy_{{i}}{%- endcapture -%}
+			{%- capture des -%}des_item_policy_{{i}}{%- endcapture -%}
+			{%- capture img -%}img_item_policy_{{i}}.jpg{%- endcapture -%}
+			<div class="item-policy col-6 col-lg-3">
+				<div class="wrapper-media">
+					<div class="media-policy">
+						<a href="{{ settings[link] }}">
+							<img class="lazyload" data-src="{{ img | asset_url }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="{{ settings[title] }}" />
+						</a>
+					</div>
+				</div>
+				<div class="info-policy">
+					<h4><a href="{{ settings[link] }}">{{ settings[title] }}</a></h4>
+					<p>{{ settings[des] }}</p>
+				</div>
+			</div>
+			{%- endif -%}
+			{%- endfor -%}
+		</div>
+	</div>
+</section>
+{%- endif -%}
+
+
+

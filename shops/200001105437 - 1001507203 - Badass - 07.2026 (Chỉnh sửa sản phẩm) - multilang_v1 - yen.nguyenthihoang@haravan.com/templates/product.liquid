@@ -1,0 +1,93 @@
+{% comment %}
+  Template: product
+  Mo ta: Trang chi tiet san pham.
+  Snippets:
+    pd-gallery        : Anh san pham (thumbs + swiper + nav)
+    pd-info           : Panel thong tin (gia, mau, size, qty, ATC, policy)
+      pd-info-header  : Ten + SKU
+      pd-info-prices  : Gia + VAT note
+      pd-info-color   : Color swatches (cross-product)
+      pd-info-size    : Kich co + nut huong dan
+      pd-info-actions : Qty +/- + ATC button
+    pd-policy         : 4 o chinh sach
+    pd-sizeguide      : Modal huong dan chon size + bang size
+    product-description : Mo ta san pham (expand/collapse)
+    product-combo     : Section combo (neu bat app)
+    product-buyxgety  : Section mua X tang Y (neu bat app)
+    product-stores    : Cua hang con san pham
+    product-recommendations : Goi y san pham
+    recently-viewed   : San pham da xem
+  CSS: assets/product-detail.scss | JS: assets/product-detail.js
+{% endcomment %}
+
+{%- assign current_variant = product.selected_or_first_available_variant | default: product.variants.first -%}
+{%- assign has_sale = false -%}
+{%- if product.compare_at_price_max > product.price_min -%}
+  {%- assign has_sale = true -%}
+{%- endif -%}
+
+<link rel="preload stylesheet" href="{{ 'product-detail.scss.css' | asset_url }}" as="style">
+
+<div class="container">
+  {%- include 'breadcrumb' -%}
+</div>
+
+<div class="pd" id="productDetail" data-product-id="{{ product.id }}">
+  <div class="container">
+    <div class="pd__wrapper">
+      {%- include 'pd-gallery' -%}
+      {%- include 'pd-info' -%}
+    </div>
+  </div>
+</div>
+
+{%- comment -%} Sticky ATC bar — hien thi khi scroll qua panel info {% endcomment %}
+<div class="pd-sticky-bar" id="pdStickyBar" aria-hidden="true">
+  <div class="container">
+    <div class="pd-sticky-bar__inner">
+      <div class="pd-sticky-bar__info">
+        <span class="pd-sticky-bar__name">{{ product.title | truncate: 60 | escape }}</span>
+        <span class="pd-sticky-bar__price" id="pdStickyPrice">{{ current_variant.price | money }}</span>
+      </div>
+      <button type="button" class="pd-sticky-bar__atc" id="pdStickyAtc" aria-label="Thêm vào giỏ hàng">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        <span>THÊM VÀO GIỎ</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+{%- include 'product-description' -%}
+
+{% if settings.onireviews_use %}
+<section class="pd-review">
+  <div class="container">
+    <div class="onireviewapp-container">
+      {{product.metafields.onistudio['reviewapp.detail']}}
+      <h3 class="onirvapp-detail-title">{{ settings.title_review | default: 'Đánh giá, nhận xét khách hàng' }}</h3>
+      <div id="onireviewapp" data-customer-email="{{customer.email}}" data-customer-name="{{customer.name}}" data-pid="{{product.id}}"></div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<select name="id" id="product-select" class="d-none" aria-hidden="true">
+  {%- for variant in product.variants -%}
+  <option value="{{ variant.id }}"{% if variant == current_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title | escape }} - {{ variant.price | money }}</option>
+  {%- endfor -%}
+</select>
+
+<script>var productInfo = {{ product | json }};</script>
+<script fetchpriority="low" defer src="{{ 'product-detail.js' | asset_url }}"></script>
+
+{%- include 'pd-sizeguide' -%}
+{%- include 'product-recommendations' -%}
+{%- include 'recently-viewed' -%}
+
+{% if settings.onireviews_use %}
+<script>
+  try {
+    window.OniReview.detailRender();
+  } catch (error) {}
+</script>
+{% endif %}

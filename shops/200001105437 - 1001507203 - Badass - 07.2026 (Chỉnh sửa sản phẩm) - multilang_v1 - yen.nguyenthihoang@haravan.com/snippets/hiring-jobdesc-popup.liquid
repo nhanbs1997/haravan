@@ -1,0 +1,104 @@
+{%- comment -%}
+  Snippet: hiring-jobdesc-popup
+  Mô tả: Popup hiển thị Mô tả công việc (nội dung bài viết tuyển dụng).
+         Mở khi click tên vị trí (.js-open-jobdesc) ở section about-recruit.
+         Có nút "Ứng tuyển ngay" → đóng popup này và mở form ứng tuyển (.js-open-apply).
+{%- endcomment -%}
+
+<div class="apply-popup-overlay jobdesc-popup-overlay" id="jobdescPopupOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="jobdescTitle" tabindex="-1">
+  <div class="apply-popup jobdesc-popup">
+
+    <button type="button" class="apply-popup__close" id="jobdescClose" aria-label="Đóng mô tả công việc">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div class="apply-popup__head">
+      <p class="apply-popup__eyebrow">Mô tả công việc</p>
+      <h2 class="apply-popup__title" id="jobdescTitle"></h2>
+      <div class="apply-popup__meta" id="jobdescMeta"></div>
+    </div>
+
+    <div class="apply-popup__body">
+      <div class="jobdesc-popup__content rte" id="jobdescContent"></div>
+      <div class="jobdesc-popup__actions">
+        <button type="button" class="apply-form__submit-btn js-open-apply" id="jobdescApplyBtn">
+          Ứng tuyển ngay
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var overlay   = document.getElementById('jobdescPopupOverlay');
+  var closeBtn  = document.getElementById('jobdescClose');
+  var titleEl   = document.getElementById('jobdescTitle');
+  var metaEl    = document.getElementById('jobdescMeta');
+  var contentEl = document.getElementById('jobdescContent');
+  var applyBtn  = document.getElementById('jobdescApplyBtn');
+  if (!overlay) return;
+
+  function esc(s) {
+    return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function open(btn) {
+    var card  = btn.closest('.about-recruit__card');
+    var title = btn.getAttribute('data-job-title') || '';
+    var url   = btn.getAttribute('data-job-url') || '';
+    var dept  = btn.getAttribute('data-job-dept') || '';
+    var loc   = btn.getAttribute('data-job-location') || '';
+    var lvl   = btn.getAttribute('data-job-level') || '';
+    var dl    = btn.getAttribute('data-job-deadline') || '';
+
+    if (titleEl) titleEl.textContent = title;
+
+    var parts = [];
+    if (dept) parts.push('<span class="apply-popup__meta-tag">' + esc(dept) + '</span>');
+    if (loc)  parts.push('<span class="apply-popup__meta-tag"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s-8-6.5-8-12a8 8 0 0116 0c0 5.5-8 12-8 12z"/><circle cx="12" cy="10" r="2"/></svg>' + esc(loc) + '</span>');
+    if (lvl)  parts.push('<span class="apply-popup__meta-tag">' + esc(lvl) + '</span>');
+    if (dl)   parts.push('<span class="apply-popup__meta-tag apply-popup__meta-tag--deadline">Hạn: ' + esc(dl) + '</span>');
+    if (metaEl) metaEl.innerHTML = parts.join('');
+
+    var src = card ? card.querySelector('.about-recruit__card-desc-content') : null;
+    if (contentEl) contentEl.innerHTML = (src && src.innerHTML.trim()) ? src.innerHTML : '<p>Mô tả công việc đang được cập nhật.</p>';
+
+    if (applyBtn) {
+      applyBtn.setAttribute('data-job-title', title);
+      applyBtn.setAttribute('data-job-url', url);
+      applyBtn.setAttribute('data-job-dept', dept);
+      applyBtn.setAttribute('data-job-location', loc);
+      applyBtn.setAttribute('data-job-level', lvl);
+      applyBtn.setAttribute('data-job-deadline', dl);
+    }
+
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    var panel = overlay.querySelector('.jobdesc-popup');
+    if (panel) panel.scrollTop = 0;
+    overlay.focus();
+  }
+
+  function close(keepBodyLock) {
+    overlay.setAttribute('aria-hidden', 'true');
+    if (!keepBodyLock) document.body.style.overflow = '';
+  }
+
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('.js-open-jobdesc');
+    if (t) { e.preventDefault(); open(t); return; }
+    // Khi bấm "Ứng tuyển ngay": đóng JD popup nhưng giữ body lock — apply popup sẽ tự quản lý
+    if (e.target.closest('#jobdescApplyBtn')) { close(true); return; }
+  });
+
+  closeBtn && closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.getAttribute('aria-hidden') === 'false') close();
+  });
+})();
+</script>

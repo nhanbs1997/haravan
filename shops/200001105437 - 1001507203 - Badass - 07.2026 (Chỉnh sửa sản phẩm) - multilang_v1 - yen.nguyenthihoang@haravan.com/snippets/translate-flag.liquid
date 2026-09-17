@@ -1,0 +1,215 @@
+<script>
+    const multi_template = "{{template}}";
+    const multi_language = localStorage.getItem('template');
+    const multi_url = window.location.href;
+    const objectTemplateView = {
+      "en" : {
+        'page.about' : 'about.en',
+        'page.contact' : 'contact.en',
+        'page.he_thong_cua_hang' : 'he_thong_cua_hang.en',
+        'page.stores' : 'stores.en',
+        'page.landing' : 'landing.en',
+        'collection.uudai' : 'uudai.en',
+        'collection.style2' : 'style2.en'
+      }
+    }
+    if(multi_language && multi_language.length > 0){
+        let multi_getQuery = multi_url.match(/(?:\?|\&).*/)?multi_url.match(/(?:\?|\&).*/)[0]:'';
+        if(multi_url.search('#') > 0){
+                  multi_getQuery = multi_url.match(/\?(.*)#/)?multi_url.match(/\?(.*)#/)[0]:multi_getQuery;
+          if(!multi_getQuery){
+            if(checkTemplateView()){
+              window.location.href = multi_url.replace('#', ('?view=' + checkTemplateView() + '#'));
+            }else{
+              window.location.href = multi_url.replace('#', ('?view=' + multi_language + '#'));
+            }
+            
+          }
+              }else if(!multi_getQuery){
+          window.location.href = (multi_url + '?view=' + (checkTemplateView()?checkTemplateView():multi_language));
+        }
+        console.log(multi_getQuery);
+        const multi_match = multi_url.match(/(?:\?view\=|\&view\=)/i);
+        if(!multi_match){
+          let multi_buildURL = '';
+          if(multi_url.search('#') > 0){
+            if(multi_url.search('\\?') > 0){
+              multi_buildURL = multi_getQuery.replace('#', '&view='+ checkTemplateView() + '#');
+            }else{
+              multi_buildURL = multi_getQuery.replace('#', '?view='+ checkTemplateView() + '#');
+            }
+          }else{
+            if(multi_url.search('\\?') > 0){
+              multi_buildURL = multi_getQuery +  '&view='+ (checkTemplateView()?checkTemplateView():multi_language);
+            }else{
+              multi_buildURL = multi_getQuery +  '?view='+ (checkTemplateView()?checkTemplateView():multi_language);
+            }
+          }
+         window.location.href = multi_buildURL;
+        }else if(multi_match && multi_match.length > 0){
+          //redirect to view
+        }
+    }
+    function checkTemplateView() {
+      const getObjWithLang = objectTemplateView[localStorage.getItem('template')];
+      if(!getObjWithLang) return null;
+      return getObjWithLang[multi_template]?getObjWithLang[multi_template]:null;
+    }
+    
+    function checkRedirectToHome() {
+      var check = false;
+              const arrayTemplateLock = ['blog.en', 'blog', 'article', 'article.en'];
+        return arrayTemplateLock.filter((tempCheck) => multi_template == tempCheck);
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const flags = {
+        'vi' : '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"> <polygon style="fill:#ff1d35;" points="196.641,85.337 0,85.337 0,426.663 196.641,426.663 512,426.663 512,85.337 "></polygon> <polygon style="fill:#FFDA44;" points="256,157.279 278.663,227.026 352,227.026 292.668,270.132 315.332,339.881 256,296.774 196.668,339.881 219.332,270.132 160,227.026 233.337,227.026 "></polygon></svg>',
+        'en' : '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"> <rect y="85.333" style="fill:#F0F0F0;" width="512" height="341.337"></rect> <polygon style="fill:#D80027;" points="288,85.33 224,85.33 224,223.996 0,223.996 0,287.996 224,287.996 224,426.662 288,426.662 288,287.996 512,287.996 512,223.996 288,223.996 "></polygon> <g> <polygon style="fill:#0052B4;" points="393.785,315.358 512,381.034 512,315.358 	"></polygon> <polygon style="fill:#0052B4;" points="311.652,315.358 512,426.662 512,395.188 368.307,315.358 	"></polygon> <polygon style="fill:#0052B4;" points="458.634,426.662 311.652,344.998 311.652,426.662 	"></polygon> </g> <polygon style="fill:#F0F0F0;" points="311.652,315.358 512,426.662 512,395.188 368.307,315.358 "></polygon> <polygon style="fill:#D80027;" points="311.652,315.358 512,426.662 512,395.188 368.307,315.358 "></polygon> <g> <polygon style="fill:#0052B4;" points="90.341,315.356 0,365.546 0,315.356 	"></polygon> <polygon style="fill:#0052B4;" points="200.348,329.51 200.348,426.661 25.491,426.661 	"></polygon> </g> <polygon style="fill:#D80027;" points="143.693,315.358 0,395.188 0,426.662 0,426.662 200.348,315.358 "></polygon> <g> <polygon style="fill:#0052B4;" points="118.215,196.634 0,130.958 0,196.634 	"></polygon> <polygon style="fill:#0052B4;" points="200.348,196.634 0,85.33 0,116.804 143.693,196.634 	"></polygon> <polygon style="fill:#0052B4;" points="53.366,85.33 200.348,166.994 200.348,85.33 	"></polygon> </g> <polygon style="fill:#F0F0F0;" points="200.348,196.634 0,85.33 0,116.804 143.693,196.634 "></polygon> <polygon style="fill:#D80027;" points="200.348,196.634 0,85.33 0,116.804 143.693,196.634 "></polygon> <g> <polygon style="fill:#0052B4;" points="421.659,196.636 512,146.446 512,196.636 	"></polygon> <polygon style="fill:#0052B4;" points="311.652,182.482 311.652,85.331 486.509,85.331 	"></polygon> </g> <polygon style="fill:#D80027;" points="368.307,196.634 512,116.804 512,85.33 512,85.33 311.652,196.634 "></polygon></svg>',
+      };
+      const flagDefault = flags['vi'];
+      $('.header-translate-flag').html(`
+          <div class="header-multilanguage">
+            <button>${flags[multi_language]||flagDefault}</button>
+            <ul>
+              <li data-lang="">${flags['vi']||flagDefault} Tiếng việt</li>
+              <li data-lang="en">${flags['en']||flagDefault} English</li>
+            </ul>
+          </div>
+      `);
+      $('.header-multilanguage button').click(function () {
+        $(this).parent().find('ul').toggle('fast');
+      });
+      $('.header-multilanguage ul li').click(function () {
+        const langSet = $(this).attr('data-lang') || '';
+        localStorage.setItem('template', langSet);
+        if(checkRedirectToHome().length > 0) {
+          window.location.href = "/";
+        }else{
+          let multi_getQuery = multi_url.match(/(?:\?|\&).*/)?multi_url.match(/(?:\?|\&).*/)[0]:'';
+          if(multi_url.search('#') > 0){
+                    multi_getQuery = multi_url.match(/\?(.*)#/)?multi_url.match(/\?(.*)#/)[0]:multi_getQuery;
+            if(!multi_getQuery){
+              if(checkTemplateView()){
+                window.location.href = multi_url.replace('#', ('?view=' + checkTemplateView() + '#'));
+              }else{
+                if(langSet) window.location.href = multi_url.replace('#', ('?view=' + multi_language + '#'));
+              }
+              
+            }
+                }else if(!multi_getQuery){
+            if(langSet) window.location.href = (multi_url + '?view=' + (checkTemplateView()?checkTemplateView():multi_language));
+          }
+          
+          const multi_match = multi_url.match(/(?:\?view\=|\&view\=)/i);
+          if(langSet) {
+            if(!multi_match){
+              let multi_buildURL = '';
+              if(multi_url.search('#') > 0){
+                if(multi_url.search('\\?') > 0){
+                  if(checkTemplateView()){
+                    multi_buildURL = multi_getQuery.replace('#', '&view='+ checkTemplateView() + '#');
+                  }else{
+                    multi_buildURL = multi_getQuery.replace('#', '&view='+ langSet+ '#');
+                  }
+                  
+                }else{
+                  if(checkTemplateView()){
+                    multi_buildURL = multi_getQuery.replace('#', '?view='+ checkTemplateView() + '#');
+                  }else{
+                     multi_buildURL = multi_getQuery.replace('#', '?view='+ langSet + '#');
+                  }
+                }
+              }else{
+                if(multi_url.search('\\?') > 0){
+                  multi_buildURL = multi_getQuery +  '&view='+ (checkTemplateView()?checkTemplateView():langSet);
+                }else{
+                  multi_buildURL = multi_getQuery +  '?view='+ (checkTemplateView()?checkTemplateView():langSet);
+                }
+              }
+             window.location.href = multi_buildURL;
+            }else{
+              //template replace
+            }
+            
+          }else{
+            if(multi_url.search('#') > 0){
+              const checkUrlBefore = multi_url.match(/(?:\?view\=|\&view\=)(.*)#/i);
+              window.location.href = multi_url.replace(checkUrlBefore[0], '#');
+            }else{
+              const checkUrlBefore = multi_url.match(/(?:\?view\=|\&view\=)([a-zA-Z0-9\%\{\}\-\_\=\:\!\(\)\.\>\<]*)/i);
+              window.location.href = multi_url.replace(checkUrlBefore[0], '');
+            }
+          }
+          
+        }
+        
+      });
+    });
+  </script>
+  <style>
+    .header-translate-flag {
+    }
+    .header-multilanguage {
+      position: relative;
+      line-height: 1;
+    }
+    .header-multilanguage button{
+      outline: none !important;
+      border: none !important;
+      padding-right: 19px !important;
+      background: unset !important;
+      border-radius: 5px;
+      padding: 5px;
+      padding-left: 0;
+    }
+    .header-multilanguage button:after {
+      content: '';
+      position: absolute;
+      right: 5px;
+      top: 13px;
+      height: 4px;
+      display: block;
+      width: 4px;
+      border: solid #4f4f4f;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      padding: 3px;
+    }
+    .header-multilanguage button img, .header-multilanguage button svg{
+      width: 30px !important;
+      object-fit: contain !important;
+      height: 28px !important;
+      min-width: 31px !important;
+    }
+    .header-multilanguage ul {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 5px;
+      display: none;
+      z-index: 9;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: inset 0 0 0.5px 1px hsla(230, 13%, 9%, 0.075);
+      padding: 0;
+    }
+    .header-multilanguage ul li {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      width: max-content;
+      cursor: pointer;
+    }
+    .header-multilanguage ul li:not(:last-child){
+      border-bottom: 1px solid #ededed;
+    }
+    .header-multilanguage ul li img, .header-multilanguage ul li svg {
+      width: 31px !important;
+      object-fit: contain !important;
+      height: 20px !important;
+      min-width: 31px !important;
+      margin-right: 5px !important;
+    }
+  </style>

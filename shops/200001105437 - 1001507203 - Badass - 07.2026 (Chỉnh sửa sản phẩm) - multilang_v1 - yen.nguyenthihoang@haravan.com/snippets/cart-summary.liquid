@@ -1,0 +1,72 @@
+{%- comment -%}
+  Snippet: cart-summary
+  Mô tả: Panel tóm tắt đơn (Tạm tính / Giảm giá / Giá sau giảm) + checkbox điều khoản + nút thanh toán.
+  Tự tính _subtotal & _saving từ cart.items.
+  Settings: bs_cart_agree_default_checked, bs_cart_terms_url, bs_cart_note_1/2, cart_note
+{% endcomment %}
+
+{%- comment -%} Tạm tính (gross) = tổng giá so sánh (compare_at_price) × SL. Giảm giá = Tạm tính − tổng thực trả. {% endcomment %}
+{%- assign _subtotal = 0 -%}
+{%- for item in cart.items -%}
+  {%- assign _v = item.variant -%}
+  {%- if _v == nil -%}
+    {%- for vv in item.product.variants -%}
+      {%- if vv.id == item.variant_id -%}{%- assign _v = vv -%}{%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- assign _line_unit = _v.compare_at_price | default: 0 -%}
+  {%- if _line_unit == 0 and item.price_orginal > item.price -%}{%- assign _line_unit = item.price_orginal -%}{%- endif -%}
+  {%- if _line_unit < item.price -%}{%- assign _line_unit = item.price -%}{%- endif -%}
+  {%- assign _line_total = _line_unit | times: item.quantity -%}
+  {%- assign _subtotal = _subtotal | plus: _line_total -%}
+{%- endfor -%}
+{%- assign _saving = _subtotal | minus: cart.total_price -%}
+{%- if _saving < 0 -%}{%- assign _saving = 0 -%}{%- endif -%}
+
+<aside class="bs_cart__sidebar">
+  <div class="bs_cart__summary">
+
+    <h3 class="bs_cart__sum-title">Tạm tính</h3>
+
+    <div class="bs_cart__sum-rows">
+      <div class="bs_cart__sum-row">
+        <span>Tạm tính :</span>
+        <span class="bs_cart__sum-val" id="cartSubtotal">{{ _subtotal | money_without_currency | replace: '₫', '' | replace: 'đ', '' | strip }} <span class="unit">đ</span></span>
+      </div>
+      {%- if _saving > 0 -%}
+      <div class="bs_cart__sum-row">
+        <span>Giảm giá :</span>
+        <span class="bs_cart__sum-val" id="cartSaving">{{ _saving | money_without_currency | replace: '₫', '' | replace: 'đ', '' | strip }} <span class="unit">đ</span></span>
+      </div>
+      {%- endif -%}
+    </div>
+
+    <hr class="bs_cart__sum-divider">
+
+    <div class="bs_cart__sum-total">
+      <span>Giá sau giảm :</span>
+      <span class="bs_cart__sum-total-val" id="cartTotal" data-price="{{ cart.total_price }}">{{ cart.total_price | money_without_currency | replace: '₫', '' | replace: 'đ', '' | strip }} <span class="unit">đ</span></span>
+    </div>
+
+    <label class="bs_cart__agree" for="cartAgree">
+      <input type="checkbox" id="cartAgree" {% if settings.bs_cart_agree_default_checked %}checked{% endif %}>
+      <span class="bs_cart__agree-text">
+        Tôi đồng ý với
+        {%- if settings.bs_cart_terms_url != blank -%}
+          <a href="{{ settings.bs_cart_terms_url }}" target="_blank" rel="noopener">Điều khoản mua hàng</a>
+        {%- else -%}
+          <a href="#" onclick="return false;">Điều khoản mua hàng</a>
+        {%- endif -%}
+      </span>
+    </label>
+
+    <a href="/checkout" class="bs_cart__checkout{% unless settings.bs_cart_agree_default_checked %} is-disabled{% endunless %}" id="btnCheckout" {% unless settings.bs_cart_agree_default_checked %}aria-disabled="true"{% endunless %}>Thanh toán ngay</a>
+
+    <ul class="bs_cart__notes">
+      {%- if settings.bs_cart_note_1 != blank -%}<li>{{ settings.bs_cart_note_1 | escape }}</li>{%- else -%}<li>Phí vận chuyển sẽ được tính ở trang thanh toán.</li>{%- endif -%}
+      {%- if settings.bs_cart_note_2 != blank -%}<li>{{ settings.bs_cart_note_2 | escape }}</li>{%- else -%}<li>Bạn cũng có thể nhập mã giảm giá ở trang thanh toán.</li>{%- endif -%}
+      {%- if settings.cart_note != blank -%}<li>{{ settings.cart_note | escape }}</li>{%- endif -%}
+    </ul>
+
+  </div>
+</aside>

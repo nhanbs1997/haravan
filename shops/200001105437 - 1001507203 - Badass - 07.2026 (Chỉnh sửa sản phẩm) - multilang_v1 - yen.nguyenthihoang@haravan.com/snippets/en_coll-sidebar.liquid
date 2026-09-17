@@ -1,0 +1,198 @@
+<aside class="coll__sidebar" id="collSidebar">
+  <div class="coll__sidebar-head">
+    <span class="coll__sidebar-head-title">Filter</span>
+    <button type="button" class="coll__sidebar-close" id="sidebarClose" aria-label="Close Filter">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="coll__sidebar-inner">
+
+    {%- comment -%} Format Last copy enabled {% endcomment %}
+    {%- assign _hide_occasion = false -%}
+    {%- if coll_style == 'style2' -%}{%- assign _hide_occasion = true -%}{%- endif -%}
+    {%- assign _last_filter = '' -%}
+    {%- if settings.en_bs_coll_show_filter_type -%}{%- assign _last_filter = 'type' -%}{%- endif -%}
+    {%- if settings.en_bs_coll_show_filter_size -%}{%- assign _last_filter = 'size' -%}{%- endif -%}
+    {%- if settings.en_bs_coll_show_filter_price -%}{%- assign _last_filter = 'price' -%}{%- endif -%}
+    {%- if settings.en_bs_coll_show_filter_color -%}{%- assign _last_filter = 'color' -%}{%- endif -%}
+    {%- if settings.en_bs_coll_show_filter_material -%}{%- assign _last_filter = 'material' -%}{%- endif -%}
+    {%- if settings.en_bs_coll_show_filter_occasion and _hide_occasion == false -%}{%- assign _last_filter = 'occasion' -%}{%- endif -%}
+    {%- if settings.en_bs_coll_show_filter_vendor and collection.all_vendors.size > 0 -%}{%- assign _last_filter = 'vendor' -%}{%- endif -%}
+
+    {%- if settings.en_bs_coll_show_filter_type -%}
+    <div class="coll__filter-group" id="fg-type">
+      <button type="button" class="coll__filter-group-head" aria-expanded="true">
+        <span>Product categories</span>
+        <svg class="coll__filter-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+      </button>
+      <div class="coll__filter-body">
+        {%- for type in collection.all_types -%}
+        <label class="coll__filter-check">
+          <input type="checkbox" data-filter-type="type" data-filter-val="(product_type:product={{ type }})" data-filter-label="{{ type }}">
+          <span class="coll__filter-check-box"></span>
+          <span class="coll__filter-check-text">{{ type }}</span>
+        </label>
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- endif -%}
+
+    {%- if settings.en_bs_coll_show_filter_size -%}
+    {%- assign _sizes = settings.en_bs_coll_sizes | default: 'S,M,L,XL,XXL' | split: ',' -%}
+    <div class="coll__filter-group is-collapsed" id="fg-size">
+      <button type="button" class="coll__filter-group-head" aria-expanded="false">
+        <span>{{ settings.en_bs_coll_size_label | default: 'Size' | escape }}</span>
+        <svg class="coll__filter-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+      </button>
+      <div class="coll__filter-body">
+        <div class="coll__filter-sizes">
+          {%- for sz in _sizes -%}
+          {%- assign _sz = sz | strip -%}
+          {%- unless _sz == blank -%}
+          <button type="button" class="coll__filter-size" data-filter-type="size" data-filter-val="(variant:product**{{ _sz }})" data-filter-label="{{ _sz | escape }}">{{ _sz | escape }}</button>
+          {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+    {%- endif -%}
+
+    {%- if settings.en_bs_coll_show_filter_price -%}
+    {%- capture _price_ranges_default -%}Under 300,000 |00000
+US$300000000000000000
+500,000 - 1,000,000 x000000000
+Upper 1,000,000 x 10000001{%- endcapture -%}
+    {%- assign _price_ranges = settings.en_bs_coll_price_ranges | default: _price_ranges_default | newline_to_br | split: '<br />' -%}
+    <div class="coll__filter-group is-collapsed" id="fg-price">
+      <button type="button" class="coll__filter-group-head" aria-expanded="false">
+        <span>Price Range</span>
+        <svg class="coll__filter-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+      </button>
+      <div class="coll__filter-body">
+        {%- for _r in _price_ranges -%}
+        {%- assign _rp = _r | strip | split: '|' -%}
+        {%- if _rp.size >= 2 -%}
+        {%- assign _rlabel = _rp[0] | strip -%}
+        {%- assign _rmin = _rp[1] | strip -%}
+        {%- assign _rmax = _rp[2] | strip -%}
+        {%- unless _rlabel == blank -%}
+        {%- if _rmax == blank -%}
+        {%- capture _rval -%}((price_variant:product>={{ _rmin }})){%- endcapture -%}
+        {%- else -%}
+        {%- capture _rval -%}((price_variant:product>={{ _rmin }})&&(price_variant:product<={{ _rmax }})){%- endcapture -%}
+        {%- endif -%}
+        <label class="coll__filter-check">
+          <input type="checkbox" data-filter-type="price" data-filter-val="{{ _rval }}" data-filter-label="{{ _rlabel | escape }}">
+          <span class="coll__filter-check-box"></span>
+          <span class="coll__filter-check-text">{{ _rlabel | escape }}</span>
+        </label>
+        {%- endunless -%}
+        {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- endif -%}
+
+    {%- if settings.en_bs_coll_show_filter_color -%}
+    {%- include 'en_swatch-lookup' -%}
+    {%- assign _lookup_entries = _bs_swatch_lookup | split: ',' -%}
+    {%- if _lookup_entries.size > 0 -%}
+    <div class="coll__filter-group is-collapsed" id="fg-color">
+      <button type="button" class="coll__filter-group-head" aria-expanded="false">
+        <span>Color</span>
+        <svg class="coll__filter-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+      </button>
+      <div class="coll__filter-body">
+        <div class="coll__filter-colors" id="colorSwatchGrid">
+          {%- for _entry in _lookup_entries -%}
+            {%- assign _parts = _entry | split: '|' -%}
+            {%- if _parts.size == 2 -%}
+            {%- assign _name = _parts[0] | strip -%}
+            {%- assign _hex = _parts[1] | strip -%}
+            {%- unless _name == blank -%}
+            <button type="button" class="coll__filter-color"
+              data-filter-type="color"
+              data-filter-val="(variant:product**{{ _name | capitalize }})"
+              data-filter-label="{{ _name | capitalize }}"
+              title="{{ _name | capitalize }}">
+              <span class="coll__filter-color-dot" style="background:{{ _hex }};"></span>
+              <span class="coll__filter-color-name">{{ _name | capitalize | escape }}</span>
+            </button>
+            {%- endunless -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+    {%- endif -%}
+    {%- endif -%}
+
+    {%- if settings.en_bs_coll_show_filter_material -%}
+    {%- assign _materials = settings.en_bs_coll_materials | default: 'Cotton,Kaki,Denim,Polyester,Silk' | split: ',' -%}
+    <div class="coll__filter-group is-collapsed" id="fg-material">
+      <button type="button" class="coll__filter-group-head" aria-expanded="false">
+        <span>Material</span>
+        <svg class="coll__filter-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+      </button>
+      <div class="coll__filter-body">
+        {%- for mat in _materials -%}
+        {%- assign _mat = mat | strip -%}
+        {%- unless _mat == blank -%}
+        <label class="coll__filter-check">
+          <input type="checkbox" data-filter-type="material" data-filter-val="(tag:product={{ _mat | url_encode }})" data-filter-label="{{ _mat | escape }}">
+          <span class="coll__filter-check-box"></span>
+          <span class="coll__filter-check-text">{{ _mat | escape }}</span>
+        </label>
+        {%- endunless -%}
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- endif -%}
+
+    {%- if settings.en_bs_coll_show_filter_occasion and _hide_occasion == false -%}
+    {%- assign _occasions = settings.en_bs_coll_occasions | default: 'Daily wear,At home,Parties,Office,Sports' | split: ',' -%}
+    <div class="coll__filter-group is-collapsed" id="fg-occasion">
+      <button type="button" class="coll__filter-group-head" aria-expanded="false">
+        <span>Matches</span>
+        <svg class="coll__filter-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+      </button>
+      <div class="coll__filter-body">
+        {%- for occ in _occasions -%}
+        {%- assign _occ = occ | strip -%}
+        {%- unless _occ == blank -%}
+        <label class="coll__filter-check">
+          <input type="checkbox" data-filter-type="occasion" data-filter-val="(tag:product={{ _occ | url_encode }})" data-filter-label="{{ _occ | escape }}">
+          <span class="coll__filter-check-box"></span>
+          <span class="coll__filter-check-text">{{ _occ | escape }}</span>
+        </label>
+        {%- endunless -%}
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- endif -%}
+
+    {%- if settings.en_bs_coll_show_filter_vendor and collection.all_vendors.size > 0 -%}
+    <div class="coll__filter-group is-collapsed" id="fg-vendor">
+      <button type="button" class="coll__filter-group-head" aria-expanded="false">
+        <span>Brand</span>
+        <svg class="coll__filter-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+      </button>
+      <div class="coll__filter-body">
+        {%- for vendor in collection.all_vendors -%}
+        <label class="coll__filter-check">
+          <input type="checkbox" data-filter-type="vendor" data-filter-val="(vendor:product={{ vendor | url_encode }})" data-filter-label="{{ vendor | escape }}">
+          <span class="coll__filter-check-box"></span>
+          <span class="coll__filter-check-text">{{ vendor | escape }}</span>
+        </label>
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- endif -%}
+
+  </div>
+
+  <div class="coll__sidebar-footer">
+    <button type="button" class="coll__sidebar-apply" id="sidebarApply">Apply</button>
+    <button type="button" class="coll__sidebar-reset" id="sidebarReset">Delete All</button>
+  </div>
+</aside>

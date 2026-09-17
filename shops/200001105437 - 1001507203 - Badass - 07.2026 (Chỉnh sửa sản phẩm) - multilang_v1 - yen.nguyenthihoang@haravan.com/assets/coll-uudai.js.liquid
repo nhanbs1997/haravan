@@ -1,0 +1,85 @@
+/* ============================================================
+   COLLECTION ƯU ĐÃI — banner swiper + copy voucher
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ── 1. Banner slider (Swiper) ── */
+  function initBanner() {
+    var el = document.getElementById('uudaiBannerSwiper');
+    if (!el || typeof Swiper === 'undefined') return;
+    if (el.dataset.inited === '1') return;
+
+    var slides = el.querySelectorAll('.swiper-slide').length;
+    if (slides < 1) return;
+
+    new Swiper(el, {
+      slidesPerView: 1,
+      loop: slides > 1,
+      speed: 600,
+      autoplay: slides > 1 ? { delay: 5000, disableOnInteraction: false } : false,
+      pagination: {
+        el: '#uudaiBannerPagination',
+        clickable: true
+      },
+      navigation: {
+        prevEl: '#uudaiBannerPrev',
+        nextEl: '#uudaiBannerNext'
+      }
+    });
+    el.dataset.inited = '1';
+  }
+
+  /* ── 2. Copy mã voucher ── */
+  function copyCode(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    /* Fallback */
+    return new Promise(function (resolve, reject) {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        resolve();
+      } catch (e) { reject(e); }
+    });
+  }
+
+  function initVoucherCopy() {
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.js-copy-voucher');
+      if (!btn) return;
+      var code = btn.getAttribute('data-code') || '';
+      if (!code) return;
+
+      copyCode(code).then(function () {
+        var label = btn.querySelector('.uudai-voucher__btn-label');
+        var original = label ? label.textContent : '';
+        btn.classList.add('is-copied');
+        if (label) label.textContent = 'ĐÃ COPY: ' + code;
+        setTimeout(function () {
+          btn.classList.remove('is-copied');
+          if (label) label.textContent = original;
+        }, 1800);
+      });
+    });
+  }
+
+  function init() {
+    initBanner();
+    initVoucherCopy();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

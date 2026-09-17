@@ -1,0 +1,64 @@
+{%- layout none -%}
+{%- comment -%}
+  Template: cart.json (alternate view)
+  Endpoint: /cart?view=json   (Haravan KHÔNG có route /cart.json native)
+  Mô tả: Trả về JSON state của giỏ hàng — dùng cho client-side fetch (read cart).
+  Lưu ý: Mọi string PHẢI dùng filter `| json` để escape đúng (quote, backslash, newline).
+{%- endcomment -%}
+{
+  "attributes": {
+    {%- for attribute in cart.attributes -%}
+    {{ attribute | first | json }}:{{ attribute | last | json }}{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  },
+  "token": {{ cart.token | default: '' | json }},
+  "item_count": {{ cart.item_count | default: 0 }},
+  "items": [
+    {%- for item in cart.items -%}
+    {
+      "id": {{ item.id | default: 0 }},
+      "title": {{ item.title | json }},
+      "price": {{ item.price | default: 0 }},
+      "compare_at_price": {{ item.price_orginal | default: item.price_original | default: item.price | default: 0 }},
+      "line_price": {{ item.line_price | default: 0 }},
+      "price_original": {{ item.price_original | default: item.price_orginal | default: item.price | default: 0 }},
+      "line_price_orginal": {{ item.line_price_orginal | default: item.line_price | default: 0 }},
+      "quantity": {{ item.quantity | default: 1 }},
+      "sku": {{ item.sku | json }},
+      "grams": {{ item.grams | default: 0 }},
+      "product_type": {{ item.product.type | json }},
+      "vendor": {{ item.product.vendor | json }},
+      "properties": {
+        {%- for property in item.properties -%}
+        {{ property | first | json }}:{{ property | last | json }}{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      },
+      "variant_id": {{ item.variant_id | default: 0 }},
+      "product_id": {{ item.product_id | default: 0 }},
+      "gift_card": {%- if item.gift_card -%}true{%- else -%}false{%- endif -%},
+      "url": {{ item.url | json }},
+      "image": {{ item.image | json }},
+      "handle": {{ item.handle | json }},
+      "requires_shipping": {%- if item.requires_shipping -%}true{%- else -%}false{%- endif -%},
+      "not_allow_promotion": {%- if item.not_allow_promotion -%}true{%- else -%}false{%- endif -%},
+      "product_title": {{ item.product.title | json }},
+      "barcode": {{ item.barcode | json }},
+      "product_description": {{ item.product.description | strip_html | json }},
+      "variant_title": {{ item.variant.title | json }},
+      "variant_options": [
+        {%- for option in item.variant.options -%}
+        {{ option | json }}{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ],
+      "promotionref": {%- if item.promotionref -%}{{ item.promotionref | json }}{%- else -%}null{%- endif -%},
+      "promotionby": []
+    }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ],
+  "total_price": {{ cart.total_price | default: 0 }},
+  "total_weight": {{ cart.total_weight | default: 0 }},
+  "note": {%- if cart.note != blank -%}{{ cart.note | json }}{%- else -%}null{%- endif -%},
+  "location_id": {{ cart.location_id | default: 0 }},
+  "customer_id": {{ cart.customer_id | default: 0 }},
+  "requires_shipping": {%- if cart.requires_shipping -%}true{%- else -%}false{%- endif -%}
+}

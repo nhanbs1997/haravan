@@ -1,0 +1,37 @@
+<nav id="menu-mobile" class="hidden" >
+	<ul>
+			{% for link1 in linklists.main-menu.links %}
+			{% if linklists[link1.handle].links == empty %}
+			<li><a href="{{ link1.url }}">{{ link1.title }}</a></li>
+			{% else %}
+			<li class="has-children">
+				<a href="{{ link1.url }}">{{ link1.title }}</a>
+				{%capture count_link %}{{ linklists[link1.handle].links.size }}{%endcapture%}				
+					
+					<ul class="child count-nav-{{count_link }}">
+						{% for link2 in linklists[link1.handle].links %}
+						{% if linklists[link2.handle].links == empty %}
+						<li><a href="{{ link2.url }}">{{ link2.title }}</a></li>
+						{% else %}
+						<li class="has-children">
+							<a href="{{ link2.url }}">{{ link2.title }}</a>
+							
+								<ul class="child">
+									{% for link3 in linklists[link2.handle].links %}						
+									<li><a href="{{ link3.url }}">{{ link3.title }}</a></li>				
+									{% endfor %}
+								</ul>
+							
+						</li>
+						{% endif %}
+						{% endfor %}
+					</ul>
+		
+			</li>
+			{% endif %}
+			{% endfor %}
+
+		
+		
+	</ul>
+</nav>

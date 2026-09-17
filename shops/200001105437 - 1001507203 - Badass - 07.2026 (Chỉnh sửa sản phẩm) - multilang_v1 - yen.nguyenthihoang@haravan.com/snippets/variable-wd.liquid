@@ -1,0 +1,64 @@
+<script>
+	localStorage.setItem('shop_id','{{shop_id}}');
+	{%- assign version_ = 'favicon.png' | asset_url -%}
+	{%- assign version_ = version_ | split: '?v=' | last -%}
+	let version = {{version_}};
+	localStorage.setItem('version-theme',version);
+	 
+	window.shop = {
+		terms: "{{search.terms | escape}}",
+		template: '{{template}}',
+		shopCurrency: "{{shop.currency}}",
+		moneyFormat: '{{ shop.money_format }}',
+		webDomain: '',
+		shopId: , //id shop
+		favorites: {
+			listhandle: [],
+			listid: []
+		},
+		plugin: ["{{'libs.js' | asset_url}}","{{'api.jquery.js' | haravan_asset_url}}","{{'option_selection.js' | haravan_asset_url}}"{%if template contains 'product'%},"https://cdnjs.cloudflare.com/ajax/libs/jquery-zoom/1.7.20/jquery.zoom.min.js"{%- endif -%}],
+		recaptchajs: 'https://www.google.com/recaptcha/api.js?render=6LchSLkqAAAAABVHBpeFgg8N-WgkYsr5fO6GUF_s',
+		getScriptCcd: (url, callback) =>{$.ajax({ type: "GET",url: url,success: callback,dataType: "script",cache: true});},
+		getdatasite: (url, callback,callbackcustom) =>{$.ajax({ type: "GET",url: url,success:function(data){callback.html(data); if(typeof(callbackcustom) == 'function') callbackcustom()},cache: true});},
+		productjson: {{ product | json }},
+		recaptchacallback: () =>{
+			setTimeout(() =>{
+				$("input[name='g-recaptcha-response']").each(function(){
+					let $this = $(this);
+					grecaptcha.ready(function(){
+						grecaptcha.execute('6LchSLkqAAAAABVHBpeFgg8N-WgkYsr5fO6GUF_s', {action: 'submit'}).then(function(token) {$this.val(token);});
+					});
+				});
+			},3000)
+		}
+	}	
+	if(checklh == false){
+		(function() { 
+			function asyncLoad2() { 
+				for(let i=0;i< window.shop.plugin.length;i++){
+					const plugin = document.createElement("script");
+					plugin.setAttribute("type","text/javascript");
+					plugin.setAttribute("src",window.shop.plugin[i]);
+					document.getElementsByTagName("head")[0].appendChild(plugin);
+				}
+			}
+			window.attachEvent ? window.attachEvent('onload', asyncLoad2) : window.addEventListener('load', asyncLoad2, false);	
+		});
+		{%- if template contains 'customers' or template contains 'contact' or template contains 'page' -%}
+		(function(){
+			var loaded = false;
+			var events = ['scroll','click','mousemove','touchstart','keydown'];
+			function loadRecaptcha(){
+				if(loaded) return;
+				loaded = true;
+				events.forEach(function(e){window.removeEventListener(e,loadRecaptcha)});
+				window.shop.getScriptCcd(window.shop.recaptchajs,window.shop.recaptchacallback());
+			}
+			events.forEach(function(e){window.addEventListener(e,loadRecaptcha,{once:true,passive:true})});
+			setTimeout(loadRecaptcha,5000);
+		})();
+		{%- endif -%}
+	}
+</script>
+
+

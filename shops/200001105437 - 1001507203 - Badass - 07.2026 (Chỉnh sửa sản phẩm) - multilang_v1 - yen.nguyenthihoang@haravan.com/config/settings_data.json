@@ -1,0 +1,5513 @@
+{
+
+"current": {
+
+
+"customer_layout": "theme",
+
+
+"topbar_show": true,
+
+
+"topbar_bg": "#f5f5f5",
+
+
+"topbar_text_color": "#333333",
+
+
+"topbar_text": "Miễn phí vận chuyển cho đơn hàng từ 499K",
+
+
+"header_mainmenu": "main-menu",
+
+
+"theme_color": "#000000",
+
+
+"google_fonts_url": "",
+
+
+"pagination_limit": "20",
+
+
+"home_slider_show": true,
+
+
+"home_slider_imgdesk_1": "https://cdn.hstatic.net/files/200001105437/file/image-placeholder__-_change_image_here-2.png",
+
+
+"home_slider_imgmb_1": "https://cdn.hstatic.net/files/200001105437/file/image-placeholder__-_change_image_here-2.png",
+
+
+"home_slider_link_1": "/",
+
+
+"home_slider_alt_1": "NEW VIBE COLLECTION",
+
+
+"promotion_hrvapp_use": false,
+
+
+"promotion_hrvapp": "appbuyxgety",
+
+
+"combo_icon": "",
+
+
+"footer_info_1": "",
+
+
+"footer_info_2": "",
+
+
+"footer_info_3": "",
+
+
+"footer_menu1_title": "Về chúng tôi",
+
+
+"footer_menu1_linklist": "main-menu",
+
+
+"footer_menu2_title": "Chính sách",
+
+
+"footer_menu2_linklist": "main-menu",
+
+
+"footer_social_title": "Kết nối",
+
+
+"footer_social_fb_link": "/",
+
+
+"footer_social_ins_link": "/",
+
+
+"cart_note": "",
+
+
+"logo.png": "",
+
+
+"favicon.png": "",
+
+
+"share_fb_home.png": "",
+
+
+"footer_hotline": "0973 285 886",
+
+
+"footer_email": "Badass.cskh@gmail.com",
+
+
+"footer_social_yt_link": "/",
+
+
+"footer_social_tt_link": "/",
+
+
+"footer_payment_title": "Thanh toán",
+
+
+"footer_company_name": "CÔNG TY CỔ PHẦN OKAPI VIỆT NAM",
+
+
+"footer_company_id": "Mã số doanh nghiệp 0111078523 cấp ngày 05/06/2025 tại Sở tài chính TP Hà Nội",
+
+
+"footer_bct_img": "https://cdn.hstatic.net/files/200001105437/file/bct.png",
+
+
+"footer_bct_link": "http://online.gov.vn/",
+
+
+"home_slider_show_2": true,
+
+
+"home_slider_imgdesk_2": "https://cdn.hstatic.net/files/200001105437/file/1c94faeab4792b95749f60386db0dade502aa082.png",
+
+
+"home_slider_imgmb_2": "https://cdn.hstatic.net/files/200001105437/file/1c94faeab4792b95749f60386db0dade502aa082.png",
+
+
+"home_slider_link_2": "/",
+
+
+"home_slider_show_3": false,
+
+
+"home_slider_imgdesk_3": "",
+
+
+"home_slider_imgmb_3": "",
+
+
+"home_slider_link_3": "",
+
+
+"logo_url": "https://cdn.hstatic.net/files/200001105437/file/logo_header.png",
+
+
+"favicon_url": "https://cdn.hstatic.net/files/200001105437/file/logo_header.png",
+
+
+"share_fb_home_url": "https://cdn.hstatic.net/files/200001105437/file/ava__2400x2400_.png",
+
+
+"footer_logo_url": "https://cdn.hstatic.net/files/200001105437/file/logo_footer.png",
+
+
+"bs_footer_show": true,
+
+
+"bs_footer_bg": "#0A6174",
+
+
+"bs_footer_text_color": "#ffffff",
+
+
+"bs_footer_title_color": "#ffffff",
+
+
+"bs_footer_link_color": "#ffffff",
+
+
+"bs_footer_link_hover_color": "#0a0a0a",
+
+
+"bs_footer_icon_color": "#ffffff",
+
+
+"bs_footer_divider_color": "#e5e5e5",
+
+
+"bs_footer_logo": "https://cdn.hstatic.net/files/200001105437/file/logo_trang_copy.png",
+
+
+"bs_footer_hotline": "0973 285 886",
+
+
+"bs_footer_email": "badass.cskh@gmail.com",
+
+
+"bs_footer_menu1_title": "Về chúng tôi",
+
+
+"bs_footer_menu1_linklist": "footer-vct",
+
+
+"bs_footer_menu2_title": "Chính sách",
+
+
+"bs_footer_menu2_linklist": "footer",
+
+
+"bs_footer_social_title": "Kết nối với BADASS",
+
+
+"bs_footer_social_fb": "https://www.facebook.com/badassofficial.vn",
+
+
+"bs_footer_social_yt": "https://www.youtube.com/@BADASSslowfashion/videos",
+
+
+"bs_footer_social_tt": "https://www.tiktok.com/@badass.vn",
+
+
+"bs_footer_social_ins": "https://www.instagram.com/badass.vn_official/",
+
+
+"bs_footer_payment_title": "Thanh toán",
+
+
+"bs_footer_company_name": "CÔNG TY CỔ PHẦN OKAPI VIỆT NAM",
+
+
+"bs_footer_company_id": "Mã số doanh nghiệp 0111078523 cấp ngày 05/06/2025 tại Sở tài chính TP Hà Nội",
+
+
+"bs_footer_bct_img": "https://cdn.hstatic.net/files/200001105437/file/bct.png",
+
+
+"bs_footer_bct_link": "http://online.gov.vn/nen-tang/05b95c2e-44e9-4063-8994-9b9d3a3c1d7e",
+
+
+"theme_font_heading": "Montserrat",
+
+
+"theme_font_body": "Montserrat",
+
+
+"home_slider_title_1": "NEW VIBE COLLECTION",
+
+
+"home_slider_btn_1": "Khám phá",
+
+
+"home_slider_title_2": "NEW VIBE COLLECTION",
+
+
+"home_slider_btn_2": "Khám phá",
+
+
+"home_slider_title_3": "",
+
+
+"home_slider_btn_3": "Khám phá",
+
+
+"home_slider_show_4": false,
+
+
+"home_slider_title_4": "",
+
+
+"home_slider_btn_4": "Khám phá",
+
+
+"home_slider_imgdesk_4": "",
+
+
+"home_slider_imgmb_4": "",
+
+
+"home_slider_link_4": "",
+
+
+"bs_hero_show": true,
+
+
+"bs_hero_autoplay": "5000",
+
+
+"bs_hero_title_1": "",
+
+
+"bs_hero_btn_1": "Khám phá",
+
+
+"bs_hero_link_1": "/",
+
+
+"bs_hero_imgdesk_1": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_455d22c85e8b422ca1ba8f4937e71966.jpg",
+
+
+"bs_hero_imgmb_1": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile.jpg",
+
+
+"bs_hero_alt_1": "",
+
+
+"bs_hero_show_2": true,
+
+
+"bs_hero_title_2": "",
+
+
+"bs_hero_btn_2": "",
+
+
+"bs_hero_link_2": "",
+
+
+"bs_hero_imgdesk_2": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_qu_c_tr__ng.webp",
+
+
+"bs_hero_imgmb_2": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_qu_c_tr__ng_4ff03d10c6344de3bc4c0389b3d5c6ba.webp",
+
+
+"bs_hero_show_3": true,
+
+
+"bs_hero_title_3": "",
+
+
+"bs_hero_btn_3": "Khám phá",
+
+
+"bs_hero_link_3": "",
+
+
+"bs_hero_imgdesk_3": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_together_trip.webp",
+
+
+"bs_hero_imgmb_3": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_together_trip_1a87d1b5e4204668a85e923407d5dbd8.webp",
+
+
+"bs_hero_show_4": true,
+
+
+"bs_hero_title_4": "",
+
+
+"bs_hero_btn_4": "Khám phá",
+
+
+"bs_hero_link_4": "",
+
+
+"bs_hero_imgdesk_4": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_anywear.webp",
+
+
+"bs_hero_imgmb_4": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_anywear_e6ba3704925948faa878f0b6e36a587c.webp",
+
+
+"bs_hero_autoplay_enable": true,
+
+
+"logo_overlay_url": "https://cdn.hstatic.net/files/200001105437/file/logo_header_white.svg",
+
+
+"header_sale_badge": "từ 49K",
+
+
+"bs_category_show": true,
+
+
+"bs_category_title": "Danh mục sản phẩm",
+
+
+"bs_category_show_1": true,
+
+
+"bs_category_title_1": "Sơmi dài tay",
+
+
+"bs_category_img_1": "https://cdn.hstatic.net/files/200001105437/file/stdtk706__5_.jpg",
+
+
+"bs_category_link_1": "https://badassvn.myharavan.com/collections/somi-dai-tay",
+
+
+"bs_category_show_2": true,
+
+
+"bs_category_title_2": "Áo polo",
+
+
+"bs_category_img_2": "https://cdn.hstatic.net/files/200001105437/file/pohtk741__6_.jpg",
+
+
+"bs_category_link_2": "https://badassvn.myharavan.com/collections/ao-polo-nam",
+
+
+"bs_category_show_3": true,
+
+
+"bs_category_title_3": "Áo phông",
+
+
+"bs_category_img_3": "https://cdn.hstatic.net/files/200001105437/file/88.png",
+
+
+"bs_category_link_3": "https://badassvn.myharavan.com/collections/ao-phong-nam",
+
+
+"bs_category_show_4": true,
+
+
+"bs_category_title_4": "Áo khoác",
+
+
+"bs_category_img_4": "https://cdn.hstatic.net/files/200001105437/file/adltk601__3_.jpg",
+
+
+"bs_category_link_4": "https://badassvn.myharavan.com/collections/ao-khoac-nam",
+
+
+"bs_category_show_5": true,
+
+
+"bs_category_title_5": "Quần âu",
+
+
+"bs_category_img_5": "https://cdn.hstatic.net/files/200001105437/file/bd3821_e37001b323634f8ba39d144fadec092e.webp",
+
+
+"bs_category_link_5": "https://badassvn.myharavan.com/collections/quan-au-nam",
+
+
+"bs_category_show_6": true,
+
+
+"bs_category_title_6": "Quần Short",
+
+
+"bs_category_img_6": "https://cdn.hstatic.net/files/200001105437/file/qsktk729__2_.png",
+
+
+"bs_category_link_6": "https://badassvn.myharavan.com/collections/quan-short-nam",
+
+
+"bs_category_show_7": true,
+
+
+"bs_category_title_7": "Quần Jeans",
+
+
+"bs_category_img_7": "https://cdn.hstatic.net/files/200001105437/file/qjdtk703__2_.png",
+
+
+"bs_category_link_7": "https://badassvn.myharavan.com/collections/quan-jeans-nam",
+
+
+"bs_category_show_8": true,
+
+
+"bs_category_title_8": "Quần Kaki",
+
+
+"bs_category_img_8": "https://cdn.hstatic.net/files/200001105437/file/aphol701_-_qkstk703__3__987b427c983c4dc8abc676acbfe66d7e.webp",
+
+
+"bs_category_link_8": "https://badassvn.myharavan.com/collections/quan-kaki-nam",
+
+
+"bs_collection_show": true,
+
+
+"bs_collection_banner_img": "https://cdn.hstatic.net/files/200001105437/file/th_i_trang_h_ng_ng_y_a22b5537bda4406da5b305e6300d7fea.webp",
+
+
+"bs_collection_banner_img_mb": "https://cdn.hstatic.net/files/200001105437/file/th_i_trang_h_ng_ng_y.webp",
+
+
+"bs_collection_banner_title": "THỜI TRANG HÀNG NGÀY",
+
+
+"bs_collection_banner_btn": "Mua ngay",
+
+
+"bs_collection_banner_link": "https://badassvn.myharavan.com/collections/thoi-trang-hang-ngay",
+
+
+"bs_collection_title": "SẢN PHẨM THỜI TRANG HÀNG NGÀY",
+
+
+"bs_collection_handle": "thoi-trang-hang-ngay",
+
+
+"bs_collection_limit": "8",
+
+
+"bs_collection_viewall_text": "Xem tất cả",
+
+
+"bs_collection_viewall_link": "https://badassvn.myharavan.com/collections/thoi-trang-hang-ngay",
+
+
+"bs_swatch_name_1": "Đen",
+
+
+"bs_swatch_hex_1": "#0a0a0a",
+
+
+"bs_swatch_name_2": "Trắng",
+
+
+"bs_swatch_hex_2": "#ffffff",
+
+
+"bs_swatch_name_3": "Đỏ",
+
+
+"bs_swatch_hex_3": "#b90000",
+
+
+"bs_swatch_name_4": "Xanh Rêu",
+
+
+"bs_swatch_hex_4": "#14452F",
+
+
+"bs_swatch_name_5": "Xanh Navy",
+
+
+"bs_swatch_hex_5": "#000080",
+
+
+"bs_swatch_name_6": "Xanh Lá Cây",
+
+
+"bs_swatch_hex_6": "#4d9962",
+
+
+"bs_swatch_name_7": "Vàng",
+
+
+"bs_swatch_hex_7": "#f6cc3b",
+
+
+"bs_swatch_name_8": "Cam",
+
+
+"bs_swatch_hex_8": "#f97316",
+
+
+"bs_swatch_name_9": "Hồng",
+
+
+"bs_swatch_hex_9": "#ec4899",
+
+
+"bs_swatch_name_10": "Tím",
+
+
+"bs_swatch_hex_10": "#7c3aed",
+
+
+"bs_swatch_name_11": "Xám",
+
+
+"bs_swatch_hex_11": "#737373",
+
+
+"bs_swatch_name_12": "Be",
+
+
+"bs_swatch_hex_12": "#CDBA88",
+
+
+"bs_swatch_name_13": "Nâu",
+
+
+"bs_swatch_hex_13": "#642500",
+
+
+"bs_swatch_name_14": "Kem",
+
+
+"bs_swatch_hex_14": "#fef3c7",
+
+
+"bs_swatch_name_15": "Be Đậm",
+
+
+"bs_swatch_hex_15": "f5f5dc",
+
+
+"bs_swatch_name_16": "Xám Đậm",
+
+
+"bs_swatch_hex_16": "#585858",
+
+
+"bs_swatch_name_17": "Xanh Indigo",
+
+
+"bs_swatch_hex_17": "#1f3455",
+
+
+"bs_swatch_name_18": "",
+
+
+"bs_swatch_hex_18": "#cccccc",
+
+
+"bs_swatch_name_19": "",
+
+
+"bs_swatch_hex_19": "#cccccc",
+
+
+"bs_swatch_name_20": "",
+
+
+"bs_swatch_hex_20": "#cccccc",
+
+
+"bs_pl_frame_tag_1": "buy1get1",
+
+
+"bs_pl_frame_img_1": "https://cdn.hstatic.net/files/200001105437/file/frame_bottom.webp",
+
+
+"bs_pl_frame_tag_2": "",
+
+
+"bs_pl_frame_img_2": "",
+
+
+"bs_pl_frame_tag_3": "",
+
+
+"bs_pl_frame_img_3": "",
+
+
+"bs_pl_frame_tag_4": "",
+
+
+"bs_pl_frame_img_4": "",
+
+
+"bs_pl_frame_tag_5": "",
+
+
+"bs_pl_frame_img_5": "",
+
+
+"bs_pl_frame_tag_6": "",
+
+
+"bs_pl_frame_img_6": "",
+
+
+"bs_pl_frame_tag_7": "",
+
+
+"bs_pl_frame_img_7": "",
+
+
+"bs_pl_frame_tag_8": "",
+
+
+"bs_pl_frame_img_8": "",
+
+
+"bs_pl_frame_tag_9": "",
+
+
+"bs_pl_frame_img_9": "",
+
+
+"bs_pl_frame_tag_10": "",
+
+
+"bs_pl_frame_img_10": "",
+
+
+"bs_collection2_show": true,
+
+
+"bs_collection2_banner_img": "https://cdn.hstatic.net/files/200001105437/file/th__i_trang_c_ng_s__a0b2641b55104e1eae98d142799f80b9.webp",
+
+
+"bs_collection2_banner_img_mb": "https://cdn.hstatic.net/files/200001105437/file/th__i_trang_c_ng_s_.webp",
+
+
+"bs_collection2_banner_title": "THỜI TRANG CÔNG SỞ",
+
+
+"bs_collection2_banner_btn": "Mua ngay",
+
+
+"bs_collection2_banner_link": "https://badassvn.myharavan.com/collections/thoi-trang-cong-so",
+
+
+"bs_collection2_title": "SẢN PHẨM THỜI TRANG CÔNG SỞ",
+
+
+"bs_collection2_handle": "thoi-trang-cong-so",
+
+
+"bs_collection2_limit": "8",
+
+
+"bs_collection2_viewall_text": "Xem tất cả",
+
+
+"bs_collection2_viewall_link": "https://badassvn.myharavan.com/collections/thoi-trang-cong-so",
+
+
+"bs_collection3_show": true,
+
+
+"bs_collection3_banner_img": "https://cdn.hstatic.net/files/200001105437/file/th_i_trang_street_wear_eac052884cf049f0912f2ccce9db8f21.webp",
+
+
+"bs_collection3_banner_img_mb": "https://cdn.hstatic.net/files/200001105437/file/th_i_trang_street_wear.webp",
+
+
+"bs_collection3_banner_title": "Thời trang Street Wear",
+
+
+"bs_collection3_banner_btn": "Mua ngay",
+
+
+"bs_collection3_banner_link": "https://badassvn.myharavan.com/collections/thoi-trang-street-wear",
+
+
+"bs_collection3_title": "SẢN PHẨM STREET WEAR",
+
+
+"bs_collection3_handle": "thoi-trang-street-wear",
+
+
+"bs_collection3_limit": "8",
+
+
+"bs_collection3_viewall_text": "Xem tất cả",
+
+
+"bs_collection3_viewall_link": "https://badassvn.myharavan.com/collections/thoi-trang-street-wear",
+
+
+"bs_featcol_show": true,
+
+
+"bs_featcol_title": "Bộ sưu tập nổi bật",
+
+
+"bs_featcol_show_1": true,
+
+
+"bs_featcol_title_1": "TRIP TOGETHER",
+
+
+"bs_featcol_img_1": "https://i.postimg.cc/tgjgt1Gh/VUONG-(1).png",
+
+
+"bs_featcol_link_1": "https://badassvn.myharavan.com/collections/bst-trip-together",
+
+
+"bs_featcol_show_2": true,
+
+
+"bs_featcol_title_2": "ANYWEAR",
+
+
+"bs_featcol_img_2": "https://cdn.hstatic.net/files/200001105437/file/home_col_1.png",
+
+
+"bs_featcol_link_2": "https://badassvn.myharavan.com/collections/bst-any-wear",
+
+
+"bs_featcol_show_3": true,
+
+
+"bs_featcol_title_3": "BEYONDS ROLES",
+
+
+"bs_featcol_img_3": "https://cdn.hstatic.net/files/200001105437/file/bst_qu_c_tr__ng.webp",
+
+
+"bs_featcol_link_3": "https://badassvn.myharavan.com/collections/bst-beyond-roles",
+
+
+"bs_featcol_show_4": false,
+
+
+"bs_featcol_title_4": "BEYONDS ROLES",
+
+
+"bs_featcol_img_4": "https://cdn.hstatic.net/files/200001105437/file/bst_qu_c_tr__ng.webp",
+
+
+"bs_featcol_link_4": "/",
+
+
+"bs_featcol_show_5": false,
+
+
+"bs_featcol_title_5": "Test",
+
+
+"bs_featcol_img_5": "https://cdn.hstatic.net/files/200001105437/file/home_col_1.png",
+
+
+"bs_featcol_link_5": "/",
+
+
+"bs_featcol_show_6": false,
+
+
+"bs_featcol_title_6": "test2",
+
+
+"bs_featcol_img_6": "https://cdn.hstatic.net/files/200001105437/file/home_col_1.png",
+
+
+"bs_featcol_link_6": "/",
+
+
+"bs_feedback_show": true,
+
+
+"bs_feedback_title": "Feedback khách hàng",
+
+
+"bs_feedback_show_1": true,
+
+
+"bs_feedback_img_1": "https://cdn.hstatic.net/files/200001105437/file/vu_ng__6_.jpg",
+
+
+"bs_feedback_alt_1": "Feedback",
+
+
+"bs_feedback_show_2": true,
+
+
+"bs_feedback_img_2": "https://cdn.hstatic.net/files/200001105437/file/b_n_sao_c_a_dsc00708.jpg",
+
+
+"bs_feedback_alt_2": "Feedback",
+
+
+"bs_feedback_show_3": true,
+
+
+"bs_feedback_img_3": "https://cdn.hstatic.net/files/200001105437/file/_nh_ch_nh.jpg",
+
+
+"bs_feedback_alt_3": "Feedback",
+
+
+"bs_feedback_show_4": true,
+
+
+"bs_feedback_img_4": "https://cdn.hstatic.net/files/200001105437/file/2026_05_09__1__0004.jpg",
+
+
+"bs_feedback_alt_4": "Feedback",
+
+
+"bs_feedback_show_5": true,
+
+
+"bs_feedback_img_5": "https://cdn.hstatic.net/files/200001105437/file/shntk710_-_qsvtk710__7_.webp",
+
+
+"bs_feedback_alt_5": "Feedback",
+
+
+"bs_feedback_show_6": true,
+
+
+"bs_feedback_img_6": "https://cdn.hstatic.net/files/200001105437/file/pohtk736__7_.webp",
+
+
+"bs_feedback_alt_6": "Feedback",
+
+
+"bs_feedback_show_7": true,
+
+
+"bs_feedback_img_7": "https://cdn.hstatic.net/files/200001105437/file/stdtk706_-_qkstk703__10_.webp",
+
+
+"bs_feedback_alt_7": "Feedback",
+
+
+"bs_feedback_show_8": true,
+
+
+"bs_feedback_img_8": "https://cdn.hstatic.net/files/200001105437/file/shntk711_-_qsdtk711__7_.webp",
+
+
+"bs_feedback_alt_8": "Feedback",
+
+
+"bs_policy_show": true,
+
+
+"bs_policy_show_1": true,
+
+
+"bs_policy_icon_1": "https://cdn.hstatic.net/files/200001105437/file/policy_1.svg",
+
+
+"bs_policy_text_1": "30 ngày đổi hàng lỗi/size/màu",
+
+
+"bs_policy_show_2": true,
+
+
+"bs_policy_icon_2": "https://cdn.hstatic.net/files/200001105437/file/policy_2.svg",
+
+
+"bs_policy_text_2": "Tháng sinh nhật – Giảm 20%",
+
+
+"bs_policy_show_3": true,
+
+
+"bs_policy_icon_3": "https://cdn.hstatic.net/files/200001105437/file/policy_3.svg",
+
+
+"bs_policy_text_3": "Freeship cho đơn hàng trên 499k ",
+
+
+"bs_policy_show_4": true,
+
+
+"bs_policy_icon_4": "https://cdn.hstatic.net/files/200001105437/file/policy_4.svg",
+
+
+"bs_policy_text_4": "Ưu đãi độc quyền dành cho thành viên",
+
+
+"favicon_url.png": "",
+
+
+"bs_coll_show_filter_type": true,
+
+
+"bs_coll_show_filter_size": true,
+
+
+"bs_coll_show_filter_price": true,
+
+
+"bs_coll_show_filter_color": true,
+
+
+"bs_coll_show_filter_material": true,
+
+
+"bs_coll_show_filter_occasion": true,
+
+
+"bs_coll_show_filter_vendor": false,
+
+
+"bs_coll_size_label": "Kích thước",
+
+
+"bs_coll_sizes": "S,M,L,XL,XXL,29,30,31,32,33,34",
+
+
+"bs_coll_price_max": "10000000",
+
+
+"bs_coll_price_step": "50000",
+
+
+"bs_coll_materials": "Cotton,Polyester,Acrylic,Cenllulose,Nylon,Rayon,Spandex,Viscose",
+
+
+"bs_coll_occasions": "Mặc hàng ngày, Công sở, Thể thao, Du lịch,Xuống phố",
+
+
+"bs_hero_show_5": true,
+
+
+"bs_hero_title_5": "",
+
+
+"bs_hero_btn_5": "Khám phá",
+
+
+"bs_hero_link_5": "",
+
+
+"bs_hero_imgdesk_5": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_xu_n_phi_m_.webp",
+
+
+"bs_hero_imgmb_5": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_xu_n_phi_m__da61bf47fbf9439da6e14b470685d119.webp",
+
+
+"bs_hero_show_6": true,
+
+
+"bs_hero_title_6": "",
+
+
+"bs_hero_btn_6": "Khám phá",
+
+
+"bs_hero_link_6": "",
+
+
+"bs_hero_imgdesk_6": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_m_nh_tr__ng.webp",
+
+
+"bs_hero_imgmb_6": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_m_nh_tr__ng_4f00199fd3fd427a85ed6d2fd51b99a0.webp",
+
+
+"recently_viewed_show": true,
+
+
+"recently_viewed_title": "SẢN PHẨM ĐÃ XEM",
+
+
+"recently_viewed_count": "8",
+
+
+"recently_viewed_expiry_days": "30",
+
+
+"cart_recently_viewed_show": false,
+
+
+"cart_recently_viewed_title": "SẢN PHẨM ĐÃ XEM",
+
+
+"cart_recently_viewed_count": "8",
+
+
+"product_recommendations_show": true,
+
+
+"product_recommendations_title": "GỢI Ý SẢN PHẨM",
+
+
+"product_recommendations_limit": "12",
+
+
+"product_recommendations_fallback_collection": "tat-ca-san-pham",
+
+
+"pd_stores_show": true,
+
+
+"store_{{ i }}_name": "",
+
+
+"store_{{ i }}_map_embed": "",
+
+
+"pd_size_guide_show": true,
+
+
+"pd_size_guide_title": "Hướng dẫn chọn size",
+
+
+"pd_size_guide_tag_1": "áo phông",
+
+
+"pd_size_guide_sheet_1": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=766859575#gid=766859575",
+
+
+"pd_size_guide_image_1": "https://cdn.hstatic.net/files/200001105437/file/_o_ph_ng_b45b5af64ca7405e9a006db73dcafc48.png",
+
+
+"pd_size_guide_tag_2": "áo polo",
+
+
+"pd_size_guide_sheet_2": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=705892303#gid=705892303",
+
+
+"pd_size_guide_image_2": "https://cdn.hstatic.net/files/200001105437/file/_o_polo_bcf2ae84090e4a9ea4f24b0e5c263f8c.png",
+
+
+"pd_size_guide_tag_3": "quần short",
+
+
+"pd_size_guide_sheet_3": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=1243538303#gid=1243538303",
+
+
+"pd_size_guide_image_3": "https://cdn.hstatic.net/files/200001105437/file/qu_n_short.png",
+
+
+"pd_size_guide_tag_4": "sơ mi ngắn tay",
+
+
+"pd_size_guide_sheet_4": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=672059871#gid=672059871",
+
+
+"pd_size_guide_image_4": "https://cdn.hstatic.net/files/200001105437/file/_o_s__mi_ng_n_tay.png",
+
+
+"pd_size_guide_tag_5": "sơ mi dài tay",
+
+
+"pd_size_guide_sheet_5": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=1891068486#gid=1891068486",
+
+
+"pd_size_guide_image_5": "https://cdn.hstatic.net/files/200001105437/file/s__mi_d_i_tay_591280daaf5f4b93b44413b18f13a2f8.png",
+
+
+"pd_size_guide_tag_6": "quần jean",
+
+
+"pd_size_guide_sheet_6": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=0#gid=0",
+
+
+"pd_size_guide_image_6": "https://cdn.hstatic.net/files/200001105437/file/qu_n_jean_66d72beeefa943f29172003b768812fc.png",
+
+
+"pd_size_guide_tag_7": "quần kaki",
+
+
+"pd_size_guide_sheet_7": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=1478350658#gid=1478350658",
+
+
+"pd_size_guide_image_7": "https://cdn.hstatic.net/files/200001105437/file/qu_n_kaki_528cc3ccef73493bbc8938cf46c61452.png",
+
+
+"pd_size_guide_tag_8": "quần âu",
+
+
+"pd_size_guide_sheet_8": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=641559860#gid=641559860",
+
+
+"pd_size_guide_image_8": "https://cdn.hstatic.net/files/200001105437/file/qu_n__u_105421c2913b40e48d51d27531c4edcd.png",
+
+
+"pd_size_guide_tag_9": "áo tanktop",
+
+
+"pd_size_guide_sheet_9": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=1200810881#gid=1200810881",
+
+
+"pd_size_guide_image_9": "https://cdn.hstatic.net/files/200001105437/file/_o_tanktop_a17aa725224748e3a9e06717c6036bf0.png",
+
+
+"pd_size_guide_tag_10": "",
+
+
+"pd_size_guide_sheet_10": "",
+
+
+"pd_size_guide_image_10": "",
+
+
+"pd_size_guide_image": "https://cdn.hstatic.net/files/200001105437/file/_o_polo_bcf2ae84090e4a9ea4f24b0e5c263f8c.png",
+
+
+"pd_size_guide_html": "",
+
+
+"pd_policy_icon_1": "https://cdn.hstatic.net/files/200001105437/file/policy_1.svg",
+
+
+"pd_policy_text_1": "30 ngày đổi hàng lỗi/size/màu",
+
+
+"pd_policy_icon_2": "https://cdn.hstatic.net/files/200001105437/file/policy_2.svg",
+
+
+"pd_policy_text_2": "Tháng sinh nhật – Giảm 20%",
+
+
+"pd_policy_icon_3": "https://cdn.hstatic.net/files/200001105437/file/policy_3.svg",
+
+
+"pd_policy_text_3": "Freeship đơn hàng >499K",
+
+
+"pd_policy_icon_4": "https://cdn.hstatic.net/files/200001105437/file/policy_4.svg",
+
+
+"pd_policy_text_4": "Ưu đãi độc quyền dành cho thành viên",
+
+
+"bs_occ_title_1": "Mặc hàng ngày",
+
+
+"bs_occ_img_1": "https://cdn.hstatic.net/files/200001105437/file/pohtk736_-_qsntk736__1_.png",
+
+
+"bs_occ_title_2": "Thể thao",
+
+
+"bs_occ_img_2": "https://cdn.hstatic.net/files/200001105437/file/pohtk704_-_qsttk704__2_.jpg",
+
+
+"bs_occ_title_3": "Du lịch",
+
+
+"bs_occ_img_3": "https://cdn.hstatic.net/files/200001105437/file/stntk713__1_.jpg",
+
+
+"bs_occ_title_4": "Công sở",
+
+
+"bs_occ_img_4": "https://cdn.hstatic.net/files/200001105437/file/pohtk741__5_.png",
+
+
+"bs_occ_title_5": "Xuống phố",
+
+
+"bs_occ_img_5": "https://cdn.hstatic.net/files/200001105437/file/qjdtk703__1_.png",
+
+
+"bs_occ_title_6": "",
+
+
+"bs_occ_img_6": "",
+
+
+"bs_occ_title_7": "",
+
+
+"bs_occ_img_7": "",
+
+
+"bs_occ_title_8": "",
+
+
+"bs_occ_img_8": "",
+
+
+"bs_subcat_name_1": "Sơmi Dài Tay",
+
+
+"bs_subcat_img_1": "https://cdn.hstatic.net/files/200001105437/file/stntk708_-_qsvtk708__6__-_copy.webp",
+
+
+"bs_subcat_name_2": "Sơmi Ngắn Tay",
+
+
+"bs_subcat_img_2": "https://cdn.hstatic.net/files/200001105437/file/stntk708_-_qsvtk708__6__-_copy.webp",
+
+
+"bs_subcat_name_3": "Áo Polo",
+
+
+"bs_subcat_img_3": "https://cdn.hstatic.net/files/200001105437/file/poktk740__3_.webp",
+
+
+"bs_subcat_name_4": "Áo Phông",
+
+
+"bs_subcat_img_4": "https://cdn.hstatic.net/files/200001105437/file/88_b237fda44d674683930aa874ea440b58.webp",
+
+
+"bs_subcat_name_5": "Áo TankTop",
+
+
+"bs_subcat_img_5": "https://cdn.hstatic.net/files/200001105437/file/abltk701_-_qsttk701__2__027c52aaced446968181dc0b8e0d759e.webp",
+
+
+"bs_subcat_name_6": "Áo khoác",
+
+
+"bs_subcat_img_6": "https://cdn.hstatic.net/files/200001105437/file/akhtk617__11_.jpg",
+
+
+"bs_subcat_name_7": "Quần Âu",
+
+
+"bs_subcat_img_7": "https://cdn.hstatic.net/files/200001105437/file/bd3821_e37001b323634f8ba39d144fadec092e.webp",
+
+
+"bs_subcat_name_8": "Quần Jeans",
+
+
+"bs_subcat_img_8": "https://cdn.hstatic.net/files/200001105437/file/qjdtk703__2_.png",
+
+
+"bs_subcat_name_9": "Quần Short",
+
+
+"bs_subcat_img_9": "https://cdn.hstatic.net/files/200001105437/file/qsktk729__2_.png",
+
+
+"bs_subcat_name_10": "Quần Kaki",
+
+
+"bs_subcat_img_10": "https://cdn.hstatic.net/files/200001105437/file/aphol701_-_qkstk703__3__987b427c983c4dc8abc676acbfe66d7e.webp",
+
+
+"bs_subcat_name_11": "Áo len",
+
+
+"bs_subcat_img_11": "https://cdn.hstatic.net/files/200001105437/file/aletk601__4_.jpg",
+
+
+"bs_subcat_name_12": "Áo nỉ",
+
+
+"bs_subcat_img_12": "https://cdn.hstatic.net/files/200001105437/file/anhtk608__2_.jpg",
+
+
+"bs_subcat_name_13": "Quần nỉ",
+
+
+"bs_subcat_img_13": "https://cdn.hstatic.net/files/200001105437/file/anhtk603_-_qtntk603__4_.jpg",
+
+
+"bs_subcat_name_14": "Quần jogger",
+
+
+"bs_subcat_img_14": "https://cdn.hstatic.net/files/200001105437/file/akgtk602_-_qggtk602__8_.jpg",
+
+
+"bs_subcat_name_15": "Quần Sịp",
+
+
+"bs_subcat_img_15": "https://cdn.hstatic.net/files/200001105437/file/qsbtk601__8_.jpg",
+
+
+"bs_subcat_name_16": "Giày",
+
+
+"bs_subcat_img_16": "https://cdn.hstatic.net/files/200001105437/file/giatk502__7_.jpg",
+
+
+"bs_subcat_name_17": "Thắt Lưng",
+
+
+"bs_subcat_img_17": "https://cdn.hstatic.net/files/200001105437/file/dlctk504__1_.jpg",
+
+
+"bs_subcat_name_18": "Tất",
+
+
+"bs_subcat_img_18": "https://cdn.hstatic.net/files/200001105437/file/tactk502__2_.jpg",
+
+
+"bs_subcat_name_19": "",
+
+
+"bs_subcat_img_19": "",
+
+
+"bs_subcat_name_20": "",
+
+
+"bs_subcat_img_20": "",
+
+
+"bs_subcat_name_21": "",
+
+
+"bs_subcat_img_21": "",
+
+
+"bs_subcat_name_22": "",
+
+
+"bs_subcat_img_22": "",
+
+
+"bs_subcat_name_23": "",
+
+
+"bs_subcat_img_23": "",
+
+
+"bs_subcat_name_24": "",
+
+
+"bs_subcat_img_24": "",
+
+
+"bs_subcat_name_25": "",
+
+
+"bs_subcat_img_25": "",
+
+
+"bs_subcat_name_26": "",
+
+
+"bs_subcat_img_26": "",
+
+
+"bs_subcat_name_27": "",
+
+
+"bs_subcat_img_27": "",
+
+
+"bs_subcat_name_28": "",
+
+
+"bs_subcat_img_28": "",
+
+
+"bs_subcat_name_29": "",
+
+
+"bs_subcat_img_29": "",
+
+
+"bs_subcat_name_30": "",
+
+
+"bs_subcat_img_30": "",
+
+
+"bs_feedback_show_9": true,
+
+
+"bs_feedback_img_9": "https://cdn.hstatic.net/files/200001105437/file/podtk725__3_.webp",
+
+
+"bs_feedback_alt_9": "",
+
+
+"bs_feedback_show_10": false,
+
+
+"bs_feedback_img_10": "",
+
+
+"bs_feedback_alt_10": "",
+
+
+"bs_feedback_show_11": false,
+
+
+"bs_feedback_img_11": "",
+
+
+"bs_feedback_alt_11": "",
+
+
+"bs_feedback_show_12": false,
+
+
+"bs_feedback_img_12": "",
+
+
+"bs_feedback_alt_12": "",
+
+
+"bs_feedback_show_13": false,
+
+
+"bs_feedback_img_13": "",
+
+
+"bs_feedback_alt_13": "",
+
+
+"bs_feedback_show_14": false,
+
+
+"bs_feedback_img_14": "",
+
+
+"bs_feedback_alt_14": "",
+
+
+"bs_feedback_show_15": false,
+
+
+"bs_feedback_img_15": "",
+
+
+"bs_feedback_alt_15": "",
+
+
+"bs_feedback_show_16": false,
+
+
+"bs_feedback_img_16": "",
+
+
+"bs_feedback_alt_16": "",
+
+
+"bs_feedback_show_17": false,
+
+
+"bs_feedback_img_17": "",
+
+
+"bs_feedback_alt_17": "",
+
+
+"bs_feedback_show_18": false,
+
+
+"bs_feedback_img_18": "",
+
+
+"bs_feedback_alt_18": "",
+
+
+"bs_feedback_show_19": false,
+
+
+"bs_feedback_img_19": "",
+
+
+"bs_feedback_alt_19": "",
+
+
+"bs_feedback_show_20": false,
+
+
+"bs_feedback_img_20": "",
+
+
+"bs_feedback_alt_20": "",
+
+
+"bs_cart_step_show": true,
+
+
+"bs_cart_step_count": "2",
+
+
+"bs_cart_step_label_1": "Mua hàng",
+
+
+"bs_cart_step_sub_1": "",
+
+
+"bs_cart_step_threshold_2": "499000",
+
+
+"bs_cart_step_label_2": "Đơn từ 499K",
+
+
+"bs_cart_step_sub_2": "Bấm để nhận Áo Polo 349K",
+
+
+"bs_cart_step_threshold_3": "999000",
+
+
+"bs_cart_step_label_3": "Tặng Voucher 100K",
+
+
+"bs_cart_step_sub_3": "Đơn từ 999K",
+
+
+"bs_cart_step_threshold_4": "0",
+
+
+"bs_cart_step_label_4": "",
+
+
+"bs_cart_step_sub_4": "",
+
+
+"bs_cart_promo_btn": "MUA THÊM ",
+
+
+"bs_cart_promo_url": "/collections/all",
+
+
+"bs_buymore_popup_title": "Có thể bạn thích",
+
+
+"bs_buymore_tab_count": "3",
+
+
+"bs_buymore_limit": "12",
+
+
+"bs_buymore_tab_title_1": "Bán chạy",
+
+
+"bs_buymore_tab_collection_1": "san-pham-ban-chay-1",
+
+
+"bs_buymore_tab_title_2": "Khuyến mãi",
+
+
+"bs_buymore_tab_collection_2": "uu-dai",
+
+
+"bs_buymore_tab_title_3": "Hàng mới",
+
+
+"bs_buymore_tab_collection_3": "sp-moi",
+
+
+"bs_buymore_tab_title_4": "",
+
+
+"bs_buymore_tab_collection_4": "",
+
+
+"bs_buymore_tab_title_5": "",
+
+
+"bs_buymore_tab_collection_5": "",
+
+
+"bs_buymore_tab_title_6": "",
+
+
+"bs_buymore_tab_collection_6": "",
+
+
+"bs_gm_enable": true,
+
+
+"bs_cart_gift_collection_2": "san-pham-tang",
+
+
+"bs_cart_gift_collection_3": "",
+
+
+"bs_cart_gift_collection_4": "",
+
+
+"bs_cart_agree_default_checked": true,
+
+
+"bs_cart_terms_url": "",
+
+
+"bs_cart_note_1": "Phí vận chuyển sẽ được tính ở trang thanh toán.",
+
+
+"bs_cart_note_2": "Bạn cũng có thể nhập mã giảm giá ở trang thanh toán.",
+
+
+"bs_ldp_hero_img": "https://cdn.hstatic.net/files/200001105437/file/image-placeholder__-_change_image_here-2.png",
+
+
+"bs_ldp_hero_title": "Banner",
+
+
+"bs_ldp_hero_link": "/",
+
+
+"bs_ldp_countdown_end": "2026-12-31T23:59:59",
+
+
+"bs_ldp_voucher_count": "4",
+
+
+"bs_ldp_voucher_title_1": "GIẢM 100K",
+
+
+"bs_ldp_voucher_desc_1": "Cho hoá đơn mua hàng từ 999K",
+
+
+"bs_ldp_voucher_code_1": "BADASS100",
+
+
+"bs_ldp_voucher_exp_1": "31-12-2026",
+
+
+"bs_ldp_voucher_title_2": "GIẢM 100K",
+
+
+"bs_ldp_voucher_desc_2": "Cho hoá đơn mua hàng từ 999K",
+
+
+"bs_ldp_voucher_code_2": "BADASS200",
+
+
+"bs_ldp_voucher_exp_2": "31-12-2026",
+
+
+"bs_ldp_voucher_title_3": "GIẢM 100K",
+
+
+"bs_ldp_voucher_desc_3": "Cho hoá đơn mua hàng từ 999K",
+
+
+"bs_ldp_voucher_code_3": "BADASS300",
+
+
+"bs_ldp_voucher_exp_3": "31-12-2026",
+
+
+"bs_ldp_voucher_title_4": "GIẢM 100K",
+
+
+"bs_ldp_voucher_desc_4": "Cho hoá đơn mua hàng từ 999K",
+
+
+"bs_ldp_voucher_code_4": "BADASS400",
+
+
+"bs_ldp_voucher_exp_4": "31-12-2026",
+
+
+"bs_ldp_section1_title": " ",
+
+
+"bs_ldp_section1_collection": "bst-beyond-roles",
+
+
+"bs_ldp_section1_banner": "https://cdn.hstatic.net/files/200001105437/file/zalo_oa__2400x1350__53fed099e5624824946e9af42cad6a63.jpg",
+
+
+"bs_ldp_section1_banner_mb": "https://cdn.hstatic.net/files/200001105437/file/zalo_oa__2400x1350__53fed099e5624824946e9af42cad6a63.jpg",
+
+
+"bs_ldp_section2_title": " ",
+
+
+"bs_ldp_section2_collection": "bst-trip-together",
+
+
+"bs_ldp_section2_banner": "https://cdn.hstatic.net/files/200001105437/file/trip_together_3-1.jpg",
+
+
+"bs_ldp_section2_banner_mb": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_together_trip_1a87d1b5e4204668a85e923407d5dbd8.webp",
+
+
+"bs_ldp_section3_title": " ",
+
+
+"bs_ldp_section3_collection": "bst-anywear",
+
+
+"bs_ldp_section3_banner": "https://cdn.hstatic.net/files/200001105437/file/anywear_1-1.8.jpg",
+
+
+"bs_ldp_section3_banner_mb": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_anywear_e6ba3704925948faa878f0b6e36a587c.webp",
+
+
+"bs_ldp_hero_show": true,
+
+
+"bs_ldp_hero_autoplay_enable": true,
+
+
+"bs_ldp_hero_autoplay": "5000",
+
+
+"bs_ldp_hero_title_1": "BEYOND ROLES",
+
+
+"bs_ldp_hero_btn_1": "Mua ngay",
+
+
+"bs_ldp_hero_link_1": "/",
+
+
+"bs_ldp_hero_imgdesk_1": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_qu_c_tr__ng.webp",
+
+
+"bs_ldp_hero_imgmb_1": "https://cdn.hstatic.net/files/200001105437/file/image-placeholder__-_change_image_here-2.png",
+
+
+"bs_ldp_hero_alt_1": "Banner",
+
+
+"bs_ldp_hero_show_2": true,
+
+
+"bs_ldp_hero_title_2": "",
+
+
+"bs_ldp_hero_btn_2": "Mua ngay",
+
+
+"bs_ldp_hero_link_2": "/",
+
+
+"bs_ldp_hero_imgdesk_2": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_together_trip.webp",
+
+
+"bs_ldp_hero_imgmb_2": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_qu_c_tr__ng_4ff03d10c6344de3bc4c0389b3d5c6ba.webp",
+
+
+"bs_ldp_hero_show_3": true,
+
+
+"bs_ldp_hero_title_3": "",
+
+
+"bs_ldp_hero_btn_3": "Mua ngay",
+
+
+"bs_ldp_hero_link_3": "",
+
+
+"bs_ldp_hero_imgdesk_3": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_anywear.webp",
+
+
+"bs_ldp_hero_imgmb_3": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_together_trip_1a87d1b5e4204668a85e923407d5dbd8.webp",
+
+
+"bs_ldp_hero_show_4": false,
+
+
+"bs_ldp_hero_title_4": "",
+
+
+"bs_ldp_hero_btn_4": "Mua ngay",
+
+
+"bs_ldp_hero_link_4": "",
+
+
+"bs_ldp_hero_imgdesk_4": "https://cdn.hstatic.net/files/200001105437/file/bst_anywear.webp",
+
+
+"bs_ldp_hero_imgmb_4": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_anywear_e6ba3704925948faa878f0b6e36a587c.webp",
+
+
+"bs_ldp_hero_show_5": false,
+
+
+"bs_ldp_hero_title_5": "",
+
+
+"bs_ldp_hero_btn_5": "Mua ngay",
+
+
+"bs_ldp_hero_link_5": "",
+
+
+"bs_ldp_hero_imgdesk_5": "",
+
+
+"bs_ldp_hero_imgmb_5": "",
+
+
+"bs_ldp_hero_show_6": false,
+
+
+"bs_ldp_hero_title_6": "",
+
+
+"bs_ldp_hero_btn_6": "Mua ngay",
+
+
+"bs_ldp_hero_link_6": "",
+
+
+"bs_ldp_hero_imgdesk_6": "",
+
+
+"bs_ldp_hero_imgmb_6": "",
+
+
+"bs_ldp_countdown_title": "Khuyến mãi bắt đầu sau",
+
+
+"bs_ldp_section1_show": true,
+
+
+"bs_ldp_section2_show": true,
+
+
+"bs_ldp_section2_limit": "12",
+
+
+"bs_ldp_section3_show": true,
+
+
+"bs_ldp_section3_limit": "12",
+
+
+"bs_ldp_voucher_source": "manual",
+
+
+"bs_ldp_countdown_start": "2026-06-01T23:59:59",
+
+
+"bs_ldp_countdown_title_active": "Khuyến mãi kết thúc sau",
+
+
+"pd_size_guide_model_1": "https://cdn.hstatic.net/files/200001105437/file/image_af4b7a04ac6641e886b7888abf075f68.png",
+
+
+"pd_size_guide_model_2": "https://cdn.hstatic.net/files/200001105437/file/image_d7d3ff48f91643bfa60f51e13da2ff7b.png",
+
+
+"pd_size_guide_model_3": "https://cdn.hstatic.net/files/200001105437/file/image_af4b7a04ac6641e886b7888abf075f68.png",
+
+
+"pd_size_guide_label_1": "Ôm",
+
+
+"pd_size_guide_label_2": "Vừa",
+
+
+"pd_size_guide_label_3": "Rộng",
+
+
+"bs_ldp_section1_btn": "Xem tất cả",
+
+
+"bs_ldp_section2_slides_per_view": "4",
+
+
+"bs_ldp_section2_slides_per_view_mb": "2",
+
+
+"bs_ldp_section2_btn": "Xem tất cả",
+
+
+"bs_ldp_section3_slides_per_view": "3",
+
+
+"bs_ldp_section3_slides_per_view_mb": "2",
+
+
+"bs_ldp_section3_btn": "Xem tất cả",
+
+
+"bs_blog_per_page": "24",
+
+
+"bs_blog_featured_count": "6",
+
+
+"bs_blog_grid_title": "Tin tức khác",
+
+
+"bs_blog_grid_cols": "3",
+
+
+"bs_blog_show_tags": true,
+
+
+"bs_blog_max_tags": "6",
+
+
+"bs_blog_meta_desc": "",
+
+
+"bs_blog_tab_limit": "6",
+
+
+"bs_blog_tab_title_1": "New",
+
+
+"bs_blog_tab_title_2": "",
+
+
+"bs_blog_tab_handle_2": "tin-tuc-eng",
+
+
+"bs_blog_tab_title_3": "",
+
+
+"bs_blog_tab_handle_3": "",
+
+
+"bs_blog_tab_title_4": "",
+
+
+"bs_blog_tab_handle_4": "",
+
+
+"bs_blog_tab_title_5": "",
+
+
+"bs_blog_tab_handle_5": "",
+
+
+"bs_blog_tab_title_6": "",
+
+
+"bs_blog_tab_handle_6": "",
+
+
+"bs_blog_tab_handle_1": "news",
+
+
+"art_related_products_show": true,
+
+
+"art_related_products_title": "Sản phẩm liên quan",
+
+
+"art_related_products_collection": "sp-moi",
+
+
+"art_toc_show": true,
+
+
+"art_related_products_limit": "8",
+
+
+"art_related_articles_show": true,
+
+
+"art_related_articles_title": "Tin tức liên quan",
+
+
+"art_related_articles_limit": "4",
+
+
+"bs_about_hero_img": "https://cdn.phototourl.com/free/2026-06-22-f5a4844c-d8ab-49a1-9e45-ec7f1afea0f9.jpg",
+
+
+"bs_about_hero_img_mb": "https://cdn.hstatic.net/files/200001105437/file/image-placeholder__-_change_image_here-1.png",
+
+
+"bs_about_story_title": "VỀ BADASS - THƯƠNG HIỆU THỜI TRANG NAM HÀNG ĐẦU VIỆT NAM",
+
+
+"bs_about_story_intro": "Khởi đầu hành trình từ năm 2014 với tiền thân là 360 Boutique - cái tên đã trở nên quen thuộc và đồng hành cùng hàng triệu khách hàng trong suốt một thập kỷ. Chúng tôi tự hào có hơn 10 năm xây dựng, phát triển để cùng đàn ông Việt Nam khẳng định phong cách riêng bản lĩnh.",
+
+
+"bs_about_story_img": "https://cdn.hstatic.net/files/200001105437/file/image-6_1a125b7fe24a4109aa6c96f03d9d1843.png",
+
+
+"bs_about_sf_img": "https://i.postimg.cc/sgFLsg0d/650214969-1461476896018236-3006185810442088235-n-(1).jpg",
+
+
+"bs_about_sf_img_mb": "https://i.postimg.cc/sgFLsg0d/650214969-1461476896018236-3006185810442088235-n-(1).jpg",
+
+
+"bs_about_mission_img": "https://cdn.hstatic.net/files/200001105437/file/image-4_0e2b159fd5a042d1bad632ead55f2609.png",
+
+
+"bs_about_vision_img": "https://i.postimg.cc/xT673BDV/BANNER-WEB-(595X363).jpg",
+
+
+"bs_about_vision_icon_1": "https://cdn.hstatic.net/files/200001105437/file/3.svg",
+
+
+"bs_about_vision_icon_2": "https://cdn.hstatic.net/files/200001105437/file/4.svg",
+
+
+"bs_about_vision_icon_3": "https://cdn.hstatic.net/files/200001105437/file/5.svg",
+
+
+"bs_about_vision_icon_4": "https://cdn.hstatic.net/files/200001105437/file/6.svg",
+
+
+"bs_about_culture_img_main": "https://cdn.hstatic.net/files/200001105437/file/image-3_37d77401dfaa41b2a2273b1672f826a8.png",
+
+
+"bs_about_culture_img_1": "https://cdn.hstatic.net/files/200001105437/file/image-1_a05519bfc7bd429288c2f65c57deee83.png",
+
+
+"bs_about_culture_img_2": "https://cdn.hstatic.net/files/200001105437/file/image_4baaec942f1a45d1a2f632b1d47cfda4.png",
+
+
+"bs_about_culture_img_3": "https://cdn.hstatic.net/files/200001105437/file/image-2_f6498d53a59f485b8797072ae806e92a.png",
+
+
+"bs_about_culture_icon_1": "https://cdn.hstatic.net/files/200001105437/file/3.svg",
+
+
+"bs_about_culture_icon_2": "https://cdn.hstatic.net/files/200001105437/file/4.svg",
+
+
+"bs_about_culture_icon_3": "https://cdn.hstatic.net/files/200001105437/file/5.svg",
+
+
+"bs_about_culture_icon_4": "https://cdn.hstatic.net/files/200001105437/file/6.svg",
+
+
+"bs_about_story_heading": "BADASS - Thay đổi để trưởng thành, không để rời xa.",
+
+
+"bs_about_story_block1_lead": "Dù thay đổi tên gọi, BADASS vẫn vẹn nguyên những giá trị cốt lõi đã làm nên linh hồn của 360 Boutique:",
+
+
+"bs_about_story_block1_list": "Sản phẩm chất lượng, phom dáng dễ mặc, dịch vụ chu đáo và lấy trải nghiệm của bạn làm trung tâm.\nNhưng ở BADASS, bạn sẽ tìm thấy một cá tính rõ rệt hơn - mạnh mẽ, hiện đại, gần gũi và đầy cảm hứng.",
+
+
+"bs_about_story_block2_lead": "Tại BADASS, chúng tôi tin rằng đàn ông không cần phải khoác lên mình những chuẩn mực của người khác.",
+
+
+"bs_about_story_block2_list": "Bạn không cần phải giống ai cả – chỉ cần là chính mình, một cách tử tế và không khoan nhượng.\nBADASS không chỉ là một thương hiệu thời trang, đó là một tinh thần sống:",
+
+
+"bs_about_story_tagline": "Hãy khác biệt - Tạo ra xu hướng - Bền vững !",
+
+
+"bs_about_sf_slogan": "\"SLOW FASHION\"",
+
+
+"bs_about_sf_intro": "Trong một thế giới mà thời trang nhanh đang bùng nổ và vội vã, BADASS lựa chọn đi ngược dòng. Với Slogan \"Slow Fashion\",",
+
+
+"bs_about_sf_text_bold": "Chúng tôi khẳng định hướng đi bền vững - cả trong chất lượng sản phẩm lẫn thông điệp nhân văn phía sau.",
+
+
+"bs_about_sf_text": "Mỗi thiết kế tại BADASS đều được tạo nên từ sự chỉn chu, hướng đến tính ứng dụng lâu dài, hạn chế lãng phí và tuyệt đối tôn trọng cá tính người mặc. Thời trang tại BADASS không phải là một cuộc đua xu hướng nhất thời, mà là một hành trình sống động. Chúng tôi tự hào là người bạn đồng hành giúp bạn tự định nghĩa phong cách, phản ánh \"màu sắc\" riêng của con người bạn và cùng bạn trưởng thành qua mọi dấu mốc cuộc đời.",
+
+
+"bs_about_mission_title": "Sứ Mệnh",
+
+
+"bs_about_mission_text_bold": "Trở thành một thương hiệu thời trang tử tế, giúp các bạn trẻ tự tin và đẹp hơn mỗi ngày.",
+
+
+"bs_about_mission_text": "Sự \"tử tế\" của BADASS được định nghĩa bằng chất lượng thực trên từng thớ vải, bằng sự chân thành trong dịch vụ và bằng những giá trị tích cực mà chúng tôi đóng góp cho cộng đồng.",
+
+
+"bs_about_vision_title": "Tầm nhìn đến năm 2030",
+
+
+"bs_about_vision_subtitle": "BADASS không ngừng nỗ lực để hiện thực hóa những mục tiêu chiến lược, khẳng định vị thế và trách nhiệm của mình qua 4 trụ cột lõi:",
+
+
+"bs_about_vision_title_1": "Phát triển hệ thống:",
+
+
+"bs_about_vision_desc_1": "Xây dựng và mở rộng hệ thống 50 cửa hàng trải dài trên toàn quốc, mang trải nghiệm mua sắm đẳng cấp đến gần hơn với khách hàng.",
+
+
+"bs_about_vision_title_2": "Vị thế thương hiệu:",
+
+
+"bs_about_vision_desc_2": "Trở thành nhãn hàng thời trang quốc dân - thương hiệu được công nhận rộng rãi, nhận được sự yêu mến sâu sắc từ cộng đồng và góp phần quan trọng trên bản đồ thời trang Việt Nam.",
+
+
+"bs_about_vision_title_3": "Trách nhiệm xã hội:",
+
+
+"bs_about_vision_desc_3": "Tiếp nối truyền thống từ 360 Boutique, BADASS cam kết trích một phần lợi nhuận để phụng sự xã hội (xây dựng trường học vùng cao, xây nhà tình thương, hỗ trợ các hoàn cảnh khó khăn...), lan tỏa hơi ấm và sự tử tế đến những nơi cần nhất.",
+
+
+"bs_about_vision_title_4": "Giá trị cho nhân sự:",
+
+
+"bs_about_vision_desc_4": "Tạo dựng môi trường làm việc hạnh phúc bằng cách chia sẻ lợi nhuận và thành quả công việc, giúp đời sống của mỗi nhân sự đồng hành cùng BADASS ngày càng tốt đẹp và phát triển hơn.",
+
+
+"bs_about_culture_label": "VĂN HÓA DOANH NGHIỆP",
+
+
+"bs_about_culture_brand": "BADASS",
+
+
+"bs_about_culture_brand_desc": "Badass không chỉ là 1 thương hiệu thời trang đó là một lối sống. Chúng tôi tôn trọng sự khác biệt, khuyến khích sáng tạo và luôn hướng đến những giá trị bền vững",
+
+
+"bs_about_culture_value_title_1": "SÁNG TẠO",
+
+
+"bs_about_culture_value_desc_1": "Luôn khuyến khích những ý tưởng mới mẻ và khác biệt để tạo nên dấu ấn riêng.",
+
+
+"bs_about_culture_value_title_2": "ĐOÀN KẾT",
+
+
+"bs_about_culture_value_desc_2": "Chúng tôi tin sức mạnh của tập thể giúp chúng ta đi xa và vững vàng hơn.",
+
+
+"bs_about_culture_value_title_3": "TỐC ĐỘ",
+
+
+"bs_about_culture_value_desc_3": "Hành động nhanh, linh hoạt và không ngừng cải tiến để bắt kịp xu hướng.",
+
+
+"bs_about_culture_value_title_4": "KHÁC BIỆT",
+
+
+"bs_about_culture_value_desc_4": "Dám nghĩ, dám làm và luôn tự hào với chất riêng của người Badass.",
+
+
+"bs_about_recruit_blog": "tuyen-dung",
+
+
+"bs_about_recruit_limit": "8",
+
+
+"bs_about_recruit_label": "TUYỂN DỤNG",
+
+
+"bs_about_recruit_title": "Gia nhập đội ngũ BADASS",
+
+
+"bs_about_recruit_subtitle": "",
+
+
+"bs_about_recruit_desc": "Tìm kiếm môi trường để phát triển và bứt phá ? Badass luôn chào đón những cá nhân tài năng, đầy nhiệt huyết và đam mê",
+
+
+"bs_about_recruit_btn_text": "Xem tất cả",
+
+
+"bs_about_recruit_btn_link": "",
+
+
+"bs_about_recruit_img": "https://cdn.hstatic.net/files/200001105437/file/frame_1000009378_764609508bb441ebab9ea0deb3f2e02f.png",
+
+
+"bs_about_recruit_stat1_num": "30+",
+
+
+"bs_about_recruit_stat1_label": "Vị trí đang tuyển",
+
+
+"bs_about_recruit_stat2_num": "500+",
+
+
+"bs_about_recruit_stat2_label": "Thành viên Badass",
+
+
+"bs_recruit_webhook_url": "https://script.google.com/macros/library/d/133R9B8sxmBKBM_2AlRuJ5cTz6aC4rO17LTsLUyKcfWAM_0gvxEgq07YU/1",
+
+
+"bs_uudai_banner_show": true,
+
+
+"bs_uudai_banner_autoplay": false,
+
+
+"bs_uudai_banner_speed": "5",
+
+
+"bs_uudai_banner_1": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_qu_c_tr__ng.webp",
+
+
+"bs_uudai_banner_1_mb": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_qu_c_tr__ng_4ff03d10c6344de3bc4c0389b3d5c6ba.webp",
+
+
+"bs_uudai_banner_1_link": "https://badass.vn/collections/uu-dai",
+
+
+"bs_uudai_banner_2": "",
+
+
+"bs_uudai_banner_2_mb": "",
+
+
+"bs_uudai_banner_2_link": "",
+
+
+"bs_uudai_banner_3": "",
+
+
+"bs_uudai_banner_3_mb": "",
+
+
+"bs_uudai_banner_3_link": "",
+
+
+"bs_uudai_banner_4": "",
+
+
+"bs_uudai_banner_4_mb": "",
+
+
+"bs_uudai_banner_4_link": "",
+
+
+"bs_uudai_vouchers_show": false,
+
+
+"bs_uudai_vouchers_title": "Voucher giảm giá",
+
+
+"bs_uudai_voucher_title_1": "GIẢM 100K",
+
+
+"bs_uudai_voucher_cond_1": "Cho hoá đơn mua hàng từ 999K",
+
+
+"bs_uudai_voucher_hsd_1": "31-12-2026",
+
+
+"bs_uudai_voucher_code_1": "BADASS100",
+
+
+"bs_uudai_voucher_icon_1": "",
+
+
+"bs_uudai_voucher_title_2": "FREESHIP",
+
+
+"bs_uudai_voucher_cond_2": "Cho hoá đơn mua hàng từ 599k",
+
+
+"bs_uudai_voucher_hsd_2": "31-12-2026",
+
+
+"bs_uudai_voucher_code_2": "FREESHIP",
+
+
+"bs_uudai_voucher_icon_2": "",
+
+
+"bs_uudai_voucher_title_3": "GIẢM 100K",
+
+
+"bs_uudai_voucher_cond_3": "Cho hoá đơn mua hàng từ 999K",
+
+
+"bs_uudai_voucher_hsd_3": "31-12-2026",
+
+
+"bs_uudai_voucher_code_3": "BADASS100",
+
+
+"bs_uudai_voucher_icon_3": "",
+
+
+"bs_uudai_voucher_title_4": "GIẢM 100K",
+
+
+"bs_uudai_voucher_cond_4": "Cho hoá đơn mua hàng từ 999K",
+
+
+"bs_uudai_voucher_hsd_4": "31-12-2026",
+
+
+"bs_uudai_voucher_code_4": "BADASS100",
+
+
+"bs_uudai_voucher_icon_4": "",
+
+
+"bs_uudai_voucher_title_5": "",
+
+
+"bs_uudai_voucher_cond_5": "",
+
+
+"bs_uudai_voucher_hsd_5": "",
+
+
+"bs_uudai_voucher_code_5": "",
+
+
+"bs_uudai_voucher_icon_5": "",
+
+
+"bs_uudai_voucher_title_6": "",
+
+
+"bs_uudai_voucher_cond_6": "",
+
+
+"bs_uudai_voucher_hsd_6": "",
+
+
+"bs_uudai_voucher_code_6": "",
+
+
+"bs_uudai_voucher_icon_6": "",
+
+
+"bs_uudai_voucher_source": "manual",
+
+
+"bs_store_title": "HỆ THỐNG CỬA HÀNG",
+
+
+"bs_store_section_title": "HỆ THỐNG CỬA HÀNG",
+
+
+"bs_store_phone_title": "Mua hàng online, góp ý, khiếu nại",
+
+
+"bs_store_phone": "0984851578",
+
+
+"bs_store_address_title": "Trụ sở chính",
+
+
+"bs_store_address": "Số 60 ngõ 850 đường Láng, phường Láng Thượng, Hà Nội",
+
+
+"bs_store_email_title": "Email liên hệ",
+
+
+"bs_store_email": "Badass.cskh@gmail.com",
+
+
+"bs_store_hours_title": "Thời gian làm việc",
+
+
+"bs_store_hours": "<strong>Thứ 2 đến Chủ nhật</strong><br>08:00 - 22:00 hằng ngày",
+
+
+"bs_store_api_url": "https://script.google.com/macros/s/AKfycbwZ-L-PbYlWsxkZaEZzUbWUY5fOXeMY-2Y0l25eiwtKavuwtAiO-iQNHXqmUlyxfAup/exec",
+
+
+"bs_store_default_map": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119165.10826672215!2d105.64737121640627!3d21.036301500000018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab0042ef9c39%3A0xa5ca7c38d29738fe!2zQkFEQVNTICggMzYwIEJPVVRJUVVFIMSQ4buVaSBUw6puIFRoxrDGoW5nIEhp4buHdSk!5e0!3m2!1svi!2s!4v1780913913844!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+
+
+"header_mega_img_1": "https://cdn.hstatic.net/files/200001105437/file/artboard_2.jpg",
+
+
+"header_mega_viewall_1": "/",
+
+
+"header_mega_img_2": "https://cdn.hstatic.net/files/200001105437/file/artboard_2.jpg",
+
+
+"header_mega_viewall_2": "https://badassvn.myharavan.com/collections/ao-nam",
+
+
+"header_mega_img_3": "https://cdn.hstatic.net/files/200001105437/file/artboard_1.jpg",
+
+
+"header_mega_viewall_3": "https://badassvn.myharavan.com/collections/quan-nam",
+
+
+"header_mega_img_4": "https://cdn.hstatic.net/files/200001105437/file/artboard_3.jpg",
+
+
+"header_mega_viewall_4": "https://badassvn.myharavan.com/collections/phu-kien",
+
+
+"header_mega_img_5": "",
+
+
+"header_mega_viewall_5": "",
+
+
+"bs_collection_banner_btn_show": false,
+
+
+"bs_collection2_banner_btn_show": false,
+
+
+"bs_collection3_banner_btn_show": false,
+
+
+"bs_coll_price_ranges": "Dưới 300.000đ|0|300000\n300.000đ - 500.000đ|300000|500000\n500.000đ - 1.000.000đ|500000|1000000\nTrên 1.000.000đ|1000000|",
+
+
+"bs_hero_video_1": "",
+
+
+"bs_hero_video_2": "",
+
+
+"bs_hero_video_3": "",
+
+
+"bs_hero_video_4": "",
+
+
+"bs_hero_video_5": "",
+
+
+"bs_hero_video_6": "",
+
+
+"topbar_text_2": "Ưu đãi 20% giá trị đơn hàng trong tháng sinh nhật",
+
+
+"topbar_text_3": "",
+
+
+"topbar_speed": "3500",
+
+
+"bs_hero_showbtntitle_6": false,
+
+
+"bs_hero_showbtntitle_2": false,
+
+
+"bs_hero_showbtntitle_3": false,
+
+
+"bs_hero_showbtntitle_4": false,
+
+
+"bs_hero_showbtntitle_5": false,
+
+
+"bs_policy_title": "CHÍNH SÁCH HỖ TRỢ",
+
+
+"bs_ldp_hero_showbtntitle_1": false,
+
+
+"bs_ldp_hero_showbtntitle_2": false,
+
+
+"bs_ldp_hero_showbtntitle_3": false,
+
+
+"bs_ldp_hero_showbtntitle_4": false,
+
+
+"bs_ldp_hero_showbtntitle_5": false,
+
+
+"bs_ldp_hero_showbtntitle_6": false,
+
+
+"bs_subcat_show": true,
+
+
+"bs_ldp_countdown_show": false,
+
+
+"bs_ldp_voucher_show": false,
+
+
+"bs_ldp_section1_total_limit": "Xem tất cả",
+
+
+"bs_coll_occasions_show": true,
+
+
+"bs_hero_showbtntitle_1": false,
+
+
+"bs_hero_btn_1_show": false,
+
+
+"bs_hero_btn_2_show": false,
+
+
+"bs_hero_btn_3_show": false,
+
+
+"bs_hero_btn_4_show": false,
+
+
+"bs_hero_btn_5_show": false,
+
+
+"bs_hero_btn_6_show": false,
+
+
+"onireviews_use": true,
+
+
+"title_review": "Đánh giá",
+
+
+"en_customer_layout": "theme",
+
+
+"en_topbar_show": true,
+
+
+"en_topbar_bg": "#f5f5f5",
+
+
+"en_topbar_text_color": "#333333",
+
+
+"en_topbar_text": "Free shipping fee for the order from 499K",
+
+
+"en_header_mainmenu": "main-menu-eng",
+
+
+"en_theme_color": "#000000",
+
+
+"en_google_fonts_url": "",
+
+
+"en_pagination_limit": "20",
+
+
+"en_home_slider_show": true,
+
+
+"en_home_slider_imgdesk_1": "https://cdn.hstatic.net/files/200001105437/file/image-placeholder__-_change_image_here-2.png",
+
+
+"en_home_slider_imgmb_1": "https://cdn.hstatic.net/files/200001105437/file/image-placeholder__-_change_image_here-2.png",
+
+
+"en_home_slider_link_1": "/",
+
+
+"en_home_slider_alt_1": "NEW VIBEPT ECTION",
+
+
+"en_promotion_hrvapp_use": false,
+
+
+"en_promotion_hrvapp": "appcombo",
+
+
+"en_combo_icon": "",
+
+
+"en_footer_info_1": "",
+
+
+"en_footer_info_2": "",
+
+
+"en_footer_info_3": "",
+
+
+"en_footer_menu1_title": "About us",
+
+
+"en_footer_menu1_linklist": "main-menu",
+
+
+"en_footer_menu2_title": "Policy",
+
+
+"en_footer_menu2_linklist": "main-menu",
+
+
+"en_footer_social_title": "Connect",
+
+
+"en_footer_social_fb_link": "/",
+
+
+"en_footer_social_ins_link": "/",
+
+
+"en_cart_note": "",
+
+
+"en_logo.png": "",
+
+
+"en_favicon.png": "",
+
+
+"en_share_fb_home.png": "",
+
+
+"en_footer_hotline": "0973 288586",
+
+
+"en_footer_email": "Badass.cskh@gmail.com",
+
+
+"en_footer_social_yt_link": "/",
+
+
+"en_footer_social_tt_link": "/",
+
+
+"en_footer_payment_title": "Payment",
+
+
+"en_footer_company_name": "INTERVIECTIONS OKAPI VISION",
+
+
+"en_footer_company_id": "Code Business 011078523 Levels May 05/06/2025 at TP Hanoi Finance",
+
+
+"en_footer_bct_img": "https://cdn.hstatic.net/files/200001105437/file/bct.png",
+
+
+"en_footer_bct_link": "http://online.gov.vn/",
+
+
+"en_home_slider_show_2": true,
+
+
+"en_home_slider_imgdesk_2": "https://cdn.hstatic.net/files/200001105437/file/1c94faeab4792b95749f60386db0dade502aa082.png",
+
+
+"en_home_slider_imgmb_2": "https://cdn.hstatic.net/files/200001105437/file/1c94faeab4792b95749f60386db0dade502aa082.png",
+
+
+"en_home_slider_link_2": "/",
+
+
+"en_home_slider_show_3": false,
+
+
+"en_home_slider_imgdesk_3": "",
+
+
+"en_home_slider_imgmb_3": "",
+
+
+"en_home_slider_link_3": "",
+
+
+"en_logo_url": "https://cdn.hstatic.net/files/200001105437/file/logo_header.png",
+
+
+"en_favicon_url": "https://cdn.hstatic.net/files/200001105437/file/logo_header.png",
+
+
+"en_share_fb_home_url": "https://cdn.hstatic.net/files/200001105437/file/logo_header.png",
+
+
+"en_footer_logo_url": "https://cdn.hstatic.net/files/200001105437/file/logo_footer.png",
+
+
+"en_bs_footer_show": true,
+
+
+"en_bs_footer_bg": "#f5f5f5",
+
+
+"en_bs_footer_text_color": "#404040",
+
+
+"en_bs_footer_title_color": "#404040",
+
+
+"en_bs_footer_link_color": "#404040",
+
+
+"en_bs_footer_link_hover_color": "#0a0a0a",
+
+
+"en_bs_footer_icon_color": "#0a0a0a",
+
+
+"en_bs_footer_divider_color": "#e5e5e5",
+
+
+"en_bs_footer_logo": "https://cdn.hstatic.net/files/200001105437/file/logo_footer.png",
+
+
+"en_bs_footer_hotline": "0973 288586",
+
+
+"en_bs_footer_email": "cskh@badass.vn",
+
+
+"en_bs_footer_menu1_title": "About us",
+
+
+"en_bs_footer_menu1_linklist": "footer-about-us",
+
+
+"en_bs_footer_menu2_title": "Policy",
+
+
+"en_bs_footer_menu2_linklist": "footer-policy",
+
+
+"en_bs_footer_social_title": "Connect with BADASS",
+
+
+"en_bs_footer_social_fb": "https://www.facebook.com/badassofficial.vn",
+
+
+"en_bs_footer_social_yt": "",
+
+
+"en_bs_footer_social_tt": "https://www.tiktok.com/@badass.vn",
+
+
+"en_bs_footer_social_ins": "/",
+
+
+"en_bs_footer_payment_title": "Payment",
+
+
+"en_bs_footer_company_name": "OKAPI VIETNAM JOINT STOCK COMPANY",
+
+
+"en_bs_footer_company_id": "Enterprise Registration No. 0111078523, issued on June 5, 2025 by the Hanoi Department of Finance",
+
+
+"en_bs_footer_bct_img": "https://cdn.hstatic.net/files/200001105437/file/bct.png",
+
+
+"en_bs_footer_bct_link": "http://online.gov.vn/nen-tang/05b95c2e-44e9-4063-8994-9b9d3a3c1d7e",
+
+
+"en_theme_font_heading": "Montserrat",
+
+
+"en_theme_font_body": "Montserrat",
+
+
+"en_home_slider_title_1": "NEW VIBEPT ECTION",
+
+
+"en_home_slider_btn_1": "Discover",
+
+
+"en_home_slider_title_2": "NEW VIBEPT ECTION",
+
+
+"en_home_slider_btn_2": "Discover",
+
+
+"en_home_slider_title_3": "",
+
+
+"en_home_slider_btn_3": "Discover",
+
+
+"en_home_slider_show_4": false,
+
+
+"en_home_slider_title_4": "",
+
+
+"en_home_slider_btn_4": "Discover",
+
+
+"en_home_slider_imgdesk_4": "",
+
+
+"en_home_slider_imgmb_4": "",
+
+
+"en_home_slider_link_4": "",
+
+
+"en_bs_hero_show": true,
+
+
+"en_bs_hero_autoplay": "5000",
+
+
+"en_bs_hero_title_1": "",
+
+
+"en_bs_hero_btn_1": "Discover",
+
+
+"en_bs_hero_link_1": "/",
+
+
+"en_bs_hero_imgdesk_1": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_qu_c_tr__ng.webp",
+
+
+"en_bs_hero_imgmb_1": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_qu_c_tr__ng_4ff03d10c6344de3bc4c0389b3d5c6ba.webp",
+
+
+"en_bs_hero_alt_1": "",
+
+
+"en_bs_hero_show_2": true,
+
+
+"en_bs_hero_title_2": "",
+
+
+"en_bs_hero_btn_2": "",
+
+
+"en_bs_hero_link_2": "",
+
+
+"en_bs_hero_imgdesk_2": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_together_trip.webp",
+
+
+"en_bs_hero_imgmb_2": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_together_trip_1a87d1b5e4204668a85e923407d5dbd8.webp",
+
+
+"en_bs_hero_show_3": true,
+
+
+"en_bs_hero_title_3": "",
+
+
+"en_bs_hero_btn_3": "Discover",
+
+
+"en_bs_hero_link_3": "",
+
+
+"en_bs_hero_imgdesk_3": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_anywear.webp",
+
+
+"en_bs_hero_imgmb_3": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_anywear_e6ba3704925948faa878f0b6e36a587c.webp",
+
+
+"en_bs_hero_show_4": true,
+
+
+"en_bs_hero_title_4": "",
+
+
+"en_bs_hero_btn_4": "Discover",
+
+
+"en_bs_hero_link_4": "",
+
+
+"en_bs_hero_imgdesk_4": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_xu_n_phi_m_.webp",
+
+
+"en_bs_hero_imgmb_4": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_xu_n_phi_m__da61bf47fbf9439da6e14b470685d119.webp",
+
+
+"en_bs_hero_autoplay_enable": true,
+
+
+"en_logo_overlay_url": "https://cdn.hstatic.net/files/200001105437/file/logo_header_white.svg",
+
+
+"en_header_sale_badge": "- 50%",
+
+
+"en_bs_category_show": true,
+
+
+"en_bs_category_title": "Product categories",
+
+
+"en_bs_category_show_1": true,
+
+
+"en_bs_category_title_1": "Shirt",
+
+
+"en_bs_category_img_1": "https://cdn.hstatic.net/files/200001105437/file/stdtk706__5_.jpg",
+
+
+"en_bs_category_link_1": "",
+
+
+"en_bs_category_show_2": true,
+
+
+"en_bs_category_title_2": "Polo",
+
+
+"en_bs_category_img_2": "https://cdn.hstatic.net/files/200001105437/file/pohtk741__6_.jpg",
+
+
+"en_bs_category_link_2": "",
+
+
+"en_bs_category_show_3": true,
+
+
+"en_bs_category_title_3": "T-Shirts",
+
+
+"en_bs_category_img_3": "https://cdn.hstatic.net/files/200001105437/file/88.png",
+
+
+"en_bs_category_link_3": "/",
+
+
+"en_bs_category_show_4": true,
+
+
+"en_bs_category_title_4": "Jacket",
+
+
+"en_bs_category_img_4": "https://cdn.hstatic.net/files/200001105437/file/adltk601__3_.jpg",
+
+
+"en_bs_category_link_4": "/",
+
+
+"en_bs_category_show_5": true,
+
+
+"en_bs_category_title_5": "Trouses",
+
+
+"en_bs_category_img_5": "https://cdn.hstatic.net/files/200001105437/file/bd3821_e37001b323634f8ba39d144fadec092e.webp",
+
+
+"en_bs_category_link_5": "/",
+
+
+"en_bs_category_show_6": true,
+
+
+"en_bs_category_title_6": "Shorts",
+
+
+"en_bs_category_img_6": "https://cdn.hstatic.net/files/200001105437/file/qsktk729__2_.png",
+
+
+"en_bs_category_link_6": "/",
+
+
+"en_bs_category_show_7": true,
+
+
+"en_bs_category_title_7": "Jeans",
+
+
+"en_bs_category_img_7": "https://cdn.hstatic.net/files/200001105437/file/qjdtk703__2_.png",
+
+
+"en_bs_category_link_7": "",
+
+
+"en_bs_category_show_8": true,
+
+
+"en_bs_category_title_8": "Kaki",
+
+
+"en_bs_category_img_8": "https://cdn.hstatic.net/files/200001105437/file/aphol701_-_qkstk703__3__987b427c983c4dc8abc676acbfe66d7e.webp",
+
+
+"en_bs_category_link_8": "",
+
+
+"en_bs_collection_show": true,
+
+
+"en_bs_collection_banner_img": "https://cdn.hstatic.net/files/200001105437/file/th_i_trang_h_ng_ng_y_a22b5537bda4406da5b305e6300d7fea.webp",
+
+
+"en_bs_collection_banner_img_mb": "https://cdn.hstatic.net/files/200001105437/file/th_i_trang_h_ng_ng_y.webp",
+
+
+"en_bs_collection_banner_title": "CASUAL WEAR",
+
+
+"en_bs_collection_banner_btn": "Buy now",
+
+
+"en_bs_collection_banner_link": "https://badassvn.myharavan.com/collections/ao-thun",
+
+
+"en_bs_collection_title": "Casual Outfits",
+
+
+"en_bs_collection_handle": "thoi-trang-hang-ngay",
+
+
+"en_bs_collection_limit": "8",
+
+
+"en_bs_collection_viewall_text": "View all",
+
+
+"en_bs_collection_viewall_link": "https://badassvn.myharavan.com/collections/thoi-trang-hang-ngay",
+
+
+"en_bs_swatch_name_1": "Đen",
+
+
+"en_bs_swatch_hex_1": "#0a0a0a",
+
+
+"en_bs_swatch_name_2": "Trắng",
+
+
+"en_bs_swatch_hex_2": "#ffffff",
+
+
+"en_bs_swatch_name_3": "Đỏ",
+
+
+"en_bs_swatch_hex_3": "#dc2626",
+
+
+"en_bs_swatch_name_4": "Xanh Rêu",
+
+
+"en_bs_swatch_hex_4": "#0a6e31",
+
+
+"en_bs_swatch_name_5": "Xanh Navy",
+
+
+"en_bs_swatch_hex_5": "#1e3a5f",
+
+
+"en_bs_swatch_name_6": "Xanh Lá Cây",
+
+
+"en_bs_swatch_hex_6": "#16a34a",
+
+
+"en_bs_swatch_name_7": "Vàng",
+
+
+"en_bs_swatch_hex_7": "#eab308",
+
+
+"en_bs_swatch_name_8": "Cam",
+
+
+"en_bs_swatch_hex_8": "#f97316",
+
+
+"en_bs_swatch_name_9": "Hồng",
+
+
+"en_bs_swatch_hex_9": "#ec4899",
+
+
+"en_bs_swatch_name_10": "Tím",
+
+
+"en_bs_swatch_hex_10": "#7c3aed",
+
+
+"en_bs_swatch_name_11": "Xám",
+
+
+"en_bs_swatch_hex_11": "#737373",
+
+
+"en_bs_swatch_name_12": "Be",
+
+
+"en_bs_swatch_hex_12": "#d4b896",
+
+
+"en_bs_swatch_name_13": "Nâu",
+
+
+"en_bs_swatch_hex_13": "#92400e",
+
+
+"en_bs_swatch_name_14": "Kem",
+
+
+"en_bs_swatch_hex_14": "#fef3c7",
+
+
+"en_bs_swatch_name_15": "Be Đậm",
+
+
+"en_bs_swatch_hex_15": "#d3ad86",
+
+
+"en_bs_swatch_name_16": "Xám Đậm",
+
+
+"en_bs_swatch_hex_16": "#585858",
+
+
+"en_bs_swatch_name_17": "",
+
+
+"en_bs_swatch_hex_17": "#cccccc",
+
+
+"en_bs_swatch_name_18": "",
+
+
+"en_bs_swatch_hex_18": "#cccccc",
+
+
+"en_bs_swatch_name_19": "",
+
+
+"en_bs_swatch_hex_19": "#cccccc",
+
+
+"en_bs_swatch_name_20": "",
+
+
+"en_bs_swatch_hex_20": "#cccccc",
+
+
+"en_bs_pl_frame_tag_1": "buy1get1",
+
+
+"en_bs_pl_frame_img_1": "https://cdn.hstatic.net/files/200001105437/file/frame_bottom.webp",
+
+
+"en_bs_pl_frame_tag_2": "",
+
+
+"en_bs_pl_frame_img_2": "",
+
+
+"en_bs_pl_frame_tag_3": "",
+
+
+"en_bs_pl_frame_img_3": "",
+
+
+"en_bs_pl_frame_tag_4": "",
+
+
+"en_bs_pl_frame_img_4": "",
+
+
+"en_bs_pl_frame_tag_5": "",
+
+
+"en_bs_pl_frame_img_5": "",
+
+
+"en_bs_pl_frame_tag_6": "",
+
+
+"en_bs_pl_frame_img_6": "",
+
+
+"en_bs_pl_frame_tag_7": "",
+
+
+"en_bs_pl_frame_img_7": "",
+
+
+"en_bs_pl_frame_tag_8": "",
+
+
+"en_bs_pl_frame_img_8": "",
+
+
+"en_bs_pl_frame_tag_9": "",
+
+
+"en_bs_pl_frame_img_9": "",
+
+
+"en_bs_pl_frame_tag_10": "",
+
+
+"en_bs_pl_frame_img_10": "",
+
+
+"en_bs_collection2_show": true,
+
+
+"en_bs_collection2_banner_img": "https://cdn.hstatic.net/files/200001105437/file/th__i_trang_c_ng_s__a0b2641b55104e1eae98d142799f80b9.webp",
+
+
+"en_bs_collection2_banner_img_mb": "https://cdn.hstatic.net/files/200001105437/file/th__i_trang_c_ng_s_.webp",
+
+
+"en_bs_collection2_banner_title": "OFFICE WEAR",
+
+
+"en_bs_collection2_banner_btn": "Buy now",
+
+
+"en_bs_collection2_banner_link": "/",
+
+
+"en_bs_collection2_title": "OFFICE OUTFITS",
+
+
+"en_bs_collection2_handle": "thoi-trang-cong-so",
+
+
+"en_bs_collection2_limit": "8",
+
+
+"en_bs_collection2_viewall_text": "View all",
+
+
+"en_bs_collection2_viewall_link": "https://badassvn.myharavan.com/collections/thoi-trang-cong-so",
+
+
+"en_bs_collection3_show": true,
+
+
+"en_bs_collection3_banner_img": "https://cdn.hstatic.net/files/200001105437/file/th_i_trang_street_wear_eac052884cf049f0912f2ccce9db8f21.webp",
+
+
+"en_bs_collection3_banner_img_mb": "https://cdn.hstatic.net/files/200001105437/file/th_i_trang_street_wear.webp",
+
+
+"en_bs_collection3_banner_title": "STREETWEAR",
+
+
+"en_bs_collection3_banner_btn": "Buy now",
+
+
+"en_bs_collection3_banner_link": "/",
+
+
+"en_bs_collection3_title": "STREETWEAR OUTFITS",
+
+
+"en_bs_collection3_handle": "thoi-trang-street-wear",
+
+
+"en_bs_collection3_limit": "8",
+
+
+"en_bs_collection3_viewall_text": "View all",
+
+
+"en_bs_collection3_viewall_link": "https://badassvn.myharavan.com/collections/thoi-trang-street-wear",
+
+
+"en_bs_featcol_show": true,
+
+
+"en_bs_featcol_title": "Featured Collections",
+
+
+"en_bs_featcol_show_1": true,
+
+
+"en_bs_featcol_title_1": "TRIP TOGETHER",
+
+
+"en_bs_featcol_img_1": "https://i.postimg.cc/tgjgt1Gh/VUONG-(1).png",
+
+
+"en_bs_featcol_link_1": "https://badassvn.myharavan.com/collections/bst-trip-together",
+
+
+"en_bs_featcol_show_2": true,
+
+
+"en_bs_featcol_title_2": "ANYWEAR",
+
+
+"en_bs_featcol_img_2": "https://cdn.hstatic.net/files/200001105437/file/home_col_1.png",
+
+
+"en_bs_featcol_link_2": "https://badassvn.myharavan.com/collections/bst-any-wear",
+
+
+"en_bs_featcol_show_3": true,
+
+
+"en_bs_featcol_title_3": "BEYONDS ROLES",
+
+
+"en_bs_featcol_img_3": "https://cdn.hstatic.net/files/200001105437/file/home_col_3.png",
+
+
+"en_bs_featcol_link_3": "https://badassvn.myharavan.com/collections/bst-beyond-roles",
+
+
+"en_bs_featcol_show_4": false,
+
+
+"en_bs_featcol_title_4": "Test",
+
+
+"en_bs_featcol_img_4": "https://cdn.hstatic.net/files/200001105437/file/home_col_1.png",
+
+
+"en_bs_featcol_link_4": "/",
+
+
+"en_bs_featcol_show_5": false,
+
+
+"en_bs_featcol_title_5": "Test",
+
+
+"en_bs_featcol_img_5": "https://cdn.hstatic.net/files/200001105437/file/home_col_1.png",
+
+
+"en_bs_featcol_link_5": "/",
+
+
+"en_bs_featcol_show_6": false,
+
+
+"en_bs_featcol_title_6": "test2",
+
+
+"en_bs_featcol_img_6": "https://cdn.hstatic.net/files/200001105437/file/home_col_1.png",
+
+
+"en_bs_featcol_link_6": "/",
+
+
+"en_bs_feedback_show": true,
+
+
+"en_bs_feedback_title": "Feedback Client",
+
+
+"en_bs_feedback_show_1": true,
+
+
+"en_bs_feedback_img_1": "https://cdn.hstatic.net/files/200001105437/file/vu_ng__6_.jpg",
+
+
+"en_bs_feedback_alt_1": "Feedback",
+
+
+"en_bs_feedback_show_2": true,
+
+
+"en_bs_feedback_img_2": "https://cdn.hstatic.net/files/200001105437/file/b_n_sao_c_a_dsc00708.jpg",
+
+
+"en_bs_feedback_alt_2": "Feedback",
+
+
+"en_bs_feedback_show_3": true,
+
+
+"en_bs_feedback_img_3": "https://cdn.hstatic.net/files/200001105437/file/_nh_ch_nh.jpg",
+
+
+"en_bs_feedback_alt_3": "Feedback",
+
+
+"en_bs_feedback_show_4": true,
+
+
+"en_bs_feedback_img_4": "https://cdn.hstatic.net/files/200001105437/file/2026_05_09__1__0004.jpg",
+
+
+"en_bs_feedback_alt_4": "Feedback",
+
+
+"en_bs_feedback_show_5": true,
+
+
+"en_bs_feedback_img_5": "https://cdn.hstatic.net/files/200001105437/file/shntk710_-_qsvtk710__7_.webp",
+
+
+"en_bs_feedback_alt_5": "Feedback",
+
+
+"en_bs_feedback_show_6": true,
+
+
+"en_bs_feedback_img_6": "https://cdn.hstatic.net/files/200001105437/file/pohtk736__7_.webp",
+
+
+"en_bs_feedback_alt_6": "Feedback",
+
+
+"en_bs_feedback_show_7": true,
+
+
+"en_bs_feedback_img_7": "https://cdn.hstatic.net/files/200001105437/file/stdtk706_-_qkstk703__10_.webp",
+
+
+"en_bs_feedback_alt_7": "Feedback",
+
+
+"en_bs_feedback_show_8": true,
+
+
+"en_bs_feedback_img_8": "https://cdn.hstatic.net/files/200001105437/file/shntk711_-_qsdtk711__7_.webp",
+
+
+"en_bs_feedback_alt_8": "Feedback",
+
+
+"en_bs_policy_show": true,
+
+
+"en_bs_policy_show_1": true,
+
+
+"en_bs_policy_icon_1": "https://cdn.hstatic.net/files/200001105437/file/policy_1.svg",
+
+
+"en_bs_policy_text_1": "30-Day Exchange – Defects, Size & Color",
+
+
+"en_bs_policy_show_2": true,
+
+
+"en_bs_policy_icon_2": "https://cdn.hstatic.net/files/200001105437/file/policy_2.svg",
+
+
+"en_bs_policy_text_2": "Free Shipping on Orders Over 499K",
+
+
+"en_bs_policy_show_3": true,
+
+
+"en_bs_policy_icon_3": "https://cdn.hstatic.net/files/200001105437/file/policy_3.svg",
+
+
+"en_bs_policy_text_3": "30-Day Product Warranty",
+
+
+"en_bs_policy_show_4": true,
+
+
+"en_bs_policy_icon_4": "https://cdn.hstatic.net/files/200001105437/file/policy_4.svg",
+
+
+"en_bs_policy_text_4": "100% Customer Satisfaction",
+
+
+"en_favicon_url.png": "",
+
+
+"en_bs_coll_show_filter_type": true,
+
+
+"en_bs_coll_show_filter_size": true,
+
+
+"en_bs_coll_show_filter_price": true,
+
+
+"en_bs_coll_show_filter_color": true,
+
+
+"en_bs_coll_show_filter_material": true,
+
+
+"en_bs_coll_show_filter_occasion": true,
+
+
+"en_bs_coll_show_filter_vendor": false,
+
+
+"en_bs_coll_size_label": "Size",
+
+
+"en_bs_coll_sizes": "S,M,L,XL, XXL, 29,30, 31, 32,33,34",
+
+
+"en_bs_coll_price_max": "10000000",
+
+
+"en_bs_coll_price_step": "50000",
+
+
+"en_bs_coll_materials": "Cotton,Polyester, Acrylic, Cenllule, Nylon,Rayon, Spadex,Viscose",
+
+
+"en_bs_coll_occasions": "Everyday Wear,Workwear,Sportswear,Travel,Streetwear",
+
+
+"en_bs_hero_show_5": true,
+
+
+"en_bs_hero_title_5": "",
+
+
+"en_bs_hero_btn_5": "Discover",
+
+
+"en_bs_hero_link_5": "",
+
+
+"en_bs_hero_imgdesk_5": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop_m_nh_tr__ng.webp",
+
+
+"en_bs_hero_imgmb_5": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile_m_nh_tr__ng_4f00199fd3fd427a85ed6d2fd51b99a0.webp",
+
+
+"en_bs_hero_show_6": false,
+
+
+"en_bs_hero_title_6": "",
+
+
+"en_bs_hero_btn_6": "Discover",
+
+
+"en_bs_hero_link_6": "",
+
+
+"en_bs_hero_imgdesk_6": "",
+
+
+"en_bs_hero_imgmb_6": "",
+
+
+"en_recently_viewed_show": true,
+
+
+"en_recently_viewed_title": "EXPLAINED",
+
+
+"en_recently_viewed_count": "8",
+
+
+"en_recently_viewed_expiry_days": "30",
+
+
+"en_cart_recently_viewed_show": false,
+
+
+"en_cart_recently_viewed_title": "EXPLAINED",
+
+
+"en_cart_recently_viewed_count": "8",
+
+
+"en_product_recommendations_show": true,
+
+
+"en_product_recommendations_title": "CLUE",
+
+
+"en_product_recommendations_limit": "12",
+
+
+"en_product_recommendations_fallback_collection": "tat-ca-san-pham",
+
+
+"en_pd_stores_show": true,
+
+
+"en_store_{{ i }}_name": "",
+
+
+"en_store_{{ i }}_map_embed": "",
+
+
+"en_pd_size_guide_show": true,
+
+
+"en_pd_size_guide_title": "Guide size select",
+
+
+"en_pd_size_guide_tag_1": "font",
+
+
+"en_pd_size_guide_sheet_1": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=766859575#gid=766859575",
+
+
+"en_pd_size_guide_image_1": "https://cdn.hstatic.net/files/200001105437/file/_o_ph_ng.png",
+
+
+"en_pd_size_guide_tag_2": "polo shirt",
+
+
+"en_pd_size_guide_sheet_2": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=705892303#gid=705892303",
+
+
+"en_pd_size_guide_image_2": "https://cdn.hstatic.net/files/200001105437/file/_o_polo.png",
+
+
+"en_pd_size_guide_tag_3": "shorts",
+
+
+"en_pd_size_guide_sheet_3": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=1243538303#gid=1243538303",
+
+
+"en_pd_size_guide_image_3": "https://cdn.hstatic.net/files/200001105437/file/qu_n_short.png",
+
+
+"en_pd_size_guide_tag_4": "short shirt",
+
+
+"en_pd_size_guide_sheet_4": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=672059871#gid=672059871",
+
+
+"en_pd_size_guide_image_4": "https://cdn.hstatic.net/files/200001105437/file/qu_n_short.png",
+
+
+"en_pd_size_guide_tag_5": "long-hand shirt",
+
+
+"en_pd_size_guide_sheet_5": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=1891068486#gid=1891068486",
+
+
+"en_pd_size_guide_image_5": "https://cdn.hstatic.net/files/200001105437/file/s__mi_d_i_tay.png",
+
+
+"en_pd_size_guide_tag_6": "jeans",
+
+
+"en_pd_size_guide_sheet_6": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=0#gid=0",
+
+
+"en_pd_size_guide_image_6": "https://cdn.hstatic.net/files/200001105437/file/qu_n_jean.png",
+
+
+"en_pd_size_guide_tag_7": "kaki pants",
+
+
+"en_pd_size_guide_sheet_7": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=1478350658#gid=1478350658",
+
+
+"en_pd_size_guide_image_7": "https://cdn.hstatic.net/files/200001105437/file/qu_n_kaki.png",
+
+
+"en_pd_size_guide_tag_8": "pants",
+
+
+"en_pd_size_guide_sheet_8": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=641559860#gid=641559860",
+
+
+"en_pd_size_guide_image_8": "https://cdn.hstatic.net/files/200001105437/file/qu_n__u.png",
+
+
+"en_pd_size_guide_tag_9": "tanktop",
+
+
+"en_pd_size_guide_sheet_9": "https://docs.google.com/spreadsheets/d/1FElBeCWEKSJlgIwDjTPOlSdZLo6uk9bbhY7NVa1jDa8/edit?gid=1200810881#gid=1200810881",
+
+
+"en_pd_size_guide_image_9": "https://cdn.hstatic.net/files/200001105437/file/_o_tanktop.png",
+
+
+"en_pd_size_guide_tag_10": "",
+
+
+"en_pd_size_guide_sheet_10": "",
+
+
+"en_pd_size_guide_image_10": "",
+
+
+"en_pd_size_guide_image": "https://cdn.phototourl.com/free/2026-06-29-a7ab82f3-c1d3-4ce7-84b6-7b23b1859833.png",
+
+
+"en_pd_size_guide_html": "",
+
+
+"en_pd_policy_icon_1": "https://cdn.hstatic.net/files/200001105437/file/policy_1.svg",
+
+
+"en_pd_policy_text_1": "30 days in return for error row",
+
+
+"en_pd_policy_icon_2": "https://cdn.hstatic.net/files/200001105437/file/policy_2.svg",
+
+
+"en_pd_policy_text_2": "Conservation for 30 Days",
+
+
+"en_pd_policy_icon_3": "https://cdn.hstatic.net/files/200001105437/file/policy_3.svg",
+
+
+"en_pd_policy_text_3": "Freeship singles >499K",
+
+
+"en_pd_policy_icon_4": "https://cdn.hstatic.net/files/200001105437/file/policy_4.svg",
+
+
+"en_pd_policy_text_4": "100% happy client",
+
+
+"en_bs_occ_title_1": "Everyday Wear",
+
+
+"en_bs_occ_img_1": "https://cdn.hstatic.net/files/200001105437/file/pohtk736_-_qsntk736__1_.png",
+
+
+"en_bs_occ_title_2": "Sportswear",
+
+
+"en_bs_occ_img_2": "https://cdn.hstatic.net/files/200001105437/file/pohtk704_-_qsttk704__2_.jpg",
+
+
+"en_bs_occ_title_3": "Travel",
+
+
+"en_bs_occ_img_3": "https://cdn.hstatic.net/files/200001105437/file/stntk713__1_.jpg",
+
+
+"en_bs_occ_title_4": "Workwear",
+
+
+"en_bs_occ_img_4": "https://cdn.hstatic.net/files/200001105437/file/pohtk741__5_.png",
+
+
+"en_bs_occ_title_5": "Streetwear",
+
+
+"en_bs_occ_img_5": "https://cdn.hstatic.net/files/200001105437/file/qjdtk703__1_.png",
+
+
+"en_bs_occ_title_6": "",
+
+
+"en_bs_occ_img_6": "",
+
+
+"en_bs_occ_title_7": "",
+
+
+"en_bs_occ_img_7": "",
+
+
+"en_bs_occ_title_8": "",
+
+
+"en_bs_occ_img_8": "",
+
+
+"en_bs_subcat_name_1": "Sơmi Dài Tay",
+
+
+"en_bs_subcat_img_1": "https://cdn.hstatic.net/files/200001105437/file/stntk708_-_qsvtk708__6__-_copy.webp",
+
+
+"en_bs_subcat_name_2": "Sơmi Ngắn Tay",
+
+
+"en_bs_subcat_img_2": "https://cdn.hstatic.net/files/200001105437/file/stntk708_-_qsvtk708__6__-_copy.webp",
+
+
+"en_bs_subcat_name_3": "Áo Polo",
+
+
+"en_bs_subcat_img_3": "https://cdn.hstatic.net/files/200001105437/file/poktk740__3_.webp",
+
+
+"en_bs_subcat_name_4": "Áo Phông",
+
+
+"en_bs_subcat_img_4": "https://cdn.hstatic.net/files/200001105437/file/88_b237fda44d674683930aa874ea440b58.webp",
+
+
+"en_bs_subcat_name_5": "Áo TankTop",
+
+
+"en_bs_subcat_img_5": "https://cdn.hstatic.net/files/200001105437/file/abltk701_-_qsttk701__2__027c52aaced446968181dc0b8e0d759e.webp",
+
+
+"en_bs_subcat_name_6": "Áo khoác",
+
+
+"en_bs_subcat_img_6": "https://cdn.hstatic.net/files/200001105437/file/akhtk617__11_.jpg",
+
+
+"en_bs_subcat_name_7": "Quần Âu",
+
+
+"en_bs_subcat_img_7": "https://cdn.hstatic.net/files/200001105437/file/bd3821_e37001b323634f8ba39d144fadec092e.webp",
+
+
+"en_bs_subcat_name_8": "Quần Jeans",
+
+
+"en_bs_subcat_img_8": "https://cdn.hstatic.net/files/200001105437/file/qjdtk703__2_.png",
+
+
+"en_bs_subcat_name_9": "Quần Short",
+
+
+"en_bs_subcat_img_9": "https://cdn.hstatic.net/files/200001105437/file/qsktk729__2_.png",
+
+
+"en_bs_subcat_name_10": "Quần Kaki",
+
+
+"en_bs_subcat_img_10": "https://cdn.hstatic.net/files/200001105437/file/aphol701_-_qkstk703__3__987b427c983c4dc8abc676acbfe66d7e.webp",
+
+
+"en_bs_subcat_name_11": "Áo len",
+
+
+"en_bs_subcat_img_11": "https://cdn.hstatic.net/files/200001105437/file/aletk601__4_.jpg",
+
+
+"en_bs_subcat_name_12": "Áo nỉ",
+
+
+"en_bs_subcat_img_12": "https://cdn.hstatic.net/files/200001105437/file/anhtk608__2_.jpg",
+
+
+"en_bs_subcat_name_13": "Quần nỉ",
+
+
+"en_bs_subcat_img_13": "https://cdn.hstatic.net/files/200001105437/file/anhtk603_-_qtntk603__4_.jpg",
+
+
+"en_bs_subcat_name_14": "Quần jogger",
+
+
+"en_bs_subcat_img_14": "https://cdn.hstatic.net/files/200001105437/file/akgtk602_-_qggtk602__8_.jpg",
+
+
+"en_bs_subcat_name_15": "Quần Sịp",
+
+
+"en_bs_subcat_img_15": "https://cdn.hstatic.net/files/200001105437/file/qsbtk601__8_.jpg",
+
+
+"en_bs_subcat_name_16": "Giày",
+
+
+"en_bs_subcat_img_16": "https://cdn.hstatic.net/files/200001105437/file/giatk502__7_.jpg",
+
+
+"en_bs_subcat_name_17": "Thắt Lưng",
+
+
+"en_bs_subcat_img_17": "https://cdn.hstatic.net/files/200001105437/file/dlctk504__1_.jpg",
+
+
+"en_bs_subcat_name_18": "Tất",
+
+
+"en_bs_subcat_img_18": "https://cdn.hstatic.net/files/200001105437/file/tactk502__2_.jpg",
+
+
+"en_bs_subcat_name_19": "",
+
+
+"en_bs_subcat_img_19": "",
+
+
+"en_bs_subcat_name_20": "",
+
+
+"en_bs_subcat_img_20": "",
+
+
+"en_bs_subcat_name_21": "",
+
+
+"en_bs_subcat_img_21": "",
+
+
+"en_bs_subcat_name_22": "",
+
+
+"en_bs_subcat_img_22": "",
+
+
+"en_bs_subcat_name_23": "",
+
+
+"en_bs_subcat_img_23": "",
+
+
+"en_bs_subcat_name_24": "",
+
+
+"en_bs_subcat_img_24": "",
+
+
+"en_bs_subcat_name_25": "",
+
+
+"en_bs_subcat_img_25": "",
+
+
+"en_bs_subcat_name_26": "",
+
+
+"en_bs_subcat_img_26": "",
+
+
+"en_bs_subcat_name_27": "",
+
+
+"en_bs_subcat_img_27": "",
+
+
+"en_bs_subcat_name_28": "",
+
+
+"en_bs_subcat_img_28": "",
+
+
+"en_bs_subcat_name_29": "",
+
+
+"en_bs_subcat_img_29": "",
+
+
+"en_bs_subcat_name_30": "",
+
+
+"en_bs_subcat_img_30": "",
+
+
+"en_bs_feedback_show_9": true,
+
+
+"en_bs_feedback_img_9": "https://cdn.hstatic.net/files/200001105437/file/podtk725__3_.webp",
+
+
+"en_bs_feedback_alt_9": "",
+
+
+"en_bs_feedback_show_10": false,
+
+
+"en_bs_feedback_img_10": "",
+
+
+"en_bs_feedback_alt_10": "",
+
+
+"en_bs_feedback_show_11": false,
+
+
+"en_bs_feedback_img_11": "",
+
+
+"en_bs_feedback_alt_11": "",
+
+
+"en_bs_feedback_show_12": false,
+
+
+"en_bs_feedback_img_12": "",
+
+
+"en_bs_feedback_alt_12": "",
+
+
+"en_bs_feedback_show_13": false,
+
+
+"en_bs_feedback_img_13": "",
+
+
+"en_bs_feedback_alt_13": "",
+
+
+"en_bs_feedback_show_14": false,
+
+
+"en_bs_feedback_img_14": "",
+
+
+"en_bs_feedback_alt_14": "",
+
+
+"en_bs_feedback_show_15": false,
+
+
+"en_bs_feedback_img_15": "",
+
+
+"en_bs_feedback_alt_15": "",
+
+
+"en_bs_feedback_show_16": false,
+
+
+"en_bs_feedback_img_16": "",
+
+
+"en_bs_feedback_alt_16": "",
+
+
+"en_bs_feedback_show_17": false,
+
+
+"en_bs_feedback_img_17": "",
+
+
+"en_bs_feedback_alt_17": "",
+
+
+"en_bs_feedback_show_18": false,
+
+
+"en_bs_feedback_img_18": "",
+
+
+"en_bs_feedback_alt_18": "",
+
+
+"en_bs_feedback_show_19": false,
+
+
+"en_bs_feedback_img_19": "",
+
+
+"en_bs_feedback_alt_19": "",
+
+
+"en_bs_feedback_show_20": false,
+
+
+"en_bs_feedback_img_20": "",
+
+
+"en_bs_feedback_alt_20": "",
+
+
+"en_bs_cart_step_show": false,
+
+
+"en_bs_cart_step_count": "4",
+
+
+"en_bs_cart_step_label_1": "Buying",
+
+
+"en_bs_cart_step_sub_1": "",
+
+
+"en_bs_cart_step_threshold_2": "500000",
+
+
+"en_bs_cart_step_label_2": "Freeship",
+
+
+"en_bs_cart_step_sub_2": "500K Singles",
+
+
+"en_bs_cart_step_threshold_3": "1000000",
+
+
+"en_bs_cart_step_label_3": "Less 10% of the total single",
+
+
+"en_bs_cart_step_sub_3": "Single From 1tr",
+
+
+"en_bs_cart_step_threshold_4": "2000000",
+
+
+"en_bs_cart_step_label_4": "Polo T-shirts",
+
+
+"en_bs_cart_step_sub_4": "Single From 2tr",
+
+
+"en_bs_cart_promo_btn": "Buy more",
+
+
+"en_bs_cart_promo_url": "/collections/all",
+
+
+"en_bs_buymore_popup_title": "Maybe you do",
+
+
+"en_bs_buymore_tab_count": "3",
+
+
+"en_bs_buymore_limit": "12",
+
+
+"en_bs_buymore_tab_title_1": "Selling",
+
+
+"en_bs_buymore_tab_collection_1": "tat-ca-san-pham",
+
+
+"en_bs_buymore_tab_title_2": "Forever",
+
+
+"en_bs_buymore_tab_collection_2": "di-tiec",
+
+
+"en_bs_buymore_tab_title_3": "New Row",
+
+
+"en_bs_buymore_tab_collection_3": "cong-so",
+
+
+"en_bs_buymore_tab_title_4": "",
+
+
+"en_bs_buymore_tab_collection_4": "",
+
+
+"en_bs_buymore_tab_title_5": "",
+
+
+"en_bs_buymore_tab_collection_5": "",
+
+
+"en_bs_buymore_tab_title_6": "",
+
+
+"en_bs_buymore_tab_collection_6": "",
+
+
+"en_bs_gm_enable": false,
+
+
+"en_bs_cart_gift_collection_2": "",
+
+
+"en_bs_cart_gift_collection_3": "san-pham-tang",
+
+
+"en_bs_cart_gift_collection_4": "san-pham-tang",
+
+
+"en_bs_cart_agree_default_checked": true,
+
+
+"en_bs_cart_terms_url": "/pages/dieu-khoan-mua-hang",
+
+
+"en_bs_cart_note_1": "Transportation fee will It's on the bill page.",
+
+
+"en_bs_cart_note_2": "You too can enter the discount code at the payment page.",
+
+
+"en_bs_ldp_hero_img": "https://cdn.hstatic.net/files/200001105437/file/image-placeholder__-_change_image_here-2.png",
+
+
+"en_bs_ldp_hero_title": "Banner",
+
+
+"en_bs_ldp_hero_link": "/",
+
+
+"en_bs_ldp_countdown_end": "2026-12-31T23: (1959)",
+
+
+"en_bs_ldp_voucher_count": "4",
+
+
+"en_bs_ldp_voucher_title_1": "100K",
+
+
+"en_bs_ldp_voucher_desc_1": "For the purchase bill from DakarK",
+
+
+"en_bs_ldp_voucher_code_1": "BADASS100",
+
+
+"en_bs_ldp_voucher_exp_1": "31-12-2026",
+
+
+"en_bs_ldp_voucher_title_2": "100K",
+
+
+"en_bs_ldp_voucher_desc_2": "For the purchase bill from DakarK",
+
+
+"en_bs_ldp_voucher_code_2": "BADASS200",
+
+
+"en_bs_ldp_voucher_exp_2": "31-12-2026",
+
+
+"en_bs_ldp_voucher_title_3": "100K",
+
+
+"en_bs_ldp_voucher_desc_3": "For the purchase bill from DakarK",
+
+
+"en_bs_ldp_voucher_code_3": "BADASS300",
+
+
+"en_bs_ldp_voucher_exp_3": "31-12-2026",
+
+
+"en_bs_ldp_voucher_title_4": "100K",
+
+
+"en_bs_ldp_voucher_desc_4": "For the purchase bill from DakarK",
+
+
+"en_bs_ldp_voucher_code_4": "BADASS400",
+
+
+"en_bs_ldp_voucher_exp_4": "31-12-2026",
+
+
+"en_bs_ldp_section1_title": "Beyone Roles",
+
+
+"en_bs_ldp_section1_collection": "bst-anywear",
+
+
+"en_bs_ldp_section1_banner": "https://cdn.hstatic.net/files/200001105437/file/zalo_oa__2400x1350__53fed099e5624824946e9af42cad6a63.jpg",
+
+
+"en_bs_ldp_section1_banner_mb": "https://cdn.hstatic.net/files/200001105437/file/zalo_oa__2400x1350__53fed099e5624824946e9af42cad6a63.jpg",
+
+
+"en_bs_ldp_section2_title": "Any Wear",
+
+
+"en_bs_ldp_section2_collection": "tat-nam",
+
+
+"en_bs_ldp_section2_banner": "https://cdn.hstatic.net/files/200001105437/file/image-placeholder__-_change_image_here.png",
+
+
+"en_bs_ldp_section2_banner_mb": "https://cdn.hstatic.net/files/200001105437/file/image-placeholder__-_change_image_here.png",
+
+
+"en_bs_ldp_section3_title": "Trip Together",
+
+
+"en_bs_ldp_section3_collection": "phu-kien",
+
+
+"en_bs_ldp_section3_banner": "https://cdn.hstatic.net/files/200001105437/file/banner_3.png",
+
+
+"en_bs_ldp_section3_banner_mb": "https://cdn.hstatic.net/files/200001105437/file/banner_3.png",
+
+
+"en_bs_ldp_hero_show": true,
+
+
+"en_bs_ldp_hero_autoplay_enable": true,
+
+
+"en_bs_ldp_hero_autoplay": "5000",
+
+
+"en_bs_ldp_hero_title_1": "NEW VIBEPT ECTION",
+
+
+"en_bs_ldp_hero_btn_1": "Buy now",
+
+
+"en_bs_ldp_hero_link_1": "/",
+
+
+"en_bs_ldp_hero_imgdesk_1": "https://cdn.hstatic.net/files/200001105437/file/banner_web__1350x490__de506d102b0c4352b73374a6195a904f.jpg",
+
+
+"en_bs_ldp_hero_imgmb_1": "https://cdn.hstatic.net/files/200001105437/file/image-placeholder__-_change_image_here-2.png",
+
+
+"en_bs_ldp_hero_alt_1": "Banner",
+
+
+"en_bs_ldp_hero_show_2": true,
+
+
+"en_bs_ldp_hero_title_2": "",
+
+
+"en_bs_ldp_hero_btn_2": "Buy now",
+
+
+"en_bs_ldp_hero_link_2": "/",
+
+
+"en_bs_ldp_hero_imgdesk_2": "https://cdn.hstatic.net/files/200001105437/file/banner_web__1350x490__d55cacd81a324cb689fc5de14887e4ca.jpg",
+
+
+"en_bs_ldp_hero_imgmb_2": "https://cdn.hstatic.net/files/200001105437/file/1c94faeab4792b95749f60386db0dade502aa082.png",
+
+
+"en_bs_ldp_hero_show_3": false,
+
+
+"en_bs_ldp_hero_title_3": "",
+
+
+"en_bs_ldp_hero_btn_3": "Buy now",
+
+
+"en_bs_ldp_hero_link_3": "",
+
+
+"en_bs_ldp_hero_imgdesk_3": "",
+
+
+"en_bs_ldp_hero_imgmb_3": "",
+
+
+"en_bs_ldp_hero_show_4": false,
+
+
+"en_bs_ldp_hero_title_4": "",
+
+
+"en_bs_ldp_hero_btn_4": "Buy now",
+
+
+"en_bs_ldp_hero_link_4": "",
+
+
+"en_bs_ldp_hero_imgdesk_4": "",
+
+
+"en_bs_ldp_hero_imgmb_4": "",
+
+
+"en_bs_ldp_hero_show_5": false,
+
+
+"en_bs_ldp_hero_title_5": "",
+
+
+"en_bs_ldp_hero_btn_5": "Buy now",
+
+
+"en_bs_ldp_hero_link_5": "",
+
+
+"en_bs_ldp_hero_imgdesk_5": "",
+
+
+"en_bs_ldp_hero_imgmb_5": "",
+
+
+"en_bs_ldp_hero_show_6": false,
+
+
+"en_bs_ldp_hero_title_6": "",
+
+
+"en_bs_ldp_hero_btn_6": "Buy now",
+
+
+"en_bs_ldp_hero_link_6": "",
+
+
+"en_bs_ldp_hero_imgdesk_6": "",
+
+
+"en_bs_ldp_hero_imgmb_6": "",
+
+
+"en_bs_ldp_countdown_title": "Sale starts in",
+
+
+"en_bs_ldp_section1_show": true,
+
+
+"en_bs_ldp_section2_show": true,
+
+
+"en_bs_ldp_section2_limit": "12",
+
+
+"en_bs_ldp_section3_show": true,
+
+
+"en_bs_ldp_section3_limit": "12",
+
+
+"en_bs_ldp_voucher_source": "manual",
+
+
+"en_bs_ldp_countdown_start": "2026-06-01T23: (1959)",
+
+
+"en_bs_ldp_countdown_title_active": "Sale ends in",
+
+
+"en_pd_size_guide_model_1": "https://cdn.hstatic.net/files/200001105437/file/image_af4b7a04ac6641e886b7888abf075f68.png",
+
+
+"en_pd_size_guide_model_2": "https://cdn.hstatic.net/files/200001105437/file/image_d7d3ff48f91643bfa60f51e13da2ff7b.png",
+
+
+"en_pd_size_guide_model_3": "https://cdn.hstatic.net/files/200001105437/file/image_af4b7a04ac6641e886b7888abf075f68.png",
+
+
+"en_pd_size_guide_label_1": "Hug",
+
+
+"en_pd_size_guide_label_2": "Medium",
+
+
+"en_pd_size_guide_label_3": "Intensity",
+
+
+"en_bs_ldp_section1_btn": "View all",
+
+
+"en_bs_ldp_section2_slides_per_view": "4",
+
+
+"en_bs_ldp_section2_slides_per_view_mb": "2",
+
+
+"en_bs_ldp_section2_btn": "View all",
+
+
+"en_bs_ldp_section3_slides_per_view": "3",
+
+
+"en_bs_ldp_section3_slides_per_view_mb": "2",
+
+
+"en_bs_ldp_section3_btn": "View all",
+
+
+"en_bs_blog_per_page": "24",
+
+
+"en_bs_blog_featured_count": "6",
+
+
+"en_bs_blog_grid_title": "Other News",
+
+
+"en_bs_blog_grid_cols": "3",
+
+
+"en_bs_blog_show_tags": true,
+
+
+"en_bs_blog_max_tags": "6",
+
+
+"en_bs_blog_meta_desc": "",
+
+
+"en_bs_blog_tab_limit": "6",
+
+
+"en_bs_blog_tab_title_1": "Blog 1",
+
+
+"en_bs_blog_tab_title_2": "Blog 2",
+
+
+"en_bs_blog_tab_handle_2": "news",
+
+
+"en_bs_blog_tab_title_3": "Blog 2",
+
+
+"en_bs_blog_tab_handle_3": "news",
+
+
+"en_bs_blog_tab_title_4": "Blog 3",
+
+
+"en_bs_blog_tab_handle_4": "news",
+
+
+"en_bs_blog_tab_title_5": "",
+
+
+"en_bs_blog_tab_handle_5": "",
+
+
+"en_bs_blog_tab_title_6": "",
+
+
+"en_bs_blog_tab_handle_6": "",
+
+
+"en_bs_blog_tab_handle_1": "news",
+
+
+"en_art_related_products_show": true,
+
+
+"en_art_related_products_title": "Produc related",
+
+
+"en_art_related_products_collection": "tat-ca-san-pham",
+
+
+"en_art_toc_show": true,
+
+
+"en_art_related_products_limit": "8",
+
+
+"en_art_related_articles_show": true,
+
+
+"en_art_related_articles_title": "Related News",
+
+
+"en_art_related_articles_limit": "4",
+
+
+"en_bs_about_hero_img": "https://cdn.phototourl.com/free/2026-06-22-f5a4844c-d8ab-49a1-9e45-ec7f1afea0f9.jpg",
+
+
+"en_bs_about_hero_img_mb": "https://cdn.hstatic.net/files/200001105437/file/image-placeholder__-_change_image_here-1.png",
+
+
+"en_bs_about_story_title": "ABOUT BADASS - ENCOM PORTRAITS FROM THE WORLD",
+
+
+"en_bs_about_story_intro": "Start The trip from 2014 with his first life in line is 360 Bouvique - the name has become familiar and accompanied by millions The customer for a decade. We Proud. had over 10 years of construction, development. Let's go. Vietnamese men claim their own style.",
+
+
+"en_bs_about_story_img": "https://cdn.hstatic.net/files/200001105437/file/image-6_1a125b7fe24a4109aa6c96f03d9d1843.png",
+
+
+"en_bs_about_sf_img": "https://i.postimg.cc/sgFLsg0d/650214969-1461476896018236-3006185810442088235-n-(1).jpg",
+
+
+"en_bs_about_sf_img_mb": "https://i.postimg.cc/sgFLsg0d/650214969-1461476896018236-3006185810442088235-n-(1).jpg",
+
+
+"en_bs_about_mission_img": "https://cdn.hstatic.net/files/200001105437/file/image-4_0e2b159fd5a042d1bad632ead55f2609.png",
+
+
+"en_bs_about_vision_img": "https://i.postimg.cc/xT673BDV/BANNER-WEB-(595X363).jpg",
+
+
+"en_bs_about_vision_icon_1": "https://cdn.hstatic.net/files/200001105437/file/3.svg",
+
+
+"en_bs_about_vision_icon_2": "https://cdn.hstatic.net/files/200001105437/file/4.svg",
+
+
+"en_bs_about_vision_icon_3": "https://cdn.hstatic.net/files/200001105437/file/5.svg",
+
+
+"en_bs_about_vision_icon_4": "https://cdn.hstatic.net/files/200001105437/file/6.svg",
+
+
+"en_bs_about_culture_img_main": "https://cdn.hstatic.net/files/200001105437/file/image-3_37d77401dfaa41b2a2273b1672f826a8.png",
+
+
+"en_bs_about_culture_img_1": "https://cdn.hstatic.net/files/200001105437/file/image-1_a05519bfc7bd429288c2f65c57deee83.png",
+
+
+"en_bs_about_culture_img_2": "https://cdn.hstatic.net/files/200001105437/file/image_4baaec942f1a45d1a2f632b1d47cfda4.png",
+
+
+"en_bs_about_culture_img_3": "https://cdn.hstatic.net/files/200001105437/file/image-2_f6498d53a59f485b8797072ae806e92a.png",
+
+
+"en_bs_about_culture_icon_1": "https://cdn.hstatic.net/files/200001105437/file/3.svg",
+
+
+"en_bs_about_culture_icon_2": "https://cdn.hstatic.net/files/200001105437/file/4.svg",
+
+
+"en_bs_about_culture_icon_3": "https://cdn.hstatic.net/files/200001105437/file/5.svg",
+
+
+"en_bs_about_culture_icon_4": "https://cdn.hstatic.net/files/200001105437/file/6.svg",
+
+
+"en_bs_about_story_heading": "BADASS - Change To grow up, no to leave.",
+
+
+"en_bs_about_story_block1_lead": "Despite changing the name, BADASS The whole core values that have made the soul of 360 Bouvique:",
+
+
+"en_bs_about_story_block1_list": "Quality product, dressability, good service, and retrieve experiences Yours is the center.\nBut at BADASS, you will find a character more specific - powerful, modern, close and inspiring.",
+
+
+"en_bs_about_story_block2_lead": "At BADASS, We believe I don't need men. He's got to put it on. norm Someone else's.",
+
+
+"en_bs_about_story_block2_list": "Friend none to It's got to be somebody. As yourself, kindly. And no. I'm sorry.\nBADASS is not just is one brand Fashion, that's one. mental Alive:",
+
+
+"en_bs_about_story_tagline": "Be Different - Create - Steady!",
+
+
+"en_bs_about_sf_slogan": "\"SLOW FASHION\"",
+
+
+"en_bs_about_sf_intro": "Inside a world in which fast fashion boom and rush, BADASS option Backstream. With Slogan \"Slow Fashion\",",
+
+
+"en_bs_about_sf_text_bold": "We says the direction is sustainable - both in product quality in Human message Backward.",
+
+
+"en_bs_about_sf_text": "Every design at BADASS is created from a sense ofness, towards application. long, limited waste and absolute Respect The wearer personality. Fashion at BADASS right It's a trend race. Temporary It's one. journey alive. We Proud. A friend. companion helps you define your style, reflecting your own \"sharp\" who you are and who you grow up with through all life's landmarks.",
+
+
+"en_bs_about_mission_title": "Mission",
+
+
+"en_bs_about_mission_text_bold": "Becoming one brand Nice fashion, helping young people confidence and more beautiful every day.",
+
+
+"en_bs_about_mission_text": "\"Seriousness\" of BADASS defined by The actual quality on each edge of fabric, by sincerity in service and by positive values that we contributions for the community.",
+
+
+"en_bs_about_vision_title": "Vision to 2030",
+
+
+"en_bs_about_vision_subtitle": "BADASS NO suspend effort To implement strategic goals You know, say your place and responsibility. of myself through four core pillars:",
+
+
+"en_bs_about_vision_title_1": "System development:",
+
+
+"en_bs_about_vision_desc_1": "Build And extend the 50 store extensions nationwide. experiences Level shopping comes closer with The customer.",
+
+
+"en_bs_about_vision_title_2": "Position franchise:",
+
+
+"en_bs_about_vision_desc_2": "Becoming the People's Fashion Star recognized generous, receiving is deeply loved from the community and contributes more important Vietnam Fashion Map.",
+
+
+"en_bs_about_vision_title_3": "Responsibility Society:",
+
+
+"en_bs_about_vision_desc_3": "Next Traditionally from 360 Bouvique, BADASS pledges to quote part profit to serve society (January High School, Home of Love), supporting the circumstances difficult ...), spread the warmth and kindness to the most necessary places.",
+
+
+"en_bs_about_vision_title_4": "Value for Staff:",
+
+
+"en_bs_about_vision_desc_4": "Create work environment Happiness by Sharing Profits and job performances, which make the lives of every human being that collusion with BADASS get better and better.",
+
+
+"en_bs_about_culture_label": "VGI REPUBLIC",
+
+
+"en_bs_about_culture_brand": "BADASS",
+
+
+"en_bs_about_culture_brand_desc": "Badass isn't just a brand. fashion It's a lifestyle. We respect for differences, encouraging creativity and always looking for sustainable values",
+
+
+"en_bs_about_culture_value_title_1": "THE LINE",
+
+
+"en_bs_about_culture_value_desc_1": "Always Encourage Ideas new And different. to create It's personal.",
+
+
+"en_bs_about_culture_value_title_2": "CONTINUE",
+
+
+"en_bs_about_culture_value_desc_2": "We believe in power. of The group helps us travel further and more stable.",
+
+
+"en_bs_about_culture_value_title_3": "TREAD",
+
+
+"en_bs_about_culture_value_desc_3": "Quick, flexible actions And no. suspend improvements To catch the trend.",
+
+
+"en_bs_about_culture_value_title_4": "♪ OCCUPATIONAL ♪",
+
+
+"en_bs_about_culture_value_desc_4": "Think, do and be proud with the property of the Badass.",
+
+
+"en_bs_about_recruit_blog": "tuyen-dung",
+
+
+"en_bs_about_recruit_limit": "8",
+
+
+"en_bs_about_recruit_label": "GREECE",
+
+
+"en_bs_about_recruit_title": "Join Team BADASS",
+
+
+"en_bs_about_recruit_subtitle": "",
+
+
+"en_bs_about_recruit_desc": "Organisation Environment to develop And break? Badass always welcomes capable individuals full passion and enthusiasm",
+
+
+"en_bs_about_recruit_btn_text": "View all",
+
+
+"en_bs_about_recruit_btn_link": "",
+
+
+"en_bs_about_recruit_img": "https://cdn.hstatic.net/files/200001105437/file/frame_1000009378_764609508bb441ebab9ea0deb3f2e02f.png",
+
+
+"en_bs_about_recruit_stat1_num": "30+",
+
+
+"en_bs_about_recruit_stat1_label": "Open positions",
+
+
+"en_bs_about_recruit_stat2_num": "500+",
+
+
+"en_bs_about_recruit_stat2_label": "Badass Members",
+
+
+"en_bs_recruit_webhook_url": "https://script.google.com/macros/library/d/133R9B8sxmBKBM_2AlRuJ5cTz6aC4rO17LTsLUyKcfWAM_0gvxEgq07YU/1",
+
+
+"en_bs_uudai_banner_show": true,
+
+
+"en_bs_uudai_banner_autoplay": false,
+
+
+"en_bs_uudai_banner_speed": "5",
+
+
+"en_bs_uudai_banner_1": "https://cdn.hstatic.net/files/200001105437/file/banner_desktop.webp",
+
+
+"en_bs_uudai_banner_1_mb": "https://cdn.hstatic.net/files/200001105437/file/banner_mobile.png",
+
+
+"en_bs_uudai_banner_1_link": "https://badass.vn/collections/uu-dai",
+
+
+"en_bs_uudai_banner_2": "",
+
+
+"en_bs_uudai_banner_2_mb": "",
+
+
+"en_bs_uudai_banner_2_link": "",
+
+
+"en_bs_uudai_banner_3": "",
+
+
+"en_bs_uudai_banner_3_mb": "",
+
+
+"en_bs_uudai_banner_3_link": "",
+
+
+"en_bs_uudai_banner_4": "",
+
+
+"en_bs_uudai_banner_4_mb": "",
+
+
+"en_bs_uudai_banner_4_link": "",
+
+
+"en_bs_uudai_vouchers_show": false,
+
+
+"en_bs_uudai_vouchers_title": "Voucher discount",
+
+
+"en_bs_uudai_voucher_title_1": "100K",
+
+
+"en_bs_uudai_voucher_cond_1": "For the purchase bill from DakarK",
+
+
+"en_bs_uudai_voucher_hsd_1": "31-12-2026",
+
+
+"en_bs_uudai_voucher_code_1": "BADASS100",
+
+
+"en_bs_uudai_voucher_icon_1": "",
+
+
+"en_bs_uudai_voucher_title_2": "FREESHIP",
+
+
+"en_bs_uudai_voucher_cond_2": "For the bill. Buys from 599k",
+
+
+"en_bs_uudai_voucher_hsd_2": "31-12-2026",
+
+
+"en_bs_uudai_voucher_code_2": "FREESHIP",
+
+
+"en_bs_uudai_voucher_icon_2": "",
+
+
+"en_bs_uudai_voucher_title_3": "100K",
+
+
+"en_bs_uudai_voucher_cond_3": "For the purchase bill from DakarK",
+
+
+"en_bs_uudai_voucher_hsd_3": "31-12-2026",
+
+
+"en_bs_uudai_voucher_code_3": "BADASS100",
+
+
+"en_bs_uudai_voucher_icon_3": "",
+
+
+"en_bs_uudai_voucher_title_4": "100K",
+
+
+"en_bs_uudai_voucher_cond_4": "For the purchase bill from DakarK",
+
+
+"en_bs_uudai_voucher_hsd_4": "31-12-2026",
+
+
+"en_bs_uudai_voucher_code_4": "BADASS100",
+
+
+"en_bs_uudai_voucher_icon_4": "",
+
+
+"en_bs_uudai_voucher_title_5": "",
+
+
+"en_bs_uudai_voucher_cond_5": "",
+
+
+"en_bs_uudai_voucher_hsd_5": "",
+
+
+"en_bs_uudai_voucher_code_5": "",
+
+
+"en_bs_uudai_voucher_icon_5": "",
+
+
+"en_bs_uudai_voucher_title_6": "",
+
+
+"en_bs_uudai_voucher_cond_6": "",
+
+
+"en_bs_uudai_voucher_hsd_6": "",
+
+
+"en_bs_uudai_voucher_code_6": "",
+
+
+"en_bs_uudai_voucher_icon_6": "",
+
+
+"en_bs_uudai_voucher_source": "manual",
+
+
+"en_bs_store_title": "APPRECTION",
+
+
+"en_bs_store_section_title": "APPRECTION",
+
+
+"en_bs_store_phone_title": "Buy online, advise, complain",
+
+
+"en_bs_store_phone": "",
+
+
+"en_bs_store_address_title": "Headquarters",
+
+
+"en_bs_store_address": "99 N. Chun Water, Round Village, Paper Bridge, Hanoi",
+
+
+"en_bs_store_email_title": "Contact",
+
+
+"en_bs_store_email": "Badass.cskh@gmail.com",
+
+
+"en_bs_store_hours_title": "Time working",
+
+
+"en_bs_store_hours": "Monday through Sunday in the day",
+
+
+"en_bs_store_api_url": "https://script.google.com/macros/s/AKfycbwZ-L-PbYlWsxkZaEZzUbWUY5fOXeMY-2Y0l25eiwtKavuwtAiO-iQNHXqmUlyxfAup/exec",
+
+
+"en_bs_store_default_map": "[citation needed] https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m3!1d119165.102262215!2d105.47321060627!1.3251100000000000000000018!1f0!1f0!3f0.3.1fzNNNN1.1.21024N21024NNDNNNNNDNNDNNDNNNNNNNDNNNNNNNNNNNNNNNNNDDDDDDDDDDNDDDDDDDDDDDDDDNDDDDDDDDDDDDDDDNDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+
+
+"en_header_mega_img_1": "https://cdn.hstatic.net/files/200001105437/file/artboard_2.jpg",
+
+
+"en_header_mega_viewall_1": "/",
+
+
+"en_header_mega_img_2": "https://cdn.hstatic.net/files/200001105437/file/artboard_2.jpg",
+
+
+"en_header_mega_viewall_2": "/ https://bardasvn.myharavan.com/collections/tat-ca-san-boom",
+
+
+"en_header_mega_img_3": "https://cdn.hstatic.net/files/200001105437/file/artboard_1.jpg",
+
+
+"en_header_mega_viewall_3": "/ https://bardasvn.myharavan.com/collections/quot-nam",
+
+
+"en_header_mega_img_4": "https://cdn.hstatic.net/files/200001105437/file/artboard_3.jpg",
+
+
+"en_header_mega_viewall_4": "/ https://bardasvn.myharavan.com/collections/tat-ca-san-boom",
+
+
+"en_header_mega_img_5": "",
+
+
+"en_header_mega_viewall_5": "",
+
+
+"en_bs_collection_banner_btn_show": false,
+
+
+"en_bs_collection2_banner_btn_show": false,
+
+
+"en_bs_collection3_banner_btn_show": false,
+
+
+"en_bs_coll_price_ranges": "Under 300.000đ|0|300000\n300.000đ - 500.000đ|300000|500000\n500.000đ - 1.000.000đ|500000|1000000\nUpper 1.000.000đ|1000000|",
+
+
+"en_bs_hero_video_1": "",
+
+
+"en_bs_hero_video_2": "",
+
+
+"en_bs_hero_video_3": "",
+
+
+"en_bs_hero_video_4": "",
+
+
+"en_bs_hero_video_5": "",
+
+
+"en_bs_hero_video_6": "",
+
+
+"en_topbar_text_2": "30-Day Product Warranty",
+
+
+"en_topbar_text_3": "",
+
+
+"en_topbar_speed": "3500",
+
+
+"en_bs_hero_showbtntitle_6": false,
+
+
+"en_bs_hero_showbtntitle_2": false,
+
+
+"en_bs_hero_showbtntitle_3": false,
+
+
+"en_bs_hero_showbtntitle_4": false,
+
+
+"en_bs_hero_showbtntitle_5": false,
+
+
+"en_bs_policy_title": "Support Policy",
+
+
+"en_bs_ldp_hero_showbtntitle_1": false,
+
+
+"en_bs_ldp_hero_showbtntitle_2": false,
+
+
+"en_bs_ldp_hero_showbtntitle_3": false,
+
+
+"en_bs_ldp_hero_showbtntitle_4": false,
+
+
+"en_bs_ldp_hero_showbtntitle_5": false,
+
+
+"en_bs_ldp_hero_showbtntitle_6": false,
+
+
+"en_bs_subcat_show": true,
+
+
+"en_bs_ldp_countdown_show": false,
+
+
+"en_bs_ldp_voucher_show": false,
+
+
+"en_bs_ldp_section1_total_limit": "Xem tất cả",
+
+
+"en_bs_coll_occasions_show": true,
+
+
+"en_bs_hero_showbtntitle_1": false,
+
+
+"en_bs_hero_btn_1_show": false,
+
+
+"en_bs_hero_btn_2_show": false,
+
+
+"en_bs_hero_btn_3_show": false,
+
+
+"en_bs_hero_btn_4_show": false,
+
+
+"en_bs_hero_btn_5_show": false,
+
+
+"en_bs_hero_btn_6_show": false,
+
+
+"en_onireviews_use": true,
+
+
+"en_title_review": "Rating",
+
+
+"tv1": "Sơmi Dài Tay",
+
+
+"ta1": "Long-Sleeve Shirts",
+
+
+"tv2": "Sơmi Ngắn Tay",
+
+
+"ta2": "Short-Sleeve Shirts",
+
+
+"tv3": "Áo Polo",
+
+
+"ta3": "Polo Shirts",
+
+
+"tv4": "Áo TankTop",
+
+
+"ta4": "Tanktop",
+
+
+"tv5": "Áo khoác",
+
+
+"ta5": "Jackets",
+
+
+"tv6": "Quần Âu",
+
+
+"ta6": "Trousers",
+
+
+"tv7": "Quần Jeans",
+
+
+"ta7": "Jeans",
+
+
+"tv8": "Quần Short",
+
+
+"ta8": "Shorts",
+
+
+"tv9": "Quần Kaki",
+
+
+"ta9": "Kaki Pants",
+
+
+"tv10": "Áo len",
+
+
+"ta10": "Knitwear",
+
+
+"tv11": "Áo nỉ",
+
+
+"ta11": "Sweatshirts",
+
+
+"tv12": "Quần nỉ",
+
+
+"ta12": "Sweatpants",
+
+
+"tv13": "Quần jogger",
+
+
+"ta13": "Joggers",
+
+
+"tv14": "Quần Sịp",
+
+
+"ta14": "Underwear",
+
+
+"tv15": "Giày",
+
+
+"ta15": "Shoes",
+
+
+"tv16": "Thắt Lưng",
+
+
+"ta16": "Belts",
+
+
+"tv17": "Tất",
+
+
+"ta17": "Socks",
+
+
+"tv18": "Áo Phông",
+
+
+"ta18": "T-Shirts",
+
+
+"tv19": "Đen",
+
+
+"ta19": "Black",
+
+
+"tv20": "Nâu Nhạt",
+
+
+"ta20": "Light Brown",
+
+
+"tv21": "Xám Đậm",
+
+
+"ta21": "Dark Gray",
+
+
+"tv22": "Xanh Nhạt",
+
+
+"ta22": "Light Blue",
+
+
+"tv23": "Trắng",
+
+
+"ta23": "White",
+
+
+"tv24": "Xám",
+
+
+"ta24": "Gray",
+
+
+"tv25": "bán chạy",
+
+
+"ta25": "best seller",
+
+
+"tv26": "",
+
+
+"ta26": "",
+
+
+"tv27": "",
+
+
+"ta27": "",
+
+
+"tv28": "",
+
+
+"ta28": "",
+
+
+"tv29": "",
+
+
+"ta29": "",
+
+
+"tv30": "",
+
+
+"ta30": "",
+
+
+"tv31": "",
+
+
+"ta31": "",
+
+
+"tv32": "",
+
+
+"ta32": "",
+
+
+"tv33": "",
+
+
+"ta33": "",
+
+
+"tv34": "",
+
+
+"ta34": "",
+
+
+"tv35": "",
+
+
+"ta35": "",
+
+
+"tv36": "",
+
+
+"ta36": "",
+
+
+"tv37": "",
+
+
+"ta37": "",
+
+
+"tv38": "",
+
+
+"ta38": "",
+
+
+"tv39": "",
+
+
+"ta39": "",
+
+
+"tv40": "",
+
+
+"ta40": "",
+
+
+"tv41": "",
+
+
+"ta41": "",
+
+
+"tv42": "",
+
+
+"ta42": "",
+
+
+"tv43": "",
+
+
+"ta43": "",
+
+
+"tv44": "",
+
+
+"ta44": "",
+
+
+"tv45": "",
+
+
+"ta45": "",
+
+
+"tv46": "",
+
+
+"ta46": "",
+
+
+"tv47": "",
+
+
+"ta47": "",
+
+
+"tv48": "",
+
+
+"ta48": "",
+
+
+"tv49": "",
+
+
+"ta49": "",
+
+
+"tv50": "",
+
+
+"ta50": "",
+
+
+"tv51": "",
+
+
+"ta51": "",
+
+
+"tv52": "",
+
+
+"ta52": "",
+
+
+"tv53": "",
+
+
+"ta53": "",
+
+
+"tv54": "",
+
+
+"ta54": "",
+
+
+"tv55": "",
+
+
+"ta55": "",
+
+
+"tv56": "",
+
+
+"ta56": "",
+
+
+"tv57": "",
+
+
+"ta57": "",
+
+
+"tv58": "",
+
+
+"ta58": "",
+
+
+"tv59": "",
+
+
+"ta59": "",
+
+
+"tv60": "",
+
+
+"ta60": "",
+
+
+"tv61": "",
+
+
+"ta61": "",
+
+
+"tv62": "",
+
+
+"ta62": "",
+
+
+"tv63": "",
+
+
+"ta63": "",
+
+
+"tv64": "",
+
+
+"ta64": "",
+
+
+"tv65": "",
+
+
+"ta65": "",
+
+
+"tv66": "",
+
+
+"ta66": "",
+
+
+"tv67": "",
+
+
+"ta67": "",
+
+
+"tv68": "",
+
+
+"ta68": "",
+
+
+"tv69": "",
+
+
+"ta69": "",
+
+
+"tv70": "",
+
+
+"ta70": "",
+
+
+"icon_fixed_1_url": "0984851578",
+
+
+"icon_fixed_2_url": "https://zalo.me/2240880003055047070",
+
+
+"icon_fixed_3_url": "https://www.facebook.com/badassofficial.vn",
+
+
+"i1.png": "",
+
+
+"i2.png": "",
+
+
+"i3.png": "",
+
+
+"i4.png": ""
+
+},
+
+"presets": null
+}

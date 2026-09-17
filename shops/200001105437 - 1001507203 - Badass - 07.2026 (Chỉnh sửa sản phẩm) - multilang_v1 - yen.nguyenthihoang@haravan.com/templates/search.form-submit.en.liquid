@@ -1,0 +1,14 @@
+{% layout none %}
+<div id="temp-form">
+{%- assign arrayForm = search.terms | split: '@@@@' -%}
+{%- capture formPopupContactN -%}
+{%- form 'contact' -%}
+{%- for line_info in arrayForm -%}
+{%- unless line_info contains 'form_type' or line_info contains 'utf8' or line_info contains '__RequestVerificationToken' or line_info contains 'g-recaptcha-response'-%}
+<textarea required name="{{line_info | split: '=' | first}}">{{line_info | split: '=' | last}}</textarea>
+{%- endunless -%}
+{%- endfor -%}
+{%- endform -%}
+{%- endcapture -%}
+{{formPopupContactN | replace:'script','noscript' | replace:'noscript src=', 'noscript data-src='}}
+</div>

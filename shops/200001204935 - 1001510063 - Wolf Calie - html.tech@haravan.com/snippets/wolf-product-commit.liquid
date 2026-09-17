@@ -1,0 +1,19 @@
+{%- if settings.commit_enable -%}
+<div class="wolf-product-commit mb-3 mt-3">
+	<h5 class="mb-2">{{ settings.commit_title }}</h5>
+	<div class="row align-items-center g-3">
+		{%- for i in (1..4) -%}
+		{%- capture commitimg -%}commit_img_{{ i }}.svg{%- endcapture -%}
+		{%- capture committitle -%}commit_content_{{ i }}{%- endcapture -%}
+		<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-8">
+			<div class="commit-items gap-2 d-flex rounded-4 p-2 align-items-center">
+				<div class="commit-img rounded-3">
+					<img width="64" height="64" src="{{ commitimg | asset_url }}" alt="{{ settings[committitle] }}" class="img-fluid" loading="lazy" >
+				</div>
+				<p class="mb-0">{{ settings[committitle] }}</p>
+			</div>
+		</div>
+		{%- endfor -%}
+	</div>
+</div>
+{%- endif -%}

@@ -1,0 +1,1102 @@
+/* ============================================================
+   STARTER THEME — PAGES SCSS
+   Scope: Page, Blog, Article, Search
+   ============================================================ */
+
+/* ======================== ARTICLE CARD (article-loop)
+   Figma: node 40009482:91753
+   ============================================================ */
+.article-card {
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  width: 100%;
+}
+
+/* ── Image: padding-top ratio trick trong block element ── */
+.article-card__media {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 75%;
+  height: 0;
+  border-radius: 8px 8px 0 0;
+}
+.article-card__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.article-card:hover .article-card__img { transform: scale(1.04); }
+
+/* Gradient overlay */
+.article-card__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 27.769%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Brand tag — góc trên phải */
+.article-card__brand {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  color: #fff;
+  background: rgba(0,0,0,0.35);
+  padding: 3px 6px;
+  border-radius: 2px;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+/* ── Content ── */
+.article-card__body {
+  padding: 12px 16px 16px 0;
+}
+.article-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Date badge ── */
+.article-card__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.article-card__date-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.article-card__date-icon svg { display: block; }
+.article-card__date {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 13px;
+  letter-spacing: -0.1px;
+  color: #0a6174;
+  white-space: nowrap;
+}
+
+/* ── Excerpt / Title ── */
+.article-card__excerpt {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: -0.1px;
+  color: #0a0a0a;
+  /* 2-line clamp */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+}
+.article-card__excerpt a { color: inherit; }
+.article-card__excerpt a:hover { color: #0a6174; }
+
+.article-card__title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 23px;
+  letter-spacing: -0.1px;
+  color: #0a0a0a;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.article-card__title a { color: inherit; }
+.article-card__title a:hover { color: #0a6174; }
+
+/* ======================== PAGE ======================== */
+.page-content { padding: var(--section-padding-mobile) 0; }
+@media (min-width: 992px) { .page-content { padding: var(--section-padding) 0; } }
+.page-content__title { font-size: 28px; font-weight: 700; margin: 0 0 24px; }
+@media (min-width: 992px) { .page-content__title { font-size: 36px; } }
+
+/* ======================== BLOG ======================== */
+.blog-page { padding: 0; }
+.blog-page__title { font-size: 28px; font-weight: 700; margin: 0 0 32px; }
+.blog-page__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 576px) { .blog-page__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 992px) { .blog-page__grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ======================== ARTICLE ======================== */
+.article-page { padding: var(--section-padding-mobile) 0; }
+@media (min-width: 992px) { .article-page { padding: var(--section-padding) 0; } }
+.article-detail { max-width: 800px; margin: 0 auto; }
+.article-detail__title { font-size: 28px; font-weight: 700; margin: 0 0 12px; }
+@media (min-width: 992px) { .article-detail__title { font-size: 36px; } }
+.article-detail__meta { font-size: 13px; color: var(--color-text-sub); margin-bottom: 24px; display: flex; gap: 16px; }
+.article-detail__img { margin-bottom: 24px; border-radius: var(--radius); overflow: hidden; }
+.article-detail__img img { width: 100%; }
+.article-detail__content { font-size: 16px; line-height: 1.7; }
+
+/* ======================== 404 ======================== */
+.page-404 { text-align: center; padding: 100px 0; }
+.page-404 h1 { font-size: 80px; font-weight: 800; color: var(--color-border); margin: 0; }
+.page-404 p { font-size: 18px; color: var(--color-text-sub); margin: 12px 0 32px; }
+
+/* ============================================================
+   BLOG PAGE v2 — Figma node 40006105:60426
+   Section 1: Featured slider (card lớn, overlay, title trắng)
+   Section 2: Grid 3 cột + category tabs
+   ============================================================ */
+
+/* ── 1. Featured Section ── */
+.blog-featured {
+  background: linear-gradient(180deg, #3a8fa0 0%, #7bc4d2 45%, #fafafa 100%);
+  padding: 0px 0 0;
+}
+@media (max-width: 991px) {
+  .blog-featured { padding: 0px 0 0; }
+}
+@media (max-width: 767px) {
+  .blog-featured { padding: 0px 0 0; }
+}
+.blog-featured__head {
+  margin-bottom: 32px;
+}
+/* Breadcrumb override: màu trắng trên nền teal */
+.blog-featured .breadcrumb a,
+.blog-featured .breadcrumb span,
+.blog-featured .breadcrumb li,
+.blog-featured .breadcrumb__item,
+.blog-featured .breadcrumb__sep {
+  color: rgba(255,255,255,0.85);
+}
+.blog-featured .breadcrumb__item--active,
+.blog-featured .breadcrumb__item:last-child {
+  color: #fff;
+  font-weight: 500;
+}
+.blog-featured__title {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 52px;
+  letter-spacing: -1px;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 8px 0 0;
+}
+@media (max-width: 767px) {
+  .blog-featured__title { font-size: 24px; line-height: 34px; letter-spacing: -0.5px; }
+}
+
+/* Outer wrap: position relative để nav arrows định vị 2 bên */
+.blog-featured__slider-outer {
+  position: relative;
+  padding: 0;
+}
+@media (max-width: 991px) {
+  .blog-featured__slider-outer { padding: 0; }
+}
+@media (max-width: 767px) {
+  .blog-featured__slider-outer { padding: 0; }
+}
+
+/* Slider wrapper: overflow hidden (arrows nằm ngoài nên không bị cắt) */
+.blog-featured__slider-wrap {
+  overflow: hidden;
+}
+.blog-featured__slider {
+  display: flex;
+  gap: 12px;
+  transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform;
+}
+
+/* ── Featured card: position relative, body absolute vào link ── */
+.blog-feat-card {
+  flex: 0 0 calc(50% - 6px);
+  min-width: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #111;
+  /* Aspect ratio 4:3 dùng padding-top trên chính article */
+  position: relative;
+  padding-top: 0;
+}
+@media (max-width: 767px) {
+  .blog-feat-card { flex: 0 0 100%; }
+}
+
+/* Link = wrapper ảnh, chiếm 100% chiều cao article, dùng padding-top tạo ratio */
+.blog-feat-card__link {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding-top: 75%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.blog-feat-card__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.blog-feat-card:hover .blog-feat-card__img { transform: scale(1.04); }
+.blog-feat-card__img--placeholder {
+  object-fit: contain;
+  background: #1a1a1a;
+  padding: 20%;
+}
+
+/* Overlay: không cần (body gradient lo) */
+.blog-feat-card__overlay { display: none; }
+
+/* Body: absolute overlay vào .blog-feat-card__link (không phải article) */
+.blog-feat-card__body {
+  position: absolute;
+  /* Tính từ bottom của link = bottom của article vì link = 75% height */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 60px 24px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+  border-radius: 0 0 12px 12px;
+  z-index: 2;
+}
+@media (max-width: 767px) {
+  .blog-feat-card__body { padding: 48px 16px 16px 16px; gap: 8px; }
+}
+.blog-feat-card__body a,
+.blog-feat-card__body button { pointer-events: auto; }
+
+/* Date badge */
+.blog-feat-card__date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border-radius: 2px;
+  padding: 7px 16px 8px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 13px;
+  letter-spacing: -0.1px;
+  color: #0a6174;
+  text-transform: uppercase;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+.blog-feat-card__date-badge svg { flex-shrink: 0; }
+@media (max-width: 767px) {
+  .blog-feat-card__date-badge { font-size: 12px; padding: 5px 12px 6px; }
+}
+
+/* Title */
+.blog-feat-card__title {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: -0.2px;
+  color: #fff;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@media (max-width: 767px) {
+  .blog-feat-card__title { font-size: 16px; line-height: 24px; -webkit-line-clamp: 3; }
+}
+.blog-feat-card__title a { color: inherit; text-decoration: none; }
+.blog-feat-card__title a:hover { opacity: 0.85; }
+
+/* Nav arrows */
+.blog-feat-card__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #0a0a0a;
+  box-shadow: 0 4px 8px -2px rgba(16,24,40,0.1), 0 2px 4px -2px rgba(16,24,40,0.06);
+  transition: background 0.15s, opacity 0.15s;
+}
+.blog-feat-card__nav:hover { background: #f5f5f5; }
+.blog-feat-card__nav.is-hidden { opacity: 0; pointer-events: none; }
+.blog-feat-card__nav--prev { left: 0; }
+.blog-feat-card__nav--next { right: 0; }
+@media (max-width: 767px) {
+  .blog-feat-card__nav { display: none; }
+}
+
+/* ── 2. Grid Section ── */
+.blog-grid-section {
+  padding: 60px 0;
+}
+@media (max-width: 767px) {
+  .blog-grid-section { padding: 32px 0 40px; }
+}
+
+/* Head: flex col gap-12px (Figma: heading tren, tabs duoi) */
+.blog-grid-section__head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+@media (max-width: 767px) {
+  .blog-grid-section__head { margin-bottom: 20px; }
+}
+
+/* Title: Heading H3 — uppercase */
+.blog-grid-section__title {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 52px;
+  letter-spacing: -1px;
+  color: #0a0a0a;
+  text-transform: uppercase;
+  margin: 0;
+}
+@media (max-width: 991px) {
+  .blog-grid-section__title { font-size: 28px; line-height: 40px; letter-spacing: -0.7px; }
+}
+@media (max-width: 767px) {
+  .blog-grid-section__title { font-size: 22px; line-height: 32px; }
+}
+
+/* ── Blog category tabs ── */
+/* Figma: wrapper border #f5f5f5 solid 1px, border-radius 4px, flex row, gap 12px */
+.blog-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  border: 1px solid #f5f5f5;
+  border-radius: 4px;
+  padding: 4px;
+  background: #fff;
+}
+@media (max-width: 767px) {
+  .blog-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    width: 100%;
+    padding: 4px;
+  }
+  .blog-tabs::-webkit-scrollbar { display: none; }
+}
+
+/* Tab button — Figma: pill 100px border-radius, font-heading 600 14px uppercase */
+.blog-tabs__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 10px 32px;
+  border-radius: 100px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 14px;
+  letter-spacing: -0.1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  /* Inactive: nền xám nhạt, không viền */
+  background: #f5f5f5;
+  border: 1px solid transparent;
+  color: #0a6174;
+}
+.blog-tabs__btn:hover:not(.is-active) { background: #e9f3f5; }
+/* Active: teal filled, padding-y 8px (2px tighter) */
+.blog-tabs__btn.is-active {
+  background: #0a6174;
+  border-color: #0a6174;
+  color: #fff;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+@media (max-width: 767px) {
+  .blog-tabs__btn { padding: 8px 20px; font-size: 13px; min-height: 36px; }
+  .blog-tabs__btn.is-active { padding: 6px 20px; }
+}
+
+/* ── Blog grid: CSS grid chuẩn 3 cột ── */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.blog-grid--cols-2 { grid-template-columns: repeat(2, 1fr); }
+.blog-grid--cols-3 { grid-template-columns: repeat(3, 1fr); }
+.blog-grid--cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 991px) {
+  .blog-grid,
+  .blog-grid--cols-3,
+  .blog-grid--cols-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 575px) {
+  .blog-grid,
+  .blog-grid--cols-2,
+  .blog-grid--cols-3,
+  .blog-grid--cols-4 { grid-template-columns: 1fr; }
+}
+
+.blog-grid .article-card {
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Article card image: 4:3 ratio */
+.blog-grid .article-card__media {
+  display: block;
+  position: relative;
+  padding-top: 75%;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+}
+.blog-grid .article-card__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.blog-grid .article-card:hover .article-card__img { transform: scale(1.04); }
+
+/* Article card body */
+.blog-grid .article-card__body {
+  padding: 12px 8px 16px 0;
+}
+
+/* Date badge */
+.blog-grid .article-card__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.blog-grid .article-card__date {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 13px;
+  letter-spacing: -0.1px;
+  color: #0a6174;
+  white-space: nowrap;
+}
+
+/* Excerpt */
+.blog-grid .article-card__excerpt {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: -0.1px;
+  color: #0a0a0a;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+}
+.blog-grid .article-card__excerpt a { color: inherit; text-decoration: none; }
+.blog-grid .article-card__excerpt a:hover { color: #0a6174; }
+
+/* ── Load more ── */
+.blog-load-more {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+.blog-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 10px 48px;
+  background: transparent;
+  color: #0a0a0a;
+  border: 1px solid #0a0a0a;
+  border-radius: 100px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 14px;
+  letter-spacing: -0.1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.blog-more-btn:hover { background: #0a0a0a; color: #fff; }
+.blog-more-btn:disabled { opacity: 0.6; cursor: wait; }
+
+/* Tab panels */
+.blog-tab-panel { display: none; }
+.blog-tab-panel.is-active { display: block; }
+.blog-tab-empty {
+  color: #737373;
+  font-size: 14px;
+  padding: 32px 0;
+  text-align: center;
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+/* ============================================================
+   ARTICLE PAGE (Chi tiet bai viet)
+   Figma: node 40006105:60537
+   Layout: single col, max-width 955px centered, gap 32px
+   ============================================================ */
+
+.art-page {
+  padding: 0px;
+}
+@media (max-width: 991px) {
+  .art-page { padding: 0px; }
+}
+@media (max-width: 767px) {
+  .art-page { padding: 0px; }
+}
+
+/* Limit content width to 955px, centered */
+.art-page .container > .art-header,
+.art-page .container > .art-hero,
+.art-page .container > .art-content-wrap {
+  max-width: 955px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Desktop có TOC: thu hẹp header + banner + content cùng nhau → chừa chỗ cho sidebar trái */
+@media (min-width: 1280px) {
+  .art-page.has-toc .container > .art-header,
+  .art-page.has-toc .container > .art-hero,
+  .art-page.has-toc .art-content-wrap {
+    max-width: 880px;
+  }
+}
+
+/* ── Header ── */
+.art-header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+@media (max-width: 767px) {
+  .art-header { gap: 16px; margin-bottom: 20px; }
+}
+
+/* Meta row: tag + date + author — flex wrap trên mobile */
+.art-header__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+@media (max-width: 575px) {
+  .art-header__meta { gap: 8px; }
+}
+
+/* Tag badge */
+.art-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a6174;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 13px;
+  letter-spacing: -0.1px;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+@media (max-width: 575px) {
+  .art-tag { font-size: 12px; padding: 6px 8px; }
+}
+
+/* Meta items: date + author */
+.art-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 13px;
+  letter-spacing: -0.1px;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  white-space: nowrap;
+}
+.art-meta-item svg { flex-shrink: 0; }
+@media (max-width: 575px) {
+  .art-meta-item { font-size: 12px; }
+}
+
+/* Title: Heading H4 */
+.art-header__title {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 36px;
+  letter-spacing: -0.7px;
+  color: #0a0a0a;
+  margin: 0;
+}
+@media (max-width: 991px) {
+  .art-header__title { font-size: 26px; line-height: 34px; letter-spacing: -0.5px; }
+}
+@media (max-width: 767px) {
+  .art-header__title { font-size: 22px; line-height: 30px; letter-spacing: -0.3px; }
+}
+
+/* ── Hero image ── */
+.art-hero {
+  margin-bottom: 32px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.art-hero__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+@media (max-width: 767px) {
+  .art-hero { margin-bottom: 20px; border-radius: 6px; }
+}
+
+/* ── Content body ── */
+.art-body {
+  margin-bottom: 48px;
+}
+@media (max-width: 767px) {
+  .art-body { margin-bottom: 32px; }
+}
+.art-body__content {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: -0.1px;
+  color: #374151;
+}
+@media (max-width: 767px) {
+  .art-body__content { font-size: 15px; line-height: 24px; }
+}
+/* Rich text styles */
+.art-body__content h1,
+.art-body__content h2,
+.art-body__content h3,
+.art-body__content h4 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  color: #0a0a0a;
+  margin: 32px 0 16px;
+  line-height: 1.3;
+}
+.art-body__content h2 { font-size: 24px; letter-spacing: -0.5px; }
+.art-body__content h3 { font-size: 20px; letter-spacing: -0.3px; }
+.art-body__content h4 { font-size: 18px; }
+@media (max-width: 767px) {
+  .art-body__content h2 { font-size: 20px; margin: 24px 0 12px; }
+  .art-body__content h3 { font-size: 18px; margin: 20px 0 10px; }
+  .art-body__content h4 { font-size: 16px; margin: 16px 0 8px; }
+}
+.art-body__content p { margin: 0 0 20px; }
+.art-body__content p:last-child { margin-bottom: 0; }
+.art-body__content ul,
+.art-body__content ol {
+  padding-left: 24px;
+  margin: 0 0 20px;
+}
+.art-body__content ul { list-style: disc; }
+.art-body__content ol { list-style: decimal; }
+.art-body__content li { margin-bottom: 8px; }
+.art-body__content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin: 24px auto;
+}
+@media (max-width: 767px) {
+  .art-body__content img { margin: 16px auto; border-radius: 6px; }
+}
+.art-body__content a {
+  color: #0a6174;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.art-body__content a:hover { opacity: 0.8; }
+.art-body__content strong,
+.art-body__content b { font-weight: 600; color: #0a0a0a; }
+.art-body__content blockquote {
+  border-left: 3px solid #0a6174;
+  padding: 12px 20px;
+  margin: 24px 0;
+  background: #f0fafa;
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
+  color: #0a6174;
+}
+@media (max-width: 767px) {
+  .art-body__content blockquote { padding: 10px 16px; margin: 16px 0; }
+}
+
+/* ── Section head ── */
+.art-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+@media (max-width: 767px) {
+  .art-section-head { margin-bottom: 16px; }
+}
+.art-section-head__title {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 36px;
+  letter-spacing: -0.7px;
+  color: #0a0a0a;
+  text-transform: uppercase;
+  margin: 0;
+}
+@media (max-width: 991px) {
+  .art-section-head__title { font-size: 24px; line-height: 32px; }
+}
+@media (max-width: 767px) {
+  .art-section-head__title { font-size: 20px; line-height: 28px; }
+}
+
+/* Nút "Xem tất cả" — Figma: hyperlink teal, font-heading 600 16px, icon arrow-right */
+.art-viewall {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: -0.1px;
+  color: #0a6174;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+.art-viewall:hover { opacity: 0.75; color: #0a6174; }
+.art-viewall svg { flex-shrink: 0; }
+
+/* ── Related products slider ── */
+.art-related-products {
+  padding: 0 0 0;
+}
+@media (max-width: 767px) {
+  .art-related-products { padding: 0 0 0; }
+}
+.art-products-track-wrap {
+  position: relative;
+}
+.art-products-track {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* Freemode: KHÔNG snap, để trình duyệt xử lý momentum scroll tự nhiên */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+.art-products-track::-webkit-scrollbar { display: none; }
+.art-products-track__item {
+  flex: 0 0 calc(25% - 9px);
+  min-width: 240px;
+}
+@media (max-width: 991px) {
+  .art-products-track__item { flex: 0 0 calc(50% - 6px); min-width: 0; }
+}
+@media (max-width: 767px) {
+  .art-products-track { gap: 8px; }
+  .art-products-track__item { flex: 0 0 160px; min-width: 160px; }
+}
+
+/* ── Related articles slider ── */
+.art-related-articles {
+  padding: 48px 0;
+}
+@media (max-width: 767px) {
+  .art-related-articles { padding: 32px 0; }
+}
+.art-articles-track-wrap {
+  position: relative;
+}
+.art-articles-track {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* Freemode: KHÔNG snap, để trình duyệt xử lý momentum scroll tự nhiên */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+.art-articles-track::-webkit-scrollbar { display: none; }
+.art-articles-track__item {
+  flex: 0 0 calc(25% - 9px);
+  min-width: 280px;
+}
+@media (max-width: 991px) {
+  .art-articles-track__item { flex: 0 0 calc(50% - 6px); min-width: 0; }
+}
+@media (max-width: 575px) {
+  .art-articles-track { gap: 8px; }
+  .art-articles-track__item { flex: 0 0 85vw; }
+}
+
+/* ── Nav arrows — Figma: teal filled, 36px, shadow MD, nằm ngoài track ── */
+.art-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Figma: bg teal, border none */
+  background: #0a6174;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  /* Figma Shadow/MD */
+  box-shadow: 0 4px 8px -2px rgba(16,24,40,0.1), 0 2px 4px -2px rgba(16,24,40,0.06);
+  transition: background 0.15s, opacity 0.2s;
+  padding: 6px;
+}
+.art-nav:hover { background: #085566; }
+.art-nav.is-hidden { opacity: 0; pointer-events: none; }
+/* Nằm ngoài track — offset âm */
+.art-nav--prev { left: -20px; }
+.art-nav--next { right: -20px; }
+@media (max-width: 1199px) {
+  .art-nav--prev { left: -10px; }
+  .art-nav--next { right: -10px; }
+}
+@media (max-width: 767px) {
+  .art-nav { display: none; }
+}
+
+/* ============================================================
+   ARTICLE TOC (Table of Contents) — Sidebar trái sticky
+   TOC nằm margin trái content, scroll theo khi cuộn trang
+   Chỉ hiện trên màn hình ≥1280px
+   ============================================================ */
+
+/* Wrapper: nội dung căn giữa, TOC absolute bên trái */
+.art-content-wrap {
+  position: relative;
+  max-width: 955px;
+  margin: 0 auto;
+}
+
+/* Anchor scroll offset — tránh bị header che */
+.art-body__content h2,
+.art-body__content h3 {
+  scroll-margin-top: 135px;
+}
+
+/* TOC: ẩn mặc định */
+.art-toc {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .art-page.has-toc,
+  .art-page.has-toc .container,
+  .art-content-wrap.has-toc {
+    overflow: visible;
+  }
+
+  /* Cột TOC: full chiều cao content wrap, nằm NGOÀI cột 880px */
+  .art-content-wrap.has-toc .art-toc {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: calc(100% + 48px);
+    width: 220px;
+    height: auto;
+  }
+}
+
+/* Inner box — JS điều khiển fixed khi scroll; CSS fallback sticky */
+.art-toc__inner {
+  max-height: calc(100vh - var(--header-height, 70px) - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d4 transparent;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+@media (min-width: 1280px) {
+  .art-toc__inner {
+    position: sticky;
+    top: calc(var(--header-height, 70px) + 24px);
+  }
+
+  .art-toc__inner.is-fixed {
+    position: fixed;
+  }
+
+  .art-toc__inner.is-pinned-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 220px;
+  }
+}
+.art-toc__inner::-webkit-scrollbar {
+  width: 4px;
+}
+.art-toc__inner::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 4px;
+}
+
+/* Heading "MỤC LỤC" */
+.art-toc__heading {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #a3a3a3;
+  margin: 0 0 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Nav container */
+.art-toc__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Link — H2 */
+.art-toc__link {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #404040;
+  text-decoration: none;
+  padding: 6px 0 6px 10px;
+  border-left: 2px solid transparent;
+  border-radius: 0 2px 2px 0;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  white-space: normal;
+  word-break: break-word;
+}
+.art-toc__link:hover {
+  color: #0a6174;
+  border-left-color: #0a6174;
+  background: rgba(10, 97, 116, 0.04);
+}
+.art-toc__link.is-active {
+  color: #0a6174;
+  font-weight: 600;
+  border-left-color: #0a6174;
+  background: rgba(10, 97, 116, 0.06);
+}
+
+/* Sub link — H3 */
+.art-toc__link--sub {
+  padding-left: 20px;
+  font-size: 12px;
+  color: #737373;
+}
+.art-toc__link--sub:hover,
+.art-toc__link--sub.is-active {
+  color: #0a6174;
+}

@@ -1,0 +1,683 @@
+{
+
+"current": {
+
+
+"use_logo": "1",
+
+
+"customer_layout": "theme",
+
+
+"base_font": "Roboto",
+
+
+"show_meta_keyword": false,
+
+
+"meta_keyword": "hhh Theme mặc định, Theme bán hàng, Theme haravan",
+
+
+"header_r_phone": "0797.397.883",
+
+
+"header_desc_1": "Hỗ trợ trả góp",
+
+
+"header_desc_2": "LÃI SUẤT ƯU ĐÃI",
+
+
+"slide_1": true,
+
+
+"slide_1_cap_1": "",
+
+
+"slide_1_cap_2": "",
+
+
+"slide_1_btn": "Xem ngay",
+
+
+"slide_1_link": "https://taithacohcm.com/collections/xe-tai-van",
+
+
+"align_title1": "center",
+
+
+"animate_title1": "bounceIn",
+
+
+"slide_2": true,
+
+
+"slide_2_cap_1": "",
+
+
+"slide_2_cap_2": "",
+
+
+"slide_2_btn": "Xem ngay",
+
+
+"slide_2_link": "https://taithacohcm.com/collections/xe-tai-kia-1",
+
+
+"align_title2": "center",
+
+
+"animate_title2": "bounceInRight",
+
+
+"slide_3": true,
+
+
+"slide_3_cap_1": "",
+
+
+"slide_3_cap_2": "",
+
+
+"slide_3_btn": "Xem ngay",
+
+
+"slide_3_link": "https://taithacohcm.com/collections/xe-tai-kia-1",
+
+
+"align_title3": "center",
+
+
+"animate_title3": "bounceInLeft",
+
+
+"slide_4": false,
+
+
+"slide_4_cap_1": "",
+
+
+"slide_4_cap_2": "",
+
+
+"slide_4_btn": "",
+
+
+"slide_4_link": "/collections/all",
+
+
+"align_title4": "center",
+
+
+"animate_title4": "fade",
+
+
+"use_featured_products": true,
+
+
+"featured_products_cap": "HOT",
+
+
+"featured_products_title": "XE TẢI VAN THACO FRONTIER",
+
+
+"featured_collection": "xe-tai-van",
+
+
+"use_icon_featured": true,
+
+
+"use_sale_products": true,
+
+
+"sale_products_cap": "HOT",
+
+
+"sale_products_title": "XE TẢI KIA FRONTIER",
+
+
+"sale_collection": "xe-tai-kia-1",
+
+
+"use_icon_sale": false,
+
+
+"use_ad_banners": "1",
+
+
+"ad_banner_1": "Hỗ trợ trả góp ",
+
+
+"ad_banner_2": "lên đến 75%",
+
+
+"ad_banner_desc": "Liên kết với nhiều ngân hàng khác nhau trên toàn quốc",
+
+
+"ad_banner_link": "",
+
+
+"show_block_home_category1": false,
+
+
+"block_home_category1_title": "Xem ngay",
+
+
+"block_home_category1_link": "collections/hot-products",
+
+
+"show_block_home_category2": false,
+
+
+"block_home_category2_title": "Mua ngay",
+
+
+"block_home_category2_link": "collections/hot-products",
+
+
+"footer_bg": "#000000",
+
+
+"footer_title_colour": "#ffffff",
+
+
+"footer_txt_colour": "#ffffff",
+
+
+"footer_link_colour_hover": "#ffffff",
+
+
+"footer_bg_cp": "#111111",
+
+
+"footer_about_show": true,
+
+
+"footer_about_heading": "THACO TẢI BUS TPHCM",
+
+
+"footer_about_message": "THACO TẢI BUS HCM là đơn vị chuyên cung cấp các dòng xe tải và xe bus chất lượng cao, đáp ứng đa dạng nhu cầu vận tải và kinh doanh của khách hàng. Với hệ thống sản phẩm đa dạng, dịch vụ chuyên nghiệp cùng chính sách bảo hành và hậu mãi toàn diện, THACO TẢI BUS HCM cam kết mang đến giải pháp vận tải hiệu quả, bền bỉ và tối ưu chi phí cho khách hàng.",
+
+
+"footer_about_address": "Trụ sở chính: 40C, Xa lộ hà nội, Khu phố Hiệp Thắng, Phường Đông Hòa, thành phố Hồ Chí Minh",
+
+
+"footer_about_email": "882003am@gmail.com",
+
+
+"footer_about_phone": "0797397883",
+
+
+"footer_about_fax": "",
+
+
+"footer_linklist1_show": true,
+
+
+"footer_linklist1_heading": "Chính sách & Điều khoản",
+
+
+"footer_linklist1": "footer",
+
+
+"mailing_list_show": true,
+
+
+"mailing_list_heading": "Đăng kí nhận tin",
+
+
+"mailing_list_caption": "Hãy nhập email của bạn vào đây để nhận tin!",
+
+
+"mailing_list_emailtext": "Nhập email của bạn",
+
+
+"show_fanpage_faceook": "1",
+
+
+"facebook_widget_title": "Kết nối với chúng tôi",
+
+
+"fanpage_faceook": "https://www.facebook.com/profile.php?id=61589619599149",
+
+
+"social_icons_show": true,
+
+
+"social_icons_colour": "#9e9e9e",
+
+
+"social_icons_hover": "#ffffff",
+
+
+"social_icons_hover_bg": "#ffffff",
+
+
+"social_icons_facebook_link": "/https://www.facebook.com/profile.php?id=61589619599149",
+
+
+"social_icons_twitter_link": "",
+
+
+"social_icons_pinterest_link": "",
+
+
+"social_icons_google_link": "",
+
+
+"social_icons_youtube_link": "",
+
+
+"social_icons_instagram_link": "",
+
+
+"shop_bg_color": "#4a5de2",
+
+
+"shop_bg2_color": "#ff00ff",
+
+
+"shop_bg3_color": "#e6ff00",
+
+
+"shop_text_color": "#333333",
+
+
+"header_bg_color": "#ffffff",
+
+
+"header_text_color": "#ffffff",
+
+
+"header_text_hover_color": "#04b2de",
+
+
+"bg_navbar_color": "#ffffff",
+
+
+"text_navbar_color": "#4d4d4d",
+
+
+"text_hover_navbar_color": "#4a5de2",
+
+
+"shop_border_color": "#ebebeb",
+
+
+"slide_title1_colour": "#ffffff",
+
+
+"slide_title2_colour": "#ffffff",
+
+
+"slide_btn_colour": "#ffffff",
+
+
+"shop_text_dark_color": "#ffffff",
+
+
+"link_text_color": "#4a5de2",
+
+
+"link_text_hover_color": "#d82a17",
+
+
+"pr_n_color": "#333333",
+
+
+"pr_n_color_hover": "#4a5de2",
+
+
+"pr_p_color": "#db2121",
+
+
+"pr_p_color_hover": "#898989",
+
+
+"btn_add_cart": "#4a5de2",
+
+
+"btn_text_add_cart": "#333333",
+
+
+"btn_add_cart_hover": "#4a5de2",
+
+
+"btn_text_add_cart_hover": "#4a5de2",
+
+
+"pagination_limit": "21",
+
+
+"show_collection_menu": false,
+
+
+"collection_menu_title": "",
+
+
+"collection_menu_link": "menu-chinh",
+
+
+"show_left_ad": false,
+
+
+"promo_link_left": "",
+
+
+"use_tags_products": true,
+
+
+"share_prod_on_facebook": true,
+
+
+"share_prod_on_googleplus": true,
+
+
+"use_comment_products": false,
+
+
+"productspg_related_products": true,
+
+
+"productspg_featured_quantity": "4",
+
+
+"blog_recent_show": "1",
+
+
+"blog_recent_title": "Danh mục blog",
+
+
+"blog_recent_menu": "menu-chinh",
+
+
+"news_recent_show": "1",
+
+
+"news_recent_title": "Bài viết mới nhất",
+
+
+"pagination_news_limit": "3",
+
+
+"pagination_blog_limit": "4",
+
+
+"show_google_maps": true,
+
+
+"google_maps_code": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.0217960957184!2d106.81474777583917!3d10.885946557162367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d8b35987006f%3A0x26b299089fbcafd0!2sTHACO%20D%C4%A8%20AN!5e0!3m2!1svi!2s!4v1788145685939!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"strict-origin-when-cross-origin\"></iframe>",
+
+
+"footer_text": "Mang đến cho bạn những trải nghiệm toàn diện",
+
+
+"footer_company": "Thaco Truck&Bus Dĩ An",
+
+
+"footer_address": "40C Xa Lộ Hà Nội, Khu phố Hiệp Thắng, Phường Đông Hòa, TP.HCM",
+
+
+"footer_phone": "0797397883",
+
+
+"footer_email": "882003am@gmail.com",
+
+
+"collection_sort": true,
+
+
+"shop_text2_color": "#ff2e77",
+
+
+"shop_fearture_color": "#4a5de2",
+
+
+"slide_1_alt": "",
+
+
+"slide_2_alt": "",
+
+
+"slide_3_alt": "",
+
+
+"slide_4_alt": "",
+
+
+"block_home_category1_alt": "Thực phẩm tươi",
+
+
+"block_home_category2_alt": "Thực phẩm sạch",
+
+
+"font_slide_title1": "30",
+
+
+"font_slide_title2": "70",
+
+
+"font_slide_title3": "15",
+
+
+"share_fb_home.png": "",
+
+
+"logo.png": "",
+
+
+"favicon.png": "",
+
+
+"slideshow_1.jpg": "",
+
+
+"slideshow_2.jpg": "",
+
+
+"slideshow_3.jpg": "",
+
+
+"slideshow_4.jpg": "",
+
+
+"icon_featured.png": "",
+
+
+"banner-top.jpg": "",
+
+
+"icon_sale.png": "",
+
+
+"block_home_category1.jpg": "",
+
+
+"block_home_category2.jpg": "",
+
+
+"left_image_ad.jpg": "",
+
+
+"chilldeck_addthis_iconList_show": true,
+
+
+"chilldeck_addthis_iconList_show_group": false,
+
+
+"chilldeck_addthis_iconList_bg": "#538bf6",
+
+
+"chilldeck_addthis_iconList_color": "#ffffff",
+
+
+"chilldeck_addthis_icon1_show": true,
+
+
+"chilldeck_addthis_icon1_color1": "#e8434c",
+
+
+"chilldeck_addthis_icon1_color2": "#d61114",
+
+
+"chilldeck_addthis_icon1_tootlip": "Gọi ngay cho chúng tôi",
+
+
+"chilldeck_addthis_icon1_action": "0797397883",
+
+
+"chilldeck_addthis_icon2_show": true,
+
+
+"chilldeck_addthis_icon2_color1": "#3985f7",
+
+
+"chilldeck_addthis_icon2_color2": "#1272e8",
+
+
+"chilldeck_addthis_icon2_tootlip": "Chat với chúng tôi qua Zalo",
+
+
+"chilldeck_addthis_icon2_action": "https://zalo.me/0797397883",
+
+
+"chilldeck_addthis_icon3_show": false,
+
+
+"chilldeck_addthis_icon3_color1": "#70f3ff",
+
+
+"chilldeck_addthis_icon3_color2": "#00dcf0",
+
+
+"chilldeck_addthis_icon3_tootlip": "Đăng kí thông tin và để lại lời nhắn",
+
+
+"chilldeck_addthis_icon3_title": "Để lại lời nhắn cho chúng tôi",
+
+
+"chilldeck_addthis_icon3_title2": "Đăng kí thông tin thành công",
+
+
+"chilldeck_addthis_icon3_content": "Cảm ơn bạn đã để lại thông tin. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất",
+
+
+"chilldeck_addthis_btn_bg": "#538bf6",
+
+
+"chilldeck_addthis_btn_color": "#ffffff",
+
+
+"chilldeck_addthis_icon4_show": true,
+
+
+"chilldeck_addthis_icon4_color1": "#FECF72",
+
+
+"chilldeck_addthis_icon4_color2": "#EF9F00",
+
+
+"chilldeck_addthis_icon4_tootlip": "Xem địa chỉ doanh nghiệp",
+
+
+"chilldeck_addthis_icon4_action": "/pages/lien-he",
+
+
+"chilldeck_toolbar_bottom_selected": "chilldeck_toolbar_style_2",
+
+
+"chilldeck_sidebar_icon_home_show": true,
+
+
+"chilldeck_sidebar_icon_home_text": "Trang chủ",
+
+
+"chilldeck_sidebar_icon_home_img.jpg": "",
+
+
+"chilldeck_sidebar_icon_cate_show": true,
+
+
+"chilldeck_sidebar_icon_cate_text": "Danh mục",
+
+
+"chilldeck_sidebar_icon_cate_img.jpg": "",
+
+
+"chilldeck_sidebar_icon_support_show": true,
+
+
+"chilldeck_sidebar_icon_suport_text": "Tư vấn",
+
+
+"chilldeck_sidebar_icon_suport_img.jpg": "",
+
+
+"chilldeck_sidebar_icon_cart_show": true,
+
+
+"chilldeck_sidebar_icon_cart_text": "Giỏ hàng",
+
+
+"chilldeck_sidebar_icon_cart_img.jpg": "",
+
+
+"chilldeck_toolbar_icon_zalo_bg": "#1272e8",
+
+
+"chilldeck_toolbar_icon_zalo_text": "NHẬN TƯ VẤN QUA ZALO",
+
+
+"chilldeck_toolbar_icon_zalo_link": "//zalo.me/0797397883",
+
+
+"chilldeck_toolbar_icon_phone_bg": "#e81a23",
+
+
+"chilldeck_toolbar_icon_phone_text": "HOTLINE 24/7 0797397883",
+
+
+"chilldeck_toolbar_icon_phone_link": "0797397883",
+
+
+"chilldeck_toolbar_icon_msg_bg": "#0a7cff",
+
+
+"chilldeck_toolbar_icon_msg_text": "",
+
+
+"chilldeck_toolbar_icon_msg_link": "",
+
+
+"chilldeck_toolbar_icon_stores_bg": "#eb1c24",
+
+
+"chilldeck_toolbar_icon_stores_text": "",
+
+
+"chilldeck_toolbar_icon_stores_link": "",
+
+
+"chilldeck_addthis_live_show": false,
+
+
+"chilldeck_addthis_live_color": "",
+
+
+"chilldeck_addthis_live_code_mb": "",
+
+
+"prod_btn_ct_title_1": "Nhận báo giá",
+
+
+"prod_btn_ct_url_1": "https://taithacohcm.com/pages/lien-he",
+
+
+"prod_btn_ct_title_2": "Gọi ngay",
+
+
+"prod_btn_ct_url_2": "tel:0797397883"
+
+},
+
+"presets": {}
+}

@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Todolist Tree",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "PWA Todolist Tree chạy tại trang chủ. Dữ liệu tác vụ được lưu riêng trong trình duyệt của mỗi người dùng."
+      }
+    ]
+  }
+]

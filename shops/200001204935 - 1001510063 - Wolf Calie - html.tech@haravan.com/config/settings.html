@@ -1,0 +1,4426 @@
+<p class="hd text">
+	- Để chỉnh sửa các mục khác nhau, bạn có thể click vào tên từng mục để mở phần cần sửa. Sau khi chỉnh sửa, bạn nhấn nút Lưu ở góc phải màn hình để hoàn tất.
+	- Để website đẹp, hình sản phẩm của bạn nên cùng 1 tỉ lệ với nhau hoặc tốt nhất là hình vuông
+	- Xem demo hoàn chỉnh của theme này tại: <a href="https://wolf-calie.myharavan.com" target="_blank" rel="noreferrer">Wolf Calie</a> 
+</p>
+<fieldset>
+    <legend>Thiết lập chung</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr class="horizontal">
+                <th>
+                    <label for="favicon_enable">Dùng favicon</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="favicon_enable" id="favicon_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="favicon.png">Favicon</label>
+                </th>
+                <td>
+                    <input type="file" name="favicon.png" id="favicon.png" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="backtotop_enable">Hiển thị nút lên đầu trang</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="backtotop_enable" id="backtotop_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="quickview_enable">Dùng Xem nhanh sản phẩm</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="quickview_enable" id="quickview_enable" checked />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Thiết lập Sản phẩm yêu thích</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="iwish_enable">Dùng yêu thích sản phẩm</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="iwish_enable" id="iwish_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="wishlist_page">Chọn Trang sản phẩm yêu thích</label>
+                    <p>Chọn bài viết từ các trang nội dung có Khung giao diện là page.wishlist</p>
+                </th>
+                <td>
+                    <select name="wishlist_page" id="wishlist_page" class="page"></select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Tùy chọn ngôn ngữ</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="language_header_enable">Hiển thị khối?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="language_header_enable" id="language_header_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="language_header_vi">Liên kết tiếng Việt</label>
+                </th>
+                <td>
+                    <input type="text" name="language_header_vi" id="language_header_vi" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="language_header_en">Liên kết tiếng Anh</label>
+                </th>
+                <td>
+                    <input type="text" name="language_header_en" id="language_header_en" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Màu sắc</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="main-color">Màu chính</label>
+                </th>
+                <td>
+                    <input type="color" name="main-color" id="main-color" value="#141414" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="sup-color">Màu phụ</label>
+                </th>
+                <td>
+                    <input type="color" name="sup-color" id="sup-color" value="#bf1e2e" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="color_body_text">Màu chữ chính</label>
+                </th>
+                <td>
+                    <input type="color" name="color_body_text" id="color_body_text" value="#333333" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="color_tag_sale">Màu tag sale</label>
+                </th>
+                <td>
+                    <input type="color" name="color_tag_sale" id="color_tag_sale" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Màu sắc Module chữ khuyến mãi</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="header-bg-color">Màu nền</label>
+                </th>
+                <td>
+                    <input type="color" name="header-bg-color" id="header-bg-color" value="#ff7600" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="header-text-color">Màu chữ</label>
+                </th>
+                <td>
+                    <input type="color" name="header-text-color" id="header-text-color" value="#ffffff" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Module Flash Sale</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="deal-bg-color">Màu nền 1</label>
+                </th>
+                <td>
+                    <input type="color" name="deal-bg-color" id="deal-bg-color" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="deal-border-color">Màu nền 2</label>
+                </th>
+                <td>
+                    <input type="color" name="deal-border-color" id="deal-border-color" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Màu sắc Module khuyến mãi chi tiết sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="voucher-bg-color">Màu nền</label>
+                </th>
+                <td>
+                    <input type="color" name="voucher-bg-color" id="voucher-bg-color" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="voucher-text-color">Màu chữ</label>
+                </th>
+                <td>
+                    <input type="color" name="voucher-text-color" id="voucher-text-color" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="voucher-border-color">Màu viền</label>
+                </th>
+                <td>
+                    <input type="color" name="voucher-border-color" id="voucher-border-color" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Màu sắc Module khuyến mãi danh mục sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="collections-sales-bg-color">Màu nền module</label>
+                </th>
+                <td>
+                    <input type="color" name="collections-sales-bg-color" id="collections-sales-bg-color" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="collections-sales-title-bg-color">Màu nền tiêu đề</label>
+                </th>
+                <td>
+                    <input type="color" name="collections-sales-title-bg-color" id="collections-sales-title-bg-color" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Màu sắc chân trang</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="phone-bg-color">Màu nền chân trang</label>
+                </th>
+                <td>
+                    <input type="color" name="phone-bg-color" id="phone-bg-color" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="phone-text-color">Màu chữ chân trang</label>
+                </th>
+                <td>
+                    <input type="color" name="phone-text-color" id="phone-text-color" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Meta keywords cho trang chủ(SEO)</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="home_page_keywords">Keywords cho trang chủ</label>
+                </th>
+                <td>
+                    <textarea name="home_page_keywords" id="home_page_keywords" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Thiết lập khung sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="wolf-product-frame-1.png">Chọn ảnh khung Tag 1. Định dạng PNG</label>
+                </th>
+                <td>
+                    <input type="file" name="wolf-product-frame-1.png" id="wolf-product-frame-1.png" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="wolf-product-frame-1-tag">Nhập Tag 1 cho sản phẩm cần hiển thị khung</label>
+                </th>
+                <td>
+                    <input type="text" name="wolf-product-frame-1-tag" id="wolf-product-frame-1-tag" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="wolf-product-frame-2.png">Chọn ảnh khung Tag 2. Định dạng PNG</label>
+                </th>
+                <td>
+                    <input type="file" name="wolf-product-frame-2.png" id="wolf-product-frame-2.png" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="wolf-product-frame-2-tag">Nhập Tag 2 cho sản phẩm cần hiển thị khung</label>
+                </th>
+                <td>
+                    <input type="text" name="wolf-product-frame-2-tag" id="wolf-product-frame-2-tag" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Thiết lập giỏ hàng</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Miễn phí vận chuyển</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="free_shipping_enable">Hiển thị</label>
+                    <p>Bật hoặc tắt tính năng hiển thị miễn phí vận chuyển đơn hàng.</p>
+                </th>
+                <td>
+                    <input type="checkbox" name="free_shipping_enable" id="free_shipping_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="free_shipping_price">Mức giá tối thiểu miễn phí vận chuyển</label>
+                </th>
+                <td>
+                    <input type="text" name="free_shipping_price" id="free_shipping_price" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Quà tặng</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="enable_free_gift">Hiển thị</label>
+                    <p>Bật hoặc tắt tính năng tự động thêm/xóa quà tặng dựa trên giá trị đơn hàng.</p>
+                </th>
+                <td>
+                    <input type="checkbox" name="enable_free_gift" id="enable_free_gift" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="free_gift_variant_1">ID Variant quà 1</label>
+                </th>
+                <td>
+                    <input type="text" name="free_gift_variant_1" id="free_gift_variant_1" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="free_gift_limit_1">Đón hàng tối thiểu nhận quà 1</label>
+                </th>
+                <td>
+                    <input type="text" name="free_gift_limit_1" id="free_gift_limit_1" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="free_gift_variant_2">ID Variant quà 2</label>
+                </th>
+                <td>
+                    <input type="text" name="free_gift_variant_2" id="free_gift_variant_2" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="free_gift_limit_2">Đón hàng tối thiểu nhận quà 2</label>
+                </th>
+                <td>
+                    <input type="text" name="free_gift_limit_2" id="free_gift_limit_2" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Sản phẩm gợi ý ở giỏ hàng</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="cart-recommend-title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="cart-recommend-title" id="cart-recommend-title" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="cart-recommend-col">Chọn danh mục sản phẩm</label>
+                </th>
+                <td>
+                    <select name="cart-recommend-col" id="cart-recommend-col" class="collection"></select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="cart-recommend-limit">Giới hạn sản phẩm</label>
+                </th>
+                <td>
+                    <input type="text" name="cart-recommend-limit" id="cart-recommend-limit" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Thiết lập Exit Popup</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr class="horizontal">
+                <th>
+                    <label for="exit_popup_enable">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="exit_popup_enable" id="exit_popup_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="exit_popup_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="exit_popup_title" id="exit_popup_title" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="exit_popup_col">Chọn danh mục sản phẩm</label>
+                </th>
+                <td>
+                    <select name="exit_popup_col" id="exit_popup_col" class="collection"></select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="exit_popup_limit">Giới hạn sản phẩm</label>
+                </th>
+                <td>
+                    <input type="text" name="exit_popup_limit" id="exit_popup_limit" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="exit_popup_delay">Thời gian delay hiển thị. Tính bằng giây</label>
+                </th>
+                <td>
+                    <input type="text" name="exit_popup_delay" id="exit_popup_delay" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="exit_popup_hours">Số giờ hiện lại popup</label>
+                </th>
+                <td>
+                    <input type="text" name="exit_popup_hours" id="exit_popup_hours" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="exit_popup_view_threshold">Số trang đã xem mới show popup</label>
+                </th>
+                <td>
+                    <input type="text" name="exit_popup_view_threshold" id="exit_popup_view_threshold" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Popup banner Khuyến mãi</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Popup Khuyến mãi</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_banner_enable">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="popup_banner_enable" id="popup_banner_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_banner.png">Chọn ảnh</label>
+                    <p>Kích thước 600 x 794 pixel. Định dạng ảnh .PNG</p>
+                </th>
+                <td>
+                    <input type="file" name="popup_banner.png" id="popup_banner.png" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_banner_width">Chiều rộng hình ảnh</label>
+                    <p>Đặt chiều rộng và chiều cao chính xác cho hình ảnh để cải thiện CLS (https://web.dev/optimize-cls/)</p>
+                </th>
+                <td>
+                    <input type="text" name="popup_banner_width" id="popup_banner_width" value="600" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_banner_height">Chiều cao cao hình ảnh</label>
+                    <p>Đặt chiều rộng và chiều cao chính xác cho hình ảnh để cải thiện CLS (https://web.dev/optimize-cls/)</p>
+                </th>
+                <td>
+                    <input type="text" name="popup_banner_height" id="popup_banner_height" value="600" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_banner_url">Liên kết ảnh</label>
+                </th>
+                <td>
+                    <input type="text" name="popup_banner_url" id="popup_banner_url" value="#" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_banner_alt">Nhập ALT ảnh</label>
+                </th>
+                <td>
+                    <input type="text" name="popup_banner_alt" id="popup_banner_alt" value="Banner promotion" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_banner_delay_time">Thời gian hiển thị sau khi load trang. Tính bằng giây.</label>
+                </th>
+                <td>
+                    <input type="text" name="popup_banner_delay_time" id="popup_banner_delay_time" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_banner_show_time">Thời gian hiển thị lại sau khi đóng. Tính bằng giờ.</label>
+                </th>
+                <td>
+                    <input type="text" name="popup_banner_show_time" id="popup_banner_show_time" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Thông tin Liên hệ toàn trang</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Thông tin liên hệ</h4>
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="store_name">Tên cửa hàng</label>
+                </th>
+                <td>
+                    <input type="text" name="store_name" id="store_name" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="store_address">Địa chỉ</label>
+                </th>
+                <td>
+                    <textarea name="store_address" id="store_address" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="store_email">Email</label>
+                </th>
+                <td>
+                    <input type="text" name="store_email" id="store_email" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="store_phone">Điện thoại</label>
+                </th>
+                <td>
+                    <input type="text" name="store_phone" id="store_phone" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Nút liên hệ hỗ trợ</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Cấu hình chung</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="contact_us_enable">Hiển thị nút?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="contact_us_enable" id="contact_us_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="contact_us_color">Chọn màu chính cho nút hỗ trợ</label>
+                </th>
+                <td>
+                    <input type="color" name="contact_us_color" id="contact_us_color" value="#bf1e2e" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Hotline</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="contact_hotline_title">Nhập tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="contact_hotline_title" id="contact_hotline_title" value="Hotline:" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <p style="padding: 5px 0; color: #666; font-style: italic;">Phần hotline được lấy theo thông tin số điện thoại thiết lập trong phần thông tin liên hệ toàn trang</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Zalo chat</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="contact_zalo_enable">Dùng?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="contact_zalo_enable" id="contact_zalo_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="contact_zalo_title">Nhập tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="contact_zalo_title" id="contact_zalo_title" value="Zalo chat:" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="contact_zalo">Nhập số tài khoản Zalo chat</label>
+                    <p>Ví dụ: 0123 456 789</p>
+                </th>
+                <td>
+                    <input type="text" name="contact_zalo" id="contact_zalo" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Facebook Messenger</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="contact_messenger_enable">Dùng?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="contact_messenger_enable" id="contact_messenger_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="contact_messenger_title">Nhập tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="contact_messenger_title" id="contact_messenger_title" value="Messenger:" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="contact_messenger">Nhập tên tài khoản Facebook messenger chat</label>
+                    <p>Nhập tên link fanpage của bạn. Ví dụ: sapowebvietnam</p>
+                </th>
+                <td>
+                    <input type="text" name="contact_messenger" id="contact_messenger" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Thông tin cửa hàng</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="contact_map_enable">Dùng?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="contact_map_enable" id="contact_map_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="contact_map_title">Nhập tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="contact_map_title" id="contact_map_title" value="Hệ thống cửa hàng" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="contact_map">Nhập link liên kết</label>
+                    <p>Nhập link liên kết trang danh sách cửa hàng hoặc link google map cửa hàng của bạn.</p>
+                </th>
+                <td>
+                    <input type="text" name="contact_map" id="contact_map" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Popup Góc trái</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Popup Góc trái</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_left_enable">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="popup_left_enable" id="popup_left_enable" checked />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_left_title">Tiêu đề Popup</label>
+                </th>
+                <td>
+                    <input type="text" name="popup_left_title" id="popup_left_title" value="Tích hợp sẵn các ứng dụng" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_left_note">Ghi chú</label>
+                </th>
+                <td>
+                    <textarea name="popup_left_note" id="popup_left_note" rows="3">Lưu ý với các ứng dụng trả phí bạn cần cài đặt và mua ứng dụng này trên App store Sapo để sử dụng ngay</textarea>
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Nội dung Popup 1</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_enable_1">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="popup_content_enable_1" id="popup_content_enable_1" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_title_1">Nội dung</label>
+                </th>
+                <td>
+                    <textarea name="popup_content_title_1" id="popup_content_title_1" rows="3">Đánh giá sản phẩm</textarea>
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_content_1">Liên kết</label>
+                </th>
+                <td>
+                    <textarea name="popup_content_content_1" id="popup_content_content_1" rows="3">https://apps.sapo.vn/danh-gia-san-pham-v2</textarea>
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Nội dung Popup 2</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_enable_2">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="popup_content_enable_2" id="popup_content_enable_2" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_title_2">Nội dung</label>
+                </th>
+                <td>
+                    <textarea name="popup_content_title_2" id="popup_content_title_2" rows="3">Mua X tặng Y</textarea>
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_content_2">Liên kết</label>
+                </th>
+                <td>
+                    <textarea name="popup_content_content_2" id="popup_content_content_2" rows="3">https://apps.sapo.vn/mua-x-tang-y-v2</textarea>
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Nội dung Popup 3</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_enable_3">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="popup_content_enable_3" id="popup_content_enable_3" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_title_3">Nội dung</label>
+                </th>
+                <td>
+                    <textarea name="popup_content_title_3" id="popup_content_title_3" rows="3">Ứng dụng Affiliate</textarea>
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_content_3">Liên kết</label>
+                </th>
+                <td>
+                    <textarea name="popup_content_content_3" id="popup_content_content_3" rows="3">https://apps.sapo.vn/quan-ly-affiliate-v2</textarea>
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Nội dung Popup 4</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_enable_4">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="popup_content_enable_4" id="popup_content_enable_4" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_title_4">Nội dung</label>
+                </th>
+                <td>
+                    <textarea name="popup_content_title_4" id="popup_content_title_4" rows="3">Đa ngôn ngữ</textarea>
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_content_4">Liên kết</label>
+                </th>
+                <td>
+                    <textarea name="popup_content_content_4" id="popup_content_content_4" rows="3">https://apps.sapo.vn/ae-da-ngon-ngu</textarea>
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Nội dung Popup 5</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_enable_5">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="popup_content_enable_5" id="popup_content_enable_5" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_title_5">Nội dung</label>
+                </th>
+                <td>
+                    <textarea name="popup_content_title_5" id="popup_content_title_5" rows="3">Chatlive Facebook</textarea>
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_content_5">Liên kết</label>
+                </th>
+                <td>
+                    <textarea name="popup_content_content_5" id="popup_content_content_5" rows="3">https://m.me/sapo.vn</textarea>
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Nội dung Popup 6</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_enable_6">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="popup_content_enable_6" id="popup_content_enable_6" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_title_6">Nội dung</label>
+                </th>
+                <td>
+                    <textarea name="popup_content_title_6" id="popup_content_title_6" rows="3">Tích hợp kênh Zalo mini app</textarea>
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="popup_content_content_6">Liên kết</label>
+                </th>
+                <td>
+                    <textarea name="popup_content_content_6" id="popup_content_content_6" rows="3">https://apps.sapo.vn/aimini</textarea>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Đầu trang</legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <img src="https://cdn.hstatic.net/files/200001127691/file/wolf-calie-settings-1.png" width="94%" style="float: right;">
+      </div>
+      <div class="col-sm-6">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Logo</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="logo_use_image">Tùy chỉnh logo</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="logo_use_image" id="logo_use_image" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="logo.png">Logo tối</label>
+                    <p>Kích thước ảnh đề nghị 400x113 pixels. Đuôi .PNG</p>
+                </th>
+                <td>
+                    <input type="file" name="logo.png" id="logo.png" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="logo-light.png">Logo sáng</label>
+                    <p>Kích thước ảnh đề nghị 400x113 pixels. Đuôi .PNG</p>
+                </th>
+                <td>
+                    <input type="file" name="logo-light.png" id="logo-light.png" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="logo_width">Chiều rộng hình ảnh</label>
+                    <p>Đặt chiều rộng và chiều cao chính xác cho hình ảnh để cải thiện CLS (https://web.dev/optimize-cls/)</p>
+                </th>
+                <td>
+                    <input type="text" name="logo_width" id="logo_width" value="400" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="logo_height">Chiều cao cao hình ảnh</label>
+                    <p>Đặt chiều rộng và chiều cao chính xác cho hình ảnh để cải thiện CLS (https://web.dev/optimize-cls/)</p>
+                </th>
+                <td>
+                    <input type="text" name="logo_height" id="logo_height" value="113" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Hệ thống cửa hàng trên đầu trang</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="stores_header_enable">Hiển thị khối?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="stores_header_enable" id="stores_header_enable" checked />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="stores_header_title">Nhập tiêu đề hệ thống cửa hàng hoặc liên hệ</label>
+                </th>
+                <td>
+                    <input type="text" name="stores_header_title" id="stores_header_title" value="Hệ thống cửa hàng" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="stores_header_url">Chọn Trang Hệ thống cửa hàng</label>
+                    <p>Chọn bài viết từ các trang nội dung có Khung giao diện là page.store</p>
+                </th>
+                <td>
+                    <select name="stores_header_url" id="stores_header_url" class="page"></select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Dùng tìm kiếm thông minh</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="search_smart_enable">Hiển thị Tìm kiếm thông minh</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="search_smart_enable" id="search_smart_enable" checked />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Danh mục nổi bật tìm kiếm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="search_product_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="search_product_title" id="search_product_title" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="search_product_col">Chọn danh mục sản phẩm</label>
+                </th>
+                <td>
+                    <select name="search_product_col" id="search_product_col" class="collection"></select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="search_product_limit">Giới hạn sản phẩm</label>
+                </th>
+                <td>
+                    <input type="text" name="search_product_limit" id="search_product_limit" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Bộ sưu tập</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-enable">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="menu-collection-enable" id="menu-collection-enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-title">Tiêu đề module</label>
+                </th>
+                <td>
+                    <input type="text" name="menu-collection-title" id="menu-collection-title" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Ảnh 1</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-img-1.jpg">Chọn ảnh</label>
+                    <p>Khuyên dùng ảnh có kích thước 640x360 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="menu-collection-img-1.jpg" id="menu-collection-img-1.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-img-1-alt">Thẻ Alt</label>
+                </th>
+                <td>
+                    <input type="text" name="menu-collection-img-1-alt" id="menu-collection-img-1-alt" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-img-1-url">Link slider</label>
+                </th>
+                <td>
+                    <input type="text" name="menu-collection-img-1-url" id="menu-collection-img-1-url" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Ảnh 2</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-img-2.jpg">Chọn ảnh</label>
+                    <p>Khuyên dùng ảnh có kích thước 640x360 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="menu-collection-img-2.jpg" id="menu-collection-img-2.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-img-2-alt">Thẻ Alt</label>
+                </th>
+                <td>
+                    <input type="text" name="menu-collection-img-2-alt" id="menu-collection-img-2-alt" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-img-2-url">Link slider</label>
+                </th>
+                <td>
+                    <input type="text" name="menu-collection-img-2-url" id="menu-collection-img-2-url" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Ảnh 3</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-img-3.jpg">Chọn ảnh</label>
+                    <p>Khuyên dùng ảnh có kích thước 640x360 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="menu-collection-img-3.jpg" id="menu-collection-img-3.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-img-3-alt">Thẻ Alt</label>
+                </th>
+                <td>
+                    <input type="text" name="menu-collection-img-3-alt" id="menu-collection-img-3-alt" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-img-3-url">Link slider</label>
+                </th>
+                <td>
+                    <input type="text" name="menu-collection-img-3-url" id="menu-collection-img-3-url" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Ảnh 4</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-img-4.jpg">Chọn ảnh</label>
+                    <p>Khuyên dùng ảnh có kích thước 640x360 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="menu-collection-img-4.jpg" id="menu-collection-img-4.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-img-4-alt">Thẻ Alt</label>
+                </th>
+                <td>
+                    <input type="text" name="menu-collection-img-4-alt" id="menu-collection-img-4-alt" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="menu-collection-img-4-url">Link slider</label>
+                </th>
+                <td>
+                    <input type="text" name="menu-collection-img-4-url" id="menu-collection-img-4-url" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Danh mục sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="main_menu">Menu chính</label>
+                    <p>Menu chính của website.</p>
+                </th>
+                <td>
+                    <select name="main_menu" id="main_menu" class="linklist"></select>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Chân trang</legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <img src="https://cdn.hstatic.net/files/200001127691/file/wolf-calie-settings-2.png" width="94%" style="float: right;">
+      </div>
+      <div class="col-sm-6">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Khối Thông tin</h4>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Cửa hàng</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="title_col_13">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="title_col_13" id="title_col_13" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="url_menu_13">Nội dung</label>
+                </th>
+                <td>
+                    <textarea name="url_menu_13" id="url_menu_13" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Số điện thoại 1</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="title_col_1">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="title_col_1" id="title_col_1" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="url_menu_1">Số điện thoại</label>
+                </th>
+                <td>
+                    <input type="text" name="url_menu_1" id="url_menu_1" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Số điện thoại 2</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="title_col_12">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="title_col_12" id="title_col_12" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="url_menu_12">Số điện thoại</label>
+                </th>
+                <td>
+                    <input type="text" name="url_menu_12" id="url_menu_12" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Menu chân trang</h4>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Cột 1</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="title_col_2">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="title_col_2" id="title_col_2" value="Bài viết mới" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="url_menu_2">Chọn danh mục</label>
+                </th>
+                <td>
+                    <select name="url_menu_2" id="url_menu_2" class="linklist"></select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Cột 2</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="title_col_3">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="title_col_3" id="title_col_3" value="Về chúng tôi" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="url_menu_3">Chọn danh mục</label>
+                </th>
+                <td>
+                    <select name="url_menu_3" id="url_menu_3" class="linklist"></select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Cột 3</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="title_col_6">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="title_col_6" id="title_col_6" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="title_link_6">Chọn danh mục</label>
+                </th>
+                <td>
+                    <select name="title_link_6" id="title_link_6" class="linklist"></select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Mạng xã hội</h4>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p style="padding: 5px 0; color: #666; font-style: italic;">Theo dõi mạng xã hội</p>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="social_fb">Link Facebook</label>
+                </th>
+                <td>
+                    <input type="text" name="social_fb" id="social_fb" value="#" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="social_fb_img.svg">Ảnh Facebook</label>
+                    <p>Định dạng svg. Kích thước 150x150 px</p>
+                </th>
+                <td>
+                    <input type="file" name="social_fb_img.svg" id="social_fb_img.svg" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="social_insta">Link Instagram</label>
+                </th>
+                <td>
+                    <input type="text" name="social_insta" id="social_insta" value="#" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="social_insta_img.svg">Ảnh Instagram</label>
+                    <p>Định dạng svg. Kích thước 150x150 px</p>
+                </th>
+                <td>
+                    <input type="file" name="social_insta_img.svg" id="social_insta_img.svg" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="social_shopee">Link Shopee</label>
+                </th>
+                <td>
+                    <input type="text" name="social_shopee" id="social_shopee" value="#" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="social_shopee_img.svg">Ảnh Shopee</label>
+                    <p>Định dạng svg. Kích thước 150x150 px</p>
+                </th>
+                <td>
+                    <input type="file" name="social_shopee_img.svg" id="social_shopee_img.svg" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="social_lazada">Link Lazada</label>
+                </th>
+                <td>
+                    <input type="text" name="social_lazada" id="social_lazada" value="#" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="social_lazada_img.svg">Ảnh Lazada</label>
+                    <p>Định dạng svg. Kích thước 150x150 px</p>
+                </th>
+                <td>
+                    <input type="file" name="social_lazada_img.svg" id="social_lazada_img.svg" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="social_tiktok">Link Tiktok</label>
+                </th>
+                <td>
+                    <input type="text" name="social_tiktok" id="social_tiktok" value="#" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="social_tiktok_img.svg">Ảnh Tiktok</label>
+                    <p>Định dạng svg. Kích thước 150x150 px</p>
+                </th>
+                <td>
+                    <input type="file" name="social_tiktok_img.svg" id="social_tiktok_img.svg" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Thiết lập thông tin thanh toán</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_enable">Hiển thị khối?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="payment_enable" id="payment_enable" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="title_col_5">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="title_col_5" id="title_col_5" value="Hỗ trợ thanh toán" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><p style="padding: 5px 0; color: #666; font-style: italic;">Icon thanh toán 1</p></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_enable_1">Hiển thị thanh toán 1</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="payment_enable_1" id="payment_enable_1" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_1.svg">Chọn ảnh icon thanh toán 1</label>
+                    <p>Kích thước ảnh 63x29 pixcel. Ảnh định dạng .SVG</p>
+                </th>
+                <td>
+                    <input type="file" name="payment_1.svg" id="payment_1.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_alt_1">Alt thanh toán 1</label>
+                </th>
+                <td>
+                    <input type="text" name="payment_alt_1" id="payment_alt_1" value="Thanh toán 1" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><p style="padding: 5px 0; color: #666; font-style: italic;">Icon thanh toán 2</p></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_enable_2">Hiển thị thanh toán 2</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="payment_enable_2" id="payment_enable_2" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_2.svg">Chọn ảnh icon thanh toán 2</label>
+                    <p>Kích thước ảnh 63x29 pixcel. Ảnh định dạng .SVG</p>
+                </th>
+                <td>
+                    <input type="file" name="payment_2.svg" id="payment_2.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_alt_2">Alt thanh toán 2</label>
+                </th>
+                <td>
+                    <input type="text" name="payment_alt_2" id="payment_alt_2" value="Thanh toán 2" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><p style="padding: 5px 0; color: #666; font-style: italic;">Icon thanh toán 3</p></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_enable_3">Hiển thị thanh toán 3</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="payment_enable_3" id="payment_enable_3" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_3.svg">Chọn ảnh icon thanh toán 3</label>
+                    <p>Kích thước ảnh 63x29 pixcel. Ảnh định dạng .SVG</p>
+                </th>
+                <td>
+                    <input type="file" name="payment_3.svg" id="payment_3.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_alt_3">Alt thanh toán 3</label>
+                </th>
+                <td>
+                    <input type="text" name="payment_alt_3" id="payment_alt_3" value="Thanh toán 3" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><p style="padding: 5px 0; color: #666; font-style: italic;">Icon thanh toán 4</p></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_enable_4">Hiển thị thanh toán 4</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="payment_enable_4" id="payment_enable_4" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_4.svg">Chọn ảnh icon thanh toán 4</label>
+                    <p>Kích thước ảnh 63x29 pixcel. Ảnh định dạng .SVG</p>
+                </th>
+                <td>
+                    <input type="file" name="payment_4.svg" id="payment_4.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_alt_4">Alt thanh toán 4</label>
+                </th>
+                <td>
+                    <input type="text" name="payment_alt_4" id="payment_alt_4" value="Thanh toán 4" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><p style="padding: 5px 0; color: #666; font-style: italic;">Icon thanh toán 5</p></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_enable_5">Hiển thị thanh toán 5</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="payment_enable_5" id="payment_enable_5" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_5.svg">Chọn ảnh icon thanh toán 5</label>
+                    <p>Kích thước ảnh 63x29 pixcel. Ảnh định dạng .SVG</p>
+                </th>
+                <td>
+                    <input type="file" name="payment_5.svg" id="payment_5.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_alt_5">Alt thanh toán 5</label>
+                </th>
+                <td>
+                    <input type="text" name="payment_alt_5" id="payment_alt_5" value="Thanh toán 5" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><p style="padding: 5px 0; color: #666; font-style: italic;">Icon thanh toán 6</p></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_enable_6">Hiển thị thanh toán 6</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="payment_enable_6" id="payment_enable_6" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_6.svg">Chọn ảnh icon thanh toán 6</label>
+                    <p>Kích thước ảnh 63x29 pixcel. Ảnh định dạng .SVG</p>
+                </th>
+                <td>
+                    <input type="file" name="payment_6.svg" id="payment_6.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_alt_6">Alt thanh toán 6</label>
+                </th>
+                <td>
+                    <input type="text" name="payment_alt_6" id="payment_alt_6" value="Thanh toán 6" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><p style="padding: 5px 0; color: #666; font-style: italic;">Icon thanh toán 7</p></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_enable_7">Hiển thị thanh toán 7</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="payment_enable_7" id="payment_enable_7" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_7.svg">Chọn ảnh icon thanh toán 7</label>
+                    <p>Kích thước ảnh 63x29 pixcel. Ảnh định dạng .SVG</p>
+                </th>
+                <td>
+                    <input type="file" name="payment_7.svg" id="payment_7.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_alt_7">Alt thanh toán 7</label>
+                </th>
+                <td>
+                    <input type="text" name="payment_alt_7" id="payment_alt_7" value="Thanh toán 7" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><p style="padding: 5px 0; color: #666; font-style: italic;">Icon thanh toán 8</p></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_enable_8">Hiển thị thanh toán 8</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="payment_enable_8" id="payment_enable_8" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_8.svg">Chọn ảnh icon thanh toán 8</label>
+                    <p>Kích thước ảnh 63x29 pixcel. Ảnh định dạng .SVG</p>
+                </th>
+                <td>
+                    <input type="file" name="payment_8.svg" id="payment_8.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_alt_8">Alt thanh toán 8</label>
+                </th>
+                <td>
+                    <input type="text" name="payment_alt_8" id="payment_alt_8" value="Thanh toán 8" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><p style="padding: 5px 0; color: #666; font-style: italic;">Icon thanh toán 9</p></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_enable_9">Hiển thị thanh toán 9</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="payment_enable_9" id="payment_enable_9" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_9.svg">Chọn ảnh icon thanh toán 9</label>
+                    <p>Kích thước ảnh 63x29 pixcel. Ảnh định dạng .SVG</p>
+                </th>
+                <td>
+                    <input type="file" name="payment_9.svg" id="payment_9.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_alt_9">Alt thanh toán 9</label>
+                </th>
+                <td>
+                    <input type="text" name="payment_alt_9" id="payment_alt_9" value="Thanh toán 9" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><p style="padding: 5px 0; color: #666; font-style: italic;">Icon thanh toán 10</p></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_enable_10">Hiển thị thanh toán 10</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="payment_enable_10" id="payment_enable_10" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_10.svg">Chọn ảnh icon thanh toán 10</label>
+                    <p>Kích thước ảnh 63x29 pixcel. Ảnh định dạng .SVG</p>
+                </th>
+                <td>
+                    <input type="file" name="payment_10.svg" id="payment_10.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="payment_alt_10">Alt thanh toán 10</label>
+                </th>
+                <td>
+                    <input type="text" name="payment_alt_10" id="payment_alt_10" value="Thanh toán 10" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Logo Bộ công thương</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="dkkd_enable">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="dkkd_enable" id="dkkd_enable" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="dkkd.png">Chọn ảnh</label>
+                    <p>Kích thước ảnh 300x90 pixcel. Ảnh định dạng .png</p>
+                </th>
+                <td>
+                    <input type="file" name="dkkd.png" id="dkkd.png" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="dkkd_link">Liên kết</label>
+                </th>
+                <td>
+                    <textarea name="dkkd_link" id="dkkd_link" rows="3"></textarea>
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="title_col_4">Nội dung giấy phép</label>
+                </th>
+                <td>
+                    <textarea name="title_col_4" id="title_col_4" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Kênh mua hàng qua Zalo</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="zalo-buy-enable">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="zalo-buy-enable" id="zalo-buy-enable" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="zalo-buy-qrcode.jpg">Chọn ảnh</label>
+                    <p>Kích thước ảnh 200x200 pixcel. Ảnh định dạng .jpg</p>
+                </th>
+                <td>
+                    <input type="file" name="zalo-buy-qrcode.jpg" id="zalo-buy-qrcode.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="zalo-buy-title">Tiêu đề</label>
+                </th>
+                <td>
+                    <textarea name="zalo-buy-title" id="zalo-buy-title" rows="3"></textarea>
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="zalo-buy-content">Nội dung</label>
+                </th>
+                <td>
+                    <textarea name="zalo-buy-content" id="zalo-buy-content" rows="3"></textarea>
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="zalo-buy-link">Liên kết</label>
+                </th>
+                <td>
+                    <textarea name="zalo-buy-link" id="zalo-buy-link" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Copyright</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="copyright">Copyright</label>
+                </th>
+                <td>
+                    <input type="text" name="copyright" id="copyright" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang chủ</legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <img src="https://cdn.hstatic.net/files/200001127691/file/wolf-calie-settings-3__1_.jpg" width="94%" style="float: right;">
+      </div>
+      <div class="col-sm-6">
+        <fieldset>
+          <legend>Thiết lập các Module</legend>
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Chọn các module</h4>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p style="padding: 5px 0; color: #666; font-style: italic;">Chúng tôi cung cấp các module ở trang chủ, bạn có thể lựa chọn và sắp xếp vị trí của chúng</p>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="home_section_1">Module 1</label>
+                </th>
+                <td>
+                    <select name="home_section_1" id="home_section_1">
+                        <option value="none">Không dùng</option>
+                        <option value="wolf_section_slider">Module Slide Show</option>
+                        <option value="wolf_section_voucher">Module Chữ Khuyến mãi</option>
+                        <option value="wolf_section_flashsale">Module Flash Sale</option>
+                        <option value="wolf_section_topdeal">Module Bộ sưu tập</option>
+                        <option value="wolf_section_promotion">Module Ưu đãi trong tháng</option>
+                        <option value="wolf_section_product_1">Module Sản phẩm 1</option>
+                        <option value="wolf_section_product_2">Module Sản phẩm 2</option>
+                        <option value="wolf_section_product_3">Module Sản phẩm 3</option>
+                        <option value="wolf_section_blog">Module Lookbook</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="home_section_2">Module 2</label>
+                </th>
+                <td>
+                    <select name="home_section_2" id="home_section_2">
+                        <option value="none">Không dùng</option>
+                        <option value="wolf_section_slider">Module Slide Show</option>
+                        <option value="wolf_section_voucher">Module Chữ Khuyến mãi</option>
+                        <option value="wolf_section_flashsale">Module Flash Sale</option>
+                        <option value="wolf_section_topdeal">Module Bộ sưu tập</option>
+                        <option value="wolf_section_promotion">Module Ưu đãi trong tháng</option>
+                        <option value="wolf_section_product_1">Module Sản phẩm 1</option>
+                        <option value="wolf_section_product_2">Module Sản phẩm 2</option>
+                        <option value="wolf_section_product_3">Module Sản phẩm 3</option>
+                        <option value="wolf_section_blog">Module Lookbook</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="home_section_3">Module 3</label>
+                </th>
+                <td>
+                    <select name="home_section_3" id="home_section_3">
+                        <option value="none">Không dùng</option>
+                        <option value="wolf_section_slider">Module Slide Show</option>
+                        <option value="wolf_section_voucher">Module Chữ Khuyến mãi</option>
+                        <option value="wolf_section_flashsale">Module Flash Sale</option>
+                        <option value="wolf_section_topdeal">Module Bộ sưu tập</option>
+                        <option value="wolf_section_promotion">Module Ưu đãi trong tháng</option>
+                        <option value="wolf_section_product_1">Module Sản phẩm 1</option>
+                        <option value="wolf_section_product_2">Module Sản phẩm 2</option>
+                        <option value="wolf_section_product_3">Module Sản phẩm 3</option>
+                        <option value="wolf_section_blog">Module Lookbook</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="home_section_4">Module 4</label>
+                </th>
+                <td>
+                    <select name="home_section_4" id="home_section_4">
+                        <option value="none">Không dùng</option>
+                        <option value="wolf_section_slider">Module Slide Show</option>
+                        <option value="wolf_section_voucher">Module Chữ Khuyến mãi</option>
+                        <option value="wolf_section_flashsale">Module Flash Sale</option>
+                        <option value="wolf_section_topdeal">Module Bộ sưu tập</option>
+                        <option value="wolf_section_promotion">Module Ưu đãi trong tháng</option>
+                        <option value="wolf_section_product_1">Module Sản phẩm 1</option>
+                        <option value="wolf_section_product_2">Module Sản phẩm 2</option>
+                        <option value="wolf_section_product_3">Module Sản phẩm 3</option>
+                        <option value="wolf_section_blog">Module Lookbook</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="home_section_5">Module 5</label>
+                </th>
+                <td>
+                    <select name="home_section_5" id="home_section_5">
+                        <option value="none">Không dùng</option>
+                        <option value="wolf_section_slider">Module Slide Show</option>
+                        <option value="wolf_section_voucher">Module Chữ Khuyến mãi</option>
+                        <option value="wolf_section_flashsale">Module Flash Sale</option>
+                        <option value="wolf_section_topdeal">Module Bộ sưu tập</option>
+                        <option value="wolf_section_promotion">Module Ưu đãi trong tháng</option>
+                        <option value="wolf_section_product_1">Module Sản phẩm 1</option>
+                        <option value="wolf_section_product_2">Module Sản phẩm 2</option>
+                        <option value="wolf_section_product_3">Module Sản phẩm 3</option>
+                        <option value="wolf_section_blog">Module Lookbook</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="home_section_6">Module 6</label>
+                </th>
+                <td>
+                    <select name="home_section_6" id="home_section_6">
+                        <option value="none">Không dùng</option>
+                        <option value="wolf_section_slider">Module Slide Show</option>
+                        <option value="wolf_section_voucher">Module Chữ Khuyến mãi</option>
+                        <option value="wolf_section_flashsale">Module Flash Sale</option>
+                        <option value="wolf_section_topdeal">Module Bộ sưu tập</option>
+                        <option value="wolf_section_promotion">Module Ưu đãi trong tháng</option>
+                        <option value="wolf_section_product_1">Module Sản phẩm 1</option>
+                        <option value="wolf_section_product_2">Module Sản phẩm 2</option>
+                        <option value="wolf_section_product_3">Module Sản phẩm 3</option>
+                        <option value="wolf_section_blog">Module Lookbook</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="home_section_7">Module 7</label>
+                </th>
+                <td>
+                    <select name="home_section_7" id="home_section_7">
+                        <option value="none">Không dùng</option>
+                        <option value="wolf_section_slider">Module Slide Show</option>
+                        <option value="wolf_section_voucher">Module Chữ Khuyến mãi</option>
+                        <option value="wolf_section_flashsale">Module Flash Sale</option>
+                        <option value="wolf_section_topdeal">Module Bộ sưu tập</option>
+                        <option value="wolf_section_promotion">Module Ưu đãi trong tháng</option>
+                        <option value="wolf_section_product_1">Module Sản phẩm 1</option>
+                        <option value="wolf_section_product_2">Module Sản phẩm 2</option>
+                        <option value="wolf_section_product_3">Module Sản phẩm 3</option>
+                        <option value="wolf_section_blog">Module Lookbook</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="home_section_8">Module 8</label>
+                </th>
+                <td>
+                    <select name="home_section_8" id="home_section_8">
+                        <option value="none">Không dùng</option>
+                        <option value="wolf_section_slider">Module Slide Show</option>
+                        <option value="wolf_section_voucher">Module Chữ Khuyến mãi</option>
+                        <option value="wolf_section_flashsale">Module Flash Sale</option>
+                        <option value="wolf_section_topdeal">Module Bộ sưu tập</option>
+                        <option value="wolf_section_promotion">Module Ưu đãi trong tháng</option>
+                        <option value="wolf_section_product_1">Module Sản phẩm 1</option>
+                        <option value="wolf_section_product_2">Module Sản phẩm 2</option>
+                        <option value="wolf_section_product_3">Module Sản phẩm 3</option>
+                        <option value="wolf_section_blog">Module Lookbook</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="home_section_9">Module 9</label>
+                </th>
+                <td>
+                    <select name="home_section_9" id="home_section_9">
+                        <option value="none">Không dùng</option>
+                        <option value="wolf_section_slider">Module Slide Show</option>
+                        <option value="wolf_section_voucher">Module Chữ Khuyến mãi</option>
+                        <option value="wolf_section_flashsale">Module Flash Sale</option>
+                        <option value="wolf_section_topdeal">Module Bộ sưu tập</option>
+                        <option value="wolf_section_promotion">Module Ưu đãi trong tháng</option>
+                        <option value="wolf_section_product_1">Module Sản phẩm 1</option>
+                        <option value="wolf_section_product_2">Module Sản phẩm 2</option>
+                        <option value="wolf_section_product_3">Module Sản phẩm 3</option>
+                        <option value="wolf_section_blog">Module Lookbook</option>
+                    </select>
+                </td>
+            </tr>
+
+        </table>
+        </fieldset>
+        <fieldset>
+    <legend>Trang chủ - Module Slider</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Cấu hình chung</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_width">Nhập kích thước chiều rộng ảnh Slide</label>
+                    <p>Đặt chiều rộng và chiều cao chính xác cho hình ảnh để cải thiện CLS (https://web.dev/optimize-cls/)</p>
+                </th>
+                <td>
+                    <input type="text" name="slider_width" id="slider_width" value="1920" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_height">Nhập kích thước chiều cao ảnh Slide</label>
+                    <p>Đặt chiều rộng và chiều cao chính xác cho hình ảnh để cải thiện CLS (https://web.dev/optimize-cls/)</p>
+                </th>
+                <td>
+                    <input type="text" name="slider_height" id="slider_height" value="1080" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Slider 1</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_1_enable">Hiển thị?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="slider_1_enable" id="slider_1_enable" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_1.jpg">Ảnh slider desktop</label>
+                    <p>Khuyên dùng ảnh có kích thước 1920x1080 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="slider_1.jpg" id="slider_1.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_mb_1.jpg">Ảnh slider mobile</label>
+                    <p>Khuyên dùng ảnh có kích thước 600x1067 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="slider_mb_1.jpg" id="slider_mb_1.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_1_alt">Thẻ alt của ảnh</label>
+                </th>
+                <td>
+                    <input type="text" name="slider_1_alt" id="slider_1_alt" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_1_url">Link slider</label>
+                </th>
+                <td>
+                    <input type="text" name="slider_1_url" id="slider_1_url" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Slider 2</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_2_enable">Hiển thị?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="slider_2_enable" id="slider_2_enable" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_2.jpg">Ảnh slider desktop</label>
+                    <p>Khuyên dùng ảnh có kích thước 1920x1080 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="slider_2.jpg" id="slider_2.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_mb_2.jpg">Ảnh slider mobile</label>
+                    <p>Khuyên dùng ảnh có kích thước 600x1067 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="slider_mb_2.jpg" id="slider_mb_2.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_2_alt">Thẻ alt của ảnh</label>
+                </th>
+                <td>
+                    <input type="text" name="slider_2_alt" id="slider_2_alt" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_2_url">Link slider</label>
+                </th>
+                <td>
+                    <input type="text" name="slider_2_url" id="slider_2_url" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Slider 3</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_3_enable">Hiển thị?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="slider_3_enable" id="slider_3_enable" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_3.jpg">Ảnh slider desktop</label>
+                    <p>Khuyên dùng ảnh có kích thước 1920x1080 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="slider_3.jpg" id="slider_3.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_mb_3.jpg">Ảnh slider mobile</label>
+                    <p>Khuyên dùng ảnh có kích thước 600x1067 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="slider_mb_3.jpg" id="slider_mb_3.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_3_alt">Thẻ alt của ảnh</label>
+                </th>
+                <td>
+                    <input type="text" name="slider_3_alt" id="slider_3_alt" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_3_url">Link slider</label>
+                </th>
+                <td>
+                    <input type="text" name="slider_3_url" id="slider_3_url" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Slider 4</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_4_enable">Hiển thị?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="slider_4_enable" id="slider_4_enable" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_4.jpg">Ảnh slider desktop</label>
+                    <p>Khuyên dùng ảnh có kích thước 1920x1080 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="slider_4.jpg" id="slider_4.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_mb_4.jpg">Ảnh slider mobile</label>
+                    <p>Khuyên dùng ảnh có kích thước 600x1067 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="slider_mb_4.jpg" id="slider_mb_4.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_4_alt">Thẻ alt của ảnh</label>
+                </th>
+                <td>
+                    <input type="text" name="slider_4_alt" id="slider_4_alt" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_4_url">Link slider</label>
+                </th>
+                <td>
+                    <input type="text" name="slider_4_url" id="slider_4_url" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Slider 5</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_5_enable">Hiển thị?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="slider_5_enable" id="slider_5_enable" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_5.jpg">Ảnh slider desktop</label>
+                    <p>Khuyên dùng ảnh có kích thước 1920x1080 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="slider_5.jpg" id="slider_5.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_mb_5.jpg">Ảnh slider mobile</label>
+                    <p>Khuyên dùng ảnh có kích thước 600x1067 pixels</p>
+                </th>
+                <td>
+                    <input type="file" name="slider_mb_5.jpg" id="slider_mb_5.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_5_alt">Thẻ alt của ảnh</label>
+                </th>
+                <td>
+                    <input type="text" name="slider_5_alt" id="slider_5_alt" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="slider_5_url">Link slider</label>
+                </th>
+                <td>
+                    <input type="text" name="slider_5_url" id="slider_5_url" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang chủ - Module Chữ Khuyến mãi</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr><td colspan="2"><h4>Nội dung 1</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_enable_1">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="product_coupon_enable_1" id="product_coupon_enable_1" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_code_1">Nội dung</label>
+                </th>
+                <td>
+                    <input type="text" name="product_coupon_code_1" id="product_coupon_code_1" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_max_1">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="product_coupon_max_1" id="product_coupon_max_1" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Nội dung 2</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_enable_2">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="product_coupon_enable_2" id="product_coupon_enable_2" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_code_2">Nội dung</label>
+                </th>
+                <td>
+                    <input type="text" name="product_coupon_code_2" id="product_coupon_code_2" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_max_2">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="product_coupon_max_2" id="product_coupon_max_2" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Nội dung 3</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_enable_3">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="product_coupon_enable_3" id="product_coupon_enable_3" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_code_3">Nội dung</label>
+                </th>
+                <td>
+                    <input type="text" name="product_coupon_code_3" id="product_coupon_code_3" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_max_3">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="product_coupon_max_3" id="product_coupon_max_3" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Nội dung 4</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_enable_4">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="product_coupon_enable_4" id="product_coupon_enable_4" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_code_4">Nội dung</label>
+                </th>
+                <td>
+                    <input type="text" name="product_coupon_code_4" id="product_coupon_code_4" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_max_4">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="product_coupon_max_4" id="product_coupon_max_4" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Nội dung 5</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_enable_5">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="product_coupon_enable_5" id="product_coupon_enable_5" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_code_5">Nội dung</label>
+                </th>
+                <td>
+                    <input type="text" name="product_coupon_code_5" id="product_coupon_code_5" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_max_5">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="product_coupon_max_5" id="product_coupon_max_5" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Nội dung 6</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_enable_6">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="product_coupon_enable_6" id="product_coupon_enable_6" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_code_6">Nội dung</label>
+                </th>
+                <td>
+                    <input type="text" name="product_coupon_code_6" id="product_coupon_code_6" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_coupon_max_6">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="product_coupon_max_6" id="product_coupon_max_6" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang chủ - Module Flash Sale</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr class="horizontal">
+                <th>
+                    <label for="banner3_title_img.png">Ảnh Tiêu đề</label>
+                    <p>Kích thước ảnh 216x78 pixcel. Ảnh định dạng .png</p>
+                </th>
+                <td>
+                    <input type="file" name="banner3_title_img.png" id="banner3_title_img.png" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Thiết lập giờ và sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="saletimes-1">Thời gian Đếm ngược</label>
+                    <p>Nhập theo định dạng YYYY-MM-DDTHH:mm:ss</p>
+                </th>
+                <td>
+                    <input type="text" name="saletimes-1" id="saletimes-1" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="saletimes-col-limit-1">Số sản phẩm hiển thị</label>
+                </th>
+                <td>
+                    <input type="text" name="saletimes-col-limit-1" id="saletimes-col-limit-1" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="saletimes-col-1">Chọn danh mục sản phẩm</label>
+                </th>
+                <td>
+                    <select name="saletimes-col-1" id="saletimes-col-1" class="collection"></select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="saletimes-col-2">Nút liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="saletimes-col-2" id="saletimes-col-2" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang chủ - Module Bộ sưu tập</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr class="horizontal">
+                <th>
+                    <label for="section_pro_3">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="section_pro_3" id="section_pro_3" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_pro_3_url">Chọn danh mục tab</label>
+                </th>
+                <td>
+                    <select name="section_pro_3_url" id="section_pro_3_url" class="linklist"></select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_pro_3_tab">Giới hạn số tab hiển thị</label>
+                </th>
+                <td>
+                    <input type="text" name="section_pro_3_tab" id="section_pro_3_tab" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_pro_3_limit">Số sản phẩm hiển thị</label>
+                </th>
+                <td>
+                    <input type="text" name="section_pro_3_limit" id="section_pro_3_limit" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang chủ - Module Ưu đãi trong tháng</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Thiết lập kích thước</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="width_promotion_img">Chiều rộng hình ảnh sản phẩm</label>
+                    <p>Đặt chiều rộng và chiều cao chính xác cho hình ảnh để cải thiện CLS (https://web.dev/optimize-cls/)</p>
+                </th>
+                <td>
+                    <input type="text" name="width_promotion_img" id="width_promotion_img" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="height_promotion_img">Chiều cao hình ảnh sản phẩm</label>
+                    <p>Đặt chiều rộng và chiều cao chính xác cho hình ảnh để cải thiện CLS (https://web.dev/optimize-cls/)</p>
+                </th>
+                <td>
+                    <input type="text" name="height_promotion_img" id="height_promotion_img" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Banner 1</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="img_promotion_1.jpg">Chọn ảnh banner</label>
+                    <p>Kích thước 500x667 pixels .jpg</p>
+                </th>
+                <td>
+                    <input type="file" name="img_promotion_1.jpg" id="img_promotion_1.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="alt_promotion_1">Thẻ alt</label>
+                </th>
+                <td>
+                    <input type="text" name="alt_promotion_1" id="alt_promotion_1" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="link_promotion_1">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="link_promotion_1" id="link_promotion_1" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Banner 2</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="img_promotion_2.jpg">Chọn ảnh banner</label>
+                    <p>Kích thước 500x667 pixels .jpg</p>
+                </th>
+                <td>
+                    <input type="file" name="img_promotion_2.jpg" id="img_promotion_2.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="alt_promotion_2">Thẻ alt</label>
+                </th>
+                <td>
+                    <input type="text" name="alt_promotion_2" id="alt_promotion_2" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="link_promotion_2">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="link_promotion_2" id="link_promotion_2" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Banner 3</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="img_promotion_3.jpg">Chọn ảnh banner</label>
+                    <p>Kích thước 500x667 pixels .jpg</p>
+                </th>
+                <td>
+                    <input type="file" name="img_promotion_3.jpg" id="img_promotion_3.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="alt_promotion_3">Thẻ alt</label>
+                </th>
+                <td>
+                    <input type="text" name="alt_promotion_3" id="alt_promotion_3" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="link_promotion_3">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="link_promotion_3" id="link_promotion_3" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang chủ - Module Sản phẩm 1</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Banner</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_1_img.jpg">Ảnh banner desktop</label>
+                    <p>Kích thước 515 x 460 pixel. Định dạng ảnh .jpg</p>
+                </th>
+                <td>
+                    <input type="file" name="section_product_1_img.jpg" id="section_product_1_img.jpg" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_1_img_mb.jpg">Ảnh banner mobile</label>
+                    <p>Kích thước 768 x 432 pixel. Định dạng ảnh .jpg</p>
+                </th>
+                <td>
+                    <input type="file" name="section_product_1_img_mb.jpg" id="section_product_1_img_mb.jpg" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_1_img_alt">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="section_product_1_img_alt" id="section_product_1_img_alt" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_1_img_link">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="section_product_1_img_link" id="section_product_1_img_link" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Cấu hình sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_1_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="section_product_1_title" id="section_product_1_title" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_1_col">Chọn danh mục sản phẩm</label>
+                </th>
+                <td>
+                    <select name="section_product_1_col" id="section_product_1_col" class="collection"></select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_1_limit">Giới hạn sản phẩm</label>
+                </th>
+                <td>
+                    <input type="text" name="section_product_1_limit" id="section_product_1_limit" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang chủ - Module Sản phẩm 2</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Cấu hình sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_2_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="section_product_2_title" id="section_product_2_title" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_2_col">Chọn danh mục sản phẩm</label>
+                </th>
+                <td>
+                    <select name="section_product_2_col" id="section_product_2_col" class="collection"></select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_2_limit">Giới hạn sản phẩm</label>
+                </th>
+                <td>
+                    <input type="text" name="section_product_2_limit" id="section_product_2_limit" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_2_menu">Chọn danh mục</label>
+                </th>
+                <td>
+                    <select name="section_product_2_menu" id="section_product_2_menu" class="linklist"></select>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang chủ - Module Sản phẩm 3</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Banner</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_3_img.jpg">Ảnh banner</label>
+                    <p>Kích thước 427 x 510 pixel. Định dạng ảnh .jpg</p>
+                </th>
+                <td>
+                    <input type="file" name="section_product_3_img.jpg" id="section_product_3_img.jpg" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_3_img_alt">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="section_product_3_img_alt" id="section_product_3_img_alt" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_3_img_link">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="section_product_3_img_link" id="section_product_3_img_link" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_3_img_1.jpg">Ảnh banner</label>
+                    <p>Kích thước 427 x 510 pixel. Định dạng ảnh .jpg</p>
+                </th>
+                <td>
+                    <input type="file" name="section_product_3_img_1.jpg" id="section_product_3_img_1.jpg" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_3_img_alt_1">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="section_product_3_img_alt_1" id="section_product_3_img_alt_1" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_3_img_link_1">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="section_product_3_img_link_1" id="section_product_3_img_link_1" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Cấu hình sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_3_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="section_product_3_title" id="section_product_3_title" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_3_col">Chọn danh mục sản phẩm</label>
+                </th>
+                <td>
+                    <select name="section_product_3_col" id="section_product_3_col" class="collection"></select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_3_limit">Giới hạn sản phẩm</label>
+                </th>
+                <td>
+                    <input type="text" name="section_product_3_limit" id="section_product_3_limit" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="section_product_3_menu">Chọn danh mục</label>
+                </th>
+                <td>
+                    <select name="section_product_3_menu" id="section_product_3_menu" class="linklist"></select>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang chủ - Module Lookbook</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_title">Tiêu đề module</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_title" id="lookbook_title" value="Lookbook" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Hình ảnh 1</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_image_1.jpg">Hình ảnh Lookbook</label>
+                    <p>Kích thước chiều rộng tối thiếu 300px. Không quy định chiều cao</p>
+                </th>
+                <td>
+                    <input type="file" name="lookbook_image_1.jpg" id="lookbook_image_1.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_alt_1">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_alt_1" id="lookbook_alt_1" value="Khám phá phong cách mới nhất" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_url_1">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_url_1" id="lookbook_url_1" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Hình ảnh 2</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_image_2.jpg">Hình ảnh Lookbook</label>
+                    <p>Kích thước chiều rộng tối thiếu 300px. Không quy định chiều cao</p>
+                </th>
+                <td>
+                    <input type="file" name="lookbook_image_2.jpg" id="lookbook_image_2.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_alt_2">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_alt_2" id="lookbook_alt_2" value="Khám phá phong cách mới nhất" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_url_2">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_url_2" id="lookbook_url_2" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Hình ảnh 3</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_image_3.jpg">Hình ảnh Lookbook</label>
+                    <p>Kích thước chiều rộng tối thiếu 300px. Không quy định chiều cao</p>
+                </th>
+                <td>
+                    <input type="file" name="lookbook_image_3.jpg" id="lookbook_image_3.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_alt_3">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_alt_3" id="lookbook_alt_3" value="Khám phá phong cách mới nhất" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_url_3">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_url_3" id="lookbook_url_3" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Hình ảnh 4</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_image_4.jpg">Hình ảnh Lookbook</label>
+                    <p>Kích thước chiều rộng tối thiếu 300px. Không quy định chiều cao</p>
+                </th>
+                <td>
+                    <input type="file" name="lookbook_image_4.jpg" id="lookbook_image_4.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_alt_4">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_alt_4" id="lookbook_alt_4" value="Khám phá phong cách mới nhất" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_url_4">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_url_4" id="lookbook_url_4" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Hình ảnh 5</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_image_5.jpg">Hình ảnh Lookbook</label>
+                    <p>Kích thước chiều rộng tối thiếu 300px. Không quy định chiều cao</p>
+                </th>
+                <td>
+                    <input type="file" name="lookbook_image_5.jpg" id="lookbook_image_5.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_alt_5">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_alt_5" id="lookbook_alt_5" value="Khám phá phong cách mới nhất" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_url_5">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_url_5" id="lookbook_url_5" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Hình ảnh 6</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_image_6.jpg">Hình ảnh Lookbook</label>
+                    <p>Kích thước chiều rộng tối thiếu 300px. Không quy định chiều cao</p>
+                </th>
+                <td>
+                    <input type="file" name="lookbook_image_6.jpg" id="lookbook_image_6.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_alt_6">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_alt_6" id="lookbook_alt_6" value="Khám phá phong cách mới nhất" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_url_6">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_url_6" id="lookbook_url_6" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Hình ảnh 7</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_image_7.jpg">Hình ảnh Lookbook</label>
+                    <p>Kích thước chiều rộng tối thiếu 300px. Không quy định chiều cao</p>
+                </th>
+                <td>
+                    <input type="file" name="lookbook_image_7.jpg" id="lookbook_image_7.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_alt_7">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_alt_7" id="lookbook_alt_7" value="Khám phá phong cách mới nhất" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_url_7">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_url_7" id="lookbook_url_7" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Hình ảnh 8</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_image_8.jpg">Hình ảnh Lookbook</label>
+                    <p>Kích thước chiều rộng tối thiếu 300px. Không quy định chiều cao</p>
+                </th>
+                <td>
+                    <input type="file" name="lookbook_image_8.jpg" id="lookbook_image_8.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_alt_8">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_alt_8" id="lookbook_alt_8" value="Khám phá phong cách mới nhất" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_url_8">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_url_8" id="lookbook_url_8" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Hình ảnh 9</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_image_9.jpg">Hình ảnh Lookbook</label>
+                    <p>Kích thước chiều rộng tối thiếu 300px. Không quy định chiều cao</p>
+                </th>
+                <td>
+                    <input type="file" name="lookbook_image_9.jpg" id="lookbook_image_9.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_alt_9">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_alt_9" id="lookbook_alt_9" value="Khám phá phong cách mới nhất" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_url_9">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_url_9" id="lookbook_url_9" />
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><h4>Hình ảnh 10</h4></td></tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_image_10.jpg">Hình ảnh Lookbook</label>
+                    <p>Kích thước chiều rộng tối thiếu 300px. Không quy định chiều cao</p>
+                </th>
+                <td>
+                    <input type="file" name="lookbook_image_10.jpg" id="lookbook_image_10.jpg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_alt_10">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_alt_10" id="lookbook_alt_10" value="Khám phá phong cách mới nhất" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_url_10">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_url_10" id="lookbook_url_10" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>
+    </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang danh sách sản phẩm</legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <img src="https://cdn.hstatic.net/files/200001127691/file/wolf-calie-settings-4__1_.jpg" width="94%" style="float: right;">
+      </div>
+      <div class="col-sm-6">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Bố cục</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="collection_number_product">Số sản phẩm trên trang</label>
+                </th>
+                <td>
+                    <input type="text" name="collection_number_product" id="collection_number_product" value="24" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Khối sản phẩm đang khuyến mãi</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="wolf-collections-sales">Hiển thị khối?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="wolf-collections-sales" id="wolf-collections-sales" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="wolf-collections-sales-title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="wolf-collections-sales-title" id="wolf-collections-sales-title" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="wolf-collections-sales-collections">Chọn danh mục mặc định</label>
+                </th>
+                <td>
+                    <select name="wolf-collections-sales-collections" id="wolf-collections-sales-collections" class="collection"></select>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="wolf-collections-sales-limit">Giới hạn sản phẩm</label>
+                </th>
+                <td>
+                    <input type="text" name="wolf-collections-sales-limit" id="wolf-collections-sales-limit" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Banner đầu trang</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="collection_banner_enable">Hiển thị block banner?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="collection_banner_enable" id="collection_banner_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="collection_banner_1.jpg">Chọn ảnh Banner 1. Kích thước yêu cầu 900 x 373 pixcel. Định dạng ảnh .JPG</label>
+                    <p>Ảnh này sẽ được dùng chung cho tất cả các danh mục sản phẩm không cấu hình banner và trang tất cả sản phẩm</p>
+                </th>
+                <td>
+                    <input type="file" name="collection_banner_1.jpg" id="collection_banner_1.jpg" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="collection_banner_alt_1">Nhập thẻ Alt</label>
+                </th>
+                <td>
+                    <input type="text" name="collection_banner_alt_1" id="collection_banner_alt_1" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="collection_banner_url_1">Nhập Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="collection_banner_url_1" id="collection_banner_url_1" value="#" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="collection_banner_width">Chiều rộng hình ảnh banner</label>
+                    <p>Đặt chiều rộng và chiều cao chính xác cho hình ảnh để cải thiện CLS (https://web.dev/optimize-cls/)</p>
+                </th>
+                <td>
+                    <input type="text" name="collection_banner_width" id="collection_banner_width" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="collection_banner_height">Chiều cao hình ảnh banner</label>
+                    <p>Đặt chiều rộng và chiều cao chính xác cho hình ảnh để cải thiện CLS (https://web.dev/optimize-cls/)</p>
+                </th>
+                <td>
+                    <input type="text" name="collection_banner_height" id="collection_banner_height" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Menu sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="wolf-collections-menu">Hiển thị khối?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="wolf-collections-menu" id="wolf-collections-menu" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="product_menu">Chọn Menu</label>
+                </th>
+                <td>
+                    <select name="product_menu" id="product_menu" class="linklist"></select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Nội dung mô tả mặc định</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="wolf-article-enable">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="wolf-article-enable" id="wolf-article-enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="wolf-article-collections">Chọn bài viết</label>
+                </th>
+                <td>
+                    <select name="wolf-article-collections" id="wolf-article-collections" class="page"></select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Bộ lọc sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="aside_filter_enable">Hiển thị bộ lọc</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="aside_filter_enable" id="aside_filter_enable" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <p style="padding: 5px 0; color: #666; font-style: italic;">Chúng tôi cung cấp cho bạn bộ lọc. Bạn có thể tìm đến BỘ LỌC SẢN PHẨM ở phía ngoài để cài đặt cụ thể hơn</p>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Bộ lọc sản phẩm</legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <img src="https://cdn.hstatic.net/files/200001127691/file/wolf-calie-settings-5.png" width="94%" style="float: right;">
+      </div>
+      <div class="col-sm-6">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Thương hiệu</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_vendor">Hiển thị bộ lọc hãng</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="filter_vendor" id="filter_vendor" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_vendor_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="filter_vendor_title" id="filter_vendor_title" value="Thương hiệu" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Loại sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_type">Hiển thị bộ lọc loại sản phẩm</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="filter_type" id="filter_type" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_type_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="filter_type_title" id="filter_type_title" value="Loại sản phẩm" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Lọc theo giá</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_price">Hiển thị bộ lọc Khoảng giá</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="filter_price" id="filter_price" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_price_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="filter_price_title" id="filter_price_title" value="Chọn mức giá" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_price_node">Các mốc khoảng giá</label>
+                    <p>Các điểm mốc giá cách nhau bởi dấu ';' ,Mốc giá được tính từ hàng triệu trở lên VD: 1.000.000đ; 2.000.000đ; 3.000.000đ; 5.000.000đ</p>
+                </th>
+                <td>
+                    <textarea name="filter_price_node" id="filter_price_node" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Lọc theo tag 1 - Cho trang tất cả sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_tag1">Hiển thị bộ lọc tag sản phẩm</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="filter_tag1" id="filter_tag1" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_tag1_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="filter_tag1_title" id="filter_tag1_title" value="Màu sắc" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_tag1_list">Nhập các tên tag cần lọc</label>
+                    <p>Mỗi tên cách nhau dấu ';'</p>
+                </th>
+                <td>
+                    <textarea name="filter_tag1_list" id="filter_tag1_list" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Lọc theo tag 2 - Cho trang tất cả sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_tag2">Hiển thị bộ lọc tag sản phẩm</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="filter_tag2" id="filter_tag2" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_tag2_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="filter_tag2_title" id="filter_tag2_title" value="Dung lượng" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_tag2_list">Nhập các tên tag cần lọc</label>
+                    <p>Mỗi tên cách nhau dấu ';'</p>
+                </th>
+                <td>
+                    <textarea name="filter_tag2_list" id="filter_tag2_list" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Lọc theo tag 3 - Cho trang tất cả sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_tag3">Hiển thị bộ lọc tag sản phẩm</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="filter_tag3" id="filter_tag3" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_tag3_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="filter_tag3_title" id="filter_tag3_title" value="Tình trạng" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="filter_tag3_list">Nhập các tên tag cần lọc</label>
+                    <p>Mỗi tên cách nhau dấu ';'</p>
+                </th>
+                <td>
+                    <textarea name="filter_tag3_list" id="filter_tag3_list" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Lọc theo tag tùy chỉnh nội dung cho từng DMSP</h4>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <p style="padding: 5px 0; color: #666; font-style: italic;">Để dùng bộ lọc tag riêng khác nhau cho từng DMSP. Vui lòng nhập trong mô tả danh mục sản phẩm theo cú pháp <code>&lt;h6&gt;Tên bộ lọc&lt;/h6&gt;</code> và dưới tiêu đề h6 sẽ là các giá trị của bộ lọc. Các giá trị cách nhau bằng dấu phẩy (,)</p>
+                </td>
+            </tr>
+
+        </table>
+      </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang sản phẩm</legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <img src="https://cdn.hstatic.net/files/200001127691/file/wolf-calie-settings-6.jpg" width="94%" style="float: right;">
+      </div>
+      <div class="col-sm-6">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Layout trang sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="product_swatch_enable">Dùng biến thể màu?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="product_swatch_enable" id="product_swatch_enable" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Khuyến mãi và ưu đãi</h4>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <p style="padding: 5px 0; color: #666; font-style: italic;">Nội dung mặc định nếu không sử dụng Metafield</p>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="product_promotion_enable">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="product_promotion_enable" id="product_promotion_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="product_promotion_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="product_promotion_title" id="product_promotion_title" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="product_promotion_content">Nội dung khuyến mãi</label>
+                </th>
+                <td>
+                    <textarea name="product_promotion_content" id="product_promotion_content" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Khối cam kết của chúng tôi</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="commit_enable">Hiển thị khối?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="commit_enable" id="commit_enable" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="commit_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="commit_title" id="commit_title" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="commit_img_1.svg">Chọn ảnh 1. Định dạng svg</label>
+                    <p>Kích thước ảnh 128x128 pixcel. Ảnh định dạng .svg</p>
+                </th>
+                <td>
+                    <input type="file" name="commit_img_1.svg" id="commit_img_1.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="commit_content_1">Nội dung 1</label>
+                </th>
+                <td>
+                    <textarea name="commit_content_1" id="commit_content_1" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="commit_img_2.svg">Chọn ảnh 2. Định dạng svg</label>
+                    <p>Kích thước ảnh 128x128 pixcel. Ảnh định dạng .svg</p>
+                </th>
+                <td>
+                    <input type="file" name="commit_img_2.svg" id="commit_img_2.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="commit_content_2">Nội dung 2</label>
+                </th>
+                <td>
+                    <textarea name="commit_content_2" id="commit_content_2" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="commit_img_3.svg">Chọn ảnh 3. Định dạng svg</label>
+                    <p>Kích thước ảnh 128x128 pixcel. Ảnh định dạng .svg</p>
+                </th>
+                <td>
+                    <input type="file" name="commit_img_3.svg" id="commit_img_3.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="commit_content_3">Nội dung 3</label>
+                </th>
+                <td>
+                    <textarea name="commit_content_3" id="commit_content_3" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="commit_img_4.svg">Chọn ảnh 4. Định dạng svg</label>
+                    <p>Kích thước ảnh 128x128 pixcel. Ảnh định dạng .svg</p>
+                </th>
+                <td>
+                    <input type="file" name="commit_img_4.svg" id="commit_img_4.svg" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="commit_content_4">Nội dung 4</label>
+                </th>
+                <td>
+                    <textarea name="commit_content_4" id="commit_content_4" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Size chart</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="sizechartpage">Chọn trang dữ liệu Size chart. Xem hướng dẫn nhập ở trang Hướng dẫn sử dụng</label>
+                </th>
+                <td>
+                    <select name="sizechartpage" id="sizechartpage" class="page"></select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Khối Nhận thông tin khi sản phẩm hết hàng</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="back-in-stock-form-title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="back-in-stock-form-title" id="back-in-stock-form-title" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="back-in-stock-form-api">URL webhook</label>
+                </th>
+                <td>
+                    <textarea name="back-in-stock-form-api" id="back-in-stock-form-api" rows="3"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p style="padding: 5px 0; color: #666; font-style: italic;">Xem hướng dẫn lấy URL webhook ở trang Hướng dẫn sử dụng</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Khối Gợi ý sản phẩm mua kèm</h4>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p style="padding: 5px 0; color: #666; font-style: italic;">Xem hướng dẫn ở trang Hướng dẫn sử dụng</p>
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product-bundled-title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="product-bundled-title" id="product-bundled-title" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Module tab sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Tab thông tin sản phẩm</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="product_content_title">Tiêu đề khối mô tả sản phẩm</label>
+                </th>
+                <td>
+                    <input type="text" name="product_content_title" id="product_content_title" value="Thông tin sản phẩm" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Tab Bảo quản</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="product_tab_enable_1">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="product_tab_enable_1" id="product_tab_enable_1" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_tab_title_1">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="product_tab_title_1" id="product_tab_title_1" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_tab_page_1">Chọn trang nội dung</label>
+                </th>
+                <td>
+                    <select name="product_tab_page_1" id="product_tab_page_1" class="page"></select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Tab Giao hàng & Đổi trả</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="product_tab_enable_2">Hiển thị</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="product_tab_enable_2" id="product_tab_enable_2" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_tab_title_2">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="product_tab_title_2" id="product_tab_title_2" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="product_tab_page_2">Chọn trang nội dung</label>
+                </th>
+                <td>
+                    <select name="product_tab_page_2" id="product_tab_page_2" class="page"></select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Sản phẩm liên quan</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="product_recent_enable">Hiển thị khối?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="product_recent_enable" id="product_recent_enable" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="sanphamlienquan_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="sanphamlienquan_title" id="sanphamlienquan_title" value="Sản phẩm liên quan" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="limit_sanphamlienquan">Giới hạn sản phẩm</label>
+                </th>
+                <td>
+                    <input type="text" name="limit_sanphamlienquan" id="limit_sanphamlienquan" value="5" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Sản phẩm đã xem</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="viewed_enable">Hiển thị khối?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="viewed_enable" id="viewed_enable" checked />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="viewed_title">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="viewed_title" id="viewed_title" value="Bạn đã xem" />
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="viewed_limit">Giới hạn sản phẩm</label>
+                </th>
+                <td>
+                    <input type="text" name="viewed_limit" id="viewed_limit" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Biến thể màu</h4>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p style="padding: 5px 0; color: #666; font-style: italic;">Vui lòng thiệt lập các biến thể theo màu phía dưới, hoặc đặt tên màu tiếng anh theo bảng sau: http://www.w3schools.com/colors/colors_names.asp</p>
+                </td>
+            </tr>
+            <tr class="horizontal">
+                <th>
+                    <label for="color_swatch">Nhập dữ liệu màu</label>
+                </th>
+                <td>
+                    <textarea name="color_swatch" id="color_swatch" rows="3"></textarea>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang blog</legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <img src="https://cdn.hstatic.net/files/200001127691/file/wolf-calie-settings-7.jpg" width="94%" style="float: right;">
+      </div>
+      <div class="col-sm-6">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Bố cục</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="blogs_number_perpage">Số bài viết trên trang</label>
+                </th>
+                <td>
+                    <input type="text" name="blogs_number_perpage" id="blogs_number_perpage" value="12" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <p style="padding: 5px 0; color: #666; font-style: italic;">Banner đầu trang</p>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="news_relate">Liên kết</label>
+                </th>
+                <td>
+                    <input type="text" name="news_relate" id="news_relate" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="news_relate_alt">Thẻ ALT</label>
+                </th>
+                <td>
+                    <input type="text" name="news_relate_alt" id="news_relate_alt" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="relate_blog.jpg">Chọn hình ảnh</label>
+                    <p>Định dạng JPG, kích thước 1920x800px</p>
+                </th>
+                <td>
+                    <input type="file" name="relate_blog.jpg" id="relate_blog.jpg" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Chi tiết bài viết</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="article_social_enable">Hiển thị chia sẻ bài viết</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="article_social_enable" id="article_social_enable" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Khối Slider ảnh đầu trang</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="article_slider_enable">Hiển thị khối?</label>
+                </th>
+                <td>
+                    <input type="checkbox" name="article_slider_enable" id="article_slider_enable" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Bài viết liên quan</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="title_blog_relate">Tiêu đề</label>
+                </th>
+                <td>
+                    <input type="text" name="title_blog_relate" id="title_blog_relate" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="limit_blog_relate">Giới hạn bài viết</label>
+                </th>
+                <td>
+                    <input type="text" name="limit_blog_relate" id="limit_blog_relate" value="6" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang liên hệ</legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <img src="https://cdn.hstatic.net/files/200001127691/file/contact.png" width="94%" style="float: right;">
+      </div>
+      <div class="col-sm-6">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <p style="padding: 5px 0; color: #666; font-style: italic;">Thông tin địa chỉ, số điện thoại email được lấy từ phần thiết lập chung</p>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="title_contact_1">Tiêu đề chính</label>
+                </th>
+                <td>
+                    <input type="text" name="title_contact_1" id="title_contact_1" />
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="des_foo">Mô tả</label>
+                </th>
+                <td>
+                    <textarea name="des_foo" id="des_foo" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="title_contact_2">Tiêu đề form liên hệ</label>
+                </th>
+                <td>
+                    <input type="text" name="title_contact_2" id="title_contact_2" />
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Thiết lập map</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="contactr_contact_maps">Iframe maps</label>
+                    <p>Vui lòng nhập mã iframe từ google maps vào ô nhập Iframe maps</p>
+                </th>
+                <td>
+                    <textarea name="contactr_contact_maps" id="contactr_contact_maps" rows="3"></textarea>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang Hệ thống cửa hàng</legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <img src="https://cdn.hstatic.net/files/200001127691/file/cua-hang.png" width="94%" style="float: right;">
+      </div>
+      <div class="col-sm-6">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Thiết lập chung</h4>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <p style="padding: 5px 0; color: #666; font-style: italic;">Tạo 1 trang nội dung và chọn khung giao diện là page.he-thong-cua-hang</p>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="store_default_iframe">Nhập iframe hiển thị mặc định khi vào trang</label>
+                </th>
+                <td>
+                    <textarea name="store_default_iframe" id="store_default_iframe" rows="3"></textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <h4>Cấu hình danh sách cửa hàng</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="store_list">Chọn trang Danh sách cửa hàng</label>
+                    <p>Tạo 1 trang nội dung và chọn khung giao diện là page.he-thong-cua-hang</p>
+                </th>
+                <td>
+                    <select name="store_list" id="store_list" class="page"></select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <p style="padding: 5px 0; color: #666; font-style: italic;">
+                        Nội dung trang danh sách cửa hàng. Ta sẽ nhập nội dung mã như sau:<br>
+                        <code>{name:"NHẬP TÊN CỬA HÀNG", address: "NHẬP ĐỊA CHỈ CỬA HÀNG",city: "NHẬP TỈNH THÀNH",district: "NHẬP QUẬN HUYỆN", phone:"NHẬP SỐ ĐIỆN THOẠI", url: "NHẬP LINK EMBED BẢN ĐỒ IFRAME GOOGLE MAP"},</code>
+                    </p>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="list_city">Chọn menu danh sách tỉnh/thành</label>
+                </th>
+                <td>
+                    <select name="list_city" id="list_city" class="linklist"></select>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Trang Lookbook</legend>
+    <div class="col-sm-12">
+        <table>
+            
+            <tr>
+                <td colspan="2">
+                    <h4>Bố cục</h4>
+                </td>
+            </tr>
+
+            <tr class="horizontal">
+                <th>
+                    <label for="lookbook_number_product">Số sản phẩm trên trang</label>
+                </th>
+                <td>
+                    <input type="text" name="lookbook_number_product" id="lookbook_number_product" value="8" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</fieldset>

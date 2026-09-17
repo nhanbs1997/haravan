@@ -1,0 +1,187 @@
+/* ============================================================
+   Cart Buy More Popup
+   - Mở khi click .bs_cart__promo-btn
+   - Tabs: switch panel (pill)
+   - Slider: Swiper per tab (lazy init khi tab active)
+   - Add to cart: dùng product-loop (.js-add-to-cart) — handle bởi main.js
+   ============================================================ */
+
+(function () {
+  'use strict';
+
+  var BM = {
+    $popup: null,
+    swipers: {}, // { tabId: SwiperInstance }
+
+    init: function () {
+      this.$popup = document.getElementById('bmPopup');
+      if (!this.$popup) return;
+
+      var self = this;
+
+      document.addEventListener('click', function (e) {
+        // Open: click button "Mua thêm"
+        var btn = e.target.closest('.bs_cart__promo-btn');
+        if (btn) {
+          e.preventDefault();
+          self.open();
+          return;
+        }
+
+        // Close
+        if (e.target.closest('[data-bm-close]')) {
+          e.preventDefault();
+          self.close();
+          return;
+        }
+
+        // Tab switch
+        var tab = e.target.closest('.bm-popup__tab');
+        if (tab) {
+          e.preventDefault();
+          self.switchTab(parseInt(tab.getAttribute('data-bm-tab'), 10));
+          return;
+        }
+
+        // Slider nav
+        var prev = e.target.closest('[data-bm-prev]');
+        if (prev) {
+          var pid = parseInt(prev.getAttribute('data-bm-prev'), 10);
+          if (self.swipers[pid]) self.swipers[pid].slidePrev();
+          return;
+        }
+        var next = e.target.closest('[data-bm-next]');
+        if (next) {
+          var nid = parseInt(next.getAttribute('data-bm-next'), 10);
+          if (self.swipers[nid]) self.swipers[nid].slideNext();
+          return;
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && self._isOpen()) self.close();
+      });
+    },
+
+    open: function () {
+      var self = this;
+      this.$popup.hidden = false;
+      this.$popup.setAttribute('aria-hidden', 'false');
+      requestAnimationFrame(function () {
+        self.$popup.classList.add('is-open');
+      });
+      document.body.style.overflow = 'hidden';
+
+      // Kích hoạt ảnh lazyload trong popup (tránh ảnh trống)
+      this._activateImages();
+
+      // Init Swiper sau khi popup đã hiển thị + layout ổn định
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          var activeTab = self.$popup.querySelector('.bm-popup__tab.is-active');
+          if (activeTab) {
+            self._initSwiper(parseInt(activeTab.getAttribute('data-bm-tab'), 10));
+          } else {
+            var firstPanel = self.$popup.querySelector('.bm-popup__panel-item');
+            if (firstPanel) self._initSwiper(parseInt(firstPanel.getAttribute('data-bm-panel'), 10));
+          }
+        });
+      });
+    },
+
+    close: function () {
+      var self = this;
+      this.$popup.classList.remove('is-open');
+      this.$popup.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      setTimeout(function () { self.$popup.hidden = true; }, 250);
+    },
+
+    _isOpen: function () {
+      return !this.$popup.hidden && this.$popup.classList.contains('is-open');
+    },
+
+    switchTab: function (tabId) {
+      this.$popup.querySelectorAll('.bm-popup__tab').forEach(function (t) {
+        var isActive = parseInt(t.getAttribute('data-bm-tab'), 10) === tabId;
+        t.classList.toggle('is-active', isActive);
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      this.$popup.querySelectorAll('.bm-popup__panel-item').forEach(function (p) {
+        var isActive = parseInt(p.getAttribute('data-bm-panel'), 10) === tabId;
+        p.classList.toggle('is-active', isActive);
+      });
+      this._initSwiper(tabId);
+    },
+
+    _initSwiper: function (tabId) {
+      if (this.swipers[tabId]) {
+        try { this.swipers[tabId].update(); } catch (e) {}
+        return;
+      }
+      if (typeof Swiper === 'undefined') return;
+      var el = this.$popup.querySelector('[data-bm-swiper="' + tabId + '"]');
+      if (!el) return;
+
+      var self = this;
+      this.swipers[tabId] = new Swiper(el, {
+        slidesPerView: 2,
+        spaceBetween: 12,
+        observer: true,
+        observeParents: true,
+        breakpoints: {
+          576: { slidesPerView: 2, spaceBetween: 12 },
+          768: { slidesPerView: 3, spaceBetween: 12 },
+          992: { slidesPerView: 3, spaceBetween: 12 }
+        },
+        on: {
+          init: function () { self._updateNavState(tabId, this); },
+          slideChange: function () { self._updateNavState(tabId, this); },
+          resize: function () { self._updateNavState(tabId, this); }
+        }
+      });
+    },
+
+    _updateNavState: function (tabId, sw) {
+      var prev = this.$popup.querySelector('[data-bm-prev="' + tabId + '"]');
+      var next = this.$popup.querySelector('[data-bm-next="' + tabId + '"]');
+      if (prev) prev.classList.toggle('is-disabled', sw.isBeginning);
+      if (next) next.classList.toggle('is-disabled', sw.isEnd);
+      this._centerNav(tabId);
+    },
+
+    // Căn mũi tên đúng tâm ảnh card (ảnh cao tùy độ rộng card → tính bằng JS)
+    _activateImages: function () {
+      var imgs = this.$popup.querySelectorAll('img.lazyload, img[data-src]');
+      imgs.forEach(function (img) {
+        var ds = img.getAttribute('data-src');
+        if (ds) { img.setAttribute('src', ds); img.removeAttribute('data-src'); }
+        img.classList.remove('lazyload');
+        img.classList.remove('isHideTBT');
+      });
+    },
+
+    _centerNav: function (tabId) {
+      var panel = this.$popup.querySelector('[data-bm-panel="' + tabId + '"]');
+      if (!panel) return;
+      var media = panel.querySelector('.product-card__media');
+      var navs = panel.querySelectorAll('.bm-popup__nav');
+      if (!media || !navs.length) return;
+      var h = media.getBoundingClientRect().height;
+      if (!h) return;
+      navs.forEach(function (n) {
+        n.style.marginTop = '0';
+        n.style.top = (h / 2 - 18) + 'px';
+      });
+    }
+  };
+
+  window.BS = window.BS || {};
+  window.BS.CartBuyMore = BM;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { BM.init(); });
+  } else {
+    BM.init();
+  }
+})();

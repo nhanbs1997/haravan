@@ -1,0 +1,106 @@
+{%- comment -%}
+  Snippet: blog-grid
+  Mô tả: Section 2 — Tabs danh mục blog + lưới bài viết.
+  Vars (assign trước khi include):
+    blog         : object blog hien tai
+    _grid_title  : tieu de section
+    _grid_cols   : so cot (2/3/4)
+    _tab_limit   : so bai moi tab
+    _feat_count  : so bai da dung o featured (de offset fallback)
+  Settings dùng trực tiếp:
+    bs_blog_tab_handle_1..6 / bs_blog_tab_title_1..6
+{%- endcomment -%}
+
+{%- comment -%} Kiểm tra có tab hợp lệ không {%- endcomment -%}
+{%- assign _has_tabs = false -%}
+{%- for i in (1..6) -%}
+  {%- capture _th_key -%}en_bs_blog_tab_handle_{{ i }}{%- endcapture -%}
+  {%- capture _tt_key -%}en_bs_blog_tab_title_{{ i }}{%- endcapture -%}
+  {%- if settings[_th_key] != blank and settings[_tt_key] != blank -%}
+    {%- assign _has_tabs = true -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<section class="blog-grid-section" id="blogGridSection">
+  <div class="container">
+
+    <div class="blog-grid-section__head">
+      <h2 class="blog-grid-section__title">{{ _grid_title }}</h2>
+
+      {%- if _has_tabs -%}
+      <div class="blog-tabs" id="blogTabs" role="tablist" aria-label="News List">
+        {%- assign _first_tab = true -%}
+        {%- for i in (1..6) -%}
+          {%- capture _th_key -%}en_bs_blog_tab_handle_{{ i }}{%- endcapture -%}
+          {%- capture _tt_key -%}en_bs_blog_tab_title_{{ i }}{%- endcapture -%}
+          {%- assign _t_handle = settings[_th_key] | strip -%}
+          {%- assign _t_title  = settings[_tt_key] | strip -%}
+          {%- if _t_handle != blank and _t_title != blank -%}
+          <button type="button"
+            class="blog-tabs__btn{% if _first_tab %} is-active{% endif %}"
+            data-tab="tab-{{ i }}"
+            role="tab"
+            aria-selected="{% if _first_tab %}true{% else %}false{% endif %}"
+            aria-controls="blogTabPanel-{{ i }}">
+            {{ _t_title }}
+          </button>
+          {%- assign _first_tab = false -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+    </div>
+
+    {%- if _has_tabs -%}
+      {%- comment -%} Tab panels: Each tab = 1 blog from settings {%- endcomment -%}
+      {%- assign _first_panel = true -%}
+      {%- for i in (1..6) -%}
+        {%- capture _th_key -%}en_bs_blog_tab_handle_{{ i }}{%- endcapture -%}
+        {%- capture _tt_key -%}en_bs_blog_tab_title_{{ i }}{%- endcapture -%}
+        {%- assign _t_handle = settings[_th_key] | strip -%}
+        {%- assign _t_title  = settings[_tt_key] | strip -%}
+        {%- if _t_handle != blank and _t_title != blank -%}
+          {%- assign _t_blog = blogs[_t_handle] -%}
+          {%- assign _t_total = _t_blog.articles.size -%}
+          <div class="blog-tab-panel{% if _first_panel %} is-active{% endif %}"
+            id="blogTabPanel-{{ i }}"
+            role="tabpanel"
+            data-blog-handle="{{ _t_handle }}"
+            data-loaded="{{ _tab_limit }}"
+            data-per-load="{{ _tab_limit }}"
+            data-total="{{ _t_total }}"
+            {% unless _first_panel %}hidden{% endunless %}>
+            <div class="blog-grid blog-grid--cols-{{ _grid_cols }}">
+              {%- if _t_blog != blank -%}
+                {%- for article in _t_blog.articles limit: _tab_limit -%}
+                  {%- include 'en_blog-article-card' -%}
+                {%- endfor -%}
+              {%- else -%}
+                <p class="blog-tab-empty">Not yet. There's an article in This category.</p>
+              {%- endif -%}
+            </div>
+          </div>
+          {%- assign _first_panel = false -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+    {%- else -%}
+      {%- comment -%} Fallback: No. Configure tab - > Show cards from current blog, ignore featured {%- endcomment -%}
+      <div class="blog-tab-panel is-active">
+        <div class="blog-grid blog-grid--cols-{{ _grid_cols }}">
+          {%- for article in blog.articles offset: _feat_count -%}
+            {%- include 'en_blog-article-card' -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Load more button: hiện khi tab active có nhiều bài hơn _tab_limit {%- endcomment -%}
+    <div class="blog-load-more" id="blogLoadMore" style="display:none">
+      <button type="button" class="blog-more-btn" id="blogLoadMoreBtn">
+        View more
+      </button>
+    </div>
+
+  </div>
+</section>

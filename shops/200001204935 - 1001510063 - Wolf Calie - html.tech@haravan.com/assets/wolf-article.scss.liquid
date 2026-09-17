@@ -1,0 +1,100 @@
+.line-clamp-2 {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.article-image-swiper{
+	margin-bottom: 10px;
+	.swiper-pagination-progressbar-fill{
+		background-color: #828282;
+	}
+	.swiper-pagination{
+		top: auto;
+		bottom: 0px;
+		background-color: #e0e0e0;
+	}
+}
+.wolf-blog-item{
+	.wolf-blog-item-title{
+		a{
+			color: var(--main-text-color);
+			&:hover, &:focus{
+				color: var(--main-color);
+			}
+		}
+	}
+}
+.blog-related{
+	.wolf-blog-item{
+		.block-thumb{
+			padding-top: 100%;
+			overflow: hidden;
+			img{
+				position: absolute;
+				inset: 0;
+				width: 100%;
+				height: 100%;
+				object-position: center;
+				object-fit: contain;
+			}
+		}
+	}
+}
+.wolf-template-content{
+	img{
+		max-width: 100%;
+		height: auto;
+		margin-bottom: 15px;
+	}
+}
+.wolf-btn-main{
+	width: 100%;
+	height: 50px;
+	color: var(--second-color);
+	border: none;
+	font-size: 16px;
+	line-height: 46px;
+	background-color: rgba({{ settings.sup-color }}, 0.1);
+	padding: 0;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 600;
+	&:hover, &:focus{
+		color: #fff;
+		background-color: var(--second-color);
+	}
+}
+.tag_article{
+	a:hover{
+		opacity: 0.8;
+	}
+}
+#comment{
+	min-height: 200px;
+}
+.comment-box {
+	position: relative;
+	background: #f8f9fa;
+	border: 1px solid #dee2e6;
+	border-radius: 0.5rem;
+	padding: 1rem;
+}
+
+.comment-box::before {
+	content: "";
+	position: absolute;
+	top: 16px;
+	left: -16px;
+	border: 8px solid transparent;
+	border-right-color: #dee2e6;
+}
+
+.comment-box::after {
+	content: "";
+	position: absolute;
+	top: 16px;
+	left: -16px;
+	border: 8px solid transparent;
+	border-right-color: #dee2e6;
+}

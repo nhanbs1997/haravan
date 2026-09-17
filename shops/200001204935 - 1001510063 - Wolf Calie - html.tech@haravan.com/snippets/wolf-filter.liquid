@@ -1,0 +1,234 @@
+<div class="wolf-filter-mobile btn btn-primary d-flex d-md-none justify-content-center align-items-center mt-2 mb-2 rounded-pill">
+	Bộ lọc <span class="count-filter-val badge rounded-pill bg-danger ms-1">0</span>
+</div>
+<div class="wolf-filter-scroll position-relative">
+	<div class="d-block wolf-filter-fix">
+		<div class="sort-cate d-flex wolf-filter-cate aside-filter filter-container aside-content gap-2 mb-3 mt-3 position-static flex-md-wrap flex-column flex-md-row">
+			<div class="filter-containers">
+				<div class="aside-title rounded-4 position-relative text-center d-flex justify-content-center align-items-center">
+					Bộ lọc <span class="count-filter-val position-absolute top-0 translate-middle badge rounded-pill bg-danger">0</span>
+					<a href="javascript:void(0)" onclick="clearAllFiltered()" class="filter-container__clear-all wolf-clear-filter" title="Xoá bộ lọc" style="display: none;"><svg width="20" height="20"><use xlink:href="#icon-close" /></svg></a>
+				</div>
+				<div class="filter-container__selected-filter d-none" style="display: none;">
+					<div class="filter-container__selected-filter-list clearfix">
+						<ul></ul>
+						<a href="javascript:void(0)" onclick="clearAllFiltered()" class="filter-container__clear-all" title="Bỏ hết">Bỏ hết</a>
+					</div>
+				</div>
+			</div>
+			<aside class="aside-item sort-cate-left position-static">
+				<div class="aside-title rounded-4 d-flex align-items-center">Sắp xếp <svg width="24" height="24"><use xlink:href="#icon-chevron-down" /></svg></div>
+				<div class="aside-content rounded-2 shadow position-absolute">
+					<ul>
+						<li class="btn-quick-sort default">
+							<a href="javascript:;" onclick="changeSort('default')" title="Mặc định"><i></i>Mặc định</a>
+						</li>
+						<li class="btn-quick-sort alpha-asc">
+							<a href="javascript:;" onclick="changeSort('alpha-asc')" title="Tên A-Z"><i></i>Tên A-Z</a>
+						</li>
+						<li class="btn-quick-sort alpha-desc">
+							<a href="javascript:;" onclick="changeSort('alpha-desc')" title="Tên Z-A"><i></i>Tên Z-A</a>
+						</li>
+						<li class="btn-quick-sort price-asc">
+							<a href="javascript:;" onclick="changeSort('price-asc')" title="Giá thấp đến cao"><i></i>Giá thấp đến cao</a>
+						</li>
+						<li class="btn-quick-sort price-desc">
+							<a href="javascript:;" onclick="changeSort('price-desc')" title="Giá cao xuống thấp"><i></i>Giá cao xuống thấp</a>
+						</li>
+					</ul>
+				</div>
+			</aside>
+			{%- if settings.filter_vendor -%}
+			{%- if collection.all_vendors.size > 0 -%}
+			<aside class="aside-item filter-vendor position-static">
+				<div class="aside-title rounded-4 d-flex align-items-center">{{settings.filter_vendor_title}} <svg width="24" height="24"><use xlink:href="#icon-chevron-down" /></svg></div>
+				<div class="aside-content filter-group rounded-2 shadow position-absolute">
+					<ul class="filter-vendor">
+						{%- for vendor in collection.all_vendors -%}
+						{%- if vendor != '' -%}
+						<li class="filter-item filter-item--check-box filter-item--green ">
+							<label data-filter="{{ vendor | downcase }}" for="filter-{{ vendor | handleize }}" class="{{ vendor | handleize }}">
+								<input type="checkbox"
+                    id="filter-{{ vendor | handleize }}"
+                    class="filter-checkbox"
+                    data-group="vendor" value='{{ vendor | escape }}'>
+								{{ vendor }}
+							</label>
+						</li>
+						{%- endif -%}
+						{%- endfor -%}
+					</ul>
+				</div>
+			</aside>
+			{%- endif -%}
+			{%- endif -%}
+			{%- if settings.filter_price -%}
+			<aside class="aside-item filter-price position-static">
+				<div class="aside-title rounded-4 d-flex align-items-center">{{settings.filter_price_title}} <svg width="24" height="24"><use xlink:href="#icon-chevron-down" /></svg></div>
+				<div class="aside-content filter-group rounded-2 shadow position-absolute">
+					<ul>
+            {%- assign prices = settings.filter_price_node | split: ';' -%}
+            {%- assign prev = '' -%}
+            {%- for t in prices -%}
+              {%- assign price = t | strip | remove:'.' | remove:'đ' -%}
+              {%- if forloop.first -%}
+							<li class="filter-item filter-item--check-box filter-item--green">
+								<span>
+									 <label for="price-under-{{ price }}">
+										<input type="checkbox" id="price-under-{{ price }}"
+                      class="filter-checkbox" data-group="price"
+                      value="<= {{ price }}">
+										<i class="fa"></i>
+										Giá dưới {{t}}
+									</label>
+								</span>
+							</li>
+              {%- elsif forloop.last -%}
+							<li class="filter-item filter-item--check-box filter-item--green">
+								<span>
+									  <label for="price-between-{{ prev }}-{{ price }}">
+										 <input type="checkbox"
+                     id="price-between-{{ prev }}-{{ price }}"
+                     class="filter-checkbox"
+                     data-group="price"
+                     value="{{ prev }}-{{ price }}">
+                      <i class="fa"></i> {{ prev | money }} - {{ t }}							
+									</label>
+								</span>
+							</li>	
+							<li class="filter-item filter-item--check-box filter-item--green">
+								<span>
+								<label for="price-over-{{ price }}">
+										 <input type="checkbox"
+                     id="price-over-{{ price }}"
+                     class="filter-checkbox"
+                     data-group="price"
+                     value=">= {{ price }}">
+                      <i class="fa"></i> Trên {{ t }}
+									</label>
+								</span>
+							</li>
+              {%- else -%}
+							<li class="filter-item filter-item--check-box filter-item--green">
+								<span>
+								  <label for="price-between-{{ prev }}-{{ price }}">
+              <input type="checkbox"
+                     id="price-between-{{ prev }}-{{ price }}"
+                     class="filter-checkbox"
+                     data-group="price"
+                     value="{{ prev }}-{{ price }}">
+              <i class="fa"></i> {{ prev | money }} - {{ t }}
+            </label>
+								</span>
+							</li>	
+              {%- endif -%}
+              {%- assign prev = price -%}
+            {%- endfor -%}
+					</ul>
+				</div>
+			</aside>
+			{%- endif -%}
+			{%- if settings.filter_type -%}
+			{%- if collection.all_types.size > 0 -%}
+			<aside class="aside-item filter-type position-static">
+				<div class="aside-title rounded-4 d-flex align-items-center">{{settings.filter_type_title}} <svg width="24" height="24"><use xlink:href="#icon-chevron-down" /></svg></div>
+				<div class="aside-content filter-group rounded-2 shadow position-absolute">
+					<ul class="filter-type">
+						{%- for type in collection.all_types limit: settings.shop_by_vendor_number -%}
+						{%- if type != '' -%}
+						<li class="filter-item filter-item--check-box filter-item--green">
+							<label data-filter="{{ type | downcase }}" for="filter-{{ type | handleize }}">
+								<input type="checkbox"
+                    id="filter-{{ type | handleize }}"
+                    class="filter-checkbox"
+                    data-group="type" value='{{ type | escape }}'>
+								{{ type }}
+							</label>
+						</li>
+						{%- endif -%}
+						{%- endfor -%}
+					</ul>
+				</div>
+			</aside>
+			{%- endif -%}
+			{%- endif -%}
+			{%- if settings.filter_tag1 -%}
+			<aside class="aside-item filter-tag-style-1 tag-filtster position-static">
+				<div class="aside-title rounded-4 d-flex align-items-center">{{settings.filter_tag1_title}} <svg width="24" height="24"><use xlink:href="#icon-chevron-down" /></svg></div>
+				<div class="aside-content filter-group rounded-2 shadow position-absolute">
+					<ul>
+						{%- assign tags = settings.filter_tag1_list | split: ';' -%}
+						{%- for t in tags -%}
+						{%- assign tag = t | strip -%}
+						{%- assign tag_value = tag | handleize -%}
+						<li class="filter-item filter-item--check-box filter-item--green">
+							<label for="filter-{{ tag | handleize }}">
+								<input type="checkbox"
+                      id="filter-{{ tag | handleize }}"
+                      class="filter-checkbox" data-group="tag"
+                      value="{{ tag | escape }}">
+								{{tag}}
+							</label>
+						</li>	
+						{%- endfor -%}
+					</ul>
+				</div>
+			</aside>
+			{%- endif -%}
+			{%- if settings.filter_tag2 -%}
+			<aside class="aside-item filter-tag-style-2 tag-filtster position-static">
+				<div class="aside-title rounded-4 d-flex align-items-center">{{settings.filter_tag2_title}} <svg width="24" height="24"><use xlink:href="#icon-chevron-down" /></svg></div>
+				<div class="aside-content filter-group rounded-2 shadow position-absolute">
+					<ul>
+						{%- assign tags = settings.filter_tag2_list | split: ';' -%}
+						{%- for t in tags -%}
+						{%- assign tag = t | strip -%}
+						{%- assign tag_value = tag | handleize -%}
+						<li class="filter-item filter-item--check-box filter-item--green">
+							<label for="filter-{{ tag | handleize }}">
+								<input type="checkbox"
+                      id="filter-{{ tag | handleize }}"
+                      class="filter-checkbox" data-group="tag"
+                      value="{{ tag | escape }}">
+								{{tag}}
+							</label>
+						</li>	
+						{%- endfor -%}
+					</ul>
+				</div>
+			</aside>
+			{%- endif -%}
+			{%- if settings.filter_tag3 -%}
+			<aside class="aside-item filter-tag-style-3 tag-filtster position-static">
+				<div class="aside-title rounded-4 d-flex align-items-center">{{settings.filter_tag3_title}} <svg width="24" height="24"><use xlink:href="#icon-chevron-down" /></svg></div>
+				<div class="aside-content filter-group rounded-2 shadow position-absolute">
+					<ul>
+						{%- assign tags = settings.filter_tag3_list | split: ';' -%}
+						{%- for t in tags -%}
+						{%- assign tag = t | strip -%}
+						{%- assign tag_value = tag | handleize -%}
+						<li class="filter-item filter-item--check-box filter-item--green">
+							<label for="filter-{{ tag | handleize }}">
+								<input type="checkbox"
+                      id="filter-{{ tag | handleize }}"
+                      class="filter-checkbox" data-group="tag"
+                      value="{{ tag | escape }}">
+								{{tag}}
+							</label>
+						</li>	
+						{%- endfor -%}
+					</ul>
+				</div>
+			</aside>
+			{%- endif -%}
+			{%- include 'wolf-filter-heading' -%}
+		</div>
+	</div>
+	<div class="d-flex d-md-none justify-content-center align-items-center wolf-filter-mobile-close btn btn-danger border-0 rounded-pill">Đóng bộ lọc</div>
+</div>
+<script>
+	function countFilterItem() {
+		var countFilter = $('.filter-container__selected-filter-list ul li').length;
+		$(".count-filter-val").text(countFilter);
+	}
+</script>

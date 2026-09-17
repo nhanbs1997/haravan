@@ -1,0 +1,82 @@
+{% comment %}haravan-audit:v2{% endcomment %}
+{% if settings.bs_feedback_show %}
+<link rel="preload stylesheet" href="{{ 'bs_feedback.scss.css' | asset_url }}" as="style">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"></noscript>
+
+{%- assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+
+<section class="bs_feedback" data-filename="bs_feedback" data-reveal>
+  <div class="container">
+    {%- unless settings.bs_feedback_title == blank -%}
+    <h2 class="bs_feedback__heading">{{ settings.bs_feedback_title | escape }}</h2>
+    {%- endunless -%}
+
+    <div class="bs_feedback__marquee" aria-label="Feedback từ khách hàng">
+      <div class="bs_feedback__track" data-bsfb-track>
+        {%- for i in (1..20) -%}
+          {%- capture _show_key -%}bs_feedback_show_{{ i }}{%- endcapture -%}
+          {%- capture _img_key -%}bs_feedback_img_{{ i }}{%- endcapture -%}
+          {%- capture _alt_key -%}bs_feedback_alt_{{ i }}{%- endcapture -%}
+          {%- assign _item_img = settings[_img_key] -%}
+          {%- assign _item_alt = settings[_alt_key] | default: settings.bs_feedback_title -%}
+          {%- if settings[_show_key] and _item_img != blank -%}
+          <a class="bs_feedback__item" href="{{ _item_img }}" data-fancybox="feedback" data-caption="{{ _item_alt | escape }}" rel="nofollow noopener">
+            <img class="lazyload isHideTBT"
+              src="{{ _blank }}"
+              data-src="{{ _item_img }}"
+              alt="{{ _item_alt | escape }}"
+              width="351" height="351"
+              loading="lazy" decoding="async">
+          </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+if(window.notLighthouse){var fbs=document.createElement('script');fbs.defer=true;fbs.src='https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js';document.head.appendChild(fbs);}
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Clone DOM cho marquee infinite — tránh capture 2 lần ở Liquid
+  var track = document.querySelector('[data-bsfb-track]');
+  if (track) {
+    var items = track.children;
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < items.length; i++) {
+      // Clone trang trí cho marquee: dùng <span> (không phải <a>) để tránh
+      // anchor thiếu href (crawlable-anchors) và không bind fancybox 2 lần.
+      var src = items[i];
+      var clone = document.createElement('span');
+      clone.className = src.className;
+      clone.innerHTML = src.innerHTML;
+      clone.setAttribute('aria-hidden', 'true');
+      clone.style.cursor = 'default';
+      frag.appendChild(clone);
+    }
+    track.appendChild(frag);
+  }
+
+  function bindFancybox() {
+    if (typeof Fancybox !== 'undefined') {
+      Fancybox.bind('[data-fancybox="feedback"]', {
+        Carousel: { infinite: true },
+        Images: { zoom: false },
+        Toolbar: { display: { left: [], middle: [], right: ['close'] } }
+      });
+      return true;
+    }
+    return false;
+  }
+  if (!bindFancybox()) {
+    var tries = 0;
+    var t = setInterval(function() {
+      if (bindFancybox() || ++tries > 20) clearInterval(t);
+    }, 200);
+  }
+});
+</script>
+{% endif %}

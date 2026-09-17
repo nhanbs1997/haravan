@@ -1,0 +1,22 @@
+{%- comment -%} Template: Activate Account {%- endcomment -%}
+<div class="account-page">
+  <div class="container">
+    <div class="account-card">
+      <h1 class="account-card__title">Kích hoạt tài khoản</h1>
+      {% form 'activate_customer_password' %}
+      {{ form.errors | default_errors }}
+      <div class="account-form">
+        <div class="account-form__field">
+          <label for="act_password">Mật khẩu</label>
+          <input type="password" id="act_password" name="customer[password]" placeholder="Tối thiểu 5 ký tự" required>
+        </div>
+        <div class="account-form__field">
+          <label for="act_password_confirm">Xác nhận mật khẩu</label>
+          <input type="password" id="act_password_confirm" name="customer[password_confirmation]" placeholder="Nhập lại mật khẩu" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Kích hoạt</button>
+      </div>
+      {% endform %}
+    </div>
+  </div>
+</div>

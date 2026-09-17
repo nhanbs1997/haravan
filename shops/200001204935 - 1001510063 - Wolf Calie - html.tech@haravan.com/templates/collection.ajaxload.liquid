@@ -1,0 +1,29 @@
+{%- layout none -%}
+<div>
+	<div class="row g-3">
+		<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+			<img class="rounded-4 img-fluid mt-2" src="{{ collection.image.src | default: 'https://cdn.hstatic.net/themes/200001127691/1001446790/14/noimage.jpg?v=9' }}" alt="Ảnh danh mục {{ collection.title | escape }}" loading="lazy" >
+		</div>
+		<div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 mt-1 mt-lg-3">
+			{%- if collection.products.size == 0 -%}
+			<div class="alert alert-danger mt-2" role="alert">Danh mục này đang cập nhật</div>
+			{%- else -%}
+			<div class="bts-swiper swiper">
+				<div class="swiper-wrapper mb-3">
+					{%- for product in collection.products limit: settings.section_pro_3_limit -%}
+					<div class="swiper-slide">
+						{%- include 'wolf-product-grid' -%}
+					</div>
+					{%- endfor -%}
+				</div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-pagination"></div>
+			</div>
+			<div class="wolf-ajax-view-more d-flex justify-content-center mt-3">
+				<a href="{{ collection.url }}" class="btn rounded-pill fw-semibold" title="Xem thêm">Xem thêm</a>
+			</div>
+			{%- endif -%}
+		</div>
+	</div>
+</div>

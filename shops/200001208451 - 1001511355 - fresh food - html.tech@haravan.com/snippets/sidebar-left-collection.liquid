@@ -1,0 +1,122 @@
+<div class="group_sidebar">
+
+	<div  class="list-group navbar-inner ">
+		{% if settings.show_collection_menu %}
+		{% if settings.collection_menu_title != '' %}
+		<div class="mega-left-title btn-navbar title-hidden-sm">
+			<h3 class="sb-title">{{ settings.collection_menu_title}}</h3>
+		</div>
+		{% endif %}
+		<ul class="nav navs sidebar menu" id='cssmenu'>		
+			{% for link in linklists.[settings.collection_menu_link].links %}
+			{% assign has_sub_menu = false %}
+			{% assign parent_link_active = false %}
+			{% if linklists[link.handle] == empty %}
+			<li class="item {% if link.active %}current active {% endif %} {% if forloop.first %}first{% endif %}{% if forloop.last %}last{% endif %}">
+				<a href="{{ link.url }}">
+					<span>{{ link.title }}</span>
+				</a>
+			</li>
+			{% else %}
+			{% assign has_sub_menu = true %}
+			{% for l in linklists[link.handle].links %}
+			{% if l.active %}
+			{% assign parent_link_active = true %}
+			{% endif %}
+			{% endfor %}
+			<li class='item has-sub {% if link.active or parent_link_active %}active{% endif %} {% if forloop.first %}first{% endif %}{% if forloop.last %}last{% endif %}'>
+				<a href='{{ link.url }}'>
+					<span class="lbl">{{ link.title }}</span>
+					<span data-toggle="collapse" data-parent="#cssmenu" href="#sub-item-{{forloop.index}}" class="sign drop-down">
+
+					</span>
+				</a>
+				<ul class="nav children collapse" id="sub-item-{{forloop.index}}">
+					{% for l in linklists[link.handle].links %}
+					{% if linklists[l.handle].links == empty %}
+					<li class="{% if forloop.first %}first{% endif %}{% if forloop.last %}last{% endif %}{% if l.active %} current active{% endif %}">
+						<a href="{{ l.url }}" title="{{ l.title }}">
+							<span>{{ l.title }}</span>
+						</a>
+					</li>
+					{% else %}
+					<li class="has-sub {% if forloop.first %}first{% endif %}{% if forloop.last %}last{% endif %}{% if l.active %} current active{% endif %}">
+						<a href="{{ l.url }}" title="{{ l.title }}">
+							<span>{{ l.title }}</span>
+							<span class="sign drop-down">
+
+							</span>
+						</a>
+						<ul class="nav children collapse lve2">
+							{% for l2 in linklists[l.handle].links %}
+							<li>
+								<a href="{{ l2.url }}" title="{{ l2.title }}">
+									<span>{{ l2.title }}</span>
+								</a>				
+							</li>
+							{% endfor %}
+						</ul>
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+			</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+		{% endif %}
+	</div>
+
+	<!-- Banner quảng cáo -->
+	<div class="list-group_l banner-left hidden-sm hidden-xs">
+		{% if settings.show_left_ad %}
+		<a href="{{ settings.promo_link_left }}">
+			<img src="{{ 'left_image_ad.jpg' | asset_url }}" >
+		</a>
+		{% endif %}
+	</div>
+</div>
+<script>
+
+$(document).ready(function(){
+	//$('ul li:has(ul)').addClass('hassub');
+	$('#cssmenu ul ul li:odd').addClass('odd');
+	$('#cssmenu ul ul li:even').addClass('even');
+	$('#cssmenu > ul > li > a').click(function() {
+		$('#cssmenu li').removeClass('active');
+		$(this).closest('li').addClass('active');
+		var checkElement = $(this).nextS();
+		if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+			$(this).closest('li').removeClass('active');
+			checkElement.slideUp('normal');
+		}
+		if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
+			$('#cssmenu ul ul:visible').slideUp('normal');
+			checkElement.slideDown('normal');
+		}
+		if($(this).closest('li').find('ul').children().length == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	});
+
+	$('.drop-down').click(function(e){		
+		if ( $(this).parents('li').hasClass('has-sub') ){
+			e.preventDefault();
+			if($(this).hasClass('open-nav')){
+				$(this).removeClass('open-nav');
+				$(this).parents('li').children('ul.lve2').slideUp('normal').removeClass('in');
+			}else {
+				$(this).addClass('open-nav');
+				$(this).parents('li').children('ul.lve2').slideDown('normal').addClass('in');
+			}
+		}else {
+
+		}
+	});
+
+});
+
+$("#list-group-l ul.navs li.active").parents('ul.children').addClass("in");
+</script>

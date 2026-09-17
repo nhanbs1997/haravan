@@ -1,0 +1,165 @@
+{% comment %}haravan-audit:v2{% endcomment %}
+{% if settings.en_bs_footer_show %}
+<link rel="preload stylesheet" href="{{ 'bs_footer.scss.css' | asset_url }}" as="style">
+
+{%- assign _logo = settings.en_bs_footer_logo | default: settings.en_logo_url -%}
+{%- assign _hotline = settings.en_bs_footer_hotline | default: shop.phone -%}
+{%- assign _email = settings.en_bs_footer_email | default: shop.email -%}
+{%- assign _tel_link = _hotline | strip | replace: ' ', '' | replace: '.', '' | replace: '-', '' | replace: '(', '' | replace: ')', '' -%}
+{%- assign _blank_img = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+
+<footer class="bs_footer" data-filename="bs_footer"
+  style="--bs-footer-bg: {{ settings.en_bs_footer_bg | default: '#f5f5f5' }};
+         --bs-footer-text: {{ settings.en_bs_footer_text_color | default: '#404040' }};
+         --bs-footer-title: {{ settings.en_bs_footer_title_color | default: '#404040' }};
+         --bs-footer-link: {{ settings.en_bs_footer_link_color | default: '#404040' }};
+         --bs-footer-link-hover: {{ settings.en_bs_footer_link_hover_color | default: '#0a0a0a' }};
+         --bs-footer-icon: {{ settings.en_bs_footer_icon_color | default: '#0a0a0a' }};
+         --bs-footer-divider: {{ settings.en_bs_footer_divider_color | default: '#e5e5e5' }};">
+  <div class="container">
+    <div class="wrapper">
+
+      <div class="cols">
+
+        <div class="col col--brand">
+          <a href="/" class="logo" aria-label="{{ shop.name }}">
+            {%- if _logo != blank -%}
+            <img src="{{ _logo }}" alt="{{ shop.name }}" width="196" height="37" loading="lazy" decoding="async">
+            {%- else -%}
+            <img src="{{ 'en_logo.png' | asset_url }}" alt="{{ shop.name }}" width="196" height="37" loading="lazy" decoding="async">
+            {%- endif -%}
+          </a>
+
+          <ul class="contact">
+            {%- unless _hotline == blank -%}
+            <li class="contact-item">
+              <span class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+              </span>
+              <span class="contact-text">
+                <span class="contact-label">Hotline:</span>
+                <a class="contact-value" href="tel:{{ _tel_link }}" itemprop="telephone">{{ _hotline | escape }}</a>
+              </span>
+            </li>
+            {%- endunless -%}
+
+            {%- unless _email == blank -%}
+            <li class="contact-item">
+              <span class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+              </span>
+              <span class="contact-text">
+                <span class="contact-label">Email:</span>
+                <a class="contact-value" href="mailto:{{ _email }}" itemprop="email">{{ _email | escape }}</a>
+              </span>
+            </li>
+            {%- endunless -%}
+          </ul>
+        </div>
+
+        {%- unless settings.en_bs_footer_menu1_linklist == blank -%}
+        <div class="col col--menu">
+          <h2 class="title">{{ settings.en_bs_footer_menu1_title | default: 'About us' | escape }}</h2>
+          <ul class="links">
+            {%- for link in linklists[settings.en_bs_footer_menu1_linklist].links -%}
+            <li><a href="{{ link.url }}"{% if link.url contains '://' %} target="_blank" rel="noopener"{% endif %}>{{ link.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+        {%- endunless -%}
+
+        {%- unless settings.en_bs_footer_menu2_linklist == blank -%}
+        <div class="col col--menu">
+          <h2 class="title">{{ settings.en_bs_footer_menu2_title | default: 'Policy' | escape }}</h2>
+          <ul class="links">
+            {%- for link in linklists[settings.en_bs_footer_menu2_linklist].links -%}
+            <li><a href="{{ link.url }}"{% if link.url contains '://' %} target="_blank" rel="noopener"{% endif %}>{{ link.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+        {%- endunless -%}
+
+        <div class="col col--right">
+
+          <div class="connect">
+            <h2 class="title">{{ settings.en_bs_footer_social_title | default: 'Connect with BADASS' | escape }}</h2>
+            <ul class="socials">
+              {%- unless settings.en_bs_footer_social_fb == blank -%}
+              <li><a href="{{ settings.en_bs_footer_social_fb }}" target="_blank" rel="noopener" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95Z"/></svg>
+              </a></li>
+              {%- endunless -%}
+              {%- unless settings.en_bs_footer_social_yt == blank -%}
+              <li><a href="{{ settings.en_bs_footer_social_yt }}" target="_blank" rel="noopener" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.13-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.37.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.13 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.37-.56a3.02 3.02 0 0 0 2.13-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8ZM9.6 15.5v-7l6.27 3.5-6.27 3.5Z"/></svg>
+              </a></li>
+              {%- endunless -%}
+              {%- unless settings.en_bs_footer_social_tt == blank -%}
+              <li><a href="{{ settings.en_bs_footer_social_tt }}" target="_blank" rel="noopener" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 6.32a4.83 4.83 0 0 1-3.77-4.32H12.5v13.4a2.96 2.96 0 1 1-2.96-2.96c.32 0 .62.05.91.15v-3.41a6.4 6.4 0 1 0 5.42 6.32V8.97a8.2 8.2 0 0 0 4.81 1.55v-3.4c-.36 0-.72-.06-1.08-.16Z"/></svg>
+              </a></li>
+              {%- endunless -%}
+              {%- unless settings.en_bs_footer_social_ins == blank -%}
+              <li><a href="{{ settings.en_bs_footer_social_ins }}" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              </a></li>
+              {%- endunless -%}
+            </ul>
+          </div>
+
+          <div class="payment">
+            <h2 class="title">{{ settings.en_bs_footer_payment_title | default: 'Payment' | escape }}</h2>
+            <ul class="payments">
+              <li class="payment-item" aria-label="Mastercard">
+                <svg class="payment-card" viewBox="0 0 22 14" fill="none" aria-hidden="true">
+                  <circle cx="8" cy="7" r="5.6" fill="#EB001B"/>
+                  <circle cx="14" cy="7" r="5.6" fill="#F79E1B"/>
+                  <path d="M11 3.1a5.6 5.6 0 0 1 0 7.8 5.6 5.6 0 0 1 0-7.8Z" fill="#FF5F00"/>
+                </svg>
+              </li>
+              <li class="payment-item" aria-label="Visa">
+                <svg class="payment-card" viewBox="0 0 26 8" fill="#1A1F71" aria-hidden="true">
+                  <text x="0" y="7" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-style="italic" font-size="9" letter-spacing="-0.4">VISA</text>
+                </svg>
+              </li>
+              <li class="payment-item payment-item--text" aria-label="Cash">
+                <span class="payment-icon" aria-hidden="true">
+                  <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3.5" width="10" height="5" rx="0.5"/><circle cx="6" cy="6" r="1.5"/><circle cx="2.6" cy="6" r="0.3" fill="currentColor"/><circle cx="9.4" cy="6" r="0.3" fill="currentColor"/></svg>
+                </span>
+                <span class="payment-label">IMITATE</span>
+              </li>
+              <li class="payment-item payment-item--text" aria-label="Banking">
+                <span class="payment-icon" aria-hidden="true">
+                  <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 4.5 6 1.8l4.5 2.7H1.5Z"/><path d="M2.5 5v3M5 5v3M7 5v3M9.5 5v3"/><path d="M1 8.5h10v1.7H1z"/></svg>
+                </span>
+                <span class="payment-label">GREWING</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+      <hr class="divider">
+
+      <div class="bottom" itemscope itemtype="https://schema.org/Organization">
+        <meta itemprop="name" content="{{ shop.name }}">
+        <meta itemprop="url" content="{{ shop.url }}">
+        <div class="company-row">
+          <span class="company-name" itemprop="legalName">{{ settings.en_bs_footer_company_name | default: 'INTERVIECTIONS OKAPI VISION' | escape }}</span>
+          {%- unless settings.en_bs_footer_bct_img == blank -%}
+          <a class="bct" href="{{ settings.en_bs_footer_bct_link | default: '#' }}" target="_blank" rel="noopener nofollow" aria-label="The Ministry of Commerce has been notified">
+            <img class="lazyload isHideTBT" src="{{ _blank_img }}" data-src="{{ settings.en_bs_footer_bct_img }}" alt="The Ministry of Commerce has been notified" loading="lazy" decoding="async">
+          </a>
+          {%- endunless -%}
+        </div>
+        {%- unless settings.en_bs_footer_company_id == blank -%}
+        <p class="company-id" itemprop="taxID">{{ settings.en_bs_footer_company_id | escape }}</p>
+        {%- endunless -%}
+      </div>
+
+    </div>
+  </div>
+</footer>
+{% endif %}

@@ -1,0 +1,78 @@
+<div class="layoutPage-faqs">
+	<section class="section-breadcrumb">
+		<div class="header-breadcrumb">
+			<div class="header-title d-none"><h1>{{page.title}}</h1></div>
+			{%include 'breadcrumb'%}
+		</div> 	
+	</section>
+	<section class="section-faqs-info" itemscope itemtype="https://schema.org/FAQPage">
+		<div class="container">
+			<div class="wrapper-content">
+				<div class="intro-desc">
+					<div class="desc">
+						{{ page.content }}
+					</div>
+				</div>
+				<div class="intro-list-faqs">
+					{%- for i in (1..10) -%}
+					{%- capture title -%}faqs_{{i}}_title{%- endcapture -%}
+					{%- capture desc -%}faqs_{{i}}_desc{%- endcapture -%}
+					
+					{%- if settings[title] != blank -%}
+					<div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+						<div class="header-faqs" itemprop="name">{{ settings[title] }}</div>
+						<div class="content-faqs" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+							<div itemprop="text">{{ settings[desc] }}</div>
+						</div>
+					</div>
+					{%- endif -%}
+					{%- endfor -%}
+				</div>
+				<div class="form-faqs">
+					<h2>Bạn vẫn còn câu hỏi cần giải đáp, vui lòng liên hệ trực tiếp với chúng tôi</h2>
+					<div class="contact-form">
+						{% form 'contact' %}
+						{% if form.posted_successfully? %}
+						<div class="alert alert-success">
+							Cám ơn bạn đã liên hệ! Chúng tôi sẽ trả lời ngay khi có thể
+						</div>
+						{% endif %}
+						<div class="contact-form">
+							<div class="row">
+								<div class="col-lg-12 col-md-12 col-12">
+									<div class="input-group">
+										<input required type="text" name="contact[name]" class="form-control" placeholder="Tên của bạn" aria-describedby="basic-addon1">
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="input-group">
+										<input required type="text" name="contact[email]" class="form-control" placeholder="Email của bạn" aria-describedby="basic-addon1">
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="input-group">
+										<input pattern="[0-9]{10,12}" required type="text" name="contact[phone]" class="form-control" placeholder="Số điện thoại của bạn" aria-describedby="basic-addon1">
+									</div>
+								</div>
+								<div class="col-lg-12 col-md-12 col-12">
+									<div class="input-group">
+										<textarea required name="contact[body]" placeholder="Câu hỏi của bạn"></textarea>
+										<div class="sitebox-recaptcha " >
+											This site is protected by reCAPTCHA and the Google
+											<a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> 
+											and <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a> apply.
+										</div>	
+									</div>
+								</div>
+								<div class="col-lg-12 col-md-12 col-12">
+									<button class="button">Gửi cho chúng tôi</button>
+								</div>
+							</div>
+						</div>
+						{% endform %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

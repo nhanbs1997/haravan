@@ -1,0 +1,120 @@
+<div id="toastNotification" class="position-fixed bottom-0 end-0 m-3 z-3" style="display: none;">
+	<div class="toast align-items-center text-white bg-success border-0 show" role="alert">
+		<div class="d-flex">
+			<div class="toast-body" id="toastMessage">Sản phẩm đã được thêm vào yêu thích!</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		function setupQuickView() {
+			var modal = $('#quick-view-product');
+			var btn = $('.quick-view');
+			btn.click(function () {
+				modal.modal('show');
+			});
+		}
+		function getWishlist() {
+			return JSON.parse(localStorage.getItem("wishlist") || "[]");
+		}
+		function saveWishlist(list) {
+			localStorage.setItem("wishlist", JSON.stringify(list));
+		}
+		function toggleWishlist(alias) {
+			let list = getWishlist();
+			const index = list.indexOf(alias);
+			if (index !== -1) {
+				list.splice(index, 1);
+			} else {
+				list.push(alias);
+			}
+			saveWishlist(list);
+		}
+		function isInWishlist(alias) {
+			return getWishlist().includes(alias);
+		}
+		function updateAllFavButtons() {
+			const list = getWishlist();
+			document.querySelectorAll(".btn-fav-toggle").forEach(btn => {
+				const alias = btn.dataset.productAlias;
+				const iconHref = list.includes(alias)
+				? "#icon-heart-filled"
+				: "#icon-heart";
+				const use = btn.querySelector("use");
+				if (use) use.setAttribute("xlink:href", iconHref);
+			});
+		}
+		function showToast(message, type = "success") {
+			const toast = document.getElementById("toastNotification");
+			const messageBox = document.getElementById("toastMessage");
+			messageBox.innerText = message;
+			const toastEl = toast.querySelector(".toast");
+			toastEl.classList.remove("bg-success", "bg-danger");
+			toastEl.classList.add(type === "success" ? "bg-success" : "bg-danger");
+			toast.style.display = "block";
+			setTimeout(hideToast, 3000);
+		}
+		function hideToast() {
+			document.getElementById("toastNotification").style.display = "none";
+		}
+		function updateWishlistBadge() {
+			const badge = document.getElementById("wishlistCountBadge");
+			if (!badge) return;
+			const count = getWishlist().length;
+			if (count > 0) {
+				badge.textContent = count;
+			} else {
+				badge.textContent = 0;
+			}
+		}
+		document.body.addEventListener("click", function (e) {
+			const btn = e.target.closest(".btn-fav-toggle");
+			if (btn) {
+				const alias = btn.dataset.productAlias;
+				const inListBefore = isInWishlist(alias);
+				toggleWishlist(alias);
+				updateAllFavButtons();
+				updateWishlistBadge();
+				if (window.location.pathname.includes("{{ pages[settings.wishlist_page].url }}")) {
+													  const item = btn.closest(".wishlist-item");
+					if (item) {
+					item.remove();
+					const container = document.getElementById("wishlistContainer");
+					if (container && container.querySelectorAll(".wishlist-item").length === 0) {
+						container.innerHTML = "<div class='alert alert-danger' role='alert'>Bạn chưa có sản phẩm yêu thích nào.</div>";
+					}
+				}
+			}
+			showToast(
+				inListBefore ? "Đã xoá khỏi danh sách yêu thích" : "Đã thêm vào danh sách yêu thích",
+				inListBefore ? "danger" : "success"
+			);
+		}
+									   });
+		updateAllFavButtons();
+		updateWishlistBadge();
+		{%- if template == 'page.wishlist' -%}
+		if (document.getElementById("wishlistContainer")) {
+			const container = document.getElementById("wishlistContainer");
+			const wishlist = getWishlist();
+			if (wishlist.length === 0) {
+				container.innerHTML = `<div class='alert alert-danger' role='alert'>Bạn chưa có sản phẩm yêu thích nào.</div>`;
+				return;
+			}
+			Promise.all(
+				wishlist.map(alias =>
+							 fetch(`/products/${alias}?view=wishlist`)
+							 .then(res => res.text())
+							 .catch(() => "")
+							)
+			).then(pages => {
+				const html = pages.filter(Boolean).join("");
+				container.innerHTML = html || `<div class='alert alert-danger' role='alert'>Không thể tải sản phẩm yêu thích.</div>`;
+				setupQuickView();
+				window.comparison.updateButtonStates();
+				initSwatchImageSwitcher();
+			});
+		}
+		{%- endif -%}
+	});
+</script>

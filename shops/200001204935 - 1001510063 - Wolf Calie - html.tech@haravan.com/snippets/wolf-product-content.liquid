@@ -1,0 +1,159 @@
+<h1 class="title-product title-head h3 mb-3">{{ product.title | escape }}</h1>
+<div class="product-top">
+	{%- assign current_variant = product.selected_or_first_available_variant -%}
+	<div class="sku-product">
+		<span class="d-none" itemprop="brand" itemtype="http://schema.org/Brand" itemscope><meta itemprop="name" content="{% if product.vendor.size > 0 %}{{ product.vendor }}{% else %}{{ shop.name }}{% endif %}" >Thương hiệu: <strong>{% if product.vendor.size > 0 %}{{ product.vendor }}{% else %}{{ shop.name }}{% endif %}</strong></span>
+		<span class="variant-sku" itemprop="sku" content="{% if product.variants[0].sku != "" and product.variants[0].sku != null %}{{product.variants[0].sku}}{% else %}Đang cập nhật{% endif %}"><span class="fw-medium">Mã:</span> <span class="a-sku fst-italic">{%if product.variants[0].sku != "" and product.variants[0].sku != null %}{{product.variants[0].sku}}{% else %}Đang cập nhật{% endif %}</span></span>
+		<span class="d-none" itemprop="type" itemtype="http://schema.org/Type" itemscope><meta itemprop="name" content="{% if product.type.size > 0 %}{{ product.type }}{% else %}Đang cập nhật{% endif %}" >Chất liệu: <strong>{% if product.type.size > 0 %}{{ product.type }}{% else %}Đang cập nhật{% endif %}</strong></span>
+	</div>
+	{%- if settings.product_tab3_enable -%}
+	<div class="product-review" onclick="scrollToxx();">
+		<div class="sapo-product-reviews-badge " data-id="{{ product.id }}"></div> 
+		{%- if product.metafields.bpr.votes > 0 -%}
+		<span>({{ product.metafields.bpr.votes }} đánh giá)</span>
+		{%- endif -%}
+	</div>
+	{%- endif -%}
+</div>
+<div class="inventory_quantity mb-3">
+	<div class="mb-break d-flex">
+		<span class="stock-brand-title fw-medium me-1">Thương hiệu:</span>
+		<span class="a-vendor">
+			{%- if product.vendor != null and product.vendor != "" -%}
+			{{ product.vendor }}
+			{%- else -%}
+			Đang cập nhật
+			{%- endif -%}
+		</span>
+	</div>
+	<div class="mb-break d-flex">
+		<div class="stock-brand-title fw-medium me-1">Tình trạng:</div>
+		<div class="wolf-stock-status">
+			{%- if on_var -%}
+			{%- if product.selected_or_first_available_variant.available -%}
+			<span class="a-stock badge text-bg-success">Còn hàng</span>
+			{%- elsif product.selected_or_first_available_variant.inventory_quantity == 0 and product.selected_or_first_available_variant.inventory_policy == 'continue' -%}
+			<span class="a-stock badge text-bg-success">Còn hàng</span>
+			{%- else -%}
+			<span class="a-stock badge text-bg-warning">Hết hàng</span>
+			{%- endif -%}
+			{%- else -%}
+			{%- if product.available -%}
+			<span class="a-stock badge text-bg-success">Còn hàng</span>
+			{%- elsif product.inventory_quantity == 0 and product.inventory_policy == 'continue' -%}
+			<span class="a-stock badge text-bg-success">Còn hàng</span>
+			{%- else -%}
+			<span class="a-stock badge text-bg-warning">Hết hàng</span>
+			{%- endif -%}
+			{%- endif -%}
+		</div>
+	</div>
+</div>
+<form enctype="multipart/form-data" data-cart-form id="add-to-cart-form" class="add-to-cart-form mb-3" action="/cart/add" method="post">
+	<div class="price-box clearfix mb-3">
+		{%- if on_var -%}
+		<span class="special-price">
+			<span class="price product-price">{{ product.variants[0].price | money }}</span>
+			<meta itemprop="price" content="{{ product.variants[0].price | money_without_currency  | remove: '.' }}">
+			<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+		</span> <!-- Giá Khuyến mại -->
+		<span class="old-price" itemprop="priceSpecification" itemscope="" itemtype="http://schema.org/priceSpecification">
+			<del class="price product-price-old">{%- if product.variants[0].compare_at_price > 0 -%}{{ product.variants[0].compare_at_price | money }}{%- endif -%}</del>
+			<meta itemprop="price" content="{%- if product.variants[0].compare_at_price > 0 -%}{{ product.variants[0].compare_at_price | money_without_currency  | remove: '.' }}{%- else -%}0{%- endif -%}">
+			<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+		</span> <!-- Giá gốca -->
+		<span class="save-price">Tiết kiệm:
+			<span class="price product-price-save">{{ product.variants[0].compare_at_price | minus: product.variants[0].price | money }}</span> so với giá thị trường
+		</span>
+		{%- elseif contacts -%}
+		<div class="special-price">
+			<span class="price product-price">Liên hệ </span>
+			<meta itemprop="price" content="0">
+			<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+		</div> <!-- Hết hàng -->
+		{%- elseif product.variants[0].compare_at_price > product.variants[0].price -%}
+		<span class="special-price">
+			<span class="price product-price">{{ product.variants[0].price | money }}</span>
+			<meta itemprop="price" content="{{ product.variants[0].price | money_without_currency  | remove: '.' }}">
+			<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+		</span> <!-- Giá Khuyến mại -->
+		<span class="old-price" itemprop="priceSpecification" itemscope="" itemtype="http://schema.org/priceSpecification">
+			<del class="price product-price-old">{{ product.variants[0].compare_at_price | money }}</del>
+			<meta itemprop="price" content="{%- if product.variants[0].compare_at_price > 0 -%}{{ product.variants[0].compare_at_price | money_without_currency  | remove: '.' }}{%- else -%}0{%- endif -%}">
+			<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+		</span> <!-- Giás gốc -->
+		<span class="save-price">Tiết kiệm:
+			<span class="price product-price-save">{{ product.variants[0].compare_at_price | minus: product.variants[0].price | money }}</span> so với giá thị trường
+		</span>
+		{%- else -%}
+		<div class="special-price">
+			<span class="price product-price">{{ product.variants[0].price | money }}</span>
+			<meta itemprop="price" content="{{ product.variants[0].price | money_without_currency  | remove: '.' }}">
+			<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+		</div> <!-- Giá -->
+		{%- endif -%}
+	</div>
+	{%- include 'wolf-product-promotion' -%}
+	{%- assign variant = product.variants[0] -%}
+	<div class="form-product">
+		{%- if settings.product_swatch_enable and product.variants.size > 1 -%}
+		<div class="select-swatch mb-3">
+			{%- for option in product.options -%}
+			{%- include 'swatch' with option -%}
+			{%- endfor -%}
+		</div>
+		{%- endif -%}
+		<div class="box-variant clearfix {% if settings.product_swatch_enable %} d-none {% endif %}">
+			{%- if variantCount > 1 -%}
+			<select id="product-selectors" class="form-control form-control-lg" name="id" style="display:none">
+				{%- for variant in product.variants -%}
+				<option {% if variant == product.selected_or_first_available_variant %}selected="selected" {% endif %}value="{{ variant.id }}">{{ variant.title | escape}} - {{ variant.price | money }}</option>
+				{%- endfor -%}
+			</select>
+			{%- else -%}
+			<input type="hidden" id="one_variant" name="id" value="{{ product.variants[0].id }}" >
+			{%- endif -%}
+		</div>
+		<div class="box-form {% if contacts %}d-none{% endif %}">
+			<div class="flex-quantity">
+				<div class="custom custom-btn-number {% if product.available %}show d-flex align-items-center{% else %}d-none{% endif %} mb-3">
+					<div class="fw-medium me-2">Số lượng: </div>
+					<div class="input_number_product input-group">									
+						<button class="btn_num num_1 btn btn-outline-primary button_qty border-0" onClick="var result = document.getElementById('qtym'); var qtypro = result.value; if( !isNaN( qtypro ) &amp;&amp; qtypro &gt; 1 ) result.value--;return false;" type="button" title="Giảm">
+							<svg width="24" height="24"><use xlink:href="#icon-qty-minus" /></svg>
+						</button>
+						<input type="text" id="qtym" name="quantity" value="1" maxlength="3" class="form-control prd_quantity text-center border-0" onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;" onchange="if(this.value == 0)this.value=1;" title="Số lượng">
+						<button class="btn_num num_2 btn btn-outline-primary button_qty border-0" onClick="var result = document.getElementById('qtym'); var qtypro = result.value; if( !isNaN( qtypro )) result.value++;return false;" type="button" title="Tăng">
+							<svg width="24" height="24"><use xlink:href="#icon-qty-plus" /></svg>
+						</button>
+					</div>
+				</div>
+				<div class="btn-mua button_actions d-flex flex-sm-row flex-column">
+					{%- if product.available -%}
+					<button type="button" id="buy-now-button" class="btn-buyNow btn btn-primary d-flex flex-column justify-content-center align-items-center flex-grow-1" data-id="{{ product.variants[0].id }}" data-qty="1">
+						<span class="txt-main text-uppercase fw-medium">Mua ngay</span>
+						<span class="deliver-btn">(Giao tận nơi hoặc nhận tại cửa hàng)</span>
+					</button>
+					<button type="submit" class="normal_button ms-0 ms-sm-2 mt-3 mt-sm-0 btn btn-danger btn_add_cart add_to_cart btn-cart add-to-cart-btn">
+						<svg width="24" height="24" class="me-2"><use xlink:href="#icon-cart" /></svg>
+						<span class="txt-main">Thêm vào giỏ</span>
+					</button>
+					{%- else -%}
+					<button class="btn btn-danger btn_add_cart add_to_cart btn-cart btn-soldout" disabled="disabled" >
+						<span class="txt-main">Hết hàng</span>
+					</button>
+					{%- endif -%}
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<div class="wolf-store-and-compare d-flex align-items-center justify-content-between mb-3">
+	<button type="button" class="btn action border-0 d-flex justify-content-center align-items-center p-0" id="findNearestStoreBtn" data-bs-toggle="modal" data-bs-target="#nearestStore">
+		<svg class="me-2" width="26" height="26"><use xlink:href="#icon-location" /></svg> Tìm cửa hàng gần nhất
+	</button>
+	<button data-handle="{{ product.handle }}" data-type="{{ product.type }}" class="btn action border-0 d-flex justify-content-center align-items-center compare-btn p-0" aria-label="So sánh" title="So sánh">
+		<svg class="me-2" width="26" height="26"><use xlink:href="#icon-compare" /></svg> So sánh
+	</button>
+</div>
+{%- include 'wolf-back-in-stock-form' -%}

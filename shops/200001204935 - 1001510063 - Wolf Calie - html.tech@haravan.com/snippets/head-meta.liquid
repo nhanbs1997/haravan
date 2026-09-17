@@ -1,0 +1,68 @@
+<meta charset="UTF-8" >
+<meta name="theme-color" content="{{ settings.main-color }}" >
+<link rel="canonical" href="{{ canonical_url }}" >
+<meta name='revisit-after' content='2 days' >
+<meta name="viewport" content="width=device-width, initial-scale=1" >
+{%- if current_page != 1 or template contains 'search' or template contains 'cart' -%}
+<meta name="robots" content="follow, noindex" >
+{%- else -%}
+<meta name="robots" content="noodp,index,follow" >
+{%- endif -%}
+{%- if current_page != 1 -%}
+<meta name="description" content="{{ page_description }} | Trang {{ current_page }}">
+{%- else -%}
+<meta name="description" content="{{ page_description }}">
+{%- endif -%}
+<title>{% if page_title == 'Products' %}Tất cả sản phẩm{% else %}{{ page_title }}{% endif %}{% if current_tags %} tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} - Trang {{ current_page }}{% endif %}</title>
+{%- if template contains 'index' -%}
+{%- if settings.home_page_keywords != '' and settings.home_page_keywords != null -%}
+<meta name="keywords" content="{{settings.home_page_keywords}}">
+{%- else -%}
+<meta name="keywords" content="{{shop.name}}, {{shop.domain}}">
+{%- endif -%}
+{%- elsif template contains 'product' -%}
+<meta name="keywords" content="{{product.title}}, {%for collection in product.collections%}{{collection.title}}, {%endfor%}{%if product.tags.size > 0%}{% for tag in product.tags %}{{tag}}, {%endfor%}{%endif%}{{shop.name}}, {{shop.domain}}">
+{%- elsif template contains 'collection' -%}
+<meta name="keywords" content="{{collection.title }}, {{shop.name}}, {{shop.domain}}">
+{%- elsif template contains 'blog' -%}
+<meta name="keywords" content="{{blog.title }}, {{shop.name}}, {{shop.domain}}">
+{%- elsif template contains 'article' -%}
+<meta name="keywords" content="{{article.title}}, {{blog.title}}, {%if article.tags.size > 0%}{% for tag in article.tags %}{{tag}}, {%endfor%}{%endif%} {{shop.name}}, {{shop.domain}}"/>
+{%- else -%}
+<meta name="keywords" content="{{page_title}}, {{shop.name}}, {{shop.domain}}">{%- endif -%}
+{%- include 'fb-open-graph-tags' -%}	
+{%- if settings.favicon_enable -%}
+<link rel="icon" href="{{ 'favicon.png' | asset_url }}" type="image/x-icon" >
+{%- endif -%}
+{%- if template contains 'index' -%}
+{%- for i in (1..1) -%}
+{%- capture enable -%}slider_{{i}}_enable{%- endcapture -%}
+{%- capture image -%}slider_{{i}}.jpg{%- endcapture -%}
+{%- capture imagemb -%}slider_mb_{{i}}.jpg{%- endcapture -%}
+{%- if settings[enable] -%}
+<link rel="preload" href="{{ imagemb | asset_url | img_url:'large' }}" as="image" media="(max-width: 767px)">
+<link rel="preload" href="{{ image | asset_url | img_url:'large' }}" as="image" media="(min-width: 768px)">
+{%- endif -%}
+{%- endfor -%}
+{%- endif -%}
+{%- if template contains 'product' -%}
+{%- for image in product.images limit:1 -%}
+<link rel="preload" href="{{ image.src | img_url:'large' }}" as="image" >
+{%- endfor -%}
+{%- endif -%}
+<link rel="canonical" href="{{ canonical_url }}"/>
+<link rel="dns-prefetch" href="{{ shop.url }}">
+<link rel="dns-prefetch" href="//hstatic.net">
+<link rel="dns-prefetch" href="//theme.hstatic.net/">
+<link rel="dns-prefetch" href="//product.hstatic.net/">
+<link rel="dns-prefetch" href="//file.hstatic.net/">
+<link rel="dns-prefetch" href="//www.google-analytics.com/">
+<link rel="dns-prefetch" href="//www.googletagmanager.com/">
+<link rel="dns-prefetch" href="//www.google.com">
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//www.facebook.com">
+<link rel="dns-prefetch" href="//connect.facebook.net">
+<link rel="dns-prefetch" href="//static.ak.facebook.com">
+<link rel="dns-prefetch" href="//static.ak.fbcdn.net">
+<link rel="dns-prefetch" href="//s-static.ak.facebook.com">

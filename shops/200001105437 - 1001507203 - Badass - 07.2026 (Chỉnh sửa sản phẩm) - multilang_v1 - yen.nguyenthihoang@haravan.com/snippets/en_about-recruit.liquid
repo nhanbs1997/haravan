@@ -1,0 +1,278 @@
+{%- assign _blank       = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+{%- assign _blog_handle = settings.en_bs_about_recruit_blog -%}
+{%- assign _rec_blog    = blogs[_blog_handle] -%}
+{%- assign _rec_limit   = settings.en_bs_about_recruit_limit | default: 6 | times: 1 -%}
+
+{%- unless _blog_handle == blank or _rec_blog == blank -%}
+
+{%- assign _all_depts = '' -%}
+{%- for article in _rec_blog.articles -%}
+  {%- for tag in article.tags -%}
+    {%- if tag contains 'phongban_' -%}
+      {%- assign _d = tag | remove: 'phongban_' | strip -%}
+      {%- unless _all_depts contains _d -%}
+        {%- assign _all_depts = _all_depts | append: _d | append: '|||' -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+{%- assign _dept_arr = _all_depts | split: '|||' -%}
+
+<section class="about-recruit">
+  {%- unless settings.en_bs_about_recruit_img == blank -%}
+  <div class="about-recruit__bg-img" style="background-image:url('{{ settings.en_bs_about_recruit_img | escape }}');" aria-hidden="true"></div>
+  {%- endunless -%}
+
+  <div class="container">
+    <div class="about-recruit__inner">
+
+      <div class="about-recruit__left">
+
+        <div class="about-recruit__left-top">
+          {%- unless settings.en_bs_about_recruit_label == blank -%}
+          <p class="about-recruit__label">{{ settings.en_bs_about_recruit_label }}</p>
+          {%- endunless -%}
+
+          <div class="about-recruit__left-group">
+            {%- unless settings.en_bs_about_recruit_title == blank -%}
+            <h2 class="about-recruit__title">{{ settings.en_bs_about_recruit_title }}</h2>
+            {%- endunless -%}
+
+            <div class="about-recruit__search" id="aboutRecruitSearch">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              <input
+                type="text"
+                id="recruitSearchInput"
+                class="about-recruit__search-input"
+                placeholder="Search position"
+                autocomplete="off"
+                aria-label="Search recruitment position">
+            </div>
+
+            {%- unless settings.en_bs_about_recruit_desc == blank -%}
+            <p class="about-recruit__desc">{{ settings.en_bs_about_recruit_desc }}</p>
+            {%- endunless -%}
+          </div>
+        </div>
+
+        <div class="about-recruit__stats">
+          {%- unless settings.en_bs_about_recruit_stat1_num == blank -%}
+          <div class="about-recruit__stat">
+            <div class="about-recruit__stat-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <path d="M22 21V19C22 17.1362 20.7252 15.5701 19 15.126M15.5 3.29076C16.9659 3.88415 18 5.32131 18 7C18 8.67869 16.9659 10.1159 15.5 10.7092M17 21C17 19.1362 17 18.2044 16.6955 17.4693C16.2895 16.4892 15.5108 15.7105 14.5307 15.3045C13.7956 15 12.8638 15 11 15H8C6.13623 15 5.20435 15 4.46927 15.3045C3.48915 15.7105 2.71046 16.4892 2.30448 17.4693C2 18.2044 2 19.1362 2 21M13.5 7C13.5 9.20914 11.7091 11 9.5 11C7.29086 11 5.5 9.20914 5.5 7C5.5 4.79086 7.29086 3 9.5 3C11.7091 3 13.5 4.79086 13.5 7Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+            </div>
+            <div class="about-recruit__stat-info">
+              <p class="about-recruit__stat-num">{{ settings.en_bs_about_recruit_stat1_num }}</p>
+              <p class="about-recruit__stat-label">{{ settings.en_bs_about_recruit_stat1_label | default: 'Open positions' }}</p>
+            </div>
+          </div>
+          {%- endunless -%}
+          {%- unless settings.en_bs_about_recruit_stat2_num == blank -%}
+          <div class="about-recruit__stat">
+            <div class="about-recruit__stat-icon" aria-hidden="true">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <path d="M21 21H4.6C4.03995 21 3.75992 21 3.54601 20.891C3.35785 20.7951 3.20487 20.6422 3.10899 20.454C3 20.2401 3 19.9601 3 19.4V3M21 7L15.5657 12.4343C15.3677 12.6323 15.2687 12.7313 15.1545 12.7684C15.0541 12.8011 14.9459 12.8011 14.8455 12.7684C14.7313 12.7313 14.6323 12.6323 14.4343 12.4343L12.5657 10.5657C12.3677 10.3677 12.2687 10.2687 12.1545 10.2316C12.0541 10.1989 11.9459 10.1989 11.8455 10.2316C11.7313 10.2687 11.6323 10.3677 11.4343 10.5657L7 15M21 11V7H17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+            </div>
+            <div class="about-recruit__stat-info">
+              <p class="about-recruit__stat-num">{{ settings.en_bs_about_recruit_stat2_num }}</p>
+              <p class="about-recruit__stat-label">{{ settings.en_bs_about_recruit_stat2_label | default: 'Badass Members' }}</p>
+            </div>
+          </div>
+          {%- endunless -%}
+        </div>
+
+      </div>
+
+      <div class="about-recruit__right">
+
+        {%- if _dept_arr.size > 0 -%}
+        <div class="about-recruit__tabs" id="recruitTabs" role="tablist">
+          <button type="button"
+            class="about-recruit__tab is-active"
+            data-dept=""
+            role="tab" aria-selected="true">All</button>
+          {%- for _dept in _dept_arr -%}
+            {%- unless _dept == blank -%}
+            <button type="button"
+              class="about-recruit__tab"
+              data-dept="{{ _dept | escape }}"
+              role="tab" aria-selected="false">{{ _dept }}</button>
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+        {%- endif -%}
+
+        <div class="about-recruit__grid" id="recruitGrid">
+          {%- for article in _rec_blog.articles -%}
+            {%- assign _job_dept     = '' -%}
+            {%- assign _job_location = '' -%}
+            {%- assign _job_level    = '' -%}
+            {%- assign _job_deadline = '' -%}
+            {%- assign _job_type     = '' -%}
+
+            {%- for tag in article.tags -%}
+              {%- if tag contains 'phongban_' -%}
+                {%- assign _job_dept     = tag | remove: 'phongban_' | strip -%}
+              {%- elsif tag contains 'diadiem_' -%}
+                {%- assign _job_location = tag | remove: 'diadiem_' | strip -%}
+              {%- elsif tag contains 'vitri_' -%}
+                {%- assign _job_level    = tag | remove: 'vitri_' | strip -%}
+              {%- elsif tag contains 'thoigian_' -%}
+                {%- assign _job_deadline = tag | remove: 'thoigian_' | strip -%}
+              {%- elsif tag contains 'loai_' -%}
+                {%- assign _job_type     = tag | remove: 'loai_' | strip -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            <div class="about-recruit__card"
+              data-dept="{{ _job_dept | escape }}"
+              data-title="{{ article.title | downcase | escape }}"
+              style="display:none">
+              <div class="about-recruit__card-top">
+                {%- assign _days_diff = 'now' | date: '%s' | minus: article.published_at | divided_by: 86400 -%}
+                {%- if _days_diff <= 7 -%}
+                <span class="about-recruit__card-badge">NEW</span>
+                {%- endif -%}
+
+                <div class="about-recruit__card-info">
+                  <button type="button" class="about-recruit__card-title js-open-jobdesc"
+                    data-job-title="{{ article.title | escape }}"
+                    data-job-url="{{ article.url | escape }}"
+                    data-job-dept="{{ _job_dept | escape }}"
+                    data-job-location="{{ _job_location | escape }}"
+                    data-job-level="{{ _job_level | escape }}"
+                    data-job-deadline="{{ _job_deadline | escape }}">{{ article.title }}</button>
+                  {%- unless _job_location == blank -%}
+                  <div class="about-recruit__card-location">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 22s-8-6.5-8-12a8 8 0 0116 0c0 5.5-8 12-8 12z"/><circle cx="12" cy="10" r="2"/></svg>
+                    <span>{{ _job_location }}</span>
+                  </div>
+                  {%- endunless -%}
+                </div>
+
+                <div class="about-recruit__card-badges">
+                  {%- unless _job_type == blank -%}
+                  <span class="about-recruit__card-tag">{{ _job_type }}</span>
+                  {%- endunless -%}
+                  {%- unless _job_level == blank -%}
+                  <span class="about-recruit__card-tag">{{ _job_level }}</span>
+                  {%- endunless -%}
+                </div>
+              </div>
+
+              <div class="about-recruit__card-footer">
+                {%- unless _job_deadline == blank -%}
+                <span class="about-recruit__card-deadline">Subscription term: {{ _job_deadline }}</span>
+                {%- endunless -%}
+                <button type="button"
+                  class="about-recruit__card-apply js-open-apply"
+                  data-job-title="{{ article.title | escape }}"
+                  data-job-url="{{ article.url | escape }}"
+                  data-job-dept="{{ _job_dept | escape }}"
+                  data-job-location="{{ _job_location | escape }}"
+                  data-job-level="{{ _job_level | escape }}"
+                  data-job-deadline="{{ _job_deadline | escape }}">
+                  Applications
+
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+
+              <div class="about-recruit__card-desc-content" hidden>{{ article.content }}</div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <p class="about-recruit__empty" id="recruitEmpty" style="display:none">
+          Nope. found location Perfect.
+.
+        </p>
+
+        {%- if _rec_blog.articles.size > _rec_limit -%}
+        <div class="about-recruit__more">
+          <button type="button" class="about-recruit__more-btn" id="recruitMoreBtn">
+            READY
+
+            <svg class="about-recruit__more-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+        {%- endif -%}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  'use strict';
+  var INIT_LIMIT = {{ _rec_limit }};
+  var grid       = document.getElementById('recruitGrid');
+  var tabs       = document.querySelectorAll('.about-recruit__tab');
+  var searchInput = document.getElementById('recruitSearchInput');
+  var moreBtn    = document.getElementById('recruitMoreBtn');
+  var emptyMsg   = document.getElementById('recruitEmpty');
+  if (!grid) return;
+
+  var allCards   = Array.prototype.slice.call(grid.querySelectorAll('.about-recruit__card'));
+  var activeDept = '';
+  var shownCount = INIT_LIMIT;
+
+  function render() {
+    var q = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    var visible = 0;
+    allCards.forEach(function(card) {
+      var matchDept  = !activeDept || card.dataset.dept === activeDept;
+      var matchTitle = !q || (card.dataset.title || '').indexOf(q) !== -1;
+      var inRange    = matchDept && matchTitle;
+      if (inRange) {
+        card.style.display = visible < shownCount ? '' : 'none';
+        visible++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    if (emptyMsg) emptyMsg.style.display = visible === 0 ? '' : 'none';
+    if (moreBtn) {
+      var total = allCards.filter(function(c) {
+        var matchDept  = !activeDept || c.dataset.dept === activeDept;
+        var matchTitle = !q || (c.dataset.title || '').indexOf(q) !== -1;
+        return matchDept && matchTitle;
+      }).length;
+      moreBtn.parentElement.style.display = total > shownCount ? '' : 'none';
+    }
+  }
+
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) { t.classList.remove('is-active'); t.setAttribute('aria-selected','false'); });
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected','true');
+      activeDept = tab.dataset.dept || '';
+      shownCount = INIT_LIMIT;
+      render();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      shownCount = INIT_LIMIT;
+      render();
+    });
+  }
+
+  if (moreBtn) {
+    moreBtn.addEventListener('click', function() {
+      shownCount += INIT_LIMIT;
+      render();
+    });
+  }
+
+  render();
+})();
+</script>
+
+{%- endunless -%}

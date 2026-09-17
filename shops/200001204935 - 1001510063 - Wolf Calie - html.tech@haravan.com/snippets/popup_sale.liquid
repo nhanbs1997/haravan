@@ -1,0 +1,49 @@
+<div class='jas-sale-pop flex pf middle-xs'></div>
+{%- if settings.salespopcollection != null -%}
+{%- assign salespopcollection = settings.salespopcollection -%}
+{%- if collections[salespopcollection]products_count > 0 -%}
+<script type="text/javascript">
+	$(document).ready(function ($) {
+		SalesPop()
+	});
+	function fisherYates ( myArray ) {
+		var i = myArray.length, j, temp;
+		if ( i === 0 ) return false;
+		while ( --i ) {
+			j = Math.floor( Math.random() * ( i + 1 ) );
+			temp = myArray[i];
+			myArray[i] = myArray[j]; 
+			myArray[j] = temp;
+		}
+	}
+	var collection = new Array();
+	{%- for product in collections[salespopcollection]products limit: 15 -%}
+	{%- if product.available  -%}
+	collection[{{ forloop.index | minus:1 }}]="{%- include 'random-product' -%}";
+	{%- endif -%}
+	{%- endfor -%}
+	fisherYates(collection);
+	function SalesPop() {
+		if ($('.jas-sale-pop').length < 0)
+			return;
+		setInterval(function() {
+			$('.jas-sale-pop').fadeIn(function() {
+				$(this).removeClass('slideUp');
+			}).delay(10000).fadeIn(function() {
+				var randomTime = ['1 phút', '5 phút', '10 phút', '12 phút', '14 phút', '16 phút', '18 phút', '20 phút', '25 phút', '30 phút', '36 phút', '38 phút', '40 phút', '42 phút', '45 phút', '50 phút', '1 giờ', '2 giờ', '3 giờ'],
+					randomTimeAgo = Math.floor(Math.random() * randomTime.length),
+					randomProduct = Math.floor(Math.random() * collection.length),
+					randomShowP = collection[randomProduct],
+					TimeAgo = randomTime[randomTimeAgo];
+				$(".jas-sale-pop").html(randomShowP);
+				$('.jas-sale-pop-timeago').text('Đã được mua cách đây ' + TimeAgo);
+				$(this).addClass('slideUp');
+				$('.pe-7s-close').on('click', function() {
+					$('.jas-sale-pop').remove();
+				});
+			}).delay(6000);
+		}, 6000);
+	}
+</script>
+{%- endif -%}
+{%- endif -%}

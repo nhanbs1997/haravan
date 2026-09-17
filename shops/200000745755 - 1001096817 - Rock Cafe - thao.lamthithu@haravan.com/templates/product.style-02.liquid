@@ -1,0 +1,117 @@
+{%- assign tabs = product.metafields.hrvptabs.tabs -%}
+{%- assign check_pro_tab = false -%}
+{%- if tabs -%}
+	{%- assign check_pro_tab = true -%}
+	{%- assign tabList = tabs | append: '' | split: '@@###@@' -%}
+{%- endif -%}
+{%- comment -%}<!-- BUTTON TRACKING PRODUCT -->{%- endcomment -%}
+{%- assign btnClassTrack = ''-%}
+{%- if settings.link_product_btn_bottom != blank -%}
+	{%-if settings.link_product_btn_bottom contains '//zalo.me' -%}{%- assign btnClassTrack = 'cta-chatzalo'-%}
+	{%-elsif settings.link_product_btn_bottom contains 'tel:' -%}  {%- assign btnClassTrack = 'cta-clicktocall'-%}
+	{%-elsif settings.link_product_btn_bottom contains '//m.me'-%} {%- assign btnClassTrack = 'cta-chatmessager'-%} {%- endif -%}
+{%- endif -%}
+{%- comment -%}<!-- TAGS -->{%- endcomment -%}
+{%- assign checkgift = false -%}
+{%- for tag in product.tags -%}
+	{%- if tag == 'giftbox' -%} {%- assign checkgift = true -%} {%- endif -%}
+{% endfor %}
+{%- comment -%}<!-- Check Price Zero -->{%- endcomment -%}
+{%- assign products_price_zero = false -%}
+{%- if  product.variants.first.price == 0 -%}
+{%- assign products_price_zero = true -%}
+{%- endif -%}
+{%- comment -%}<!-- Check Size -->{%- endcomment -%}
+{%-assign indsize = 0 | times: 1 -%}
+{%-assign check_sizeguide = false-%}
+{%-assign tagsize_1 =  settings.tagsize_1_tag | lstrip | rstrip -%}
+{%-assign tagsize_2 =  settings.tagsize_2_tag | lstrip | rstrip -%}
+{%-assign tagsize_3 =  settings.tagsize_3_tag | lstrip | rstrip -%}
+{%-assign tagsize_4 =  settings.tagsize_4_tag | lstrip | rstrip -%}
+{%-if settings.tagsize_show -%}  {%-assign check_sizeguide = true-%} {%-endif-%}
+{%-if product.tags contains tagsize_1 -%} {%-assign indsize = 1 | times: 1 -%} {%-endif-%}
+{%-if product.tags contains tagsize_2 -%} {%-assign indsize = 2 | times: 1 -%} {%-endif-%}
+{%-if product.tags contains tagsize_3 -%} {%-assign indsize = 3 | times: 1 -%} {%-endif-%}
+{%-if product.tags contains tagsize_4 -%} {%-assign indsize = 4 | times: 1 -%} {%-endif-%}
+<!-- end_size -->
+
+{%- assign is_collection_preorder = false -%}
+{%- for item in product.collections -%}
+	{%- if item.handle == settings.collection_preorder -%}
+	{%- assign is_collection_preorder = true -%}
+	{%- break -%}
+	{%- endif -%}
+{%- endfor -%}
+
+<script>
+	{%-if product.description contains '{' and product.description contains '}' and product.description contains '<hr>' -%}
+	let data_360 = {{ product.description | split: '<hr>' | last | strip_html | json | replace: '&nbsp;','' }};
+	data_360 = JSON.parse(data_360);
+	{%-else-%}
+	let data_360 = null;
+	{%-endif-%}
+</script>	
+{% comment %}<!-- Check 360 -->{% endcomment %}
+{%-assign has_360 = false-%}
+{%-if product.description contains '{' and product.description contains '}' and product.description contains '<hr>' -%}
+	{%-if product.description contains '"image360":'-%}{%-assign has_360 = true-%}{%-endif-%}
+{%-endif-%}
+{% comment %}<!-- Check Video -->{% endcomment %}
+{%- assign has_video = false -%}
+{%-if product.media.size > 0 -%}
+{%- for media in product.media -%}
+		{%- if media.media_type == 'external_video' -%}
+			{%- assign has_video = true -%}
+		{%- endif -%}
+{%-endfor-%}
+{%- endif -%}
+{%- assign runSlide = false -%}
+{%- if product.images.size > 1 -%}{%- assign runSlide = true -%}{%- endif -%}
+{%- if product.images.size >= 1 and has_video -%}{%- assign runSlide = true -%}{%- endif -%}
+{%- if product.images.size == 0 and has_video -%}{%- assign runSlide = true -%}{%- endif -%}
+{%- if product.images.size >= 1 and has_360 -%}{%- assign runSlide = true -%}{%- endif -%}
+{%- if has_video and has_360 -%}{%- assign runSlide = true -%}{%- endif -%}
+
+<script>
+	var currentId = {{product.id}};
+	var check_variant_add = false;
+	var pro_template = "style_02";
+	
+	var vrIdParam  = true,  current_id = {{ product.variants.first.id }};
+	{% if product.available %}
+	var selectedVariant = {
+		id: {{ product.selected_or_first_available_variant.id }},
+		option1: "{{ product.selected_or_first_available_variant.option1 }}",
+		option2: "{{ product.selected_or_first_available_variant.option2 }}",
+		option3: "{{ product.selected_or_first_available_variant.option3 }}"
+	};
+	{% else %}
+	var selectedVariant = {
+		id: {{ product.variants.first.id }},
+		option1: "{{ product.variants.first.option1 }}",
+		option2: "{{ product.variants.first.option2 }}",
+		option3: "{{ product.variants.first.option3 }}"	
+	}
+	{% endif %}
+
+</script>
+<div class="style_02 layout-productDetail layout-pageProduct">
+	{%- include 'breadcrumb' -%}
+<!-- temp 02 --> {%- include 'template-product-02' -%}
+	{%- if settings.product_related_show -%}	
+	<!-- related -->{% include 'listproduct-related' %}	
+	{%- endif -%}
+	{%- if settings.product_viewed_show-%}
+	<!-- viewed -->{%- include 'product-viewed'-%}
+	{%- endif -%}
+</div>
+{%- if settings.display_sidebar_bottom_product -%} {%- include 'sidebar-action-product' -%} {%- endif -%}
+{%- include 'modal-preorder' -%}
+{%- if check_sizeguide and indsize > 0 -%} {%-include 'modal-sizeguide' with ind: indsize -%} {%-endif-%}
+<div class="d-none">{{ htmlPopover }}</div>
+<div class="modal-coupon--backdrop"></div>
+
+<!-- JS PRODUCT -->{% include 'template-product-script'%}
+
+
+

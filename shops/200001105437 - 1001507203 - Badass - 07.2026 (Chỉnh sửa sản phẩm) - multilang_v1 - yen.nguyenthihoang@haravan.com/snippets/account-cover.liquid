@@ -1,0 +1,9 @@
+{%- assign _desk = settings.account_cover_imgdesk -%}
+{%- assign _mb = settings.account_cover_imgmb -%}
+{%- assign _blank_img = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+<div class="account-cover__bg">
+	<img class="lazyload isHideTBT d-none d-md-block" src="{{ _blank_img }}"
+		data-src="{%- if _desk != blank -%}{{ _desk }}{%- else -%}{{ 'logo-home.png' | asset_url }}{%- endif -%}" alt="Cover" loading="lazy" decoding="async">
+	<img class="lazyload isHideTBT d-block d-md-none" src="{{ _blank_img }}"
+		data-src="{%- if _mb != blank -%}{{ _mb }}{%- else -%}{{ 'logo-home.png' | asset_url }}{%- endif -%}" alt="Cover" loading="lazy" decoding="async">
+</div>

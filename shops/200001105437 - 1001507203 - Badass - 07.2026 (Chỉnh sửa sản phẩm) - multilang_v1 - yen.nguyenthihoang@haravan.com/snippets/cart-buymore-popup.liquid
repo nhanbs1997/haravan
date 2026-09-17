@@ -1,0 +1,83 @@
+{%- comment -%}
+  Snippet: cart-buymore-popup
+  Mô tả: Popup mở từ button "Mua thêm xxx" trên trang cart (theo Figma).
+         Tabs pill (active filled / inactive outline) — mỗi tab = 1 collection.
+         Slider sản phẩm dùng product-loop (đồng bộ card toàn site).
+         Nav arrows tròn primary 2 bên.
+  Settings:
+    - bs_buymore_popup_title
+    - bs_buymore_tab_count (1..6)
+    - bs_buymore_limit
+    - bs_buymore_tab_title_X / bs_buymore_tab_collection_X
+{% endcomment %}
+
+{%- assign _tab_count = settings.bs_buymore_tab_count | default: 3 | times: 1 -%}
+{%- if _tab_count < 1 -%}{%- assign _tab_count = 1 -%}{%- endif -%}
+{%- if _tab_count > 6 -%}{%- assign _tab_count = 6 -%}{%- endif -%}
+{%- assign _limit = settings.bs_buymore_limit | default: 12 | times: 1 -%}
+
+<div class="bm-popup" id="bmPopup" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="bmTitle" hidden>
+  <div class="bm-popup__overlay" data-bm-close></div>
+  <div class="bm-popup__panel">
+
+    <button type="button" class="bm-popup__close" data-bm-close aria-label="Đóng">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    {%- unless settings.bs_buymore_popup_title == blank -%}
+    <h3 class="bm-popup__title" id="bmTitle">{{ settings.bs_buymore_popup_title | escape }}</h3>
+    {%- endunless -%}
+
+    {%- comment -%} ── Tab nav (pill) ── {% endcomment %}
+    <div class="bm-popup__tabs" role="tablist">
+      {%- for i in (1.._tab_count) -%}
+        {%- assign _t_key = 'bs_buymore_tab_title_' | append: i -%}
+        {%- assign _c_key = 'bs_buymore_tab_collection_' | append: i -%}
+        {%- assign _t_title = settings[_t_key] -%}
+        {%- assign _t_handle = settings[_c_key] -%}
+        {%- if _t_handle != blank -%}
+        <button type="button" class="bm-popup__tab{% if forloop.first %} is-active{% endif %}"
+                data-bm-tab="{{ i }}"
+                role="tab"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+          {{ _t_title | default: 'Gợi ý' | escape }}
+        </button>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} ── Tab panels ── {% endcomment %}
+    <div class="bm-popup__body">
+      {%- for i in (1.._tab_count) -%}
+        {%- assign _c_key = 'bs_buymore_tab_collection_' | append: i -%}
+        {%- assign _t_handle = settings[_c_key] -%}
+        {%- assign _col = collections[_t_handle] -%}
+
+        {%- if _t_handle != blank -%}
+        <div class="bm-popup__panel-item{% if forloop.first %} is-active{% endif %}" data-bm-panel="{{ i }}" role="tabpanel">
+          {%- if _col and _col.products.size > 0 -%}
+          <div class="bm-popup__slider swiper" data-bm-swiper="{{ i }}">
+            <div class="swiper-wrapper">
+              {%- for product in _col.products limit: _limit -%}
+                <div class="swiper-slide">
+                  {%- include 'product-loop' -%}
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+          <button type="button" class="bm-popup__nav bm-popup__nav--prev" data-bm-prev="{{ i }}" aria-label="Trước">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+          </button>
+          <button type="button" class="bm-popup__nav bm-popup__nav--next" data-bm-next="{{ i }}" aria-label="Tiếp">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+          </button>
+          {%- else -%}
+          <p class="bm-popup__empty">Chưa có sản phẩm trong danh mục này.</p>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>

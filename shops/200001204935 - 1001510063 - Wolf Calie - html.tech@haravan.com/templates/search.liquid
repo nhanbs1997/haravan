@@ -1,0 +1,71 @@
+{%- include 'breadcrumb' -%}
+<section class="wolf-page-content wolf-page-content-search mb-4 mt-4">
+	<div class="container">
+		{%- if search.performed and search.terms != blank -%}
+		{%- paginate search.results by 24 -%}
+		{%- if search.results_count == 0 -%}
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<div class="text-center">
+					<div class="alert alert-danger" role="alert">Không tìm thấy bất kỳ kết quả nào với từ khóa trên.</div>
+					<h1 class="title-head h4 mb-4">Nhập từ khóa để tìm kiếm</h1>
+					<form action="/search" method="get" class="input-group mb-3 dark-mode-form" role="search">
+						<input type="text" name="q" value="" autocomplete="off" placeholder="Tìm kiếm..." class="form-control rounded-0">
+						<button type="submit" class="btn icon-fallback-text btn-outline-primary rounded-0">
+							<svg width="24" height="24">
+								<use xlink:href="#icon-search" />
+							</svg>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		{%- else -%}
+		<div class="row mt-5">
+			<div class="col-md-8 offset-md-2">
+				<div class="text-center">
+					<form action="/search" method="get" class="input-group mb-3 dark-mode-form" role="search">
+						<input type="text" name="q" value="" autocomplete="off" placeholder="Tìm kiếm..." class="form-control rounded-0">
+						<button type="submit" class="btn icon-fallback-text btn-outline-primary rounded-0">
+							<svg width="24" height="24">
+								<use xlink:href="#icon-search" />
+							</svg>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<h1 class="title-head h4 mb-5 mt-5 text-center">{{ search.results_count }} kết quả tìm kiếm cho "{{ search.terms }}"</h1>
+		<div class="category-products row g-2">
+			{%- for product in search.results -%}
+			<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6">
+				{%- include 'wolf-product-grid' -%}
+			</div>
+			{%- endfor -%}
+		</div>
+		{%- if paginate.pages > 1 -%}
+		<div class="paginate-pages d-flex justify-content-center">
+			{%- include 'paginate-pages' -%}
+		</div>
+		{%- endif -%}
+		{%- endif -%}
+		{%- endpaginate -%}
+		{%- else -%}
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<div class="text-center">
+					<h1 class="title-head h4 mb-4">Nhập từ khóa để tìm kiếm</h1>
+					<form action="/search" method="get" class="input-group mb-3 dark-mode-form" role="search">
+						<input type="text" name="q" value="" autocomplete="off" placeholder="Tìm kiếm..." class="form-control rounded-0">
+						<button type="submit" class="btn icon-fallback-text btn-outline-primary rounded-0">
+							<svg width="24" height="24">
+								<use xlink:href="#icon-search" />
+							</svg>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		{%- endif -%}
+	</div>
+</section>

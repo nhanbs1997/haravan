@@ -1,0 +1,140 @@
+/**
+ * ============================================================
+ * TF.Product + TF.Index — Main JS
+ * Scope: Homepage, Collection, Product, Cart
+ * ============================================================
+ */
+
+/* ──────────────────────────────────────────────────────────────
+ * TF.Product — Product Detail Page logic
+ * ────────────────────────────────────────────────────────────── */
+TF.Product = {
+  init: function() {
+    if (!window.productInfo) return;
+    this.initGallery();
+    this.bindActions();
+  },
+
+  initGallery: function() {
+    if ($('#galleryMain .swiper-slide').length <= 1) return;
+    if (typeof Swiper === 'undefined') return;
+
+    var thumbs = new Swiper('#galleryThumbs', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      freeMode: true,
+      watchSlidesVisibility: true,
+      watchSlidesProgress: true
+    });
+
+    var main = new Swiper('#galleryMain', {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      thumbs: { swiper: thumbs },
+      navigation: {
+        nextEl: '#galleryMain .swiper-next',
+        prevEl: '#galleryMain .swiper-prev'
+      }
+    });
+
+    // Fancybox
+    if (typeof Fancybox !== 'undefined') {
+      Fancybox.bind('#galleryMain a[data-fancybox="gallery"]', {});
+    }
+  },
+
+  bindActions: function() {
+    var self = this;
+
+    // Add to Cart
+    $(document).on('click', '#btn-addtocart:not(.loading)', function(e) {
+      e.preventDefault();
+      var $btn = $(this);
+      $btn.addClass('loading');
+      var variantId = $('#product-select').val();
+      var qty = parseInt($('#productQty').val()) || 1;
+
+      // Không truyền callback → addItem tự reload + mở lại sidebar (state đúng từ server)
+      TF.Cart.addItem(variantId, qty);
+    });
+
+    // Buy Now
+    $(document).on('click', '#btn-buynow:not(.loading)', function(e) {
+      e.preventDefault();
+      var $btn = $(this);
+      $btn.addClass('loading');
+      var variantId = $('#product-select').val();
+      var qty = parseInt($('#productQty').val()) || 1;
+
+      TF.Cart.addItem(variantId, qty, function() {
+        window.location = '/checkout';
+      });
+    });
+
+    // Quick Add to Cart (from product loop)
+    $(document).on('click', '.js-add-to-cart:not(.disabled)', function(e) {
+      e.preventDefault();
+      var variantId = $(this).attr('data-variant-id');
+      // Đóng mobile quickadd bottom sheet trước khi mở minicart
+      if (window.BS && BS.MobileQuickadd) BS.MobileQuickadd.close();
+
+      // Thêm từ popup "Mua thêm" (chỉ có trên trang cart) → đóng popup khi thành công.
+      var fromBuymore = $('#bmPopup').hasClass('is-open');
+
+      // addItem không callback → tự render + open(). Trên trang cart, open() đã
+      // tự bị chặn nên minicart KHÔNG bật ra; vẫn render lại nội dung giỏ inline.
+      TF.Cart.addItem(variantId, 1, fromBuymore ? function() {
+        if (window.BS && BS.CartBuyMore) BS.CartBuyMore.close();
+        TF.Cart.render(false);
+      } : undefined);
+    });
+  }
+};
+
+/* ──────────────────────────────────────────────────────────────
+ * TF.Index — Homepage logic
+ * ────────────────────────────────────────────────────────────── */
+TF.Index = {
+  init: function() {
+    this.heroSlider();
+  },
+
+  heroSlider: function() {
+    if ($('#heroSlider .swiper-slide').length <= 0) return;
+    if (typeof Swiper === 'undefined') return;
+    new Swiper('#heroSlider', {
+      loop: true,
+      slidesPerView: 1,
+      effect: 'fade',
+      fadeEffect: { crossFade: true },
+      speed: 800,
+      autoplay: { delay: 5000 },
+      pagination: {
+        el: '#heroSlider .swiper-pagination',
+        clickable: true
+      },
+      navigation: {
+        nextEl: '#heroSlider .swiper-next',
+        prevEl: '#heroSlider .swiper-prev'
+      }
+    });
+  }
+};
+
+/* ──────────────────────────────────────────────────────────────
+ * INIT based on template
+ * ────────────────────────────────────────────────────────────── */
+$(document).ready(function() {
+  var tpl = (window.shop && window.shop.template) || '';
+
+  if (tpl === 'index') {
+    TF.Index.init();
+  }
+
+  if (tpl.indexOf('product') > -1) {
+    TF.Product.init();
+  }
+
+  // Product actions work on all pages (quick add from loops)
+  TF.Product.bindActions();
+});

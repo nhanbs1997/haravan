@@ -1,0 +1,297 @@
+/* haravan-audit:v2 */
+/* ============================================================
+   bs_footer — BADASS Footer Style 01
+   Figma: node 40006105:60726 — pixel-perfect
+   ============================================================ */
+
+.bs_footer {
+  background: var(--bs-footer-bg, #f5f5f5);
+  color: var(--bs-footer-text, #404040);
+  font-family: var(--font-body);
+  padding: 32px 0;
+  margin-top: 0;
+
+  /* ── Wrapper (đã trong .container ngoài) ── */
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* ── Cols layout ── */
+  .cols {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .col { display: flex; flex-direction: column; }
+  .col--brand { gap: 20px; }
+  .col--menu,
+  .col--right { flex: 1 1 0; min-width: 0; }
+
+  /* ── Title (Body L / Bold) ── */
+  .title {
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 23px;
+    letter-spacing: -0.1px;
+    color: var(--bs-footer-title, #404040);
+    margin: 0 0 8px;
+  }
+
+  /* ── Logo ── */
+  .logo {
+    display: inline-flex;
+    align-items: center;
+  }
+  .logo img {
+    width: auto;
+    max-width: 196px;
+    height: 37px;
+    display: block;
+  }
+
+  /* ── Contact (Hotline / Email) ── */
+  .contact {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .contact-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .contact-icon {
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 28px;
+    color: var(--bs-footer-icon, #0a0a0a);
+  }
+  .contact-icon svg { width: 22px; height: 22px; display: block; }
+  .contact-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .contact-label {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 23px;
+    letter-spacing: -0.1px;
+    color: var(--bs-footer-text, #404040);
+  }
+  .contact-value {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 23px;
+    letter-spacing: -0.1px;
+    color: var(--bs-footer-text, #404040);
+    text-decoration: none;
+  }
+  .contact-value:hover { color: var(--bs-footer-link-hover, #0a0a0a); }
+
+  /* ── Menu links ── */
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .links li { margin: 0; }
+  .links a {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: -0.1px;
+    color: var(--bs-footer-link, #404040);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .links a:hover { color: var(--bs-footer-link-hover, #0a0a0a); }
+
+  /* ── Right column: connect + payment ── */
+  .col--right {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .connect,
+  .payment { display: flex; flex-direction: column; }
+  .connect { gap: 6px; }
+  .payment { gap: 8px; }
+
+  /* ── Socials ── */
+  .socials {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 4px 0;
+    margin: 0;
+    list-style: none;
+  }
+  .socials a {
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bs-footer-icon, #0a0a0a);
+    transition: opacity 0.2s;
+  }
+  .socials a:hover { opacity: 0.7; }
+  .socials svg { width: 20px; height: 20px; display: block; }
+
+  /* ── Payment ── */
+  .payments {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 1px 0;
+    margin: 0;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+  .payment-item {
+    width: 34px;
+    height: 24px;
+    background: #fff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .payment-card {
+    width: 22px;
+    height: auto;
+    max-height: 14px;
+    display: block;
+  }
+  .payment-item--text {
+    flex-direction: column;
+    gap: 0;
+    padding: 2px 0;
+  }
+  .payment-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 12px;
+    color: #000102;
+  }
+  .payment-icon svg { width: 12px; height: 12px; display: block; }
+  .payment-label {
+    font-size: 6px;
+    font-weight: 500;
+    line-height: 8px;
+    letter-spacing: -0.2px;
+    color: #000102;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    width: 100%;
+    height: 0;
+    border: 0;
+    border-top: 1px solid var(--bs-footer-divider, #e5e5e5);
+    margin: 0;
+  }
+
+  /* ── Bottom: company info ── */
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+  .company-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .company-name {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.1px;
+    color: var(--bs-footer-text, #404040);
+  }
+  .bct {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 71px;
+    height: 22px;
+    flex-shrink: 0;
+  }
+  .bct img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .company-id {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -0.1px;
+    color: var(--bs-footer-text, #404040);
+    margin: 0;
+  }
+}
+
+/* ──────── RESPONSIVE ──────── */
+@media (min-width: 768px) {
+  .bs_footer .company-row { gap: 20px; }
+}
+
+/* Footer mobile: 2 cột cho menu links */
+@media (max-width: 767px) {
+  .bs_footer .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .bs_footer .col--brand {
+    grid-column: 1 / -1; /* logo + contact span full width */
+  }
+  .bs_footer .col--right {
+    grid-column: 1 / -1; /* social + payment span full width */
+    gap:12px;
+  }
+}
+
+@media (min-width: 992px) {
+  .bs_footer .cols {
+    flex-direction: row;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .bs_footer .col--brand {
+    width: 420px;
+    flex: 0 0 420px;
+  }
+  .bs_footer .col--menu,
+  .bs_footer .col--right {
+    padding-top: 12px;
+  }
+}

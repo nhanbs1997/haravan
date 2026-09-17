@@ -1,0 +1,15 @@
+{%- layout none -%}
+{%- for article in blog.articles limit: settings.product_policy_page -%}
+<div class="c-new">
+	<a href="{{ article.url }}" title="{{ article.title | replace: '"', '' | escape }}" class="c-new__img">
+		{%- if article.image == null -%}
+		<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" data-src="{{ 'no-image.jpg' | asset_url }}" alt="{{ article.title | replace: '"', '' | escape }}" class="lazyload img-fluid" />
+		{%- else -%}
+		<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" data-src="{{ article.image.src | img_url:'medium' }}" alt="{{ article.title | replace: '"', '' | escape }}" class="lazyload img-fluid" />
+		{%- endif -%}
+	</a>
+	<div class="c-new__info">
+		<a href="{{ article.url }}" title="{{ article.title | replace: '"', '' | escape }}">{{ article.title | replace: '"', '' | escape }}</a>
+	</div>
+</div>
+{%- endfor -%}

@@ -1,4 +1,5 @@
-// Ticket workflow helper — chạy trong Console của trang Helpdesk đang mở ticket.
+// Ticket workflow helper — chạy trong Console của trang Helpdesk đang mở ticket
+// thuộc cửa sổ workflow mới; không chạy trong cửa sổ trình duyệt hiện tại của người dùng.
 // Chỉ đọc DOM và copy context JSON; không đọc credential, không mở/nhập/gửi Reply.
 (() => {
   const CREDENTIAL_SHEET_URL =

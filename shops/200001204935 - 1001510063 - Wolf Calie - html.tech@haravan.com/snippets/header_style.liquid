@@ -1,0 +1,88 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..600;1,300..600&display=swap" rel="stylesheet">
+<link rel="preload" as="script" href="{{ 'jquery.js' | asset_url }}" >
+{{ 'jquery.js' | asset_url | script_tag | remove: 'type="text/javascript"'}}
+<link rel="preload" as="script" href="{{ 'swiperjs.js' | asset_url }}" >
+{{ 'swiperjs.js' | asset_url | script_tag | remove: 'type="text/javascript"' }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" >
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+<style>
+	:root {
+		--main-color: {{ settings.main-color }};
+		--second-color: {{ settings.sup-color }};
+		--main-text-color: {{ settings.color_body_text }};
+		--header-bg-color: {{ settings.header-bg-color }};
+		--header-text-color: {{ settings.header-text-color }};
+		--footer-bg-color: {{ settings.phone-bg-color }};
+		--footer-text-color: {{ settings.phone-text-color }};
+		--color_tag_sale: {{ settings.color_tag_sale }};
+		--deal-bg-color: {{ settings.deal-bg-color }};
+		--deal-border-color: {{ settings.deal-border-color }};
+		--voucher-bg-color: {{ settings.voucher-bg-color }};
+		--voucher-text-color: {{ settings.voucher-text-color }};
+		--voucher-border-color: {{ settings.voucher-border-color }};
+		--collections-sales-bg-color: {{ settings.collections-sales-bg-color }};
+		--collections-sales-title-bg-color: {{ settings.collections-sales-title-bg-color }};
+		--popup-color: {{ settings.contact_us_color }};
+		--dark-bg-color: #171717;
+		--dark-text-color: #f1f1f1;
+		--dark-link-color: #dee2e6;
+		--dark-input-bg-color: #232322;
+		--dark-input-border-color: #3b3b3b;
+		--dark-button-bg-color: #2e2e2e;
+		--border-color: #e0e0e0;
+	}
+</style>
+<link rel="preload" href="{{ 'wolf-main.scss.css' | asset_url }}" as="style" >
+{{ 'wolf-main.scss.css' | asset_url | stylesheet_tag }}
+{%- if template contains 'customers' -%}
+<link rel="preload" as="style" type="text/css" href="{{ 'wolf-account.scss.css' | asset_url }}" >
+{{ 'wolf-account.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'contact' -%}
+<link rel="preload" as="style" type="text/css" href="{{ 'wolf-contact-page.scss.css' | asset_url }}" >
+{{ 'wolf-contact-page.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'page' -%}
+<link rel="preload" as="style" type="text/css" href="{{ 'wolf-page.scss.css' | asset_url }}" >
+{{ 'wolf-page.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'blog' -%}
+<link rel="preload" as="style" type="text/css" href="{{ 'wolf-blog.scss.css' | asset_url }}" >
+{{ 'wolf-blog.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'article' -%}
+<link rel="preload" as="style" type="text/css" href="{{ 'wolf-article.scss.css' | asset_url }}" >
+{{ 'wolf-article.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains '404' -%}
+<link rel="preload" as='style'  type="text/css" href="{{ '404page.scss.css' | asset_url }}">
+{{ '404page.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'index' -%}
+<link rel="preload" as='style'  type="text/css" href="{{ 'wolf-index.scss.css' | asset_url }}">
+{{ 'wolf-index.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- unless template contains 'lookbook' -%}
+{%- if template contains 'collection' -%}
+<link rel="preload" as="style" type="text/css" href="{{ 'wolf-collection.scss.css' | asset_url }}" >
+{{ 'wolf-collection.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- endunless -%}
+{%- if template contains 'product' -%}
+<link rel="preload" as="style" type="text/css" href="{{ 'wolf-product.scss.css' | asset_url }}" >
+{{ 'wolf-product.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'cart' -%}
+<link rel="preload" as="style" type="text/css" href="{{ 'wolf-cart.scss.css' | asset_url }}" >
+{{ 'wolf-cart.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if template contains 'lookbook' -%}
+<link rel="preload" as="style" type="text/css" href="{{ 'lookbook.scss.css' | asset_url }}" >
+{{ 'lookbook.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if settings.quickview_enable -%}
+<link rel="preload" as='style'  type="text/css" href="{{ 'quickviews_popup_cart.scss.css' | asset_url }}">
+{{ 'quickviews_popup_cart.scss.css' | asset_url | stylesheet_tag }}
+{%- endif -%}

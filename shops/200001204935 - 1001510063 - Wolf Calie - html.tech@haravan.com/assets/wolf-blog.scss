@@ -1,0 +1,55 @@
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden; }
+
+.wolf-blog-item .wolf-blog-item-title a {
+  color: var(--main-text-color); }
+  .wolf-blog-item .wolf-blog-item-title a:hover, .wolf-blog-item .wolf-blog-item-title a:focus {
+    color: var(--main-color); }
+
+.wolf-blog-list .wolf-blog-item .block-thumb {
+  padding-top: 100%;
+  overflow: hidden; }
+  .wolf-blog-list .wolf-blog-item .block-thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: contain; }
+
+.blog-skeleton {
+  display: flex;
+  flex-wrap: wrap; }
+
+.skeleton-card {
+  background: #f1f1f1;
+  animation: pulse 1.5s infinite ease-in-out; }
+
+.skeleton-image {
+  width: 100%;
+  height: 300px;
+  background: #ddd;
+  border-radius: 8px; }
+
+.skeleton-line {
+  height: 14px;
+  background: #ccc;
+  border-radius: 4px; }
+
+.imageSkeleton {
+  background: #e0e0e0;
+  animation: pulse 1.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 1rem; }
+
+@keyframes pulse {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0.4; }
+  100% {
+    opacity: 1; } }

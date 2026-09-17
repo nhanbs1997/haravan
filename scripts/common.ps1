@@ -1959,6 +1959,18 @@ function Sync-HaravanGitWorkspace {
         return $workspace
     }
 
+    foreach ($marker in @("MERGE_HEAD", "rebase-merge", "rebase-apply", "CHERRY_PICK_HEAD", "REVERT_HEAD")) {
+        $gitPath = Invoke-HaravanGitCommand -WorkingDirectory $workspace.RepositoryRoot `
+            -Arguments @("rev-parse", "--git-path", $marker)
+        $markerPath = [string]$gitPath.Output[0]
+        if (-not [System.IO.Path]::IsPathRooted($markerPath)) {
+            $markerPath = Join-Path $workspace.RepositoryRoot $markerPath
+        }
+        if (Test-Path -LiteralPath $markerPath) {
+            throw "Git đang có thao tác chưa hoàn tất ($marker); hãy hoàn tất trước khi đồng bộ."
+        }
+    }
+
     $status = Invoke-HaravanGitCommand `
         -WorkingDirectory $workspace.RepositoryRoot `
         -Arguments @("status", "--porcelain=v1", "--untracked-files=all")
@@ -1966,22 +1978,47 @@ function Sync-HaravanGitWorkspace {
         -not [string]::IsNullOrWhiteSpace([string]$_)
     })
     if ($statusLines.Count -gt 0) {
-        $dirtyMessage = (
-            "Bỏ qua git pull vì workspace có {0} thay đổi chưa commit; " +
-            "hãy commit/push lên GitHub trước khi đồng bộ lượt tiếp theo."
-        ) -f $statusLines.Count
-        Write-Warning $dirtyMessage
-        return $workspace
+        # Read unresolved index entries without diff's worktree/line-ending warnings.
+        $unmerged = Invoke-HaravanGitCommand -WorkingDirectory $workspace.RepositoryRoot `
+            -Arguments @("ls-files", "--unmerged")
+        if (@($unmerged.Output | Where-Object { $_ }).Count -gt 0) {
+            throw "Git còn conflict; dừng trước khi tự commit."
+        }
+        # Ignore rules alone do not protect files already tracked by Git.
+        $protected = '(?i)(^|/)(\.env(?:\..*)?|\.haravan-cli_local\.json|[^/]*credential[^/]*|[^/]*\.(pem|key|p12|pfx))$|^(backups|\.ticket-workflow|\.qa|\.agents)/'
+        $tracked = Invoke-HaravanGitCommand -WorkingDirectory $workspace.RepositoryRoot `
+            -Arguments @("-c", "core.quotepath=false", "diff", "HEAD", "--name-only")
+        if (@($tracked.Output | Where-Object { $_ -match $protected }).Count -gt 0) {
+            throw "File đăng nhập hoặc dữ liệu local đang được Git theo dõi có thay đổi; không tự commit/push."
+        }
+        $stage = Invoke-HaravanGitCommand -WorkingDirectory $workspace.RepositoryRoot `
+            -Arguments @("add", "--all", "--", ".", ":(exclude,glob)**/.env", ":(exclude,glob)**/.env.*",
+                ":(exclude,glob)**/.haravan-cli_local.json", ":(exclude,glob)**/*credential*",
+                ":(exclude,glob)**/*.pem", ":(exclude,glob)**/*.key", ":(exclude,glob)**/*.p12", ":(exclude,glob)**/*.pfx",
+                ":(exclude,glob)**/backups/**", ":(exclude,glob)**/.ticket-workflow/**",
+                ":(exclude,glob)**/.qa/**", ":(exclude,glob)**/.agents/**")
+        $pending = Invoke-HaravanGitCommand -WorkingDirectory $workspace.RepositoryRoot `
+            -Arguments @("diff", "--cached", "--quiet") -AllowNonZero
+        if ($pending.ExitCode -eq 1) {
+            $commit = Invoke-HaravanGitCommand -WorkingDirectory $workspace.RepositoryRoot `
+                -Arguments @("commit", "-m", ("Haravan workflow: snapshot source " + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')))
+            Write-Host "Đã tự commit source local trước khi đồng bộ GitHub."
+        } elseif ($pending.ExitCode -ne 0) {
+            throw "Không kiểm tra được thay đổi staged."
+        }
     }
 
     $pull = Invoke-HaravanGitCommand `
         -WorkingDirectory $workspace.RepositoryRoot `
-        -Arguments @("pull", "--ff-only", $workspace.Remote, $workspace.Branch) `
+        -Arguments @("pull", "--no-rebase", "--no-edit", $workspace.Remote, $workspace.Branch) `
         -AllowNonZero
     if ($pull.ExitCode -ne 0) {
-        $detail = (@($pull.Output) -join " ").Trim()
-        throw "Không thể đồng bộ GitHub trước khi làm việc: $detail"
+        $abort = Invoke-HaravanGitCommand -WorkingDirectory $workspace.RepositoryRoot `
+            -Arguments @("merge", "--abort") -AllowNonZero
+        throw "Không thể đồng bộ GitHub (lỗi kết nối hoặc conflict). Commit local được giữ lại; chưa push hoặc thao tác Haravan."
     }
+    $push = Invoke-HaravanGitCommand -WorkingDirectory $workspace.RepositoryRoot `
+        -Arguments @("push", $workspace.Remote, $workspace.Branch)
     Write-Host "GitHub workspace đã được đồng bộ: $($workspace.Remote)/$($workspace.Branch)."
     return $workspace
 }

@@ -1,0 +1,32 @@
+{%- comment -%}
+  Snippet: cart-page-inner
+  Mô tả: Nội dung động bên trong .container của trang cart (heading + wrapper
+         hoặc empty state). Tách riêng để tái dùng cho alternate view
+         /cart?view=cart-content (AJAX swap, không reload trang).
+{% endcomment %}
+
+{%- if cart.item_count > 0 -%}
+
+<div class="bs_cart__heading">
+  <h1 class="bs_cart__title">Giỏ hàng của bạn</h1>
+  <span class="bs_cart__count" id="cartItemCount">({{ cart.item_count }})</span>
+</div>
+
+<div class="bs_cart__wrapper">
+
+  <div class="bs_cart__main">
+    {%- include 'cart-steps' -%}
+    <div class="bs_cart__items" id="cartItems">
+      {%- for item in cart.items -%}
+        {%- include 'cart-item', cart_line: forloop.index -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- include 'cart-summary' -%}
+
+</div>
+
+{%- else -%}
+{%- include 'cart-empty' -%}
+{%- endif -%}

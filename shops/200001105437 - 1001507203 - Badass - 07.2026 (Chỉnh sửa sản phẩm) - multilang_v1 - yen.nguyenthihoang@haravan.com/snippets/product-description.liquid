@@ -1,0 +1,37 @@
+{%- if product.description != blank -%}
+<section class="pd-desc">
+  <div class="container">
+
+    <div class="pd-desc__tab">
+      <h2 class="pd-desc__tab-title">Mô tả sản phẩm</h2>
+    </div>
+
+    <div class="pd-desc__body">
+      <div class="pd-desc__content-wrap" id="pdDescWrap">
+        <div class="pd-desc__content rte" id="pdDescContent">
+          {{ product.description }}
+        </div>
+        <div class="pd-desc__fade" id="pdDescFade" aria-hidden="true"></div>
+      </div>
+
+      <div class="pd-desc__toggle">
+        <button type="button" class="pd-desc__btn" id="pdDescBtn" aria-expanded="false">ĐỌC THÊM</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function() {
+  var wrap = document.getElementById('pdDescWrap');
+  var btn = document.getElementById('pdDescBtn');
+  if (!wrap || !btn) return;
+  btn.addEventListener('click', function() {
+    var expanded = wrap.classList.toggle('is-expanded');
+    btn.textContent = expanded ? 'COLLAPSE CONTENT' : 'ĐỌC THÊM';
+    btn.setAttribute('aria-expanded', String(expanded));
+  });
+})();
+</script>
+{%- endif -%}

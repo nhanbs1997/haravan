@@ -55,25 +55,20 @@ workflow phải dừng để hỏi lại; không tự suy diễn thêm.
 
 URL ticket vẫn được chấp nhận, nhưng không còn là đầu vào bắt buộc.
 
-### Fast Path khi chạy lặp
+### Luôn pull trước mỗi yêu cầu chỉnh theme
 
-Mặc định `ticket:prepare` tái sử dụng theme local trong 30 phút nếu đủ ba điều kiện:
-theme có đủ thư mục cần thiết, chữ ký metadata của file không đổi và Org ID/Theme ID/
-website khớp context. Khi dùng Fast Path, workflow bỏ qua backup và fetch/pull remote,
-giúp chạy lại ticket hoặc tạo lại context nhanh hơn. Cache chỉ lưu thời điểm, định danh
-theme, URL nguồn và chữ ký metadata; không lưu mật khẩu, token hay cookie.
+Mỗi yêu cầu chỉnh theme, kể cả yêu cầu tiếp nối trong cùng cuộc trò chuyện hoặc cùng
+ticket, phải backup local rồi fetch/pull code mới nhất từ đúng Org ID/Theme ID trước
+khi sửa. Không dùng cache local để bỏ qua pull. Nếu pull thất bại hoặc chỉ tải một
+phần, dừng trước khi chỉnh sửa; không coi code cũ là bản remote mới nhất.
 
-Khi cần bắt buộc lấy bản mới nhất từ remote, dùng:
+`ticket:prepare` luôn lấy bản mới nhất từ remote:
 
 ```powershell
 npm.cmd run ticket:prepare -- -ContextPath .ticket-workflow\incoming-86528.json -ForceFetch
 ```
 
-Có thể đổi thời gian tái sử dụng cho một lượt chạy, ví dụ 60 phút:
-
-```powershell
-npm.cmd run ticket:prepare -- -ContextPath .ticket-workflow\incoming-86528.json -ReuseMinutes 60
-```
+`-ForceFetch` vẫn được chấp nhận để tương thích; `-ReuseMinutes` chỉ chấp nhận `0`.
 
 Nếu context đã có Org ID và Theme ID hợp lệ, runner dùng trực tiếp hai giá trị đó và bỏ
 qua bước đọc lại HTML storefront để giảm một lượt kiểm tra mạng. Khi CLI gặp lỗi asset
@@ -224,6 +219,11 @@ git pull --ff-only origin main
 `https://github.com/nhanbs1997/haravan.git`, nhánh `main` và `git.push` phải bật. Nếu
 checkout/remote/nhánh không đúng, workflow dừng trước khi ghi lên Haravan. Không dùng
 `-SkipGit` trong quy trình này.
+
+Trước thao tác Haravan, workflow tự commit source local (gồm file mới/xóa), pull và
+merge source mới nhất rồi push GitHub. Nếu conflict thì hủy merge và dừng, giữ commit
+local; không force-push. Không commit file bị ignore, thông tin đăng nhập, backup hoặc
+dữ liệu ticket. Snapshot Git không thay thế verification và push theme chọn lọc.
 
 Sau khi xử lý, cập nhật `changes.json` chỉ với các thay đổi thuộc phạm vi đã yêu cầu:
 

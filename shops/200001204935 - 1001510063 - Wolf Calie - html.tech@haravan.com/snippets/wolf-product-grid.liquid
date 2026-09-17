@@ -1,0 +1,140 @@
+{%- include 'wolf-price-assign' -%}
+<div class="wolf-product-item-card mt-2">
+	<div class="wolf-product-box-image position-relative mb-3 rounded-4">
+		{%- unless contact -%}
+		{%- if on_sale -%}
+		<div class="label-sale position-absolute rounded-3 text-center">{{ pt }}<small>%</small></div>
+		{%- endif -%}
+		{%- endunless -%}
+		<a href="{{ product.url }}" title="{{ product.title }}" aria-label="{{ product.title }}" class="wolf-product-main-image">
+			<picture>
+				<source 
+						media="(min-width: 1200px)"
+						srcset="{{ product.featured_image.src | img_url:'large' }}">
+				<source 
+						media="(min-width: 992px)"
+						srcset="{{ product.featured_image.src | img_url:'large' }}">
+				<source 
+						media="(max-width: 767px)"
+						srcset="{{ product.featured_image.src | img_url:'medium' }}">
+				<source 
+						media="(max-width: 480px)"
+						srcset="{{ product.featured_image.src | img_url:'medium' }}">
+				<img width="450" height="600" src="{{ product.featured_image.src | img_url:'large' }}" alt="{{ product.title }}" loading="lazy" class="wolf-img-main-products img-fluid me-auto ms-auto rounded-4">
+			</picture>
+			{%- if itemsale == true -%}
+			<div class="wolf-product-img-sale">
+				{%- if itemsale1 == true -%}
+				<img width="500" height="87" src="{{ 'wolf-product-frame-1.png' | asset_url }}" alt="{{ product.title }}" loading="lazy" class="img-fluid me-auto ms-auto">
+				{%- endif -%}
+				{%- if itemsale2 == true -%}
+				<img width="500" height="87" src="{{ 'wolf-product-frame-2.png' | asset_url }}" alt="{{ product.title }}" loading="lazy" class="img-fluid me-auto ms-auto">
+				{%- endif -%}
+			</div>
+			{%- endif -%}
+		</a>
+		<div class="button-set position-absolute">
+			{%- if settings.iwish_enable -%}
+			<button class="btn action cart-button border-0 d-flex justify-content-center align-items-center rounded-circle btn-fav-toggle" data-product-alias="{{ product.handle }}" aria-label="Yêu thích" title="Yêu thích">
+				<svg width="26" height="26"><use xlink:href="#icon-heart" /></svg>
+			</button>
+			{%- endif -%}
+			{%- if settings.quickview_enable -%}
+			<button data-handle="{{ product.handle }}" class="btn action cart-button border-0 d-flex justify-content-center align-items-center rounded-circle mt-2 quick-view" aria-label="Xem nhanh" title="Xem nhanh">
+				<svg width="26" height="26"><use xlink:href="#icon-eye" /></svg>
+			</button>
+			{%- endif -%}
+			<button data-handle="{{ product.handle }}" data-type="{{ product.type }}" class="btn action cart-button border-0 d-flex justify-content-center align-items-center rounded-circle mt-2 compare-btn" aria-label="So sánh" title="So sánh">
+				<svg width="26" height="26"><use xlink:href="#icon-compare" /></svg>
+			</button>
+		</div>
+		<form action="/cart/add" method="post" enctype="multipart/form-data" class="add-to-cart-form wolf-product-action variants form-nut-grid form-ajaxtocart position-absolute" data-cart-form data-id="product-actions-{{ product.id }}">
+			{%- if contact -%}
+			<button title="Chi tiết" type="button" onclick="location.href='{{ product.url }}'" class="btn action cart-button border-0 d-flex justify-content-center align-items-center">
+				<svg width="20" height="20" class="me-2"><use xlink:href="#icon-variant" /></svg> Chi tiết
+			</button>
+			{%- else -%}
+			{%- if variantCount > 1 -%}
+			<button title="Tùy chọn" type="button" onclick="location.href='{{ product.url }}'" class="btn action cart-button border-0 d-flex justify-content-center align-items-center">
+				<svg width="20" height="20" class="me-2"><use xlink:href="#icon-variant" /></svg> Tùy chọn
+			</button>
+			{%- elsif sold_out -%}
+			<button title="Hết hàng" type="button" onclick="location.href='{{ product.url }}'" class="btn action cart-button border-0 d-flex justify-content-center align-items-center">
+				<svg width="20" height="20" class="me-2"><use xlink:href="#icon-sold-out" /></svg> Hết hàng
+			</button>
+			{%- else -%}
+			<input type="hidden" name="id" value="{{ product.variants[0].id }}" >
+			<button title="Thêm vào giỏ" class="add-to-cart-btn cart-button btn action add_to_cart border-0 d-flex justify-content-center align-items-center">
+				<svg width="20" height="20" class="me-2"><use xlink:href="#icon-cart" /></svg> Thêm vào giỏ
+			</button>
+			{%- endif -%}
+			{%- endif -%}
+		</form>
+	</div>
+	{%- assign color_option_index = -1 -%}
+	{%- for option in product.options -%}
+	{%- if option == "Color" or option == "Màu sắc" -%}
+	{%- assign color_option_index = forloop.index0 -%}
+	{%- endif -%}
+	{%- endfor -%}
+	<div class="wolf-product-box-info mb-2 {% if color_option_index != -1 %}wolf-product-box-info-swatch{% endif %}">
+		{%- if color_option_index != -1 -%}
+		<div class="wolf-product-color-swatches d-flex gap-25 mb-3 ms-1">
+			{%- assign shown_colors = '' -%}
+			{%- assign all_colors = '' -%}
+			{%- assign swatch_items = '' -%}
+			{%- assign count = 0 -%}
+			{%- for variant in product.variants -%}
+			{%- assign color = variant.options[color_option_index] -%}
+			{%- unless all_colors contains color -%}
+			{%- assign all_colors = all_colors | append: color | append: ',' -%}
+			{%- endunless -%}
+			{%- endfor -%}
+			{%- assign color_array = all_colors | split: ',' -%}
+			{%- assign total_colors = color_array | size | minus: 1 -%}
+			{%- for variant in product.variants -%}
+			{%- assign color = variant.options[color_option_index] -%}
+			{%- unless shown_colors contains color -%}
+			{%- assign shown_colors = shown_colors | append: color | append: ',' -%}
+			{%- assign count = count | plus: 1 -%}
+			{%- if total_colors > 4 and count <= 3 -%}
+			<div class="swatch-mixed rounded-circle position-relative" {% if variant.image %}data-variant-image="{{ variant.image | img_url: 'large' }}"{% endif %} title="{{ color }}">
+				{%- if variant.image -%}
+				<span class="image-dot rounded-circle d-flex" style="background-image:url({{ variant.image | img_url: 'small' }})"></span>
+				{%- else -%}
+				<span class="color-dot rounded-circle d-flex color-{{ color | handleize | replace: '-', '' }}"></span>
+				{%- endif -%}
+			</div>
+			{%- elsif total_colors <= 4 -%}
+			<div class="swatch-mixed rounded-circle position-relative" {% if variant.image %}data-variant-image="{{ variant.image | img_url: 'large' }}"{% endif %} title="{{ color }}">
+				{%- if variant.image -%}
+				<span class="image-dot rounded-circle d-flex" style="background-image:url({{ variant.image | img_url: 'small' }})"></span>
+				{%- else -%}
+				<span class="color-dot rounded-circle d-flex color-{{ color | handleize | replace: '-', '' }}"></span>
+				{%- endif -%}
+			</div>
+			{%- endif -%}
+			{%- endunless -%}
+			{%- endfor -%}
+			{%- if total_colors > 4 -%}
+			<div class="swatch-more rounded-circle position-relative">+{{ total_colors | minus: 3 }}</div>
+			{%- endif -%}
+		</div>
+		{%- endif -%}
+		<h4 class="wolf-product-title mb-2"><a class="line-clamp line-clamp-2" href="{{ product.url }}" title="{{ product.title }}">{{ product.title }}</a></h4>
+		<div class="wolf-product-box-price mb-2 d-flex align-items-end{% if on_sale %} onsale{% endif %}">
+			{%- if contact -%}
+			<span>Liên hệ</span>
+			{%- else -%}
+			{%- if on_sale -%}
+			<span>{{  awe-price | money }}</span>
+			{%- if awe-compare-price > awe-price -%}
+			<del class="ms-1">{{ awe-compare-price | money }}</del>
+			{%- endif -%}
+			{%- else -%}
+			<span>{{  awe-price | money }}</span>
+			{%- endif -%}
+			{%- endif -%}
+		</div>
+	</div>
+</div>

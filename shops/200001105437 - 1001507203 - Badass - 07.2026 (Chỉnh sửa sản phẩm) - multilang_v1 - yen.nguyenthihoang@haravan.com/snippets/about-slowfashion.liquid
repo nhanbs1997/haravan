@@ -1,0 +1,55 @@
+{%- assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+
+<section class="about-sf">
+
+  <div class="container">
+    <div class="about-sf__media-wrap">
+      {%- unless settings.bs_about_sf_img == blank -%}
+      {%- assign _sf_mb = settings.bs_about_sf_img_mb -%}
+      <picture class="about-sf__picture">
+        {%- unless _sf_mb == blank -%}
+        <source media="(max-width: 767px)" data-srcset="{{ _sf_mb }}" srcset="{{ _sf_mb }}">
+        {%- endunless -%}
+        <img
+          class="about-sf__img lazyload isHideTBT"
+          src="{{ _blank }}"
+          data-src="{{ settings.bs_about_sf_img }}"
+          alt="BADASS - Slow Fashion"
+          loading="lazy" decoding="async"
+          width="1440" height="617">
+      </picture>
+      {%- else -%}
+      <div class="about-sf__img-placeholder" aria-hidden="true"></div>
+      {%- endunless -%}
+    </div>
+  </div>
+
+  <div class="about-sf__body">
+    <div class="container">
+      <div class="about-sf__row">
+
+        <div class="about-sf__col about-sf__col--left">
+          {%- unless settings.bs_about_sf_slogan == blank -%}
+          <div class="about-sf__slogan-wrap">
+            <p class="about-sf__slogan">{{ settings.bs_about_sf_slogan }}</p>
+          </div>
+          {%- endunless -%}
+          {%- unless settings.bs_about_sf_intro == blank -%}
+          <p class="about-sf__intro">{{ settings.bs_about_sf_intro }}</p>
+          {%- endunless -%}
+        </div>
+
+        <div class="about-sf__col about-sf__col--right">
+          {%- unless settings.bs_about_sf_text_bold == blank -%}
+          <p class="about-sf__text-bold">{{ settings.bs_about_sf_text_bold }}</p>
+          {%- endunless -%}
+          {%- unless settings.bs_about_sf_text == blank -%}
+          <p class="about-sf__text">{{ settings.bs_about_sf_text }}</p>
+          {%- endunless -%}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>

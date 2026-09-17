@@ -1,0 +1,32 @@
+{%- if settings.language_header_enable -%}
+<div class="language-select d-flex mt-3 mb-2">
+	<button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+		<img src="https://flagcdn.com/w20/vn.png" alt="Vietnam Flag"> VI
+	</button>
+	<ul class="dropdown-menu" aria-labelledby="languageDropdown">
+		<li>
+			<a class="dropdown-item" href="{{ settings.language_header_vi }}" data-lang="vi">
+				<img src="https://flagcdn.com/w20/vn.png" alt="Vietnam Flag" class="flag-icon"> Tiếng Việt
+			</a>
+		</li>
+		<li>
+			<a class="dropdown-item" href="{{ settings.language_header_en }}" data-lang="en">
+				<img src="https://flagcdn.com/w20/gb.png" alt="UK Flag" class="flag-icon"> English
+			</a>
+		</li>
+	</ul>
+</div>
+<script>
+	document.querySelectorAll('.language-select .dropdown-item').forEach(item => {
+		item.addEventListener('click', function(e) {
+			e.preventDefault();
+			const lang = this.getAttribute('data-lang');
+			const flagSrc = this.querySelector('img').src;
+			const langText = lang === 'vi' ? 'VI' : 'EN';
+			const dropdownToggle = document.querySelector('#languageDropdown');
+			dropdownToggle.innerHTML = `<img src="${flagSrc}" alt="${langText} Flag"> ${langText}`;
+			console.log(`Language changed to: ${lang}`);
+		});
+	});
+</script>
+{%- endif -%}

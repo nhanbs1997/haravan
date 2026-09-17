@@ -1,0 +1,64 @@
+{%- comment -%}
+  Snippet: scripts
+  Mô tả: Load tất cả JS files (đặt trước </body>)
+{%- endcomment -%}
+
+{%- comment -%} Haravan API Scripts {%- endcomment -%}
+{%- comment -%} Haravan API Scripts {%- endcomment -%}
+{{ 'option_selection.js' | haravan_asset_url | script_tag }}
+{{ 'api.jquery.js' | haravan_asset_url | script_tag }}
+
+{%- comment -%} Customer pages {%- endcomment -%}
+{%- if template contains 'customers' -%}
+<script src="{{ 'haravan_common.js' | haravan_asset_url }}" defer></script>
+<script src="{{ 'customer_area.js' | haravan_asset_url }}" defer></script>
+<script src="https://hstatic.net/services/countries.js" defer></script>
+{%- endif -%}
+
+{%- comment -%} Libs (Swiper, SweetAlert) {%- endcomment -%}
+<script src="{{ 'swiper.min.js' | asset_url }}"></script>
+<script src="{{ 'sweetalert.min.js' | asset_url }}" defer></script>
+
+{%- comment -%} Product page: Fancybox CSS + JS {%- endcomment -%}
+{%- if template contains 'product' -%}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"></noscript>
+<script>if(window.notLighthouse){document.write('<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js" defer><\/script>');}</script>
+{%- endif -%}
+
+{%- comment -%} Theme JS (always) {%- endcomment -%}
+<script src="{{ 'general.js' | asset_url }}"></script>
+
+{%- comment -%} Page-specific JS {%- endcomment -%}
+{%- if template contains 'customers' -%}
+<script src="{{ 'customers-account.js' | asset_url }}" defer></script>
+{%- else -%}
+<script src="{{ 'main.js' | asset_url }}"></script>
+{%- endif -%}
+
+{%- comment -%} Promotion App JS {%- endcomment -%}
+{%- if settings.promotion_hrvapp_use -%}
+  {%- if settings.promotion_hrvapp == 'appcombo' -%}
+  <script src="{{ 'app-combo.js' | asset_url }}" defer></script>
+  {%- elsif settings.promotion_hrvapp == 'appbuyxgety' -%}
+  <script src="{{ 'app-buyxgety.js' | asset_url }}" defer></script>
+  {%- endif -%}
+{%- endif -%}
+
+{%- comment -%} Gift Milestones — load global khi enabled {%- endcomment -%}
+{%- if settings.bs_gm_enable -%}
+<script src="{{ 'gift-milestones.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{%- comment -%} Cart buy-more popup — chỉ trang cart {%- endcomment -%}
+{%- if template contains 'cart' -%}
+<script src="{{ 'cart-buymore.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{%- comment -%} Header height CSS variable {%- endcomment -%}
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  var h=document.getElementById("siteHeaderGroup");
+  if(h) document.body.style.setProperty("--header-height",h.offsetHeight+"px");
+});
+</script>

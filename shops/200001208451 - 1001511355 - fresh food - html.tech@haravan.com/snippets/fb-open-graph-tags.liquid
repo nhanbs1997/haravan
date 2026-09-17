@@ -1,0 +1,53 @@
+{% comment %}
+This is for widgets that share content on Facebook.
+See the Facebook Linter: http://developers.facebook.com/tools/debug
+{% endcomment %}
+
+{% comment %}
+<fieldset class="test">
+	<legend>Hình ảnh chia sẻ trang chủ lên facebook</legend>
+	<div class="col-sm-12">
+		<div class="col-sm-12">
+			<table>
+				<tr>
+					<td><label>Hình ảnh chia sẻ trang chủ</label></td>
+					<td><input type="file" name="share_fb_home.png" /></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</fieldset>
+{% endcomment %}
+
+{% if template contains 'product' %}
+<meta property="og:type" content="product" />
+<meta property="og:title" content="{{ product.title | strip_html | strip_newlines  }}" />
+<meta property="og:image" content="http:{{ product.featured_image.src | product_img_url: 'grande' }}" />
+<meta property="og:image:secure_url" content="https:{{ product.featured_image.src | product_img_url: 'grande' }}" />
+<meta property="og:price:amount" content="{{ product.price | money_without_currency | remove: ',' | remove: '₫'}}" />
+<meta property="og:price:currency" content="{{ shop.currency }}" />
+{% elsif template contains 'article' %}
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{ article.title | strip_html | strip_newlines }}" />  
+{% assign img_tag = '<' | append: 'img' %}
+	{% if article.content contains img_tag %}
+	{% assign src = article.content | split: 'src="' %}
+	{% assign src = src[1] | split: '"' | first | remove: 'https:' | remove: 'http:' %}
+	{% if src %}
+	<meta property="og:image" content="http:{{ src }}" />
+	<meta property="og:image:secure_url" content="https:{{ src }}" />
+	{% endif %}
+	{% endif %}
+	{% else %}
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="{{ page_title | strip_html | strip_newlines }}" />
+	<meta property="og:image" content="http:{{ 'share_fb_home.png' | asset_url }}" />
+	<meta property="og:image" content="https:{{ 'share_fb_home.png' | asset_url }}" />
+	{% endif %}
+
+	{% if page_description %}
+	<meta property="og:description" content="{{ page_description | strip_html | strip_newlines }}" />
+	{% endif %}
+	<meta property="og:url" content="{{ canonical_url }}" />
+	<meta property="og:site_name" content="{{ shop.name }}" />
+

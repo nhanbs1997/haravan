@@ -1,0 +1,16 @@
+{%- capture videotitle1 -%}{%- include 'shortcode-render' render:'videotitle1' -%}{%- endcapture -%}
+{%- capture videotitle2 -%}{%- include 'shortcode-render' render:'videotitle2' -%}{%- endcapture -%}
+{%- capture videocontent -%}{%- include 'shortcode-render' render:'videocontent' -%}{%- endcapture -%}
+{%- capture videolink -%}{%- include 'shortcode-render' render:'videolink' -%}{%- endcapture -%}
+<div class="lookbook-fullvideo pb-4 py-5">
+	<div class="container mb-4">
+		<div class="lookbook-fullvideo-header text-center">
+			<h4 class="mb-3">{{ videotitle1 }}</h4>
+			<h5 class="mb-3">{{ videotitle2 }}</h5>
+			<p>{{ videocontent }}</p>
+		</div>
+	</div>
+	<video class="object-fit-contain w-100" data-setup="{'fluid': true, 'controls': false}" muted playsinline autoplay loop>
+		<source src="{{ videolink }}" type="video/mp4">
+	</video>
+</div>

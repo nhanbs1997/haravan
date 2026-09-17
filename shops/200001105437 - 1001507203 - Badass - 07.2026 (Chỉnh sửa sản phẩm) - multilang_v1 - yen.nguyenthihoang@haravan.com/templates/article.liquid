@@ -1,0 +1,316 @@
+
+{%- assign _art_cur_id    = article.id -%}
+{%- assign _art_cur_title = article.title -%}
+
+<link rel="preload stylesheet" href="{{ 'pages.scss.css' | asset_url }}" as="style">
+
+<div class="art-page">
+
+  {%- comment -%} ── 1–3: Header (breadcrumb + meta + tiêu đề) ── {% endcomment -%}
+  <div class="container">
+    <header class="art-header">
+
+      {%- include 'breadcrumb' -%}
+
+      <div class="art-header__meta">
+        {%- comment -%} Tag: lấy tag đầu tiên, fallback về tên blog {%- endcomment -%}
+        {%- if article.tags.size > 0 -%}
+          <span class="art-tag">{{ article.tags | first }}</span>
+        {%- else -%}
+          <span class="art-tag">{{ blog.title }}</span>
+        {%- endif -%}
+
+        {%- comment -%} Ngày đăng {% endcomment -%}
+        <div class="art-meta-item">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#0a0a0a" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 1.5"/></svg>
+          <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d/%m/%Y' }}</time>
+        </div>
+
+        {%- comment -%} Tác giả {% endcomment -%}
+        {%- if article.author != blank -%}
+        <div class="art-meta-item">
+          <span>{{ article.author }}</span>
+        </div>
+        {%- endif -%}
+      </div>
+
+      <h1 class="art-header__title">{{ article.title }}</h1>
+
+    </header>
+  </div>
+
+  {%- comment -%} ── 4: Hero image — dùng 1024x1024 thay vì master để tránh load ảnh gốc ── {% endcomment -%}
+  {%- if article.image -%}
+  <div class="container">
+    <div class="art-hero">
+      <img
+        src="{{ article.image | img_url: '1024x1024' }}"
+        alt="{{ article.title | escape }}"
+        class="art-hero__img"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        width="955" height="478">
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- comment -%}
+    ── 5 + 6: Content body + TOC sidebar trái ──
+    art-content-wrap: TOC absolute margin trái + sticky scroll; header/banner/content thu 880px khi có TOC
+    TOC: JS tự parse H2/H3 từ #artContent → build nav
+  {% endcomment -%}
+  <div class="container">
+    <div class="art-content-wrap">
+
+      {%- if settings.art_toc_show -%}
+      <aside class="art-toc" id="artToc" aria-label="Mục lục bài viết">
+        <div class="art-toc__inner" id="artTocInner">
+          <p class="art-toc__heading">MỤC LỤC</p>
+          <nav class="art-toc__nav" id="artTocNav" aria-label="Mục lục"></nav>
+        </div>
+      </aside>
+      {%- endif -%}
+
+      <div class="art-body">
+        <div class="art-body__content rte" id="artContent">
+          {{ article.content }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {%- comment -%} ── 7: Sản phẩm liên quan ── {% endcomment -%}
+  {%- if settings.art_related_products_show -%}
+    {%- assign _rel_col   = settings.art_related_products_collection -%}
+    {%- assign _rel_limit = settings.art_related_products_limit | default: 8 | times: 1 -%}
+    {%- if _rel_col != blank -%}
+      {%- assign _rel_coll = collections[_rel_col] -%}
+      {%- if _rel_coll.products.size > 0 -%}
+      <section class="art-related-products" id="artRelatedProducts" aria-labelledby="artRelatedProductsTitle">
+        <div class="container">
+          <div class="art-section-head">
+            <h2 class="art-section-head__title" id="artRelatedProductsTitle">
+              {{ settings.art_related_products_title | default: 'Sản phẩm liên quan' }}
+            </h2>
+            <a href="{{ _rel_coll.url }}" class="art-viewall" aria-label="Xem tất cả sản phẩm liên quan">
+              Xem tất cả
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="art-products-track-wrap">
+            <div class="art-products-track" id="artProductsTrack">
+              {%- for product in _rel_coll.products limit: _rel_limit -%}
+              <div class="art-products-track__item">
+                {%- include 'product-loop' -%}
+              </div>
+              {%- endfor -%}
+            </div>
+            <button type="button" class="art-nav art-nav--prev is-hidden" id="artProductsPrev" aria-label="Sản phẩm trước">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+            </button>
+            <button type="button" class="art-nav art-nav--next" id="artProductsNext" aria-label="Sản phẩm tiếp">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+
+  
+  {%- assign _art_rel_show = settings.art_related_articles_show -%}
+
+ 
+  {%- if _art_rel_show -%}
+
+    {%- assign _rel_art_limit = settings.art_related_articles_limit | default: 4 | times: 1 -%}
+    {%- assign _rel_art_title = settings.art_related_articles_title | default: 'Tin tức liên quan' -%}
+
+    {%- comment -%} Đếm bài hợp lệ (không phải bài hiện tại) {% endcomment -%}
+    {%- assign _rel_arts_count = 0 -%}
+    {%- for _a in blog.articles limit: 20 -%}
+      {%- if _a.id != _art_cur_id -%}
+        {%- assign _rel_arts_count = _rel_arts_count | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if _rel_arts_count > 0 -%}
+    <section class="art-related-articles" id="artRelatedArticles" aria-labelledby="artRelatedArticlesTitle">
+      <div class="container">
+        <div class="art-section-head">
+          <h2 class="art-section-head__title" id="artRelatedArticlesTitle">{{ _rel_art_title }}</h2>
+        </div>
+        <div class="art-articles-track-wrap">
+          <div class="art-articles-track" id="artArticlesTrack">
+            {%- assign _shown = 0 -%}
+            {% assign macdinh = article.handle %}
+            {%- for article in blogs[blog.handle].articles limit: 20 -%}
+              
+              {% if article.handle != macdinh %}
+               
+                <div class="art-articles-track__item">
+                  {%- include 'blog-article-card' -%}
+                </div>
+                {%- assign _shown = _shown | plus: 1 -%}
+            {% endif %}
+            {%- endfor -%}
+          </div>
+          <button type="button" class="art-nav art-nav--prev is-hidden" id="artArticlesPrev" aria-label="Bài trước">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+          </button>
+          <button type="button" class="art-nav art-nav--next" id="artArticlesNext" aria-label="Bài tiếp">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+    {%- endif -%}
+
+  {%- endif -%}
+
+</div><!-- /.art-page -->
+
+<script>
+(function() {
+  'use strict';
+
+ 
+  var tocWrap = document.getElementById('artToc');
+  var tocNav  = document.getElementById('artTocNav');
+  var tocInner = document.getElementById('artTocInner');
+  var content = document.getElementById('artContent');
+  var contentWrap = document.querySelector('.art-content-wrap');
+  var artPage = document.querySelector('.art-page');
+
+  if (tocWrap && tocNav && content) {
+    var headings = content.querySelectorAll('h2, h3');
+
+    if (headings.length < 2) {
+      tocWrap.style.display = 'none';
+    } else {
+      if (contentWrap) contentWrap.classList.add('has-toc');
+      if (artPage) artPage.classList.add('has-toc');
+
+      /* Build TOC links */
+      var frag = document.createDocumentFragment();
+      headings.forEach(function(h, idx) {
+        if (!h.id) h.id = 'art-h-' + idx;
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'art-toc__link' + (h.tagName === 'H3' ? ' art-toc__link--sub' : '');
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          var el = document.getElementById(h.id);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        frag.appendChild(a);
+      });
+      tocNav.appendChild(frag);
+
+      /* Active state + auto-scroll link trong sidebar */
+      var allLinks = tocNav.querySelectorAll('.art-toc__link');
+      function updateActive() {
+        var scrollY = window.pageYOffset + 135;
+        var activeId = null;
+        headings.forEach(function(h) {
+          if (h.getBoundingClientRect().top + window.pageYOffset <= scrollY) {
+            activeId = h.id;
+          }
+        });
+        var activeLink = null;
+        allLinks.forEach(function(a) {
+          var isActive = a.getAttribute('href') === '#' + activeId;
+          a.classList.toggle('is-active', isActive);
+          if (isActive) activeLink = a;
+        });
+        if (activeLink && tocInner) {
+          var innerRect = tocInner.getBoundingClientRect();
+          var linkRect = activeLink.getBoundingClientRect();
+          if (linkRect.top < innerRect.top || linkRect.bottom > innerRect.bottom) {
+            activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          }
+        }
+      }
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+
+      /* Sticky TOC: fixed khi scroll, nằm ngoài cột content 880px */
+      (function initTocSticky() {
+        if (!tocInner || !contentWrap) return;
+        var GAP = 48, TOP = 135, W = 220;
+
+        function placeToc() {
+          if (window.innerWidth < 1280) {
+            tocInner.classList.remove('is-fixed', 'is-pinned-bottom');
+            tocInner.style.left = tocInner.style.top = tocInner.style.width = '';
+            return;
+          }
+          var wrapR = contentWrap.getBoundingClientRect();
+          var innerH = tocInner.offsetHeight;
+          var leftPos = wrapR.left - GAP - W;
+
+          tocInner.classList.remove('is-fixed', 'is-pinned-bottom');
+          tocInner.style.left = tocInner.style.top = tocInner.style.width = '';
+
+          if (wrapR.top >= TOP) {
+            /* Đầu bài — vị trí tự nhiên */
+          } else if (wrapR.bottom <= TOP + innerH) {
+            /* Cuối bài — ghim đáy cột */
+            tocInner.classList.add('is-pinned-bottom');
+          } else {
+            /* Đang scroll — fixed bên trái content */
+            tocInner.classList.add('is-fixed');
+            tocInner.style.top = TOP + 'px';
+            tocInner.style.left = leftPos + 'px';
+            tocInner.style.width = W + 'px';
+          }
+        }
+
+        window.addEventListener('scroll', placeToc, { passive: true });
+        window.addEventListener('resize', placeToc, { passive: true });
+        placeToc();
+      })();
+    }
+  }
+
+  /* ══════════════════════════════════════════════════════
+     Horizontal scroll sliders (sản phẩm + tin tức)
+     - Desktop: nút prev/next bấm scroll 1 item
+     - Mobile: freemode tự nhiên, không can thiệp touch
+  ══════════════════════════════════════════════════════ */
+  function initScrollSlider(trackId, prevId, nextId) {
+    var track   = document.getElementById(trackId);
+    var prevBtn = document.getElementById(prevId);
+    var nextBtn = document.getElementById(nextId);
+    if (!track) return;
+
+    function getStep() {
+      var item = track.firstElementChild;
+      if (!item) return 280;
+      var gap = parseInt(window.getComputedStyle(track).gap) || 12;
+      return item.offsetWidth + gap;
+    }
+    function update() {
+      var atStart = track.scrollLeft <= 4;
+      var atEnd   = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+      if (prevBtn) prevBtn.classList.toggle('is-hidden', atStart);
+      if (nextBtn) nextBtn.classList.toggle('is-hidden', atEnd);
+    }
+    if (prevBtn) prevBtn.addEventListener('click', function() {
+      track.scrollBy({ left: -getStep(), behavior: 'smooth' });
+    });
+    if (nextBtn) nextBtn.addEventListener('click', function() {
+      track.scrollBy({ left: getStep(), behavior: 'smooth' });
+    });
+    track.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+
+  initScrollSlider('artProductsTrack', 'artProductsPrev', 'artProductsNext');
+  initScrollSlider('artArticlesTrack', 'artArticlesPrev', 'artArticlesNext');
+})();
+</script>

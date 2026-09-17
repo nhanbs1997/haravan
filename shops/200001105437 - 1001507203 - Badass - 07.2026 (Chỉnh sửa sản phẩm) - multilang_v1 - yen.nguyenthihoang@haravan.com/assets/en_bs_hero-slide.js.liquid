@@ -1,0 +1,91 @@
+/* haravan-audit:v2 */
+window.BS = window.BS || {};
+BS.HeroSlide = BS.HeroSlide || {
+  init: function() {
+    var slider = document.getElementById('heroSlider');
+    if (!slider) return;
+
+    var track = document.getElementById('heroSliderTrack');
+    var slides = track.querySelectorAll('.bs_hero-slide__slide');
+    var prevBtn = document.getElementById('heroSliderPrev');
+    var nextBtn = document.getElementById('heroSliderNext');
+    var total = slides.length;
+    var current = 0;
+    var autoplayDelay = parseInt(slider.getAttribute('data-autoplay')) || 5000;
+    var autoplayEnabled = slider.getAttribute('data-autoplay-enabled') === '1';
+    var autoplayTimer = null;
+    var isAnimating = false;
+
+    function goTo(index) {
+      if (isAnimating || index === current) return;
+      isAnimating = true;
+      slides[current].classList.remove('is-active');
+      slides[current].classList.add('is-leaving');
+      var leavingVideo = slides[current].querySelector('.bs_hero-slide__video');
+      if (leavingVideo) leavingVideo.pause();
+      current = (index + total) % total;
+      slides[current].classList.add('is-active');
+      var enteringVideo = slides[current].querySelector('.bs_hero-slide__video');
+      if (enteringVideo) { enteringVideo.currentTime = 0; enteringVideo.play(); }
+      slides.forEach(function(s) {
+        if (s.classList.contains('is-leaving')) {
+          setTimeout(function() {
+            s.classList.remove('is-leaving');
+            isAnimating = false;
+          }, 700);
+        }
+      });
+      updateCounter();
+      resetAutoplay();
+    }
+
+    function updateCounter() {
+      var pad = function(n) { return n < 10 ? '0' + n : '' + n; };
+      slides.forEach(function(slide) {
+        var cur = slide.querySelector('.bs_hero-slide__counter-current');
+        var fill = slide.querySelector('.bs_hero-slide__progress-fill');
+        if (cur) cur.textContent = pad(current + 1);
+        if (fill) fill.style.width = ((current + 1) / total * 100) + '%';
+      });
+    }
+
+    function startAutoplay() {
+      if (!autoplayEnabled) return;
+      autoplayTimer = setInterval(function() { goTo(current + 1); }, autoplayDelay);
+    }
+
+    function resetAutoplay() {
+      clearInterval(autoplayTimer);
+      startAutoplay();
+    }
+
+    if (slides.length > 0) {
+      slides[0].classList.add('is-active');
+      updateCounter();
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+    var startX = 0;
+    slider.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', function(e) {
+      var diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
+    }, { passive: true });
+
+    startAutoplay();
+
+    // Tạm dừng autoplay khi tab ẩn → tránh chạy interval lãng phí + nhảy slide khi quay lại.
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) clearInterval(autoplayTimer);
+      else resetAutoplay();
+    });
+  }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof BS !== 'undefined' && BS.HeroSlide) {
+    BS.HeroSlide.init();
+  }
+});

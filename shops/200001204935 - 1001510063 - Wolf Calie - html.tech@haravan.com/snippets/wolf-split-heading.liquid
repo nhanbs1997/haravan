@@ -1,0 +1,61 @@
+{%- assign description = collection.description | default: '' -%}
+{%- assign h4_title = '' -%}
+{%- assign h4_content_below = '' -%}
+{%- assign h5_title = '' -%}
+{%- assign h5_content_below = '' -%}
+{%- assign h6_title = '' -%}
+{%- assign h6_content_below = '' -%}
+{%- assign p_content = '' -%}
+{%- assign current_processing_string = description -%}
+{%- if current_processing_string contains '<h4>' -%}
+{%- assign h4_parts = current_processing_string | split: '<h4>' -%}
+{%- assign after_h4_open = h4_parts[1] | default: '' -%}
+{%- assign h4_close_parts = after_h4_open | split: '</h4>' -%}
+{%- assign h4_title = h4_close_parts[0] | default: '' | strip -%}
+{%- assign content_after_h4_close = h4_close_parts[1] | default: '' -%}
+{%- assign next_heading_marker = '' -%}
+{%- assign next_heading_pos = -1 -%}
+{%- if content_after_h4_close contains '<h5>' -%}
+{%- assign next_heading_marker = '<h5>' -%}
+{%- elsif content_after_h4_close contains '<h6>' -%}
+{%- assign next_heading_marker = '<h6>' -%}
+{%- endif -%}
+{%- if next_heading_marker != '' -%}
+{%- assign temp_slice_parts = content_after_h4_close | split: next_heading_marker -%}
+{%- assign h4_content_below = temp_slice_parts[0] | default: '' | strip -%}
+{%- assign current_processing_string = next_heading_marker | append: temp_slice_parts[1] | default: '' -%}
+{%- else -%}
+{%- assign h4_content_below = content_after_h4_close | strip -%}
+{%- assign current_processing_string = '' -%}
+{%- endif -%}
+{%- endif -%}
+{%- if current_processing_string contains '<h5>' -%}
+{%- assign h5_parts = current_processing_string | split: '<h5>' -%}
+{%- assign after_h5_open = h5_parts[1] | default: '' -%}
+{%- assign h5_close_parts = after_h5_open | split: '</h5>' -%}
+{%- assign h5_title = h5_close_parts[0] | default: '' | strip -%}
+{%- assign content_after_h5_close = h5_close_parts[1] | default: '' -%}
+{%- assign next_heading_marker = '' -%}
+{%- assign next_heading_pos = -1 -%}
+{%- if content_after_h5_close contains '<h6>' -%}
+{%- assign next_heading_marker = '<h6>' -%}
+{%- endif -%}
+{%- if next_heading_marker != '' -%}
+{%- assign temp_slice_parts = content_after_h5_close | split: next_heading_marker -%}
+{%- assign h5_content_below = temp_slice_parts[0] | default: '' | strip -%}
+{%- assign current_processing_string = next_heading_marker | append: temp_slice_parts[1] | default: '' -%}
+{%- else -%}
+{%- assign h5_content_below = content_after_h5_close | strip -%}
+{%- assign current_processing_string = '' -%}
+{%- endif -%}
+{%- endif -%}
+{%- if current_processing_string contains '<h6>' -%}
+{%- assign h6_parts = current_processing_string | split: '<h6>' -%}
+{%- assign after_h6_open = h6_parts[1] | default: '' -%}
+{%- assign h6_close_parts = after_h6_open | split: '</h6>' -%}
+{%- assign h6_title = h6_close_parts[0] | default: '' | strip -%}
+{%- assign content_after_h6_close = h6_close_parts[1] | default: '' -%}
+{%- assign h6_content_below = content_after_h6_close | strip -%}
+{%- assign current_processing_string = '' -%}
+{%- endif -%}
+{%- assign p_content = current_processing_string | replace: '<p>', '' | replace: '</p>', '' | replace: '<span>', '' | replace: '</span>', '' | strip -%}

@@ -1,0 +1,22 @@
+{% layout none %}
+{%- paginate collection.products by settings.pagination_limit -%}
+<div data-products data-total="{{ paginate.items }}">
+  {%- if collection.products.size == 0 -%}
+  <div class="coll__empty">
+    <svg class="coll__empty-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+    </svg>
+    <p class="coll__empty-title">Không có sản phẩm nào trong nhóm này</p>
+    <p class="coll__empty-desc">Vui lòng quay lại sau hoặc xem các nhóm sản phẩm khác.</p>
+    <a href="/collections/all" class="coll__empty-btn">Xem tất cả sản phẩm</a>
+  </div>
+  {%- endif -%}
+  {%- for product in collection.products -%}
+    {%- include 'product-loop', product: product -%}
+  {%- endfor -%}
+</div>
+<div data-pagi>
+  {%- assign pagi_class = 'coll-pagi' -%}
+  {%- include 'pagination' -%}
+</div>
+{%- endpaginate -%}

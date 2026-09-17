@@ -1,0 +1,194 @@
+/* ================================================
+   Account Form: custom datepicker, gender, save
+   ================================================ */
+
+/* ── Custom Datepicker ── */
+(function(){
+  var MONTHS = ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6',
+                'Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
+  var DAYS   = ['CN','T2','T3','T4','T5','T6','T7'];
+  var MIN_YEAR = 1940, MAX_YEAR = new Date().getFullYear();
+
+  function parseVal(str){
+    var p = (str||'').split('/');
+    if(p.length===3){
+      var d=parseInt(p[0],10),m=parseInt(p[1],10)-1,y=parseInt(p[2],10);
+      if(!isNaN(d)&&!isNaN(m)&&!isNaN(y)) return new Date(y,m,d);
+    }
+    return null;
+  }
+  function fmt(d){ return ('0'+d.getDate()).slice(-2)+'/'+('0'+(d.getMonth()+1)).slice(-2)+'/'+d.getFullYear(); }
+  function daysInMonth(y,m){ return new Date(y,m+1,0).getDate(); }
+
+  function buildPicker(input){
+    var dp = document.createElement('div');
+    dp.className = 'acc-dp';
+    dp.innerHTML =
+      '<div class="acc-dp__head">'+
+        '<button type="button" class="acc-dp__nav acc-dp__prev">&#8249;</button>'+
+        '<div class="acc-dp__selects">'+
+          '<select class="acc-dp__sel acc-dp__sel--month"></select>'+
+          '<select class="acc-dp__sel acc-dp__sel--year"></select>'+
+        '</div>'+
+        '<button type="button" class="acc-dp__nav acc-dp__next">&#8250;</button>'+
+      '</div>'+
+      '<table class="acc-dp__table">'+
+        '<thead><tr>'+DAYS.map(function(d){return'<th>'+d+'</th>';}).join('')+'</tr></thead>'+
+        '<tbody></tbody>'+
+      '</table>';
+    document.body.appendChild(dp);
+
+    var selMonth=dp.querySelector('.acc-dp__sel--month');
+    var selYear=dp.querySelector('.acc-dp__sel--year');
+    var tbody=dp.querySelector('tbody');
+
+    MONTHS.forEach(function(m,i){ var o=document.createElement('option'); o.value=i; o.textContent=m; selMonth.appendChild(o); });
+    for(var y=MAX_YEAR;y>=MIN_YEAR;y--){ var o=document.createElement('option'); o.value=y; o.textContent=y; selYear.appendChild(o); }
+
+    var cur={y:new Date().getFullYear(),m:new Date().getMonth()};
+    var selected=null;
+
+    function position(){
+      var r=input.getBoundingClientRect();
+      var sY=window.pageYOffset||document.documentElement.scrollTop;
+      var sX=window.pageXOffset||document.documentElement.scrollLeft;
+      dp.style.top=(r.bottom+sY+4)+'px';
+      dp.style.left=(r.left+sX)+'px';
+    }
+    function render(){
+      selMonth.value=cur.m; selYear.value=cur.y;
+      var first=new Date(cur.y,cur.m,1).getDay();
+      var total=daysInMonth(cur.y,cur.m);
+      var today=new Date();
+      tbody.innerHTML='';
+      var row,col=0;
+      var startOffset=(first===0)?6:first-1;
+      row=document.createElement('tr');
+      for(var i=0;i<startOffset;i++){ row.appendChild(document.createElement('td')); col++; }
+      for(var d=1;d<=total;d++){
+        if(col===7){ tbody.appendChild(row); row=document.createElement('tr'); col=0; }
+        var td=document.createElement('td');
+        var btn=document.createElement('button');
+        btn.type='button'; btn.textContent=d; btn.className='acc-dp__day';
+        if(d===today.getDate()&&cur.m===today.getMonth()&&cur.y===today.getFullYear()) btn.classList.add('is-today');
+        if(selected&&d===selected.getDate()&&cur.m===selected.getMonth()&&cur.y===selected.getFullYear()) btn.classList.add('is-selected');
+        (function(day){ btn.addEventListener('click',function(){ selected=new Date(cur.y,cur.m,day); input.value=fmt(selected); hide(); }); })(d);
+        td.appendChild(btn); row.appendChild(td); col++;
+      }
+      if(col>0) tbody.appendChild(row);
+    }
+    function show(){ var v=parseVal(input.value); if(v){cur.y=v.getFullYear();cur.m=v.getMonth();selected=v;} render(); position(); dp.classList.add('is-open'); }
+    function hide(){ dp.classList.remove('is-open'); }
+    function toggle(){ dp.classList.contains('is-open')?hide():show(); }
+
+    dp.querySelector('.acc-dp__prev').addEventListener('click',function(){ cur.m--; if(cur.m<0){cur.m=11;cur.y--;} render(); });
+    dp.querySelector('.acc-dp__next').addEventListener('click',function(){ cur.m++; if(cur.m>11){cur.m=0;cur.y++;} render(); });
+    selMonth.addEventListener('change',function(){ cur.m=parseInt(this.value,10); render(); });
+    selYear.addEventListener('change',function(){ cur.y=parseInt(this.value,10); render(); });
+
+    document.addEventListener('click',function(e){
+      if(!dp.contains(e.target)&&e.target!==input&&!input.parentElement.contains(e.target)) hide();
+    });
+    input.addEventListener('click',toggle);
+    input.addEventListener('keydown',function(e){ if(e.key==='Escape') hide(); });
+    var wrap=input.closest('.account-form__input-wrap');
+    if(wrap){ var icon=wrap.querySelector('.account-form__input-icon'); if(icon) icon.addEventListener('click',function(e){ e.stopPropagation(); toggle(); }); }
+  }
+
+  document.addEventListener('DOMContentLoaded',function(){
+    var input=document.getElementById('acc_birthday');
+    if(input) buildPicker(input);
+  });
+})();
+
+/* ── Account Form: gender + save (Haravan native) ── */
+$(document).ready(function(){
+  var btn = document.getElementById('btn-update-account');
+  var genderGroup = document.getElementById('acc_gender_group');
+
+  /* ── Gender toggle ── */
+  if(genderGroup){
+    $(genderGroup).on('click', '.account-form__gender-opt', function(){
+      $(genderGroup).find('.account-form__gender-opt').removeClass('is-checked');
+      $(this).addClass('is-checked');
+      $(this).find('input[type="radio"]').prop('checked', true);
+    });
+  }
+
+  /* ── Restore from sessionStorage after reload ── */
+  if(sessionStorage.getItem('accLoadInfo') === 'true'){
+    var sg = sessionStorage.getItem('accGender');
+    if(sg !== null){
+      $('input[name="customer[gender]"]').prop('checked', false);
+      $('input[name="customer[gender]"][value="'+sg+'"]').prop('checked', true).closest('.account-form__gender-opt').addClass('is-checked').siblings().removeClass('is-checked');
+    }
+    var sb = sessionStorage.getItem('accBirthday');
+    if(sb) $('#acc_birthday').val(sb);
+    var sln = sessionStorage.getItem('accLastName');
+    if(sln) $('#acc_last_name').val(sln);
+    var sfn = sessionStorage.getItem('accFirstName');
+    if(sfn) $('#acc_first_name').val(sfn);
+    sessionStorage.setItem('accLoadInfo', 'false');
+  }
+
+  /* ── Save ── */
+  if(!btn) return;
+  $(btn).on('click', function(){
+    var lastName  = ($('#acc_last_name').val() || '').trim();
+    var firstName = ($('#acc_first_name').val() || '').trim();
+    if(!lastName && !firstName){ alert('Vui lòng nhập họ tên'); return; }
+
+    var gender   = $('input[name="customer[gender]"]:checked').val() || '';
+    var birthday = ($('#acc_birthday').val() || '').trim();
+    var phone    = ($('#acc_phone').val() || '').trim();
+
+    /* Save to sessionStorage for persistence across reload */
+    sessionStorage.setItem('accLoadInfo', 'true');
+    sessionStorage.setItem('accGender', gender);
+    sessionStorage.setItem('accBirthday', birthday);
+    sessionStorage.setItem('accLastName', lastName);
+    sessionStorage.setItem('accFirstName', firstName);
+
+    btn.disabled = true;
+    btn.textContent = 'Đang lưu...';
+
+    var resetBtn = function(){
+      btn.disabled = false;
+      btn.textContent = 'Lưu thông tin';
+    };
+
+    /* Post update_customer to /account (Haravan native) */
+    var pCustomer = $.post('/account', {
+      form_type: 'update_customer',
+      utf8: '✓',
+      'customer[last_name]':  lastName,
+      'customer[first_name]': firstName,
+      'customer[gender]':     gender,
+      'customer[birthday]':   birthday,
+      'customer[phone]':      phone
+    });
+
+    /* Also update default address name + phone */
+    {%- assign _cid = customer.id -%}
+    var addrUrl = '/account/addresses/{{ _cid }}';
+    var pAddress = $.post(addrUrl, {
+      form_type: 'customer_address',
+      utf8: '✓',
+      'address[last_name]':  lastName,
+      'address[first_name]': firstName,
+      'address[phone]':      phone
+    });
+
+    $.when(pCustomer, pAddress)
+      .done(function(){
+        resetBtn();
+        alert('Cập nhật thông tin thành công');
+      })
+      .fail(function(){
+        resetBtn();
+        /* Lưu thất bại → bỏ cờ restore để tránh hiển thị dữ liệu chưa lưu sau reload */
+        sessionStorage.setItem('accLoadInfo', 'false');
+        alert('Có lỗi xảy ra, vui lòng thử lại.');
+      });
+  });
+});

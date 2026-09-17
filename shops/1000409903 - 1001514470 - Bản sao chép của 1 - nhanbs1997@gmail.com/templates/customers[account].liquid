@@ -1,0 +1,236 @@
+
+<script>
+if( localStorage.getItem('template') == 'en'){
+	var href = location.href;	
+	var n = href.includes("?");
+	if(n == true){
+		var view = '&view=en';
+	}else{
+		var view = '?view=en';
+	}
+	window.location=location.href+view;
+}
+</script>
+{% if customer %}
+<script>
+if(document.referrer.includes('view=app.style')){
+	window.location = 'https://suplo-cosmetics.myharavan.com/account?view=app.style';
+}
+</script>
+{% endif %}
+{% capture ouput_account%}
+{
+"name": "{{ customer.name }}",
+"email": "{{ customer.email }}",
+"phone": "{{ customer.default_address.phone }}",
+"birthday": "{{ customer.birthday }}",
+"address": "{{ customer.default_address.address1 }}",
+"province": "{{ customer.default_address.province_code }}",
+"city": "{{ customer.default_address.city }}",
+"gender": "{{ customer.gender }}",
+"orders": [
+{% for order in customer.orders %}
+{
+"name": "{{order.name}}",
+"url": "{{order.customer_url}}",
+"created_at": "{{order.created_at}}",
+"financial_status_label": "{{order.financial_status_label}}",
+"fulfillment_status_label": "{{order.fulfillment_status_label}}",
+"confirmed_status": "{{order.confirmed_status_label}}",
+"cancel_label": "{{order.cancelled}}",
+"cancel_reason": "{{ order.cancel_reason }}",
+"first_item": {
+"id": "{{order.line_items[0].product.id}}",
+"image": "{{order.line_items[0].image}}",
+"handle": "{{order.line_items[0].url | replace: '/products/', ''}}",
+"title": {{order.line_items[0].product.title | json}},
+"variant_title": "{%unless order.line_items[0].variant.title contains 'Default' %}{{order.line_items[0].variant.title}}{%endunless%}",
+"price": "{{order.line_items[0].price | money}}",
+"quantity": "{{order.line_items[0].quantity}}"
+},
+"count_items": "{{order.line_items |size}}",
+"total_price": "{{order.total_price | money}}"
+}{% unless forloop.last%},{% endunless %}
+{% endfor %}
+],
+"addresses": [
+{% for address in customer.addresses %}
+{
+"address1": "{{address.address1}}",
+"address2": "{{address.address2}}",
+"address1": "{{address.name}}",
+"city": "{{address.city}}",
+"company": "{{address.company}}",
+"country": "{{address.country}}",
+"name": "{{address.name}}",
+"id": "{{address.id}}",
+"phone": "{{address.phone}}",
+"province": "{{address.province}}",
+"zip": "{{address.zip}}",
+"district": "{{address.district}}"
+}{% unless forloop.last%},{% endunless %}
+{% endfor %}
+]
+}
+{% endcapture%}
+
+
+<div id="page-wrapper">
+	<div class="wrapper">
+		<div class="inner">
+
+			<h1>{{ 'customer.account.title' | t }}</h1>
+
+			<hr class="hr--small">
+
+			<div class="grid">
+
+				<div class="grid__item two-thirds medium-down--one-whole">
+					<h2 class="h4">{{ 'customer.orders.title' | t }}</h2>
+
+					{% comment %}
+					If we have past orders, loop through each one
+					{% endcomment %}
+					{% paginate customer.orders by 20 %}
+					{% if customer.orders.size != 0 %}
+
+					<div class="table-wrap">
+						<table class="full">
+							<thead>
+								<tr>
+									<th>{{ 'customer.orders.order_number' | t }}</th>
+									<th>{{ 'customer.orders.date' | t }}</th>
+									<th>{{ 'customer.orders.payment_status' | t }}</th>
+									<th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+									<th>{{ 'customer.orders.total' | t }}</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								{% for order in customer.orders %}
+
+								<tr class="order">
+									<td class="name">{{ order.name | link_to: order.customer_url }}</td>
+									<td class="created_at">{{ order.created_at | date: format: 'month_day_year' }}</td>
+									<td class="financial_status_label">
+
+										{% if order.financial_status_label == "pending" %}
+										Đang chờ giải quyết
+										{% elsif order.financial_status_label == "authorized" %}
+										Ủy quyền
+										{% elsif order.financial_status_label == "paid" %}
+										Đã thanh toán
+										{% elsif order.financial_status_label == "partially_paid" %}
+										Thanh toán một phần
+										{% elsif order.financial_status_label == "refunded" %}
+										Hoàn trả
+										{% elsif order.financial_status_label == "partially_refunded" %}
+										Trả từng phần
+										{% elsif order.financial_status_label == "voided" %}
+										Vô hiệu 
+										{% endif %}
+									</td>
+									<td class="fulfillment_status_label">
+										{% if order.fulfillment_status_label == "fulfilled" %}
+										Chuyển toàn bộ
+										{% elsif order.fulfillment_status_label == "partially_fulfilled" %}
+										Chuyển một phần
+										{% else %}
+										Chưa giao hàng
+										{% endif %}
+									</td>
+									<td class="total_price">{{ order.total_price | money }}</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+
+					{% else %}
+
+					<p>{{ 'customer.orders.none' | t }}</p>
+
+					{% endif %}
+					{% if paginate.pages > 1 %}
+					<hr>
+					<div class="pagination">
+						{{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+					</div>
+					{% endif %}
+					{% endpaginate %}
+
+					<div class="addresses" style="display:none;">
+						{% for address in customer.addresses %}
+
+						<h3>
+							{{ address.first_name | capitalize }} {{ address.last_name | capitalize }}
+							{% if address == customer.default_address %}(Địa chỉ mặc định){% endif %}
+						</h3>
+
+						<p>
+							{{ address.company }}<br>
+							{{ address.street }}<br>
+							{{ address.city | capitalize }}<br>
+							{% if address.province_code %}
+							{{ address.province }}<br>
+							{% endif %}
+							{{ address.zip | upcase }}<br>
+							{{ address.country }}<br>
+							{{ address.phone }}
+						</p>
+						{% endfor %}
+					</div>
+
+
+				</div>
+
+				<div class="grid__item one-third medium-down--one-whole">
+					<h2 class="h4">{{ 'customer.account.details' | t }}</h2>
+
+					<h3 class="h5 customer_name">{{ customer.name }}</h3>
+					<div class="customer_email" style="display: none;">{{ customer.email }}</div>
+					<div class="customer_birthday" style="display: none;">{{ customer.birthday }}</div>
+					<div class="customer_gender" style="display: none;">{{ customer.gender }}</div>
+					<div class="account_infor_app" style="display: none;">
+						{{ouput_account}}
+					</div>
+
+					{% if customer.default_address != nil %}
+					<p>
+						<span class="default-address_address1">{{ customer.default_address.address1 }}</span><br>
+
+						{% if customer.default_address.address2 != "" %}
+						<span class="default-address_address2">{{ customer.default_address.address2 }}</span><br>
+						{% endif %}
+
+						{% if customer.default_address.city != "" %}
+						<span class="default-address_city">{{ customer.default_address.city }}</span><br>
+						{% endif %}
+
+						{% if customer.default_address.province_code != "" %}
+						<span class="default-address_province_code">{{ customer.default_address.province_code | upcase }}</span><br>
+						{% endif %}
+
+						{% if customer.default_address.zip != "" %}
+						<span class="default-address_zip">{{ customer.default_address.zip | upcase }}</span><br>
+						{% endif %}
+
+						{% if customer.default_address.country != "" %}
+						<span class="default-address_country">{{ customer.default_address.country }}</span><br>
+						{% endif %}
+
+						{% if customer.default_address.phone != "" %}
+						<span class="default-address_phone">{{ customer.default_address.phone }}</span>
+						{% endif %}
+					</p>
+
+					{% endif %}
+
+					<p><a href="/account/addresses">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a></p>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>

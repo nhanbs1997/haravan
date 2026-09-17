@@ -1,0 +1,167 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+	<!-- Content-->
+	<div class="main-content">
+		<!-- Sản phẩm trang chủ -->
+		{%assign feature_size = 8%}
+		{%assign sale_size = 8%}
+		{%assign new_size = 8%}
+		{% if settings.use_featured_products and settings.featured_collection != "" %}
+
+		{%assign feature_size_actual = collections[settings.featured_collection].products.size%}
+		{% if feature_size_actual > 0 and 3 >= feature_size_actual %}
+		{% assign new_size = new_size | plus: 3 %}
+		{% endif %}
+		{% if feature_size_actual == 0 %}
+		{% assign new_size = new_size | plus: 6 %}
+		{% endif %}
+		{% else %}
+		{% assign new_size = new_size | plus: 6 %}
+		{% endif %}
+		{% if settings.use_sale_products and settings.sale_collection != "" %}
+		{%assign sale_size_actual = collections[settings.sale_collection].products.size%}
+		{% if sale_size_actual > 0 and 3 >= sale_size_actual %}
+		{% assign new_size = new_size | plus: 3 %}
+		{% endif %}
+
+		{% if sale_size_actual == 0 %}
+		{% assign new_size = new_size | plus: 6 %}
+		{% endif %}
+
+		{% else %}
+		{% assign new_size = new_size | plus: 6 %}
+		{% endif %}
+
+		{% if settings.use_featured_products %}
+		{% assign  not_icon_featured = true %}
+		{% if settings.use_icon_featured  %}
+		{% assign not_icon_featured = false %}
+		{% endif %}
+
+		<div class="product-list clearfix" >			
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<aside class="styled_header {% if not_icon_featured %} not_icon {% else %} use_icon {% endif %}">
+						{% if settings.featured_products_cap  != empty %}<h2>{{settings.featured_products_cap}}</h2>{% endif %}
+						{% if not_icon_featured %}
+						<div class="title-line">					
+							<h3>{%if settings.featured_products_title == ''%}{{collections[settings.featured_collection].title}}{%else%}{{ settings.featured_products_title }}{%endif%}</h3>
+						</div>
+						{% else%}					
+						<h3>{%if settings.featured_products_title == ''%}{{collections[settings.featured_collection].title}}{%else%}{{ settings.featured_products_title }}{%endif%}</h3>
+						<span class="icon"><img src="{{'icon_featured.png'| asset_url}}" alt=""></span>
+						{%endif %}
+					</aside>
+				</div>
+			</div>	
+			<!--Product loop-->
+			<div class="row content-product-list products-resize">
+				{% for product in collections[settings.featured_collection].products limit: feature_size %}
+				<div class="col-md-3 col-sm-6 col-xs-6 pro-loop">
+					{% include 'product-loop'%}
+				</div>
+				{% endfor %}
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 col-xs-12  pull-center center">
+					{%if collections[settings.featured_collection].products.size > 0%}
+					{% if feature_size_actual > feature_size %}
+					<a class="btn btn-readmore" href="{{collections[settings.featured_collection].url }}" role="button">Xem thêm</a>
+					{%endif%}
+					{%else%}
+					<a class="link-setting" href="/admin/theme#/list">Chưa có sản phẩm nào để hiển thị. Vui lòng vào trang quản trị, và cấu hình cho mục này</a>
+					{% include 'no-product-loop'%}
+					{%endif%}
+				</div>
+			</div>
+		</div>
+		<!--Product loop-->
+		{% endif %}
+
+		{% if settings.use_ad_banners %}
+		<div class="row">
+			<div class="col-lg-12 col-sm-12 col-xs-12">
+				<div class="animation fade-in home-banner-1">
+					<aside class="banner-home-1" >
+						<div class="divcontent"><span class="ad_banner_1">{{ settings.ad_banner_1 }}<strong class="ad_banner_2" >{{settings.ad_banner_2}}</strong></span>
+							<span class="ad_banner_desc" >{{settings.ad_banner_desc}}</span>
+						</div>
+						<div class="divstyle" style="border-color:;"></div>
+					</aside>
+				</div>	
+			</div>
+		</div>
+		{% endif %}
+		{% if settings.use_sale_products %}
+
+		{% assign  not_icon_sale = true %}
+		{% if settings.use_icon_sale  %}
+		{% assign not_icon_sale = false %}
+		{% endif %}
+		<div class="product-list clearfix ">
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 col-xs-12">
+					<aside class="styled_header {% if not_icon_sale %} not_icon {% else %} use_icon {% endif %}">
+						{% if settings.sale_products_cap  != empty %}<h2>{{settings.sale_products_cap}}</h2>{% endif %}
+						{% if not_icon_sale %}
+						<div class="title-line">					
+							<h3>{%if settings.sale_products_title == ''%}{{collections[settings.sale_collection].title}}{%else%}{{ settings.sale_products_title }}{%endif%}</h3>
+						</div>
+						{% else%}					
+						<h3>{%if settings.sale_products_title == ''%}{{collections[settings.sale_collection].title}}{%else%}{{ settings.sale_products_title }}{%endif%}</h3>
+						<span class="icon"><img src="{{'icon_sale.png'| asset_url}}" alt="Newest trends"></span>
+						{%endif %}
+					</aside>
+
+
+
+
+				</div>
+			</div>
+
+			<div class="row content-product-list products-resize">
+				{% for product in collections[settings.sale_collection].products limit:sale_size %}
+				<div class="col-md-3 col-sm-6 col-xs-6 pro-loop">
+					{% include 'product-loop' with collection.handle %}
+				</div>
+				{% endfor %}
+			</div>
+			<div class="row">
+				<div class="col-lg-12 pull-center center ">
+					{%if collections[settings.sale_collection].products.size > 0%}
+					{% if sale_size_actual > sale_size %}
+					<a class="btn btn-readmore" href="{{collections[settings.sale_collection].url }}" role="button">Xem thêm</a>
+					{%endif%}
+					{%else%}
+					<a class="link-setting" href="/admin/theme#/list">Chưa có sản phẩm nào để hiển thị. Vui lòng vào trang quản trị, và cấu hình cho mục này </a>
+					{% include 'no-product-loop'%}					
+					{%endif%}
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		<div class="banner-bottom">
+			<div class="row">
+				{% if settings.show_block_home_category1%}
+				<div class="col-xs-12 col-sm-6 home-category-item-2">
+					<div class="block-home-category"> 
+						<a   href="{{settings.block_home_category1_link}}">
+							<img class="b-lazy b-loaded" src="{{'block_home_category1.jpg' |asset_url}}"  alt="{{settings.block_home_category1_alt }}">
+						</a>			
+					</div>
+				</div>
+				{% endif%}
+				{% if settings.show_block_home_category2%}
+				<div class="col-xs-12 col-sm-6 home-category-item-3">
+					<div class="block-home-category">
+						<a   href="{{settings.block_home_category2_link}}">
+							<img class="b-lazy b-loaded" src="{{'block_home_category2.jpg' |asset_url}}" alt="{{settings.block_home_category2_alt}}">
+						</a>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+
+		</div>
+	</div>
+	<!-- end Content-->
+</div>

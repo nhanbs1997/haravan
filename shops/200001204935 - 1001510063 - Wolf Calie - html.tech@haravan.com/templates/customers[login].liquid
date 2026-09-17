@@ -1,0 +1,77 @@
+{%- include 'breadcrumb' -%}
+<h1 class="title-head d-none">{{ page_title }}</h1>
+<section class="section wolf-page-customer mt-5 mb-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="wolf-account-content alert alert-light">
+					<h3 class="wolf-account-title d-flex justify-content-center mb-3">Đăng nhập</h3>
+					<div id="wolf-login">
+						{%- form 'customer_login' -%}
+						<div class="form-signup">
+							{%- for field in form.errors -%}
+							{{ form.errors.messages[field] }} <br/>
+							{%- endfor -%}
+						</div>
+						<div class="form-signup clearfix dark-mode-form">
+							<div class="mb-3">
+								<label class="form-label"><strong>Email<span class="required">*</span></strong></label>
+								<input autocomplete="off" placeholder="Nhập Địa chỉ Email" type="email" class="form-control" value="" name="customer[email]" id="customer_email" required data-validation="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation-error-msg= "Email sai định dạng" >
+							</div>
+							<div class="mb-3">
+								<label class="form-label"><strong>Mật khẩu<span class="required">*</span></strong></label>
+								<input autocomplete="off" placeholder="Nhập Mật khẩu" type="password" class="form-control" value="" name="customer[password]" id="customer_password" data-validation-error-msg= "Không được để trống" data-validation="required" >
+							</div>
+							<p class="recover mb-3 d-flex">
+								<a href="#recover" class="me-auto btn-link-style" onclick="showRecoverPasswordForm();" title="Quên mật khẩu?">Quên mật khẩu?</a>
+								<a href="/account/register" class="btn-link-style" title="Đăng ký tài khoản">Đăng ký tài khoản</a>
+							</p>
+							<button class="btn wolf-btn-main mb-3 rounded-3" type="submit" value="Đăng nhập">Đăng nhập</button>
+							<p class="login--notes d-flex justify-content-center">{{ shop.name }} cam kết bảo mật và sẽ không bao giờ đăng<br>hay chia sẻ thông tin mà chưa có được sự đồng ý của bạn.</p>
+						</div>
+						{%- endform -%}
+						<div class="clearfix"></div>
+					</div>
+					<div id="recover-password" class="form-signup dark-mode-form" style="display:none;">
+						<div class="fix-sblock d-flex justify-content-center mb-3">
+							Bạn quên mật khẩu? Nhập địa chỉ email để lấy lại mật khẩu qua email.
+						</div>					
+						{%- form 'recover_customer_password' -%}
+						<div class="form-signup aaaaaaaa mb-3" >
+							{%- for field in form.errors -%}
+							{{ form.errors.messages[field] }} <br/>
+							{%- endfor -%}
+						</div>
+						{%- if form.posted_successfully -%}
+						<div class="alert alert-success alert-dismissible fade in mb-3" role="alert">
+							Email thiết lập lại mật khẩu đã gửi về Email của quý khách. Vui lòng làm theo hướng dẫn để lấy lại mật khẩu.
+						</div>
+						{%- endif -%}
+						<div class="form-signup clearfix mb-3">
+							<label class="form-label"><strong>Email<span class="required">*</span></strong></label>
+							<input type="email" class="form-control" value="" name="email" id="recover-email" placeholder="Nhập địa chỉ Email" data-validation="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation-error-msg= "Email sai định dạng" required >
+						</div>
+						<div class="action_bottom text-center mb-3">
+							<button class="btn btn-style wolf-btn-main rounded-3" type="submit" value="Khôi phục mật khẩu">Khôi phục mật khẩu</button>
+						</div>
+						<div class="text-login text-center">
+							<p>Quay lại <a href="javascript:;" class="btn-link-style btn-register" onclick="hideRecoverPasswordForm();" title="Quay lại">tại đây.</a></p>
+						</div>
+						{%- endform -%}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script type="text/javascript">
+	function showRecoverPasswordForm() {
+		document.getElementById('recover-password').style.display = 'block';
+		document.getElementById('wolf-login').style.display='none';
+	}
+
+	function hideRecoverPasswordForm() {
+		document.getElementById('recover-password').style.display = 'none';
+		document.getElementById('wolf-login').style.display = 'block';
+	}
+</script>

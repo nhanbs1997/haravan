@@ -1,0 +1,28 @@
+{%- comment -%}
+  Snippet: meta-head
+  Mô tả: Meta tags cơ bản, viewport, title, favicon, canonical
+{%- endcomment -%}
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="HandheldFriendly" content="true">
+<meta name="revisit-after" content="1 day">
+
+<title>{{ page_title | strip_html | escape }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+
+{%- if page_description -%}
+<meta name="description" content="{{ page_description | strip_html | strip_newlines | truncate: 320 }}">
+{%- else -%}
+<meta name="description" content="{{ shop.name }}">
+{%- endif -%}
+
+<meta name="theme-color" content="{{ settings.en_theme_color | default: '#000000' }}">
+<link rel="shortcut icon" href="{{ 'en_favicon.png' | asset_url }}" type="image/png">
+<link rel="canonical" href="{{ canonical_url }}">
+<link rel="alternate" href="{{ canonical_url }}" hreflang="vi-vn">
+
+{%- if template contains 'search.en' -%}
+<meta name="robots" content="noindex, nofollow">
+{%- else -%}
+<meta name="robots" content="index,follow,noodp">
+{%- endif -%}

@@ -1,0 +1,75 @@
+<header class="wolf-header mt-3 mb-3 auto-text-color {% if template contains 'index' %}wolf-header-index{% else %}wolf-header-other{% endif %}">
+	<div class="container">
+		<div class="row align-items-center g-3">
+			<div class="col-xxl-5 col-xl-5 col-lg-5 col-md-4 col-sm-4 col-4 wolf-seach justify-content-start">
+				<button class="btn btn-search btn-header border-0" type="button">
+					<svg class="icon" width="24" height="24"><use xlink:href="#icon-search" /></svg>
+				</button>
+				<button class="btn btn-notication btn-header menu-button border-0" title="Danh mục sản phẩm">
+					<svg width="24" height="24" class="me-2"><use xlink:href="#icon-menu" /></svg>
+				</button>
+				{%- if settings.stores_header_enable -%}
+				<a href="{{ pages[settings.stores_header_url].url }}" title="{{ settings.stores_header_title }}" class="btn btn-store btn-header border-0 position-relative d-none d-sm-inline-flex">
+					<svg width="24" height="24"><use xlink:href="#icon-store" /></svg>
+				</a>
+				{%- endif -%}
+			</div>
+			<div class="col-xxl-2 col-xl-2 col-lg-2 col-md-4 col-sm-4 col-4 wolf-logo">
+				{%- if settings.logo_use_image -%}
+				<a href="/" class="logo-wrapper" title="{{ shop.name }}">
+					<img width="{{ settings.logo_width }}" height="{{ settings.logo_height }}" src="{{'logo.png' | asset_url}}" class="img-fluid logo logo-dark" alt="{{shop.name}}" loading="lazy" >
+					<img width="{{ settings.logo_width }}" height="{{ settings.logo_height }}" src="{{'logo-light.png' | asset_url}}" class="img-fluid logo logo-light" alt="{{shop.name}}" loading="lazy" >
+				</a>
+				{%- else -%}
+				<a href="/" title="{{ shop.name }}">{{ shop.name }}</a>
+				{%- endif -%}
+			</div>
+			<div class="col-xxl-5 col-xl-5 col-lg-5 col-md-4 col-sm-4 col-4">
+				<div class="wolf-right-function-menu d-flex flex-row justify-content-end">
+					<div class="position-relative wolf-account d-none d-sm-flex">
+						<a href="/account/" title="Tài khoản" class="btn btn-account btn-header border-0 position-relative">
+							<svg width="24" height="24"><use xlink:href="#icon-user" /></svg>
+						</a>
+						<ul class="shadow p-2 mb-3 rounded">
+							{%- if customer -%}
+							<li class="li-account border-bottom pb-1 mb-1">
+								<a rel="nofollow" href="/account" title="Tài khoản" class="text-start p-0">
+									<svg width="24" height="24" class="pr-1"><use xlink:href="#icon-user" /></svg> Tài khoản
+								</a>
+							</li>
+							<li class="li-account">
+								<a rel="nofollow" href="/account/logout" title="Đăng xuất" class="text-start p-0">
+									<svg width="24" height="24" class="pr-1"><use xlink:href="#icon-logout" /></svg> Đăng xuất
+								</a>
+							</li>
+							{%- else -%}
+							<li class="li-account border-bottom pb-1 mb-1">
+								<a rel="nofollow" href="/account/login" title="Đăng nhập" class="text-start p-0">
+									<svg width="24" height="24" class="pr-1"><use xlink:href="#icon-login" /></svg> Đăng nhập
+								</a>
+							</li>
+							<li class="li-account">
+								<a rel="nofollow" href="/account/register" title="Đăng ký" class="text-start p-0">
+									<svg width="24" height="24" class="pr-1"><use xlink:href="#icon-register" /></svg> Đăng ký
+								</a>
+							</li>
+							{%- endif -%}
+						</ul>
+					</div>
+					{%- if settings.iwish_enable -%}
+					<a href="{{ pages[settings.wishlist_page].url }}" title="Sản phẩm yêu thích" class="btn btn-wishlist btn-header border-0 position-relative">
+						<svg width="24" height="24"><use xlink:href="#icon-heart" /></svg>
+						<span id="wishlistCountBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">0</span>
+					</a>
+					{%- endif -%}
+					<div class="position-relative wolf-cart-header">
+						<a {% if template contains 'cart' %}href="javascript:void(0)"{% else %}href="/cart"{% endif %} title="Giỏ hàng" class="position-relative btn btn-cart btn-header border-0 header-carts open-slide-cart">
+							<svg class="icon" width="24" height="24"><use xlink:href="#icon-cart" /></svg>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-item-count">{%- if cart.item_count -%}{{ cart.item_count }}{%- else -%}0{%- endif -%}</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

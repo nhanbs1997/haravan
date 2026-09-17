@@ -1,0 +1,23 @@
+{%- layout none -%}
+<div class="category-products products category-products-grids clearfix">
+	{%- if search.results.size > 0 -%}
+	{%- paginate search.results by settings.collection_number_product -%}
+	<div class="products-view products-view-grid row g-2 mb-3">
+		{%- for product in search.results -%}
+		<div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6">
+			{%- include 'wolf-product-grid' -%}
+		</div>	
+		{%- endfor -%}
+	</div>
+	{%- if paginate.pages > 1 -%}
+	<div class="paginate-pages d-flex justify-content-center">
+		{%- include 'collection-paginate-pages' -%}
+	</div>
+	{%- endif -%}
+	{%- endpaginate -%}
+	{%- else -%}
+	<div class="alert alert-danger" role="alert">
+		Không có sản phẩm nào trong danh mục này.
+	</div>
+	{%- endif -%}
+</div>

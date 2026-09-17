@@ -1,0 +1,33 @@
+{%- assign article = pages[settings.wolf-article-collections] -%}
+{%- assign b_article = '' -%}
+{%- if collection.description.size > 0 -%}
+{%- if h6_content_below.size > 0 -%}
+{%- assign b_article = h6_content_below -%}
+{%- endif -%}
+{%- endif -%}
+{%- if article.content.size > 0 -%}
+<div class="wolf-collections-description mt-3 mb-3 p-4 rounded-4">
+	<div class="wolf-collections-article-content {% if article.content.size > 800 %}wolf-collections-article-content-more{% endif %}">
+		{%- if b_article != '' -%}
+		{{ b_article | replace: '<img ', '<img class="img-fluid" ' | replace: 'class="img-fluid" class="', 'class="' | replace: 'class="img-fluid" class=', 'class=' | replace: 'class="', 'class="img-fluid ' }}
+		{%- else -%}
+		{{ article.content | replace: '<img ', '<img class="img-fluid" ' | replace: 'class="img-fluid" class="', 'class="' | replace: 'class="img-fluid" class=', 'class=' | replace: 'class="', 'class="img-fluid ' }}
+		{%- endif -%}
+	</div>
+	{%- if article.content.size > 800 -%}
+	<a class="btn btn-default btn--view-more mt-3 d-flex justify-content-center align-items-center rounded-4">
+		<span class="more-text">Xem thêm</span>
+		<span class="less-text">Thu gọn</span>
+	</a>
+	{%- endif -%}
+</div>
+<script>
+	$('.btn--view-more').on('click', function(e){
+		e.preventDefault();
+		var $this = $(this);
+		$this.parents('.wolf-collections-description').toggleClass('full-content');
+		$('html, body').animate({ scrollTop: $('.wolf-collections-description').offset().top - 110 }, 'slow');
+		return false;
+	});
+</script>
+{%- endif -%}

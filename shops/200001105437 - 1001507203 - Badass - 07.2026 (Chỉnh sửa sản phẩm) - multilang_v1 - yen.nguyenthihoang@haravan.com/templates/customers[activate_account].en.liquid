@@ -1,0 +1,23 @@
+{% layout 'en' %}
+{%- comment -%} Template: Activate Account {%- endcomment -%}
+<div class="account-page">
+  <div class="container">
+    <div class="account-card">
+      <h1 class="account-card__title">Enable account</h1>
+      {% form 'activate_customer_password' %}
+      {{ form.errors | default_errors }}
+      <div class="account-form">
+        <div class="account-form__field">
+          <label for="act_password">Password</label>
+          <input type="password" id="act_password" name="customer[password]" placeholder="5 characters minimum" required>
+        </div>
+        <div class="account-form__field">
+          <label for="act_password_confirm">Confirm password</label>
+          <input type="password" id="act_password_confirm" name="customer[password_confirmation]" placeholder="Re-enter password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Activate</button>
+      </div>
+      {% endform %}
+    </div>
+  </div>
+</div>

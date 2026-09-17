@@ -1,0 +1,27 @@
+.contact-info a {
+  color: var(--second-color); }
+  .contact-info a:hover, .contact-info a:focus {
+    color: var(--main-color); }
+
+#comment {
+  height: 150px; }
+
+.wolf-btn-main {
+  width: 100%;
+  height: 50px;
+  color: var(--second-color);
+  border: none;
+  font-size: 16px;
+  line-height: 46px;
+  background-color: rgba(0, 169, 143, 0.2);
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 600; }
+  .wolf-btn-main:hover, .wolf-btn-main:focus {
+    color: #fff;
+    background-color: var(--second-color); }
+
+.wolf-contact-map iframe {
+  width: 100%;
+  height: 515px; }

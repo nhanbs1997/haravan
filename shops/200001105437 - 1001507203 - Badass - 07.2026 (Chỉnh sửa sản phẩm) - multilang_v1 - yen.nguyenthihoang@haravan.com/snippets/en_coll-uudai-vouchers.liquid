@@ -1,0 +1,47 @@
+{%- assign _vc_source = settings.en_bs_uudai_voucher_source | default: 'manual' -%}
+
+{%- assign _v_count = 0 -%}
+{%- for i in (1..6) -%}
+  {%- capture _tk %}en_bs_uudai_voucher_title_{{ i }}{% endcapture -%}
+  {%- unless settings[_tk] == blank -%}{%- assign _v_count = _v_count | plus: 1 -%}{%- endunless -%}
+{%- endfor -%}
+
+{%- if settings.en_bs_uudai_vouchers_show -%}
+{%- if _vc_source == 'app' or _v_count > 0 -%}
+<section class="uudai-vouchers">
+  <div class="container">
+    <div class="uudai-vouchers__inner">
+
+      {%- unless settings.en_bs_uudai_vouchers_title == blank -%}
+      <h2 class="uudai-vouchers__title">{{ settings.en_bs_uudai_vouchers_title | escape }}</h2>
+      {%- endunless -%}
+
+      {%- if _vc_source == 'app' -%}
+        <div class="uudai-vouchers__app">
+          <div class="hrv-pmo-coupon" data-hrvpmo-layout="grids"></div>
+          <div class="hrv-pmo-discount" data-hrvpmo-layout="grids"></div>
+        </div>
+      {%- else -%}
+        <div class="uudai-vouchers__row">
+          {%- for i in (1..6) -%}
+            {%- capture _tk %}en_bs_uudai_voucher_title_{{ i }}{% endcapture -%}
+            {%- capture _ck %}en_bs_uudai_voucher_cond_{{ i }}{% endcapture -%}
+            {%- capture _hk %}en_bs_uudai_voucher_hsd_{{ i }}{% endcapture -%}
+            {%- capture _ek %}en_bs_uudai_voucher_code_{{ i }}{% endcapture -%}
+            {%- assign _vtitle = settings[_tk] -%}
+            {%- unless _vtitle == blank -%}
+              {%- assign vc_title = _vtitle -%}
+              {%- assign vc_desc  = settings[_ck] | default: '' -%}
+              {%- assign vc_code  = settings[_ek] | default: '' -%}
+              {%- assign vc_exp   = settings[_hk] | default: '' -%}
+              {%- include 'en_voucher-card' -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{%- endif -%}

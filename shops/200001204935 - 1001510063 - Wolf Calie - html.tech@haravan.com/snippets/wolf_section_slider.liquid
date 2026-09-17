@@ -1,0 +1,39 @@
+<div class="position-relative">
+	<div class="swiper section_slider wolf-slider-nav">
+		<div class="swiper-wrapper">
+			{%- for i in (1..5) -%}
+			{%- capture enable -%}slider_{{i}}_enable{%- endcapture -%}
+			{%- capture image -%}slider_{{i}}.jpg{%- endcapture -%}
+			{%- capture imagemb -%}slider_mb_{{i}}.jpg{%- endcapture -%}
+			{%- capture url -%}slider_{{i}}_url{%- endcapture -%}
+			{%- capture alt -%}slider_{{i}}_alt{%- endcapture -%}
+			{%- if settings[enable] -%}
+			<div class="swiper-slide">
+				<a href="{{ settings[url]}}" title="{{ settings[alt]}}">
+					<picture>
+						<source 
+								media="(min-width: 1200px)"
+								srcset="{{ image | asset_url }}">
+						<source 
+								media="(min-width: 992px)"
+								srcset="{{ image | asset_url }}">
+						<source 
+								media="(max-width: 570px)"
+								srcset="{{ imagemb | asset_url }}">
+						<source 
+								media="(max-width: 480px)"
+								srcset="{{ imagemb | asset_url }}">
+						<img width="{{settings.slider_width}}" height="{{settings.slider_height}}"
+							 src="{{ image | asset_url }}" 
+							 alt="{{ settings[alt]}}" class="img-fluid" >
+					</picture>
+				</a>
+			</div>
+			{%- endif -%}
+			{%- endfor -%}
+		</div>
+		<div class="swiper-pagination"></div>
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
+	</div>
+</div>

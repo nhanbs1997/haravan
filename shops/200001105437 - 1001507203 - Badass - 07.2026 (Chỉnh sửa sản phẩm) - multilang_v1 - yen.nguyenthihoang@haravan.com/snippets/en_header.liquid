@@ -1,0 +1,37 @@
+{%- include 'en_header-topbar' -%}
+
+<header class="site-header" id="site-header">
+  <div class="site-header__inner">
+    <div class="site-header__actons-left">
+      <button class="site-header__hamburger" aria-label="Open menu" data-action="open-menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18"/>
+      </svg>
+      </button>
+      <button class="site-header__action site-header__action--search d-lg-none" aria-label="Search" data-action="open-search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="site-header__action-label">Search</span>
+      </button>
+    </div>
+    <a href="/" class="site-header__logo" title="{{ shop.name }}" aria-label="{{ shop.name }}">
+      {%- if settings.en_logo_url != blank -%}
+      <img class="site-header__logo-default" src="{{ settings.en_logo_url }}" alt="{{ shop.name }}" width="160" height="30" loading="eager" fetchpriority="high">
+      {%- else -%}
+      <img class="site-header__logo-default" src="{{ 'en_logo.png' | asset_url }}" alt="{{ shop.name }}" width="160" height="30" loading="eager" fetchpriority="high">
+      {%- endif -%}
+      {%- assign _logo_overlay = settings.en_logo_overlay_url | default: settings.en_logo_url -%}
+      {%- if _logo_overlay != blank -%}
+      <img class="site-header__logo-overlay" src="{{ _logo_overlay }}" alt="{{ shop.name }}" width="160" height="30" loading="eager" fetchpriority="high">
+      {%- endif -%}
+    </a>
+
+    {%- include 'en_header-nav' -%}
+
+    {%- include 'en_header-actions' -%}
+
+  </div>
+</header>
+
+{%- include 'en_header-search' -%}

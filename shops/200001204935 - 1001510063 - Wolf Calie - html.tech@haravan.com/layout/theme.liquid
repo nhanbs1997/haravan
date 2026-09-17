@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		{%- include 'head-meta' -%}
+		{%- include 'header_style' -%}
+		{{ content_for_header }}
+		{%- include 'customer-js' -%}
+		{%- include 'schema' -%}
+	</head>
+	<body id="{{ page_title | handle }}" class="template-{{ template | handle }}">
+		{%- include 'wolf-header' -%}
+		{{ content_for_layout }}
+		{%- include 'wolf-menu-root' -%}
+		{%- include 'wolf-footer' -%}
+		{%- include 'wolf-seach-modal' -%}
+		{%- include 'footer_script' -%}
+		{%- if settings.exit_popup_enable -%}
+		{%- include 'wolf-exit-popup' -%}
+		{%- endif -%}
+		{%- if settings.popup_banner_enable -%}
+		{%- include 'wolf-popup-banner' -%}
+		{%- endif -%}
+		{%- include 'support-box' -%}
+		{%- if settings.contact_us_enable -%}
+		{%- include 'support' -%}
+		{%- endif -%}
+		{%- include 'svgsprite' -%}
+		{%- include 'wolf-compare-bar' -%}
+	</body>
+</html>

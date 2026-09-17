@@ -1,0 +1,38 @@
+{
+  "general": {
+    "search": "Search",
+    "cart": "Cart",
+    "account": "Account",
+    "login": "Log in",
+    "register": "Register",
+    "logout": "Log out",
+    "add_to_cart": "Add to cart",
+    "buy_now": "Buy now",
+    "sold_out": "Sold out",
+    "view_more": "View more",
+    "close": "Close"
+  },
+  "product": {
+    "price": "Price",
+    "quantity": "Quantity",
+    "description": "Description",
+    "vendor": "Brand",
+    "type": "Type",
+    "sku": "SKU"
+  },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "checkout": "Checkout",
+    "continue_shopping": "Continue shopping"
+  },
+  "customer": {
+    "login_title": "Log in",
+    "register_title": "Create account",
+    "account_title": "Account",
+    "orders_title": "Orders",
+    "addresses_title": "Address book"
+  }
+}

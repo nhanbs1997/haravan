@@ -7,7 +7,7 @@ param(
     [string]$TicketId,
     [string]$AdditionalRequest,
     [string]$ChangesPath,
-    [ValidateRange(0, 1440)][int]$ReuseMinutes = 30,
+    [ValidateRange(0, 0)][int]$ReuseMinutes = 0,
     [switch]$ForceFetch
 )
 
@@ -493,41 +493,26 @@ function Invoke-WorkflowPrepare {
     $cacheReused = $false
     $shop = @()
     if ($existingShop.Count -gt 0 -and
-        (Test-HaravanThemeContent -RootPath $existingShop[0].Path) -and
-        -not $ForceFetch -and
-        (Test-WorkflowThemeCacheFresh `
+        (Test-HaravanThemeContent -RootPath $existingShop[0].Path)) {
+        $backup = New-ThemeBackup `
             -Shop $existingShop[0] `
-            -Context $context `
-            -MaxAgeMinutes $ReuseMinutes)) {
-        $shop = @($existingShop[0])
-        $cacheReused = $true
-        Write-Host (
-            "Theme local còn mới trong {0} phút; bỏ qua backup và fetch/pull remote." -f
-                $ReuseMinutes
-        ) -ForegroundColor DarkCyan
-    } else {
-        if ($existingShop.Count -gt 0 -and
-            (Test-HaravanThemeContent -RootPath $existingShop[0].Path)) {
-            $backup = New-ThemeBackup `
-                -Shop $existingShop[0] `
-                -Reason ("before-ticket-{0}" -f $context.TicketId)
-            Write-Host "Backup trước khi cập nhật theme: $($backup.Path)"
-        }
-
-        Write-Host "Fetch/pull theme vào workspace..."
-        & (Join-Path $PSScriptRoot "add-shop.ps1") `
-            -OrgId $context.OrgId `
-            -ThemeId $context.ThemeId
-        if (-not $?) {
-            throw "add-shop.ps1 không hoàn tất. Kiểm tra lỗi CLI ở terminal và chạy lại."
-        }
-
-        $shop = @(
-            Get-ShopProjects | Where-Object {
-                $_.OrgId -eq $context.OrgId -and $_.ThemeId -eq $context.ThemeId
-            }
-        )
+            -Reason ("before-ticket-{0}" -f $context.TicketId)
+        Write-Host "Backup trước khi cập nhật theme: $($backup.Path)"
     }
+
+    Write-Host "Fetch/pull theme vào workspace..."
+    & (Join-Path $PSScriptRoot "add-shop.ps1") `
+        -OrgId $context.OrgId `
+        -ThemeId $context.ThemeId
+    if (-not $?) {
+        throw "add-shop.ps1 không hoàn tất. Kiểm tra lỗi CLI ở terminal và chạy lại."
+    }
+
+    $shop = @(
+        Get-ShopProjects | Where-Object {
+            $_.OrgId -eq $context.OrgId -and $_.ThemeId -eq $context.ThemeId
+        }
+    )
     if ($shop.Count -ne 1) {
         throw "Không xác định được thư mục shop sau khi fetch org/theme."
     }

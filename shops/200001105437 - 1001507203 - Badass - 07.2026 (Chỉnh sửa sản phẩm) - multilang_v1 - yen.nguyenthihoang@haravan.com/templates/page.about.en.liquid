@@ -1,0 +1,18 @@
+{% layout 'en' %}
+
+
+<link rel="preload stylesheet" href="{{ 'about.scss.css' | asset_url }}" as="style">
+
+<div class="about-page">
+  {%- include 'en_about-hero' -%}
+  {%- include 'en_about-story' -%}
+  {%- include 'en_about-slowfashion' -%}
+  {%- include 'en_about-mission' -%}
+  {%- include 'en_about-vision' -%}
+  {%- include 'en_about-culture' -%}
+  {%- include 'en_about-recruit' -%}
+</div>
+
+{%- include 'en_hiring-apply-popup' -%}
+{%- include 'en_hiring-jobdesc-popup' -%}
+{%- include 'en_hiring-success-popup' -%}

@@ -1,0 +1,238 @@
+<script> 
+	$(document).ready(function() {
+		$("#lightgallery .swiper-wrapper").lightGallery(); 
+	});
+	var variantsize = false;
+	var productOptionsSize = 1;
+	var ww = $(window).width();
+	function validate(evt) {
+		var theEvent = evt || window.event;
+		var key = theEvent.keyCode || theEvent.which;
+		key = String.fromCharCode( key );
+		var regex = /[0-9]|\./;
+		if( !regex.test(key) ) {
+			theEvent.returnValue = false;
+			if(theEvent.preventDefault) theEvent.preventDefault();
+		}
+	}
+	var selectCallback = function(variant, selector) {
+		if (variant) {
+			var form = jQuery('#' + selector.domIdPrefix).closest('form');
+			for (var i=0,length=variant.options.length; i<length; i++) {
+				var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+				if (radioButton.size()) {
+					radioButton.get(0).checked = true;
+				}
+			}
+		}
+		var addToCart = jQuery('.form-product .btn-cart.normal_button'),
+			FastAddToCart = jQuery('.form-product .btn-buyNow'),
+			form = jQuery('.form-product .box-form'),
+			productPrice = jQuery('.details-pro .special-price .product-price'),
+			qty = jQuery('.inventory_quantity .wolf-stock-status'),
+			comparePrice = jQuery('.details-pro .old-price .product-price-old'),
+			comparePriceText = jQuery('.details-pro .old-price'),
+			savePrice = jQuery('.details-pro .save-price .product-price-save'),
+			savePriceText = jQuery('.details-pro .save-price'),
+			qtyBtn = jQuery('.form-product .custom-btn-number'),
+			BtnSold = jQuery('.form-product .form-group .btn-mua'),
+			WStock = jQuery('#back-in-stock-form'),
+			product_sku = jQuery('.details-product .sku-product .variant-sku'),
+			variantIdInput = document.getElementById('svariant_id');
+		if (variant && variant.sku != "" && variant.sku != null){
+			product_sku.html("<span class='fw-medium'>Mã:</span> <span class='a-sku fst-italic'>" + variant.sku + "</span>");
+		} else {
+			product_sku.html("<span class='fw-medium'>Mã:</span> <span class='a-sku fst-italic'>Đang cập nhật</span>");
+		}
+		FastAddToCart.addClass('d-none');
+		if (variant && variant.available) {
+			if(variant.inventory_management == "haravan"){
+				if (variant.inventory_quantity != 0) {
+					qty.html('<span class="a-stock badge text-bg-success">Còn hàng</span>');
+				} else if (variant.inventory_quantity == ''){
+					if (variant.inventory_policy == "continue"){
+						qty.html('<span class="a-stock badge text-bg-success">Còn hàng</span>');
+					} else {
+						qty.html('<span class="a-stock a-stock-out badge text-bg-warning">Hết hàng</span>');
+					}
+				}
+			}else{
+				qty.html('<span class="a-stock badge text-bg-success">Còn hàng</span>');
+			}
+			FastAddToCart.removeClass('d-none');
+			addToCart.html('<svg width="24" height="24" class="me-2"><use xlink:href="#icon-cart" /></svg><span class="txt-main">Thêm vào giỏ</span>').removeAttr('disabled').removeClass('fix-btn');	
+			BtnSold.removeClass('btnsold');
+			qtyBtn.removeClass('d-none');
+			FastAddToCart.attr('data-id',variant.id);
+			WStock.addClass('d-none');
+			if(variant.price == 0){
+				productPrice.html('Liên hệ');
+				comparePrice.hide();
+				savePrice.hide();
+				comparePriceText.hide();
+				savePriceText.hide();
+				form.addClass('d-none');
+			}else{
+				form.removeClass('d-none');
+				productPrice.html(Haravan.formatMoney(variant.price, "{{ shop.money_format }}"));
+													 if ( variant.compare_at_price > variant.price ) {
+								  comparePrice.html(Haravan.formatMoney(variant.compare_at_price, "{{ shop.money_format }}")).show();
+								  savePrice.html(Haravan.formatMoney(variant.compare_at_price - variant.price, "{{ shop.money_format }}")).show();
+								  comparePriceText.show();
+				savePriceText.show();
+			} else {
+				comparePrice.hide();   
+				savePrice.hide();
+				comparePriceText.hide();
+				savePriceText.hide();
+			}       										
+		}
+	} else {	
+		qty.html('<span class="a-stock a-stock-out badge text-bg-warning">Hết hàng</span>');
+		FastAddToCart.addClass('d-none');
+		addToCart.html('<span class="txt-main">Hết hàng</span>').attr('disabled', 'disabled').addClass('fix-btn');
+		BtnSold.addClass('btnsold');
+		qtyBtn.addClass('d-none');
+		WStock.removeClass('d-none');
+		FastAddToCart.attr('data-id',variant.id);
+		variantIdInput.value = variant.title;
+		if(variant){
+			if(variant.price != 0){
+				form.removeClass('d-none');
+				productPrice.html(Haravan.formatMoney(variant.price, "{{ shop.money_format }}"));
+													 if ( variant.compare_at_price > variant.price ) {
+								  FastAddToCart.addClass('d-none');
+				addToCart.html('<span class="txt-main">Hết hàng</span>').attr('disabled', 'disabled').addClass('fix-btn');
+				comparePrice.html(Haravan.formatMoney(variant.compare_at_price, "{{ shop.money_format }}")).show();
+													 savePrice.html(Haravan.formatMoney(variant.compare_at_price - variant.price, "{{ shop.money_format }}")).show();
+													 comparePriceText.show();
+								  savePriceText.show();
+			} else {
+				comparePrice.hide();  
+				savePrice.hide();
+				comparePriceText.hide();
+				savePriceText.hide();
+				FastAddToCart.addClass('d-none');
+				addToCart.html('<span class="txt-main">Hết hàng</span>').attr('disabled', 'disabled').addClass('fix-btn');
+			}     
+		}else{
+			productPrice.html('Liên hệ');
+			comparePrice.hide();
+			savePrice.hide();
+			comparePriceText.hide();
+			savePriceText.hide();
+			form.addClass('d-none');
+		}
+	}else{
+		productPrice.html('Liên hệ');
+		comparePrice.hide();
+		savePrice.hide();
+		comparePriceText.hide();
+		savePriceText.hide();
+		form.addClass('d-none');
+	}
+	}
+	};
+	jQuery(function($) {
+		{%- if  product.variants.size > 1 -%}
+		new Haravan.OptionSelectors('product-selectors', {
+			product: {{ product | json }},
+			onVariantSelected: selectCallback, 
+			enableHistoryState: true
+		});      
+		{%- endif -%}
+		{%- if product.options.size == 1 and product.options.first != 'Title' -%}
+		$('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
+											 {%- endif -%}
+											 {%- if product.variants.size == 1 and product.variants.first.title contains 'Default' -%}
+											 $('.selector-wrapper').hide();
+		{%- endif -%}
+		$('.selector-wrapper').css({
+			'text-align':'left',
+			'margin-bottom':'15px'
+		});
+	});
+	jQuery('.swatch :radio').change(function() {
+		var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+		var optionValue = jQuery(this).val();
+		jQuery(this)
+			.closest('form')
+			.find('.single-option-selector')
+			.eq(optionIndex)
+			.val(optionValue)
+			.trigger('change');
+		$(this).closest('.swatch').find('.header .value-roperties').html(optionValue);
+	});
+	setTimeout(function(){
+		$('.swatch .swatch-element').each(function(){
+			$(this).closest('.swatch').find('.header .value-roperties').html($(this).closest('.swatch').find('input:checked').val());
+		});
+	}, 500);
+</script>
+{%- include 'wolf-swatch-image-color-change' -%}
+<script>
+	$(document).ready(function () {
+		$('.input_number_product button').click(function(){
+			var qty = $(".input_number_product input").val();
+			$('#buy-now-button').attr('data-qty',qty)
+		})
+
+		$('.input_number_product input').on('change paste keyup', function(){
+			var qty = $(this).val();
+			$('#buy-now-button').attr('data-qty',qty)
+		})
+		$('.details-product #buy-now-button').click(function(){
+			var id = $(this).attr('data-id');
+			var qty = $(this).attr('data-qty');
+			var checkout = '/cart/'+id+':'+qty;
+			window.location.href= checkout;
+		})
+	});
+</script>
+<script>
+	function wolf_convertVietnamese2(str) {
+		if (!str || typeof str !== 'string' || str.length === 0) {
+			return "";
+		}
+		const vietnameseMap = {
+			'à': 'a', 'á': 'a', 'ạ': 'a', 'ả': 'a', 'ã': 'a',
+			'â': 'a', 'ầ': 'a', 'ấ': 'a', 'ậ': 'a', 'ẩ': 'a', 'ẫ': 'a',
+			'ă': 'a', 'ằ': 'a', 'ắ': 'a', 'ặ': 'a', 'ẳ': 'a', 'ẵ': 'a',
+			'è': 'e', 'é': 'e', 'ẹ': 'e', 'ẻ': 'e', 'ẽ': 'e',
+			'ê': 'e', 'ề': 'e', 'ế': 'e', 'ệ': 'e', 'ể': 'e', 'ễ': 'e',
+			'ì': 'i', 'í': 'i', 'ị': 'i', 'ỉ': 'i', 'ĩ': 'i',
+			'ò': 'o', 'ó': 'o', 'ọ': 'o', 'ỏ': 'o', 'õ': 'o',
+			'ô': 'o', 'ồ': 'o', 'ố': 'o', 'ộ': 'o', 'ổ': 'o', 'ỗ': 'o',
+			'ơ': 'o', 'ờ': 'o', 'ớ': 'o', 'ợ': 'o', 'ở': 'o', 'ỡ': 'o',
+			'ù': 'u', 'ú': 'u', 'ụ': 'u', 'ủ': 'u', 'ũ': 'u',
+			'ư': 'u', 'ừ': 'u', 'ứ': 'u', 'ự': 'u', 'ử': 'u', 'ữ': 'u',
+			'ỳ': 'y', 'ý': 'y', 'ỵ': 'y', 'ỷ': 'y', 'ỹ': 'y',
+			'đ': 'd',
+			'À': 'A', 'Á': 'A', 'Ạ': 'A', 'Ả': 'A', 'Ã': 'A',
+			'Â': 'A', 'Ầ': 'A', 'Ấ': 'A', 'Ậ': 'A', 'Ẩ': 'A', 'Ẫ': 'A',
+			'Ă': 'A', 'Ằ': 'A', 'Ắ': 'A', 'Ặ': 'A', 'Ẳ': 'A', 'Ẵ': 'A',
+			'È': 'E', 'É': 'E', 'Ẹ': 'E', 'Ẻ': 'E', 'Ẽ': 'E',
+			'Ê': 'E', 'Ề': 'E', 'Ế': 'E', 'Ệ': 'E', 'Ể': 'E', 'Ễ': 'E',
+			'Ì': 'I', 'Í': 'I', 'Ị': 'I', 'Ỉ': 'I', 'Ĩ': 'I',
+			'Ò': 'O', 'Ó': 'O', 'Ọ': 'O', 'Ỏ': 'O', 'Õ': 'O',
+			'Ô': 'O', 'Ồ': 'O', 'Ố': 'O', 'Ộ': 'O', 'Ổ': 'O', 'Ỗ': 'O',
+			'Ơ': 'O', 'Ờ': 'O', 'Ớ': 'O', 'Ợ': 'O', 'Ở': 'O', 'Ỡ': 'O',
+			'Ù': 'U', 'Ú': 'U', 'Ụ': 'U', 'Ủ': 'U', 'Ũ': 'U',
+			'Ư': 'U', 'Ừ': 'U', 'Ứ': 'U', 'Ự': 'U', 'Ử': 'U', 'Ữ': 'U',
+			'Ỳ': 'Y', 'Ý': 'Y', 'Ỵ': 'Y', 'Ỷ': 'Y', 'Ỹ': 'Y',
+			'Đ': 'D'
+		};
+		let result = '';
+		for (let i = 0; i < str.length; i++) {
+			const char = str[i];
+			result += vietnameseMap[char] || char;
+		}
+		str = result;
+		str = str.replace(/[^a-zA-Z0-9-]/g, '-');
+		str = str.replace(/-+/g, '-');
+		str = str.replace(/^-+|-+$/g, '');
+		return str;
+	}
+	const rawProductType = "{{ product.type | replace: ' ', '' }}";
+	window.currentBizwebProductType = wolf_convertVietnamese2(rawProductType);
+</script>

@@ -1,0 +1,36 @@
+{%- comment -%}
+  Snippet: pagination
+  Mô tả: Phân trang AJAX-ready (data-link thay vì href)
+  Params: paginate (object), pagi_class (string, optional)
+{%- endcomment -%}
+
+{%- if paginate.pages > 1 -%}
+<div class="pagination {{ pagi_class }}" data-current="{{ paginate.current_page }}" data-pages="{{ paginate.pages }}">
+  <div class="pagination__inner">
+    {%- if paginate.previous -%}
+    <a class="pagination__item pagination__prev" href="javascript:void(0)" data-link="m" aria-label="Previous Page">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    {%- endif -%}
+
+    {%- if paginate.current_page >= 4 -%}
+    <a class="pagination__item" href="javascript:void(0)" data-link="1">1</a>
+    {%- if paginate.current_page > 4 -%}<span class="pagination__item pagination__dots">…</span>{%- endif -%}
+    {%- endif -%}
+
+    {%- for part in paginate.parts -%}
+      {%- if part.is_link -%}
+      <a class="pagination__item" href="javascript:void(0)" data-link="{{ part.title }}">{{ part.title }}</a>
+      {%- else -%}
+      <span class="pagination__item{% if part.title == paginate.current_page %} is-current{% endif %}">{{ part.title }}</span>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if paginate.next -%}
+    <a class="pagination__item pagination__next" href="javascript:void(0)" data-link="p" aria-label="Next Page">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}

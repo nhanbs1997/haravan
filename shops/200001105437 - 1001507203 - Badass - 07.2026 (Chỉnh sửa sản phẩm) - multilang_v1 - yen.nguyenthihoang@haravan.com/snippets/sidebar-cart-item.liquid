@@ -1,0 +1,123 @@
+{%- comment -%}
+  Snippet: sidebar-cart-item — layout Coolmate
+  [ảnh] | Tên sp
+         | Màu / Size
+         | [Màu ∨] [Size ∨] ──── − qty +   giá
+         | 🗑 Xóa
+{% endcomment %}
+
+{%- assign _product = item.product -%}
+{%- assign _current_variant = item.variant -%}
+{%- if _current_variant == nil -%}
+  {%- for v in _product.variants -%}
+    {%- if v.id == item.variant_id -%}{%- assign _current_variant = v -%}{%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- assign _size_idx = -1 -%}
+{%- assign _color_idx = -1 -%}
+{%- for opt in _product.options -%}
+  {%- assign _opt_lower = opt | downcase -%}
+  {%- if _opt_lower contains 'size' or _opt_lower contains 'kích' or _opt_lower contains 'cỡ' -%}
+    {%- assign _size_idx = forloop.index0 -%}
+  {%- endif -%}
+  {%- if _opt_lower contains 'màu' or _opt_lower contains 'color' or _opt_lower contains 'colour' -%}
+    {%- assign _color_idx = forloop.index0 -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign _cur_size = '' -%}
+{%- assign _cur_color = '' -%}
+{%- if _size_idx >= 0 and _current_variant -%}{%- assign _cur_size = _current_variant.options[_size_idx] -%}{%- endif -%}
+{%- if _color_idx >= 0 and _current_variant -%}{%- assign _cur_color = _current_variant.options[_color_idx] -%}{%- endif -%}
+
+{%- assign _compare = _current_variant.compare_at_price | default: 0 -%}
+{%- if _compare == 0 and item.price_orginal > item.price -%}{%- assign _compare = item.price_orginal -%}{%- endif -%}
+
+<div class="sc__item" data-line="{{ forloop.index }}" data-variant-id="{{ item.variant_id }}" data-product-handle="{{ _product.handle }}">
+
+  <div class="sc__item-img">
+    <a href="{{ item.url }}">
+      <img src="{{ item.image | default: _product.featured_image | img_url: 'compact' }}" alt="{{ item.title | escape }}" loading="lazy" width="80" height="80">
+    </a>
+  </div>
+
+  <div class="sc__item-body">
+
+    <p class="sc__item-name 1">{{ _product.title | escape }}</p>
+
+    {%- unless _cur_color == blank and _cur_size == blank -%}
+    <p class="sc__item-variant">
+      {%- unless _cur_color == blank -%}{{ _cur_color | escape }}{%- endunless -%}
+      {%- unless _cur_color == blank or _cur_size == blank -%} / {%- endunless -%}
+      {%- unless _cur_size == blank -%}{{ _cur_size | escape }}{%- endunless -%}
+    </p>
+    {%- endunless -%}
+
+    <div class="sc__item-row sc__item-row-xs">
+      <div class="sc__item-selects">
+        {%- if _color_idx >= 0 -%}
+        <div class="sc__select sc__select--color">
+          <select class="sc__select-input" data-action="sc-update-color" data-line="{{ forloop.index }}" aria-label="Chọn màu">
+            {%- assign _seen_colors = '' -%}
+            {%- for v in _product.variants -%}
+              {%- assign _v_color = v.options[_color_idx] -%}
+              {%- assign _check = '||' | append: _seen_colors | append: '||' -%}
+              {%- assign _needle = '||' | append: _v_color | append: '||' -%}
+              {%- unless _check contains _needle -%}
+              <option value="{{ _v_color | escape }}"{% if _v_color == _cur_color %} selected{% endif %}>{{ _v_color | escape }}</option>
+              {%- assign _seen_colors = _seen_colors | append: _v_color | append: '||' -%}
+              {%- endunless -%}
+            {%- endfor -%}
+          </select>
+          <svg class="sc__select-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        {%- endif -%}
+
+        {%- if _size_idx >= 0 -%}
+        <div class="sc__select sc__select--size">
+          <select class="sc__select-input" data-action="sc-update-size" data-line="{{ forloop.index }}" aria-label="Chọn size">
+            {%- assign _seen_sizes = '' -%}
+            {%- for v in _product.variants -%}
+              {%- assign _v_size = v.options[_size_idx] -%}
+              {%- assign _check = '||' | append: _seen_sizes | append: '||' -%}
+              {%- assign _needle = '||' | append: _v_size | append: '||' -%}
+              {%- unless _check contains _needle -%}
+              <option value="{{ _v_size | escape }}"{% if _v_size == _cur_size %} selected{% endif %}>{{ _v_size | escape }}</option>
+              {%- assign _seen_sizes = _seen_sizes | append: _v_size | append: '||' -%}
+              {%- endunless -%}
+            {%- endfor -%}
+          </select>
+          <svg class="sc__select-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        {%- endif -%}
+      </div>
+
+      <div class="sc__item-right">
+        <div class="sc__item-qty" data-qty="{{ item.quantity }}">
+          <button type="button" class="sc__qty-btn" data-action="sc-qty-minus" aria-label="Giảm">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg>
+          </button>
+          <span class="sc__qty-val">{%- if item.quantity < 10 -%}0{{ item.quantity }}{%- else -%}{{ item.quantity }}{%- endif -%}</span>
+          <button type="button" class="sc__qty-btn" data-action="sc-qty-plus" aria-label="Tăng">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+
+        <div class="sc__item-price-col">
+          <span class="sc__item-price">{{ item.price | money_without_currency | replace: '₫', '' | replace: 'đ', '' | strip }} đ</span>
+          {%- if _compare > item.price -%}
+          <del class="sc__item-compare">{{ _compare | money_without_currency | replace: '₫', '' | replace: 'đ', '' | strip }} đ</del>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="sc__item-delete" data-action="remove-cart-item" data-line="{{ forloop.index }}" aria-label="Xóa sản phẩm">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+      Xóa
+    </button>
+
+  </div>
+
+</div>

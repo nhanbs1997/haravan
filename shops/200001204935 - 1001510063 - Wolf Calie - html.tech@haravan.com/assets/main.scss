@@ -1,0 +1,16 @@
+Error > stdin:2310
+Invalid CSS after "...ect-ratio: 249/": expected expression (e.g. 1px, bold), was ";"
+		.footer-info {
+			.logo-footer {
+				margin-bottom: 15px;
+				a {
+					width: 249px;
+					max-width: 100%;
+					aspect-ratio: 249/;
+					display: inline-block;
+					img.lazyload:not(.loaded) {
+						width: auto;
+						height: auto;
+					}
+				}
+

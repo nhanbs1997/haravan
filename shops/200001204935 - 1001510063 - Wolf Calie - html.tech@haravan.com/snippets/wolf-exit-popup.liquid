@@ -1,0 +1,86 @@
+<div class="modal fade" id="exitPopup" tabindex="-1" aria-labelledby="exitPopupLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exitPopupLabel">{{ settings.exit_popup_title }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="swiper exit-popup-swiper">
+          <div class="swiper-wrapper" id="exitPopupSwiperWrapper">
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+  const DELAY_SECONDS = {{ settings.exit_popup_delay }};
+  const RESHOW_HOURS = {{ settings.exit_popup_hours }};
+  const VIEW_THRESHOLD = {{ settings.exit_popup_view_threshold }};
+  const modalEl = document.getElementById('exitPopup');
+  const swiperWrapper = document.getElementById('exitPopupSwiperWrapper');
+  let swiperInstance = null;
+  const bsModal = new bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: false });
+  let pageViews = localStorage.getItem('pageViews');
+  pageViews = pageViews ? parseInt(pageViews) + 1 : 1;
+  localStorage.setItem('pageViews', pageViews);
+  const lastShown = localStorage.getItem('exitPopupLastShown');
+  const now = new Date().getTime();
+  function shouldShowPopup() {
+    if (pageViews < VIEW_THRESHOLD) return false;
+    if (!lastShown) return true;
+    const hoursSince = (now - parseInt(lastShown)) / (1000 * 60 * 60);
+    return hoursSince >= RESHOW_HOURS;
+  }
+  function loadProductsAjax() {
+    return fetch('/search?view=exit')
+      .then(res => {
+        if (!res.ok) throw new Error('Network response not ok');
+        return res.text();
+      })
+      .then(html => {
+        swiperWrapper.innerHTML = html;
+      });
+  }
+  function initSwiper() {
+    if (swiperInstance) swiperInstance.destroy(true, true);
+    swiperInstance = new Swiper('.exit-popup-swiper', {
+      slidesPerView: 2,
+      spaceBetween: 10,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      breakpoints: {
+        576: { slidesPerView: 2 },
+        768: { slidesPerView: 3 },
+        992: { slidesPerView: 4 },
+      },
+    });
+  }
+  function onExitIntent(e) {
+    if (modalEl.classList.contains('show')) return;
+    if (e.clientY <= 50 && shouldShowPopup()) {
+      loadProductsAjax()
+        .then(() => {
+          initSwiper();
+          setTimeout(() => {
+            bsModal.show();
+            localStorage.setItem('exitPopupLastShown', new Date().getTime());
+          }, DELAY_SECONDS * 1000);
+        })
+        .catch(err => console.error('Load products error:', err));
+      document.removeEventListener('mousemove', onExitIntent);
+    }
+  }
+  document.addEventListener('mousemove', onExitIntent);
+});
+</script>

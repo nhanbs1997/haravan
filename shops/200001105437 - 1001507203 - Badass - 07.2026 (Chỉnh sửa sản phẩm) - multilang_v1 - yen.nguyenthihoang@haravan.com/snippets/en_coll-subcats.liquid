@@ -1,0 +1,64 @@
+{%- assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+
+{%- if collection.all_types.size > 0 -%}
+
+{%- comment -%} Build lookup table: name (lowercase) → image URL {% endcomment %}
+{%- capture _subcat_lookup -%}
+{%- for i in (1..30) -%}
+  {%- assign _name_key = 'en_bs_subcat_name_' | append: i -%}
+  {%- assign _img_key = 'en_bs_subcat_img_' | append: i -%}
+  {%- assign _name_val = settings[_name_key] | strip -%}
+  {%- assign _img_val = settings[_img_key] | strip -%}
+  {%- unless _name_val == blank -%}{{ _name_val | downcase }}|{{ _img_val }}@@{%- endunless -%}
+{%- endfor -%}
+{%- endcapture -%}
+{%- assign _lookup_entries = _subcat_lookup | split: '@@' -%}
+
+<div class="coll__subcats-wrap" id="subcatsWrap">
+  <div class="coll__subcats" id="subcatTrack" role="tablist" aria-label="Filter by product type">
+
+    {%- for type in collection.all_types -%}
+      {%- assign _type_lower = type | downcase | strip -%}
+      {%- assign _type_img = '' -%}
+      {%- for _entry in _lookup_entries -%}
+        {%- assign _parts = _entry | split: '|' -%}
+        {%- if _parts.size >= 2 and _parts[0] == _type_lower -%}
+          {%- assign _type_img = _parts[1] | strip -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+       {% unless type == 'Khác' %}
+      <button type="button" class="coll__subcat"
+        data-subcat
+        data-filter-type="type"
+        data-filter-val="(product_type:product={{ type | url_encode }})"
+        data-filter-label="{{ type | escape }}"
+        title="{{ type | escape }}"
+        role="tab" aria-selected="false" aria-controls="collGrid">
+        {%- if _type_img != blank -%}
+        <div class="coll__subcat-img">
+          <img class="lazyload isHideTBT"
+            src="{{ _blank }}"
+            data-src="{{ _type_img }}"
+            alt="{{ type | escape }}"
+            width="230" height="330"
+            loading="lazy" decoding="async">
+        </div>
+        {%- else -%}
+        <div class="coll__subcat-img coll__subcat-img--empty"></div>
+        {%- endif -%}
+        <span class="coll__subcat-name">{{ type | escape }}</span>
+      </button>
+       {% endunless %}
+    {%- endfor -%}
+
+  </div>
+  <button type="button" class="coll__subcats-nav coll__subcats-nav--prev" data-subcat-prev aria-label="Previous">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+  </button>
+  <button type="button" class="coll__subcats-nav coll__subcats-nav--next" data-subcat-next aria-label="Next">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+  </button>
+</div>
+
+{%- endif -%}

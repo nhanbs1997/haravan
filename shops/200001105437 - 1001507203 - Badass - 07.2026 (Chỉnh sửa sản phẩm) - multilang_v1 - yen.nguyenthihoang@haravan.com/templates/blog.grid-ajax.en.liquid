@@ -1,0 +1,15 @@
+{% layout 'en' %}
+{%- comment -%}
+  Template: blog.grid-ajax
+  Mô tả: Alternate view cho Load More AJAX — trả về HTML article cards theo page.
+  URL: /blogs/{handle}?view=grid-ajax.en&page=N
+  Dùng paginate để Haravan tự phân trang đúng, mỗi page = 24 bài.
+  JS fetch URL này → parse .article-card → append vào grid hiện tại.
+{%- endcomment -%}
+
+{%- assign _ajax_per_page = settings.en_bs_blog_tab_limit | default: 24 | times: 1 -%}
+{%- paginate blog.articles by _ajax_per_page -%}
+{%- for article in blog.articles -%}
+  {%- include 'en_blog-article-card' -%}
+{%- endfor -%}
+{%- endpaginate -%}

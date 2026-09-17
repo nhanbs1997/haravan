@@ -1,0 +1,35 @@
+{%- assign variantCount = product.variants | size -%}{%- assign on_var = false -%}{%- if variantCount > 1 -%}{%- assign on_var = true -%}{%- endif -%}{%- assign contacts = false -%}{%- if product.price == 0 -%}{%- assign contacts = true -%}{%- endif -%}
+{%- include 'breadcrumb' -%}
+<section class="product wolf-layout-product mb-4 mt-4" itemscope itemtype="https://schema.org/Product">	
+	<div class="container">
+		{%- include 'product_schema' -%}
+		<div class="row details-product">
+			<div class="col-xxl-7 col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12 wolf-fix-padding-mobile">
+				<div class="wolf-product-images position-relative mb-3">
+					{%- include 'wolf-product-images' -%}
+				</div>
+			</div>
+			<div class="col-xxl-5 col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 details-pro">
+				<div class="wolf-product-content">
+					{%- include 'wolf-product-content' -%}
+				</div>
+			</div>
+		</div>
+		{%- include 'wolf-product-commit' -%}
+		<div class="row details-product-bottom">
+			<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				{%- include 'wolf-fbt' -%}
+				{%- include 'wolf-product-descriptions' -%}
+			</div>
+		</div>
+		{%- if settings.product_recent_enable -%}
+		{%- include 'wolf-product-relate' -%}
+		{%- endif -%}
+		{%- if settings.viewed_enable -%}
+		{%- include 'wolf-product-recent' -%}
+		{%- endif -%}
+	</div>
+</section>
+{%- include 'wolf-find-near-store' -%}
+{%- include 'wolf-product-js' -%}
+{%- include 'wolf-product-size-chart' -%}

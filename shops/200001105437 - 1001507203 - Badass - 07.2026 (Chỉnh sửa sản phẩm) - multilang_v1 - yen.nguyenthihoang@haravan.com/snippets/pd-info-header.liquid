@@ -1,0 +1,12 @@
+{%- comment -%}
+  Snippet: pd-info-header
+  Mo ta: Ten san pham + SKU.
+{%- endcomment -%}
+
+<div class="pd__header">
+  <h1 class="pd__title">{{ product.title | escape }}</h1>
+  <p class="pd__sku">SKU: {{ current_variant.sku | default: product.variants.first.sku | escape }}</p>
+  {% if settings.onireviews_use %}
+  <div class="onireviewapp-loop">{{product.metafields.onistudio['reviewapp.loop']}}</div>
+  {% endif %}
+</div>

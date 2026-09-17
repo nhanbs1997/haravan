@@ -1,0 +1,172 @@
+<div id="collection" class="content-pages collection-page" data-sticky_parent>
+	{% paginate collection.products by settings.pagination_limit %}
+	<!-- Begin collection info -->
+	<!-- Content-->	
+	<div class="col-lg-12 visible-sm visible-xs">
+		<div class="visible-sm visible-xs">
+			<h1 class="title-sm" >
+				{%if collection.handle == 'all'%}Tất cả sản phẩm{%else%}{{collection.title}}{%endif%}
+			</h1>
+		</div>
+		{% if settings.show_collection_menu or settings.collection_sort %}
+		<div class="filter-by-wrapper">
+			<div class="filter-by" >
+				{% if settings.show_collection_menu %}
+				<div class="sort-filter-option navbar-inactive" id="navbar-inner">
+					<div class="filterBtn txtLeft btn-navbar-collection">
+						<span class="list-coll">
+							<i class="fa fa-server" aria-hidden="true"></i>
+							{{ settings.collection_menu_title}}
+						</span>
+					</div>
+				</div>
+				{% endif %}
+				{% if settings.collection_sort and collection.products_count > 0 %}
+				<div class="sort-filter-option js-promoteTooltip" >
+					<div class="filterBtn txtLeft showOverlay" >
+						<i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>
+						<span  class="custom-dropdown custom-dropdown--white">
+							<select class="sort-by custom-dropdown__select custom-dropdown__select--white">
+									{% unless collection.handle == 'all' %}									
+										<option value="manual">Sản phẩm nổi bật</option>
+										{% endunless %}
+								<option value="price-ascending">Giá: Tăng dần</option>
+								<option value="price-descending">Giá: Giảm dần</option>
+								<option value="title-ascending">Tên: A-Z</option>
+								<option value="title-descending">Tên: Z-A</option>
+								<option value="created-ascending">Cũ nhất</option>
+								<option value="created-descending">Mới nhất</option>
+								<option value="best-selling">Bán chạy nhất</option>
+							</select>
+						</span>
+					</div>
+				</div>
+				{% endif %}		
+			</div>
+		</div>
+		{% endif %}
+	</div>
+	<div class=" col-md-3 col-sm-12 col-xs-12 leftsidebar-col" data-sticky_column >
+		{% include 'sidebar-left-collection' %}
+	</div>
+	<div class="content-col {% if settings.show_collection_menu or  settings.show_left_ad %}col-md-9 {% endif %}col-sm-12 col-xs-12" data-sticky_column>
+		<div class="row">
+			<div class="main-content">
+				<div class="col-md-12 hidden-sm hidden-xs">
+					<div class="sort-collection">
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+								<h1>
+									{%if collection.handle == 'all'%}Tất cả sản phẩm{%else%}{{collection.title}}{%endif%}
+								</h1>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+								{% if settings.collection_sort and collection.products_count > 0 %}
+								<div class="browse-tags">
+									<span>Sắp xếp theo:</span>
+									<span  class="custom-dropdown custom-dropdown--white">
+										<select class="sort-by custom-dropdown__select custom-dropdown__select--white">
+												{% unless collection.handle == 'all' %}									
+										<option value="manual">Sản phẩm nổi bật</option>
+										{% endunless %}
+											<option value="price-ascending">Giá: Tăng dần</option>
+											<option value="price-descending">Giá: Giảm dần</option>
+											<option value="title-ascending">Tên: A-Z</option>
+											<option value="title-descending">Tên: Z-A</option>
+											<option value="created-ascending">Cũ nhất</option>
+											<option value="created-descending">Mới nhất</option>
+											<option value="best-selling">Bán chạy nhất</option>
+										</select>
+									</span>
+								</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				{% if collection.image %}
+				<div class="col-xs-12 hidden-sm hidden-xs">
+					<div class=" banner-collection-header">
+						<img src="{{ collection.image.src }}" />
+					</div>
+				</div>
+				{% endif %}
+				{% comment %}nhom san pham{% endcomment %}
+				<div class="col-md-12 col-sm-12 col-xs-12 content-product-list">
+					<div class="row product-list">
+						{%if collection.products.size == 0%}
+						<div class="col-md-12 col-sm-12 col-xs-12 empty">
+							<p>Chưa có sản phẩm nào trong danh mục này</p>
+						</div>
+						{%else%}
+						{% for product in collection.products limit: settings.pagination_limit  %}
+						<div class="{% if settings.show_collection_menu or  settings.show_left_ad %}col-md-4 {% else %}col-md-3{% endif %} col-sm-6 col-xs-12 pro-loop">
+							{% include 'product-loop' with collection.handle %}
+						</div>
+						{% endfor %}	
+						{%endif%}					
+					</div>
+				</div>
+				<div class="col-md-12 col-sm-12 col-xs-12 ">
+					<div class="clearfix">
+						{%include 'pagination-default'%}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- End collection info -->
+	<!-- Begin no products -->
+
+	{% endpaginate %}
+	<!-- End no products -->
+</div>
+<script>
+Haravan.queryParams = {};
+if (location.search.length) {
+	for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+		aKeyValue = aCouples[i].split('=');
+		if (aKeyValue.length > 1) {
+			Haravan.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+		}
+	}
+}
+var collFilters = jQuery('.coll-filter');
+collFilters.change(function() {
+	var newTags = [];
+	var newURL = '';
+	delete Haravan.queryParams.page;
+	collFilters.each(function() { 
+		if (jQuery(this).val()) {
+			newTags.push(jQuery(this).val());
+		}
+	});
+	{% if collection.handle %}
+	newURL = '/collections/' + '{{ collection.handle }}';
+	 if (newTags.length) {
+		 newURL += '/' + newTags.join('+');
+	 }
+	 var search = jQuery.param(Haravan.queryParams);
+	 if (search.length) {
+		 newURL += '?' + search;
+	 }
+	 location.href = newURL;    
+	 {% else %}
+	 if (newTags.length) {
+		 Haravan.queryParams.constraint = newTags.join('+');        
+	 }
+		else {
+			delete Haravan.queryParams.constraint;
+		}
+		location.search = jQuery.param(Haravan.queryParams);
+		{% endif %}      
+		});
+		jQuery('.sort-by')
+		.val('{{ collection.sort_by | default: collection.default_sort_by  }}')
+		.bind('change', function() {
+			Haravan.queryParams.sort_by = jQuery(this).val();
+			location.search = jQuery.param(Haravan.queryParams);
+		});
+		</script>

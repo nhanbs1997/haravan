@@ -1,0 +1,22 @@
+{%- comment -%}
+  Snippet: hiring-detail-popup
+  Shell HTML cho popup xem JD. Noi dung inject boi JS sau AJAX fetch.
+{%- endcomment -%}
+<div class="job-detail-overlay" id="jobDetailOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Chi tiết vị trí tuyển dụng">
+  <div class="job-detail-popup">
+    <button class="job-detail-popup__close" id="jobDetailClose" aria-label="Đóng">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="job-detail-popup__loading" id="jobDetailLoading" aria-live="polite">
+      <div class="job-detail-popup__spinner" aria-hidden="true"></div>
+      <p>Đang tải...</p>
+    </div>
+    <div class="job-detail-popup__content" id="jobDetailContent">
+    </div>
+    <div class="job-detail-popup__footer" id="jobDetailFooter" style="display:none">
+      <button type="button" class="job-detail-popup__apply-btn js-apply-btn" id="jobDetailApplyBtn">
+        Ứng tuyển ngay
+      </button>
+    </div>
+  </div>
+</div>

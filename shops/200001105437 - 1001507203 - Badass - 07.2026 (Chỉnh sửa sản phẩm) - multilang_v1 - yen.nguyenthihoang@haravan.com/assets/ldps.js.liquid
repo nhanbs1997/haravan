@@ -1,0 +1,297 @@
+/* ============================================================
+   Landing Page — BADASS
+   - Countdown timer (đếm ngược đến ngày kết thúc khuyến mãi)
+   - Copy voucher code
+   - Swiper init cho các product sections
+   ============================================================ */
+
+(function () {
+  'use strict';
+
+  var LDP = {
+
+    init: function () {
+      this.initCountdown();
+      this.initCopyVoucher();
+      this.initSwipers();
+      this.initScrollReveal();
+      this.initParallax();
+      this.initVoucherHover();
+    },
+
+    // ── Countdown ───────────────────────────────────
+    initCountdown: function () {
+      var el = document.getElementById('ldpCountdown');
+      if (!el) return;
+
+      var startTime = LDP._parseDate((el.getAttribute('data-start') || '').trim());
+      var endTime   = LDP._parseDate((el.getAttribute('data-end') || '').trim());
+      if (endTime === null) { return; }
+
+      var titleUpcoming = el.getAttribute('data-title-upcoming') || '';
+      var titleActive   = el.getAttribute('data-title-active') || '';
+      var $title = document.getElementById('ldpCountdownTitle');
+
+      var $days  = document.getElementById('ldpDays');
+      var $hours = document.getElementById('ldpHours');
+      var $mins  = document.getElementById('ldpMins');
+      var $secs  = document.getElementById('ldpSecs');
+
+      function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+      function render(diff) {
+        if (diff < 0) diff = 0;
+        if ($days)  $days.textContent  = pad(Math.floor(diff / 86400000));
+        if ($hours) $hours.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+        if ($mins)  $mins.textContent  = pad(Math.floor((diff % 3600000) / 60000));
+        if ($secs)  $secs.textContent  = pad(Math.floor((diff % 60000) / 1000));
+      }
+
+      function tick() {
+        var now = Date.now();
+
+        // Giai đoạn 1: chưa tới ngày bắt đầu → đếm ngược tới lúc MỞ khuyến mãi
+        if (startTime !== null && now < startTime) {
+          if ($title && titleUpcoming) $title.textContent = titleUpcoming;
+          render(startTime - now);
+          return;
+        }
+
+        // Giai đoạn 2: đang diễn ra (hoặc không có ngày bắt đầu) → đếm ngược tới lúc KẾT THÚC
+        if ($title && titleActive) $title.textContent = titleActive;
+        render(endTime - now);
+
+        // Hết giờ → dừng interval để không chạy vô hạn.
+        if (now >= endTime && _timer) { clearInterval(_timer); _timer = null; }
+      }
+
+      var _timer = null;
+      tick();
+      _timer = setInterval(tick, 1000);
+    },
+
+    // Parse ngày linh hoạt → trả về timestamp (ms) hoặc null nếu không hợp lệ.
+    // Hỗ trợ:
+    //   2026-12-31T23:59:59 | 2026-12-31 23:59:59 | 2026-12-31   (ISO / YMD)
+    //   31-12-2026 23:59:59 | 31/12/2026 23:59 | 31-12-2026      (DMY)
+    _parseDate: function (str) {
+      str = String(str).trim();
+      if (!str) return null;
+      var y, mo, d, h = 0, mi = 0, s = 0, m;
+
+      // Tách phần ngày và phần giờ (ngăn bởi 'T' hoặc khoảng trắng)
+      var parts = str.split(/[T\s]+/);
+      var datePart = parts[0];
+      var timePart = parts[1] || '';
+
+      if (timePart) {
+        var t = timePart.split(':');
+        h  = parseInt(t[0], 10) || 0;
+        mi = parseInt(t[1], 10) || 0;
+        s  = parseInt(t[2], 10) || 0;
+      }
+
+      // YMD: 2026-12-31 hoặc 2026/12/31 (năm 4 chữ số đứng đầu)
+      m = datePart.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})$/);
+      if (m) {
+        y = +m[1]; mo = +m[2]; d = +m[3];
+      } else {
+        // DMY: 31-12-2026 hoặc 31/12/2026 (năm 4 chữ số đứng cuối)
+        m = datePart.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})$/);
+        if (m) {
+          d = +m[1]; mo = +m[2]; y = +m[3];
+        }
+      }
+
+      if (y) {
+        var dt = new Date(y, mo - 1, d, h, mi, s);
+        var ts = dt.getTime();
+        return isNaN(ts) ? null : ts;
+      }
+
+      // Fallback: để trình duyệt tự parse (chuẩn ISO có timezone...)
+      var native = new Date(str).getTime();
+      return isNaN(native) ? null : native;
+    },
+
+    // ── Copy voucher code ───────────────────────────
+    initCopyVoucher: function () {
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('.js-copy-voucher');
+        if (!btn) return;
+        e.preventDefault();
+        var code = btn.getAttribute('data-code');
+        if (!code) return;
+
+        var orig = btn.textContent.trim();
+        function onCopied() {
+          btn.textContent = 'ĐÃ SAO CHÉP ✓';
+          btn.disabled = true;
+          setTimeout(function () {
+            btn.textContent = orig;
+            btn.disabled = false;
+          }, 2000);
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(onCopied).catch(function() {
+            LDP._copyFallback(code, onCopied);
+          });
+        } else {
+          LDP._copyFallback(code, onCopied);
+        }
+      });
+    },
+
+    _copyFallback: function(code, cb) {
+      var ta = document.createElement('textarea');
+      ta.value = code;
+      ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand('copy'); cb(); } catch(e) {}
+      document.body.removeChild(ta);
+    },
+
+    // ── Swiper init ─────────────────────────────────
+    initSwipers: function () {
+      if (typeof Swiper === 'undefined') return;
+
+      // Section 2 slider — đọc slidesPerView từ data attributes
+      var sec2 = document.getElementById('ldpSection2');
+      var s2 = document.getElementById('ldpS2Swiper');
+      if (sec2 && s2 && s2.querySelectorAll('.swiper-slide').length > 0) {
+        var spv2 = parseInt(s2.getAttribute('data-spv')) || 4;
+        var spvMb2 = parseInt(s2.getAttribute('data-spv-mb')) || 2;
+        new Swiper(s2, {
+          grabCursor: true,
+          navigation: {
+            prevEl: sec2.querySelector('.bs_ldp__nav--prev'),
+            nextEl: sec2.querySelector('.bs_ldp__nav--next')
+          },
+          breakpoints: {
+            0:   { slidesPerView: spvMb2, spaceBetween: 8 },
+            768: { slidesPerView: spv2,   spaceBetween: 12 }
+          }
+        });
+      }
+
+      // Section 3 slider — đọc slidesPerView từ data attributes
+      var sec3 = document.getElementById('ldpSection3');
+      var s3 = document.getElementById('ldpS3Swiper');
+      if (sec3 && s3 && s3.querySelectorAll('.swiper-slide').length > 0) {
+        var spv3 = parseInt(s3.getAttribute('data-spv')) || 3;
+        var spvMb3 = parseInt(s3.getAttribute('data-spv-mb')) || 2;
+        var sw3 = new Swiper(s3, {
+          grabCursor: true,
+          navigation: {
+            prevEl: sec3.querySelector('.bs_ldp__nav--prev'),
+            nextEl: sec3.querySelector('.bs_ldp__nav--next')
+          },
+          breakpoints: {
+            0:   { slidesPerView: spvMb3, spaceBetween: 8 },
+            768: { slidesPerView: spv3,   spaceBetween: 12 }
+          }
+        });
+
+        // Đồng bộ chiều cao banner trái = chiều cao sliderwrap (desktop)
+        function syncBannerHeight() {
+          if (window.innerWidth < 992) return;
+          var banner = sec3.querySelector('.bs_ldp__s3-banner');
+          var sliderwrap = sec3.querySelector('.bs_ldp__s3-sliderwrap');
+          if (!banner || !sliderwrap) return;
+          var h = sliderwrap.offsetHeight;
+          if (h > 0) banner.style.height = h + 'px';
+        }
+        syncBannerHeight();
+        window.addEventListener('resize', syncBannerHeight, { passive: true });
+        sw3.on('init', syncBannerHeight);
+        sw3.on('slideChange', syncBannerHeight);
+      }
+    },
+
+    // ── 1. Scroll Reveal ────────────────────────────
+    // Các section / card fade-in + slide-up khi cuộn tới vùng nhìn thấy.
+    initScrollReveal: function () {
+      if (typeof IntersectionObserver === 'undefined') return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('ldp-revealed');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -48px 0px' });
+
+      document.querySelectorAll(
+        '#ldpPage .ldp-promo, ' +
+        '#ldpPage .bs_ldp__section, ' +
+        '#ldpPage .ldp-voucher, ' +
+        '#ldpPage .bs_ldp__s1-banner, ' +
+        '#ldpPage .bs_ldp__s1-card, ' +
+        '#ldpPage .bs_ldp__s1-bottom .product-card, ' +
+        '#ldpPage .bs_ldp__s2-banner, ' +
+        '#ldpPage .bs_ldp__s3-banner'
+      ).forEach(function (el, i) {
+        el.classList.add('ldp-reveal');
+        el.style.transitionDelay = Math.min(i * 60, 480) + 'ms';
+        io.observe(el);
+      });
+    },
+
+    // ── 4. Hero Parallax ────────────────────────────
+    initParallax: function () {
+      var hero = document.querySelector('#ldpHeroSlider .bs_hero-slide__track');
+      if (!hero) return;
+      var section = document.getElementById('ldpHeroSlider');
+
+      function onScroll() {
+        if (window.innerWidth <= 767) { hero.style.transform = ''; return; }
+        var scrollY = window.pageYOffset;
+        var sectionTop = section.offsetTop;
+        var sectionH = section.offsetHeight;
+        if (scrollY > sectionTop + sectionH) return;
+        var offset = (scrollY - sectionTop) * 0.35;
+        hero.style.transform = 'translateY(' + offset + 'px)';
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    },
+
+    // ── 3. Voucher hover + ripple ────────────────────
+    initVoucherHover: function () {
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('.ldp-voucher__btn');
+        if (!btn) return;
+        var circle = document.createElement('span');
+        var rect = btn.getBoundingClientRect();
+        var size = Math.max(rect.width, rect.height);
+        circle.style.cssText = [
+          'position:absolute',
+          'border-radius:50%',
+          'background:rgba(255,255,255,0.4)',
+          'width:' + size + 'px',
+          'height:' + size + 'px',
+          'left:' + (e.clientX - rect.left - size / 2) + 'px',
+          'top:' + (e.clientY - rect.top - size / 2) + 'px',
+          'transform:scale(0)',
+          'animation:ldpRipple 0.5s ease-out forwards',
+          'pointer-events:none'
+        ].join(';');
+        btn.style.overflow = 'hidden';
+        btn.style.position = 'relative';
+        btn.appendChild(circle);
+        setTimeout(function () { circle.remove(); }, 550);
+      });
+    }
+
+  };
+  // Init
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { LDP.init(); });
+  } else {
+    LDP.init();
+  }
+})();

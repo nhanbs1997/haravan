@@ -1,0 +1,37 @@
+{%- if settings.popup_left_enable -%}
+<div class="popup-haravan">
+	<div class="icon shadow-lg">
+		<svg width="24" height="24"><use xlink:href="#icon-bell" /></svg>
+	</div>
+	<div class="content shadow-lg">
+		<div class="title">{{ settings.popup_left_title }}</div>
+		<ul>
+			{%- for i in (1..6) -%}
+			{%- capture senable -%}popup_content_enable_{{i}}{%- endcapture -%}
+			{%- capture surl -%}popup_content_content_{{i}}{%- endcapture -%}
+			{%- capture salt -%}popup_content_title_{{i}}{%- endcapture -%}
+			{%- if settings[senable] -%}
+			<li>
+				<svg width="24" height="24"><use xlink:href="#icon-arrow-right" /></svg>
+				<a href="{{ settings[surl] }}" target="_blank" title="{{ settings[salt] }}">{{ settings[salt] }}</a>
+			</li>
+			{%- endif -%}
+			{%- endfor -%}
+		</ul>
+		{%- if settings.popup_left_note != blank -%}
+		<div class="ghichu">{{ settings.popup_left_note }}</div>
+		{%- endif -%}
+		<a href="javascript:;" title="Đóng" class="close-popup-haravan">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001;" xml:space="preserve"> <g> <g> <path d="M284.286,256.002L506.143,34.144c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717    L34.143,5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,477.859    c-7.811,7.811-7.811,20.475,0,28.285c3.905,3.905,9.024,5.857,14.143,5.857c5.119,0,10.237-1.952,14.143-5.857L256,284.287    l221.857,221.857c3.905,3.905,9.024,5.857,14.143,5.857s10.237-1.952,14.143-5.857c7.811-7.811,7.811-20.475,0-28.285    L284.286,256.002z"></path> </g> </g> </svg>
+		</a>
+	</div>
+</div>
+<script>
+	$('.popup-haravan .icon').click(function() {
+		$(".popup-haravan").toggleClass("active");
+	}); 
+	$('.close-popup-haravan').click(function() {
+		$(".popup-haravan").toggleClass("active");
+	}); 
+</script>
+{%- endif -%}

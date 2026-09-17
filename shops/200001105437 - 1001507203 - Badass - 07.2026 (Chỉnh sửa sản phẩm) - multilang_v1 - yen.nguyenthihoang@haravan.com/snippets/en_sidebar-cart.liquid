@@ -1,0 +1,14 @@
+{%- comment -%}
+  Snippet: sidebar-cart
+  Mô tả: Mini cart drawer (slide từ phải) — theo design Figma BADASS
+  JS: TF.Cart.open() / TF.Cart.close() / TF.Cart.refresh()
+      Mỗi mutation gọi /cart/*.js rồi fetch /cart?view=sidebar.en (alternate view)
+      và swap vào .sidebar__inner → KHÔNG reload trang, drawer giữ nguyên.
+  Nội dung động tách sang snippet 'sidebar-cart-inner' để tái dùng cho view AJAX.
+{% endcomment %}
+
+<div class="sidebar sidebar--right sidebar-cart" id="sidebar-cart">
+  <div class="sidebar__inner" id="sidebarCartInner">
+    {%- include 'en_sidebar-cart-inner' -%}
+  </div>
+</div>

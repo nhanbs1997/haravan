@@ -1,0 +1,17 @@
+{%- comment -%}
+  Snippet: swatch-lookup
+  Mô tả: Build 1 lần biến _bs_swatch_lookup (chuỗi 'name|hex,name|hex,...') từ settings 1..20.
+  Dùng trong product-loop, coll-sidebar, sidebar-cart-item để tra mã màu theo tên option.
+  Idempotent: nếu biến đã tồn tại (template cha capture trước) thì skip để tiết kiệm SSR.
+{% endcomment %}
+{%- unless _bs_swatch_lookup -%}
+{%- capture _bs_swatch_lookup -%}
+{%- for i in (1..20) -%}
+  {%- assign _sn_key = 'en_bs_swatch_name_' | append: i -%}
+  {%- assign _sh_key = 'en_bs_swatch_hex_' | append: i -%}
+  {%- assign _sn_val = settings[_sn_key] | strip -%}
+  {%- assign _sh_val = settings[_sh_key] | strip -%}
+  {%- unless _sn_val == blank -%}{{ _sn_val | downcase }}|{{ _sh_val }},{%- endunless -%}
+{%- endfor -%}
+{%- endcapture -%}
+{%- endunless -%}

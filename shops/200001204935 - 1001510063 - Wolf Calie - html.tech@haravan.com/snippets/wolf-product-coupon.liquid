@@ -1,0 +1,23 @@
+{%- if settings.product_coupon_enable -%}
+<div class="coupon-hover mb-3">
+	<strong class="c-title">{{ settings.product_coupon_code }}</strong>
+	<div class="mini-coupon">
+		{%- if settings.product_coupon_enable_1 -%}
+		<div class="voucher-ticket rounded-2">
+			{{ settings.product_coupon_price_1 }}
+		</div>
+		{%- endif -%}
+		{%- if settings.product_coupon_enable_2 -%}
+		<div class="voucher-ticket rounded-2">
+			{{ settings.product_coupon_price_2 }}
+		</div>
+		{%- endif -%}
+		{%- if settings.product_coupon_enable_3 -%}
+		<div class="voucher-ticket rounded-2">
+			{{ settings.product_coupon_price_3 }}
+		</div>
+		{%- endif -%}
+	</div>
+	{%- include 'wolf-coupon' -%}
+</div>
+{%- endif -%}

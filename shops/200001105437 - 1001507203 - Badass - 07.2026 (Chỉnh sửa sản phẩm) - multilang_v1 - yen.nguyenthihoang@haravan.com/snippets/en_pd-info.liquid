@@ -1,0 +1,25 @@
+{%- comment -%}
+  Snippet: pd-info
+  Mo ta: Panel thong tin san pham — gia, mau sac, size, qty, ATC, policy.
+  Vars: product, current_variant, has_sale
+{% endcomment %}
+
+<div class="pd__info" data-reveal data-reveal-delay="120">
+  <div class="pd__info-card">
+    <div class="pd__info-inner">
+
+      {%- include 'en_pd-info-header' -%}
+      {%- include 'en_pd-info-prices' -%}
+      {%- include 'en_pd-info-color' -%}
+      {%- include 'en_pd-info-size' -%}
+      {%- include 'en_pd-info-actions' -%}
+
+    </div>
+  </div>
+
+  {%- include 'en_pd-policy' -%}
+
+  {%- include 'en_product-combo' -%}
+  {%- include 'en_product-buyxgety' -%}
+  {%- include 'en_product-stores' -%}
+</div>

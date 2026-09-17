@@ -1,0 +1,365 @@
+{%- include 'ajaxcartfunction' -%}
+<script id="SideCartTemplate" type="text/template">
+ {%- raw -%}
+<form action="{% endraw %}{{ routes.cart_url }}{% raw %}" method="post" novalidate class="cart ajaxcart">
+	<div class="ajaxcart__inner ajaxcart__inner--has-fixed-footer cart_body items">
+		{{#items}}
+		<div class="ajaxcart__row">
+			<div class="ajaxcart__product cart_product" data-line="{{line}}">
+				<a href="{{url}}" class="ajaxcart__product-image cart_image" title="{{name}}"><img width="80" height="80" src="{{img}}" alt="{{name}}"></a>
+				<div class="grid__item cart_info">
+					<div class="ajaxcart__product-name-wrapper cart_name">
+						<a href="{{url}}" class="ajaxcart__product-name h4" title="{{name}}">{{name}}</a>
+						{{#if variation}}
+						<span class="ajaxcart__product-meta variant-title">{{variation}}</span>
+						{{/if}}
+	</div>
+					<div class="grid">
+						<div class="grid__item one-half cart_select cart_item_name">
+							<label class="cart_quantity">Số lượng</label>
+							<div class="ajaxcart__qty input-group-btn">
+								<button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count" data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}" aria-label="{% endraw %}-{% raw %}">-</button>
+								<input type="text" name="updates[]" class="ajaxcart__qty-num number-sidebar" maxlength="3" value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
+								<button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count" data-id="{{key}}" data-line="{{line}}" data-qty="{{itemAdd}}" aria-label="{% endraw %}+{% raw %}">+</button>
+	</div>
+	</div>
+						<div class="grid__item one-half text-right cart_prices">
+							<span class="cart-price">{{price}}</span>
+							<a title="Xóa sản phẩm" class="cart__btn-remove remove-item-cart ajaxifyCart--remove" href="javascript:;" data-line="{{line}}"><svg width="24" height="24"><use xlink:href="#icon-trash" /></svg></a>
+	</div>
+	</div>
+					{{#if discountsApplied}}
+					<div class="grid grid--table">
+						<div class="grid__item text-right">
+							<ul class="order-discount order-discount--list order-discount--title order-discount--cart order-discount--cart-title" aria-label="{% endraw %}Giảm giá{% raw %}">
+								{{#each discounts}}
+								<li class="order-discount__item">
+									<span class="icon icon-saletag" aria-hidden="true"></span>{{ this.discount_application.title }} (-{{{ this.formattedAmount }}})
+	</li>
+								{{/each}}
+	</ul>
+	</div>
+	</div>
+					{{/if}}
+	</div>
+	</div>
+	</div>
+		{{/items}}
+		{%- endraw -%}{%- if settings.cart_notes_enable -%}{%- raw -%}
+		<div class="ajaxcart__row">
+			<label for="CartSpecialInstructions" class="txt--minor">{%- endraw -%}Ghi chú:{%- raw -%}</label>
+			<textarea name="note" class="input-full ajaxcart__note" id="CartSpecialInstructions">{{note}}</textarea>
+	</div>
+		{%- endraw -%}{%- endif -%}{%- raw -%}
+	</div>
+	<div class="ajaxcart__footer ajaxcart__footer--fixed cart-footer">
+		<div class="ajaxcart__subtotal">
+			{{#if cartDiscountsApplied}}
+			<div class="grid grid--table ajaxcart__discounts">
+				{{#each cartDiscounts}}
+				<div class="grid__item two-thirds">
+					<span class="order-discount order-discount--title order-discount--cart-title">
+					<span class="icon icon-saletag" aria-hidden="true"></span><span class="visually-hidden">{%- endraw -%}%{%- raw -%}:</span>{{ this.title }}</span>
+	</div>
+				<div class="grid__item one-third text-right"><span class="order-discount">-{{{ this.formattedAmount }}}</span></div>
+				{{/each}}
+	</div>
+			{{/if}}
+		<div class="cart__subtotal">
+			<div class="cart__col-6">Tổng tiền:</div>
+			<div class="text-right cart__totle"><span class="total-price">{{{totalPrice}}}</span></div>
+	</div>
+	</div>
+	<div class="cart__btn-proceed-checkout-dt"><button onclick="location.href='/checkout'" type="button" class="button btn btn-default cart__btn-proceed-checkout" id="btn-proceed-checkout" title="Thanh toán">Thanh toán</button></div>
+	</div>
+	</form>
+{%- endraw -%}
+</script>
+<script id="CartTemplate" type="text/template">
+ {% raw %}
+<form action="{% endraw %}{{ routes.cart_url }}{% raw %}" method="post" novalidate class="cart ajaxcart cartpage">
+	<div class="cart-header-info">
+		<div>Thông tin sản phẩm</div><div>Đơn giá</div><div>Số lượng</div><div>Thành tiền</div>
+	</div>
+	<div class="ajaxcart__inner ajaxcart__inner--has-fixed-footer cart_body items">
+		{{#items}}
+		<div class="ajaxcart__row">
+			<div class="ajaxcart__product cart_product" data-line="{{line}}">
+				<a href="{{url}}" class="ajaxcart__product-image cart_image" title="{{name}}"><img src="{{img}}" alt="{{name}}"></a>
+				<div class="grid__item cart_info">
+					<div class="ajaxcart__product-name-wrapper cart_name">
+						<a href="{{url}}" class="ajaxcart__product-name h4" title="{{name}}">{{name}}</a>
+						{{#if variation}}
+						<span class="ajaxcart__product-meta variant-title mb-2">{{variation}}</span>
+						{{/if}}
+						<a title="Xóa sản phẩm" class="cart__btn-remove remove-item-cart ajaxifyCart--remove" href="javascript:;" data-line="{{line}}"><svg width="24" height="24"><use xlink:href="#icon-trash" /></svg></a>
+
+	</div>
+					<div class="grid">
+						<div class="grid__item one-half text-right cart_prices"><span class="cart-price">{{price}}</span></div>
+	</div>
+					<div class="grid">
+						<div class="grid__item one-half cart_select">
+							<div class="ajaxcart__qty input-group-btn">
+								<button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count" data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}" aria-label="{% endraw %}-{% raw %}">-</button>
+								<input type="text" name="updates[]" class="ajaxcart__qty-num number-sidebar" maxlength="3" value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
+								<button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count" data-id="{{key}}" data-line="{{line}}" data-qty="{{itemAdd}}" aria-label="{% endraw %}+{% raw %}">+</button>
+	</div>
+	</div>
+	</div>
+					<div class="grid">
+						<div class="grid__item one-half text-right cart_prices">
+							<span class="cart-price">{{linePrice}}</span>
+
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+		{{/items}}
+		{% endraw %}{% if settings.cart_notes_enable %}{% raw %}
+		<div class="ajaxcart__row">
+			<label for="CartSpecialInstructions" class="txt--minor">{% endraw %}Ghi chú:{% raw %}</label>
+			<textarea name="note" class="input-full ajaxcart__note" id="CartSpecialInstructions">{{note}}</textarea>
+	</div>
+		{% endraw %}{% endif %}{% raw %}
+	</div>
+	<div class="ajaxcart__footer ajaxcart__footer--fixed cart-footer">
+		<div class="row">
+		<div class="col-lg-8 col-12"><a class="btn-proceed-checkout btn-checkouts btn btn-secondary" title="Tiếp tục mua hàng" href="/">Tiếp tục mua hàng</a></div>
+			<div class="col-lg-4 col-12">
+				<div class="ajaxcart__subtotal">
+					{{#if cartDiscountsApplied}}
+					<div class="grid grid--table ajaxcart__discounts">
+						{{#each cartDiscounts}}
+						<div class="grid__item two-thirds"><span class="order-discount order-discount--title order-discount--cart-title"><span class="icon icon-saletag" aria-hidden="true"></span><span class="visually-hidden">{% endraw %}%{% raw %}:</span>{{ this.title }}</span></div>
+						<div class="grid__item one-third text-right"><span class="order-discount">-{{{ this.formattedAmount }}}</span></div>
+						{{/each}}
+	</div>
+					{{/if}}
+					<div class="cart__subtotal"><div class="cart__col-6">Tổng tiền:</div><div class="text-right cart__totle"><span class="total-price">{{{totalPrice}}}</span></div></div>
+	</div>
+				<div class="cart__btn-proceed-checkout-dt"><button {%endraw%}{%if settings.use_cart_vat%}onclick='goToCheckout(event)'{%else%}location.href="/checkout"{%endif%}{%raw%} type="button" class="button btn btn-default cart__btn-proceed-checkout" id="btn-proceed-checkout" title="Thanh toán">Thanh toán</button></div>
+	</div>
+	</div>
+	</div>
+	</form>
+{% endraw %}
+</script>
+<script id="CartHeaderTemplate" type="text/template">
+ {% raw %}
+<form action="{% endraw %}{{ routes.cart_url }}{% raw %}" method="post" novalidate class="cart ajaxcart cartheader">
+	<div class="ajaxcart__inner ajaxcart__inner--has-fixed-footer cart_body items">
+		{{#items}}
+		<div class="ajaxcart__row">
+			<div class="ajaxcart__product cart_product" data-line="{{line}}">
+				<a href="{{url}}" class="ajaxcart__product-image cart_image" title="{{name}}"><img width="80" height="80" src="{{img}}" alt="{{name}}"></a>
+				<div class="grid__item cart_info">
+					<div class="ajaxcart__product-name-wrapper cart_name">
+						<a href="{{url}}" class="ajaxcart__product-name h4" title="{{name}}">{{name}}</a>
+						{{#if variation}}
+						<span class="ajaxcart__product-meta variant-title">{{variation}}</span>
+						{{/if}}
+													<a title="Xóa sản phẩm" class="cart__btn-remove remove-item-cart ajaxifyCart--remove" href="javascript:;" data-line="{{line}}"><svg width="24" height="24"><use xlink:href="#icon-trash" /></svg></a>
+
+	</div>
+					<div class="grid">
+						<div class="grid__item one-half cart_select cart_item_name">
+							<div class="ajaxcart__qty input-group-btn">
+								<button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count" data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}" aria-label="{% endraw %}-{% raw %}">-</button>
+								<input type="text" name="updates[]" class="ajaxcart__qty-num number-sidebar" maxlength="3" value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
+								<button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count" data-id="{{key}}" data-line="{{line}}" data-qty="{{itemAdd}}" aria-label="{% endraw %}+{% raw %}">+</button>
+	</div>
+	</div>
+						<div class="grid__item one-half text-right cart_prices"><span class="cart-price">{{price}}</span></div>
+	</div>
+	</div>
+	</div>
+	</div>
+		{{/items}}
+	</div>
+	<div class="ajaxcart__footer ajaxcart__footer--fixed cart-footer">
+		<div class="ajaxcart__subtotal">
+			<div class="cart__subtotal"><div class="cart__col-6">Tổng tiền:</div><div class="text-right cart__totle"><span class="total-price">{{{totalPrice}}}</span></div></div>
+	</div>
+		<div class="cart__btn-proceed-checkout-dt "><button onclick="location.href='/checkout'" type="button" class="button btn btn-default cart__btn-proceed-checkout" id="btn-proceed-checkout" title="Thanh toán">Thanh toán</button></div>
+	</div>
+	</form>
+{% endraw %}
+</script>
+<script id="CartPopupTemplate" type="text/template">
+{% raw %}
+<form action="{% endraw %}{{ routes.cart_url }}{% raw %}" method="post" novalidate class="cart ajaxcart cartpopup">
+	<div class="cart-header-info">
+		<div>Thông tin sản phẩm</div><div>Đơn giá</div><div>Số lượng</div><div>Thành tiền</div>
+	</div>
+	<div class="ajaxcart__inner ajaxcart__inner--has-fixed-footer cart_body items">
+		{{#items}}
+		<div class="ajaxcart__row">
+			<div class="ajaxcart__product cart_product" data-line="{{line}}">
+				<a href="{{url}}" class="ajaxcart__product-image cart_image" title="{{name}}"><img width="80" height="80" src="{{img}}" alt="{{name}}"></a>
+				<div class="grid__item cart_info">
+					<div class="ajaxcart__product-name-wrapper cart_name">
+						<a href="{{url}}" class="ajaxcart__product-name h4" title="{{name}}">{{name}}</a>
+						{{#if variation}}
+						<span class="ajaxcart__product-meta variant-title">{{variation}}</span>
+						{{/if}}
+						<a title="Xóa sản phẩm" class="cart__btn-remove remove-item-cart ajaxifyCart--remove" href="javascript:;" data-line="{{line}}"><svg width="24" height="24"><use xlink:href="#icon-trash" /></svg></a>
+
+	</div>
+					<div class="grid">
+						<div class="grid__item one-half text-right cart_prices"><span class="cart-price">{{price}}</span></div>
+	</div>
+					<div class="grid">
+						<div class="grid__item one-half cart_select">
+							<div class="ajaxcart__qty input-group-btn">
+								<button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count" data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}" aria-label="{% endraw %}-{% raw %}">-</button>
+								<input type="text" name="updates[]" class="ajaxcart__qty-num number-sidebar" maxlength="3" value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
+								<button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count" data-id="{{key}}" data-line="{{line}}" data-qty="{{itemAdd}}" aria-label="{% endraw %}+{% raw %}">+</button>
+	</div>
+	</div>
+	</div>
+					<div class="grid">
+						<div class="grid__item one-half text-right cart_prices"><span class="cart-price">{{linePrice}}</span></div>
+	</div>
+	</div>
+	</div>
+	</div>
+		{{/items}}
+	</div>
+	<div class="ajaxcart__footer ajaxcart__footer--fixed cart-footer">
+		<div class="row">
+			<div class="col-lg-4 col-12 offset-md-8 offset-lg-8 offset-xl-8">
+				<div class="ajaxcart__subtotal">
+					<div class="cart__subtotal">
+						<div class="cart__col-6">Tổng tiền:</div>
+						<div class="text-right cart__totle"><span class="total-price">{{{totalPrice}}}</span></div></div>
+	</div>
+				<div class="cart__btn-proceed-checkout-dt">
+					<button onclick="location.href='/checkout'" type="button" class="button btn btn-default cart__btn-proceed-checkout" id="btn-proceed-checkout" title="Thanh toán">Thanh toán</button></div>
+	</div>
+	</div>
+	</div>
+	</form>
+{% endraw %}
+</script>
+<script id="CartMobileTemplate" type="text/template">
+ {% raw %}
+<form action="{% endraw %}{{ routes.cart_url }}{% raw %}" method="post" novalidate class="cart ajaxcart cart-mobile">
+	<div class="ajaxcart__inner ajaxcart__inner--has-fixed-footer cart_body">
+		{{#items}}
+		<div class="ajaxcart__row">
+			<div class="ajaxcart__product cart_product" data-line="{{line}}">
+				<a href="{{url}}" class="ajaxcart__product-image cart_image" title="{{name}}"><img width="80" height="80" src="{{img}}" alt="{{name}}"></a>
+				<div class="grid__item cart_info">
+					<div class="ajaxcart__product-name-wrapper cart_name">
+						<a href="{{url}}" class="ajaxcart__product-name h4" title="{{name}}">{{name}}</a>
+						{{#if variation}}
+						<span class="ajaxcart__product-meta variant-title">{{variation}}</span>
+						{{/if}}
+	</div>
+					<div class="grid">
+						<div class="grid__item one-half cart_select cart_item_name">
+							<div class="ajaxcart__qty input-group-btn">
+								<button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus items-count" data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}" aria-label="{% endraw %}-{% raw %}">-</button>
+								<input type="text" name="updates[]" class="ajaxcart__qty-num number-sidebar" maxlength="3" value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
+								<button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus items-count" data-id="{{key}}" data-line="{{line}}" data-qty="{{itemAdd}}" aria-label="{% endraw %}+{% raw %}">+</button>
+	</div>
+	</div>
+						<div class="grid__item one-half text-right cart_prices">
+							<span class="cart-price">{{price}}</span>
+							<a title="Xóa sản phẩm" class="cart__btn-remove remove-item-cart ajaxifyCart--remove" href="javascript:;" data-line="{{line}}"><svg width="24" height="24"><use xlink:href="#icon-trash" /></svg></a>
+	</div>
+	</div>
+					{{#if discountsApplied}}
+					<div class="grid grid--table">
+						<div class="grid__item text-right">
+							<ul class="order-discount order-discount--list order-discount--title order-discount--cart order-discount--cart-title" aria-label="{% endraw %}Giảm giá{% raw %}">
+								{{#each discounts}}
+								<li class="order-discount__item">
+									<span class="icon icon-saletag" aria-hidden="true"></span>{{ this.discount_application.title }} (-{{{ this.formattedAmount }}})
+	</li>
+								{{/each}}
+	</ul>
+	</div>
+	</div>
+					{{/if}}
+	</div>
+	</div>
+	</div>
+		{{/items}}
+		{% endraw %}{% if settings.cart_notes_enable %}{% raw %}
+		<div class="ajaxcart__row">
+			<label for="CartSpecialInstructions" class="txt--minor">{% endraw %}Ghi chú:{% raw %}</label>
+			<textarea name="note" class="input-full ajaxcart__note" id="CartSpecialInstructions">{{note}}</textarea>
+	</div>
+		{% endraw %}{% endif %}{% raw %}
+	</div>
+	<div class="ajaxcart__footer ajaxcart__footer--fixed cart-footer">
+		<div class="ajaxcart__subtotal">
+			{{#if cartDiscountsApplied}}
+			<div class="grid grid--table ajaxcart__discounts">
+				{{#each cartDiscounts}}
+				<div class="grid__item two-thirds">
+					<span class="order-discount order-discount--title order-discount--cart-title">
+						<span class="icon icon-saletag" aria-hidden="true"></span><span class="visually-hidden">{% endraw %}%{% raw %}:</span>{{ this.title }}
+	</span>
+	</div>
+				<div class="grid__item one-third text-right">
+					<span class="order-discount">-{{{ this.formattedAmount }}}</span>
+	</div>
+				{{/each}}
+	</div>
+			{{/if}}
+			<div class="cart__subtotal">
+				<div class="cart__col-6">Tổng tiền:</div>
+				<div class="text-right cart__totle"><span class="total-price">{{{totalPrice}}}</span></div>
+	</div>
+	</div>
+	<div class="cart_btn_continue"><a class="btn-proceed-checkout btn-checkouts btn btn-secondary mb-2" title="Tiếp tục mua hàng" href="/">Tiếp tục mua hàng</a></div>
+		<div class="cart__btn-proceed-checkout-dt">
+			<button {%endraw%}{%if settings.use_cart_vat%}onclick='goToCheckout(event)'{%else%}location.href="/checkout"{%endif%}{%raw%} type="button" class="button btn btn-default cart__btn-proceed-checkout" id="btn-proceed-checkout" title="Thanh toán">Thanh toán</button></div>
+	</div>
+	</form>
+{% endraw %}
+</script>
+<script id="JsQty" type="text/template">
+{%- raw -%}
+<div class="js-qty">
+	<button type="button" class="js-qty__adjust js-qty__adjust--minus items-count" data-id="{{key}}" data-qty="{{itemMinus}}" aria-label="{% endraw %}-{% raw %}">-</button>
+	<input type="text" class="js-qty__num number-sidebar" maxlength="3" value="{{itemQty}}" min="1" data-id="{{key}}" aria-label="quantity" pattern="[0-9]*" name="{{inputName}}" id="{{inputId}}">
+	<button type="button" class="js-qty__adjust js-qty__adjust--plus items-count" data-id="{{key}}" data-qty="{{itemAdd}}" aria-label="{% endraw %}+{% raw %}">+</button>
+	</div>
+{%- endraw -%}
+</script>
+<div id="popup-cart-desktop" class="popup-cart modal fade d-none" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="popup-cart-desktop" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="header-popcart modal-header">
+				<div class="top-cart-header">Bạn đã thêm [<a class="cart-popup-name" href="#" ></a>] vào giỏ hàng</div>
+				<a class="noti-cart-count" href="/cart" title="Giỏ hàng">Giỏ hàng của bạn hiện có <span class="count_item_pr"></span> sản phẩm</a>
+				<span title="Đóng" class="cart_btn-close"><svg width="24" height="24"><use xlink:href="#icon-close" /></svg></span>
+			</div>
+			<div class="cartPopupContainer"></div>
+		</div>
+	</div>
+</div>
+<div id="popup-cart-mobile" class="popup-cart-mobile modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="popup-cart-mobile" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="modal-title">Mua hàng thành công</div>
+				<button type="button" class="btn-close cart_btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="media-content bodycart-mobile d-flex gap-2 align-items-center"></div>
+				<a class="noti-cart-count d-flex text-secondary mt-2" href="/cart" title="Giỏ hàng"><svg width="24" height="24" class="me-1"><use xlink:href="#icon-bell"></use></svg> Giỏ hàng của bạn hiện có <span class="count_item_pr ms-1 me-1"></span> sản phẩm </a>
+				{%- include 'wolf-free-shipping' -%}
+			</div>
+			<div class="modal-footer justify-content-between">
+				<div class="cart_btn-close tocontinued btn btn-secondary border-0" data-bs-dismiss="modal">Tiếp tục mua hàng</div>
+				<a href="/checkout" class="checkout btn btn-danger border-0" title="Thanh toán ngay">Thanh toán ngay</a>
+			</div>
+		</div>
+	</div>
+</div>

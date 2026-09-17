@@ -1,0 +1,153 @@
+{%- if settings.en_pd_stores_show -%}
+<div class="pd-stores" id="pd-stores" style="display:none">
+
+  <div class="pd-stores__head">
+    <svg class="pd-stores__head-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+    <h3 class="pd-stores__title">Store <span class="pd-stores__title-underline">still products</span></h3>
+  </div>
+
+  <div class="pd-stores__filter">
+    <div class="pd-stores__select-wrap">
+      <select class="pd-stores__select" id="pdStoresFilter" aria-label="Filter by wake up">
+        <option value="">Province / City</option>
+      </select>
+      <svg class="pd-stores__chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+  </div>
+
+  <div class="pd-stores__body">
+    <div class="pd-stores__list" id="pdStoresList"></div>
+    <button type="button" class="pd-stores__more" id="pdStoresMore" style="display:none">
+      See more stores
+
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 9l6 6 6-6M6 3l6 6 6-6"/>
+      </svg>
+    </button>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var SHOW_INIT = 4;
+  var allLocations = [];
+  var filteredLocations = [];
+
+  var elStores = document.getElementById('pd-stores');
+  var elList   = document.getElementById('pdStoresList');
+  var elMore   = document.getElementById('pdStoresMore');
+  var elFilter = document.getElementById('pdStoresFilter');
+
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function buildItem(loc) {
+    var name = loc.location_name || '';
+    var address = (loc.location_address || '').split('|')[0].trim();
+    var phone = (loc.location_phone || '').replace(/[\s\-\.]/g, '');
+    var displayPhone = loc.location_phone || '';
+    var displayText = escHtml(name);
+    var mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address || name);
+
+    var html = '<div class="pd-stores__item">';
+    html += '<p class="pd-stores__item-name">' + displayText + '</p>';
+    html += '<div class="pd-stores__item-actions">';
+    if (phone) {
+      html += '<a href="tel:' + escHtml(phone) + '" class="pd-stores__item-btn">';
+      html += '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>';
+      html += escHtml(displayPhone) + '</a>';
+    }
+    html += '<a href="' + escHtml(mapsUrl) + '" target="_blank" rel="noopener" class="pd-stores__item-btn">';
+    html += '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>';
+    html += 'Get directions</a>';
+    html += '</div></div>';
+    return html;
+  }
+
+  function renderList(locs, limit) {
+    var shown = (limit && limit < locs.length) ? locs.slice(0, limit) : locs;
+    elList.innerHTML = shown.map(buildItem).join('');
+    if (elMore) {
+      elMore.style.display = (locs.length > SHOW_INIT && limit) ? '' : 'none';
+    }
+  }
+
+  function buildFilter(locs) {
+    var cities = {};
+    locs.forEach(function (loc) {
+      var parts = (loc.location_address || '').split(',');
+      var city = parts[parts.length - 1].trim();
+      if (city) cities[city] = true;
+    });
+    if (!elFilter) return;
+    while (elFilter.options.length > 1) elFilter.remove(1);
+    Object.keys(cities).forEach(function (c) {
+      var opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c;
+      elFilter.appendChild(opt);
+    });
+  }
+
+  window.loadStoreAvailability = function (variantId) {
+    if (!variantId || !elStores) return;
+    fetch('/inventory_location.js?variant_id=' + variantId + '&quantity=1', {
+      headers: { 'Accept': 'application/json' }
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (result) {
+        var locs = result.inventory_locations || [];
+        if (!locs.length) { elStores.style.display = 'none'; return; }
+        allLocations = locs;
+        filteredLocations = locs;
+        buildFilter(locs);
+        renderList(locs, SHOW_INIT);
+        elStores.style.display = '';
+      })
+      .catch(function () { elStores.style.display = 'none'; });
+  };
+
+  if (elFilter) {
+    elFilter.addEventListener('change', function () {
+      var city = elFilter.value;
+      filteredLocations = city
+        ? allLocations.filter(function (l) { return (l.location_address || '').indexOf(city) > -1; })
+        : allLocations;
+      renderList(filteredLocations, SHOW_INIT);
+    });
+  }
+
+  if (elMore) {
+    elMore.addEventListener('click', function () {
+      renderList(filteredLocations, null);
+      elMore.style.display = 'none';
+    });
+  }
+
+  function onVariantChange() {
+    var sel = document.getElementById('product-select');
+    if (sel && sel.value) window.loadStoreAvailability(sel.value);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      onVariantChange();
+      var sel = document.getElementById('product-select');
+      if (sel) sel.addEventListener('change', onVariantChange);
+    });
+  } else {
+    onVariantChange();
+    var sel = document.getElementById('product-select');
+    if (sel) sel.addEventListener('change', onVariantChange);
+  }
+})();
+</script>
+{%- endif -%}

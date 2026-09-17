@@ -1,0 +1,175 @@
+<div class="sidebar ">
+	<div class="group_sidebar">
+		<div  class="list-group navbar-inner ">
+			{% if settings.blog_recent_show %}
+			{% if settings.blog_recent_title != '' %}
+			<div >
+				<h3 class="sb-title">{{ settings.blog_recent_title}}</h3>
+			</div>
+			{% endif %}
+			<ul class="nav navs sidebar menu"  id="menu-blog">		
+				{% for link in linklists.[settings.blog_recent_menu].links %}
+				{% assign has_sub_menu = false %}
+				{% assign parent_link_active = false %}
+				{% if linklists[link.handle] == empty %}
+				<li class="item {% if link.active %}current active {% endif %} {% if forloop.first %}first{% endif %}{% if forloop.last %}last{% endif %}">
+					<a href="{{ link.url }}">
+						<span>{{ link.title }}</span>
+					</a>
+				</li>
+				{% else %}
+				{% assign has_sub_menu = true %}
+				{% for l in linklists[link.handle].links %}
+				{% if l.active %}
+				{% assign parent_link_active = true %}
+				{% endif %}
+				{% endfor %}
+				<li class='item has-sub {% if link.active or parent_link_active %}active{% endif %} {% if forloop.first %}first{% endif %}{% if forloop.last %}last{% endif %}'>
+					<a href='{{ link.url }}'>
+						<span class="lbl">{{ link.title }}</span>
+						<span data-toggle="collapse" data-parent="#cssmenu" href="#sub-item-{{forloop.index}}" class="sign drop-down">
+
+						</span>
+					</a>
+					<ul class="nav children collapse" id="sub-item-{{forloop.index}}">
+						{% for l in linklists[link.handle].links %}
+						{% if linklists[l.handle].links == empty %}
+						<li class="{% if forloop.first %}first{% endif %}{% if forloop.last %}last{% endif %}{% if l.active %} current active{% endif %}">
+							<a href="{{ l.url }}" title="{{ l.title }}">
+								<span>{{ l.title }}</span>
+							</a>
+						</li>
+						{% else %}
+						<li class="has-sub {% if forloop.first %}first{% endif %}{% if forloop.last %}last{% endif %}{% if l.active %} current active{% endif %}">
+							<a href="{{ l.url }}" title="{{ l.title }}">
+								<span>{{ l.title }}</span>
+								<span class="sign drop-down">
+
+								</span>
+							</a>
+							<ul class="nav children collapse lve2">
+								{% for l2 in linklists[l.handle].links %}
+								<li>
+									<a href="{{ l2.url }}" title="{{ l2.title }}">
+										<span>{{ l2.title }}</span>
+									</a>				
+								</li>
+								{% endfor %}
+							</ul>
+						</li>
+						{% endif %}
+						{% endfor %}
+					</ul>
+				</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+			{% endif %}
+		</div>
+
+
+
+	</div>
+	<!-- End: Danh mục tin tức -->
+
+	{% assign check_size = 1 %}
+	{% if template == 'blog' %}
+	{% assign check_size = 0 %}
+	{% else %}
+	{% assign check_size = 1 %}
+	{% endif %}
+	{% if settings.news_recent_show and blogs[blog.handle].articles.size > check_size %}
+	<!--Begin: Bài viết mới nhất-->
+	<div class=" group_sidebar">
+		<h3 class="sb-title">
+			{{ settings.news_recent_title  }}
+		</h3>
+		{% assign num_of_settings = settings.pagination_news_limit %}
+		{% assign num_size = 0 %}
+
+		{% for a in blogs[blog.handle].articles %}
+		{% if a.image %}
+		{% comment %} Lấy hình Featured {% endcomment %}
+		{% assign imageUrl = a.image.src | product_img_url : 'large' %}
+		{% else %}
+
+		{% comment %}Kiểm tra trích dẫn và content có hình hay ko{% endcomment %}
+		{% assign imageUrl = '' %}
+		{% if a.excerpt contains 'src=' %}
+		{% assign imageExcerptNotNull = true %}
+		{% else %}
+		{% assign imageExcerptNotNull = false %}
+		{% endif %}
+		{% if a.content contains 'src=' %}
+		{% assign imageContentNotNull = true %}
+		{% else %}
+		{% assign imageContentNotNull = false %}
+		{% endif %}
+
+		{% comment %}Nếu có Excerpt or Content cắt hình{% endcomment %}
+		{% if imageExcerptNotNull %}
+		{% assign arrayUrl = a.excerpt | split : 'src="' %}
+		{% else %}
+		{% if imageContentNotNull %}
+		{% assign arrayUrl = a.content | split : 'src="' %}
+		{% endif %}
+		{% endif %}
+
+		{% comment %}Truyền hình vào biến imageUrl{% endcomment %}
+		{% if imageExcerptNotNull == false and imageContentNotNull == false %}
+		{% capture blog_no_image %}{{ 'blog_no_image.jpg' | asset_url }}{% endcapture %}
+		{% assign imageUrl = blog_no_image %}
+
+		{% else %}
+		{% assign imageUrl = arrayUrl[1] | split : '"'%}
+		{% if imageUrl contains '//hstatic' %}
+		{% assign imageUrl = imageUrl.first | product_img_url : 'large' %}
+		{% else %}
+		{% assign imageUrl = imageUrl.first %}
+		{% endif %}
+		{% endif %}
+		{% endif %}
+		{%if article %}
+		{%unless a.id == article.id%}
+		{% assign num_size = num_size | plus : 1 %}
+		<div class="article seller-item">
+			{% if imageUrl != '' %}
+			<div class="sellers-img">
+				<a href="{{ a.url }}" class="products-block-image content_img clearfix">
+					<img src="{{ imageUrl }}" alt="{{a.title}}"/>
+				</a>
+			</div>
+			{%endif%}
+			<div class="post-content {% if imageUrl != '' %}has-sellers-img {%else%} no-sellers-img {%endif%}">
+				<a href="{{ a.url }}">{{ a.title }}</a><span class="date"> <i class="fa fa-calendar-o"></i>{{ a.published_at | date: '%d/%m/%Y' }}</span>
+			</div>
+		</div>
+		{%endunless%}
+		{%else%}
+		{% assign num_size = num_size | plus : 1 %}
+		<div class="article seller-item">
+			{% if imageUrl != '' %}
+			<div class="sellers-img">
+				<a href="{{ a.url }}" class="products-block-image content_img clearfix">
+					<img src="{{ imageUrl }}" alt="{{a.title}}"/></a>
+			</div>
+			{%endif%}
+			<div class="post-content {% if imageUrl != '' %}has-sellers-img {%else%} no-sellers-img {%endif%}">
+				<a href="{{ a.url }}">{{ a.title }}</a><span class="date"> <i class="fa fa-calendar-o"></i>{{ a.published_at | date: '%d/%m/%Y' }}</span>
+			</div>
+		</div>
+		{%endif%}
+
+		{% if num_size >= num_of_settings %}
+		{% break %}
+		{% endif %}
+
+		{% endfor %}
+	</div>
+	<!--End: Bài viết mới nhất-->
+	{% endif %}
+
+
+
+
+</div>

@@ -1,0 +1,110 @@
+{%- if settings.en_cart_recently_viewed_show -%}
+<section class="rv-section" id="cartRVSection" style="display:none">
+  <div class="container">
+    <div class="rv__head">
+      <h2 class="rv__title">{{ settings.en_cart_recently_viewed_title | default: 'EXPLAINED' }}</h2>
+      <a href="/collections/all" class="rv__viewall">
+        View all
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="rv__wrap">
+      <button type="button" class="rv__nav rv__nav--prev" id="cartRVPrev" aria-label="Previous">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+      </button>
+      <div class="rv__track" id="cartRVTrack">
+        <div class="rv__grid" id="cartRVGrid"></div>
+      </div>
+      <button type="button" class="rv__nav rv__nav--next" id="cartRVNext" aria-label="Next">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var STORAGE_KEY = 'products_viewed';
+  var MAX_PRODUCTS = {{ settings.en_cart_recently_viewed_count | default: 8 }};
+
+  var cartHandles = [
+    {%- for item in cart.items -%}'{{ item.product.handle }}',{%- endfor -%}
+  ];
+
+  function getList() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY) || '';
+      return raw ? raw.split('##').filter(function(h) { return h && h.trim(); }) : [];
+    } catch(e) { return []; }
+  }
+
+  function initSlider() {
+    var track = document.getElementById('cartRVTrack');
+    var prev = document.getElementById('cartRVPrev');
+    var next = document.getElementById('cartRVNext');
+    if (!track) return;
+    function getStep() {
+      var card = track.querySelector('.product-card');
+      return card ? card.offsetWidth + 12 : 306;
+    }
+    function update() {
+      if (prev) prev.classList.toggle('is-hidden', track.scrollLeft <= 4);
+      if (next) next.classList.toggle('is-hidden', track.scrollLeft + track.clientWidth >= track.scrollWidth - 4);
+    }
+    if (prev) prev.addEventListener('click', function() { track.scrollBy({ left: -getStep() * 4, behavior: 'smooth' }); });
+    if (next) next.addEventListener('click', function() { track.scrollBy({ left: getStep() * 4, behavior: 'smooth' }); });
+    track.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+
+  function renderCartRV() {
+    var section = document.getElementById('cartRVSection');
+    var grid = document.getElementById('cartRVGrid');
+    if (!section || !grid) return;
+
+    var list = getList().filter(function(h) { return cartHandles.indexOf(h) === -1; });
+    if (list.length > MAX_PRODUCTS) list = list.slice(0, MAX_PRODUCTS);
+    if (list.length === 0) return;
+
+    var promises = list.map(function(handle, index) {
+      return fetch('/products/' + handle + '?view=viewed.en')
+        .then(function(r) { return r.ok ? r.text() : ''; })
+        .then(function(html) { return { index: index, html: html ? html.trim() : '' }; })
+        .catch(function() { return { index: index, html: '' }; });
+    });
+
+    Promise.all(promises).then(function(results) {
+      results.sort(function(a, b) { return a.index - b.index; });
+      var validCount = 0;
+      results.forEach(function(r) {
+        if (r.html) {
+          var tmp = document.createElement('div');
+          tmp.innerHTML = r.html;
+          var card = tmp.firstElementChild;
+          if (card) {
+            grid.appendChild(card);
+            validCount++;
+          }
+        }
+      });
+      if (validCount > 0) {
+        section.style.display = '';
+        grid.querySelectorAll('img[data-src]').forEach(function(img) {
+          img.src = img.getAttribute('data-src');
+          img.removeAttribute('data-src');
+          img.classList.remove('lazyload', 'isHideTBT');
+        });
+        initSlider();
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderCartRV);
+  } else {
+    renderCartRV();
+  }
+})();
+</script>
+{%- endif -%}

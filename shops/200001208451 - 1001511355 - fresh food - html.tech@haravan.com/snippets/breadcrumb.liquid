@@ -1,0 +1,94 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5 {%if article%}blog-breadcrumb{%endif%} ">
+	<ol class="breadcrumb breadcrumb-arrows">
+		<li><a href="/" target="_self">Trang chủ</a></li>
+		{% if template contains 'page' %}
+		<li class="active"><span>{{ page.title }}</span></li>
+		{% elseif template contains 'list-collections' %}
+		<li class="active"><span>Danh mục</span></li>
+		{% elseif template contains 'product' %}
+		{% if collection.url %}
+		{% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+
+		<li><a href="{{ url }}" target="_self">{{ collection.title }}</a></li>
+		{% endif %}
+
+		<li class="active"><span> {{ product.title }}</span></li>
+		{% elseif template contains 'collection' and collection.handle %}
+
+		<li><a href="/collections" target="_self">Danh mục</a></li>
+		{% if current_tags %}
+
+		<li class="active">Tag: "{{ current_tags.first | capitalize }}"</li>
+		{% else %}
+		{% if collection.handle == 'all' %}
+
+		<li class="active"><span>Tất cả sản phẩm</span></li>
+		{% else %}
+
+		<li class="active"><span>{{ collection.title }}</span></li>
+		{% endif %}
+		{% endif %}
+		{% elseif template contains 'search' %}
+
+		<li><span>Tìm kiếm - {{ search.terms }}</span></li>
+		{% elseif template contains 'blog' %}		
+		{% if current_tags %}
+
+		<li><a href="{{ blog.url }}">Blog - {{ blog.title }}</a></li>
+
+		<li><span>{{ current_tags | join: " + " }}</span></li>		
+		{% else %}
+
+		<li class="active"><span>Blog - {{ blog.title }}</span></li>
+		{% endif %}
+		{% elseif template contains 'article' %}
+
+		<li><a href="{{ blog.url }}">Blog - {{ blog.title }}</a></li>
+
+		<li class="active"><span>{{ article.title }}</span></li>
+		{% elseif template contains "404" %}
+
+		<li class="active">Lỗi 404</li>
+		{% elseif template contains "customers[account]" %}
+
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+		{% elseif template contains "customers[register]" %}
+
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+
+		<li class="active"><span>Ðăng ký</span></li>
+		{% elseif template contains "customers[login]" %}
+
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+
+		<li class="active"><span>Đăng nhập</span></li>
+		{% elseif template contains "customers[activate_account]" %}
+
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+
+		<li class="active"><span>Kích hoạt</span></li>
+		{% elseif template contains "customers[reset_password]" %}
+
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+
+		<li class="active"><span>Thiết lập lại mật khẩu</span></li>
+		{% elseif template contains "customers[addresses]" %}
+
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+
+		<li class="active"><span>Ðịa chỉ</span></li>
+		{% elseif template contains "customers[order]" %}
+
+		<li><a href="/account" target="_self">Tài khoản</a></li>
+
+		<li><a href="/account" target="_self">Đơn hàng:</a></li>
+		<li class="active"><span>{{ order.name }}</span></li>
+		{% elseif template contains 'cart' %}
+
+		<li class="active"><span>Giỏ hàng</span></li>
+		{% else %}
+
+		<li class="active"><span>{{ page_title }}</span></li>
+		{% endif %}
+	</ol>
+</div>

@@ -1,0 +1,16 @@
+{%- if collection.description != blank -%}
+<div class="coll__desc-wrap">
+  <div class="coll__desc-inner" id="collDescInner">
+    <div class="coll__desc-content rte">
+      {{ collection.metafields.hrvmultilang_en.description | append: '' | default: collection.description }}
+    </div>
+    <div class="coll__desc-fade" id="collDescFade" aria-hidden="true"></div>
+  </div>
+  <div class="coll__desc-toggle" id="collDescToggle">
+    <button type="button" class="coll__desc-btn" id="collDescBtn" aria-expanded="false">
+      READ MORE
+
+    </button>
+  </div>
+</div>
+{%- endif -%}

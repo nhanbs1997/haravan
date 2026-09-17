@@ -1,0 +1,28 @@
+<div class="wolf-sidebars-blog">
+	{%- if settings.aside_banner_blog_enable -%}
+	<div class="wolf-blog-banner">
+		<a href="{{ settings.aside_banner_blog_url }}" title="{{ settings.aside_banner_blog_alt }}">
+			<img class="lazyload img-fluid" data-src="{{ 'aside_banner_blog.jpg' | asset_url }}" width="{{ settings.aside_banner_blog_width }}" height="{{ settings.aside_banner_blog_height }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" alt="{{ settings.aside_banner_blog_alt }}" />
+		</a>
+	</div>
+	{%- endif -%}
+	{%- if blogs[settings.relate_blog].articles.size > 0 -%}
+	<div class="wolf-blog-promotion mt-4">
+		<h2 class="wolf-blog-promotion-title"><a href="{{ blogs[settings.relate_blog].url }}" title="{{ settings.news_relate }}">{{ settings.news_relate }}</a></h2>
+		<ul>
+			{%- for article in blogs[settings.relate_blog].articles limit: settings.number_relate_blog -%}
+			<li class="mb-2">
+				<a href="{{ article.url }}" title="{{ article.title | escape }}">
+					{%- if article.image == null -%}
+					<img width="600" height="400" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" data-src="{{ 'noimage.jpg' | asset_url }}" alt="{{ article.title | escape }}" class="lazyload img-fluid" />
+					{%- else -%}
+					<img {% if forloop.first %}width="480" height="320"{% else %}width="240" height="160"{% endif %} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" {% if forloop.first %}data-src="{{ article.image.src | img_url:'large' }}"{% else %}data-src="{{ article.image.src | img_url:'medium' }}"{% endif %} alt="{{ article.title | escape }}" class="lazyload img-fluid" />
+					{%- endif -%}
+					<h3 class="mt-2 wolf-blog-promotion-title-small line-clamp-2">{{ article.title }}</h3>
+				</a>
+			</li>
+			{%- endfor -%}
+		</ul>
+	</div>
+	{%- endif -%}
+</div>

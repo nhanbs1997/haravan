@@ -1,0 +1,5837 @@
+{
+
+"current": {
+
+
+"use_logo": true,
+
+
+"customer_layout": "theme",
+
+
+"shop_logo_color": "#0a5ec4",
+
+
+"home_slide_imgfull": "1",
+
+
+"slide_1_alt": "ALt banner 1",
+
+
+"slide_1_link": "/collections/all",
+
+
+"slide_1_btntext1": "gh",
+
+
+"slide_1_btnlink1": "/collections/all",
+
+
+"slide_1_btntext2": "",
+
+
+"slide_1_btnlink2": "/collections/all",
+
+
+"slide_2": "1",
+
+
+"slide_2_alt": "ALt banner 2",
+
+
+"slide_2_link": "/collections/all",
+
+
+"slide_2_btntext1": "",
+
+
+"slide_2_btnlink1": "/collections/all",
+
+
+"slide_2_btntext2": "",
+
+
+"slide_2_btnlink2": "/collections/all",
+
+
+"slide_3": "1",
+
+
+"slide_3_alt": "ALt banner 3",
+
+
+"slide_3_link": "/collections/all",
+
+
+"slide_3_btntext1": "",
+
+
+"slide_3_btnlink1": "/collections/all",
+
+
+"slide_3_btntext2": "",
+
+
+"slide_3_btnlink2": "/collections/all",
+
+
+"slide_4": "1",
+
+
+"slide_4_alt": "alt4",
+
+
+"slide_4_link": "/collections/all",
+
+
+"slide_4_btntext1": "",
+
+
+"slide_4_btnlink1": "/collections/all",
+
+
+"slide_4_btntext2": "",
+
+
+"slide_4_btnlink2": "/collections/all",
+
+
+"slide_1_tagline": "",
+
+
+"slide_1_title": "",
+
+
+"slide_1_subtitle": "",
+
+
+"slide_1_button": "",
+
+
+"slide_2_show": false,
+
+
+"slide_2_tagline": "",
+
+
+"slide_2_title": "",
+
+
+"slide_2_subtitle": "",
+
+
+"slide_2_button": "",
+
+
+"slide_3_show": false,
+
+
+"slide_3_tagline": "Sản phẩm khuyến mãi",
+
+
+"slide_3_title": "Siêu ưu đãi 2019",
+
+
+"slide_3_subtitle": "mua ngay nhé các bạn",
+
+
+"slide_3_button": "ggggggggg",
+
+
+"slide_4_tagline": "",
+
+
+"slide_4_title": "",
+
+
+"slide_4_subtitle": "",
+
+
+"slide_4_button": "",
+
+
+"slide_4_show": false,
+
+
+"home_slider_show": true,
+
+
+"home_collection_1_show": true,
+
+
+"home_collection_1_title": "SẢN PHẨM KHUYẾN MÃI",
+
+
+"home_collection_1_cate": "frontpage",
+
+
+"home_collection_1_limit": "9",
+
+
+"home_collection_2_show": true,
+
+
+"home_collection_2_title": "TOP SẢN PHẨM BÁN CHẠY",
+
+
+"home_collection_2_cate": "onsale",
+
+
+"home_collection_2_limit": "7",
+
+
+"home_collection_3_show": true,
+
+
+"home_collection_3_title": "FLYCAM DJI CHÍNH HÃNG",
+
+
+"home_collection_3_cate": "",
+
+
+"home_collection_3_limit": "12",
+
+
+"home_collection_1_category": "nhom-san-pham-moi-nhat",
+
+
+"home_collection_2_category": "nhom-sach",
+
+
+"home_collection_3_category": "nhom-sach",
+
+
+"home_button_title": "Xem thêm, Còn nhiều lắm!",
+
+
+"home_button_link": "/collections/all",
+
+
+"use_color_filter": false,
+
+
+"color_title": "Màu sắc",
+
+
+"use_color_filter_1": true,
+
+
+"color_name_new_1": "Tím",
+
+
+"color_code_new_1": "#eb11eb",
+
+
+"use_color_filter_2": true,
+
+
+"color_name_new_2": "Vàng",
+
+
+"color_code_new_2": "#ffff05",
+
+
+"use_color_filter_3": true,
+
+
+"color_name_new_3": "Cam",
+
+
+"color_code_new_3": "#f54105",
+
+
+"use_color_filter_4": true,
+
+
+"color_name_new_4": "Hồng",
+
+
+"color_code_new_4": "#f23895",
+
+
+"use_color_filter_5": true,
+
+
+"color_name_new_5": "Đen",
+
+
+"color_code_new_5": "#000000",
+
+
+"use_color_filter_6": true,
+
+
+"color_name_new_6": "Xám",
+
+
+"color_code_new_6": "#cccaca",
+
+
+"use_color_filter_7": true,
+
+
+"color_name_new_7": "Trắng",
+
+
+"color_code_new_7": "#fffcfc",
+
+
+"use_color_filter_8": true,
+
+
+"color_name_new_8": "Xanh dương",
+
+
+"color_code_new_8": "#1757eb",
+
+
+"use_color_filter_9": true,
+
+
+"color_name_new_9": "Xanh",
+
+
+"color_code_new_9": "#099116",
+
+
+"use_color_filter_10": true,
+
+
+"color_name_new_10": "Xanh lá",
+
+
+"color_code_new_10": "#52ff52",
+
+
+"use_color_filter_11": true,
+
+
+"color_name_new_11": "Đỏ",
+
+
+"color_code_new_11": "#ff0000",
+
+
+"use_color_filter_12": true,
+
+
+"color_name_new_12": "Bạc",
+
+
+"color_code_new_12": "#cccaca",
+
+
+"use_color_filter_13": true,
+
+
+"color_name_new_13": "Nâu",
+
+
+"color_code_new_13": "#964B00",
+
+
+"use_color_filter_14": true,
+
+
+"color_name_new_14": "Xanh nhật",
+
+
+"color_code_new_14": "#a2e5ff",
+
+
+"use_color_filter_15": true,
+
+
+"color_name_new_15": "Blue/Blue",
+
+
+"color_code_new_15": "#0196ff",
+
+
+"use_color_filter_16": true,
+
+
+"color_name_new_16": "Blue/Grey",
+
+
+"color_code_new_16": "#035080",
+
+
+"use_color_filter_17": true,
+
+
+"color_name_new_17": "Vàng Nhạt",
+
+
+"color_code_new_17": "#ffffa1",
+
+
+"use_color_filter_18": true,
+
+
+"color_name_new_18": "Blue/Black",
+
+
+"color_code_new_18": "#022d44",
+
+
+"use_color_filter_19": false,
+
+
+"color_name_new_19": "",
+
+
+"color_code_new_19": "#db999b",
+
+
+"use_color_filter_20": false,
+
+
+"color_name_new_20": "",
+
+
+"color_code_new_20": "#000000",
+
+
+"use_color_filter_21": false,
+
+
+"color_name_new_21": "",
+
+
+"color_code_new_21": "#ff0000",
+
+
+"use_color_filter_22": false,
+
+
+"color_name_new_22": "",
+
+
+"color_code_new_22": "#ffff05",
+
+
+"use_color_filter_23": false,
+
+
+"color_name_new_23": "",
+
+
+"color_code_new_23": "#f5b505",
+
+
+"use_color_filter_24": false,
+
+
+"color_name_new_24": "",
+
+
+"color_code_new_24": "#f0e4e4",
+
+
+"use_color_filter_25": false,
+
+
+"color_name_new_25": "",
+
+
+"color_code_new_25": "#a66c6c",
+
+
+"use_color_filter_26": false,
+
+
+"color_name_new_26": "",
+
+
+"color_code_new_26": "#948a8a",
+
+
+"use_color_filter_27": false,
+
+
+"color_name_new_27": "",
+
+
+"color_code_new_27": "#9e9b9b",
+
+
+"use_color_filter_28": false,
+
+
+"color_name_new_28": "",
+
+
+"color_code_new_28": "#999393",
+
+
+"use_color_filter_29": false,
+
+
+"color_name_new_29": "",
+
+
+"color_code_new_29": "#614040",
+
+
+"use_color_filter_30": false,
+
+
+"color_name_new_30": "",
+
+
+"color_code_new_30": "#d95f5f",
+
+
+"pagination_limit": "20",
+
+
+"show_collection_image": true,
+
+
+"collection_image_show": false,
+
+
+"collection_sortby": false,
+
+
+"collection_pagination_limit": "9",
+
+
+"show_google_maps": false,
+
+
+"google_maps_code": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d979.7674590336024!2d106.663591!3d10.805963300000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175293b3901e475%3A0x6198760e6f0a6646!2zMTEgTmd1eeG7hW4gVsSDbiBN4bqhaSwgUGjGsOG7nW5nIDQsIFTDom4gQsOsbmgsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaA!5e0!3m2!1svi!2s!4v1690196624753!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+
+
+"footer_address": "Tầng 4, tòa nhà Flemington, số 182, đường Lê Đại Hành, phường 15, quận 11, Tp. Hồ Chí Minh.",
+
+
+"footer_email": "hi@haravan.com",
+
+
+"footer_phone": "1900.636.099",
+
+
+"footer_time": "Thứ 2 đến Thứ 6 từ 8h đến 18h;<br> Thứ 7 và Chủ nhật từ 8h00 đến 17h00 ",
+
+
+"product_deliverly_show": true,
+
+
+"product_deliverly_1_show": false,
+
+
+"product_deliverly_1_text": "Cam kết 100% chính hãng",
+
+
+"product_deliverly_2_show": false,
+
+
+"product_deliverly_2_text": "Miễn phí giao hàng",
+
+
+"product_deliverly_3_show": true,
+
+
+"product_deliverly_3_text": "Hỗ trợ 24/7",
+
+
+"product_toolbar_show": "1",
+
+
+"product_hotline": "1900.636.099",
+
+
+"product_text": "Hỏi đáp <br> và điều khoản",
+
+
+"product_link": "/collections/all",
+
+
+"use_chatbot": false,
+
+
+"code_messenger_mb": "108520260558644",
+
+
+"footer_fanpage_show": true,
+
+
+"footer_fanpage_title": "Fanpage Facebook",
+
+
+"footer_fanpage_faceook": "https://www.facebook.com/haravan.official",
+
+
+"footer_about_show": true,
+
+
+"footer_about_title": "Về Rock Cafe",
+
+
+"footer_about_information": "",
+
+
+"footer-address": "VPĐD: 11/15 Nguyễn Văn Mại, P4, Tân Bình, Tp. Hồ Chí Minh",
+
+
+"footer-tell": "0813131080",
+
+
+"footer-fax": "1900.636.099",
+
+
+"footer-email": "rockcafe@greenhighland.vn",
+
+
+"footer_logobct_show": false,
+
+
+"footer_linklist1_show": "1",
+
+
+"footer_linklist1_title": "Hỗ trợ khách hàng",
+
+
+"footer_linklist1_menu": "left",
+
+
+"footer_main_show": true,
+
+
+"pagination_blog_limit": "4",
+
+
+"blog_pagination_limit": "4",
+
+
+"shop_text_color": "#252a2b",
+
+
+"shop_title_color": "#333333",
+
+
+"btn_bg_shop": "#ffffff",
+
+
+"shop_text_hover_color": "#3f1e0c",
+
+
+"base_font": "Spectral",
+
+
+"slide_1_show": true,
+
+
+"footer_logobct_link": "/",
+
+
+"home_categorybanner_show": true,
+
+
+"home_categorybanner_1_img.jpg": "",
+
+
+"home_categorybanner_1_alt": "",
+
+
+"home_categorybanner_1_title": "GIÀY CHÍNH HÃNG",
+
+
+"home_categorybanner_1_button": "",
+
+
+"home_categorybanner_1_link": "",
+
+
+"home_categorybanner_2_img.jpg": "",
+
+
+"home_categorybanner_2_alt": "",
+
+
+"home_categorybanner_2_title": "ÁO THỂ THAO",
+
+
+"home_categorybanner_2_button": "",
+
+
+"home_categorybanner_2_link": "",
+
+
+"home_categorybanner_3_img.jpg": "",
+
+
+"home_categorybanner_3_alt": "",
+
+
+"home_categorybanner_3_title": "BALO NAM",
+
+
+"home_categorybanner_3_button": "",
+
+
+"home_categorybanner_3_link": "",
+
+
+"categorybanner_1_alt": "",
+
+
+"categorybanner_1_title": "DJI Mavic 3 Pro",
+
+
+"categorybanner_1_button": "Xem ngay",
+
+
+"categorybanner_1_link": "/collections/all",
+
+
+"categorybanner_2_alt": "",
+
+
+"categorybanner_2_title": "DJI Mavic 3",
+
+
+"categorybanner_2_button": "Xem ngay",
+
+
+"categorybanner_2_link": "/collections/all ",
+
+
+"categorybanner_3_alt": "",
+
+
+"categorybanner_3_title": "Phantom 4 Pro V2",
+
+
+"categorybanner_3_button": "Xem ngay",
+
+
+"categorybanner_3_link": "/collections/all",
+
+
+"categorybanner_1_text": "",
+
+
+"categorybanner_2_text": "",
+
+
+"categorybanner_3_text": "",
+
+
+"home_collection_1_bannershow": true,
+
+
+"home_collection_2_bannershow": true,
+
+
+"home_collection_3_bannershow": false,
+
+
+"home_gallery_show": false,
+
+
+"home_gallery_title": "Follow us on Instagram",
+
+
+"home_gallery_link": "//www.instagram.com/instagram/",
+
+
+"gallery_item_1_show": "1",
+
+
+"gallery_item_1_img": "//file.hstatic.net/1000397797/file/ins-6_7cfc4fa10beb4123a5c5f66aad88eb71.jpg",
+
+
+"gallery_item_1_alt": "instagram",
+
+
+"gallery_item_1_link": "//www.instagram.com/instagram/",
+
+
+"gallery_item_2_show": "1",
+
+
+"gallery_item_2_img": "//file.hstatic.net/1000397797/file/ins-2_9aa30d2890fd4f138f516e0bea29bd04.jpg",
+
+
+"gallery_item_2_alt": "instagram",
+
+
+"gallery_item_2_link": "//www.instagram.com/instagram/",
+
+
+"gallery_item_3_show": "1",
+
+
+"gallery_item_3_img": "//file.hstatic.net/1000397797/file/ins-7_0719febe5e7046568861c55e8eb1d64e.jpg",
+
+
+"gallery_item_3_alt": "instagram",
+
+
+"gallery_item_3_link": "//www.instagram.com/instagram/",
+
+
+"gallery_item_4_show": "1",
+
+
+"gallery_item_4_img": "//file.hstatic.net/1000397797/file/ins-1_fac091b6d9cb48d8b0a6a914da6ee896.jpg",
+
+
+"gallery_item_4_alt": "instagram",
+
+
+"gallery_item_4_link": "//www.instagram.com/instagram/",
+
+
+"gallery_item_5_show": "1",
+
+
+"gallery_item_5_img": "//file.hstatic.net/1000397797/file/ins-4_6c54d79ceb894f07988c3611d438e799.jpg",
+
+
+"gallery_item_5_alt": "instagram",
+
+
+"gallery_item_5_link": "//www.instagram.com/instagram/",
+
+
+"gallery_item_6_show": "1",
+
+
+"gallery_item_6_img": "//file.hstatic.net/1000397797/file/ins-5_2a3b2e115bf54dfcb4ba936c50580988.jpg",
+
+
+"gallery_item_6_alt": "instagram",
+
+
+"gallery_item_6_link": "//www.instagram.com/instagram/",
+
+
+"home_gallery_icon": true,
+
+
+"show_collection_filter": true,
+
+
+"filter_title": "Bộ lọc",
+
+
+"use_vendor_filter": false,
+
+
+"vendor_title": "Nhà cung cấp",
+
+
+"vendor_limit": "8",
+
+
+"use_tag_custom_2": false,
+
+
+"tag_title_custom_2": "Kích thước",
+
+
+"enter_tag_2": "14 x 20 cm, 15 x 23 cm, 13 x 18 cm",
+
+
+"use_price_filter": false,
+
+
+"title_tag_3": "Lọc giá",
+
+
+"1_price_to": "1000000",
+
+
+"2_price_from": "1000000",
+
+
+"2_price_to": "2000000",
+
+
+"3_price_from": "2000000",
+
+
+"3_price_to": "3000000",
+
+
+"4_price_from": "3000000",
+
+
+"4_price_to": "4000000",
+
+
+"5_price_from": "4000000",
+
+
+"blogs_menu_show": false,
+
+
+"blogs_menu_title": "Danh mục bài viết",
+
+
+"blogs_menu_category": "main-menu",
+
+
+"blogs_news_show": false,
+
+
+"blogs_news_title": "Bài viêt mới nhất",
+
+
+"blogs_paralax_breadcrumb": "https://file.hstatic.net/1000397797/file/breadcrumb-min_6de21758d1ad41fbacb6983bde9bc3c0.jpg",
+
+
+"blogs_related_show": false,
+
+
+"blogs_related_title": "",
+
+
+"page_menu_show": true,
+
+
+"page_menu_title": "Danh mục ",
+
+
+"page_menu_category": "main-menu",
+
+
+"page_banner_show": true,
+
+
+"page_banner_image": "https://file.hstatic.net/1000397797/file/banner_sidebar-min_742b4a3cd73848b199de80ebc3cbdb33.jpg",
+
+
+"page_banner_alt": "RockCafe",
+
+
+"page_banner_link": "/",
+
+
+"addthis_iconList_show": true,
+
+
+"addthis_icon1_show": "1",
+
+
+"addthis_icon1_color1": "#e8434c",
+
+
+"addthis_icon1_color2": "#d61114",
+
+
+"addthis_icon1_tootlip": "Gọi ngay cho chúng tôi",
+
+
+"addthis_icon1_action": "0813131080",
+
+
+"addthis_icon2_show": false,
+
+
+"addthis_icon2_color1": "#3985f7",
+
+
+"addthis_icon2_color2": "#1272e8",
+
+
+"addthis_icon2_tootlip": "Chat với chúng tôi qua Zalo",
+
+
+"addthis_icon2_action": "https://zalo.me/0813131080",
+
+
+"addthis_icon3_show": "1",
+
+
+"addthis_icon3_color1": "#70f3ff",
+
+
+"addthis_icon3_color2": "#00dcf0",
+
+
+"addthis_icon3_tootlip": "Đăng kí thông tin và để lại lời nhắn",
+
+
+"addthis_icon3_title": "Để lại lời nhắn cho chúng tôi",
+
+
+"addthis_icon3_title2": "Đăng kí thông tin thành công",
+
+
+"addthis_icon3_content": "Cảm ơn bạn đã để lại thông tin <br> Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất\t",
+
+
+"addthis_icon4_show": "1",
+
+
+"addthis_icon4_color1": "#fecf72",
+
+
+"addthis_icon4_color2": "#ef9f00",
+
+
+"addthis_icon4_tootlip": "Xem địa chỉ công ty",
+
+
+"addthis_icon4_action": "/pages/lien-he",
+
+
+"home_groupbanner_show": false,
+
+
+"home_groupbanner_banner1_alt": "alt1",
+
+
+"home_groupbanner_banner1_url": "/collections/all",
+
+
+"home_groupbanner_banner2_alt": "alt2",
+
+
+"home_groupbanner_banner2_url": "/collections/all",
+
+
+"shop_main_color": "#3c5564",
+
+
+"home_topbar_txt": "Miễn phí vận chuyển với đơn hàng trên 1000K",
+
+
+"product_related_show": true,
+
+
+"product_related_title": "Sản phẩm liên quan",
+
+
+"product_related_limit": "4",
+
+
+"product_layout_style": "style_04",
+
+
+"share_fb_home": "https://file.hstatic.net/1000323391/file/categorybanner_3_img_d1b72f4502ba443ca1ceed7350582a62.jpg",
+
+
+"logo": "https://file.hstatic.net/1000397797/file/logo_runner_1a0390856208426e8c69a43abcd3f5d5.png",
+
+
+"favicon": "https://file.hstatic.net/1000397797/file/favicon_101dd4a6694f4d99b9e302cc4a620d68.png",
+
+
+"slideshow_1": "https://file.hstatic.net/1000397797/file/slideshow_1_32c54eb053fb4466a50d5e8ff84d315c.jpg",
+
+
+"slideshow_1_mb": "https://file.hstatic.net/1000397797/file/slideshow_1_mb_177961a3814e4ee597123b7a98021a39.jpg",
+
+
+"slideshow_2": "https://file.hstatic.net/1000397797/file/slideshow_2_461715b9b45247ac9228872d41e61fd1.jpg",
+
+
+"slideshow_2_mb": "https://file.hstatic.net/1000397797/file/slideshow_2_mb_73d44e688ca34e6d991dcaf8080ccc92.jpg",
+
+
+"slideshow_3": "https://file.hstatic.net/1000397797/file/slideshow_3_bfa826179e804c24a40b7dad70b47325.jpg",
+
+
+"slideshow_3_mb": "https://file.hstatic.net/1000397797/file/slideshow_3_mb_113cdec01fc648aa93b3a46fd02978bc.jpg",
+
+
+"slideshow_4": "https://file.hstatic.net/1000397797/file/slideshow_4_ada8f57e1c56446d9313e35ebf5f7981.jpg",
+
+
+"slideshow_4_mb": "https://file.hstatic.net/1000397797/file/slideshow_4_mb_ce3e8d324e5a4afd9bc36ca862efe43a.jpg",
+
+
+"categorybanner_1_img": "https://file.hstatic.net/1000397797/file/banner1-min_45bb4ab2ac4c4532abc0242451d8e3a6.jpg",
+
+
+"categorybanner_2_img": "https://file.hstatic.net/1000397797/file/banner2-min_fd20b6b8293c4499bbbce365c1453b8a.jpg",
+
+
+"categorybanner_3_img": "https://file.hstatic.net/1000397797/file/banner3-min_78f08b901646465591c8269d501157c9.jpg",
+
+
+"home_collection_1_banner": "https://file.hstatic.net/1000397797/file/banner-collection-1-min_e948039c85094fcdbad912af120a5d6f.jpg",
+
+
+"home_collection_2_banner": "https://file.hstatic.net/1000397797/file/banner-collection-1-min_e948039c85094fcdbad912af120a5d6f.jpg",
+
+
+"home_groupbanner_banner1": "https://file.hstatic.net/1000397797/file/banner-group-1-min_41825650865e41148213bdeac41df9fd.jpg",
+
+
+"home_groupbanner_banner2": "https://file.hstatic.net/1000397797/file/banner-group-2-min_74a9833aa54148919a4af468a7bd61ce.jpg",
+
+
+"home_collection_3_banner": "https://file.hstatic.net/1000397797/file/banner-collection-1-min_e948039c85094fcdbad912af120a5d6f.jpg",
+
+
+"logo-bct": "https://file.hstatic.net/1000397797/file/logo-bct_bc5bdfc3b8c643fd9baa9a07315eb2f6.png",
+
+
+"collection_banner": "https://file.hstatic.net/1000397797/file/home_collection_1_banner_f4ee1ae0d28a4fb4b14cc40f53455fa1.jpg",
+
+
+"google_maps_show": true,
+
+
+"contact_address": "VPĐD: 11/15 Nguyễn Văn Mại, P4, Tân Bình, Tp. Hồ Chí Minh",
+
+
+"contact_email": "rockcafe@greenhighland.vn",
+
+
+"contact_time": "Thứ 2 đến Thứ 7:  từ 8h đến 18h;<br> Thứ 7 và Chủ nhật:  từ 8h00 đến 17h00",
+
+
+"contact_phone": "0813131080",
+
+
+"blogs_pagination_limit": "4",
+
+
+"collection_filter_show": false,
+
+
+"collection_filter_title": "Bộ lọc",
+
+
+"slide_1_img": "https://file.hstatic.net/1000397797/file/slideshow_6-min_0fce35aa7c8b475b9d3c73ea17db504c.jpg",
+
+
+"slide_1_mb": "https://file.hstatic.net/1000397797/file/slideshow_1_mb-min_9c677b9dff914158827b544f20758d2d.jpg",
+
+
+"slide_2_img": "https://file.hstatic.net/1000397797/file/slideshow_pc1-min_2f9aefc3e5584be094c0780f94130d1b.jpg",
+
+
+"slide_2_mb": "https://file.hstatic.net/1000397797/file/slideshow_2_mb-min_65db0972d9f14b169c6661385585201a.jpg",
+
+
+"slide_3_img": "https://file.hstatic.net/1000397797/file/slideshow_pc3-min_920cef9b33814d4e8d9c0312da41f83f.jpg",
+
+
+"slide_3_mb": "https://file.hstatic.net/1000397797/file/slideshow_3_mb-min_3f777847dedf4c56b6bdc880ae5bf570.jpg",
+
+
+"slide_4_img": "https://file.hstatic.net/1000397797/file/slideshow_pc4-min_3becd7dedd7844cdbbf77990cd43eb72.jpg",
+
+
+"slide_4_mb": "https://file.hstatic.net/1000397797/file/slideshow_4_mb-min_af868e9c33684da1801d34bfc2e72264.jpg",
+
+
+"footer_logobct_img": "https://file.hstatic.net/1000397797/file/logo-bct-min_5c275261c7204ddf9c30a3a2eb1534e5.png",
+
+
+"product_deliverly_1_ico": "https://file.hstatic.net/1000397797/file/delivery-ico1_f26631929e1b41dab022d9960006297c.svg",
+
+
+"product_deliverly_2_ico": "https://file.hstatic.net/1000397797/file/delivery-ico2_5ea2de2f279b4dbfa10fcb9b9c448b4d.svg",
+
+
+"product_deliverly_3_ico": "https://file.hstatic.net/1000397797/file/delivery-ico3_dd589d9c49584441a9ef0c2f9300649f.svg",
+
+
+"product_coutdown_show": true,
+
+
+"product_coutdown_title": "Ưu đãi này sẽ kết thúc sau:",
+
+
+"popup_contact_show": false,
+
+
+"popup_contact_select": "popupPromotion",
+
+
+"popup_contact_banner": "https://file.hstatic.net/1000397797/file/dsdsd_1e0164271a6b431681978d30307aab08.jpg",
+
+
+"popup_contact_alt": "Các ưu đãi của chúng tôi",
+
+
+"popup_contact_link": "/collections/all",
+
+
+"popup_contact_bkg": "https://file.hstatic.net/1000397797/file/bannerpopup-runner_6f69d441149048efbce03ffb50a6b8ef.jpg",
+
+
+"popup_contact_title": "Hãy đến với chúng tôi",
+
+
+"popup_contact_content": "Chúng tôi sẽ cập nhật các chương trình khuyến mãi đến bạn.",
+
+
+"popup_contact_description_1": "Giảm giá sản phẩm",
+
+
+"popup_contact_description_2": "Sản phẩm mới",
+
+
+"popup_contact_description_3": "Sản phẩm bán chạy",
+
+
+"blogs_banner_show": true,
+
+
+"blogs_banner_paralax": "https://file.hstatic.net/1000397797/file/banner-blog_9c5324e229ac4b5ead6b86b74ec84f46.jpg",
+
+
+"popup_contact_time": "10",
+
+
+"header_home_selected": "header_style2",
+
+
+"header_01_topbar_bkg": "#cfa978",
+
+
+"header_01_topbar_text": "#ffffff",
+
+
+"header_01_color_bkg": "#ffffff",
+
+
+"header_01_color_text": "#000000",
+
+
+"header_02_topbar_bkg": "#041e42",
+
+
+"header_02_topbar_text": "#ffffff",
+
+
+"header_02_color_bkg": "#ffffff",
+
+
+"header_02_color_text": "#000000",
+
+
+"header_02_color_hover": "#e8e833",
+
+
+"header_03_topbar_bkg": "#cfa978",
+
+
+"header_03_topbar_text": "#ffffff",
+
+
+"header_03_color_bkg": "#ffffff",
+
+
+"header_03_color_text": "#000000",
+
+
+"hottline_mb": "0813131080",
+
+
+"email_mb": "rockcafe@greenhighland.vn",
+
+
+"footer_logobct_alt": "Bộ Công Thương",
+
+
+"home_collection_1_ctegory": "",
+
+
+"home_lookbooks_show": true,
+
+
+"lookbooks_one_pro_1_top": "",
+
+
+"lookbooks_one_pro_1_left": "",
+
+
+"lookbooks_one_pro_1_placement": "left",
+
+
+"lookbooks_one_pro_1_handle": "https://runner-mobile.myharavan.com/products/qua-n-short-bo-cha-y-bo-dia-hinh-cho-nam-den-vang",
+
+
+"lookbooks_one_pro_2_top": "",
+
+
+"lookbooks_one_pro_2_left": "",
+
+
+"lookbooks_one_pro_2_placement": "left",
+
+
+"lookbooks_one_pro_2_handle": "https://runner-mobile.myharavan.com/products/covent-garden-silver",
+
+
+"lookbooks_one_pro_3_top": "",
+
+
+"lookbooks_one_pro_3_left": "",
+
+
+"lookbooks_one_pro_3_placement": "left",
+
+
+"lookbooks_one_pro_3_handle": "",
+
+
+"lookbooks_one_pro_4_top": "",
+
+
+"lookbooks_one_pro_4_left": "",
+
+
+"lookbooks_one_pro_4_placement": "left",
+
+
+"lookbooks_one_pro_4_handle": "",
+
+
+"lookbooks_two_pro_1_top": "",
+
+
+"lookbooks_two_pro_1_left": "",
+
+
+"lookbooks_two_pro_1_placement": "left",
+
+
+"lookbooks_two_pro_1_handle": "",
+
+
+"lookbooks_two_pro_2_top": "",
+
+
+"lookbooks_two_pro_2_left": "",
+
+
+"lookbooks_two_pro_2_placement": "left",
+
+
+"lookbooks_two_pro_2_handle": "",
+
+
+"lookbooks_two_pro_3_top": "",
+
+
+"lookbooks_two_pro_3_left": "",
+
+
+"lookbooks_two_pro_3_placement": "left",
+
+
+"lookbooks_two_pro_3_handle": "",
+
+
+"lookbooks_two_pro_4_top": "",
+
+
+"lookbooks_two_pro_4_left": "",
+
+
+"lookbooks_two_pro_4_placement": "left",
+
+
+"lookbooks_two_pro_4_handle": "",
+
+
+"lookbooks_three_pro_1_top": "",
+
+
+"lookbooks_three_pro_1_left": "",
+
+
+"lookbooks_three_pro_1_placement": "left",
+
+
+"lookbooks_three_pro_1_handle": "",
+
+
+"lookbooks_three_pro_2_top": "",
+
+
+"lookbooks_three_pro_2_left": "",
+
+
+"lookbooks_three_pro_2_placement": "left",
+
+
+"lookbooks_three_pro_2_handle": "",
+
+
+"lookbooks_three_pro_3_top": "",
+
+
+"lookbooks_three_pro_3_left": "",
+
+
+"lookbooks_three_pro_3_placement": "left",
+
+
+"lookbooks_three_pro_3_handle": "",
+
+
+"lookbooks_three_pro_4_top": "",
+
+
+"lookbooks_three_pro_4_left": "",
+
+
+"lookbooks_three_pro_4_placement": "left",
+
+
+"lookbooks_three_pro_4_handle": "",
+
+
+"lookbooks_one_alt": "Set đồ chạy buổi sáng",
+
+
+"lookbooks_one_title": "Set đồ chạy buổi sáng",
+
+
+"lookbooks_two_alt": "",
+
+
+"lookbooks_two_title": "Set đồ chạy trail",
+
+
+"lookbooks_tthree_alt": "Set đồ chạy Ultra trail",
+
+
+"lookbooks_three_title": "Set đồ chạy Ultra trail",
+
+
+"lookbooks_prod_1_top": "39%",
+
+
+"lookbooks_prod_1_left": "57%",
+
+
+"lookbooks_prod_1_placement": "top",
+
+
+"lookbooks_prod_1_handle": "",
+
+
+"lookbooks_prod_2_top": "65%",
+
+
+"lookbooks_prod_2_left": "45%",
+
+
+"lookbooks_prod_2_placement": "bottom",
+
+
+"lookbooks_prod_2_handle": "/products/dam-bet-vai-tho-phoi-beo",
+
+
+"lookbooks_prod_3_top": "90%",
+
+
+"lookbooks_prod_3_left": "52%",
+
+
+"lookbooks_prod_3_placement": "right",
+
+
+"lookbooks_prod_3_handle": "/products/ao-thun-nu-dai-tay-hoa-tiet-phong-cach-han-quoc-thu-dong",
+
+
+"lookbooks_prod_4_top": "92%",
+
+
+"lookbooks_prod_4_left": "66%",
+
+
+"lookbooks_prod_4_placement": "top",
+
+
+"lookbooks_prod_4_handle": "/products/quan-jeans-nam-trang",
+
+
+"lookbooks_prod_1_show": false,
+
+
+"lookbooks_prod_5_top": "8%",
+
+
+"lookbooks_prod_5_left": "52%",
+
+
+"lookbooks_prod_5_placement": "bottom",
+
+
+"lookbooks_prod_5_handle": "",
+
+
+"lookbooks_prod_6_top": "22%",
+
+
+"lookbooks_prod_6_left": "64%",
+
+
+"lookbooks_prod_6_placement": "bottom",
+
+
+"lookbooks_prod_6_handle": "/products/ao-thun-ngan-tay-chay-bo-dia-hinh-cho-nam-trang-hoa-tiet-hinh-hoc",
+
+
+"lookbooks_prod_7_top": "53%",
+
+
+"lookbooks_prod_7_left": "71%",
+
+
+"lookbooks_prod_7_placement": "left",
+
+
+"lookbooks_prod_7_handle": "https://runner-mobile.myharavan.com/products/a-o-thun-dai-tay-chay-bo-run-warm-cho-nam-den",
+
+
+"lookbooks_prod_8_top": "73%",
+
+
+"lookbooks_prod_8_left": "50%",
+
+
+"lookbooks_prod_8_placement": "top",
+
+
+"lookbooks_prod_8_handle": "/products/giay-salomon-sonic-ra-pro-w",
+
+
+"lookbooks_prod_9_top": "35%",
+
+
+"lookbooks_prod_9_left": "30%",
+
+
+"lookbooks_prod_9_placement": "top",
+
+
+"lookbooks_prod_9_handle": "https://runner-mobile.myharavan.com/products/ao-the-thao-nu-salomon-agile-ss-tee-w",
+
+
+"lookbooks_prod_10_top": "21%",
+
+
+"lookbooks_prod_10_left": "48%",
+
+
+"lookbooks_prod_10_placement": "top",
+
+
+"lookbooks_prod_10_handle": "",
+
+
+"lookbooks_prod_11_top": "52%",
+
+
+"lookbooks_prod_11_left": "54%",
+
+
+"lookbooks_prod_11_placement": "top",
+
+
+"lookbooks_prod_11_handle": "https://runner-mobile.myharavan.com/products/ao-the-thao-tay-dai-nam-pulse-ls-tee",
+
+
+"lookbooks_prod_12_top": "78%",
+
+
+"lookbooks_prod_12_left": "12%",
+
+
+"lookbooks_prod_12_placement": "right",
+
+
+"lookbooks_prod_12_handle": "https://runner-mobile.myharavan.com/products/giay-salomon-sonic-ra-pro-w2",
+
+
+"lookbooks_prod_2_show": true,
+
+
+"lookbooks_prod_3_show": true,
+
+
+"lookbooks_prod_4_show": true,
+
+
+"lookbooks_prod_5_show": true,
+
+
+"lookbooks_prod_6_show": true,
+
+
+"lookbooks_prod_7_show": true,
+
+
+"lookbooks_prod_8_show": true,
+
+
+"lookbooks_prod_9_show": true,
+
+
+"lookbooks_prod_10_show": true,
+
+
+"lookbooks_prod_11_show": true,
+
+
+"lookbooks_prod_12_show": true,
+
+
+"home_lookbooks_bkg": "#f8f8f8",
+
+
+"home_lookbooks_color": "#333333",
+
+
+"home_lookbooks_head": "Lookbook 2021",
+
+
+"lookbooks_one_btn": "Mua nguyên set",
+
+
+"lookbooks_two_btn": "Mua nguyên set",
+
+
+"lookbooks_three_btn": "Mua nguyên set",
+
+
+"share_fb_home.png": "",
+
+
+"logo.png": "",
+
+
+"favicon.png": "",
+
+
+"popup_contact_banner.jpg": "",
+
+
+"popup_contact_bkg.jpg": "",
+
+
+"slide_1_img.jpg": "",
+
+
+"slide_1_mb.jpg": "",
+
+
+"slide_2_img.jpg": "",
+
+
+"slide_2_mb.jpg": "",
+
+
+"slide_3_img.jpg": "",
+
+
+"slide_3_mb.jpg": "",
+
+
+"slide_4_img.jpg": "",
+
+
+"slide_4_mb.jpg": "",
+
+
+"categorybanner_1_img.jpg": "",
+
+
+"categorybanner_2_img.jpg": "",
+
+
+"categorybanner_3_img.jpg": "",
+
+
+"home_collection_1_banner.jpg": "",
+
+
+"lookbooks_one_image.jpg": "",
+
+
+"lookbooks_two_image.jpg": "",
+
+
+"lookbooks_three_image.jpg": "",
+
+
+"home_collection_2_banner.jpg": "",
+
+
+"home_groupbanner_banner1.jpg": "",
+
+
+"home_groupbanner_banner2.jpg": "",
+
+
+"home_collection_3_banner.jpg": "",
+
+
+"gallery_item_1_img.jpg": "",
+
+
+"gallery_item_2_img.jpg": "",
+
+
+"gallery_item_3_img.jpg": "",
+
+
+"gallery_item_4_img.jpg": "",
+
+
+"gallery_item_5_img.jpg": "",
+
+
+"gallery_item_6_img.jpg": "",
+
+
+"footer_logobct_img.png": "",
+
+
+"collection_banner.jpg": "",
+
+
+"product_deliverly_1_ico.png": "",
+
+
+"product_deliverly_2_ico.png": "",
+
+
+"product_deliverly_3_ico.png": "",
+
+
+"blogs_banner_paralax.jpg": "",
+
+
+"page_banner_image.jpg": "",
+
+
+"home_topbar_btn": "Xem ngay!",
+
+
+"home_topbar_btnlink": "/collections/all",
+
+
+"header_01_topbar_btn": "#f02849",
+
+
+"header_02_topbar_btn": "#f02849",
+
+
+"header_03_topbar_btn": "#252a2b",
+
+
+"home_categorybanner_colortext": "#0023ff",
+
+
+"home_categorybanner_colorbtn": "#000000",
+
+
+"categorybanner_1_desc": "",
+
+
+"categorybanner_2_desc": "",
+
+
+"home_gallery_text": "@instagram",
+
+
+"footer_support_show": true,
+
+
+"footer_support_title": "Chăm sóc khách hàng",
+
+
+"footer_support_phone": "1900.636.099",
+
+
+"footer_support_email": "hi@haravan.com",
+
+
+"footer_support_text": "Tổng đài hỗ trợ hoạt động từ T2 đến T6",
+
+
+"footer_social_title": "Follow Us",
+
+
+"social_link_facebook": "https://www.facebook.com/RockCafeVietNam",
+
+
+"social_link_twitter": "/",
+
+
+"social_link_instagram": "/",
+
+
+"social_link_google": "/",
+
+
+"social_link_youtube": "/",
+
+
+"home_blog_show": true,
+
+
+"home_blog_title": "Bài Viết Mới Nhất",
+
+
+"home_blog_text": "",
+
+
+"home_blog_category": "news",
+
+
+"home_collection_2_subtitle": "",
+
+
+"home_collection_3_subtitle": "Giảm 30% với đơn hàng online",
+
+
+"shop_main_button": "#3f1e0c",
+
+
+"home_lookbooks_title": "Lookbook Xuân Hè 2021 ",
+
+
+"home_lookbooks_subitle": "Tận hưởng từng khoảnh khắc mùa hè qua loạt lookbook siêu mới ",
+
+
+"lookbooks_item_1_show": true,
+
+
+"lookbooks_item_1_banner.jpg": "",
+
+
+"lookbooks_item_1_collection": "hot-products",
+
+
+"lookbooks_item_1_btn": "Mua nguyên set",
+
+
+"lookbooks_item_1_dots": true,
+
+
+"lookbooks_item_2_show": false,
+
+
+"lookbooks_item_2_banner.jpg": "",
+
+
+"lookbooks_item_2_collection": "",
+
+
+"lookbooks_item_2_btn": "",
+
+
+"lookbooks_item_2_dots": false,
+
+
+"lookbooks_item_3_show": false,
+
+
+"lookbooks_item_3_banner.jpg": "",
+
+
+"lookbooks_item_3_collection": "",
+
+
+"lookbooks_item_3_btn": "",
+
+
+"lookbooks_item_3_dots": false,
+
+
+"home_bannerfull_show": true,
+
+
+"home_bannerfull_image.jpg": "",
+
+
+"home_bannerfull_alt": "Yala Style",
+
+
+"home_bannerfull_link": "/collections/all",
+
+
+"home_bannerfull.jpg": "",
+
+
+"home_newsletter_show": false,
+
+
+"home_newsletter_title": "Đăng ký nhận tin",
+
+
+"home_newsletter_subtitle": "Để cập nhật những sản phẩm mới, nhận thông tin ưu đãi đặc biệt và thông tin giảm giá khác.",
+
+
+"home_newsletter_text": "Hãy nhập email của bạn vào đây để nhận tin!",
+
+
+"home_services_show": false,
+
+
+"services_item_1_img.png": "",
+
+
+"services_item_1_title": "Sản phẩm chính hiệu",
+
+
+"services_item_1_noted": "Chất lượng thật - Giá trị thật",
+
+
+"services_item_1_txtlink": "Xem chi tiết",
+
+
+"services_item_1_link": "/pages/dieu-khoan-dich-vu",
+
+
+"services_item_2_img.png": "",
+
+
+"services_item_2_title": "14 ngày đổi trả miễn phí",
+
+
+"services_item_2_noted": "Hoàn tiền nhanh chóng",
+
+
+"services_item_2_txtlink": "Xem chi tiết ",
+
+
+"services_item_2_link": "/pages/chinh-sach-doi-tra",
+
+
+"services_item_3_img.png": "",
+
+
+"services_item_3_title": "Giao hàng nhanh chóng",
+
+
+"services_item_3_noted": "Miễn phí với đơn hàng trên 3 triệu",
+
+
+"services_item_3_txtlink": "Xem chi tiết",
+
+
+"services_item_3_link": "/pages/dieu-khoan-dich-vu",
+
+
+"home_collection_1_subtitle": "",
+
+
+"home_newsletter_bkg.jpg": "",
+
+
+"home_topbar_show": false,
+
+
+"home_topbar_1_txt": "Miễn phí vận chuyển với đơn hàng trên  \n <b> 500k </b>  ",
+
+
+"home_topbar_1_btn": "",
+
+
+"home_topbar_1_btnlink": "/",
+
+
+"home_topbar_2_txt": "Khuyến mãi khủng giảm tới  <strong> 35% </strong>  tất cả sản phẩm",
+
+
+"home_topbar_2_btn": "",
+
+
+"home_topbar_2_btnlink": "/",
+
+
+"home_topbar_3_txt": "SALE hot chào lương về - Freeship đơn 0đ\n",
+
+
+"home_topbar_3_btn": "",
+
+
+"home_topbar_3_btnlink": "/",
+
+
+"cart_total_min": "",
+
+
+"categorybanner_3_desc": "",
+
+
+"categorybanner_4_img.jpg": "",
+
+
+"categorybanner_4_text": "",
+
+
+"categorybanner_4_title": "Matrice 200 Series ",
+
+
+"categorybanner_4_desc": "",
+
+
+"categorybanner_4_button": "Xem ngay",
+
+
+"categorybanner_4_link": "/",
+
+
+"categorybanner_5_img.jpg": "",
+
+
+"categorybanner_5_title": "Sách tiếng Anh",
+
+
+"categorybanner_5_link": "/",
+
+
+"categorybanner_6_img.jpg": "",
+
+
+"categorybanner_6_title": "Best Sellers",
+
+
+"categorybanner_6_link": "",
+
+
+"home_prds_show": true,
+
+
+"home_prds_title": "Sách Khuyến Mãi",
+
+
+"home_prds_link": "/collections/all",
+
+
+"home_collection_tabs_1_title": "MAVIC 3 SERIES",
+
+
+"home_collection_tabs_1_handle": "onsale",
+
+
+"home_collection_tabs_2_show": true,
+
+
+"home_collection_tabs_2_title": "MAVIC AIR SERIES",
+
+
+"home_collection_tabs_2_handle": "hot-products",
+
+
+"home_collection_tabs_3_show": true,
+
+
+"home_collection_tabs_3_title": "PHỤ KIỆN FLYCAM",
+
+
+"home_collection_tabs_3_handle": "",
+
+
+"home_collection_tabs_4_show": true,
+
+
+"home_collection_tabs_4_title": "PHỤ KIỆN KHÁC",
+
+
+"home_collection_tabs_4_handle": "onsale",
+
+
+"home_collection_tabs_5_show": false,
+
+
+"home_collection_tabs_5_title": "",
+
+
+"home_collection_tabs_5_handle": "sach-ban-chay",
+
+
+"home_collection_tabs_6_show": true,
+
+
+"home_collection_tabs_6_title": "Mới nhất",
+
+
+"home_collection_tabs_6_handle": "moi-phat-hanh",
+
+
+"categorybanner_5_button": "Xem ngay",
+
+
+"home_prd_onsale_show": true,
+
+
+"home_prd_onsale_title": "Sách Tiếng Anh",
+
+
+"home_prd_onsale_link": "/collections/all",
+
+
+"home_collection_tabs_1_banner.jpg": "",
+
+
+"home_collection_tabs_2_banner.jpg": "",
+
+
+"home_collection_tabs_3_banner.jpg": "",
+
+
+"home_collection_tabs_4_banner.jpg": "",
+
+
+"home_categorybanner_title": "Danh Mục Nổi Bật",
+
+
+"home_categorybanne_link": "/collections/all",
+
+
+"categorybanner_1_bg": "#faf1ff",
+
+
+"categorybanner_2_bg": "#faf4eb",
+
+
+"categorybanner_3_bg": "#f4e6e5",
+
+
+"categorybanner_4_bg": "#e6f2f4",
+
+
+"categorybanner_5_bg": "#fff6f6",
+
+
+"home_categorybanner_link": "/collections/all",
+
+
+"home_coll_prd_1_show": true,
+
+
+"home_coll_prd_1_title": "Sách Mới Phát Hành",
+
+
+"home_coll_prd_1_link": "/collections/all",
+
+
+"home_coll_prd_1_handle": "moi-phat-hanh",
+
+
+"home_coll_prd_1_limit": "10",
+
+
+"home_prds_limit": "12",
+
+
+"home_coll_prd_2_show": true,
+
+
+"home_coll_prd_2_title": "Sách Mới Ra Mắt",
+
+
+"home_coll_prd_2_link": "/collections/all",
+
+
+"home_coll_prd_2_handle": "moi-phat-hanh",
+
+
+"home_coll_prd_2_limit": "6",
+
+
+"home_prds_2_show": true,
+
+
+"home_prds_2_title": "Sách Văn Học",
+
+
+"home_prds_2_link": "/collections/all",
+
+
+"home_coll_prd_2_bg": "#f8f8f8",
+
+
+"home_prds_2_limit": "6",
+
+
+"home_collection_tabs_1_show": false,
+
+
+"home_coll_prd_3_show": true,
+
+
+"home_coll_prd_3_title": "Trinh Thám",
+
+
+"home_coll_prd_3_link": "/collections/all",
+
+
+"home_coll_prd_3_handle": "moi-phat-hanh",
+
+
+"home_coll_prd_3_limit": "9",
+
+
+"home_author_show": false,
+
+
+"home_author_title": "Tác Giả Được Yêu Thích",
+
+
+"home_author__link": "/collections/all",
+
+
+"home_author_1_show": true,
+
+
+"home_author_1_img.jpg": "",
+
+
+"home_author_1_name": "Tác giả 1",
+
+
+"home_author_1_desc": " tác phẩm",
+
+
+"home_author_1_link": "/collections/all",
+
+
+"home_author_2_show": true,
+
+
+"home_author_2_img.jpg": "",
+
+
+"home_author_2_name": "Tác giả 2",
+
+
+"home_author_2_desc": "tác phẩm",
+
+
+"home_author_2_link": "/collections/all",
+
+
+"home_author_3_show": true,
+
+
+"home_author_3_img.jpg": "",
+
+
+"home_author_3_name": "Tác giả 3",
+
+
+"home_author_3_desc": "tác phẩm",
+
+
+"home_author_3_link": "",
+
+
+"home_author_4_show": true,
+
+
+"home_author_4_img.jpg": "",
+
+
+"home_author_4_name": "Tác giả 4",
+
+
+"home_author_4_desc": "tác phẩm",
+
+
+"home_author_4_link": "",
+
+
+"home_author_5_show": true,
+
+
+"home_author_5_img.jpg": "",
+
+
+"home_author_5_name": "Tác giả 5",
+
+
+"home_author_5_desc": "tác phẩm",
+
+
+"home_author_5_link": "",
+
+
+"home_author_6_show": true,
+
+
+"home_author_6_img.jpg": "",
+
+
+"home_author_6_name": "Tác giả 6",
+
+
+"home_author_6_desc": "tác phẩm",
+
+
+"home_author_6_link": "",
+
+
+"home_author_7_show": false,
+
+
+"home_author_7_img.jpg": "",
+
+
+"home_author_7_name": "",
+
+
+"home_author_7_desc": "",
+
+
+"home_author_7_link": "",
+
+
+"home_author_8_show": false,
+
+
+"home_author_8_img.jpg": "",
+
+
+"home_author_8_name": "",
+
+
+"home_author_8_desc": "",
+
+
+"home_author_8_link": "",
+
+
+"home_author_link": "/collections/all",
+
+
+"home_author_1_handle": "sach-ban-chay",
+
+
+"home_author_2_handle": "sach-ban-chay",
+
+
+"home_author_3_handle": "moi-phat-hanh",
+
+
+"home_author_4_handle": "moi-phat-hanh",
+
+
+"home_author_5_handle": "sach-ban-chay",
+
+
+"home_author_6_handle": "sach-ban-chay",
+
+
+"home_author_7_handle": "",
+
+
+"home_author_8_handle": "",
+
+
+"home_collection_tabs_1_txt": "Mới nhất",
+
+
+"home_collection_tabs_2_txt": "Bán chạy",
+
+
+"home_collection_tabs_3_txt": "Ưa thích",
+
+
+"home_collection_tabs_4_txt": "",
+
+
+"header_03_email": "hi@skyboook",
+
+
+"header_03_phone": "1900.636.099",
+
+
+"mainmenu_link": "main-menu",
+
+
+"footer_linklist2_show": true,
+
+
+"footer_linklist2_title": "Liên kết",
+
+
+"footer_linklist2_menu": "main-menu",
+
+
+"footer_linklist3_show": true,
+
+
+"footer_linklist3_title": "Chính sách",
+
+
+"footer_linklist3_menu": "footer",
+
+
+"footer_linklist4_show": true,
+
+
+"footer_linklist4_title": "Nhóm liên kết 4",
+
+
+"footer_linklist4_menu": "footer",
+
+
+"footer_about_desc": "Rock Cafe là một nhãn hàng thuộc công ty TNHH Sản xuất - Thương mại Hoa Sen Trắng, tọa lạc tại Khu vực tổ 8, đường Vườn Thuốc, ấp Cây Da, xã Tân Phú Trung, TP. Hồ Chí Minh",
+
+
+"footer_contact_title": "Nhóm liên kết 1",
+
+
+"logo-footer.png": "",
+
+
+"text_messenger_mb": "Chat với Trợ lý RockCafe",
+
+
+"sortby_title": "Sắp xếp",
+
+
+"product_viewed_show": true,
+
+
+"product_viewed_title": "Sản phẩm đã xem",
+
+
+"about01_banner_bkg.jpg": "",
+
+
+"bg_banner_services_about": "#f5f3ea",
+
+
+"border_banner_services_about": "#e9eaec",
+
+
+"about01_services_show": true,
+
+
+"about01_services_title": "Hỗ trợ khách hàng 24/7",
+
+
+"about01_services_desc": "Quý Khách hàng có ý kiến đóng góp/khiếu nại liên quan đến chất lượng sản phẩm, Quý Khách hàng vui lòng liên hệ đường dây chăm sóc khách hàng của chúng tôi.",
+
+
+"about01_services_1_show": true,
+
+
+"about01_services_1_ico.png": "",
+
+
+"about01_services_1_text": "TRẢ GÓP 0% LÃI SUẤT",
+
+
+"about01_services_1_desc": "Áp dụng dễ dàng qua thẻ tín dụng của hơn 20 ngân hàng ",
+
+
+"about01_services_2_show": true,
+
+
+"about01_services_2_ico.png": "",
+
+
+"about01_services_2_text": "GIAO HÀNG 3H",
+
+
+"about01_services_2_desc": "Sở hữu ngay món trang sức yêu thích chỉ trong vòng 3 giờ",
+
+
+"about01_services_3_show": true,
+
+
+"about01_services_3_ico.png": "",
+
+
+"about01_services_3_text": "NGƯỜI BẠN VÀNG",
+
+
+"about01_services_3_desc": "Giải pháp tài chính cầm đồ; thu mua kim cương, túi hiệu và đồng hồ cơ",
+
+
+"about02_banner_bkg.jpg": "",
+
+
+"about02_services_show": false,
+
+
+"about02_services_1_show": false,
+
+
+"about02_services_1_ico.png": "",
+
+
+"about02_services_1_text": "TRẢ GÓP 0% LÃI SUẤT",
+
+
+"about02_services_1_desc": " Áp dụng dễ dàng qua thẻ tín dụng của hơn 20 ngân hàng ",
+
+
+"about02_services_2_show": false,
+
+
+"about02_services_2_ico.png": "",
+
+
+"about02_services_2_text": "GIAO HÀNG 3H",
+
+
+"about02_services_2_desc": "Sở hữu ngay món trang sức yêu thích chỉ trong vòng 3 giờ",
+
+
+"about02_services_3_show": false,
+
+
+"about02_services_3_ico.png": "",
+
+
+"about02_services_3_text": "NGƯỜI BẠN VÀNG",
+
+
+"about02_services_3_desc": "Giải pháp tài chính cầm đồ; thu mua kim cương, túi hiệu và đồng hồ cơ",
+
+
+"about02_services_4_ico.png": "",
+
+
+"about02_services_4_text": "ƯU ĐÃI ĐẾN 2 TRIỆU",
+
+
+"about02_services_4_desc": "Đặt online - nhận ưu đãi tại showroom",
+
+
+"about02_services_4_show": false,
+
+
+"about02_alternate_show": false,
+
+
+"about02_alternate_1_show": false,
+
+
+"about02_alternate_1_img.jpg": "",
+
+
+"about02_alternate_1_title": "Tiêu đề 1",
+
+
+"about02_alternate_1_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+
+
+"about02_alternate_1_txt1": "Thông tin thêm 1",
+
+
+"about02_alternate_1_txt2": "Thông tin thêm 2",
+
+
+"about02_alternate_1_txt3": "Thông tin thêm 3",
+
+
+"about02_alternate_1_btn": "Xem chi tiết ",
+
+
+"about02_alternate_1_link": "/",
+
+
+"about02_alternate_2_show": false,
+
+
+"about02_alternate_2_img.jpg": "",
+
+
+"about02_alternate_2_title": "Tiêu đề 2",
+
+
+"about02_alternate_2_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+
+
+"about02_alternate_2_txt1": "Thông tin thêm 1",
+
+
+"about02_alternate_2_txt2": "Thông tin thêm 2",
+
+
+"about02_alternate_2_txt3": "Thông tin thêm 3",
+
+
+"about02_alternate_2_btn": "",
+
+
+"about02_alternate_2_link": "",
+
+
+"about02_infor_show": false,
+
+
+"about02_infor_title": "VỀ CHÚNG TÔI",
+
+
+"about02_infor_desc": "Vì sứ mệnh tạo nên những giá trị thương hiệu, chúng tôi đã, đang và sẽ luôn nỗ lực hết mình vì sự phát triển – khẳng định thương hiệu Việt, mang lại những giá trị lâu dài cho doanh nghiệp.<br><br>\n\nVới hệ thống phân phối trải dài từ Bắc vào Nam, sự đa dạng về chủng loại, độc đáo về kiểu dáng, dẫn đầu về xu hướng, nhiều sự lựa chọn về mức giá đã đang và sẽ chiếm được sự tin tưởng và yêu mến của khách hàng trên toàn quốc.",
+
+
+"about03_banner_bkg.jpg": "",
+
+
+"about03_introduce_show": false,
+
+
+"about03_title_text1": "Giới thiệu ",
+
+
+"about03_title_text2": "CÔNG TY  PURELY",
+
+
+"about03_title_desc": "<b>Vì sứ mệnh tạo nên những giá trị thương hiệu, chúng tôi đã, đang và sẽ luôn nỗ lực hết mình vì sự phát triển – khẳng định thương hiệu Việt, mang lại những giá trị lâu dài cho doanh nghiệp. Vì sứ mệnh tạo nên những giá trị thương hiệu, chúng tôi đã, đang và sẽ luôn nỗ lực hết mình vì sự phát triển – khẳng định thương hiệu Việt, mang lại những giá trị lâu dài cho doanh nghiệp</b><br><br>\nVì sứ mệnh tạo nên những giá trị thương hiệu, chúng tôi đã, đang và sẽ luôn nỗ lực hết mình vì sự phát triển – khẳng định thương hiệu Việt, mang lại những giá trị lâu dài cho doanh nghiệp.Vì sứ mệnh tạo nên những giá trị thương hiệu, chúng tôi đã, đang và sẽ luôn nỗ lực hết mình vì sự phát triển – khẳng định thương hiệu Việt, mang lại những giá trị lâu dài cho doanh nghiệp",
+
+
+"about03_introduce_btn": "Xem chi tiết",
+
+
+"about03_introduce_link": "/",
+
+
+"about03_image_show": true,
+
+
+"about03_img.jpg": "",
+
+
+"about03_title_desc_txt1": "Vì sứ mệnh tạo nên những giá trị thương hiệu, chúng tôi đã, đang và sẽ luôn nỗ lực hết mình vì sự phát triển – khẳng định thương hiệu Việt, mang lại những giá trị lâu dài cho doanh nghiệp.",
+
+
+"about03_story_show": false,
+
+
+"about03_story_title_1": "",
+
+
+"about03_story_title_2": "Cẩm nang",
+
+
+"about03_story_title_3": "",
+
+
+"about03_story_color_bkg": "",
+
+
+"about03_story_1_show": false,
+
+
+"about03_story_1_img.jpg": "",
+
+
+"about03_story_1_date": "01-01-2021",
+
+
+"about03_story_1_text": "Tiêu đề 1",
+
+
+"about03_story_1_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+
+
+"about03_story_2_show": false,
+
+
+"about03_story_2_img.jpg": "",
+
+
+"about03_story_2_date": "10-10-2021",
+
+
+"about03_story_2_text": "Tiêu đề 2",
+
+
+"about03_story_2_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+
+
+"about03_story_3_show": false,
+
+
+"about03_story_3_img.jpg": "",
+
+
+"about03_story_3_date": "20-10-2021",
+
+
+"about03_story_3_text": "Tiêu đề 3",
+
+
+"about03_story_3_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+
+
+"about03_story_4_show": false,
+
+
+"about03_story_4_img.jpg": "",
+
+
+"about03_story_4_date": "11-11-2021",
+
+
+"about03_story_4_text": "Tiêu đề 4",
+
+
+"about03_story_4_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+
+
+"about03_story_title": "Lịch sử hình thành",
+
+
+"about03_service_quanlity_show": false,
+
+
+"about03_service_quanlity_title_2": "Lĩnh vực hoạt động",
+
+
+"about03_service_quanlity_color_bkg": "#ee2d7a",
+
+
+"about03_service_quanlity_1_show": false,
+
+
+"about03_service_quanlity_1_img.jpg": "",
+
+
+"about03_service_quanlity_1_text": "Tiêu đề 1",
+
+
+"about03_service_quanlity_1_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, consectetur adipiscing elit consectetur adipiscing elit... ",
+
+
+"about03_service_quanlity_2_show": false,
+
+
+"about03_service_quanlity_2_img.jpg": "",
+
+
+"about03_service_quanlity_2_text": "Tiêu đề 2",
+
+
+"about03_service_quanlity_2_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+
+
+"about03_service_quanlity_3_show": false,
+
+
+"about03_service_quanlity_3_img.jpg": "",
+
+
+"about03_service_quanlity_3_text": "Tiêu đề 3",
+
+
+"about03_service_quanlity_3_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+
+
+"about03_service_quanlity_4_show": false,
+
+
+"about03_service_quanlity_4_img.jpg": "",
+
+
+"about03_service_quanlity_4_text": "Tiêu đề 4",
+
+
+"about03_service_quanlity_4_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+
+
+"about03_service_quanlity_5_show": false,
+
+
+"about03_service_quanlity_5_img.jpg": "",
+
+
+"about03_service_quanlity_5_text": "Tiêu đề 5",
+
+
+"about03_service_quanlity_5_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+
+
+"about03_service_quanlity_6_show": false,
+
+
+"about03_service_quanlity_6_img.jpg": "",
+
+
+"about03_service_quanlity_6_text": "Tiêu đề 6",
+
+
+"about03_service_quanlity_6_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
+
+
+"about03_service_quanlity_title": "Chất lượng dịch vụ",
+
+
+"about_slide_1_show": false,
+
+
+"about_slide_1_img.jpg": "",
+
+
+"about_slide_1_alt": "banner 1",
+
+
+"about_slide_2_show": false,
+
+
+"about_slide_2_img.jpg": "",
+
+
+"about_slide_2_alt": "banner 2",
+
+
+"about_slide_3_show": false,
+
+
+"about_slide_3_img.jpg": "",
+
+
+"about_slide_3_alt": "banner 3",
+
+
+"about01_infor_show": false,
+
+
+"about01_infor_title_1": "về chúng tôi",
+
+
+"about01_infor_title_2": "THƯƠNG HIỆU ROCK CAFE",
+
+
+"about01_infor_1": "Trong suốt 6 thập kỷ qua, chúng tôi luôn nỗ lực tạo dựng mối quan hệ hợp tác tốt đẹp với các đối tác trên cơ sở mang lại lợi ích song phương, không ngừng phát triển hoạt động kinh doanh của mình, mang đến cho khách hàng sản phẩm và dịch vụ với chất lượng tốt nhất.\nChúng tôi luôn chào đón tất cả các đối tác cùng chia sẻ tầm nhìn và khát khao thành công.",
+
+
+"about01_infor_2": "Đối tác tin cậy mang lại sự thịnh vượng cho doanh nghiệp của bạn.<br><br>\n\nVới hệ thống phân phối trải dài từ Bắc vào Nam, sự đa dạng về chủng loại, độc đáo về kiểu dáng, dẫn đầu về xu hướng, nhiều sự lựa chọn về mức giá đã đang và sẽ chiếm được sự tin tưởng và yêu mến của khách hàng trên toàn quốc.\n",
+
+
+"about01_introduce_2_show": true,
+
+
+"about01_title_text1": "Thông điệp từ chúng tôi",
+
+
+"about01_title_text2": "Câu chuyện thương hiệu",
+
+
+"about01_title_desc": "Để xây dựng Thương hiệu mạnh, một trong những định hướng quan trọng hàng đầu của FAHASA là chiến lược phát triển nguồn nhân lực - mấu chốt của mọi sự thành công. FAHASA có hơn 2.200 CB-CNV, trình độ chuyên môn giỏi, nhiệt tình, năng động, chuyên nghiệp. Lực lượng quản lý FAHASA có thâm niên công tác, giỏi nghiệp vụ nhiều kinh nghiệm, có khả năng quản lý tốt và điều hành đơn vị hoạt động hiệu quả.<br><br>\nThương hiệu Việt yêu thích nhất 2010 (do bạn đọc báo Sài Gòn Giải Phóng bình chọn).",
+
+
+"about01_infor_img.jpg": "",
+
+
+"shop_article_bg": "#f7fbf9",
+
+
+"shop_article_border": "#e0f1e9",
+
+
+"shop_article_link": "#333333",
+
+
+"home_collection_banner.jpg": "",
+
+
+"home_collection_txt1": "Nhập mã FREESHIP",
+
+
+"home_collection_txt2": "Ưu đãi 40% cho",
+
+
+"home_collection_txt3": "Đơn hàng từ 300k",
+
+
+"home_collection_btn": "Xem ngay",
+
+
+"home_collection_1_handle": "onsale",
+
+
+"home_coll_1_navtabs_show": true,
+
+
+"home_coll_1_navtabs_title": "BỘ SƯU TẬP MỚI",
+
+
+"home_coll_1_navtabs_link": "/collections/all",
+
+
+"home_coll_1_navtabs_limit": "8",
+
+
+"home_collection_2_handle": "hot-products",
+
+
+"home_collection_3_handle": "hot-products",
+
+
+"home_coll_2_navtabs_show": true,
+
+
+"home_coll_2_navtabs_title": "Sách Hay Mỗi Ngày",
+
+
+"home_collection_tabs_7_title": "Nổi bật",
+
+
+"home_collection_tabs_7_handle": "sach-ban-chay",
+
+
+"home_collection_tabs_8_title": "",
+
+
+"home_collection_tabs_8_handle": "",
+
+
+"home_collection_tabs_7_show": true,
+
+
+"home_collection_tabs_8_show": true,
+
+
+"home_collection_4_show": false,
+
+
+"home_collection_4_title": "Khuyến Mãi Hôm Nay",
+
+
+"home_collection_4_link": "/collections/all",
+
+
+"home_collection_4_handle": "moi-phat-hanh",
+
+
+"home_collection_4_txt1": "Ưu đãi",
+
+
+"home_collection_4_txt2": "Sale -25%",
+
+
+"home_collection_4_txt3": "Đơn hàng từ 500k",
+
+
+"home_collection_4_btn": "Xem ngay",
+
+
+"collection1_countdown_start": "2022-03-15 10:00:00",
+
+
+"collection1_countdown_end": "2022-06-30 10:00:00",
+
+
+"home_collection_1_bg": "#ff5d00",
+
+
+"home_collection_2_bg": "#fff6f6",
+
+
+"home_banner_show": false,
+
+
+"homebanner_1_img.jpg": "",
+
+
+"homebanner_1_title": "banner 1",
+
+
+"homebanner_1_link": "collections/all",
+
+
+"homebanner_2_img.jpg": "",
+
+
+"homebanner_2_title": "banner 2",
+
+
+"homebanner_2_link": "collections/all",
+
+
+"homebanner_3_img.jpg": "",
+
+
+"homebanner_3_title": "banner 3",
+
+
+"homebanner_3_link": "collections/all",
+
+
+"home_categorybanner_titlelink": "Tất cả danh mục",
+
+
+"home_collection_2_titlelink": "Xem tất cả",
+
+
+"home_collection_4_titlelink": "Xem thêm",
+
+
+"footer1-color-bg": "#fff6f6",
+
+
+"home-category-color-text": "#333333",
+
+
+"home-collection-1-bg": "#ff0000",
+
+
+"home-collection-1-color-icon": "#ffff00",
+
+
+"home-collection1-bg": "#831713",
+
+
+"home-collection1-color-icon": "#ffe501",
+
+
+"home-collection1-color-text": "#ffffff",
+
+
+"shop_main_border": "#eae4e8",
+
+
+"topbar_img.jpg": "",
+
+
+"topbar_select": "topbarTxt",
+
+
+"topbar_banner_link": "collections/all",
+
+
+"home-collection2-bg": "#adc4d2",
+
+
+"topbar_img_mb.jpg": "",
+
+
+"title_list_col": "Danh mục sản phẩm",
+
+
+"collection_sidebar": "left",
+
+
+"header_topbar_bkg": "#ffffff",
+
+
+"header_topbar_text": "#000000",
+
+
+"shop_color_bg": "#ffffff",
+
+
+"home-coll-banner-bg": "#efeae5",
+
+
+"home-coll-banner-colorText": "#333333",
+
+
+"home-collection2-title": "#ff0000",
+
+
+"footer-bg-1": "#3f1e0c",
+
+
+"footer-bg-2": "#3f1e0c",
+
+
+"footer-bg-copyright": "#351916",
+
+
+"footer-color-title": "#ffffff",
+
+
+"footer-color-text": "#ffffff",
+
+
+"footer-color-hover": "#351916",
+
+
+"home-collection3-bg": "#e9dabe",
+
+
+"home-collection3-title": "#ff0000",
+
+
+"add_to_cart_show": true,
+
+
+"promotion_hrvapp_use": true,
+
+
+"promotion_hrvapp": "appcombo",
+
+
+"appbuyxgety_icon": "https://file.hstatic.net/1000308580/file/icon-gifbox_21127e78739a40a28f058e5e123d41b1.png",
+
+
+"combo_icon": "https://file.hstatic.net/1000308580/file/icon-gifbox_21127e78739a40a28f058e5e123d41b1.png",
+
+
+"productreviews_hrvapp_use": false,
+
+
+"productreviews_hrvapp_proloop": true,
+
+
+"header_inventory_show": false,
+
+
+"header_inventory_default": false,
+
+
+"header_inventory_province": false,
+
+
+"cart_deliverytime_show": false,
+
+
+"cart_deliverytime_now": "Giao khi có hàng",
+
+
+"cart_deliverytime_1": "08:00 - 09:00",
+
+
+"cart_deliverytime_2": "09:00 - 10:00",
+
+
+"cart_deliverytime_3": "10:00 - 11:00",
+
+
+"cart_deliverytime_4": "",
+
+
+"cart_deliverytime_5": "",
+
+
+"cart_deliverytime_6": "",
+
+
+"cart_deliverytime_7": "",
+
+
+"cart_deliverytime_8": "",
+
+
+"cart_deliverytime_9": "",
+
+
+"cart_deliverytime_10": "",
+
+
+"cart_deliverytime_11": "",
+
+
+"cart_deliverytime_12": "",
+
+
+"cart_deliverytime_13": "",
+
+
+"cart_deliverytime_14": "",
+
+
+"header_inventory_bkg": "#ec5768",
+
+
+"use_frame_1": false,
+
+
+"tag_frame_1": "promotion_1",
+
+
+"frame_1": "https://file.hstatic.net/200000472671/file/frame2_8b7768d0e0644ec29d632152c004c0be.png",
+
+
+"use_frame_2": false,
+
+
+"tag_frame_2": "promotion_2",
+
+
+"frame_2": "https://file.hstatic.net/200000472671/file/frame1_5f151d3f2bce42b99a356c60c1cf7864.png",
+
+
+"use_frame_3": false,
+
+
+"tag_frame_3": "",
+
+
+"frame_3": "",
+
+
+"use_frame_4": false,
+
+
+"tag_frame_4": "",
+
+
+"frame_4": "",
+
+
+"use_frame_5": false,
+
+
+"tag_frame_5": "",
+
+
+"frame_5": "",
+
+
+"cart_txt1": "Phí vận chuyển sẽ được tính ở trang thanh toán.",
+
+
+"cart_txt2": "",
+
+
+"cart_txt3": "",
+
+
+"addtocart_color": "#ffffff",
+
+
+"addtocart_bgk": "#3f1e0c",
+
+
+"home_collection_1_titlelink": "Xem tất cả",
+
+
+"header_02_inventory_bkg": "#ffffff",
+
+
+"header_03_inventory_bkg": "#ffffff",
+
+
+"fashion01_color_bg": "#ffffff",
+
+
+"fashion01_color_main": "#f1c150",
+
+
+"fashion01_color_title": "#000000",
+
+
+"fashion01_countdown_bg": "#ff0000",
+
+
+"fashion01_coupon_bg": "#ffedf5",
+
+
+"fashion01_coupon_light": "#fa0b0b",
+
+
+"fashion01_coupon_text": "#ffffff",
+
+
+"fashion01_frame_show": false,
+
+
+"fashion01_frame_image.png": "",
+
+
+"fashion01_bannertop_show": true,
+
+
+"fashion01_bannertop_image.jpg": "",
+
+
+"fashion01_bannertop_mobile.jpg": "",
+
+
+"fashion01_bannertop_alt": "",
+
+
+"fashion01_bannerbottom_show": false,
+
+
+"fashion01_bannerbottom_image.jpg": "",
+
+
+"fashion01_bannerbottom_alt": "",
+
+
+"fashion01_headpage_title": "",
+
+
+"fashion01_countdown_start": "",
+
+
+"fashion01_countdown_end": "",
+
+
+"fashion01_collection_show": false,
+
+
+"fashion01_collection_tabs_1_title": "",
+
+
+"fashion01_collection_tabs_1_handle": "",
+
+
+"fashion01_collection_tabs_2_show": false,
+
+
+"fashion01_collection_tabs_2_title": "",
+
+
+"fashion01_collection_tabs_2_handle": "",
+
+
+"fashion01_collection_tabs_3_show": false,
+
+
+"fashion01_collection_tabs_3_title": "",
+
+
+"fashion01_collection_tabs_3_handle": "",
+
+
+"fashion01_collection_tabs_4_show": false,
+
+
+"fashion01_collection_tabs_4_title": "",
+
+
+"fashion01_collection_tabs_4_handle": "",
+
+
+"fashion01_coupon_banner_show": false,
+
+
+"fashion01_coupon_banner_img.jpg": "",
+
+
+"fashion01_coupon_banner_alt": "",
+
+
+"fashion01_coupon_1_show": false,
+
+
+"fashion01_coupon_1_title": "",
+
+
+"fashion01_coupon_1_text": "",
+
+
+"fashion01_coupon_1_date": "",
+
+
+"fashion01_coupon_1_note1": "",
+
+
+"fashion01_coupon_1_note2": "",
+
+
+"fashion01_coupon_1_note3": "",
+
+
+"fashion01_coupon_1_code": "",
+
+
+"fashion01_coupon_2_show": false,
+
+
+"fashion01_coupon_2_title": "",
+
+
+"fashion01_coupon_2_text": "",
+
+
+"fashion01_coupon_2_date": "",
+
+
+"fashion01_coupon_2_note1": "",
+
+
+"fashion01_coupon_2_note2": "",
+
+
+"fashion01_coupon_2_note3": "",
+
+
+"fashion01_coupon_2_code": "",
+
+
+"fashion01_coupon_3_show": false,
+
+
+"fashion01_coupon_3_title": "",
+
+
+"fashion01_coupon_3_text": "",
+
+
+"fashion01_coupon_3_date": "",
+
+
+"fashion01_coupon_3_note1": "",
+
+
+"fashion01_coupon_3_note2": "",
+
+
+"fashion01_coupon_3_note3": "",
+
+
+"fashion01_coupon_3_code": "",
+
+
+"fashion01_coupon_4_show": false,
+
+
+"fashion01_coupon_4_title": "",
+
+
+"fashion01_coupon_4_text": "",
+
+
+"fashion01_coupon_4_date": "",
+
+
+"fashion01_coupon_4_note1": "",
+
+
+"fashion01_coupon_4_note2": "",
+
+
+"fashion01_coupon_4_note3": "",
+
+
+"fashion01_coupon_4_code": "",
+
+
+"fashion01_services_show": false,
+
+
+"fashion01_services_1_title": "",
+
+
+"fashion01_services_1_text": "",
+
+
+"fashion01_services_1_img.png": "",
+
+
+"fashion01_services_2_title": "",
+
+
+"fashion01_services_2_text": "",
+
+
+"fashion01_services_2_img.png": "",
+
+
+"fashion01_services_3_title": "",
+
+
+"fashion01_services_3_text": "",
+
+
+"fashion01_services_3_img.png": "",
+
+
+"fashion01_services_4_title": "",
+
+
+"fashion01_services_4_text": "",
+
+
+"fashion01_services_4_img.png": "",
+
+
+"fashion01_banner_1_show": false,
+
+
+"fashion01_banner_1_image.jpg": "",
+
+
+"fashion01_banner_1_alt": "",
+
+
+"fashion01_banner_1_link": "",
+
+
+"fashion01_banner_2_show": false,
+
+
+"fashion01_banner_2_image.jpg": "",
+
+
+"fashion01_banner_2_alt": "",
+
+
+"fashion01_banner_2_link": "",
+
+
+"fashion01_banner_3_show": false,
+
+
+"fashion01_banner_3_image.jpg": "",
+
+
+"fashion01_banner_3_alt": "",
+
+
+"fashion01_banner_3_link": "",
+
+
+"fashion01_banner_4_show": false,
+
+
+"fashion01_banner_4_image.jpg": "",
+
+
+"fashion01_banner_4_alt": "",
+
+
+"fashion01_banner_4_link": "",
+
+
+"book01_color_bg": "#fafffa",
+
+
+"book01_color_main": "#f1c150",
+
+
+"book01_color_title": "#000000",
+
+
+"book01_countdown_bg": "#fa0b0b",
+
+
+"book01_coupon_bg": "#ffedf5",
+
+
+"book01_coupon_light": "#fa0b0b",
+
+
+"book01_coupon_text": "#ffffff",
+
+
+"book01_frame_show": true,
+
+
+"book01_frame_image.png": "",
+
+
+"book01_bannertop_show": true,
+
+
+"book01_bannertop_image.jpg": "",
+
+
+"book01_bannertop_mobile.jpg": "",
+
+
+"book01_bannertop_alt": "",
+
+
+"book01_bannerbottom_show": true,
+
+
+"book01_bannerbottom_image.jpg": "",
+
+
+"book01_bannerbottom_alt": "",
+
+
+"book01_headpage_title": "Ưu đãi đầu năm, Săn Deal cực bốc",
+
+
+"book01_countdown_start": " 2022-03-12 10:00:00 ",
+
+
+"book01_countdown_end": " 2022-03-22 10:00:00 ",
+
+
+"book01_collection_show": true,
+
+
+"book01_collection_tabs_1_title": "Sách văn học",
+
+
+"book01_collection_tabs_1_handle": "moi-phat-hanh",
+
+
+"book01_collection_tabs_2_show": true,
+
+
+"book01_collection_tabs_2_title": "Sách kỹ năng",
+
+
+"book01_collection_tabs_2_handle": "sach-ban-chay",
+
+
+"book01_collection_tabs_3_show": true,
+
+
+"book01_collection_tabs_3_title": "Sách kinh tế",
+
+
+"book01_collection_tabs_3_handle": "",
+
+
+"book01_collection_tabs_4_show": true,
+
+
+"book01_collection_tabs_4_title": "Sách thiếu nhi",
+
+
+"book01_collection_tabs_4_handle": "",
+
+
+"book01_coupon_banner_show": true,
+
+
+"book01_coupon_banner_img.jpg": "",
+
+
+"book01_coupon_banner_alt": "",
+
+
+"book01_coupon_1_show": true,
+
+
+"book01_coupon_1_title": "200k",
+
+
+"book01_coupon_1_text": "Cho đơn hàng từ 500k",
+
+
+"book01_coupon_1_date": "20/03/2022",
+
+
+"book01_coupon_1_note1": "Giảm 200k cho đơn hàng có giá trị từ 500k",
+
+
+"book01_coupon_1_note2": "Mỗi khách hàng được sử dụng tối đa 1 lần.",
+
+
+"book01_coupon_1_note3": "Sao chép mã và nhập mã khuyến mãi ở trang thanh toán",
+
+
+"book01_coupon_1_code": "TNQR6W66JVY3",
+
+
+"book01_coupon_2_show": true,
+
+
+"book01_coupon_2_title": "30%",
+
+
+"book01_coupon_2_text": "Cho đơn hàng từ 800k",
+
+
+"book01_coupon_2_date": "15/03/2022",
+
+
+"book01_coupon_2_note1": "Số lượng có hạn",
+
+
+"book01_coupon_2_note2": "",
+
+
+"book01_coupon_2_note3": "",
+
+
+"book01_coupon_2_code": "GDQ9CBKO34K0",
+
+
+"book01_coupon_3_show": true,
+
+
+"book01_coupon_3_title": "400k",
+
+
+"book01_coupon_3_text": "Cho đơn hàng từ 1,5 triệu",
+
+
+"book01_coupon_3_date": "20/03/20212",
+
+
+"book01_coupon_3_note1": "Giảm 400k cho đơn hàng có giá trị từ 1,5 triệu",
+
+
+"book01_coupon_3_note2": "Mã khuyến mãi có thể sử dụng chung với chương trình khuyến mãi.",
+
+
+"book01_coupon_3_note3": "Sao chép mã và nhập mã khuyến mãi ở trang thanh toán",
+
+
+"book01_coupon_3_code": "360LTHMZBJBS",
+
+
+"book01_coupon_4_show": true,
+
+
+"book01_coupon_4_title": "500K",
+
+
+"book01_coupon_4_text": "Cho đơn hàng từ 2 triệu",
+
+
+"book01_coupon_4_date": "28/03/2022",
+
+
+"book01_coupon_4_note1": "Giảm 500k cho đơn hàng có giá trị từ 2 triệu ",
+
+
+"book01_coupon_4_note2": "Không áp dụng chung với chương trình khuyến mãi khác.",
+
+
+"book01_coupon_4_note3": "Sao chép mã và nhập mã khuyến mãi ở trang thanh toán",
+
+
+"book01_coupon_4_code": "65JNWFKSBJNX",
+
+
+"book01_services_show": true,
+
+
+"book01_services_1_title": "Giao hàng nhanh chóng.",
+
+
+"book01_services_1_text": "Miễn phí với đơn hàng trên 1 triệu.",
+
+
+"book01_services_1_img.png": "",
+
+
+"book01_services_2_title": "Chính sách bảo hành",
+
+
+"book01_services_2_text": "Bảo hành 12 tháng, đổi trả 15 ngày.",
+
+
+"book01_services_2_img.png": "",
+
+
+"book01_services_3_title": "Đặt hàng trực tuyến",
+
+
+"book01_services_3_text": "Hotline : 1900.636.099",
+
+
+"book01_services_3_img.png": "",
+
+
+"book01_services_4_title": "Dịch vụ CSKH 24/7",
+
+
+"book01_services_4_text": "Với các kênh chat, email & phone",
+
+
+"book01_services_4_img.png": "",
+
+
+"book01_banner_1_show": true,
+
+
+"book01_banner_1_image.jpg": "",
+
+
+"book01_banner_1_alt": "",
+
+
+"book01_banner_1_link": "",
+
+
+"book01_banner_2_show": true,
+
+
+"book01_banner_2_image.jpg": "",
+
+
+"book01_banner_2_alt": "",
+
+
+"book01_banner_2_link": "",
+
+
+"book01_banner_3_show": true,
+
+
+"book01_banner_3_image.jpg": "",
+
+
+"book01_banner_3_alt": "",
+
+
+"book01_banner_3_link": "",
+
+
+"book01_banner_4_show": true,
+
+
+"book01_banner_4_image.jpg": "",
+
+
+"book01_banner_4_alt": "",
+
+
+"book01_banner_4_link": "",
+
+
+"ldp_addtocart_show": false,
+
+
+"book01_collection_02_show": true,
+
+
+"book01_collection_tabs_5_title": "Khuyễn mãi 30%",
+
+
+"book01_collection_tabs_5_handle": "moi-phat-hanh",
+
+
+"book01_collection_tabs_6_show": true,
+
+
+"book01_collection_tabs_6_title": "Đồng giá 99k",
+
+
+"book01_collection_tabs_6_handle": "moi-phat-hanh",
+
+
+"book01_collection_tabs_7_show": true,
+
+
+"book01_collection_tabs_7_title": "Tủ sách mới",
+
+
+"book01_collection_tabs_7_handle": "",
+
+
+"book01_collection_tabs_8_show": false,
+
+
+"book01_collection_tabs_8_title": "",
+
+
+"book01_collection_tabs_8_handle": "",
+
+
+"ldp_collection_limit": "5",
+
+
+"header_menu_03_color_bkg": "#ffffff",
+
+
+"header_menu_03_color_text": "#262626",
+
+
+"slide_home_txt1_1": "RAU VÀ TRÁI CÂY",
+
+
+"slide_home_txt2_1": "",
+
+
+"slide_home_text_1": "<p>Our personal shoppers are trained to pick the best available fruit and vegetables.</p>\n<p>\nOur team work with you in mind, as if you picked it yourself.</p>",
+
+
+"slide_home_btn_1": "Xem ngay",
+
+
+"slide_home_txt1_2": "RAU VÀ TRÁI CÂY",
+
+
+"slide_home_txt2_2": "MUA HÀNG TRỰC TUYẾN",
+
+
+"slide_home_text_2": "<p>Our personal shoppers are trained to pick the best available fruit and vegetables.</p>\n\n<p>Our team work with you in mind, as if you picked it yourself.</p>",
+
+
+"slide_home_btn_2": "Xem ngay",
+
+
+"slide_home_txt1_3": "RAU VÀ TRÁI CÂY",
+
+
+"slide_home_txt2_3": "Mua hàng trực tuyến",
+
+
+"slide_home_text_3": "<p>Our personal shoppers are trained to pick the best available fruit and vegetables.</p>\n\n<p>Our team work with you in mind, as if you picked it yourself.</p>",
+
+
+"slide_home_btn_3": "",
+
+
+"slide_home_txt1_4": "",
+
+
+"slide_home_txt2_4": "",
+
+
+"slide_home_text_4": "",
+
+
+"slide_home_btn_4": "",
+
+
+"home_categorize_show": true,
+
+
+"home_categorize_title": "Xu hướng tìm kiếm",
+
+
+"home_categorize_desc": "",
+
+
+"home_categorize_link": "/collections/all",
+
+
+"categorize_1_img.jpg": "",
+
+
+"categorize_1_title": "Mavic Mini",
+
+
+"categorize_1_link": "/",
+
+
+"categorize_2_img.jpg": "",
+
+
+"categorize_2_title": "Mavic Air 2S",
+
+
+"categorize_2_link": "/",
+
+
+"categorize_3_img.jpg": "",
+
+
+"categorize_3_title": "Mavic 3 Series",
+
+
+"categorize_3_link": "/",
+
+
+"categorize_4_img.jpg": "",
+
+
+"categorize_4_title": "Phantom Series",
+
+
+"categorize_4_link": "/",
+
+
+"categorize_5_img.jpg": "",
+
+
+"categorize_5_title": "FPV Drone",
+
+
+"categorize_5_link": "/",
+
+
+"categorize_6_img.jpg": "",
+
+
+"categorize_6_title": "Industry Drone",
+
+
+"categorize_6_link": "/",
+
+
+"categorize_7_img.jpg": "",
+
+
+"categorize_7_title": "Ronin/Handheld",
+
+
+"categorize_7_link": "/",
+
+
+"categorize_8_img.jpg": "",
+
+
+"categorize_8_title": "Trạm Sạc DD",
+
+
+"categorize_8_link": "/",
+
+
+"categorize_9_img.jpg": "",
+
+
+"categorize_9_title": "Coffee",
+
+
+"categorize_9_link": "",
+
+
+"categorize_10_img.jpg": "",
+
+
+"categorize_10_title": "Đồ uống",
+
+
+"categorize_10_link": "",
+
+
+"categorize_img.jpg": "",
+
+
+"home_coll_1_banner_show": true,
+
+
+"home_coll_1_banner.jpg": "",
+
+
+"home_coll_1_banner_title": "",
+
+
+"home_coll_1_banner_desc": "",
+
+
+"home_coll_1_banner_btn": "",
+
+
+"prod_resize_img": "105",
+
+
+"home_categorize_btn": "Xem ngay",
+
+
+"home_coupon_1_show": false,
+
+
+"home_coupon_1_title": "Miễn phí vận chuyển",
+
+
+"home_coupon_1_text": "Đơn hàng từ 300.000 đồng",
+
+
+"home_coupon_1_date": "10/04/2022",
+
+
+"home_coupon_1_note1": "Dành cho đơn hàng từ 300k",
+
+
+"home_coupon_1_note2": "Mỗi khách hàng được sử dụng tối đa 1 lần.",
+
+
+"home_coupon_1_note3": "Sao chép mã và nhập mã khuyến mãi ở trang thanh toán",
+
+
+"home_coupon_1_code": "A87TYRT55",
+
+
+"home_coupon_2_show": false,
+
+
+"home_coupon_2_title": "Giảm 20%",
+
+
+"home_coupon_2_text": "Đơn hàng từ 200k",
+
+
+"home_coupon_2_date": "05/05/2022",
+
+
+"home_coupon_2_note1": "Dành cho đơn hàng từ 200k",
+
+
+"home_coupon_2_note2": "Mỗi khách hàng được sử dụng tối đa 1 lần.",
+
+
+"home_coupon_2_note3": "Sao chép mã và nhập mã khuyến mãi ở trang thanh toán",
+
+
+"home_coupon_2_code": "QH5G8J0Y",
+
+
+"home_coupon_3_show": false,
+
+
+"home_coupon_3_title": "Giảm 50k",
+
+
+"home_coupon_3_text": "Đơn hàng từ 500k",
+
+
+"home_coupon_3_date": "10/05/2022",
+
+
+"home_coupon_3_note1": "",
+
+
+"home_coupon_3_note2": "",
+
+
+"home_coupon_3_note3": "Sao chép mã và nhập mã khuyến mãi ở trang thanh toán",
+
+
+"home_coupon_3_code": "FT45YUO8H",
+
+
+"home_coupon_1_img": "",
+
+
+"home_coupon_1_head": "",
+
+
+"home_coupon_2_img": "",
+
+
+"home_coupon_2_head": "",
+
+
+"home_coupon_3_img": "",
+
+
+"home_coupon_3_head": "",
+
+
+"home_coupon_1_img.png": "",
+
+
+"home_coupon_2_img.png": "",
+
+
+"home_coupon_3_img.png": "",
+
+
+"home-coupon-bg": "#ffffff",
+
+
+"home-coupon-highlight": "#ffffff",
+
+
+"home-coupon-text": "#333333",
+
+
+"home_coupon_4_show": false,
+
+
+"home_coupon_4_img.png": "",
+
+
+"home_coupon_4_title": "Giảm 10%",
+
+
+"home_coupon_4_text": "Đơn hàng từ 100k",
+
+
+"home_coupon_4_date": "20/05/2022",
+
+
+"home_coupon_4_note1": "Sao chép mã và nhập mã khuyến mãi ở trang thanh toán",
+
+
+"home_coupon_4_note2": "",
+
+
+"home_coupon_4_note3": "",
+
+
+"home_coupon_4_code": "A789UYT",
+
+
+"categorize_select": "bgColor",
+
+
+"home_categorize_bgColor": "#ffffff",
+
+
+"home-categorize-bg": "#dee4e9",
+
+
+"home-categorize-textColor": "#333333",
+
+
+"categorize_1_show": true,
+
+
+"categorize_2_show": true,
+
+
+"categorize_3_show": true,
+
+
+"categorize_4_show": true,
+
+
+"categorize_5_show": true,
+
+
+"categorize_6_show": true,
+
+
+"product_deliverly_title": "",
+
+
+"product_deliverly_4_show": false,
+
+
+"product_deliverly_4_ico.png": "",
+
+
+"product_deliverly_4_text": "Hoàn tiền\n111%\nnếu hàng giả",
+
+
+"product_deliverly_5_ico.png": "",
+
+
+"product_deliverly_5_text": "Mở hộp\nkiểm tra\nnhận hàng",
+
+
+"product_deliverly_6_show": true,
+
+
+"product_deliverly_6_ico.png": "",
+
+
+"product_deliverly_6_text": "Đổi trả trong\n7 ngày",
+
+
+"product_deliverly_5_show": true,
+
+
+"product_banner_show": true,
+
+
+"product_banner.jpg": "",
+
+
+"product_banner_link": "/collections/all",
+
+
+"homebanner_1_show": true,
+
+
+"homebanner_1_alt": "home banner 1",
+
+
+"homebanner_2_show": true,
+
+
+"homebanner_2_alt": "home banner 2",
+
+
+"home_collection_3_banner_show": true,
+
+
+"home_collection_3_link": "/collections/all",
+
+
+"categorize_7_show": true,
+
+
+"categorize_8_show": true,
+
+
+"about01_introduce1_show": false,
+
+
+"about01_introduce1_title1": "THÔNG ĐIỆP TỪ CHÚNG TÔI",
+
+
+"about01_introduce_desc1": "Để xây dựng Thương hiệu mạnh, một trong những định hướng quan trọng hàng đầu của FAHASA là chiến lược phát triển nguồn nhân lực - mấu chốt của mọi sự thành công. FAHASA có hơn 2.200 CB-CNV, trình độ chuyên môn giỏi, nhiệt tình, năng động, chuyên nghiệp. Lực lượng quản lý FAHASA có thâm niên công tác, giỏi nghiệp vụ nhiều kinh nghiệm, có khả năng quản lý tốt và điều hành đơn vị hoạt động hiệu quả.\n<br>\n\t\t\t\t\t\tThương hiệu Việt yêu thích nhất 2010 (do bạn đọc báo Sài Gòn Giải Phóng bình chọn).",
+
+
+"about01_introduce1_img.jpg": "",
+
+
+"about01_introduce2_show": false,
+
+
+"about01_introduce2_title1": "THÔNG ĐIỆP TỪ CHÚNG TÔI",
+
+
+"about01_introduce2_title2": "Câu chuyện thương hiệu",
+
+
+"about01_introduce2_desc": "Trong suốt 6 thập kỷ qua, chúng tôi luôn nỗ lực tạo dựng mối quan hệ hợp tác tốt đẹp với các đối tác trên cơ sở mang lại lợi ích song phương, không ngừng phát triển hoạt động kinh doanh của mình, mang đến cho khách hàng sản phẩm và dịch vụ với chất lượng tốt nhất. Chúng tôi luôn chào đón tất cả các đối tác cùng chia sẻ tầm nhìn và khát khao thành công.\n<br><br>\t\t\t\t\t\tThương hiệu Việt yêu thích nhất 2020.",
+
+
+"about01_introduce2_img.jpg": "",
+
+
+"about01_introduce1_title2": "Câu chuyện thương hiệu",
+
+
+"about01_introduce1_desc": "Trong suốt 6 thập kỷ qua, chúng tôi luôn nỗ lực tạo dựng mối quan hệ hợp tác tốt đẹp với các đối tác trên cơ sở mang lại lợi ích song phương, không ngừng phát triển hoạt động kinh doanh của mình, mang đến cho khách hàng sản phẩm và dịch vụ với chất lượng tốt nhất. Chúng tôi luôn chào đón tất cả các đối tác cùng chia sẻ tầm nhìn và khát khao thành công.\n<br><br>\t\t\t\t\t\tThương hiệu Việt yêu thích nhất 2023.",
+
+
+"about01_services_4_show": true,
+
+
+"about01_services_4_ico.png": "",
+
+
+"about01_services_4_text": "ƯU ĐÃI ĐẾN 2 TRIỆU",
+
+
+"about01_services_4_desc": "Đặt online - nhận ưu đãi tại showroom",
+
+
+"about02_information_show": true,
+
+
+"about02_information_1_show": false,
+
+
+"about02_information_1_ico.png": "",
+
+
+"about02_information_1_text": "Chúng tôi là ai?",
+
+
+"about02_information_1_desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+
+"about02_information_2_show": false,
+
+
+"about02_information_2_ico.png": "",
+
+
+"about02_information_2_text": "Sản phẩm của chúng tôi",
+
+
+"about02_information_2_desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+
+"about02_information_3_show": false,
+
+
+"about02_information_3_ico.png": "",
+
+
+"about02_information_3_text": "Chúng ta làm việc như thế nào",
+
+
+"about02_information_3_desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+
+"about02_ecosystem_img.jpg": "",
+
+
+"about02_ecosystem_1_show": false,
+
+
+"about02_ecosystem_1_ico.png": "",
+
+
+"about02_ecosystem_1_text": "100% thiên nhiên",
+
+
+"about02_ecosystem_1_desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+
+"about02_ecosystem_2_show": false,
+
+
+"about02_ecosystem_2_ico.png": "",
+
+
+"about02_ecosystem_2_text": "Hoàn toàn thủ công",
+
+
+"about02_ecosystem_2_desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+
+"about02_ecosystem_3_show": false,
+
+
+"about02_ecosystem_3_ico.png": "",
+
+
+"about02_ecosystem_3_text": "Sản phẩm được tuyển chọn",
+
+
+"about02_ecosystem_3_desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+
+"about02_ecosystem_4_show": false,
+
+
+"about02_ecosystem_4_ico.png": "",
+
+
+"about02_ecosystem_4_text": "Nông trại hiện đại",
+
+
+"about02_ecosystem_4_desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+
+"about02_ecosystem_5_show": false,
+
+
+"about02_ecosystem_5_ico.png": "",
+
+
+"about02_ecosystem_5_text": "Thực phẩm luôn tươi",
+
+
+"about02_ecosystem_5_desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+
+"about02_ecosystem_6_show": false,
+
+
+"about02_ecosystem_6_ico.png": "",
+
+
+"about02_ecosystem_6_text": "An toàn thực phẩm",
+
+
+"about02_ecosystem_6_desc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+
+
+"about02_ecosystem_title1": "CHẤT LƯỢNG CAO NHẤT",
+
+
+"about02_ecosystem_title2": "Chất lượng",
+
+
+"about02_ecosystem_show": false,
+
+
+"about02_client_img.jpg": "",
+
+
+"about02_client_1_show": false,
+
+
+"about02_client_1_img.png": "",
+
+
+"about02_client_1_name": "John Doe - Design",
+
+
+"about02_client_1_desc": "“Also Like the fact that I can pick my staples in the brown paper packs and glass containers at the zero waste section, with an idea to reduce plastic and also more convenient.”",
+
+
+"about02_client_2_show": false,
+
+
+"about02_client_2_img.png": "",
+
+
+"about02_client_2_name": "Smitha - Cunningham Store",
+
+
+"about02_client_2_desc": "“Also Like the fact that I can pick my staples in the brown paper packs and glass containers at the zero waste section, with an idea to reduce plastic and also more convenient.”",
+
+
+"about02_client_3_show": false,
+
+
+"about02_client_3_img.png": "",
+
+
+"about02_client_3_name": "",
+
+
+"about02_client_3_desc": "",
+
+
+"about02_client_4_show": false,
+
+
+"about02_client_4_img.png": "",
+
+
+"about02_client_4_name": "",
+
+
+"about02_client_4_desc": "",
+
+
+"ldpage01_bannertop_show": true,
+
+
+"ldpage01_bannertop_image.jpg": "",
+
+
+"ldpage01_bannertop_mobile.jpg": "",
+
+
+"ldpage01_bannertop_alt": "",
+
+
+"ldpage01_bannerbottom_show": true,
+
+
+"ldpage01_bannerbottom_image.jpg": "",
+
+
+"ldpage01_bannerbottom_alt": "",
+
+
+"ldpage01_headpage_title": "Mở Túi Cực Xinh, Rinh Deal Cực Đã",
+
+
+"ldpage01_countdown_start": "2026-10-10 10:00:00",
+
+
+"ldpage01_countdown_end": "2023-12-31 23:59:59",
+
+
+"ldpage01_collection_show": false,
+
+
+"ldpage01_collection_tabs_1_title": "Sản phẩm giảm 30%",
+
+
+"ldpage01_collection_tabs_1_handle": "onsale",
+
+
+"ldpage01_collection_tabs_2_show": true,
+
+
+"ldpage01_collection_tabs_2_title": "Sản phẩm giảm 50%",
+
+
+"ldpage01_collection_tabs_2_handle": "frontpage",
+
+
+"ldpage01_collection_tabs_3_show": true,
+
+
+"ldpage01_collection_tabs_3_title": "",
+
+
+"ldpage01_collection_tabs_3_handle": "kinh-thoi-trang",
+
+
+"ldpage01_collection_tabs_4_show": true,
+
+
+"ldpage01_collection_tabs_4_title": "",
+
+
+"ldpage01_collection_tabs_4_handle": "onsale",
+
+
+"ldpage01_coupon_banner_show": true,
+
+
+"ldpage01_coupon_banner_img.jpg": "",
+
+
+"ldpage01_coupon_banner_alt": "",
+
+
+"ldpage01_coupon_1_show": true,
+
+
+"ldpage01_coupon_1_title": "200K",
+
+
+"ldpage01_coupon_1_text": "Cho đơn hàng từ 500k",
+
+
+"ldpage01_coupon_1_date": "20/11/2022",
+
+
+"ldpage01_coupon_1_note1": "Giảm 200k cho đơn hàng có giá trị từ 500k ",
+
+
+"ldpage01_coupon_1_note2": "Mỗi khách hàng được sử dụng tối đa 1 lần.",
+
+
+"ldpage01_coupon_1_note3": "Sao chép mã và nhập mã khuyến mãi ở trang thanh toán",
+
+
+"ldpage01_coupon_1_code": "TNQR6W66JVY3",
+
+
+"ldpage01_coupon_2_show": true,
+
+
+"ldpage01_coupon_2_title": "10%",
+
+
+"ldpage01_coupon_2_text": "Cho đơn hàng từ 1 triệu",
+
+
+"ldpage01_coupon_2_date": "20/11/2022",
+
+
+"ldpage01_coupon_2_note1": "Giảm 10% cho đơn hàng có giá trị từ 500k  ",
+
+
+"ldpage01_coupon_2_note2": "Sao chép mã và nhập mã khuyến mãi ở trang thanh toán",
+
+
+"ldpage01_coupon_2_note3": "",
+
+
+"ldpage01_coupon_2_code": "A123DDFR",
+
+
+"ldpage01_coupon_3_show": true,
+
+
+"ldpage01_coupon_3_title": "100k",
+
+
+"ldpage01_coupon_3_text": "Giảm 100k cho đơn hàng có giá trị từ 1 triệu  ",
+
+
+"ldpage01_coupon_3_date": "20/11/2022",
+
+
+"ldpage01_coupon_3_note1": "",
+
+
+"ldpage01_coupon_3_note2": "Sao chép mã và nhập mã khuyến mãi ở trang thanh toán",
+
+
+"ldpage01_coupon_3_note3": "",
+
+
+"ldpage01_coupon_3_code": "SD45FGV",
+
+
+"ldpage01_coupon_4_show": true,
+
+
+"ldpage01_coupon_4_title": "15%",
+
+
+"ldpage01_coupon_4_text": "Giảm 15% cho đơn hàng có giá trị từ 1 triệu  ",
+
+
+"ldpage01_coupon_4_date": "20/11/2022",
+
+
+"ldpage01_coupon_4_note1": "",
+
+
+"ldpage01_coupon_4_note2": "Sao chép mã và nhập mã khuyến mãi ở trang thanh toán",
+
+
+"ldpage01_coupon_4_note3": "",
+
+
+"ldpage01_coupon_4_code": "FD2WERT",
+
+
+"ldpage01_collection_02_show": false,
+
+
+"ldpage01_collection_tabs_5_title": "Khuyến mãi đặt biệt",
+
+
+"ldpage01_collection_tabs_5_handle": "onsale",
+
+
+"ldpage01_collection_tabs_6_show": true,
+
+
+"ldpage01_collection_tabs_6_title": "Sản phẩm giảm 20%",
+
+
+"ldpage01_collection_tabs_6_handle": "onsale",
+
+
+"ldpage01_collection_tabs_7_show": true,
+
+
+"ldpage01_collection_tabs_7_title": "Sản phẩm giảm 30%",
+
+
+"ldpage01_collection_tabs_7_handle": "onsale",
+
+
+"ldpage01_collection_tabs_8_show": false,
+
+
+"ldpage01_collection_tabs_8_title": "",
+
+
+"ldpage01_collection_tabs_8_handle": "onsale",
+
+
+"ldpage01_services_show": false,
+
+
+"ldpage01_services_1_title": "Giao hàng nhanh chóng.",
+
+
+"ldpage01_services_1_text": "Miễn phí với đơn hàng trên 1 triệu.",
+
+
+"ldpage01_services_1_img.png": "",
+
+
+"ldpage01_services_2_title": "Chính sách bảo hành",
+
+
+"ldpage01_services_2_text": "Bảo hành 12 tháng, đổi trả 15 ngày.",
+
+
+"ldpage01_services_2_img.png": "",
+
+
+"ldpage01_services_3_title": "Dịch vụ CSKH 24/7",
+
+
+"ldpage01_services_3_text": "Với các kênh chat, email & phone",
+
+
+"ldpage01_services_3_img.png": "",
+
+
+"ldpage01_services_4_title": "Đặt hàng trực tuyến",
+
+
+"ldpage01_services_4_text": "Hotline : 1900.636.099",
+
+
+"ldpage01_services_4_img.png": "",
+
+
+"ldpage01_banner_1_show": true,
+
+
+"ldpage01_banner_1_image.jpg": "",
+
+
+"ldpage01_banner_1_alt": "",
+
+
+"ldpage01_banner_1_link": "",
+
+
+"ldpage01_banner_2_show": true,
+
+
+"ldpage01_banner_2_image.jpg": "",
+
+
+"ldpage01_banner_2_alt": "",
+
+
+"ldpage01_banner_2_link": "",
+
+
+"ldpage01_banner_3_show": false,
+
+
+"ldpage01_banner_3_image.jpg": "",
+
+
+"ldpage01_banner_3_alt": "",
+
+
+"ldpage01_banner_3_link": "",
+
+
+"ldpage01_banner_4_show": false,
+
+
+"ldpage01_banner_4_image.jpg": "",
+
+
+"ldpage01_banner_4_alt": "",
+
+
+"ldpage01_banner_4_link": "",
+
+
+"ldpage01_color_bg": "#F9F1E8",
+
+
+"ldpage01_color_main": "#C91B1B",
+
+
+"ldpage01_color_title": "#2F170D",
+
+
+"ldpage01_countdown_bg": "#9E1912",
+
+
+"ldpage01_coupon_bg": "#FFF1E6",
+
+
+"ldpage01_coupon_light": "#C91B1B",
+
+
+"ldpage01_coupon_text": "#ffffff",
+
+
+"ldpage01_frame_show": true,
+
+
+"ldpage01_frame_image.png": "",
+
+
+"header_03_policy_show": true,
+
+
+"header_03_policy_1_ico.png": "",
+
+
+"header_03_policy_1_text": "Đảm bảo chất lượng",
+
+
+"header_03_policy_2_ico.png": "",
+
+
+"header_03_policy_2_text": "Miễn phí vận chuyển",
+
+
+"header_03_policy_3_ico.png": "",
+
+
+"header_03_policy_3_text": "Mở hộp kiểm tra nhận hàng",
+
+
+"product-col-mobile": "col-lg-2",
+
+
+"product_grid_desktop": "grid-desk-3",
+
+
+"product_grid_mobile": "grid-mb-2",
+
+
+"home_navtabs_limit": "10",
+
+
+"home_navtabs_limit_mb": "10",
+
+
+"home_navtabs_limit_desk": "10",
+
+
+"title_review": "Nhận xét",
+
+
+"header_menu_01_color_bkg": "#ffffff",
+
+
+"header_menu_01_color_text": "#333333",
+
+
+"product_deliverly_txt1": "Chính sách bán hàng",
+
+
+"product_deliverly_txt2": "Thông tin thêm",
+
+
+"home_collection_banner_link": "/collections/all",
+
+
+"home-collection1-countdown": "#ffe501",
+
+
+"home-collection1-countdown-txt": "#000000",
+
+
+"prod_vendor_show": false,
+
+
+"ldpage01_coupon_1_txt": "Mã:",
+
+
+"ldpage01_coupon_2_txt": "Mã:",
+
+
+"ldpage01_coupon_3_txt": "Mã:",
+
+
+"ldpage01_coupon_4_txt": "Mã:",
+
+
+"coupon_select": "couponView1",
+
+
+"home-coupon-border": "#f8d0d3",
+
+
+"home_coupon_show": true,
+
+
+"product_coupon_show": false,
+
+
+"cart_coupon_show": false,
+
+
+"coupon_title": "Miễn phí giao hàng khi đơn hàng từ 300.000 ",
+
+
+"header_live_show": false,
+
+
+"header_livetxt_show": "Live stream",
+
+
+"header_live_txt": "Live stream",
+
+
+"header_live_code": "",
+
+
+"header_01_inventory_bkg": "#ffffff",
+
+
+"live_code_mb": "",
+
+
+"stores_data_link": "https://file.hstatic.net/200000515957/file/cuahang_3184ca431f54453cbec077c4d5f88616.json",
+
+
+"header_live_color": "#ff0000",
+
+
+"display_home_banner": false,
+
+
+"img_home_banner_desktop_1.jpg": "",
+
+
+"img_home_banner_mobile_1.jpg": "",
+
+
+"link_home_banner_1": "https://rockcafe.myharavan.com/collections/all",
+
+
+"title_home_banner_1": "RockCafe cho phái đẹp",
+
+
+"btn_home_banner_1": "Mua ngay",
+
+
+"img_home_banner_desktop_2.jpg": "",
+
+
+"img_home_banner_mobile_2.jpg": "",
+
+
+"link_home_banner_2": "https://rockcafe.myharavan.com/collections/all",
+
+
+"title_home_banner_2": "RockCafe cho phái mạnh",
+
+
+"btn_home_banner_2": "Mua ngay",
+
+
+"content_home_banner_1": "Cà phê dừa; Cà phê sầu riêng",
+
+
+"content_home_banner_2": "Cà phê đen đá 2 trong 1; Cà phê hòa tan 3 trong 1 hương chồn",
+
+
+"display_home_category": false,
+
+
+"title_home_category": "Purely giúp bạn thêm xinh",
+
+
+"use_item_category_1": true,
+
+
+"img_item_category_1.jpg": "",
+
+
+"link_item_category_1": "/collections/all",
+
+
+"title_item_category_1": "Trang điểm mô",
+
+
+"use_item_category_2": true,
+
+
+"img_item_category_2.jpg": "",
+
+
+"link_item_category_2": "/collections/all",
+
+
+"title_item_category_2": "Trang điểm mắt",
+
+
+"use_item_category_3": true,
+
+
+"img_item_category_3.jpg": "",
+
+
+"link_item_category_3": "/collections/all",
+
+
+"title_item_category_3": "Chống nắng",
+
+
+"use_item_category_4": true,
+
+
+"img_item_category_4.jpg": "",
+
+
+"link_item_category_4": "/collections/all",
+
+
+"title_item_category_4": "Dưỡng da mặt",
+
+
+"use_item_category_5": true,
+
+
+"img_item_category_5.jpg": "",
+
+
+"link_item_category_5": "/collections/all",
+
+
+"title_item_category_5": "Làm sạch",
+
+
+"use_item_category_6": true,
+
+
+"img_item_category_6.jpg": "",
+
+
+"link_item_category_6": "/collections/all",
+
+
+"title_item_category_6": "Dành cho nam",
+
+
+"use_item_category_7": false,
+
+
+"img_item_category_7.jpg": "",
+
+
+"link_item_category_7": "",
+
+
+"title_item_category_7": "",
+
+
+"use_item_category_8": false,
+
+
+"img_item_category_8.jpg": "",
+
+
+"link_item_category_8": "",
+
+
+"title_item_category_8": "",
+
+
+"display_home_collection_1": true,
+
+
+"title_home_collection_1": "RockCafe Độc Đáo",
+
+
+"handle_home_collection_1": "hot-products",
+
+
+"limit_home_collection_1": "3",
+
+
+"display_home_banner_bottom": false,
+
+
+"img_banner_bottom_desktop_1.jpg": "",
+
+
+"img_banner_bottom_mobile_1.jpg": "",
+
+
+"title_banner_bottom_1": "Bộ chăm sóc cơ thể",
+
+
+"des_banner_bottom_1": "Ngày nay, thế giới trang sức nam, nữ chính hãng rất đẹp, đa dạng với nhiều kiểu dáng, chất liệu khác nhau (vàng, bạc, đính đá), từ vòng tay, hoa tai, dây chuyền cho đến cả nhẫn.",
+
+
+"link_banner_bottom_1": "/collections/all",
+
+
+"btn_banner_bottom_1": "Xem ngay",
+
+
+"img_banner_bottom_desktop_2.jpg": "",
+
+
+"img_banner_bottom_mobile_2.jpg": "",
+
+
+"title_banner_bottom_2": "Dưỡng da - Chống nắng",
+
+
+"des_banner_bottom_2": "Với chất liệu làm từ thép không gỉ 316L, đi kèm với đó là lớp mạ vàng hồng thời thượng bên ngoài (tùy phiên bản), những chiếc vòng tay, lắc tay đến từ thương hiệu Daniel Wellington đã tạo nên cơn sốt không hề nhỏ trên thị trường kể từ thời điểm ra mắt.",
+
+
+"link_banner_bottom_2": "/collections/all",
+
+
+"btn_banner_bottom_2": "Xem ngay",
+
+
+"display_home_blog": false,
+
+
+"title_home_blog": "Tin tức nổi bật",
+
+
+"handle_home_blog": "news",
+
+
+"limit_home_blog": "4",
+
+
+"display_home_intro": false,
+
+
+"title_home_intro": "Về RockCafe",
+
+
+"content_home_intro": "RockCafe - Cà phê hòa tan mang trong mình tinh hoa của nghệ thuật và hương vị tuyệt vời.\nRockCafe mang trong mình tâm huyết của những người đam mê cà phê, từ cà phê Gu Việt đậm đà, cà phê Chuẩn Vị Việt tinh tế, đến cà phê vị Khói đầy mê hoặc, cà phê Dừa mềm mại, cà phê Sầu riêng đầy lôi cuốn và cà phê đen đá thơm ngon.",
+
+
+"display_home_policy": false,
+
+
+"use_item_policy_1": true,
+
+
+"img_item_policy_1.jpg": "",
+
+
+"title_item_policy_1": "Hỗ trợ 24/7",
+
+
+"des_item_policy_1": "Hotline hỗ trợ 0813131080",
+
+
+"link_item_policy_1": "/pages/about-us",
+
+
+"use_item_policy_2": false,
+
+
+"img_item_policy_2.jpg": "",
+
+
+"title_item_policy_2": "Giao hàng miễn phí",
+
+
+"des_item_policy_2": "Thời gian giao hàng nhanh chóng, từ 3 - 5 ngày làm việc",
+
+
+"link_item_policy_2": "/pages/about-us",
+
+
+"use_item_policy_3": true,
+
+
+"img_item_policy_3.jpg": "",
+
+
+"title_item_policy_3": "Thanh toán đa dạng",
+
+
+"des_item_policy_3": "Chấp nhận thanh toán COD; Chuyển khoản ngân hàng",
+
+
+"link_item_policy_3": "/pages/about-us",
+
+
+"use_item_policy_4": true,
+
+
+"img_item_policy_4.jpg": "",
+
+
+"title_item_policy_4": "Đổi trả hàng dễ dàng",
+
+
+"des_item_policy_4": "Thời gian trả hàng lên tới 7 ngày",
+
+
+"link_item_policy_4": "/pages/about-us",
+
+
+"cart_banner_image.jpg": "",
+
+
+"cart_freeship_min": "0",
+
+
+"cart_collection_show": true,
+
+
+"cart_collection_title": "Có thể bạn sẽ thích",
+
+
+"cart_collection": "rock-cafe-tinh-te",
+
+
+"display_home_collection_2": true,
+
+
+"title_home_collection_2": "RockCafe Tinh Tế",
+
+
+"handle_home_collection_2": "rock-cafe-tinh-te",
+
+
+"limit_home_collection_2": "4",
+
+
+"bg_color_style_1": "#ffffff",
+
+
+"btn_color_style_1": "#ff0000",
+
+
+"bg_color_style_2": "#f7f7f7",
+
+
+"btn_color_style_2": "#ff0000",
+
+
+"bg_color_style_3": "#ffffff",
+
+
+"btn_color_style_3": "#ff0000",
+
+
+"bg_color_style_4": "#ffffff",
+
+
+"btn_color_style_4": "#ff0000",
+
+
+"btn_hover_color_style_1": "#e70505",
+
+
+"btn_hover_color_style_2": "#e70505",
+
+
+"btn_hover_color_style_3": "#e70505",
+
+
+"btn_hover_color_style_4": "#e70505",
+
+
+"popup_discount_bkg.jpg": "",
+
+
+"popup_discount_title": "Mã giảm giá 200k",
+
+
+"popup_discount_content": "Giảm 200k cho đơn hàng có giá trị từ 1200k<br>Sao chép mã và nhập mã khuyến mãi ở trang thanh toán",
+
+
+"popup_discount_code": "C6G7TT2L05",
+
+
+"mini_cart_name": "Trở về trang sản phẩm",
+
+
+"mini_cart_linkreturn": "/collections/",
+
+
+"topbar_bottom_show": true,
+
+
+"topbar_bg": "#d0021b",
+
+
+"topbar_text_color": "#ffffff",
+
+
+"topbar_text_txt1": "Hotline: <a href=\"tel:0813131080\">0813.131.080</a> (8h - 12h, 13h30 - 17h)",
+
+
+"topbar_text_txt2": "Liên hệ",
+
+
+"topbar_text_link": "/pages/lien-he",
+
+
+"notify_title": "Thông báo của tôi",
+
+
+"notify_date_start": "10-10-2022",
+
+
+"notify_date_end": "11-15-2023",
+
+
+"notify_limit": "5",
+
+
+"collection_preorder": "dat-truoc",
+
+
+"preorder_text_btn": "ĐĂNG KÍ NHẬN THÔNG TIN KHI CÓ HÀNG",
+
+
+"preorder_text_btn_prodloop": "Hàng order",
+
+
+"preorder_text_btn_popup": "Đăng ký nhận thông tin",
+
+
+"mega_menu_1_text": "Sản phẩm",
+
+
+"mega_menu_1_img_show": true,
+
+
+"mega_menu_1_img.jpg": "",
+
+
+"mega_menu_1_link": "/collections/all",
+
+
+"mega_menu_2_text": "",
+
+
+"mega_menu_2_img_show": false,
+
+
+"mega_menu_2_img.jpg": "",
+
+
+"mega_menu_2_link": "",
+
+
+"mega_menu_3_text": "",
+
+
+"mega_menu_3_img_show": false,
+
+
+"mega_menu_3_img.jpg": "",
+
+
+"mega_menu_3_link": "",
+
+
+"mega_menu_4_text": "",
+
+
+"mega_menu_4_img_show": false,
+
+
+"mega_menu_4_img.jpg": "",
+
+
+"mega_menu_4_link": "",
+
+
+"mega_menu_5_text": "",
+
+
+"mega_menu_5_img_show": false,
+
+
+"mega_menu_5_img.jpg": "",
+
+
+"mega_menu_5_link": "",
+
+
+"mega_menu_6_text": "",
+
+
+"mega_menu_6_img_show": false,
+
+
+"mega_menu_6_img.jpg": "",
+
+
+"mega_menu_6_link": "",
+
+
+"sidebar_bottom_all_show": true,
+
+
+"sidebar_icon_home_show": true,
+
+
+"sidebar_icon_home_text": "Trang chủ",
+
+
+"sidebar_icon_cate_show": true,
+
+
+"sidebar_icon_cate_text": "Danh mục",
+
+
+"sidebar_icon_support_show": true,
+
+
+"sidebar_icon_suport_text": "Tư vấn",
+
+
+"sidebar_icon_noti_show": true,
+
+
+"sidebar_icon_noti_text": "Thông báo",
+
+
+"sidebar_icon_cart_show": true,
+
+
+"sidebar_icon_cart_text": "Giỏ hàng",
+
+
+"sidebar_icon_home_img.jpg": "",
+
+
+"sidebar_icon_cate_img.jpg": "",
+
+
+"sidebar_icon_suport_img.jpg": "",
+
+
+"sidebar_icon_noti_img.jpg": "",
+
+
+"sidebar_icon_cart_img.jpg": "",
+
+
+"display_sidebar_bottom_product": true,
+
+
+"payment_footer_title": "Phương thức thanh toán",
+
+
+"payment_1_show": false,
+
+
+"payment_1_img.png": "",
+
+
+"payment_1_alt": "zalo pay",
+
+
+"payment_2_show": false,
+
+
+"payment_2_img.png": "",
+
+
+"payment_2_alt": "onepay",
+
+
+"payment_3_show": false,
+
+
+"payment_3_img.png": "",
+
+
+"payment_3_alt": "vn-pay",
+
+
+"payment_4_show": false,
+
+
+"payment_4_img.png": "",
+
+
+"payment_4_alt": "kredivo",
+
+
+"payment_5_show": false,
+
+
+"payment_5_img.png": "",
+
+
+"payment_5_alt": "",
+
+
+"payment_6_show": false,
+
+
+"payment_6_img.png": "",
+
+
+"payment_6_alt": "",
+
+
+"shipment_footer_title": "Phương thức vận chuyển",
+
+
+"shipment_1_show": true,
+
+
+"shipment_1_img.png": "",
+
+
+"shipment_1_alt": "ghn",
+
+
+"shipment_2_show": false,
+
+
+"shipment_2_img.png": "",
+
+
+"shipment_2_alt": "ninjavan",
+
+
+"shipment_3_show": false,
+
+
+"shipment_3_img.png": "",
+
+
+"shipment_3_alt": "ahamove",
+
+
+"shipment_4_show": false,
+
+
+"shipment_4_img.png": "",
+
+
+"shipment_4_alt": "j&t",
+
+
+"shipment_5_show": false,
+
+
+"shipment_5_img.png": "",
+
+
+"shipment_5_alt": "",
+
+
+"shipment_6_show": false,
+
+
+"shipment_6_img.png": "",
+
+
+"shipment_6_alt": "",
+
+
+"ldpprod_infor_show": true,
+
+
+"ldpprod_infor_title": "Kính thời trang Prada",
+
+
+"ldpprod_infor_desc": "Prada là một nhãn hiệu thời trang của Ý chuyên về các sản phẩm cao cấp cho nam và nữ (giày dép, túi xách, phụ kiện thời trang...), nhãn hiệu Prada được thành lập bởi Mario Prada năm 1913. Prada là hãng thời trang nổi tiếng thế giới và danh giá bậc nhất nước Ý, đặc trưng với phong cách thiết kế sang trọng, cao quý và sự kết hợp các ý tưởng nghệ thuật đương đại.\nĐây là mẫu kính được nhiều bạn trẻ yêu thích bởi kiểu dáng thời trang với những đường nét tinh tế, màu sắc trẻ trung, giúp bạn trông thật nổi bật khi dạo phố cùng bạn bè",
+
+
+"ldpprod_information_1_show": true,
+
+
+"ldpprod_information_1_ico.png": "",
+
+
+"ldpprod_information_1_text": "Đặc điểm",
+
+
+"ldpprod_information_1_desc": "Kính Mát Prada SPR17W 1AB5SO Sunglasses Màu Đen  hỗ trợ bảo vệ đôi mắt người đeo trước các tia UV và giảm chói khi đeo, mang đến cảm giác êm dịu và mát mắt khi đi ngoài nắng, phù hợp đeo hàng ngày. Kích thước kính: 49mm x 20mm x145mm",
+
+
+"ldpprod_information_2_show": true,
+
+
+"ldpprod_information_2_ico.png": "",
+
+
+"ldpprod_information_2_text": "Gọng kính",
+
+
+"ldpprod_information_2_desc": "Gọng kính được làm bằng chất liệu nhựa cao cấp nên có độ bền cao, là một trong những mẫu kính mát có sự kết hợp hài hòa giữa nét đẹp cổ điển với sự trẻ trung, năng động của hiện đại, góp phần thể hiện phong cách người đeo.",
+
+
+"ldpprod_information_3_show": true,
+
+
+"ldpprod_information_3_ico.png": "",
+
+
+"ldpprod_information_3_text": "Bảo quản",
+
+
+"ldpprod_information_3_desc": "Khi không sử dụng kính nên giữ gìn trong hộp cẩn thận, không đặt úp tròng kính xuống các bề mặt. Để gọng kính không biến dạng, khi đeo và tháo kính, nên dùng 2 tay cầm 2 càng kính và kéo thẳng ra. Đối với gọng kính kim loại, nên thường xuyên kiểm tra và vặn chặt ốc vít giữ tròng kính ở gọng.",
+
+
+"ldpprod_ecosystem_show": true,
+
+
+"ldpprod_ecosystem_title1": "PHỐI ĐỒ VỚI PRADA",
+
+
+"ldpprod_ecosystem_title2": "The swan",
+
+
+"ldpprod_ecosystem_img.jpg": "",
+
+
+"ldpprod_ecosystem_1_show": true,
+
+
+"ldpprod_ecosystem_1_ico.png": "",
+
+
+"ldpprod_ecosystem_1_text": "Tiêu đề 1",
+
+
+"ldpprod_ecosystem_1_desc": "Lorem ipsum dolor sit amet. Et voluptas optio sit officiis aliquid sit atque fuga est porro veritatis et quia quidem hic voluptatem sint est nihil praesentium. A incidunt nobis et voluptatem galisum cum quos molestiae A incidunt nobis et voluptatem galisum cum quos molestiae voluptatem galisum cum quos molestiae veritatis et quia quidem hic voluptatem sint est nihil praesentium ",
+
+
+"ldpprod_ecosystem_2_show": true,
+
+
+"ldpprod_ecosystem_2_ico.png": "",
+
+
+"ldpprod_ecosystem_2_text": "Tiêu đề 2",
+
+
+"ldpprod_ecosystem_2_desc": "Lorem ipsum dolor sit amet. Et voluptas optio sit officiis aliquid sit atque fuga est porro veritatis et quia quidem hic voluptatem sint est nihil praesentium. A incidunt nobis et voluptatem galisum cum quos molestiae A incidunt nobis et voluptatem galisum cum quos molestiae voluptatem galisum cum quos molestiae veritatis et quia quidem hic voluptatem sint est nihil praesentium ",
+
+
+"ldpprod_ecosystem_3_show": true,
+
+
+"ldpprod_ecosystem_3_ico.png": "",
+
+
+"ldpprod_ecosystem_3_text": "Tiêu đề 3",
+
+
+"ldpprod_ecosystem_3_desc": "Lorem ipsum dolor sit amet. Et voluptas optio sit officiis aliquid sit atque fuga est porro veritatis et quia quidem hic voluptatem sint est nihil praesentium. A incidunt nobis et voluptatem galisum cum quos molestiae A incidunt nobis et voluptatem galisum cum quos molestiae voluptatem galisum cum quos molestiae  veritatis et quia quidem hic voluptatem sint est nihil praesentium",
+
+
+"ldpprod_ecosystem_4_show": true,
+
+
+"ldpprod_ecosystem_4_ico.png": "",
+
+
+"ldpprod_ecosystem_4_text": "Tiêu đề 4",
+
+
+"ldpprod_ecosystem_4_desc": "Lorem ipsum dolor sit amet. Et voluptas optio sit officiis aliquid sit atque fuga est porro veritatis et quia quidem hic voluptatem sint est nihil praesentium. A incidunt nobis et voluptatem galisum cum quos molestiae A incidunt nobis et voluptatem galisum cum quos molestiae voluptatem galisum cum quos molestiae  veritatis et quia quidem hic voluptatem sint est nihil praesentium",
+
+
+"ldpprod_ecosystem_5_show": true,
+
+
+"ldpprod_ecosystem_5_ico.png": "",
+
+
+"ldpprod_ecosystem_5_text": "Tiêu đề 5",
+
+
+"ldpprod_ecosystem_5_desc": "Lorem ipsum dolor sit amet. Et voluptas optio sit officiis aliquid sit atque fuga est porro veritatis et quia quidem hic voluptatem sint est nihil praesentium. A incidunt nobis et voluptatem galisum cum quos molestiae A incidunt nobis et voluptatem galisum cum quos molestiae voluptatem galisum cum quos molestiae  veritatis et quia quidem hic voluptatem sint est nihil praesentium",
+
+
+"ldpprod_ecosystem_6_show": true,
+
+
+"ldpprod_ecosystem_6_ico.png": "",
+
+
+"ldpprod_ecosystem_6_text": "Tiêu đề 6",
+
+
+"ldpprod_ecosystem_6_desc": "Lorem ipsum dolor sit amet. Et voluptas optio sit officiis aliquid sit atque fuga est porro veritatis et quia quidem hic voluptatem sint est nihil praesentium. A incidunt nobis et voluptatem galisum cum quos molestiae A incidunt nobis et voluptatem galisum cum quos molestiae voluptatem galisum cum quos molestiae  veritatis et quia quidem hic voluptatem sint est nihil praesentium",
+
+
+"faqs_1_title": "Làm thế nào để tôi đặt hàng online?",
+
+
+"faqs_1_desc": "RockCafe rất vui lòng hỗ trợ quý khách đặt hàng online bằng một trong những cách đặt hàng sau:\n<br>\n- Truy cập trang website: https://rockcafe.vn\n<br>\n- Liên hệ số hotline: 0813 13 1080 để đặt sản phẩm\n<br>\n- Chat với tư vấn viên trên fanpage / zalo",
+
+
+"faqs_2_title": "Nếu tôi đặt hàng trực tuyến có những rủi ro gì không?",
+
+
+"faqs_2_desc": "Với RockCafe, khách hàng không phải lo lắng, vì chúng tôi cam kết cung cấp sản phẩm chất lượng tốt, giá cả phải chăng. Đặc biệt, quý khách sẽ nhận được sản phẩm và thanh toán cùng một thời điểm.",
+
+
+"faqs_3_title": "Nếu tôi mua sản phẩm với số lượng nhiều thì giá có được giảm không?",
+
+
+"faqs_3_desc": "Khi mua hàng với số lượng nhiều quý khách sẽ được hưởng chế độ ưu đãi, giảm giá ngay tại thời điểm mua hàng. \n<br>\nQuý khách vui lòng liên hệ nhân viên bán hàng để được hỗ trợ trực tiếp qua số điện thoại: 0813 13 1080",
+
+
+"faqs_4_title": "Quy đinh hoàn trả và đổi sản phẩm của RockCafe như thế nào?",
+
+
+"faqs_4_desc": "Quý khách vui lòng tham khảo chính sách đổi trả sản phẩm của RockCafe để được cung cấp thông tin đầy đủ và chi tiết nhất.\n<br>\nLưu ý: điều kiện đổi trả được thực hiện trong vòng 7 ngày kể từ ngày nhận hàng và hàng hoá đảm bảo còn giữ nguyên tem nhãn sản phẩm. (chưa qua sử dụng)",
+
+
+"faqs_5_title": "Tôi mua hàng rồi, không vừa ý có thể đổi lại hay không? ",
+
+
+"faqs_5_desc": "Khi mua hàng nếu quý khách không vừa ý với sản phẩm, hãy cho RockCafe được biết, chúng tôi sẽ đổi ngay sản phẩm cho khách hàng. Chỉ cần đảm bảo sản phẩm chưa qua sử dụng, còn nguyên tem nhãn. Chúng tôi sẽ hỗ trợ đổi cho quý khách.",
+
+
+"faqs_6_title": "Tôi đã chọn hình thức thanh toán COD, nhưng khi hàng tới nơi, tôi không muốn lấy có được không?",
+
+
+"faqs_6_desc": "RockCafe sẵn sàng nhận lại hàng và mong nhận được phản hồi từ quý khách.",
+
+
+"faqs_7_title": "Tôi phải trả phí vận chuyển tận nơi như thế nào?",
+
+
+"faqs_7_desc": "Quý khách sẽ được miễn phí 100% cước vận chuyển trong nước với đơn hàng trị giá trên 500.000 đồng.",
+
+
+"faqs_8_title": "Tôi có được đổi sản phẩm mới hoặc hoàn trả tiền không?",
+
+
+"faqs_8_desc": "Khi hàng hoá thoả điều kiện đổi/ trả, quý khách sẽ được đổi trả và hoàn tiền trong trường hợp trả hàng hoặc đổi hàng có giá trị thấp hơn",
+
+
+"faqs_9_title": "Nếu đổi trả tôi không mang theo hoá đơn và phiếu thông tin sản phẩm thì có được đổi trả không? ",
+
+
+"faqs_9_desc": "Trường hợp, quý khách  không có hóa đơn hoặc phiếu thông tin sản phẩm, RockCafe vẫn linh động đổi hoặc trả sản phẩm thông qua số điện thoại mà quý khách đã cung cấp lúc mua hàng.\n<br>\nQuý khách vui lòng cung cấp số điện thoại cho nhân viên bán hàng để đối soát lại với hệ thống để được hỗ trợ nhanh chóng. ",
+
+
+"faqs_10_title": "Khi đặt hàng online, tôi phải thanh toán như thế nào?",
+
+
+"faqs_10_desc": "RockCafe cung cấp đến quý khách các hình thức thanh toán linh hoạt như:\n<br>\n- COD: Thanh toán trực tiếp khi nhận hàng.\n<br>\n- Chuyển khoản theo các số tài khoản sau:\n<br>\nTên tài khoản: CÔNG TY TNHH SẢN XUẤT - THƯƠNG MẠI HOA SEN TRẮNG\n<br>\n+ Số TK: 1 1 0 6 0 0 3 3 8 3 6 8 - TMCP Công Thương Việt Nam (Vietinbank) - Chi nhánh Thủ Đức\n<br>\n+ Số TK: 1 2 6 6 9 3 5 0 9 - TMCP Á Châu (ACB) - Chi nhánh Ông Ích Khiêm (PGD Lê Đại Hành)\n<br>\n+ Số TK: 0 6 0 0 0 7 0 2 6 8 0 6 - TMCP Sài Gòn Thương Tín (Sacombank) - Chi nhánh Củ Chi\n<br>\n+ Số TK: 0 1 7 9 7 9 - TMCP Nam Á, Thuận An, Bình Dương",
+
+
+"product_faq_show": true,
+
+
+"product_faq_title": "Câu hỏi thường gặp",
+
+
+"title_product_btn_bottom": "",
+
+
+"link_product_btn_bottom": "https://m.me/108520260558644",
+
+
+"combo_icon_qickview": "https://file.hstatic.net/200000680615/file/gift-filled_6a49965edcf8423fb69651de10fefc1f.png",
+
+
+"combo_text_qickview": "Thường được mua cùng",
+
+
+"tagsize_show": false,
+
+
+"tagsize_title": "Hưỡng dẫn chọn size",
+
+
+"tagsize_1_tag": "size_ao",
+
+
+"tagsize_1_img.jpg": "",
+
+
+"tagsize_1_text": "",
+
+
+"tagsize_2_tag": "",
+
+
+"tagsize_2_img.jpg": "",
+
+
+"tagsize_2_text": "",
+
+
+"tagsize_3_tag": "",
+
+
+"tagsize_3_img.jpg": "",
+
+
+"tagsize_3_text": "",
+
+
+"tagsize_4_tag": "",
+
+
+"tagsize_4_img.jpg": "",
+
+
+"tagsize_4_text": "",
+
+
+"toolbar_bottom_style": "style_02",
+
+
+"prod_variant_show": false,
+
+
+"toolbar_bottom_selected": "toolbar_style_2",
+
+
+"toolbar_icon_zalo_bg": "#1272e8",
+
+
+"toolbar_icon_zalo_text": "TƯ VẤN QUA ZALO",
+
+
+"toolbar_icon_zalo_link": "",
+
+
+"toolbar_icon_phone_bg": "#e81a23",
+
+
+"toolbar_icon_phone_text": "HOTLINE 0813131080",
+
+
+"toolbar_icon_phone_link": "0813131080",
+
+
+"toolbar_icon_msg_bg": "#0a7cff",
+
+
+"toolbar_icon_msg_text": "TƯ VẤN QUA MESSENGER",
+
+
+"toolbar_icon_msg_link": "//m.me/100146849349751",
+
+
+"toolbar_icon_stores_bg": "#eb1c24",
+
+
+"toolbar_icon_stores_text": "CỬA HÀNG",
+
+
+"toolbar_icon_stores_link": "",
+
+
+"prod_pricezero_title": "Liên hệ báo giá",
+
+
+"prod_pricezero_link": "tel:0813131080",
+
+
+"collection_sortby_title": "Sắp xếp",
+
+
+"products_social_icons": true,
+
+
+"toolbar_bottom_show": true,
+
+
+"use_shopping": false
+
+},
+
+"presets": {}
+}

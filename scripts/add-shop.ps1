@@ -141,6 +141,9 @@ if ($existingShop.Count -gt 0) {
     $download = Invoke-HaravanThemeDownloadAt `
         -WorkingDirectory $targetShop.Path `
         -ThemeId $themeId
+    if ($download.Partial -or @($download.SkippedFiles).Count -gt 0) {
+        throw "Pull chưa đầy đủ; dừng trước khi chỉnh sửa theme."
+    }
     Write-Host "Theme connection refreshed successfully."
     return
 }
@@ -156,6 +159,9 @@ try {
     $download = Invoke-HaravanThemeDownloadAt `
         -WorkingDirectory $shopDirectory `
         -ThemeId $themeId
+    if ($download.Partial -or @($download.SkippedFiles).Count -gt 0) {
+        throw "Pull chưa đầy đủ; dừng trước khi chỉnh sửa theme."
+    }
     if ($download.UsedFallback) {
         Write-Host "Theme downloaded with batch pull fallback."
     }

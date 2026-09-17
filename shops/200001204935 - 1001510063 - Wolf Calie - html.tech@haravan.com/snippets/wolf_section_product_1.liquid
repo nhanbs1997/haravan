@@ -1,0 +1,55 @@
+<div class="wolf-products-block mb-4 mt-5">
+	<div class="container wolf-products-block-product">
+		<h4 class="text-uppercase h4 fw-semibold mb-2">
+			<a href="{{ collections[settings.section_product_1_col].url }}" title="{{ settings.section_product_1_title }}">{{ settings.section_product_1_title }}</a>
+		</h4>
+		{%- if collections[settings.section_product_1_col].products_count > 0 -%}
+		<div class="wolf-products-block-img-mb mt-3 d-flex d-lg-none mb-2">
+			<a href="{{ settings.section_product_1_img_link }}" title="{{ settings.section_product_1_img_alt }}">
+				<picture>
+					<source 
+							media="(min-width: 1200px)"
+							srcset="{{ 'logo.png' | asset_url }}">
+					<source 
+							media="(min-width: 992px)"
+							srcset="{{ 'logo.png' | asset_url }}">
+					<source 
+							media="(max-width: 991px)"
+							srcset="{{ 'section_product_1_img_mb.jpg' | asset_url }}">
+					<img width="768" height="432" src="{{ 'logo.png' | asset_url }}" alt="{{ settings.section_product_1_img_alt }}" class="img-fluid rounded-4" loading="lazy" >
+				</picture>
+			</a>
+		</div>
+		{%- endif -%}
+		{%- if collections[settings.section_product_1_col].products_count > 0 -%}
+		<div class="row g-2 g-md-2 g-lg-2 wolf-products-block-product-product wolf-scroll-tab">
+			<div class="col-40-percent col-lg-3 col-md-12 col-sm-12 col-12 d-none d-lg-flex wolf-products-block-img mt-3">
+				<a href="{{ settings.section_product_1_img_link }}" title="{{ settings.section_product_1_img_alt }}">
+					<picture>
+						<source 
+								media="(min-width: 1200px)"
+								srcset="{{ 'section_product_1_img.jpg' | asset_url }}">
+						<source 
+								media="(min-width: 992px)"
+								srcset="{{ 'section_product_1_img.jpg' | asset_url }}">
+						<source 
+								media="(max-width: 991px)"
+								srcset="{{ 'logo.png' | asset_url }}">
+						<img width="515" height="460" src="{{ 'section_product_1_img.jpg' | asset_url }}" alt="{{ settings.section_product_1_img_alt }}" class="img-fluid rounded-4" loading="lazy" >
+					</picture>
+				</a>
+			</div>
+			{%- for product in collections[settings.section_product_1_col].products limit: settings.section_product_1_limit -%}
+			<div class="col-20-percent col-lg-3 col-md-5 col-sm-6 col-6 product-item">
+				{%- include 'wolf-product-grid' -%}
+			</div>
+			{%- endfor -%}
+		</div>
+		<div class="d-flex justify-content-center mt-3 wolf-products-block-view-more">
+			<a class="btn rounded-pill fw-semibold" href="{{ collections[settings.section_product_1_col].url }}" title="Xem thêm">Xem thêm</a>
+		</div>
+		{%- else -%}
+		<div class="alert alert-danger" role="alert">Danh mục này đang cập nhật.</div>
+		{%- endif -%}
+	</div>
+</div>

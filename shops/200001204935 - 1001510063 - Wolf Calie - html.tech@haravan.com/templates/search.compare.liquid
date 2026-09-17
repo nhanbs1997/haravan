@@ -1,0 +1,40 @@
+{%- layout none -%}
+{
+"products": [
+{%- assign product_count = 0 -%}
+{%- for item in search.results -%}
+{%- if item.variants[0].price > 0 -%}
+{%- assign priceURL = item.variants[0].price | money | json -%}
+{%- else -%}
+{%- assign priceURL = 'Liên hệ' -%}
+{%- endif -%}
+{%- if item.variants[0].price < item.variants[0].compare_at_price -%}
+{%- assign oldpriceURL = item.variants[0].compare_at_price | money | json -%}
+{%- endif -%}
+{%- if item.object_type == 'product' -%}
+{
+"title": {{ item.title | json }},
+"url": {{ item.url | json }},
+"type": {{ item.type | json }},
+"image": {{ item.featured_image.src | img_url: 'medium' | json }},
+"price": {{ priceURL }}
+{%- if item.variants[0].price < item.variants[0].compare_at_price -%}
+,"oldprice": {{ oldpriceURL }}
+{%- endif -%}
+}{%- assign product_count = product_count | plus: 1 -%}{%- if product_count == 4 -%}{%- break -%}{%- endif -%}{%- unless forloop.last -%},{%- endunless -%}
+{%- endif -%}
+{%- endfor -%}
+],
+"articles": [
+{%- assign article_count = 0 -%}
+{%- for item in search.results -%}
+{%- if item.object_type == 'article' -%}
+{
+"title": {{ item.title | json }},
+"url": {{ item.url | json }},
+"excerpt": {{ item.excerpt | strip_html | truncate: 80 | json }}
+}{%- assign article_count = article_count | plus: 1 -%}{%- if article_count == 4 -%}{%- break -%}{%- endif -%}{%- unless forloop.last -%},{%- endunless -%}
+{%- endif -%}
+{%- endfor -%}
+]
+}

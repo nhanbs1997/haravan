@@ -1,0 +1,90 @@
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+<div class="wolf-lookbook-masonry-module my-5">
+	<div class="container">
+		<div class="wolf-section-header d-flex justify-content-center align-items-center mb-4">
+			<h4 class="text-uppercase h4 fw-semibold mb-0">{{ settings.lookbook_title }}</h4>
+		</div>
+		<div class="wolf-masonry-grid row g-2">
+			{%- for i in (1..10) -%}
+			{%- capture limage -%}lookbook_image_{{i}}.jpg{%- endcapture -%}
+			{%- capture lurl -%}lookbook_url_{{i}}{%- endcapture -%}
+			{%- capture lalt -%}lookbook_alt_{{i}}{%- endcapture -%}
+			<div class="wolf-masonry-item col-20-percent col-lg-3 col-md-3 col-sm-4 col-6 rounded-4">
+				<a href="{{ settings[lurl]}}" title="{{ settings[lalt]}}" class="rounded-4 d-flex">
+					<img src="{{ limage | asset_url }}" alt="{{ settings[lalt]}}" class="img-fluid w-100 rounded-4">
+				</a>
+			</div>
+			{%- endfor -%}
+		</div>
+	</div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const masonryGrid = document.querySelector('.wolf-masonry-grid');
+    const masonrySkeleton = document.querySelector('.wolf-masonry-skeleton');
+    if (!masonryGrid) {
+        return; 
+    }
+    let masonryInstance = null;
+    const imagesInGrid = masonryGrid.querySelectorAll('img');
+    const totalImages = imagesInGrid.length;
+    let loadedImagesCount = 0;
+    const initializeAndShowMasonry = () => {
+        if (typeof Masonry === 'undefined') {
+            console.error("Masonry library is not loaded or defined.");
+            masonryGrid.classList.add('is-ready'); 
+            if (masonrySkeleton) {
+                masonrySkeleton.classList.add('fade-out');
+                setTimeout(() => masonrySkeleton.remove(), 500);
+            }
+            return;
+        }
+        if (!masonryInstance) {
+            masonryInstance = new Masonry(masonryGrid, {
+                itemSelector: '.wolf-masonry-item',
+                columnWidth: '.wolf-masonry-item',
+                gutter: 0,
+                percentPosition: true,
+                transitionDuration: '0.4s'
+            });
+        } else {
+            masonryInstance.layout();
+        }
+        masonryGrid.classList.add('is-ready'); 
+        if (masonrySkeleton) {
+            masonrySkeleton.classList.add('fade-out');
+            setTimeout(() => {
+                masonrySkeleton.remove(); 
+            }, 500);
+        }
+    };
+    const handleImageLoadOrError = () => {
+        loadedImagesCount++;
+        if (loadedImagesCount === totalImages) {
+            initializeAndShowMasonry();
+        }
+    };
+    if (totalImages > 0) {
+        imagesInGrid.forEach(img => {
+            if (img.complete) {
+                handleImageLoadOrError();
+            } else {
+                img.addEventListener('load', handleImageLoadOrError, { once: true });
+                img.addEventListener('error', handleImageLoadOrError, { once: true });
+            }
+        });
+    } else {
+        initializeAndShowMasonry();
+    }
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            if (masonryInstance) {
+                masonryInstance.layout(); 
+            }
+        }, 200);
+    });
+});
+</script>

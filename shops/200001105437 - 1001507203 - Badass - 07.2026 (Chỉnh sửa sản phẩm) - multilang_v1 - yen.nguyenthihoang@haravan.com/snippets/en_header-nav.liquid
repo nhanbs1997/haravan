@@ -1,0 +1,85 @@
+<nav class="site-header__nav" aria-label="Main">
+  {%- assign main_menu = linklists[settings.en_header_mainmenu] -%}
+  {%- if main_menu -%}
+  <ul class="nav-list">
+    {%- for link in main_menu.links limit: 10 -%}
+      {%- assign has_sub = false -%}
+      {%- if linklists[link.handle].links != empty -%}{%- assign has_sub = true -%}{%- endif -%}
+      {%- assign is_sale = false -%}
+      {%- assign link_title_upper = link.title | upcase -%}
+      {%- if link_title_upper contains 'SALE' -%}{%- assign is_sale = true -%}{%- endif -%}
+
+      {%- comment -%} Mega menu image: Retrieved from settings according to index (1-based) {% endcomment %}
+      {%- assign _menu_img_key = 'en_header_mega_img_' | append: forloop.index -%}
+      {%- assign _menu_img = settings[_menu_img_key] -%}
+      {%- assign _menu_viewall_key = 'en_header_mega_viewall_' | append: forloop.index -%}
+      {%- assign _menu_viewall = settings[_menu_viewall_key] | default: link.url -%}
+
+      <li class="nav-list__item{% if link.active %} is-active{% endif %}{% if has_sub %} has-sub{% endif %}{% if is_sale %} nav-list__item--sale{% endif %}">
+        <a href="{{ link.url }}" class="nav-list__link{% if is_sale %} nav-list__link--sale{% endif %}"
+          {% if has_sub %}aria-haspopup="true" aria-expanded="false"{% endif %}>
+          <span>{{ link.title | escape }}</span>
+          {%- if is_sale -%}
+          <span class="nav-list__sale-badge" aria-hidden="true">{{ settings.en_header_sale_badge | default: '-50%' | escape }}</span>
+          {%- endif -%}
+          {%- if has_sub -%}
+          <svg class="nav-list__chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 7.5l5 5 5-5"/>
+          </svg>
+          {%- endif -%}
+        </a>
+
+        {%- if has_sub -%}
+        {%- assign _sub_links = linklists[link.handle].links -%}
+        {%- assign _half = _sub_links.size | divided_by: 2 -%}
+        <div class="mega-menu" role="region" aria-label="Submenu {{ link.title | escape }}">
+          <div class="mega-menu__inner">
+
+            {%- comment -%} Panel Left: link list {% endcomment %}
+            <div class="mega-menu__links">
+              {%- comment -%} Line "All [name menu] {% endcomment %}
+              <a href="{{ _menu_viewall }}" class="mega-menu__viewall">
+                <span>{{ 'ALL ' | append: link.title | upcase | escape }}</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </a>
+              <hr class="mega-menu__divider">
+
+              <div class="mega-menu__cols">
+                {%- comment -%} Column 1 {% endcomment %}
+                <ul class="mega-menu__col" role="menu">
+                  {%- for child in _sub_links -%}
+                    {%- if forloop.index0 < _half -%}
+                    <li role="none"><a href="{{ child.url }}" class="mega-menu__item" role="menuitem">{{ child.title | escape }}</a></li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+                {%- comment -%} Column 2 (if available) {% endcomment %}
+                {%- if _sub_links.size > 1 -%}
+                <ul class="mega-menu__col" role="menu">
+                  {%- for child in _sub_links -%}
+                    {%- if forloop.index0 >= _half -%}
+                    <li role="none"><a href="{{ child.url }}" class="mega-menu__item" role="menuitem">{{ child.title | escape }}</a></li>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </ul>
+                {%- endif -%}
+              </div>
+            </div>
+
+            {%- comment -%} Panel Right: Image {% endcomment %}
+            <div class="mega-menu__image{% if _menu_img == blank %} mega-menu__image--empty{% endif %}">
+              {%- if _menu_img != blank -%}
+              <img src="{{ _menu_img }}" alt="{{ link.title | escape }}" loading="lazy" decoding="async">
+              {%- endif -%}
+            </div>
+
+          </div>
+        </div>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+  {%- endif -%}
+</nav>

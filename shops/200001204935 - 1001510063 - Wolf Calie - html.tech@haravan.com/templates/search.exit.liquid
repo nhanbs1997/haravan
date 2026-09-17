@@ -1,0 +1,6 @@
+{%- layout none -%}
+{%- for product in collections[settings.exit_popup_col]products limit: settings.exit_popup_limit -%}
+<div class="swiper-slide">
+	{%- include 'wolf-product-grid' -%}
+</div>
+{%- endfor -%}

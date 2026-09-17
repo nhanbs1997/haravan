@@ -1,0 +1,148 @@
+{%- comment -%}
+  Template: Blog
+  Figma: node 40006105:60426
+  Snippets:
+    blog-featured     : Section 1 — Hero slider bài viết nổi bật
+    blog-grid         : Section 2 — Tabs danh mục + lưới bài viết
+    blog-article-card : Card bài viết (dùng trong blog-grid)
+  CSS: assets/pages.scss  |  JS: inline (slider + tab switcher)
+{%- endcomment -%}
+
+{%- assign _per_page   = settings.bs_blog_per_page | default: 24 | times: 1 -%}
+{%- assign _feat_count = settings.bs_blog_featured_count | default: 6 | times: 1 -%}
+{%- assign _grid_title = settings.bs_blog_grid_title | default: 'Tin tức khác' -%}
+{%- assign _grid_cols  = settings.bs_blog_grid_cols | default: '3' -%}
+{%- assign _tab_limit  = settings.bs_blog_tab_limit | default: 24 | times: 1 -%}
+
+{%- paginate blog.articles by _per_page -%}
+
+<link rel="preload stylesheet" href="{{ 'pages.scss.css' | asset_url }}" as="style">
+
+<div class="blog-page" id="blogPage">
+  {%- include 'blog-featured' -%}
+  {%- include 'blog-grid' -%}
+</div>
+
+{%- endpaginate -%}
+
+<script>
+(function() {
+  'use strict';
+
+  /* ── Featured slider ── */
+  var track   = document.getElementById('blogFeaturedTrack');
+  var prevBtn = document.getElementById('blogFeatPrev');
+  var nextBtn = document.getElementById('blogFeatNext');
+
+  if (track) {
+    var cards   = track.querySelectorAll('.blog-feat-card');
+    var total   = cards.length;
+    var current = 0;
+
+    function getPerView() { return window.innerWidth >= 768 ? 2 : 1; }
+
+    function goTo(idx) {
+      var perView = getPerView();
+      var max = Math.max(0, total - perView);
+      current = Math.max(0, Math.min(idx, max));
+      var cardW = cards[0] ? cards[0].offsetWidth + 12 : 0;
+      track.style.transform = 'translateX(-' + (current * cardW) + 'px)';
+      if (prevBtn) prevBtn.classList.toggle('is-hidden', current === 0);
+      if (nextBtn) nextBtn.classList.toggle('is-hidden', current >= max);
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1); });
+    window.addEventListener('resize', function() { goTo(current); }, { passive: true });
+    goTo(0);
+
+    var startX = 0;
+    track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', function(e) {
+      var diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
+    }, { passive: true });
+  }
+
+  /* ── Blog tab switcher ── */
+  var tabBtns   = document.querySelectorAll('.blog-tabs__btn');
+  var tabPanels = document.querySelectorAll('.blog-tab-panel');
+  var loadMoreWrap = document.getElementById('blogLoadMore');
+  var loadMoreBtn  = document.getElementById('blogLoadMoreBtn');
+
+  function checkLoadMore() {
+    var activePanel = document.querySelector('.blog-tab-panel.is-active');
+    if (!loadMoreWrap || !activePanel) return;
+    var loaded = parseInt(activePanel.getAttribute('data-loaded') || '0');
+    var total  = parseInt(activePanel.getAttribute('data-total')  || '0');
+    loadMoreWrap.style.display = (total > loaded) ? '' : 'none';
+  }
+
+  tabBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var targetId = 'blogTabPanel-' + btn.getAttribute('data-tab').replace('tab-', '');
+
+      tabBtns.forEach(function(b) {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+
+      tabPanels.forEach(function(panel) {
+        var isTarget = panel.id === targetId;
+        panel.classList.toggle('is-active', isTarget);
+        panel.hidden = !isTarget;
+      });
+
+      checkLoadMore();
+    });
+  });
+
+  /* ── Load more ── */
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', function() {
+      var activePanel = document.querySelector('.blog-tab-panel.is-active');
+      if (!activePanel) return;
+
+      var handle  = activePanel.getAttribute('data-blog-handle');
+      var loaded  = parseInt(activePanel.getAttribute('data-loaded') || '0');
+      var total   = parseInt(activePanel.getAttribute('data-total')  || '0');
+      // perLoad lay tu data-loaded ban dau (= _tab_limit tu Liquid)
+      var perLoad = parseInt(activePanel.getAttribute('data-per-load') || '24');
+      // Page Liquid da render: page 1 (bai 1..perLoad)
+      // Lan click thu nhat: fetch page 2 (bai perLoad+1 .. perLoad*2), v.v.
+      var nextPage = Math.floor(loaded / perLoad) + 1;
+
+      if (!handle || loaded >= total) { loadMoreWrap.style.display = 'none'; return; }
+
+      loadMoreBtn.disabled = true;
+      loadMoreBtn.textContent = 'Đang tải...';
+
+      fetch('/blogs/' + handle + '?view=grid-ajax&page=' + nextPage, {
+        headers: { 'Accept': 'text/html' }
+      })
+        .then(function(r) { return r.text(); })
+        .then(function(html) {
+          var grid = activePanel.querySelector('.blog-grid');
+          if (!grid) return;
+          var tmp = document.createElement('div');
+          tmp.innerHTML = html.trim();
+          var newCards = tmp.querySelectorAll('.article-card');
+          newCards.forEach(function(card) { grid.appendChild(card); });
+          var newLoaded = loaded + newCards.length;
+          activePanel.setAttribute('data-loaded', newLoaded);
+          loadMoreBtn.disabled = false;
+          loadMoreBtn.textContent = 'Xem thêm';
+          checkLoadMore();
+        })
+        .catch(function() {
+          loadMoreBtn.disabled = false;
+          loadMoreBtn.textContent = 'Xem thêm';
+        });
+    });
+  }
+
+  checkLoadMore();
+})();
+</script>

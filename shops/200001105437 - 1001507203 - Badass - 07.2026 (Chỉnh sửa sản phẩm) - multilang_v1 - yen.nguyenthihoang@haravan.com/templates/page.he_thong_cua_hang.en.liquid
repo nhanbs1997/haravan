@@ -1,0 +1,134 @@
+{% layout 'en' %}
+{%- comment -%}
+  Template: page.he_thong_cua_hang
+  Mô tả: Trang hệ thống cửa hàng (Store Locator) — danh sách cửa hàng + bản đồ + lọc Tỉnh/Quận.
+         Dữ liệu lấy động từ Google Sheets qua Apps Script (không lưu trong theme).
+  Settings: bs_store_* (cấu hình trong config/settings.html)
+  CSS: assets/he_thong_cua_hang.scss  |  JS: assets/he_thong_cua_hang.js
+  Tạo Page trên admin với template = page.he_thong_cua_hang
+{%- endcomment -%}
+
+<link rel="preload stylesheet" href="{{ 'he_thong_cua_hang.scss.css' | asset_url }}" as="style">
+
+{%- assign _default_map = settings.en_bs_store_default_map -%}
+{%- if _default_map contains 'src=' -%}
+  {%- assign _default_map = _default_map | split: 'src="' | last | split: '"' | first -%}
+{%- endif -%}
+
+<div class="store-locator-page" id="storeLocatorPage">
+
+  <div class="container">
+    {%- include 'en_breadcrumb' -%}
+    <div class="store-header">
+      <h1 class="store-header__title">{{ settings.en_bs_store_title | default: page.title | default: 'APPRECTION' }}</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="contact-info">
+
+      <div class="contact-card">
+        <span class="contact-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+        </span>
+        <div class="contact-card__body">
+          <p class="contact-card__title">{{ settings.en_bs_store_phone_title | default: 'Buy online, advise, complain' }}</p>
+          {%- assign _store_phone = settings.en_bs_store_phone | default: shop.phone -%}
+          {%- assign _store_tel = _store_phone | strip | replace: ' ', '' | replace: '.', '' | replace: '-', '' | replace: '(', '' | replace: ')', '' -%}
+          <a class="contact-card__value" href="tel:{{ _store_tel }}">{{ _store_phone }}</a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <span class="contact-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        <div class="contact-card__body">
+          <p class="contact-card__title">{{ settings.en_bs_store_address_title | default: 'Headquarters' }}</p>
+          <p class="contact-card__value">{{ settings.en_bs_store_address | default: shop.address }}</p>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <span class="contact-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+        </span>
+        <div class="contact-card__body">
+          <p class="contact-card__title">{{ settings.en_bs_store_email_title | default: 'Contact' }}</p>
+          {%- assign _store_email = settings.en_bs_store_email | default: shop.email -%}
+          <a class="contact-card__value" href="mailto:{{ _store_email }}">{{ _store_email }}</a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <span class="contact-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </span>
+        <div class="contact-card__body">
+          <p class="contact-card__title">{{ settings.en_bs_store_hours_title | default: 'Time working' }}</p>
+          <div class="contact-card__value">{{ settings.en_bs_store_hours | default: 'Monday through Sunday in the day' }}</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="store-locator">
+      <div class="store-locator__wrapper">
+
+        <aside class="store-sidebar">
+          <h2 class="store-sidebar__title">{{ settings.en_bs_store_section_title | default: 'APPRECTION' }}</h2>
+
+          <form class="store-filter" id="storeFilter" onsubmit="return false;">
+            <div class="store-filter__row">
+              <div class="store-filter__field">
+                <label class="store-filter__label" for="provinceSelect">Province</label>
+                <select id="provinceSelect" class="store-filter__select">
+                  <option value="" disabled selected>Select province/city</option>
+                </select>
+              </div>
+              <div class="store-filter__field">
+                <label class="store-filter__label" for="districtSelect">District/Local</label>
+                <select id="districtSelect" class="store-filter__select">
+                  <option value="" disabled selected>Select district</option>
+                </select>
+              </div>
+            </div>
+            <button type="button" id="searchStoreBtn" class="store-filter__btn">Find him now</button>
+          </form>
+
+          <div class="datahung_store" hidden></div>
+          <div class="datahungquanhuyen_store" hidden></div>
+
+          <div class="store-loading" id="storeLoading" aria-live="polite">
+            <span class="store-loading__spinner" aria-hidden="true"></span>
+            <span class="store-loading__text">Loading store list...</span>
+          </div>
+
+          <div class="store-list" id="storeList" aria-label="List store"></div>
+        </aside>
+
+        <div class="store-map">
+          <iframe
+            id="mapIframe"
+            title="System Maps store"
+            src="{{ _default_map }}"
+            width="100%" height="100%"
+            style="border:0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.STORE_LOCATOR_API_URL = {{ settings.en_bs_store_api_url | json }};
+  window.STORE_LOCATOR_DEFAULT_MAP = {{ _default_map | json }};
+</script>
+<script fetchpriority="low" defer src="{{ 'en_he_thong_cua_hang.js' | asset_url }}"></script>

@@ -1,0 +1,191 @@
+/* ============================================================
+   Cart Buy More Popup — theo Figma
+   Scope: .bm-popup
+   ============================================================ */
+
+.bm-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 10002;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.bm-popup:not([hidden]) { display: flex; }
+.bm-popup[hidden] { display: none; }
+
+.bm-popup__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.55);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.bm-popup.is-open .bm-popup__overlay { opacity: 1; }
+
+.bm-popup__panel {
+  position: relative;
+  z-index: 1;
+  background: #fafafa;
+  border-radius: 2px;
+  width: 100%;
+  max-width: 980px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 50px;
+  overflow: visible;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform .25s ease, opacity .25s ease;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18);
+}
+.bm-popup.is-open .bm-popup__panel { transform: translateY(0); opacity: 1; }
+
+/* Close — góc trên phải, ngoài panel (theo Figma đặt lệch phải) */
+.bm-popup__close {
+  position: absolute;
+  top: 11px;
+  right: -47px;
+  width: 32px; height: 32px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: opacity .15s;
+}
+.bm-popup__close:hover { opacity: 0.7; }
+
+.bm-popup__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 600;
+  color: #0a0a0a;
+}
+
+/* ── Tabs (pill) ────────────────────────────────────── */
+.bm-popup__tabs {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.bm-popup__tab {
+  flex: 0 0 auto;
+  min-height: 40px;
+  padding: 8px 32px;
+  border: 1px solid #067284;
+  border-radius: 100px;
+  background: #fff;
+  color: #0a6174;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 14px;
+  letter-spacing: -0.1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.bm-popup__tab:hover { background: #e9f3f5; }
+.bm-popup__tab.is-active {
+  background: #0a6174;
+  border-color: #0a6174;
+  color: #fff;
+}
+
+/* ── Body / panels ──────────────────────────────────── */
+.bm-popup__body {
+  flex: 0 1 auto;
+  min-height: 0;
+  overflow: visible;
+  position: relative;
+  width: 100%;
+}
+
+.bm-popup__panel-item {
+  display: none;
+  position: relative;
+  width: 100%;
+}
+.bm-popup__panel-item.is-active { display: block; }
+
+.bm-popup__empty {
+  text-align: center;
+  padding: 48px 16px;
+  color: #737373;
+  font-size: 14px;
+  font-family: var(--font-body);
+}
+
+/* ── Slider ─────────────────────────────────────────── */
+.bm-popup__slider {
+  overflow: hidden;
+}
+.bm-popup__slider .swiper-slide {
+  height: auto;
+}
+
+/* Nav arrows — tròn primary, đặt giữa 2 bên (JS căn theo tâm ảnh card) */
+.bm-popup__nav {
+  position: absolute;
+  top: 0;
+  margin-top: 150px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #0a6174;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.1), 0 2px 4px -2px rgba(16, 24, 40, 0.06);
+  z-index: 5;
+  transition: background .15s, opacity .15s;
+}
+
+/* Card trong popup: ảnh ngắn hơn (4:5) để hiện đủ thông tin sp bên dưới */
+.bm-popup .product-card__media { aspect-ratio: 4 / 5; }
+.bm-popup__nav svg { width: 22px; height: 22px; }
+.bm-popup__nav--prev { left: -43px; }
+.bm-popup__nav--next { right: -43px; }
+.bm-popup__nav:hover { background: #085566; }
+.bm-popup__nav.is-disabled { opacity: 0.35; pointer-events: none; }
+
+/* ── Mobile ─────────────────────────────────────────── */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .bm-popup__close { right: 8px; top: 8px; color: #0a0a0a; }
+}
+@media (max-width: 991px) {
+  .bm-popup__panel { padding: 28px 28px; max-width: 720px; }
+  .bm-popup__close { right: 8px; top: 8px; color: #0a0a0a; }
+}
+
+@media (max-width: 767px) {
+  .bm-popup { padding: 0; align-items: flex-end; }
+  .bm-popup__panel {
+    max-width: 100%;
+    border-radius: 16px 16px 0 0;
+    max-height: 90vh;
+    padding: 20px 16px;
+    gap: 16px;
+    overflow-y: auto;
+  }
+  .bm-popup__close { right: 12px; top: 12px; }
+  .bm-popup__title { font-size: 18px; }
+  .bm-popup__tabs { gap: 8px; overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
+  .bm-popup__tabs::-webkit-scrollbar { display: none; }
+  .bm-popup__tab { padding: 8px 20px; }
+  .bm-popup__nav--prev { left: 0px; }
+  .bm-popup__nav--next { right: 0px; }
+}

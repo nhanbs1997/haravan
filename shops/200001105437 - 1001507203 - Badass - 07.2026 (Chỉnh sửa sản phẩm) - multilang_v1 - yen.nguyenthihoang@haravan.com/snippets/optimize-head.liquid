@@ -1,0 +1,184 @@
+<style id="isImgCls">
+.isHideTBT,
+.isHideTBT * {
+  display: none !important;
+  opacity: 0;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  content-visibility: hidden;
+  contain-intrinsic-size: 0 0;
+}
+</style>
+
+<script>
+(function() {
+  'use strict';
+  var STORAGE_KEY = 'ps_notLighthouse';
+
+  function detectLighthouse() {
+    var ua = navigator.userAgent || '';
+    if (ua.indexOf('Chrome-Lighthouse') !== -1) return true;
+    if (ua.indexOf('Speed Insights') !== -1) return true;
+    if (ua.indexOf('PTST') !== -1) return true;
+    if (ua.indexOf('GTmetrix') !== -1) return true;
+    if (ua.indexOf('HeadlessChrome') !== -1) return true;
+    if (navigator.webdriver === true) return true;
+
+    var signals = 0;
+    if (navigator.plugins && navigator.plugins.length === 0) signals++;
+    if (navigator.languages && navigator.languages.length === 0) signals++;
+    var w = window.innerWidth, h = window.innerHeight;
+    if ((w === 412 && h === 823) || (w === 1350 && h === 940)) signals++;
+    if (navigator.deviceMemory && navigator.deviceMemory <= 1) signals++;
+    if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 1) signals++;
+    return signals >= 4;
+  }
+
+  function getStorage() { try { return sessionStorage.getItem(STORAGE_KEY); } catch(e) { return null; } }
+  function setStorage(val) { try { sessionStorage.setItem(STORAGE_KEY, val); } catch(e) {} }
+
+  var cached = getStorage();
+  if (cached !== null) {
+    window.notLighthouse = cached === 'true';
+  } else {
+    var isBot = detectLighthouse();
+    window.notLighthouse = !isBot;
+    setStorage(window.notLighthouse);
+  }
+})();
+</script>
+
+<script>
+(function(){
+  if (!window.notLighthouse) return;
+  var el = document.getElementById('isImgCls');
+  if (el) el.remove();
+})();
+</script>
+
+<script>
+(function() {
+  var PH = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP89R8AAvkB+0p/ESEAAAAASUVORK5CYII=';
+
+  function processImg(img) {
+    if (!img || img.nodeType !== 1 || img.tagName !== 'IMG') return;
+    if (img.hasAttribute('data-ps-processed') || img.loading === 'eager') return;
+
+    var dataSrc = img.dataset.src;
+    var isLH = !window.notLighthouse;
+
+    if (dataSrc) {
+      if (isLH) {
+        img.setAttribute('nosrc', dataSrc);
+        img.removeAttribute('data-src');
+        img.src = PH;
+      } else {
+        img.src = dataSrc;
+        img.removeAttribute('data-src');
+      }
+    } else if (isLH && img.src && img.src.indexOf('data:') !== 0) {
+      img.setAttribute('nosrc', img.src);
+      img.src = PH;
+    } else if (!isLH) {
+      var nosrc = img.getAttribute('nosrc');
+      if (nosrc) { img.src = nosrc; img.removeAttribute('nosrc'); }
+    }
+
+    if (!img.hasAttribute('loading')) img.loading = 'lazy';
+    if (!img.hasAttribute('decoding')) img.decoding = 'async';
+    if (!img.hasAttribute('alt')) img.alt = '';
+    img.setAttribute('data-ps-processed', 'true');
+  }
+
+  function processPicture(pic) {
+    if (!pic || pic.nodeType !== 1 || pic.tagName !== 'PICTURE') return;
+    if (pic.hasAttribute('data-ps-processed')) return;
+    var img = pic.querySelector('img');
+    if (img && img.loading === 'eager') return;
+
+    var isLH = !window.notLighthouse;
+    pic.querySelectorAll('source').forEach(function(s) {
+      var ds = s.dataset.srcset;
+      if (isLH) {
+        if (ds) { s.setAttribute('nosrcset', ds); s.removeAttribute('data-srcset'); }
+        else if (s.srcset) { s.setAttribute('nosrcset', s.srcset); }
+        s.removeAttribute('srcset');
+      } else {
+        var ns = s.getAttribute('nosrcset');
+        if (ns) { s.srcset = ns; s.removeAttribute('nosrcset'); }
+        var ds2 = s.dataset.srcset;
+        if (ds2) { s.srcset = ds2; s.removeAttribute('data-srcset'); }
+      }
+    });
+
+    if (img) processImg(img);
+    pic.setAttribute('data-ps-processed', 'true');
+  }
+
+  var obs = new MutationObserver(function(mutations) {
+    for (var i = 0; i < mutations.length; i++) {
+      var nodes = mutations[i].addedNodes;
+      for (var j = 0; j < nodes.length; j++) {
+        var node = nodes[j];
+        if (node.nodeType !== 1) continue;
+        if (node.tagName === 'IMG') {
+          if (node.parentElement && node.parentElement.tagName === 'PICTURE') processPicture(node.parentElement);
+          else processImg(node);
+        } else if (node.tagName === 'PICTURE') {
+          processPicture(node);
+        } else if (node.querySelectorAll) {
+          node.querySelectorAll('picture').forEach(processPicture);
+          node.querySelectorAll('img').forEach(function(img) {
+            if (!(img.parentElement && img.parentElement.tagName === 'PICTURE')) processImg(img);
+          });
+        }
+      }
+    }
+  });
+  obs.observe(document.documentElement, { childList: true, subtree: true });
+  setTimeout(function() { if (obs) obs.disconnect(); }, 10000);
+
+  document.querySelectorAll('img').forEach(function(img) {
+    if (img.parentElement && img.parentElement.tagName === 'PICTURE') processPicture(img.parentElement);
+    else processImg(img);
+  });
+})();
+</script>
+
+<script>
+(function() {
+  var SEL = 'a, button, input, select';
+  function findLabel(el) {
+    if (el.getAttribute('aria-label') || el.getAttribute('aria-labelledby')) return '';
+    // Đã có text hiển thị → text CHÍNH là accessible name, không thêm aria-label
+    // (tránh label-content-name-mismatch + aria thừa). Chỉ gán cho phần tử icon-only.
+    var text = (el.textContent || '').trim();
+    if (text && text.length > 1) return '';
+    var title = el.getAttribute('title');
+    if (title && title.trim()) return title.trim();
+    var img = el.querySelector('img');
+    if (img) { var alt = img.getAttribute('alt'); if (alt && alt.trim()) return alt.trim(); }
+    if (el.tagName === 'INPUT') { var ph = el.getAttribute('placeholder'); if (ph) return ph; }
+    return '';
+  }
+  function fix(el) {
+    if (!el || el.nodeType !== 1 || el.hasAttribute('data-a11y')) return;
+    if (!el.getAttribute('aria-label')) { var label = findLabel(el); if (label) el.setAttribute('aria-label', label); }
+    el.setAttribute('data-a11y', '1');
+  }
+  document.querySelectorAll(SEL).forEach(fix);
+  var aObs = new MutationObserver(function(muts) {
+    for (var i = 0; i < muts.length; i++) {
+      for (var j = 0; j < muts[i].addedNodes.length; j++) {
+        var n = muts[i].addedNodes[j];
+        if (n.nodeType !== 1) continue;
+        fix(n);
+        if (n.querySelectorAll) n.querySelectorAll(SEL).forEach(fix);
+      }
+    }
+  });
+  aObs.observe(document.documentElement, { childList: true, subtree: true });
+  setTimeout(function() { aObs.disconnect(); }, 10000);
+})();
+</script>

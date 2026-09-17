@@ -1,0 +1,59 @@
+{%- comment -%}
+  Snippet: blog-featured
+  Mô tả: Section 1 — Hero slider bài viết nổi bật.
+  Vars (assign trước khi include):
+    blog         : object blog hien tai
+    _feat_count  : so bai featured (tu settings)
+{%- endcomment -%}
+
+<section class="blog-featured" id="blogFeatured">
+  <div class="container">
+    <div class="blog-featured__head">
+      {%- include 'en_breadcrumb' -%}
+      <h1 class="blog-featured__title">{{ blog.title }}</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="blog-featured__slider-outer" id="blogFeaturedWrap">
+      <div class="blog-featured__slider-wrap">
+        <div class="blog-featured__slider" id="blogFeaturedTrack">
+          {%- for article in blog.articles limit: _feat_count -%}
+          <article class="blog-feat-card" aria-label="{{ article.title | escape }}">
+            <a href="{{ article.url }}" class="blog-feat-card__link" tabindex="-1">
+              {%- if article.image -%}
+              <img class="blog-feat-card__img"
+                src="{{ article.image | img_url: '1024x1024' }}"
+                alt="{{ article.title | escape }}"
+                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                decoding="async" width="594" height="446">
+              {%- else -%}
+              <img class="blog-feat-card__img blog-feat-card__img--placeholder"
+                src="{{ 'en_logo.png' | asset_url }}"
+                alt="{{ article.title | escape }}"
+                width="594" height="446">
+              {%- endif -%}
+
+              {%- comment -%} Body overlay is in the link to the right absolver to the image area {%- endcomment -%}
+              <div class="blog-feat-card__body">
+                <div class="blog-feat-card__date-badge">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#0a6174" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 1.5"/></svg>
+                  <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d/%m/%Y' }}</time>
+                </div>
+                <h2 class="blog-feat-card__title">{{ article.title | truncate: 100 }}</h2>
+              </div>
+            </a>
+          </article>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <button type="button" class="blog-feat-card__nav blog-feat-card__nav--prev" id="blogFeatPrev" aria-label="Previous Card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+      </button>
+      <button type="button" class="blog-feat-card__nav blog-feat-card__nav--next" id="blogFeatNext" aria-label="Next Card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</section>

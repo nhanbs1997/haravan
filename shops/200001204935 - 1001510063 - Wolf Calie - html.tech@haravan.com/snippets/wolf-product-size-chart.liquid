@@ -1,0 +1,222 @@
+{%- if pages[settings.sizechartpage].content != '' -%}
+<div class="modal fade" id="sizeChartModal" tabindex="-1" aria-labelledby="sizeChartModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="sizeChartModalLabel">Bảng size & Công cụ tính size</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div id="size-chart-content-wrapper">
+					<div class="mb-3">
+						<label for="product-type-select" class="form-label"><strong>Chọn loại sản phẩm:</strong></label>
+						<select class="form-select" id="product-type-select"></select>
+					</div>
+					<h5 class="mt-4" id="size-table-title">Bảng size tham khảo</h5>
+					<div class="table-responsive">
+						<table id="size-chart-table" class="table table-bordered table-hover">
+							<thead>
+								<tr><th>Size</th></tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+					<h5 class="mt-4" id="calculator-title">Tính size của bạn</h5>
+					<form id="size-calculator-form">
+						<div id="form-inputs-container"></div>
+						<div class="text-end">
+							<button type="submit" class="btn btn-success">Tính Size</button>
+							<button type="button" class="btn btn-danger" id="reset-size-calculator">Nhập lại</button>
+						</div>
+					</form>
+					<div id="result-container" class="alert alert-info mt-4 d-none">
+						<p class="mb-0">Dựa trên số đo của bạn, size khuyến nghị là: <strong id="recommended-size"></strong></p>
+						<p class="mb-0"><small>Lưu ý: Đây chỉ là size tham khảo. Vui lòng kiểm tra lại bảng size và ưu tiên số đo vòng ngực/vòng eo để có lựa chọn chính xác nhất.</small></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script id="size-chart-json" type="application/json">
+{
+    {{ pages[settings.sizechartpage].content | strip_html }}
+}
+</script>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		let allSizeData = {};
+		const jsonScriptTag = document.getElementById('size-chart-json');
+		if (jsonScriptTag && jsonScriptTag.textContent) {
+			try {
+				allSizeData = JSON.parse(jsonScriptTag.textContent);
+			} catch (e) {
+				console.error("Lỗi khi phân tích JSON từ trang nội dung:", e);
+				allSizeData = { };
+			}
+		} else {
+			allSizeData = {  };
+		}
+		const sizeChartModalElement = document.getElementById('sizeChartModal');
+		const productTypeSelect = document.getElementById('product-type-select');
+		const sizeTableTitle = document.getElementById('size-table-title');
+		const calculatorTitle = document.getElementById('calculator-title');
+		const sizeChartTableHeadRow = document.querySelector('#size-chart-table thead tr');
+		const sizeChartTableBody = document.querySelector('#size-chart-table tbody');
+		const formInputsContainer = document.getElementById('form-inputs-container');
+		const sizeCalculatorForm = document.getElementById('size-calculator-form');
+		const resetButton = document.getElementById('reset-size-calculator');
+		const resultContainer = document.getElementById('result-container');
+		const recommendedSizeSpan = document.getElementById('recommended-size');
+
+		let currentProductConfig = null;
+		function updateSizeChartAndCalculator(productTypeKey) {
+			currentProductConfig = allSizeData[productTypeKey] || allSizeData['Default'];
+			sizeTableTitle.textContent = `Bảng Size Tham Khảo (${currentProductConfig.displayName})`;
+			calculatorTitle.textContent = `Tính Size Của Bạn (${currentProductConfig.displayName})`;
+			renderSizeTable(currentProductConfig);
+			renderSizeCalculatorForm(currentProductConfig);
+			attachFormEventListeners();
+			sizeCalculatorForm.reset();
+			sizeCalculatorForm.classList.remove('was-validated');
+			resultContainer.classList.add('d-none');
+		}
+		function renderSizeTable(config) {
+			sizeChartTableHeadRow.innerHTML = '';
+			sizeChartTableBody.innerHTML = '';
+			config.headers.forEach(header => {
+				const th = document.createElement('th');
+				th.textContent = header;
+				sizeChartTableHeadRow.appendChild(th);
+			});
+			config.data.forEach(rowData => {
+				const tr = document.createElement('tr');
+				let rowHtml = `<td>${rowData.size}</td>`;
+				config.fields.forEach(field => {
+					const fieldId = field.id;
+					const minVal = rowData[`min${fieldId.charAt(0).toUpperCase() + fieldId.slice(1)}`];
+					const maxVal = rowData[`max${fieldId.charAt(0).toUpperCase() + fieldId.slice(1)}`];
+					if (minVal !== undefined && maxVal !== undefined) {
+						rowHtml += `<td>${minVal}-${maxVal}</td>`;
+					} else if (rowData[fieldId] !== undefined) {
+						rowHtml += `<td>${rowData[fieldId]}</td>`;
+					} else {
+						rowHtml += `<td>N/A</td>`;
+					}
+				});
+				tr.innerHTML = rowHtml;
+				sizeChartTableBody.appendChild(tr);
+			});
+			const cells = sizeChartTableBody.querySelectorAll('td');
+			cells.forEach((cell, index) => {
+				const headerIndex = index % config.headers.length;
+				if (config.headers[headerIndex]) {
+					cell.setAttribute('data-label', config.headers[headerIndex] + ':');
+				}
+			});
+		}
+		function renderSizeCalculatorForm(config) {
+			formInputsContainer.innerHTML = '';
+			config.fields.forEach(field => {
+				const div = document.createElement('div');
+				div.className = 'mb-3';
+				div.innerHTML = `
+<label for="${field.id}" class="form-label">${field.label}</label>
+<input type="number" class="form-control" id="${field.id}"
+min="${field.min !== undefined ? field.min : ''}"
+max="${field.max !== undefined ? field.max : ''}"
+step="${field.step !== undefined ? field.step : '1'}"
+placeholder="${field.placeholder}" required>
+<div class="invalid-feedback">Vui lòng nhập ${field.label.toLowerCase().replace(':', '')} hợp lệ.</div>
+`;
+				formInputsContainer.appendChild(div);
+			});
+		}
+		function handleFormSubmit(event) {
+			event.preventDefault();
+			sizeCalculatorForm.classList.remove('was-validated');
+			if (!sizeCalculatorForm.checkValidity()) {
+				event.stopPropagation();
+				sizeCalculatorForm.classList.add('was-validated');
+				resultContainer.classList.add('d-none');
+				return;
+			}
+			const inputs = {};
+			currentProductConfig.fields.forEach(field => {
+				const inputElement = document.getElementById(field.id);
+				if (inputElement) {
+					inputs[field.id] = parseFloat(inputElement.value);
+				}
+			});
+			const recommendedSize = calculateSize(inputs, currentProductConfig.data, currentProductConfig.sizeOrder, currentProductConfig.fields);
+			recommendedSizeSpan.textContent = recommendedSize;
+			resultContainer.classList.remove('d-none');
+		}
+		function handleResetClick() {
+			sizeCalculatorForm.reset();
+			resultContainer.classList.add('d-none');
+			sizeCalculatorForm.classList.remove('was-validated');
+		}
+		function attachFormEventListeners() {
+			sizeCalculatorForm.removeEventListener('submit', handleFormSubmit);
+			resetButton.removeEventListener('click', handleResetClick);
+			sizeCalculatorForm.addEventListener('submit', handleFormSubmit);
+			resetButton.addEventListener('click', handleResetClick);
+		}
+		function calculateSize(inputs, currentSizeData, sizeOrder, fieldsConfig) {
+			let bestMatchSize = 'Không tìm thấy size phù hợp. Vui lòng kiểm tra lại số đo.';
+			let maxScore = -1;
+			currentSizeData.forEach(row => {
+				let score = 0;
+				fieldsConfig.forEach(field => {
+					const fieldId = field.id;
+					const minVal = row[`min${fieldId.charAt(0).toUpperCase() + fieldId.slice(1)}`];
+					const maxVal = row[`max${fieldId.charAt(0).toUpperCase() + fieldId.slice(1)}`];
+					const inputValue = inputs[fieldId];
+					if (inputValue !== undefined && minVal !== undefined && maxVal !== undefined &&
+						inputValue >= minVal && inputValue <= maxVal) {
+						score += (field.isPrimary ? 2 : 1);
+					} else if (inputValue !== undefined && row[fieldId] !== undefined && inputValue === row[fieldId]) {
+						score += (field.isPrimary ? 2 : 1);
+					}
+				});
+				if (score > maxScore) {
+					maxScore = score;
+					bestMatchSize = row.size;
+				} else if (score === maxScore && bestMatchSize) {
+					if (sizeOrder.indexOf(row.size) < sizeOrder.indexOf(bestMatchSize)) {
+						bestMatchSize = row.size;
+					}
+				}
+			});
+			if (maxScore > 0) {
+				return bestMatchSize;
+			}
+			return 'Không tìm thấy size phù hợp. Vui lòng kiểm tra lại số đo.';
+		}
+		(function init() {
+			for (const key in allSizeData) {
+				if (allSizeData.hasOwnProperty(key)) {
+					const option = document.createElement('option');
+					option.value = key;
+					option.textContent = allSizeData[key].displayName;
+					productTypeSelect.appendChild(option);
+				}
+			}
+			sizeChartModalElement.addEventListener('show.bs.modal', function() {
+				const initialProductType = window.currentBizwebProductType || 'Default';
+				if (allSizeData[initialProductType]) {
+					productTypeSelect.value = initialProductType;
+				} else {
+					productTypeSelect.value = 'Default';
+				}
+				updateSizeChartAndCalculator(productTypeSelect.value);
+			});
+			productTypeSelect.addEventListener('change', function() {
+				updateSizeChartAndCalculator(this.value);
+			});
+			attachFormEventListeners();
+		})();
+	});
+</script>
+{%- endif -%}

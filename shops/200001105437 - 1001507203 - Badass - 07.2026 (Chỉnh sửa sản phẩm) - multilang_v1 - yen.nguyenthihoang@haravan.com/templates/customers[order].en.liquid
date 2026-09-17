@@ -1,0 +1,45 @@
+{% layout 'en' %}
+{%- comment -%} Template: Customer Order Detail {%- endcomment -%}
+<div class="account-page">
+  <div class="container">
+    <div class="account-card">
+      <h1 class="account-card__title">Order {{ order.name }}</h1>
+      <p class="account-card__date">Order date:  {{ order.created_at | date: '%d/%m/%Y %H:%M' }}</p>
+
+      {%- if order.cancelled -%}
+      <div class="order-cancelled">
+        <p>The order has been cancelled {{ order.cancelled_at | date: '%d/%m/%Y' }}.</p>
+      </div>
+      {%- endif -%}
+
+      <div class="order-items">
+        {%- for item in order.line_items -%}
+        <div class="order-item">
+          <span class="order-item__title">{{ item.title }}</span>
+          <span class="order-item__qty">x{{ item.quantity }}</span>
+          <span class="order-item__price">{{ item.line_price | money }}</span>
+        </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="order-summary">
+        <div class="order-summary__row"><span>Subtotal</span><span>{{ order.subtotal_price | money }}</span></div>
+        {%- for shipping_method in order.shipping_methods -%}
+        <div class="order-summary__row"><span>Shipping</span><span>{{ shipping_method.price | money }}</span></div>
+        {%- endfor -%}
+        <div class="order-summary__row order-summary__total"><span>Total</span><strong>{{ order.total_price | money }}</strong></div>
+      </div>
+
+      {%- if order.shipping_address -%}
+      <div class="order-address">
+        <h3>Shipping address</h3>
+        <p>{{ order.shipping_address.last_name }} {{ order.shipping_address.first_name }}</p>
+        <p>{{ order.shipping_address.address1 }}, {{ order.shipping_address.province }}</p>
+        {%- if order.shipping_address.phone -%}<p>{{ order.shipping_address.phone }}</p>{%- endif -%}
+      </div>
+      {%- endif -%}
+
+      <a href="/account" class="btn btn-outline">← Back</a>
+    </div>
+  </div>
+</div>

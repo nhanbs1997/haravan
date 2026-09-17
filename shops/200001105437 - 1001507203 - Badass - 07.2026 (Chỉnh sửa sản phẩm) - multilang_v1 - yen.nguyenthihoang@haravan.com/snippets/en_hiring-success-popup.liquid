@@ -1,0 +1,44 @@
+<div class="success-popup-overlay" id="successPopupOverlay"
+  aria-hidden="true" role="alertdialog" aria-modal="true"
+  aria-labelledby="successPopupTitle" tabindex="-1">
+  <div class="success-popup">
+    <div class="success-popup__icon" aria-hidden="true">
+      <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="32" fill="#e6f2f4"/>
+        <circle cx="32" cy="32" r="22" fill="#0a6174"/>
+        <path d="M20 32l8 8 16-16" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h3 class="success-popup__title" id="successPopupTitle">Application submitted!</h3>
+    <p class="success-popup__desc">
+      Thank you. You Wait. candidate at BADASS.<br>
+      We Yes. Contact you in The earliest time.
+.
+    </p>
+    <button type="button" class="success-popup__close-btn" id="successPopupClose">
+      Close
+    </button>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var overlay  = document.getElementById('successPopupOverlay');
+  var closeBtn = document.getElementById('successPopupClose');
+  if (!overlay) return;
+
+  function closePopup() {
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn && closeBtn.addEventListener('click', closePopup);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closePopup();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.getAttribute('aria-hidden') === 'false') closePopup();
+  });
+})();
+</script>

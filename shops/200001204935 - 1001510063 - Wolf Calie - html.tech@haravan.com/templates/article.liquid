@@ -1,0 +1,148 @@
+{%- include 'breadcrumb' -%}
+<div class="wolf-article-content mb-4 mt-5" itemscope itemtype="https://schema.org/Article">
+	<meta itemprop="mainEntityOfPage" content="{{ article.url }}">
+	<meta itemprop="description" content="{{ article.excerpt | strip_html }}">
+	<meta itemprop="author" content="{{ article.author }}">
+	<meta itemprop="headline" content="{{ article.title | truncate: 100}}">
+	<meta itemprop="image" content="https:{%if article.image.src == null %}{{ 'logo.png' | asset_url }}{%else%}{{ article.image.src }}{%endif%}">
+	<meta itemprop="datePublished" content="{{ article.published_at | date: '%d/%m/%Y' }}">
+	<meta itemprop="dateModified" content="{{ article.created_at | date: '%d/%m/%Y' }}">
+	<div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+		<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+			<img class="d-none" src="{{'logo.png'|asset_url}}" alt="{{ shop.name }}">
+			<meta itemprop="url" content="https:{{ 'logo.png'|asset_url }}">
+			<meta itemprop="width" content="400">
+			<meta itemprop="height" content="60">
+		</div>
+		<meta itemprop="name" content="{{ shop.name }}">
+	</div>
+	<article class="article-main">
+		{%- if settings.article_slider_enable -%}
+		<div class="article-image-swiper swiper" style="display: none;">
+			<div class="swiper-wrapper mb-3" id="extracted-images"></div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-pagination"></div>
+		</div>
+		{%- endif -%}
+		<div class="container">
+			<div class="row mb-4 mt-5">
+				<div class="col-md-8 offset-md-2">
+					<div class="wolf-template-header">
+						<h1 class="title-head h3 mb-3">{{ article.title }}</h1>
+						<div class="wolf-author-article d-flex flex-row mb-3 align-items-center">
+							<div class="wolf-author-item d-inline-flex align-items-center gap-1"><svg width="24" height="24"><use xlink:href="#icon-user"></use></svg> {{ article.author }}</div>
+							<div class="wolf-author-item d-inline-flex align-items-center gap-1 ms-4">
+								<svg width="20" height="20"><use xlink:href="#icon-calendar" /></svg>
+								{{ article.published_at | date: '%d/%m/%Y' }}
+							</div>
+						</div>
+						<div class="wolf-article-summary">
+							{{ article.excerpt }}
+						</div>
+					</div>
+					<div class="wolf-template-content">
+						{{ article.content | replace: '<img ', '<img class="img-fluid" '| replace: 'class="img-fluid" class="', 'class="' | replace: 'class="img-fluid" class=', 'class=' | replace: 'class="', 'class="img-fluid ' }}
+					</div>
+					{%- if settings.article_social_enable -%}
+					<div class="social-sharing border-top mt-3 pt-3">
+						<span class="wolf-small-title mb-2 d-flex text-secondary">Chia sẻ bài viết:</span>
+						{%- include 'wolf-share' -%}
+					</div>
+					{%- endif -%}
+				</div>
+			</div>
+			{%- if article.tags.size > 0 -%}
+			<div class="row mb-4">
+				<div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="tag_article mb-3">
+						<span class="wolf-small-title">Từ khóa: </span>
+						{%- for tag in article.tags -%}
+						<a href="{{ shop.url }}/blogs/all/tagged/{{ tag | handle }}" title="{{ tag }}" class="badge text-bg-warning">{{ tag }}</a>{%- unless forloop.last -%} {%- endunless -%}
+						{%- endfor -%}
+					</div>
+				</div>
+			</div>
+			{%- endif -%}
+			{%- if blog.comments_enabled? -%}
+			<div class="row mb-4 wolf-article-comment-block">
+				<div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+					{%- form "new_comment", article -%}
+					<div class="form-coment dark-mode-form">
+						<h5 class="title-form-coment mb-3">Viết bình luận của bạn</h5>
+						{%- if form.posted_successfully? -%}
+						<div class="alert alert-success mb-3" role="alert">
+							{%- if blog.moderated? -%}
+							Bạn đã đăng bình luận thành công. Chúng tôi sẽ đăng bình luận của bạn sau khi được kiểm duyệt. 
+							{%- else -%}
+							Bạn đã đăng bình luận thành công. Xin cảm ơn! 
+							{%- endif -%}
+						</div>
+						{%- endif -%}
+						{%- if form.errors.size > 0 -%}
+						<div class="alert alert-danger mb-3" role="alert">{{ form.errors | default_errors }}</div>
+						{%- endif -%}
+						<div class="form-floating mb-3">
+							<input placeholder="Họ và tên" type="text" class="form-control" value="{{ customer.name }}" id="full-name" name="comment[author]" required >
+							<label for="full-name">Họ và tên</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input id="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" type="email" class="form-control" value="{{ customer.email }}" name="comment[email]" required >
+							<label for="email">Email</label>
+						</div>
+						<div class="form-floating mb-3">	
+							<textarea placeholder="Nội dung bình luận" class="form-control" id="comment" name="comment[body]" rows="6" required>{{ form.body }}</textarea>
+							<label for="comment">Nội dung bình luận</label>
+						</div>
+						<div class="mb-3">
+							<button type="submit" class="btn wolf-btn-main mb-3 rounded-3">Gửi bình luận</button>
+						</div>
+					</div>
+					{%- endform -%}
+				</div>
+				<div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+					{%- if article.comments_count > 0 -%}
+					{%- paginate article.comments by 3 -%}
+					<div class="article-comment-list">
+						<h5 class="title-form-coment mb-3">Bình luận ({{ article.comments_count }})</h5>
+						{%- for comment in article.comments -%}
+						<div class="article-comment">
+							<div class="d-flex align-items-start mb-4">
+								<img src="https://i.pravatar.cc/48?img=1" alt="Avatar" class="rounded-circle me-3" width="48" height="48">
+								<div class="comment-box w-100">
+									<h6 class="mb-1">{{ comment.author }} <small class="text-muted">• {{ comment.created_at | date: '%d/%m/%Y' }}</small></h6>
+									<p class="mb-1">{{ comment.content }}</p>
+								</div>
+							</div>
+						</div> 
+						{%- endfor -%}
+					</div>
+					{%- if paginate.pages > 1 -%}
+					<div class="paginate-pages d-flex justify-content-center">
+						{%- include 'paginate-pages' -%}
+					</div>
+					{%- endif -%}
+					{%- endpaginate -%}
+					{%- else -%}
+					<div class="alert alert-primary" role="alert">
+						Bài viết <strong>{{ article.title }}</strong> chưa có bình luận nào.
+					</div>
+					{%- endif -%}
+				</div>
+			</div>
+			{%- endif -%}
+			<div class="blog-related">
+				<h4 class="title-form-coment mb-3">{{ settings.title_blog_relate }}</h4>
+				<div class="row g-2">
+					{%- for article in blog.articles limit: settings.limit_blog_relate -%}
+					{%- assign checkRelated = page_title | handleize -%}
+					{%- assign linkRelated = article.url | remove: "/" -%}
+					{%- if checkRelated != linkRelated -%}
+					{%- include 'blog-grid-item' -%}
+					{%- endif -%}
+					{%- endfor -%}
+				</div>
+			</div>
+		</div>
+	</article>
+</div>

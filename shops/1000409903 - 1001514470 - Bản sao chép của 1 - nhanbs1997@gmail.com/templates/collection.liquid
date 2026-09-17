@@ -1,0 +1,61 @@
+{% paginate collection.products by settings.col_pro_limit %}
+
+<section id="collection-wrapper">
+	<div class="wrapper">
+
+		<div class="inner">
+			<div class="grid">
+				<div class="grid__item large--three-quarters medium--one-whole small--one-whole float-right">
+
+					<div class="collection-content-wrapper">
+						<div class="collection-head">
+							<div class="grid">
+								<div class="grid__item large--two-thirds medium--one-whole small--one-whole">
+									<div class="collection-title">
+										<h1>{%if collection.handle =="all"%}Tất cả sản phẩm{%else%}{{collection.title}}{%endif%}</h1>
+									</div>
+								</div>
+								<div class="grid__item large--one-third medium--one-whole small--one-whole">
+									<div class="collection-sorting-wrapper">
+										{%include 'collection-sorting'%}
+									</div>
+								</div>
+							</div>
+							{%unless collection.handle =="all"%}
+							<div class="collection-desc">
+								{{collection.description}}
+							</div>
+							{%endunless%}
+						</div>
+						<div class="collection-body">
+							<div class="grid-uniform product-list">
+								{%if collection.products_count > 0%}
+								{%for product_layout in collection.products%}
+								<div class="grid__item large--one-third medium--one-third small--one-half mg-bottom30">
+									{%include 'product-item'%}
+								</div>
+								{%endfor%}
+								{%else%}
+								<div class="grid__item large--one-whole">
+									<p>
+										Chưa có sản phẩm nào trong nhóm này !
+									</p>
+								</div>
+								{%endif%}
+							</div>
+							<div class="pagination not-filter">
+								{%include "pagination"%}
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="grid__item large--one-quarter medium--one-whole small--one-whole">
+					{%include 'collection-sidebar'%}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endpaginate %}

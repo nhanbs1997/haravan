@@ -1,0 +1,12 @@
+{%- if settings.product_promotion_enable -%}
+<div class="promotion-section rounded-4 p-3 mb-3 position-relative mt-4">
+	<h5 class="promotion-title d-flex align-items-center mb-0 position-absolute p-2 rounded-2"><svg class="me-2" width="24" height="24"><use xlink:href="#icon-gift-2" /></svg> {{ settings.product_promotion_title }}</h5>
+	{%- if product.metafields.custom.khuyenmai != blank -%}
+		{{ product.metafields.custom.khuyenmai }}
+	{%- else -%}
+	<ul class="list-unstyled mb-0 pt-3">
+		{{ settings.product_promotion_content }}
+	</ul>
+	{%- endif -%}
+</div>
+{%- endif -%}

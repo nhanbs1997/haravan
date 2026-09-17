@@ -1,0 +1,10 @@
+{%- layout none -%}
+{%- if collection.products.size > 0 -%}
+<div class="swiper-products">
+	{%- for product in collections[settings.cart-recommend-col].products limit: settings.cart-recommend-limit -%}
+	<div class="product-item">
+		{%- include 'wolf-product-grid' -%}
+	</div>
+	{%- endfor -%}
+</div>
+{%- endif -%}

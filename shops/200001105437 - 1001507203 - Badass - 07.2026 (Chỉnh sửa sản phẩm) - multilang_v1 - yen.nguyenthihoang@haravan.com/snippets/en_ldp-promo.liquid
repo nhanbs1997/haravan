@@ -1,0 +1,84 @@
+{%- comment -%}
+  Snippet: ldp-promo
+  Mô tả: Section 2 — Countdown đếm ngược + Voucher cards.
+  Figma node: 40009444:83096
+  Background: gradient 0.35deg — #fafafa (bottom) → #e9fffe → #067284 → #0a6174 (top)
+  Settings:
+    bs_ldp_countdown_start     : ISO datetime bắt đầu (tùy chọn) — trước mốc này đếm ngược tới lúc mở KM
+    bs_ldp_countdown_end       : ISO datetime kết thúc (vd: 2026-12-31T23:59:59)
+    bs_ldp_countdown_title     : tiêu đề khi CHƯA tới ngày bắt đầu (mặc định: Khuyến mãi bắt đầu sau)
+    bs_ldp_countdown_title_active : tiêu đề khi KM đang diễn ra (mặc định: Khuyến mãi kết thúc sau)
+    bs_ldp_voucher_source      : nguồn voucher — 'app' (Display Promotion) | 'manual' (cấu hình thủ công)
+    bs_ldp_voucher_count       : số lượng voucher thủ công (0-4)
+    bs_ldp_voucher_title_X     : tiêu đề voucher X  (vd: GIẢM 100K)
+    bs_ldp_voucher_desc_X      : điều kiện áp dụng  (vd: Cho hoá đơn mua hàng từ 999K)
+    bs_ldp_voucher_code_X      : mã voucher để copy
+    bs_ldp_voucher_exp_X       : hạn sử dụng dạng text (vd: 31-12-2026)
+{% endcomment %}
+
+{%- assign _vc_source = settings.en_bs_ldp_voucher_source | default: 'manual' -%}
+
+<section class="ldp-promo" id="ldpPromo">
+  <div class="ldp-promo__inner">
+    {%- if settings.en_bs_ldp_countdown_show -%}
+    {%- comment -%} ── Countdown ── {% endcomment %}
+    <div class="ldp-promo__countdown"
+      id="ldpCountdown"
+      data-start="{{ settings.en_bs_ldp_countdown_start }}"
+      data-end="{{ settings.en_bs_ldp_countdown_end | default: '2026-12-31T23:59:59' }}"
+      data-title-upcoming="{{ settings.en_bs_ldp_countdown_title | default: 'Sale starts in' }}"
+      data-title-active="{{ settings.en_bs_ldp_countdown_title_active | default: 'Sale ends in' }}">
+
+      <h2 class="ldp-promo__countdown-title" id="ldpCountdownTitle">
+        {{ settings.en_bs_ldp_countdown_title | default: 'Sale starts in' | escape }}
+      </h2>
+
+      <div class="ldp-promo__cd-boxes">
+        <div class="ldp-promo__cd-box">
+          <span class="ldp-promo__cd-num" id="ldpDays">00</span>
+          <span class="ldp-promo__cd-label">DAY</span>
+        </div>
+        <div class="ldp-promo__cd-box">
+          <span class="ldp-promo__cd-num" id="ldpHours">00</span>
+          <span class="ldp-promo__cd-label">HOUR</span>
+        </div>
+        <div class="ldp-promo__cd-box">
+          <span class="ldp-promo__cd-num" id="ldpMins">00</span>
+          <span class="ldp-promo__cd-label">MIN</span>
+        </div>
+        <div class="ldp-promo__cd-box">
+          <span class="ldp-promo__cd-num" id="ldpSecs">00</span>
+          <span class="ldp-promo__cd-label">SEC</span>
+        </div>
+      </div>
+    </div>
+    {%- endif -%}
+    {%- if settings.en_bs_ldp_voucher_show -%}
+    {%- if _vc_source == 'app' -%}
+      {%- comment -%} EDI Source 1: AppDecess Promotion (Haravan) BRAZIL {% endcomment %}
+      <div class="ldp-promo__app">
+        <div class="hrv-pmo-coupon" data-hrvpmo-layout="grids"></div>
+        <div class="hrv-pmo-discount" data-hrvpmo-layout="grids"></div>
+      </div>
+    {%- else -%}
+      {%- comment -%} Candidate Source 2: Voucher card configuration manual! § {% endcomment %}
+      {%- assign _vc_count = settings.en_bs_ldp_voucher_count | default: 4 | times: 1 -%}
+      {%- if _vc_count > 0 -%}
+      <div class="ldp-promo__vouchers">
+        {%- for i in (1.._vc_count) -%}
+          {%- capture _key_title -%}en_bs_ldp_voucher_title_{{ i }}{%- endcapture -%}
+          {%- capture _key_desc  -%}en_bs_ldp_voucher_desc_{{ i }}{%- endcapture -%}
+          {%- capture _key_code  -%}en_bs_ldp_voucher_code_{{ i }}{%- endcapture -%}
+          {%- capture _key_exp   -%}en_bs_ldp_voucher_exp_{{ i }}{%- endcapture -%}
+          {%- assign vc_title = settings[_key_title] -%}
+          {%- assign vc_desc  = settings[_key_desc] -%}
+          {%- assign vc_code  = settings[_key_code] -%}
+          {%- assign vc_exp   = settings[_key_exp] -%}
+          {%- include 'en_voucher-card' -%}
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+    {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>

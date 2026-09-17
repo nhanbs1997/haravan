@@ -1,0 +1,49 @@
+{%- comment -%}
+  Snippet: pd-info-size
+  Mo ta: Chon kich co + nut huong dan chon size.
+  Vars: product, current_variant
+  Detect: option ten chua 'size', 'kich', 'co' (downcase, khong dau de tranh loi SCSS parser)
+{%- endcomment -%}
+
+{%- comment -%} Detect option size: match ca dang co dau (kích/cỡ) lan khong dau (size/kich/co) {%- endcomment -%}
+{%- assign _size_option_idx = -1 -%}
+{%- for opt in product.options -%}
+  {%- assign _ol = opt | downcase | strip -%}
+  {%- if _ol contains 'size' -%}{%- assign _size_option_idx = forloop.index0 -%}{%- endif -%}
+  {%- if _ol contains 'kich' -%}{%- assign _size_option_idx = forloop.index0 -%}{%- endif -%}
+  {%- if _ol contains 'kích' -%}{%- assign _size_option_idx = forloop.index0 -%}{%- endif -%}
+  {%- if _ol contains 'cỡ' -%}{%- assign _size_option_idx = forloop.index0 -%}{%- endif -%}
+  {%- if _ol == 'co' -%}{%- assign _size_option_idx = forloop.index0 -%}{%- endif -%}
+{%- endfor -%}
+
+{%- if _size_option_idx >= 0 -%}
+<div class="pd__option pd__option--size" id="pdSizeOption">
+  <div class="pd__option-head">
+    <div class="pd__option-label">
+      <span>Kích cỡ:</span>
+      <strong id="pdSizeName">{{ current_variant.options[_size_option_idx] | escape }}</strong>
+    </div>
+    {%- if settings.pd_size_guide_show -%}
+    <button type="button" class="pd__size-guide" id="pdSizeGuide">Hướng dẫn chọn size</button>
+    {%- endif -%}
+  </div>
+
+  <div class="pd__size-buttons" id="pdSizeButtons">
+    {%- assign _seen_sizes = '' -%}
+    {%- for variant in product.variants -%}
+      {%- assign _v_size = variant.options[_size_option_idx] -%}
+      {%- assign _check  = '||' | append: _seen_sizes | append: '||' -%}
+      {%- assign _needle = '||' | append: _v_size | append: '||' -%}
+      {%- unless _check contains _needle -%}
+      <button type="button"
+        class="pd__size-btn{% if _v_size == current_variant.options[_size_option_idx] %} is-active{% endif %}{% unless variant.available %} is-soldout{% endunless %}"
+        data-size="{{ _v_size | escape }}"
+        data-option-index="{{ _size_option_idx }}"
+        data-option-value="{{ _v_size | escape }}"
+        {% unless variant.available %}disabled{% endunless %}>{{ _v_size | escape }}</button>
+      {%- assign _seen_sizes = _seen_sizes | append: _v_size | append: '||' -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}

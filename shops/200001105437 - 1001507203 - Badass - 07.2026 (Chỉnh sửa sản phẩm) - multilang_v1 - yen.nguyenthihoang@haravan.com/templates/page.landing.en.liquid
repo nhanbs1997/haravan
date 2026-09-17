@@ -1,0 +1,26 @@
+{% layout 'en' %}
+{%- comment -%}
+  Template: page.landing
+  Mô tả: Landing page khuyến mãi — theo Figma BADASS (node 40009444-83091).
+  Snippets:
+    ldp-hero      : Section 1 — Hero banner full-width
+    ldp-promo     : Section 2 — Countdown đếm ngược + Voucher cards
+    ldp-section1  : Section 3 — Banner trái + 2 cards + slider bên dưới
+    ldp-section2  : Section 4 — Banner full + product slider
+    ldp-section3  : Section 5 — Heading + banner nhỏ trái + product slider phải
+  CSS: assets/ldps.scss  |  JS: assets/ldps.js
+{% endcomment %}
+
+<link rel="preload stylesheet" href="{{ 'ldps.scss.css' | asset_url }}" as="style">
+
+<div class="bs_ldp" id="ldpPage">
+  {%- include 'en_ldp-hero' -%}
+  {%- if settings.en_bs_ldp_countdown_show or settings.en_bs_ldp_voucher_show -%}
+  {%- include 'en_ldp-promo' -%}
+  {%- endif -%}
+  {%- include 'en_ldp-section1' -%}
+  {%- include 'en_ldp-section2' -%}
+  {%- include 'en_ldp-section3' -%}
+</div>
+
+<script defer src="{{ 'en_ldps.js' | asset_url }}"></script>

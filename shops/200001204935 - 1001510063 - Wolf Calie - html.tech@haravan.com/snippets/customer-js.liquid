@@ -1,0 +1,6 @@
+{%- if template contains 'customer' -%}
+<link rel="preload" as="script" href="{{ 'haravan_common.js' | haravan_asset_url }}" />
+{{ 'haravan_common.js' | haravan_asset_url | script_tag }}
+<link rel="preload" as="script" href="{{ 'customer_area.js' | haravan_asset_url }}" />
+{{ 'customer_area.js'  | haravan_asset_url | script_tag }}
+{%- endif -%}

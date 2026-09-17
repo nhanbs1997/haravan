@@ -1,0 +1,20 @@
+{%- capture abouttitle1 -%}{%- include 'shortcode-render' render:'abouttitle1' -%}{%- endcapture -%}
+{%- capture abouttitle2 -%}{%- include 'shortcode-render' render:'abouttitle2' -%}{%- endcapture -%}
+{%- capture aboutcontent1 -%}{%- include 'shortcode-render' render:'aboutcontent1' -%}{%- endcapture -%}
+{%- capture aboutcontent2 -%}{%- include 'shortcode-render' render:'aboutcontent2' -%}{%- endcapture -%}
+<div class="section-about-intro py-4">
+	<div class="wrapper-heading text-center mb-3 text-uppercase">
+		<p class="mb-2">{{ abouttitle1 }}</p>
+		<h2 class="h3 mb-2">{{ abouttitle2 }}</h2>
+	</div>
+	<div class="wrapper-content">
+		<div class="row justify-content-center">
+			<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-3 mb-md-0">
+				<p>{{ aboutcontent1 }}</p>
+			</div>
+			<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+				<p>{{ aboutcontent2 }}</p>
+			</div>
+		</div>
+	</div>
+</div>

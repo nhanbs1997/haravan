@@ -1,0 +1,18 @@
+{%- capture aboutintro1 -%}{%- include 'shortcode-render' render:'aboutintro1' -%}{%- endcapture -%}
+{%- capture aboutintro2 -%}{%- include 'shortcode-render' render:'aboutintro2' -%}{%- endcapture -%}
+{%- capture aboutintrocontent -%}{%- include 'shortcode-render' render:'aboutintrocontent' -%}{%- endcapture -%}
+{%- capture aboutintroimg -%}{%- include 'shortcode-render' render:'aboutintroimg' -%}{%- endcapture -%}
+<div class="section-about-introduce py-4">
+	<div class="row align-items-center">
+		<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-3 mb-md-0">
+			<img src="{{ aboutintroimg }}" alt="{{ aboutintro2 }}" class="img-fluid" loading="lazy" >
+		</div>
+		<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+			<div class="wrapper-heading text-center mb-3 text-uppercase">
+				<p class="mb-2">{{ aboutintro1 }}</p>
+				<h2 class="h3 mb-2">{{ aboutintro2 }}</h2>
+			</div>
+			<div class="section-about-introduce-content">{{ aboutintrocontent }}</div>
+		</div>
+	</div>
+</div>

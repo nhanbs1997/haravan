@@ -1,0 +1,103 @@
+<div class="layoutPage-about-one">
+	<section class="section-parallax section-about01-breadcrumb">
+		<div class="headtitle-block">
+			<div class="container"><h1>{{page.title}}</h1></div>
+			{%- include 'breadcrumb' -%}
+		</div> 	
+	</section>
+	{%- if settings.about01_infor_show-%}
+	<section class="section-about01_introduce">
+		<div class="container">
+			<div class="wrap-heading text-center">
+				{%- if settings.about01_infor_title_1 != blank -%}<p class="line">{{settings.about01_infor_title_1}}</p>{%-endif-%}
+				{%- if settings.about01_infor_title_2 != blank -%}<h2>{{settings.about01_infor_title_2}}</h2>{%-endif-%}
+			</div>
+			<div class="wrap-content">
+				<div class="row justify-content-center">
+					{%- if settings.about01_infor_1 != blank -%}
+					<div class="col-lg-5 col-md-6 col-12">
+						<div class="wrap-info">
+							{{settings.about01_infor_1}}
+						</div>
+					</div>
+					{%-endif-%}
+					{%- if settings.about01_infor_2 != blank -%}
+					<div class="col-lg-5 col-md-6 col-12">
+						<div class="wrap-info">
+							{{settings.about01_infor_2}}
+						</div>
+					</div>
+					{%-endif-%}
+				</div>
+			</div>
+		</div>
+	</section>
+	{%- endif -%}
+	{%- if settings.about01_introduce_2_show -%}
+	<section class="section-about01_introduce">
+		<div class="container">
+			<div class="wrap-content">
+				{%- for i in (1..2) -%}
+				{%- capture aboutIntroduce_show -%}about01_introduce{{i}}_show{%- endcapture -%}
+				{%- capture aboutIntroduce_title1 -%}about01_introduce{{i}}_title1{%- endcapture -%}
+				{%- capture aboutIntroduce_title2 -%}about01_introduce{{i}}_title2{%- endcapture -%}
+				{%- capture aboutIntroduce_desc -%}about01_introduce{{i}}_desc{%- endcapture -%}
+				{%- capture aboutIntroduce_img -%}about01_introduce{{i}}_img.jpg{%- endcapture -%}
+				{%- if settings[aboutIntroduce_show] -%}
+				<div class="wrapflex-introduce">
+					<div class="intro-left">
+						<div class="intro-img banner-hover-effect">
+							<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+										 class="lazyload" data-src="{{ aboutIntroduce_img | asset_url }}" alt="{{ settings[aboutIntroduce_title1] }}"/>
+						</div>
+					</div>
+					<div class="intro-right">
+						<div class="intro-desc">
+							<div class="wrap-heading text-center">
+								{%- if settings[aboutIntroduce_title1] != blank -%}<p class="line">{{settings[aboutIntroduce_title1]}}</p>{%-endif-%}
+								{%- if settings[aboutIntroduce_title2] !=blank -%}<h2>{{settings[aboutIntroduce_title2]}}</h2>{%-endif-%}
+							</div>
+							<div class="wrap-content">
+								{%-if settings[aboutIntroduce_desc] != blank-%}<p>{{settings[aboutIntroduce_desc]}}</p>{%-endif-%}
+							</div>
+						</div>
+					</div>
+				</div>
+				{%- endif -%}
+				{%- endfor -%}
+			</div>
+		</div>
+	</section>
+	{%-endif-%}
+	{%- if settings.about01_services_show -%}
+	<section class="section-about01-services">
+		<div	class="container">
+			<div class="groupAbout-content text-center">
+				<div class="row flex-container-services justify-content-center">
+					{%- for i in (1..4) -%}		
+					{%- capture aboutService_show -%}about01_services_{{i}}_show{%- endcapture -%}
+					{%- capture aboutService_icon -%}about01_services_{{i}}_ico.png{%- endcapture -%}
+					{%- capture aboutService_text -%}about01_services_{{i}}_text{%- endcapture -%}
+					{%- capture aboutService_desc -%}about01_services_{{i}}_desc{%- endcapture -%}
+
+					{%- if settings[aboutService_show] -%}
+					<div class="col-lg-3 col-md-6 col-12 services-column">
+						<div class="services-area">
+							<div class="services-area-thumb aspect-ratio">
+								<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+										 class="lazyload" data-src="{{ aboutService_icon | asset_url }}" alt="{{ settings[aboutService_text] }}"/>
+							</div>
+							<div class="services-area-content">
+								<h3>{{settings[aboutService_text]}}</h3>
+								<p>{{settings[aboutService_desc]}}</p>
+							</div>
+						</div>
+					</div>
+					{%- endif -%}
+					{%- endfor -%}
+				</div>
+			</div>
+		</div>
+	</section>
+	{%- endif -%}
+</div>

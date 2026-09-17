@@ -1,0 +1,147 @@
+<!-- MENU MAIN -->
+<div class="container nav-wrapper check_nav">
+	<div class="row">
+		<div class="navbar-header">	
+			<div class="mobile-menu-icon-wrapper">
+				<div class="menu-logo">
+					{% if settings.use_logo %}
+					<h1 class="logo logo-mobile">
+						<a href="{{shop.url}}">
+							<img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" class="img-responsive logoimg"/>
+						</a>
+					</h1>	
+					{% endif %}
+          {% comment %}
+					<div class="nav-login">
+  					<a href="/account" class="cart " title="Tài khoản">
+  						<svg class="icon icon-user" viewBox="0 0 32 32">
+  							<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-user">
+  							</use>
+  						</svg>
+  					</a>
+  				</div>{% endcomment %}
+					<div class="menu-btn click-menu-mobile "><a href="#menu-mobile" class="navbar-toggle">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span></a>
+					</div>
+
+          {% comment %}
+					<div id="cart-targets" class="cart">
+						<a href="/cart" class="cart " title="Giỏ hàng">
+							<span >		
+
+								<svg class="shopping-cart">
+									<use xmlns:xlink="//www.w3.org/1999/xlink" xlink:href="#icon-add-cart" />
+								</svg>														
+							</span>		
+							<span id="cart-count" class="cart-number">{{ cart.item_count }}</span>
+						</a>
+					</div>
+          {% endcomment %}
+				</div>
+				<div class="search-bar-top">
+					<div class="search-input-top">
+						<form  action="/search">
+							<input type="hidden" name="type" value="product" />
+							<input type="text" name="q" placeholder="Tìm kiếm sản phẩm ..." />
+							<button type="submit" class="icon-search" >
+								<svg class="icon-search_white">
+									<use xmlns:xlink="//www.w3.org/1999/xlink" xlink:href="#icon-search_white" />
+								</svg>	
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav clearfix">
+				{% for link in linklists.main-menu.links %}
+				{% if linklists[link.handle] == empty %}
+				<li>
+					<a href="{{ link.url }}" class="{% if link.active %} current{% endif %}" title="{{link.title}}">
+						<span>{{ link.title }}</span>
+					</a>
+				</li>
+				{% else %}
+				<li class="dropdown">
+					<a href="{{ link.url }}" title="{{link.title}}" class="{% if link.active  %} current{% endif %}">
+						<span>{{ link.title }}</span>
+					</a>
+					<ul class="dropdown-menu" role="menu">
+						{% for l in linklists[link.handle].links %}
+						<li>
+							<a href="{{ l.url }}"{% if l.active %} class="current"{% endif %} title="{{l.title}}">{{ l.title }}</a>
+							{%if linklists[l.handle].links.size > 0%}
+							<ul class="dropdown-menu">
+								{% for ll in linklists[l.handle].links %}
+								<li>
+									<a href="{{ ll.url }}"{% if ll.active %} class="current"{% endif %} title="{{ll.title}}">{{ ll.title }}</a>
+								</li>
+								{%endfor%}
+							</ul>
+							{%endif%}
+						</li>
+						{% endfor %}
+					</ul>
+				</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+
+		</div>
+		<div  class="hidden-xs pull-right right-menu">
+			<ul class="nav navbar-nav pull-right">
+				<li class="col-md-12">
+
+					<div class="search-bar">
+
+						<div class="">
+							<form  action="/search">
+								<input type="hidden" name="type" value="product" />
+								<input type="text" name="q" placeholder="Tìm kiếm..."  autocomplete="off" />
+							</form>
+						</div>
+					</div>
+				</li>
+
+			</ul>
+		</div><!--/.nav-collapse -->
+	</div>
+</div><!-- End container  -->
+<script>
+
+$(window).resize(function(){
+	$('li.dropdown li.active').parents('.dropdown').addClass('active');
+	if($('.right-menu').width() + $('#navbar').width() > $('.check_nav.nav-wrapper').width() - 40)
+	{
+		$('.nav-wrapper').addClass('responsive-menu');
+	}
+	else{
+		$('.nav-wrapper').removeClass('responsive-menu');
+	}
+})
+
+$(document).on("click", ".mobile-menu-icon .dropdown-menu ,.drop-control .dropdown-menu, .drop-control .input-dropdown", function (e) {
+	e.stopPropagation();
+});
+</script>
+<script>
+$(function() {
+	$('nav#menu-mobile').mmenu();
+});
+$(document).ready(function(){
+	flagg = true;
+	if(flagg){
+		$('.click-menu-mobile a').click(function(){
+			$('#menu-mobile').removeClass('hidden');
+			flagg = false;
+		})
+	}
+})
+
+
+
+</script>

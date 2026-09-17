@@ -1,0 +1,61 @@
+{%- comment -%}
+  Snippet: ldp-section1
+  Mô tả: Section 3 — Banner trái + 2 product cards phải (hàng trên),
+         4 product cards (hàng dưới) + nút "Xem tất cả".
+  Settings:
+    - bs_ldp_section1_show       : bật/tắt module
+    - bs_ldp_section1_collection : collection (select dropdown)
+    - bs_ldp_section1_banner     : URL ảnh banner trái (desktop)
+    - bs_ldp_section1_banner_mb  : URL ảnh banner trái (mobile)
+    - bs_ldp_section1_title      : tiêu đề hiển thị trên banner
+{%- endcomment -%}
+
+{%- assign _col   = settings.en_bs_ldp_section1_collection -%}
+{%- assign _title = settings.en_bs_ldp_section1_title | default: 'The product group fell heavily' -%}
+{%- assign _banner = settings.en_bs_ldp_section1_banner -%}
+{%- assign _banner_mb = settings.en_bs_ldp_section1_banner_mb -%}
+
+{%- if settings.en_bs_ldp_section1_show and _col != blank -%}
+{%- assign _coll = collections[_col] -%}
+<section class="bs_ldp__section bs_ldp__section--type1" id="ldpSection1">
+  <div class="container">
+
+    {%- comment -%} Top row: Banner left + 2 right cards {%- endcomment -%}
+    <div class="bs_ldp__s1-top">
+      {%- if _banner != blank -%}
+      <div class="bs_ldp__s1-banner">
+        <picture>
+          {%- unless _banner_mb == blank -%}
+          <source media="(max-width: 767px)" srcset="{{ _banner_mb | img_url: 'master' }}">
+          {%- endunless -%}
+          <img src="{{ _banner | img_url: 'master' }}" alt="{{ _title | escape }}" loading="lazy" decoding="async">
+        </picture>
+        <div class="bs_ldp__s1-banner-overlay">
+          <h3 class="bs_ldp__s1-banner-title">{{ _title | escape }}</h3>
+        </div>
+      </div>
+      {%- endif -%}
+
+      <div class="bs_ldp__s1-cards">
+        {%- for product in _coll.products limit: 2 -%}
+          <div class="bs_ldp__s1-card">
+            {%- include 'en_product-loop' -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- comment -%} Bottom row: 4 products / Row, fixed grid {%- endcomment -%}
+    <div class="bs_ldp__s1-bottom" id="ldpS1Grid">
+      {%- for product in _coll.products limit: 4 offset: 2 -%}
+        {%- include 'en_product-loop' -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="bs_ldp__more">
+      <a href="{{ _coll.url }}" class="bs_ldp__more-btn">{{ settings.en_bs_ldp_section1_btn | default: 'View all' | escape }}</a>
+    </div>
+
+  </div>
+</section>
+{%- endif -%}

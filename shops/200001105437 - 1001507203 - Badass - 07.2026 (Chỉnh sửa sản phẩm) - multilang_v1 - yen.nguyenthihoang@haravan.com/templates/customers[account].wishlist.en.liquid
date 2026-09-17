@@ -1,0 +1,135 @@
+{% layout 'en' %}
+<div class="layout-account {%if settings.en_hrloyalty_icon_used%}layoutAccount-hidden{%endif%}">
+	<div class="account-cover">
+		{% include 'en_account-cover' %}
+		<div class="account-cover__overlay">
+			<div class="account-card">
+				{%- assign active_tab = 'wishlist' -%}
+				{% include 'en_account-header' %}
+
+				<div class="account-tabpane">
+					<div class="account-section__heading">
+						<span class="heading-normal">Wish</span>
+						<span class="heading-special">LIST</span>
+					</div>
+
+					<div class="account-wishlist" id="wishlist-grid">
+						<div class="account-wishlist__grid" id="wishlist-products"></div>
+						<p class="account-empty" id="wishlist-empty" style="display:none;">You haven't added any favorites yet.</p>
+						<div class="account-wishlist__loading" id="wishlist-loading">Loading...</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+(function(){
+	var grid = document.getElementById('wishlist-products');
+	var emptyMsg = document.getElementById('wishlist-empty');
+	var loadingMsg = document.getElementById('wishlist-loading');
+	if(!grid) return;
+
+	function renderCard(product){
+		var img = '';
+		if(product.featured_image){
+			img = typeof product.featured_image === 'string' ? product.featured_image : (product.featured_image.src || '');
+		} else if(product.images && product.images.length){
+			img = typeof product.images[0] === 'string' ? product.images[0] : (product.images[0].src || '');
+		}
+		if(img && img.indexOf('//') === 0) img = 'https:' + img;
+
+		var title = product.title || '';
+		var url = product.url || ('/products/' + product.handle);
+		var vendor = product.vendor || '';
+		var safeTitle = title.replace(/"/g, '&quot;');
+
+		var html = '<div class="account-product__card">';
+		html += '<div class="account-product__thumb">';
+		html += '<a href="' + url + '" title="' + safeTitle + '">';
+		html += '<img src="' + img + '" alt="' + safeTitle + '">';
+		html += '</a></div>';
+		html += '<div class="account-product__info">';
+		html += '<h3 class="account-product__title"><a href="' + url + '">' + title + '</a></h3>';
+		if(vendor) html += '<p class="account-product__vendor">' + vendor + '</p>';
+		html += '</div></div>';
+		return html;
+	}
+
+	function showEmpty(){
+		if(loadingMsg) loadingMsg.style.display = 'none';
+		grid.style.display = 'none';
+		emptyMsg.style.display = 'block';
+	}
+
+	function loadFromIds(ids){
+		if(!ids || !ids.length){ showEmpty(); return; }
+		var listId = ids.join(',');
+		$.get('/search.js?q=filter=(id:product in ' + listId + ')&limit=50&page=1').done(function(res){
+			if(loadingMsg) loadingMsg.style.display = 'none';
+			if(res && res.products && res.products.length){
+				var html = '';
+				res.products.forEach(function(p){ html += renderCard(p); });
+				grid.innerHTML = html;
+				grid.style.display = '';
+				emptyMsg.style.display = 'none';
+			} else { showEmpty(); }
+		}).fail(function(){ showEmpty(); });
+	}
+
+	/* Primary: use onApp API directly to get wishlist product IDs */
+	function loadFromOnApp(){
+		var customerId = '{{ customer.id }}';
+		if(!customerId){
+			showEmpty();
+			return;
+		}
+		$.ajax({
+			type: 'POST',
+			url: 'https://onapp.haravan.com/wishlist/frontend/api/listproduct',
+			data: {
+				shop: Haravan.shop,
+				customer_id: customerId,
+				browser_id: (function(){
+					try {
+						var d = JSON.parse(localStorage.getItem('onApp_wishlist_app'));
+						return d ? d.onAppWishList_browser_id : '';
+					} catch(e){ return ''; }
+				})(),
+				page: 1
+			},
+			success: function(res){
+				if(res && res.data && res.data.length && res.total){
+					var ids = [];
+					res.data.forEach(function(item){
+						if(item.product_id) ids.push(item.product_id);
+					});
+					if(ids.length) loadFromIds(ids);
+					else showEmpty();
+				} else {
+					/* Fallback: try window.shop.favorites from TLF.Wishlist */
+					fallbackFromShopFavorites();
+				}
+			},
+			error: function(){
+				fallbackFromShopFavorites();
+			}
+		});
+	}
+
+	/* Fallback: use window.shop.favorites populated by TLF.Wishlist.initFavorites */
+	function fallbackFromShopFavorites(){
+		var favIds = (window.shop && window.shop.favorites && window.shop.favorites.listid) ? window.shop.favorites.listid : null;
+		if(favIds && favIds.length > 0){
+			loadFromIds(favIds);
+		} else {
+			showEmpty();
+		}
+	}
+
+	$(document).ready(function(){
+		loadFromOnApp();
+	});
+})();
+</script>

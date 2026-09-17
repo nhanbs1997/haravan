@@ -1,0 +1,87 @@
+{%- capture fbt_handles_str -%}
+  {%- for tag in product.tags -%}
+    {%- if tag contains 'fbt_' -%}
+      {{- tag | remove: 'fbt_' -}},
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- assign fbt_handles = fbt_handles_str | split: ',' -%}
+{%- assign fbt_final_string = fbt_handles_str | strip_newlines | split: ',' | compact | join: ',' -%}
+<div class="fbt-container mt-3 mb-3 rounded-4 p-2">
+	<h3 class="fbt-title text-center mb-4 h4 mt-2">{{ settings.product-bundled-title }}</h3>
+	<div class="fbt-products-wrapper d-flex flex-wrap justify-content-center align-items-center gap-2">
+		<div class="fbt-product-item fbt-main-product d-flex flex-column align-items-center p-2 text-center rounded-3 position-relative" data-product-id="{{ product.id }}">
+			<img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.title }}" class="img-fluid mb-2 rounded">
+			<h5 class="product-title mb-1">{{ product.title }}</h5>
+			<div class="product-price mb-2" data-current-price="{{ product.selected_or_first_available_variant.price }}">
+				{{ product.selected_or_first_available_variant.price | money }}
+			</div>
+			<div class="product-variant-info text-muted small">
+				{{ product.selected_or_first_available_variant.title }}
+			</div>
+			<input type="hidden" class="fbt-selected-variant-id" value="{{ product.selected_or_first_available_variant.id }}">
+			<input type="hidden" class="fbt-quantity" value="1">
+		</div>
+		{%- for handle in fbt_handles limit:4 -%}
+		<div class="fbt-add-sign d-block fs-3 fw-bold">+</div>
+		<div class="fbt-product-item fbt-bundle-product p-2 flex-column align-items-center text-center d-none rounded-3 position-relative" data-product-index="{{ forloop.index0 }}">
+			<div class="loading-spinner"></div>
+		</div>
+		{%- endfor -%}
+	</div>
+	<div class="fbt-summary text-center mt-4 mb-3">
+		<h4 class="fbt-total-price fw-bold mb-3">Tổng giá: <span id="fbt-calculated-total">{{ product.selected_or_first_available_variant.price | money }}</span></h4>
+		<button type="button" id="fbt-add-to-cart-button" class="btn btn-lg">Thêm tất cả vào giỏ hàng</button>
+	</div>
+</div>
+<div id="fbt-variant-selector-modal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="fbtVariantSelectorLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="fbtVariantSelectorLabel">Chọn thuộc tính sản phẩm</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="container-fluid">
+					<div class="modal-product-details row">
+						<div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12">
+							<img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.title }}" class="modal-product-image img-fluid mb-3 rounded">
+						</div>
+						<div class="col-xxl-7 col-xl-7 col-lg-7 col-md-7 col-sm-12 col-12">
+							<h5 class="modal-product-title mb-2"></h5>
+							<div class="d-flex modal-product-pr mb-2">
+								<p class="modal-product-current-price mb-0"></p>
+								<p class="modal-product-original-price text-decoration-line-through ms-1 mb-0"></p>
+							</div>
+							<div class="modal-product-options"></div>
+							<div class="modal-quantity-selector d-flex align-items-center mt-3">
+								<label for="modal-product-quantity" class="form-label mb-0 me-2">Số lượng:</label>
+								<div class="input-group">
+									<button class="btn quantity-minus" type="button"><svg width="24" height="24"><use xlink:href="#icon-qty-minus" /></svg></button>
+									<input type="number" id="modal-product-quantity" value="1" min="1" class="form-control text-center">
+									<button class="btn quantity-plus" type="button"><svg width="24" height="24"><use xlink:href="#icon-qty-plus" /></svg></button>
+								</div>
+							</div>
+							<div class="modal-stock-info text-danger small mt-2"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-cancle" data-bs-dismiss="modal">Hủy</button>
+				<button type="button" class="btn btn-done" id="fbt-modal-confirm-button">Xác nhận</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var productfbt = {{ product | json }};
+  var product_variants_json = productfbt.variants;
+	var product_options_json = [
+		{% for option_name in product.options %}
+		{ "name": "{{ option_name | escape }}", "position": {{ forloop.index }} }
+		{% unless forloop.last %},{% endunless %}
+		{% endfor %}
+	];
+	var fbt_product_aliases_string = "{{ fbt_final_string }}";
+</script>

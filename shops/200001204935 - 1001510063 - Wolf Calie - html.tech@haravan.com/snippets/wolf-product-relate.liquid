@@ -1,0 +1,65 @@
+{%- assign check11 = product.url -%}
+{%- assign productRelate = product.collections.first.handle -%}
+{%- assign productRelateCheck = product.collections.size -%}
+{%- assign productRelateCheck2 = product.collections.first.products_count -%}	
+<div class="wolf-product-relate mt-5">
+	<h4 class="title-head text-uppercase h4 fw-semibold mb-2"><a href="/collection/{{ productRelate | handleize }}" title="{{ settings.sanphamlienquan_title }}">{{ settings.sanphamlienquan_title }}</a></h4>
+	{%- if productRelateCheck > 0 and productRelateCheck2 > 1 -%}
+	<div class="wolf-products-swiper swiper wolf-slider-nav">
+		<div class="swiper-wrapper">
+			{%- for product in collections[productRelate]products limit: settings.limit_sanphamlienquan -%}
+			{%- unless check11 == product.url -%}
+			<div class="swiper-slide">
+				{%- include 'wolf-product-grid' -%}
+			</div>
+			{%- endunless -%}
+			{%- endfor -%}
+		</div>
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
+		<div class="swiper-pagination"></div>
+	</div>
+	<div class="text-center mt-3 wolf-products-block-view-more mb-3 mb-md-0">
+		<a class="btn d-inline-flex" href="/collection/{{ productRelate | handleize }}" title="Xem thêm sản phẩm">Xem thêm sản phẩm</a>
+	</div>
+	{%- else -%}
+	<div class="alert alert-danger" role="alert">Danh mục đang cập nhật sản phẩm</div>
+	{%- endif -%}
+</div>
+<script>
+	var swiper_relate = new Swiper('.wolf-products-swiper', {
+		slidesPerView: 3,
+		loop: false,
+		grabCursor: true,
+		roundLengths: true,
+		slideToClickedSlide: false,
+		spaceBetween: 20,
+		autoplay: false,
+		navigation: {
+			nextEl: '.wolf-products-swiper .swiper-button-next',
+			prevEl: '.wolf-products-swiper .swiper-button-prev',
+		},
+		pagination: {
+			el: '.wolf-products-swiper .swiper-pagination',
+			type: "progressbar",
+		},
+		breakpoints: {
+			1: {
+				slidesPerView: 2,
+				spaceBetween: 8
+			},
+			768: {
+				slidesPerView: 3,
+				spaceBetween: 10
+			},
+			992: {
+				slidesPerView: 4,
+				spaceBetween: 10
+			},
+			1024: {
+				slidesPerView: 5,
+				spaceBetween: 10
+			}
+		}
+	});
+</script>

@@ -1,0 +1,147 @@
+<div class="layoutPage-about-three">
+	<section class="section-parallax section-about03-breadcrumb">
+		<div class="headtitle-block">
+			<div class="container"><h1>{{page.title}}</h1></div>
+			{%- include 'breadcrumb' -%}
+		</div> 	
+	</section>
+	{%- if settings.about03_introduce_show -%}
+	<section class="section-about03-introduce">
+		<div class="about-introduce-top">
+			<div class="container">
+				<div class="row row-flex">
+					<div class="col-lg-4 col-md-6 col-12">
+						<div class="box-banner">
+							<div class="about-slide owl-carousel">
+								{%- for i in (1..3) -%}
+								{%- capture slide_show -%}about_slide_{{i}}_show{%- endcapture -%}
+								{%- capture slide_image -%}about_slide_{{i}}_img.jpg{%- endcapture -%}
+								{%- capture slide_image_alt -%}about_slide_{{i}}_alt{%- endcapture -%}
+								{%- capture slide_link -%}about_slide_{{i}}_link{%- endcapture -%}
+								{%- if settings[slide_show] -%}
+								<div class="wrapper-item">
+									<div class="slide-image groupbanner-hover">
+										<img class="owl-lazy" alt="{{ settings[slide_image_alt] }}" data-src="{{ slide_image | asset_url }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="/>
+									</div>
+								</div>
+								{%-endif-%}
+								{%-endfor-%}
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-8 col-md-6 col-12">
+						<div class="wrap-heading">
+							{%- if settings.about03_title_text1 != blank -%}<p class="line"><span>{{settings.about03_title_text1}}</span></p>{%- endif -%}
+							{%- if settings.about03_title_text2 != blank -%}<h2>{{settings.about03_title_text2}}</h2>{%- endif -%}
+						</div>
+						<div class="wrap-content">
+							{%- if settings.about03_title_desc -%}<p>{{settings.about03_title_desc}}</p>{%- endif -%}
+						</div>
+						{%- if settings.about03_introduce_btn != blank -%}
+						<div class="wrap-button">
+							<div class="button_content_box">
+								<a class="button dark" href="{{settings.about03_introduce_link}}">{{settings.about03_introduce_btn}}</a>
+						</div>
+						{%- endif -%}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{%- endif -%}
+	{%-if settings.about03_service_quanlity_show-%}
+	<section class="section-about03-service bg-black">
+		<div class="container">
+			<div class="wrap-heading">
+				{%-if settings.about03_service_quanlity_title != blank-%}<h2 class="text-white">{{settings.about03_service_quanlity_title}}</h2>{%-endif-%}
+			</div>
+			<div class="section-content">
+				<div class="row row-flex">
+					<div class="col-lg-4 col-md-6 col-12 nav-tabs">
+						{%- for i in (1..3) -%}
+						{%- capture show_item -%}about03_service_quanlity_{{i}}_show{%- endcapture -%}
+						{%- capture title_item -%}about03_service_quanlity_{{i}}_text{%- endcapture -%}
+						{%- capture desc_item -%}about03_service_quanlity_{{i}}_desc{%- endcapture -%}
+						{%- if settings[show_item] -%}
+						<div class="box-wrapper left text-right text-white" data-target="#tab{{i}}" data-toggle="tab">
+							<div class="wrapper-content">
+								<h4>{{settings[title_item]}}</h4>
+								<p>{{settings[desc_item] }}</p>
+							</div>
+						</div>
+						{%- endif -%}
+						{%- endfor -%}
+					</div>
+					<div class="col-lg-4 d-none d-lg-block circle-block-banner">
+						<div class="tab-content text-center">
+							{%- for i in (1..6) -%}
+							{%- capture show_item -%}about03_service_quanlity_{{i}}_show{%- endcapture -%}
+							{%- capture image_item -%}about03_service_quanlity_{{i}}_img.jpg{%- endcapture -%}
+							{%- if settings[show_item] -%}
+							<div id="tab{{i}}" class="tab-pane {%if forloop.first%}active{%endif%}">
+								<div class="box-media">
+									<img src="{{ image_item | asset_url  }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+											 alt="{{ settings[image_title_item] }}"/>
+								</div>
+							</div>
+							{%- endif -%}
+							{%- endfor -%}
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 col-12 nav-tabs">
+						{%- for i in (4..6) -%}
+						{%- capture show_item -%}about03_service_quanlity_{{i}}_show{%- endcapture -%}
+						{%- capture title_item -%}about03_service_quanlity_{{i}}_text{%- endcapture -%}
+						{%- capture desc_item -%}about03_service_quanlity_{{i}}_desc{%- endcapture -%}
+						{%- if settings[show_item] -%}
+						<div class="box-wrapper right text-left text-white" data-target="#tab{{i}}" data-toggle="tab">
+							<div class="wrapper-content">
+								<h4>{{settings[title_item]}}</h4>
+								<p>{{settings[desc_item]}}</p>
+							</div>
+						</div>
+						{%- endif -%}
+						{%- endfor -%}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{%-endif-%}
+	{%- if settings.about03_story_show -%}
+	<section class="section-about03-stories">
+		<div class="container">
+			<div class="wrap-heading">
+				{%-if settings.about03_story_title != blank-%}<h2>{{settings.about03_story_title}}</h2>{%-endif-%}
+			</div>
+			<div class="story-content">
+				{%- for i in (1..4) -%}
+				{%- capture show_item_story -%}about03_story_{{i}}_show{%- endcapture -%}
+				{%- capture title_item_story -%}about03_story_{{i}}_text{%- endcapture -%}
+				{%- capture desc_item_story -%}about03_story_{{i}}_desc{%- endcapture -%}
+				{%- capture image_item_story -%}about03_story_{{i}}_img.jpg{%- endcapture -%}
+				{%- capture date_item_story -%}about03_story_{{i}}_date{%- endcapture -%}
+				{%- if settings[show_item_story] -%}
+				<div class="story-row">
+					<div class="col-lg-6 col-md-6 col-12 story-img">
+						<div class="block-image">
+							<img class="lazyload" data-src="{{ image_item_story | asset_url  }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+									 alt="{{settings[title_item_story]}}"/>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-12 story-detail">
+						<div class="block-detail">
+							<p class="date">{{settings[date_item_story]}}</p>
+							<h3>{{settings[title_item_story]}}</h3>
+							<p>{{settings[desc_item_story]}}</p>
+						</div>
+					</div>
+				</div>
+				{%- endif -%}
+				{%- endfor -%}
+			</div>
+		</div>
+	</section>
+	{%- endif -%}
+</div>

@@ -1,0 +1,53 @@
+{%- comment -%}
+  Snippet: product-buyxgety
+  Mô tả: Section Mua X Tặng Y tĩnh — placeholder cho API BuyXGetY sau này
+  Vị trí: Dưới product-combo trong product.liquid
+{%- endcomment -%}
+
+{%- if settings.promotion_hrvapp_use and settings.promotion_hrvapp == 'appbuyxgety' -%}
+<div class="pd-buyxgety" id="pdBuyXGetY">
+  <div class="pd-buyxgety__head">
+    <h3 class="pd-buyxgety__title">Mua X tặng Y</h3>
+  </div>
+
+  <div class="pd-buyxgety__list" id="buyxgetyList">
+
+    <div class="pd-buyxgety__item">
+      <label class="pd-buyxgety__radio">
+        <input type="radio" name="buyxgety-select" value="1" checked>
+        <span class="pd-buyxgety__radio-dot"></span>
+      </label>
+      <div class="pd-buyxgety__product">
+        <div class="pd-buyxgety__img">
+          <img src="{{ product.featured_image | product_img_url: 'small' }}" alt="{{ product.title | escape }}" width="80" height="120" loading="lazy">
+        </div>
+        <div class="pd-buyxgety__info">
+          <p class="pd-buyxgety__name">{{ product.title }}</p>
+          <div class="pd-buyxgety__prices">
+            <span class="pd-buyxgety__price">0 ₫</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pd-buyxgety__item" id="buyxgetyItemApp">
+      <label class="pd-buyxgety__radio">
+        <input type="radio" name="buyxgety-select" value="2">
+        <span class="pd-buyxgety__radio-dot"></span>
+      </label>
+      <div class="pd-buyxgety__product">
+        <div class="pd-buyxgety__img pd-buyxgety__img--placeholder">
+          <div class="pd-buyxgety__img-empty"></div>
+        </div>
+        <div class="pd-buyxgety__info">
+          <p class="pd-buyxgety__name pd-buyxgety__name--placeholder">Sản phẩm quà tặng</p>
+          <div class="pd-buyxgety__prices">
+            <span class="pd-buyxgety__price">0 ₫</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{%- endif -%}

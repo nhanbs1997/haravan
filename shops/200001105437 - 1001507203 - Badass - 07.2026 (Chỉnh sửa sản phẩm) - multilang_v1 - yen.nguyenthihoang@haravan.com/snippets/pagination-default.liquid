@@ -1,0 +1,35 @@
+<div id="pagination" class="clearfix">
+
+	{% if paginate.pages > 1 %}
+	<div class="col-md-12 col-sm-12 col-xs-12 text-center">
+
+		{% if paginate.previous %}
+		<a class="page-node" href="{{ paginate.previous.url }}">❮</a>
+		{% endif %}
+
+
+		{% if paginate.current_page >= 4%}
+		{% assign firstpage = paginate.previous.url | split : 'page' %}
+		<a class="page-node" href="{{ firstpage.first | append:'page=1' }}">1</a>
+		{%if paginate.current_page > 4%}
+		<span class="page-node dot">…</span>
+		{% endif %}
+		{% endif %}
+
+		{%for part in paginate.parts%}
+		{%if part.is_link%}
+		<a class="page-node" href="{{part.url}}">{{part.title}}</a>
+		{%else%}
+		<span class="page-node {%if part.title == paginate.current_page%} current {%endif%}">{{part.title}}</span>
+		{%endif%}	
+		{%endfor%}
+
+
+
+		{% if paginate.next %}
+		<a class="page-node"  href="{{ paginate.next.url }}">❯</a>
+		{% endif %}
+	</div>
+	{% endif %}
+
+</div>

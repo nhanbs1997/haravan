@@ -46,9 +46,7 @@ load website tìm kiếm được liền #search-header`. Đọc quy trình chi 
    có thể chạy [`haravan-cli-consent-click.js`](haravan-cli-consent-click.js) trên
    trang đó. Kiểm tra lại `haravan whoiam`
    và chỉ fetch về `shops/` khi đúng Organization. Nếu gặp OTP/CAPTCHA, thiếu quyền
-   đọc sheet hoặc không xác định được đúng tài khoản thì nhờ người dùng hỗ trợ. Khi
-   chạy lại trong thời gian ngắn, runner được tái sử dụng theme local tối đa 30 phút nếu
-   metadata file không đổi; dùng `-ForceFetch` khi bắt buộc lấy bản remote mới nhất.
+   đọc sheet hoặc không xác định được đúng tài khoản thì nhờ người dùng hỗ trợ. Mỗi yêu cầu chỉnh theme phải backup local rồi fetch/pull mới trước khi sửa; không bỏ qua bằng cache.
 3. Gắn context ticket với thư mục theme, xử lý yêu cầu và verification theo các rule
    Haravan bên dưới. Nếu đầu vào có phần yêu cầu bổ sung sau Ticket ID, phần đó là
    phạm vi chỉnh sửa duy nhất; nội dung ticket gốc chỉ dùng để hiểu bối cảnh và kiểm
@@ -89,6 +87,17 @@ Link quản trị/MyHaravan và tên shop rồi bổ sung vào các ô còn thi�
 Giữ nguyên giá trị đã có; không tự dựng link khi Inside không trả liên kết hợp lệ. Không
 đọc mật khẩu, không suy đoán Org ID khi cả view và Customer đều thiếu, và phải báo rõ
 trường còn trống.
+
+
+### Bắt buộc pull trước mỗi yêu cầu chỉnh theme
+
+Mỗi yêu cầu mới có chỉnh code theme, kể cả yêu cầu tiếp nối rất nhỏ trong cùng cuộc
+trò chuyện, phải xác định đúng Org ID/Theme ID, backup code local rồi fetch/pull bản
+mới nhất từ Haravan trước khi đọc để sửa. Áp dụng cả khi người dùng chỉ định file local.
+Không dùng cache 30 phút hoặc bản đã pull ở yêu cầu trước để bỏ qua bước này.
+Nếu pull lỗi, thiếu file hoặc chỉ tải một phần thì dừng chỉnh sửa và báo rõ; không
+âm thầm dùng code cũ. Yêu cầu chỉ đọc/giải thích hoặc sửa tài liệu workflow không
+cần pull theme. Chỉ sau khi pull đầy đủ mới sửa, kiểm tra và push đúng file thay đổi.
 
 ## 1. Đọc hiểu code Haravan trước khi sửa
 
@@ -137,8 +146,10 @@ GitHub repository [`nhanbs1997/haravan`](https://github.com/nhanbs1997/haravan) 
 mã nguồn chính của workflow. Mọi thao tác chọn shop, fetch/pull, backup, restore và
 push phải chạy từ bản checkout này; không dùng Google Drive hoặc một remote Git khác
 làm nguồn làm việc. Workflow kiểm tra `origin`, URL repository và nhánh `main` trước
-khi thao tác. Nếu working tree sạch, workflow tự `git pull --ff-only`; nếu đang có
-thay đổi chưa commit, workflow giữ nguyên chúng và cảnh báo để tránh ghi đè.
+khi thao tác. Workflow tự commit source local (gồm file mới/xóa), pull và merge source
+mới nhất rồi push GitHub. Không force-push; nếu conflict thì hủy merge và dừng, giữ
+commit local. Không tự commit file bị ignore, thông tin đăng nhập, backup và dữ liệu
+ticket. Snapshot Git không tự triển khai các thay đổi lên Haravan.
 
 Chỉ sau khi **theme code** đã được sửa và verification đạt, chạy push theo đúng danh sách file vừa chỉnh:
 

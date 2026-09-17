@@ -1,0 +1,101 @@
+{%- comment -%}
+  Snippet: preload-head
+  Mô tả: DNS prefetch, preconnect, preload CSS/JS, Google Fonts, CLS prevention
+  Lưu ý: Thay đổi Google Fonts URL theo dự án
+{%- endcomment -%}
+
+<!-- DNS Prefetch -->
+<meta http-equiv="x-dns-prefetch-control" content="on">
+<link rel="dns-prefetch" href="//hstatic.net">
+<link rel="dns-prefetch" href="//theme.hstatic.net">
+<link rel="dns-prefetch" href="//product.hstatic.net">
+<link rel="dns-prefetch" href="//file.hstatic.net">
+<link rel="dns-prefetch" href="//cdn.hstatic.net">
+<link rel="dns-prefetch" href="//www.googletagmanager.com">
+
+<!-- Preconnect (max 3 critical) -->
+<link rel="preconnect" href="https://cdn.hstatic.net" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Google Fonts — auto-generate từ settings.theme_font_heading + theme_font_body -->
+{%- assign _font_heading = settings.en_theme_font_heading | default: 'Roboto Condensed' -%}
+{%- assign _font_body = settings.en_theme_font_body | default: 'Roboto Condensed' -%}
+{%- assign _font_heading_url = _font_heading | replace: ' ', '+' -%}
+{%- assign _font_body_url = _font_body | replace: ' ', '+' -%}
+
+{%- if settings.en_google_fonts_url != blank -%}
+<link href="{{ settings.en_google_fonts_url }}" rel="preload stylesheet" as="style" type="text/css">
+{%- elsif _font_heading == _font_body -%}
+<link href="https://fonts.googleapis.com/css2?family={{ _font_heading_url }}:wght@400;500;600;700&display=swap" rel="preload stylesheet" as="style" type="text/css">
+{%- else -%}
+<link href="https://fonts.googleapis.com/css2?family={{ _font_heading_url }}:wght@400;500;600;700&family={{ _font_body_url }}:wght@400;500;600;700&display=swap" rel="preload stylesheet" as="style" type="text/css">
+{%- endif -%}
+
+<!-- Preload LCP Image -->
+{%- if template == 'index.en' -%}
+  {%- if settings.en_bs_hero_show and settings.en_bs_hero_imgdesk_1 != blank -%}
+  {%- assign _hero_mb = settings.en_bs_hero_imgmb_1 | default: settings.en_bs_hero_imgdesk_1 -%}
+  <link rel="preload" as="image" href="{{ settings.en_bs_hero_imgdesk_1 }}" fetchpriority="high" media="(min-width: 768px)">
+  <link rel="preload" as="image" href="{{ _hero_mb }}" fetchpriority="high" media="(max-width: 767px)">
+  {%- endif -%}
+{%- endif -%}
+{%- if template == 'page.landing.en' -%}
+  {%- if settings.en_bs_ldp_hero_show and settings.en_bs_ldp_hero_imgdesk_1 != blank -%}
+  {%- assign _ldp_hero_mb = settings.en_bs_ldp_hero_imgmb_1 | default: settings.en_bs_ldp_hero_imgdesk_1 -%}
+  <link rel="preload" as="image" href="{{ settings.en_bs_ldp_hero_imgdesk_1 }}" fetchpriority="high" media="(min-width: 768px)">
+  <link rel="preload" as="image" href="{{ _ldp_hero_mb }}" fetchpriority="high" media="(max-width: 767px)">
+  {%- endif -%}
+{%- endif -%}
+{%- if template contains 'product.en' -%}
+  {%- if product.featured_image -%}
+  <link rel="preload" as="image" href="{{ product.featured_image | img_url: '1024x1024' }}" fetchpriority="high">
+  {%- endif -%}
+{%- endif -%}
+
+<!-- Preload CSS (always) -->
+<link rel="preload stylesheet" href="{{ 'libs.css' | asset_url }}" as="style">
+<link rel="preload stylesheet" href="{{ 'swiper.min.css' | asset_url }}" as="style">
+<link rel="preload stylesheet" href="{{ 'general.scss.css' | asset_url }}" as="style">
+
+<!-- Preload CSS (conditional) -->
+{%- if template contains 'cart.en' -%}
+<link rel="preload stylesheet" href="{{ 'cart.scss.css' | asset_url }}" as="style">
+<link rel="preload stylesheet" href="{{ 'cart-buymore.scss.css' | asset_url }}" as="style">
+{%- endif -%}
+{%- if settings.en_bs_gm_enable -%}
+<link rel="preload stylesheet" href="{{ 'gift-milestones.scss.css' | asset_url }}" as="style">
+{%- endif -%}
+{%- if template contains 'page.en' or template contains 'article.en' or template contains 'blog.en' or template contains 'search.en' or template contains 'product.en' -%}
+<link rel="preload stylesheet" href="{{ 'pages.scss.css' | asset_url }}" as="style">
+{%- endif -%}
+{%- if template contains 'customers' -%}
+<link rel="preload stylesheet" href="{{ 'customer.scss.css' | asset_url }}" as="style">
+{%- endif -%}
+
+<!-- Preload JS (always) -->
+<link rel="preload" as="script" href="{{ 'jquery.min.js' | asset_url }}">
+<link rel="preload" as="script" href="{{ 'swiper.min.js' | asset_url }}">
+<link rel="preload" as="script" href="{{ 'en_general.js' | asset_url }}" fetchpriority="high">
+
+<!-- Preload JS (conditional) -->
+{%- unless template contains 'customers' -%}
+<link rel="preload" as="script" href="{{ 'en_main.js' | asset_url }}" fetchpriority="low">
+{%- endunless -%}
+
+<!-- Promotion App JS Preload -->
+{%- if settings.en_promotion_hrvapp_use -%}
+  {%- if settings.en_promotion_hrvapp == 'appcombo' -%}
+  <link href="{{ 'en_app-combo.js' | asset_url }}" rel="preload" as="script">
+  {%- elsif settings.en_promotion_hrvapp == 'appbuyxgety' -%}
+  <link href="{{ 'en_app-buyxgety.js' | asset_url }}" rel="preload" as="script">
+  {%- endif -%}
+{%- endif -%}
+
+<!-- CLS Prevention: Swiper before init -->
+<style>
+.swiper:not(.swiper-initialized){overflow:hidden}
+.swiper:not(.swiper-initialized) .swiper-wrapper{display:flex;flex-wrap:nowrap}
+.swiper:not(.swiper-initialized) .swiper-slide{flex:0 0 100%;min-width:100%}
+.swiper:not(.swiper-initialized) .swiper-slide:not(:first-child){display:none}
+</style>

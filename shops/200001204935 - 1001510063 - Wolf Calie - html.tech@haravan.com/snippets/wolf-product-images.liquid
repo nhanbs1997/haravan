@@ -1,0 +1,19 @@
+{%- if product.images.size > 0 -%}
+<div class="wolf-product-slide-image swiper" id="lightgallery">
+	<div class="swiper-wrapper g-2">
+		{%- for image in product.images -%}
+		<a class="text-center swiper-slide item-image-product {% if product.images.size > 8 %}item-image-product-more{% elsif product.images.size < 5 %}has-less-five-image{% endif %}" href="{{ image.src }}" title="Click để xem">
+			<img src="{{ image.src | img_url:'grande' }}" alt="{{ product.title | escape}}" class="img-fluid center-block rounded-2" />
+		</a>
+		{%- endfor -%}
+	</div>
+	<div class="swiper-pagination rounded-pill"></div>
+	<div class="swiper-button-prev"></div>
+	<div class="swiper-button-next"></div>
+</div>
+{%- else -%}
+<img src="{{ 'noimage.jpg' | asset_url }}" alt="{{ product.title | escape }}" data-src="{{ 'noimage.jpg' | asset_url }}" data-image="{{ 'noimage.jpg' | asset_url }}" class="img-fluid center-block">
+{%- endif -%}
+<button class="btn btn-fav-toggle shadow rounded-circle position-absolute top-0 end-0" data-product-alias="{{ product.alias }}" aria-label="Yêu thích" title="Yêu thích">
+	<svg width="24" height="24"><use xlink:href="#icon-heart" /></svg>
+</button>

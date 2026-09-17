@@ -1,0 +1,18 @@
+{%- capture aboutqua1 -%}{%- include 'shortcode-render' render:'aboutqua1' -%}{%- endcapture -%}
+{%- capture aboutqua2 -%}{%- include 'shortcode-render' render:'aboutqua2' -%}{%- endcapture -%}
+{%- capture aboutquacontent -%}{%- include 'shortcode-render' render:'aboutquacontent' -%}{%- endcapture -%}
+{%- capture aboutquaimg -%}{%- include 'shortcode-render' render:'aboutquaimg' -%}{%- endcapture -%}
+<div class="section-about-introduce py-4">
+	<div class="row align-items-center">
+		<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-3 mb-md-0 order-xxl-2 order-xl-2 order-lg-2 order-md-2 order-1">
+			<img src="{{ aboutquaimg }}" alt="{{ aboutqua1 }}" class="img-fluid" loading="lazy" >
+		</div>
+		<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 order-xxl-1 order-xl-1 order-lg-1 order-md-1 order-2">
+			<div class="wrapper-heading text-center mb-3 text-uppercase">
+				<p class="mb-2">{{ aboutqua1 }}</p>
+				<h2 class="h3 mb-2">{{ aboutqua2 }}</h2>
+			</div>
+			<div class="section-about-introduce-content">{{ aboutquacontent }}</div>
+		</div>
+	</div>
+</div>

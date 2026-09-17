@@ -1,0 +1,408 @@
+{% comment %}
+  Snippet: product-loop-rec
+  Mô tả: Bản product-loop dùng riêng cho các khối "gợi ý sản phẩm" trong trang
+         chi tiết sản phẩm. Dùng biến `rec_product` thay vì `product` để KHÔNG
+         đụng biến `product` toàn cục của trang (tránh trùng biến).
+  Vars: rec_product (bắt buộc) — truyền qua {% include 'product-loop-rec', rec_product: x %}
+{% endcomment %}
+
+{% assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' %}
+{% assign _price = rec_product.price_min %}
+{% assign _price_max = rec_product.price_max %}
+{% assign _compare = rec_product.compare_at_price_max %}
+{% assign _on_sale = false %}
+{% if _compare > _price %}{% assign _on_sale = true %}{% endif %}
+{% assign _sold_out = true %}
+{% if rec_product.available %}{% assign _sold_out = false %}{% endif %}
+{% assign _discount = 0 %}
+{% if _on_sale %}
+  {% assign _discount = _compare | minus: _price | times: 100 | divided_by: _compare %}
+{% endif %}
+{% assign _img = rec_product.featured_image | product_img_url: 'grande' %}
+{% assign _img_back = '' %}
+{% if rec_product.images.size > 1 %}
+  {% assign _img_back = rec_product.images[1] | product_img_url: 'grande' %}
+{% endif %}
+{% assign _has_back = '0' %}
+{% unless _img_back == blank %}{% assign _has_back = '1' %}{% endunless %}
+{% assign _first_variant = rec_product.selected_or_first_available_variant %}
+{% assign _max_swatches = 5 %}
+
+{% assign _size_option_index = 0 %}
+{% for opt in rec_product.options %}
+  {% assign _opt_lower = opt | downcase %}
+  {% if _opt_lower contains 'size' or _opt_lower contains 'kích' or _opt_lower contains 'cỡ' %}
+    {% assign _size_option_index = forloop.index %}
+  {% endif %}
+{% endfor %}
+{% include 'swatch-lookup' %}
+{% assign _is_new = false %}
+{% assign _is_best_seller = false %}
+{% for _tag in rec_product.tags %}
+  {% assign _tag_lower = _tag | downcase | strip %}
+  {% if _tag_lower == 'new' %}{% assign _is_new = true %}{% endif %}
+  {% if _tag_lower == 'bán chạy' or _tag_lower == 'ban chay' or _tag_lower == 'banchay' %}
+    {% assign _is_best_seller = true %}
+  {% endif %}
+{% endfor %}
+{% assign _bottom_frame = '' %}
+{% for i in (1..10) %}
+  {% if _bottom_frame == blank %}
+    {% assign _tag_key = 'bs_pl_frame_tag_' | append: i %}
+    {% assign _img_key = 'bs_pl_frame_img_' | append: i %}
+    {% assign _frame_tag = settings[_tag_key] | downcase | strip %}
+    {% assign _frame_img = settings[_img_key] | strip %}
+    {% if _frame_tag != blank and _frame_img != blank %}
+      {% assign _frame_match = false %}
+      {% for _tag in rec_product.tags %}
+        {% assign _tag_l = _tag | downcase | strip %}
+        {% if _tag_l == _frame_tag %}
+          {% assign _frame_match = true %}
+        {% endif %}
+      {% endfor %}
+      {% if _frame_match %}{% assign _bottom_frame = _frame_img %}{% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% assign _active_color = '' %}
+{% assign _color_option_index_seed = 0 %}
+{% for opt in rec_product.options %}
+  {% assign _opt_lower = opt | downcase %}
+  {% if _opt_lower contains 'màu' or _opt_lower contains 'mau' or _opt_lower contains 'color' or _opt_lower contains 'colour' %}
+    {% assign _color_option_index_seed = forloop.index %}
+  {% endif %}
+{% endfor %}
+{% if _color_option_index_seed == 1 %}{% assign _active_color = _first_variant.option1 %}
+{% elsif _color_option_index_seed == 2 %}{% assign _active_color = _first_variant.option2 %}
+{% elsif _color_option_index_seed == 3 %}{% assign _active_color = _first_variant.option3 %}
+{% endif %}
+{% capture _variant_matrix %}
+  {% if _size_option_index > 0 %}
+    {% for variant in rec_product.variants %}
+      {% assign _v_size = '' %}
+      {% assign _v_color = '' %}
+      {% if _size_option_index == 1 %}{% assign _v_size = variant.option1 %}
+      {% elsif _size_option_index == 2 %}{% assign _v_size = variant.option2 %}
+      {% elsif _size_option_index == 3 %}{% assign _v_size = variant.option3 %}
+      {% endif %}
+      {% if _color_option_index_seed == 1 %}{% assign _v_color = variant.option1 %}
+      {% elsif _color_option_index_seed == 2 %}{% assign _v_color = variant.option2 %}
+      {% elsif _color_option_index_seed == 3 %}{% assign _v_color = variant.option3 %}
+      {% endif %}
+      {% unless _v_size == blank %}
+        {{ variant.id }}::{{ _v_size | strip | escape }}::{{ _v_color | strip | escape }}::{{ variant.available }}||
+      {% endunless %}
+    {% endfor %}
+  {% endif %}
+{% endcapture %}
+
+<div class="product-card" data-product-id="{{ rec_product.id }}" data-has-back="{{ _has_back }}"{% if _has_back == '1' %} data-back-img="{{ _img_back }}"{% endif %}{% if _variant_matrix != blank %} data-variant-matrix="{{ _variant_matrix | strip | strip_newlines }}"{% endif %}{% if _active_color != blank %} data-selected-color="{{ _active_color | escape }}"{% endif %}>
+  <div class="product-card__media">
+    <a href="{{ rec_product.url }}" class="product-card__media-link" aria-label="{{ rec_product.title | escape }}" tabindex="-1">
+      <img class="product-card__img lazyload isHideTBT"
+        src="{{ _blank }}"
+        data-src="{{ _img }}"
+        alt="{{ rec_product.title | escape }}"
+        width="480" height="640"
+        loading="lazy" decoding="async">
+      {% if _has_back == '1' %}
+      <img class="product-card__img product-card__img-back lazyload isHideTBT"
+        src="{{ _blank }}"
+        data-src="{{ _img_back }}"
+        alt=""
+        width="480" height="640"
+        loading="lazy" decoding="async" aria-hidden="true">
+      {% endif %}
+    </a>
+
+    {% if _sold_out %}
+    <span class="product-card__badge product-card__badge--soldout">Hết hàng</span>
+    {% endif %}
+    {% if _is_new or _is_best_seller %}
+    <div class="product-card__flags">
+      {% if _is_new %}<span class="product-card__flag product-card__flag--new">NEW</span>{% endif %}
+      {% if _is_best_seller %}<span class="product-card__flag product-card__flag--best">BÁN CHẠY</span>{% endif %}
+    </div>
+    {% endif %}
+    {% unless _bottom_frame == blank %}
+    <div class="product-card__frame" aria-hidden="true">
+      <img src="{{ _bottom_frame }}" alt="" loading="lazy" decoding="async" width="600" height="120">
+    </div>
+    {% endunless %}
+
+    {% unless _sold_out %}
+    {% comment %} Build sizes JSON cho global bottom sheet (mobile) {% endcomment %}
+    {% capture _sizes_data %}
+      {% if _size_option_index > 0 %}
+        {% assign _size_values = '' %}
+        {% for variant in rec_product.variants %}
+          {% assign _v_size = '' %}
+          {% if _size_option_index == 1 %}{% assign _v_size = variant.option1 %}
+          {% elsif _size_option_index == 2 %}{% assign _v_size = variant.option2 %}
+          {% elsif _size_option_index == 3 %}{% assign _v_size = variant.option3 %}
+          {% endif %}
+          {% unless _v_size == blank %}
+            {% assign _size_check = ',' | append: _size_values | append: ',' %}
+            {% assign _size_needle = ',' | append: _v_size | append: ',' %}
+            {% unless _size_check contains _size_needle %}
+              {% assign _size_values = _size_values | append: _v_size | append: ',' %}
+            {% endunless %}
+          {% endunless %}
+        {% endfor %}
+        {% assign _size_list = _size_values | split: ',' %}
+        {% for _size in _size_list %}
+          {% unless _size == blank %}
+            {% assign _picked_variant_id = '' %}
+            {% assign _picked_variant_available = false %}
+            {% for variant in rec_product.variants %}
+              {% assign _v_size = '' %}
+              {% if _size_option_index == 1 %}{% assign _v_size = variant.option1 %}
+              {% elsif _size_option_index == 2 %}{% assign _v_size = variant.option2 %}
+              {% elsif _size_option_index == 3 %}{% assign _v_size = variant.option3 %}
+              {% endif %}
+              {% if _v_size == _size %}
+                {% if _picked_variant_id == '' %}
+                  {% assign _picked_variant_id = variant.id %}
+                  {% assign _picked_variant_available = variant.available %}
+                {% endif %}
+                {% if variant.available %}
+                  {% assign _picked_variant_id = variant.id %}
+                  {% assign _picked_variant_available = true %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {% unless _picked_variant_id == '' %}
+              {{ _picked_variant_id }}:{{ _size | escape }}:{{ _picked_variant_available }},
+            {% endunless %}
+          {% endunless %}
+        {% endfor %}
+      {% else %}
+        {{ _first_variant.id }}:Thêm vào giỏ:{{ _first_variant.available }},
+      {% endif %}
+    {% endcapture %}
+
+    {% comment %} Mobile: nút giỏ + dùng global bottom sheet {% endcomment %}
+    <button type="button" class="product-card__cart-mobile js-mobile-quickadd"
+      data-title="{{ rec_product.title | escape }}"
+      data-sizes="{{ _sizes_data | strip | strip_newlines }}"
+      aria-label="Thêm vào giỏ">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+      </svg>
+      <span class="product-card__cart-mobile-plus" aria-hidden="true">+</span>
+    </button>
+
+    {% comment %} Desktop: hover panel chọn size {% endcomment %}
+    <div class="product-card__quickadd" aria-label="Thêm nhanh vào giỏ">
+      <div class="product-card__quickadd-inner">
+        <p class="product-card__quickadd-title">Thêm nhanh vào giỏ</p>
+        <div class="product-card__sizes">
+          {% if _size_option_index > 0 %}
+            {% assign _size_values = '' %}
+            {% for variant in rec_product.variants %}
+              {% assign _v_size = '' %}
+              {% if _size_option_index == 1 %}{% assign _v_size = variant.option1 %}
+              {% elsif _size_option_index == 2 %}{% assign _v_size = variant.option2 %}
+              {% elsif _size_option_index == 3 %}{% assign _v_size = variant.option3 %}
+              {% endif %}
+              {% unless _v_size == blank %}
+                {% assign _size_check = ',' | append: _size_values | append: ',' %}
+                {% assign _size_needle = ',' | append: _v_size | append: ',' %}
+                {% unless _size_check contains _size_needle %}
+                  {% assign _size_values = _size_values | append: _v_size | append: ',' %}
+                {% endunless %}
+              {% endunless %}
+            {% endfor %}
+            {% assign _size_list = _size_values | split: ',' %}
+            {% for _size in _size_list %}
+              {% unless _size == blank %}
+                {% assign _picked_variant_id = '' %}
+                {% assign _picked_variant_available = false %}
+                {% for variant in rec_product.variants %}
+                  {% assign _v_size = '' %}
+                  {% if _size_option_index == 1 %}{% assign _v_size = variant.option1 %}
+                  {% elsif _size_option_index == 2 %}{% assign _v_size = variant.option2 %}
+                  {% elsif _size_option_index == 3 %}{% assign _v_size = variant.option3 %}
+                  {% endif %}
+                  {% if _v_size == _size %}
+                    {% if _picked_variant_id == '' %}
+                      {% assign _picked_variant_id = variant.id %}
+                      {% assign _picked_variant_available = variant.available %}
+                    {% endif %}
+                    {% if variant.available %}
+                      {% assign _picked_variant_id = variant.id %}
+                      {% assign _picked_variant_available = true %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+                {% unless _picked_variant_id == '' %}
+                <button type="button" class="product-card__size js-add-to-cart{% unless _picked_variant_available %} is-disabled{% endunless %}"
+                  data-variant-id="{{ _picked_variant_id }}"
+                  data-size-value="{{ _size | escape }}"
+                  {% unless _picked_variant_available %}disabled{% endunless %}
+                  aria-label="Thêm size {{ _size | escape }} vào giỏ">{{ _size }}</button>
+                {% endunless %}
+              {% endunless %}
+            {% endfor %}
+          {% else %}
+            <button type="button" class="product-card__size product-card__size--full js-add-to-cart"
+              data-variant-id="{{ _first_variant.id }}"
+              aria-label="Thêm vào giỏ">Thêm vào giỏ</button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endunless %}
+  </div>
+
+  <div class="product-card__info">
+    {% assign _color_option_index = 0 %}
+    {% for opt in rec_product.options %}
+      {% assign _opt_lower = opt | downcase %}
+      {% if _opt_lower contains 'màu' or _opt_lower contains 'mau' or _opt_lower contains 'color' or _opt_lower contains 'colour' %}
+        {% assign _color_option_index = forloop.index %}
+      {% endif %}
+    {% endfor %}
+    {% if _color_option_index > 0 and rec_product.variants.size > 1 %}
+    {% assign _option_values = '' %}
+    {% assign _swatch_count = 0 %}
+    {% assign _total_options = 0 %}
+    {% for variant in rec_product.variants %}
+      {% assign _v_option = '' %}
+      {% if _color_option_index == 1 %}{% assign _v_option = variant.option1 %}
+      {% elsif _color_option_index == 2 %}{% assign _v_option = variant.option2 %}
+      {% elsif _color_option_index == 3 %}{% assign _v_option = variant.option3 %}
+      {% endif %}
+      {% unless _v_option == blank %}
+        {% assign _opt_check = ',' | append: _option_values | append: ',' %}
+        {% assign _opt_needle = ',' | append: _v_option | append: ',' %}
+        {% unless _opt_check contains _opt_needle %}
+          {% assign _option_values = _option_values | append: _v_option | append: ',' %}
+          {% assign _total_options = _total_options | plus: 1 %}
+        {% endunless %}
+      {% endunless %}
+    {% endfor %}
+    {% assign _option_values = '' %}
+    <div class="product-card__variants" data-total="{{ _total_options }}" data-max="{{ _max_swatches }}">
+      {% for variant in rec_product.variants %}
+        {% assign _v_option = '' %}
+        {% if _color_option_index == 1 %}{% assign _v_option = variant.option1 %}
+        {% elsif _color_option_index == 2 %}{% assign _v_option = variant.option2 %}
+        {% elsif _color_option_index == 3 %}{% assign _v_option = variant.option3 %}
+        {% endif %}
+        {% unless _v_option == blank %}
+          {% assign _opt_check = ',' | append: _option_values | append: ',' %}
+          {% assign _opt_needle = ',' | append: _v_option | append: ',' %}
+          {% unless _opt_check contains _opt_needle %}
+            {% assign _is_extra_swatch = false %}
+            {% if _swatch_count >= _max_swatches %}
+              {% assign _is_extra_swatch = true %}
+            {% endif %}
+            {% assign _opt_lower = _v_option | downcase | strip %}
+            {% assign _swatch_alt_key = 'color_' | append: _opt_lower %}
+            {% assign _swatch_alt_key_handle = 'color_' | append: _opt_lower | handleize %}
+            {% assign _swatch_hex = '' %}
+            {% assign _swatch_img = '' %}
+            {% assign _lookup_entries = _bs_swatch_lookup | split: ',' %}
+            {% for _entry in _lookup_entries %}
+              {% assign _entry_parts = _entry | split: '|' %}
+              {% if _entry_parts.size == 2 and _entry_parts[0] == _opt_lower %}
+                {% assign _swatch_hex = _entry_parts[1] | strip %}
+              {% endif %}
+            {% endfor %}
+            {% for _img_item in rec_product.images %}
+              {% assign _img_alt = _img_item.alt | downcase | strip %}
+              {% if _img_alt == _swatch_alt_key or _img_alt == _swatch_alt_key_handle %}
+                {% assign _swatch_img = _img_item | product_img_url: 'small' %}
+              {% endif %}
+            {% endfor %}
+            {% if _swatch_hex == blank %}{% assign _swatch_hex = _v_option %}{% endif %}
+            {% assign _v_front_img = '' %}
+            {% for _vf in rec_product.variants %}
+              {% if _v_front_img == blank %}
+                {% assign _vf_color = '' %}
+                {% if _color_option_index == 1 %}{% assign _vf_color = _vf.option1 %}
+                {% elsif _color_option_index == 2 %}{% assign _vf_color = _vf.option2 %}
+                {% elsif _color_option_index == 3 %}{% assign _vf_color = _vf.option3 %}
+                {% endif %}
+                {% if _vf_color == _v_option %}
+                  {% if _vf.image and _vf.image.src != blank %}
+                    {% assign _vf_alt = _vf.image.alt | downcase | strip %}
+                    {% assign _vf_prefix = _vf_alt | slice: 0, 6 %}
+                    {% unless _vf_prefix == 'color_' %}
+                      {% assign _v_front_img = _vf.image.src | product_img_url: 'grande' %}
+                    {% endunless %}
+                  {% elsif _vf.featured_image %}
+                    {% assign _vf_alt = _vf.featured_image.alt | downcase | strip %}
+                    {% assign _vf_prefix = _vf_alt | slice: 0, 6 %}
+                    {% unless _vf_prefix == 'color_' %}
+                      {% assign _v_front_img = _vf.featured_image | product_img_url: 'grande' %}
+                    {% endunless %}
+                  {% endif %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {% if _v_front_img == blank %}
+              {% for _img_item in rec_product.images %}
+                {% if _v_front_img == blank %}
+                  {% assign _img_alt = _img_item.alt | downcase | strip %}
+                  {% assign _img_prefix = _img_alt | slice: 0, 6 %}
+                  {% unless _img_prefix == 'color_' %}
+                    {% for _iv in _img_item.variants %}
+                      {% if _v_front_img == blank %}
+                        {% assign _iv_color = '' %}
+                        {% if _color_option_index == 1 %}{% assign _iv_color = _iv.option1 %}
+                        {% elsif _color_option_index == 2 %}{% assign _iv_color = _iv.option2 %}
+                        {% elsif _color_option_index == 3 %}{% assign _iv_color = _iv.option3 %}
+                        {% endif %}
+                        {% if _iv_color == _v_option %}
+                          {% assign _v_front_img = _img_item | product_img_url: 'grande' %}
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endunless %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+            <span class="product-card__variant product-card__variant--dot{% if _v_option == _active_color %} is-active js-loop-color-active{% endif %}{% if _is_extra_swatch %} is-extra{% endif %} js-loop-color"
+              data-value="{{ _v_option | escape }}"
+              data-color-value="{{ _v_option | escape }}"
+              {% if _v_front_img != blank %}data-variant-img="{{ _v_front_img }}"{% endif %}
+              tabindex="0"
+              role="img" aria-label="{{ _v_option | escape }}"
+              title="{{ _v_option | escape }}"{% if _v_option == _active_color %} aria-current="true"{% endif %}>
+              {% if _swatch_img != blank %}
+              <span class="swatch-dot swatch-dot--img" style="background-image:url('{{ _swatch_img }}');"></span>
+              {% else %}
+              <span class="swatch-dot" style="background: #d4d4d4; background: {{ _swatch_hex }};"></span>
+              {% endif %}
+            </span>
+            {% assign _option_values = _option_values | append: _v_option | append: ',' %}
+            {% assign _swatch_count = _swatch_count | plus: 1 %}
+          {% endunless %}
+        {% endunless %}
+      {% endfor %}
+      {% if _total_options > _max_swatches %}
+      <button type="button" class="product-card__variants-more js-swatch-more" aria-label="Xem thêm {{ _total_options | minus: _max_swatches }} màu" aria-expanded="false">+{{ _total_options | minus: _max_swatches }}</button>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <a href="{{ rec_product.url }}" class="product-card__name">{{ rec_product.title }}</a>
+
+    <div class="product-card__prices">
+      {% if _price_max > _price %}
+      <span class="product-card__price{% if _on_sale %} is-sale{% endif %}">{{ _price | money }} – {{ _price_max | money }}</span>
+      {% else %}
+      <span class="product-card__price{% if _on_sale %} is-sale{% endif %}">{{ _price | money }}</span>
+      {% endif %}
+      {% if _on_sale %}
+      <span class="product-card__discount">-{{ _discount }}%</span>
+      {% endif %}
+      {% if _on_sale %}
+      <del class="product-card__compare">{{ _compare | money }}</del>
+      {% endif %}
+    </div>
+   
+  </div>
+</div>

@@ -1,0 +1,84 @@
+{%- comment -%}
+  Snippet: pd-gallery
+  Mo ta: Gallery anh san pham (thumbs + swiper + nav arrows).
+  Vars: product, current_variant
+{% endcomment %}
+
+<div class="pd__media" data-reveal data-reveal-delay="0">
+  {%- assign _variant_image_is_color = false -%}
+  {%- if current_variant.featured_image and current_variant.featured_image.alt -%}
+    {%- assign _variant_img_alt = current_variant.featured_image.alt | downcase | strip -%}
+    {%- assign _variant_img_prefix = _variant_img_alt | slice: 0, 6 -%}
+    {%- if _variant_img_prefix == 'color_' -%}
+      {%- assign _variant_image_is_color = true -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- assign _active_image_id = '' -%}
+  {%- unless _variant_image_is_color -%}
+    {%- assign _active_image_id = current_variant.featured_image.id -%}
+  {%- endunless -%}
+  {%- assign _gallery_count = 0 -%}
+  {%- for image in product.images -%}
+    {%- assign _img_alt = image.alt | downcase | strip -%}
+    {%- assign _img_prefix = _img_alt | slice: 0, 6 -%}
+    {%- unless _img_prefix == 'color_' -%}
+      {%- assign _gallery_count = _gallery_count | plus: 1 -%}
+      {%- if _active_image_id == blank -%}{%- assign _active_image_id = image.id -%}{%- endif -%}
+    {%- endunless -%}
+  {%- endfor -%}
+  {%- if _active_image_id == blank -%}{%- assign _active_image_id = product.images.first.id -%}{%- endif -%}
+  <div class="pd__thumbs" id="pdThumbs">
+    {%- assign _thumb_index = 0 -%}
+    {%- for image in product.images -%}
+    {%- assign _img_alt = image.alt | downcase | strip -%}
+    {%- assign _img_prefix = _img_alt | slice: 0, 6 -%}
+    {%- if _gallery_count > 0 and _img_prefix == 'color_' -%}{%- continue -%}{%- endif -%}
+    <button type="button"
+      class="pd__thumb{% if image.id == _active_image_id %} is-active{% endif %}"
+      data-index="{{ _thumb_index }}"
+      data-image-id="{{ image.id }}"
+      data-image-src="{{ image.src | escape }}">
+      <img src="{{ image.src | img_url: 'small' }}" alt="{{ image.alt | default: product.title | escape }}" loading="lazy" decoding="async" width="56" height="84">
+    </button>
+    {%- assign _thumb_index = _thumb_index | plus: 1 -%}
+    {%- endfor -%}
+  </div>
+
+  <div class="pd__main-img" id="pdMainImg">
+    <div class="swiper pd__swiper" id="pdSwiper">
+      <div class="swiper-wrapper">
+        {%- for image in product.images -%}
+        {%- assign _img_alt = image.alt | downcase | strip -%}
+        {%- assign _img_prefix = _img_alt | slice: 0, 6 -%}
+        {%- if _gallery_count > 0 and _img_prefix == 'color_' -%}{%- continue -%}{%- endif -%}
+        <div class="swiper-slide" data-image-id="{{ image.id }}" data-image-src="{{ image.src | escape }}">
+          <a href="{{ image.src | img_url: 'master' }}"
+            data-fancybox="pd-gallery"
+            data-caption="{{ image.alt | default: product.title | escape }}"
+            class="pd__slide-link"
+            aria-label="View large image: {{ image.alt | default: product.title | escape }}">
+            <img src="{{ image.src | img_url: '1024x1024' }}"
+              alt="{{ image.alt | default: product.title | escape }}"
+              loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+              decoding="async" width="524" height="786">
+          </a>
+        </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="pd__nav">
+      <button type="button" class="pd__nav-btn pd__nav-prev" id="pdPrev" aria-label="Previous Image">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+      </button>
+      <button type="button" class="pd__nav-btn pd__nav-next" id="pdNext" aria-label="Next Image">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M14 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <div class="pd__zoom-hint" aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg>
+      <span>Press to zoom in</span>
+    </div>
+  </div>
+</div>

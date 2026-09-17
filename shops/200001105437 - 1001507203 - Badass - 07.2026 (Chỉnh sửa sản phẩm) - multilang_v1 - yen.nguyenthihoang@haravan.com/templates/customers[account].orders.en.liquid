@@ -1,0 +1,51 @@
+{% layout 'en' %}
+<div class="layout-account {%if settings.en_hrloyalty_icon_used%}layoutAccount-hidden{%endif%}">
+	<div class="account-cover">
+		{% include 'en_account-cover' %}
+		<div class="account-cover__overlay">
+			<div class="account-card">
+				{%- assign active_tab = 'orders' -%}
+				{% include 'en_account-header' %}
+
+				<div class="account-tabpane">
+					<div class="account-section__heading">
+						<span class="heading-normal">Order</span>
+						<span class="heading-special">HISTORY</span>
+					</div>
+
+					{% if customer.orders.size > 0 %}
+					<div class="account-orders-table">
+						<div class="account-orders-table__header">
+							<span class="account-orders-table__col account-orders-table__col--tt">TT</span>
+							<span class="account-orders-table__col account-orders-table__col--code">Order #</span>
+							<span class="account-orders-table__col account-orders-table__col--date">Order date</span>
+							<span class="account-orders-table__col account-orders-table__col--products">Products</span>
+							<span class="account-orders-table__col account-orders-table__col--total">Total</span>
+						</div>
+
+						<div class="account-orders-table__body">
+							{% for order in customer.orders %}
+							<a href="{{ order.customer_url }}" class="account-orders-table__row">
+								<span class="account-orders-table__col account-orders-table__col--tt">{{ forloop.index }}</span>
+								<span class="account-orders-table__col account-orders-table__col--code">{{ order.name }}</span>
+								<span class="account-orders-table__col account-orders-table__col--date">{{ order.created_at | date: '%d/%m/%Y' }}</span>
+								<span class="account-orders-table__col account-orders-table__col--products">
+									{% for item in order.line_items %}<span class="account-orders-table__product-line">- {{ item.title }}</span>{% endfor %}
+								</span>
+								<span class="account-orders-table__col account-orders-table__col--total">{{ order.total_price | money }}</span>
+							</a>
+							{% endfor %}
+						</div>
+					</div>
+
+					<div class="account-pagination">
+						{% include 'en_pagination' %}
+					</div>
+					{% else %}
+					<p class="account-empty">You haven't placed any orders yet.</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

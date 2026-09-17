@@ -1,0 +1,37 @@
+<div class="wolf-products-block mb-4 mt-5">
+	<div class="container wolf-products-block-2">
+		<div class="wolf-products-block-product-titles d-flex justify-content-between align-items-center flex-column flex-lg-row mb-2">
+			<h4 class="wolf-products-block-product-title text-uppercase h4 fw-semibold mb-2">
+				<a href="{{ collections[settings.section_product_2_col].url }}" title="{{ settings.section_product_2_title }}">{{ settings.section_product_2_title }}</a>
+			</h4>
+			{%- if linklists[settings.section_product_2_menu].links.size > 0 -%}
+			<ul class="list-group list-group-horizontal wolf-scroll-mb">
+				{%- for link in linklists[settings.section_product_2_menu].links limit: 4 -%}
+				<li class="list-group-item border-0 text-uppercase fw-medium"><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+				{%- endfor -%}
+			</ul>
+			{%- endif -%}
+		</div>
+		<div class="wolf-products-block-product-product-2">
+			{%- if collections[settings.section_product_2_col].products_count > 0 -%}
+			<div class="wolf-product-block-2 swiper">
+				<div class="swiper-wrapper mb-3">
+					{%- for product in collections[settings.section_product_2_col].products limit: settings.section_product_2_limit -%}
+					<div class="swiper-slide">
+						{%- include 'wolf-product-grid' -%}
+					</div>
+					{%- endfor -%}
+				</div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-pagination"></div>
+			</div>
+			<div class="d-flex justify-content-center mt-3 wolf-products-block-view-more">
+				<a class="btn rounded-pill fw-semibold" href="{{ collections[settings.section_product_2_col].url }}" title="Xem thêm">Xem thêm</a>
+			</div>
+			{%- else -%}
+			<div class="alert alert-danger" role="alert">Danh mục này đang cập nhật.</div>
+			{%- endif -%}
+		</div>
+	</div>
+</div>

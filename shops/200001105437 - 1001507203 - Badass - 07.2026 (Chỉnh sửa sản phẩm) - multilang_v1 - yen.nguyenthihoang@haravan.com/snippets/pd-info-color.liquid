@@ -1,0 +1,74 @@
+{%- comment -%}
+  Snippet: pd-info-color
+  Mo ta: Chon mau theo variant he thong (khong cross-product, khong map settings/SKU).
+{%- endcomment -%}
+
+{%- assign _color_option_idx = -1 -%}
+{%- for opt in product.options -%}
+  {%- assign _opt_lower = opt | downcase | strip -%}
+  {%- if _opt_lower contains 'mau' or _opt_lower contains 'màu' or _opt_lower contains 'color' or _opt_lower contains 'colour' -%}
+    {%- assign _color_option_idx = forloop.index0 -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if _color_option_idx >= 0 -%}
+{%- include 'swatch-lookup' -%}
+<div class="pd__option pd__option--color" id="pdColorOption">
+  <div class="pd__option-label">
+    <span>Màu sắc:</span>
+    <strong id="pdColorName">{{ current_variant.options[_color_option_idx] | default: '—' | escape }}</strong>
+  </div>
+
+  <div class="pd__color-swatches" id="pdColorSwatches">
+    {%- assign _seen_colors = '' -%}
+    {%- for variant in product.variants -%}
+      {%- assign _v_color = variant.options[_color_option_idx] | strip -%}
+      {%- if _v_color == blank -%}{%- continue -%}{%- endif -%}
+      {%- assign _check  = '||' | append: _seen_colors | append: '||' -%}
+      {%- assign _needle = '||' | append: _v_color | append: '||' -%}
+      {%- unless _check contains _needle -%}
+        {%- assign _color_available = false -%}
+        {%- assign _v_color_hex = '' -%}
+        {%- assign _v_color_img = '' -%}
+        {%- assign _v_color_lookup = _v_color | downcase | strip -%}
+        {%- assign _v_color_alt_key = 'color_' | append: _v_color_lookup -%}
+        {%- assign _v_color_alt_key_handle = 'color_' | append: _v_color_lookup | handleize -%}
+        {%- assign _sw_pairs = _bs_swatch_lookup | split: ',' -%}
+        {%- for _pair in _sw_pairs -%}
+          {%- assign _pair_parts = _pair | split: '|' -%}
+          {%- if _pair_parts[0] == _v_color_lookup and _pair_parts[1] != blank -%}
+            {%- assign _v_color_hex = _pair_parts[1] | strip -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if _v_color_hex == blank -%}
+          {%- assign _v_color_hex = _v_color -%}
+        {%- endif -%}
+        {%- for _img_item in product.images -%}
+          {%- assign _img_alt = _img_item.alt | downcase | strip -%}
+          {%- if _img_alt == _v_color_alt_key or _img_alt == _v_color_alt_key_handle -%}
+            {%- assign _v_color_img = _img_item | product_img_url: 'small' -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- for _v2 in product.variants -%}
+          {%- if _v2.options[_color_option_idx] == _v_color and _v2.available -%}
+            {%- assign _color_available = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+        <button type="button"
+          class="pd__color-swatch{% if _v_color == current_variant.options[_color_option_idx] %} is-active{% endif %}{% unless _color_available %} is-soldout{% endunless %}"
+          data-option-index="{{ _color_option_idx }}"
+          data-option-value="{{ _v_color | escape }}"
+          {% unless _color_available %}disabled{% endunless %}
+          aria-label="Màu {{ _v_color | escape }}">
+          {%- if _v_color_img != blank -%}
+          <span class="pd__color-dot pd__color-dot--img" style="background-image:url('{{ _v_color_img }}');"></span>
+          {%- else -%}
+          <span class="pd__color-dot" style="background: #d4d4d4; background: {{ _v_color_hex }};"></span>
+          {%- endif -%}
+        </button>
+        {%- assign _seen_colors = _seen_colors | append: _v_color | append: '||' -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}

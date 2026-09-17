@@ -1,0 +1,89 @@
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const VIEWED_KEY = 'viewedProductAliases';
+		const VIEWED_LIMIT = {{ settings.viewed_limit }};
+		const CURRENT_ALIAS = '{{ product.handle }}';
+		const container = document.getElementById('viewed-products');
+		function getViewedProducts() {
+			try {
+				return JSON.parse(localStorage.getItem(VIEWED_KEY)) || [];
+			} catch (e) {
+				console.warn('Cannot parse localStorage viewed products:', e);
+				return [];
+			}
+		}
+		function saveViewedProducts(list) {
+			localStorage.setItem(VIEWED_KEY, JSON.stringify(list));
+		}
+		function updateViewedList(currentAlias) {
+			let list = getViewedProducts();
+			list = list.filter(alias => alias !== currentAlias);
+			list.unshift(currentAlias);
+			if (list.length > VIEWED_LIMIT) {
+				list = list.slice(0, VIEWED_LIMIT);
+			}
+			saveViewedProducts(list);
+		}
+		function fetchProductHTML(alias) {
+			return new Promise((resolve) => {
+				$.ajax({
+					url: '/products/' + alias + '?view=recent',
+					success: resolve,
+					error: () => resolve('')
+				});
+			});
+		}
+		function displayViewedProducts() {
+			const aliases = getViewedProducts();
+			if (aliases.length === 0) {
+				document.querySelector('.wolf-product-recent')?.classList.add('d-none');
+				return;
+			}
+				Promise.all(aliases.map(fetchProductHTML)).then((htmlList) => {
+				const html = htmlList.filter(Boolean).join('');
+				container.innerHTML = `
+<div class="wolf-product-swiper-recent swiper wolf-slider-nav">
+<div class="swiper-wrapper">${html}</div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-pagination"></div>
+	</div>`;
+				new Swiper('.wolf-product-swiper-recent', {
+				slidesPerView: 1,
+					spaceBetween: 20,
+						navigation: {
+							nextEl: '.wolf-product-swiper-recent .swiper-button-next',
+								prevEl: '.wolf-product-swiper-recent .swiper-button-prev',
+						},
+							pagination: {
+								el: '.wolf-product-swiper-recent .swiper-pagination',
+									type: "progressbar",
+							},
+								breakpoints: {
+									1: { slidesPerView: 2, spaceBetween: 8 },
+										768: { slidesPerView: 3, spaceBetween: 10 },
+											992: { slidesPerView: 4, spaceBetween: 10 },
+												1024: { slidesPerView: 5, spaceBetween: 10 },
+								}
+							});
+							window.comparison.updateButtonStates();
+			initSwatchImageSwitcher();
+			$(document).ready(function () {
+				var modal = $('#quick-view-product');
+				var btn = $('.quick-view');
+				btn.click(function () {
+					modal.modal('show');
+				});
+			});
+						}).catch(err => console.error('Error loading viewed products:', err));
+			}
+			updateViewedList(CURRENT_ALIAS);
+			displayViewedProducts();
+		});
+</script>
+<div class="wolf-product-recent mt-5">
+	<div class="wolf-product-relate">
+		<h4 class="title-head text-uppercase h4 fw-semibold mb-2">{{ settings.viewed_title }}</h4>
+		<div id="viewed-products"></div>
+	</div>
+</div>

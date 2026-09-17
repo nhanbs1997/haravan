@@ -1,0 +1,69 @@
+{% comment %}haravan-audit:v2{% endcomment %}
+{% if settings.bs_featcol_show %}
+<link rel="preload stylesheet" href="{{ 'bs_featured-collections.scss.css' | asset_url }}" as="style">
+
+{%- assign _blank = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=' -%}
+
+<section class="bs_featured-collections" data-filename="bs_featured-collections" data-reveal>
+  <div class="container">
+
+    {%- unless settings.bs_featcol_title == blank -%}
+    <h2 class="bs_featured-collections__heading">{{ settings.bs_featcol_title | escape }}</h2>
+    {%- endunless -%}
+
+    <div class="bs_featured-collections__wrap">
+      <div class="bs_featured-collections__track" data-bsfc-track>
+
+        {%- for i in (1..6) -%}
+          {%- capture _show_key -%}bs_featcol_show_{{ i }}{%- endcapture -%}
+          {%- capture _img_key -%}bs_featcol_img_{{ i }}{%- endcapture -%}
+          {%- capture _title_key -%}bs_featcol_title_{{ i }}{%- endcapture -%}
+          {%- capture _link_key -%}bs_featcol_link_{{ i }}{%- endcapture -%}
+          {%- assign _item_img = settings[_img_key] -%}
+          {%- assign _item_title = settings[_title_key] -%}
+          {%- assign _item_link = settings[_link_key] | default: '#' -%}
+          {%- if settings[_show_key] -%}
+          <a href="{{ _item_link }}" class="bs_featured-collections__card" aria-label="{{ _item_title | escape }}">
+            <div class="bs_featured-collections__card-img">
+              {%- unless _item_img == blank -%}
+              <img class="lazyload isHideTBT"
+                src="{{ _blank }}"
+                data-src="{{ _item_img }}"
+                alt="{{ _item_title | escape }}"
+                width="472" height="378"
+                loading="lazy" decoding="async">
+              {%- endunless -%}
+            </div>
+            <div class="bs_featured-collections__card-content">
+              {%- unless _item_title == blank -%}
+              <span class="bs_featured-collections__card-title">{{ _item_title | escape }}</span>
+              {%- endunless -%}
+              <span class="bs_featured-collections__card-arrow" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+          {%- endif -%}
+        {%- endfor -%}
+
+      </div>
+
+      <button class="bs_featured-collections__nav bs_featured-collections__nav--prev" data-bsfc-prev aria-label="Trước">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M5 12l7 7M5 12l7-7"/>
+        </svg>
+      </button>
+      <button class="bs_featured-collections__nav bs_featured-collections__nav--next" data-bsfc-next aria-label="Tiếp theo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M14 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<script fetchpriority="low" defer src="{{ 'bs_featured-collections.js' | asset_url }}"></script>
+{% endif %}

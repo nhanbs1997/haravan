@@ -1,0 +1,98 @@
+{% layout none %}
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js ie6 oldie" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js ie7 oldie" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js ie8 oldie" lang="en"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="vi">
+	<!--<![endif]-->
+	<head>
+		<meta charset="utf-8"/>		
+		<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1' /><![endif]-->
+		<!--[if lt IE 9]><script src="//hstatic.net/0/0/global/design/theme-default/html5shiv.js"></script><![endif]-->
+		<!--<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />-->
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0' />
+		<meta name="revisit-after" content="1 day" />
+		<meta name="HandheldFriendly" content="true">
+		<link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+			<title>
+			{{ page_title | strip_newlines | strip_html  | escape }} {% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+		</title>
+		<link rel="canonical" href="{{ canonical_url }}" />
+		<link rel="alternate" href="{{ canonical_url }}" hreflang="vi-vn" />	
+		<meta name="keywords" content="{{ shop.name }}">
+		{%- if template contains 'article' -%}
+			{%- if robots contains 'noindex' or robots contains 'nofollow' -%}
+			<meta name="robots" content="{{ robots }}">
+			{%- endif -%}
+		{%- endif -%}
+
+		{% include 'master-include' %}
+		{% include 'fb-open-graph-tags' %}
+		{% include 'seo_head' %}
+
+		{%- capture capserverHead-%}{{ content_for_header }}{%-endcapture-%}
+		{%- assign serverHead = capserverHead -%}
+
+		{%- capture capsrcCombo1 -%}"https://combo-omni.haravan.com/js/script_tag_production.js?v=1576487994026"{%-endcapture-%}
+		{%- assign srcCombo1 = capsrcCombo1 -%}
+		{%- capture capsrcCombo2 -%}"https://combo-omni.haravan.com/js/script_tag_production.js?v=1576487994026",{%-endcapture-%}
+		{%- capture capsrcCombo3 -%},"https://combo-omni.haravan.com/js/script_tag_production.js?v=1576487994026"{%-endcapture-%}
+		{%- assign srcCombo2 = capsrcCombo2 -%}
+		{%- assign srcCombo3 = capsrcCombo3 -%}
+
+		{%- capture capsrcBuyXY1 -%}"https://buyxgety-omni.haravan.com/js/script_tag_production.js?v=1576487994026"{%-endcapture-%}
+		{%- assign srcBuyXY1 = capsrcBuyXY1 -%}
+		{%- capture capsrcBuyXY2 -%}"https://buyxgety-omni.haravan.com/js/script_tag_production.js?v=1576487994026",{%-endcapture-%}
+		{%- capture capsrcBuyXY3 -%},"https://buyxgety-omni.haravan.com/js/script_tag_production.js?v=1576487994026"{%-endcapture-%}
+		{%- assign srcBuyXY2 = capsrcBuyXY2 -%}
+		{%- assign srcBuyXY3 = capsrcBuyXY3 -%}
+
+		{%- capture capsrcCombo_final1 -%}"https://combo-omni.haravan.com/js/script_tag_production.js?v=1003"{%-endcapture-%}
+		{%- assign srcCombo_final1 = capsrcCombo_final1 -%}
+
+		{%- capture capsrcBuyXY_final1 -%}"https://buyxgety-omni.haravan.com/js/script_tag_production.js?v=1002"{%-endcapture-%}
+		{%- assign srcBuyXY_final1 = capsrcBuyXY_final1 -%}
+
+		{%- if settings.promotion_hrvapp_use -%}
+		{%-if settings.promotion_hrvapp == 'appcombo'-%}	
+		{%-capture srcHead -%}{{ serverHead | remove: srcBuyXY2 | remove: srcBuyXY3 }}{%- endcapture -%}
+		{{ srcHead  }}
+		{%- elsif settings.promotion_hrvapp == 'appbuyxgety' -%}
+		{%-capture srcHead -%}{{ serverHead | remove: srcCombo2 | remove: srcCombo3 }}{%- endcapture -%}
+		{{ srcHead }}
+		{%-endif-%}
+		{%-else-%}
+		{{ serverHead | remove: srcBuyXY2 | remove: srcBuyXY3 | remove: srcCombo2 | remove: srcCombo3  }}
+		{%-endif-%}
+		<script type="application/ld+json" defer>{"@context":"http://schema.org","@type":"WebSite","name":"{{shop.url | remove: 'https://' | remove: 'http://' }}","url":"{{shop.url}}","potentialAction":{"@type":"SearchAction","target":"{{shop.url}}/search?&q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+		{% comment %}
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+																													new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+					j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+						'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+																})(window,document,'script','dataLayer','GTM-NP8HFM8');</script>
+		<!-- End Google Tag Manager -->	
+		{% endcomment %}
+	</head>
+	<body class="mainBody-theme {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" itemscope itemtype="http://schema.org/Website">
+		{% comment %}<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NP8HFM8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->{% endcomment %}
+		<div class="mainBody-theme-container mainBody-modalshow  {% if settings.addthis_iconList_show %} layoutProduct_scroll {% endif %}">
+			{%- include 'header-01' -%}
+			<main class="wrapperMain_content">{%- include 'index' -%}</main>
+			{%- include 'footer' -%}
+			<div id="sitenav-overlay" class="sitenav-overlay"></div>
+	
+			{%- if template contains 'index' -%}	{%- include 'popup-contact' -%}		{%- endif -%}
+			{%- include 'modal-live' -%}	
+		</div>
+		{%- include 'quickview' -%}	
+		{%- include 'modal-coupon' -%}
+		{%- include 'sidebar-main' -%}
+		{%- include 'addthis-sharing' -%}
+		{%- include 'footer-scripts' -%}
+	</body>
+</html>

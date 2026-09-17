@@ -1,0 +1,73 @@
+<div class="wolf-nav">
+	<div class="container">
+		<div class="navigation-horizontal">
+			<div class="wolf-nav-main-title d-lg-block d-lg-none">
+				Danh mục
+				<svg viewBox="0 0 24 24" class="btn-sitenav-close">
+					<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+						<g>
+							<rect fill-rule="nonzero" x="0" y="0" width="24" height="24"></rect>
+							<line x1="16.9999" y1="7" x2="7.00001" y2="16.9999" stroke="{{ settings.color_body_text }}" stroke-width="2" stroke-linecap="round"></line>
+							<line x1="7.00006" y1="7" x2="17" y2="16.9999" stroke="{{ settings.color_body_text }}" stroke-width="2" stroke-linecap="round"></line>
+						</g>
+					</g>
+				</svg>
+			</div>
+			<nav class="header-nav">
+				<ul id="nav" class="nav">
+					{%- for link in linklists[settings.main_menu].links -%}
+					{%- if settings.display_megamenu -%}
+					{%- assign items_list = settings.megamenu_items | split:"," -%}
+					{%- endif -%}
+					{%- assign mega-title = link.title | downcase -%}
+					{%- if linklists[link.handle] -%}
+					<li class="nav-root nav-item has-childs{% if link.active %} active{% endif %}{% if settings.display_megamenu and items_list contains mega-title %} has-mega{%endif%}">
+						<a href="{{ link.url }}" class="nav-link {% if settings.display_megamenu and items_list contains mega-title %}nav-link-megas{% else %}nav-link-1{% endif %}" title="{{ link.title }}">{{ link.title }}
+							<svg viewBox="0 0 24 24">
+								<path d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
+							</svg>
+						</a>
+						{%- if settings.display_megamenu and items_list contains mega-title -%}
+						{% include 'wolf-mega-menu' %}
+						{%- else -%}
+						<ul class="dropdown-menu dropdown-menu-1">
+							{%- for childlink in linklists[link.handle].links -%}
+							{%- if linklists[childlink.handle] -%}
+							<li class="dropdown-submenu nav-item-lv2 has-childs2">
+								<a class="nav-link nav-link-2" href="{{ childlink.url }}" title="{{ childlink.title }}">{{ childlink.title }}
+									<svg viewBox="0 0 24 24">
+										<path d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
+									</svg>
+								</a>
+								<ul class="dropdown-menu dropdown-menu-2">
+									{%- for childlink2 in linklists[childlink.handle].links -%}
+									<li class="nav-item-lv3">
+										<a class="nav-link" href="{{ childlink2.url }}" title="{{ childlink2.title }}">{{ childlink2.title }}</a>
+									</li>
+									{%- endfor -%}
+								</ul>
+							</li>
+							{%- else -%}
+							<li class="nav-item-lv2">
+								<a class="nav-link" href="{{ childlink.url }}" title="{{ childlink.title }}">{{ childlink.title }}</a>
+							</li>
+							{%- endif -%}
+							{%- endfor -%}
+						</ul>
+						{%- endif -%}
+					</li>
+					{%- else -%}
+					<li class="nav-root nav-item {% if link.active %}active{% endif %}">
+						<a class="nav-link" href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
+					</li>
+					{%- endif -%}
+					{%- endfor -%}
+				</ul>
+			</nav>
+			<div class="control-menu">
+				<a href="javascript:;" id="prev" title="Lùi"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#fff" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 278.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg></a>
+				<a href="javascript:;" id="next" title="Trước"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#fff" d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></a>
+			</div>
+		</div>
+	</div>
+</div>

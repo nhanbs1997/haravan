@@ -1,0 +1,36 @@
+{% layout settings.customer_layout %}
+<div id="layout-page"  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 custom-create" >
+	<span class="header-contact header-page clearfix">
+		<h1>Tạo tài khoản</h1>
+	</span>
+	<div class="userbox">
+		{% form 'create_customer' %}
+		{{ form.errors | default_errors }}
+		<div id="last_name" class="clearfix large_form">
+			<label for="last_name" class="label icon-field"><i class="icon-login icon-user "></i></label>
+			<input required type="text" value="" name="customer[last_name]" placeholder="Họ" id="last_name" class="text" size="30" />
+		</div>
+		<div id="first_name" class="clearfix large_form">
+			<label for="first_name" class="label icon-field"><i class="icon-login icon-user "></i></label>
+			<input required type="text" value="" name="customer[first_name]" placeholder="Tên" id="first_name" class="text" size="30" />
+		</div>
+		<div id="email" class="clearfix large_form">
+			<label for="email" class="label icon-field"><i class="icon-login icon-envelope "></i></label>
+			<input required type="email" value="" placeholder="Email" name="customer[email]" id="email" class="text" size="30" />
+		</div>
+		<div id="password" class="clearfix large_form">
+			<label for="password" class="label icon-field"><i class="icon-login icon-shield "></i></label>
+			<input required type="password" value="" placeholder="Mật khẩu" name="customer[password]" id="password" class="password text" size="30" />
+		</div>
+		<div class="action_bottom">
+			<input class="btn" type="submit" value="Đăng ký" />			
+		</div>
+		<div class="req_pass">
+			<a class="come-back" href="{{ shop.url }}"><i class="fa fa-long-arrow-left"></i> Quay lại trang chủ</a>
+		</div>
+
+		{% endform %}
+	</div>
+
+</div><!-- #register -->
+<!-- #customer-register -->

@@ -1,0 +1,205 @@
+{%- assign imagec = false -%}
+{%- if product.variants.size > 1 -%}
+    {%- for option in product.options -%}
+        {%- assign downcased_option = option | downcase -%}
+        {%- if downcased_option contains 'màu' or downcased_option contains 'color' -%}
+            {%- assign imagec = true -%}
+            {%- break -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endif -%}
+
+{%- if imagec -%}
+<script>
+    jQuery(document).ready(function($) {
+        var products = {{ product | json }};
+        var mySwiper = null;
+
+        // 1. Khởi tạo Slider (Mobile < 767px)
+        function initSwiper() {
+            if ($(window).width() < 767 && !mySwiper) {
+                var $swiperContainer = $('.wolf-product-slide-image');
+                if ($swiperContainer.length > 0) {
+                    mySwiper = new Swiper('.wolf-product-slide-image', {
+                        observer: true,
+                        observeParents: true,
+                        slidesPerView: 1,
+                        spaceBetween: 5,
+                        slidesPerGroup: 1,
+                        autoHeight: false, 
+                        pagination: {
+                            el: ".swiper-pagination",
+                            type: "fraction"
+                        },
+                        navigation: {
+                            nextEl: ".wolf-product-slide-image .swiper-button-next",
+                            prevEl: ".wolf-product-slide-image .swiper-button-prev",
+                        },
+                        breakpoints: {
+                            320: { slidesPerView: 1, spaceBetween: 5 },
+                            768: { slidesPerView: 1.5, spaceBetween: 10 }
+                        }
+                    });
+                }
+            }
+        }
+
+        // 2. Hủy Slider (Desktop)
+        function destroySwiper() {
+            if (mySwiper) {
+                mySwiper.destroy(true, true);
+                mySwiper = null;
+            }
+        }
+
+        // 3. Update CSS Classes
+        function updateSwiperAndClasses() {
+            const $swiperWrapper = $(".wolf-product-slide-image .swiper-wrapper");
+            const $items = $swiperWrapper.children('.item-image-product');
+            const totalImages = $items.length;
+
+            $items.removeClass('item-image-product-more has-less-five-image');
+            $swiperWrapper.removeClass('has-six-images has-less-five-image-wrapper');
+
+            $items.each(function(index) {
+                if (index >= 6) {
+                    $(this).addClass('item-image-product-more');
+                }
+            });
+
+            if (totalImages < 5) {
+                $items.addClass('has-less-five-image');
+                $swiperWrapper.addClass('has-less-five-image-wrapper');
+            }
+            if (totalImages === 6) {
+                $swiperWrapper.addClass('has-six-images');
+            }
+
+            if ($(window).width() < 767) {
+                if (!mySwiper) {
+                    initSwiper();
+                } else {
+                    mySwiper.update();
+                    mySwiper.slideTo(0, 0);
+                }
+            }
+        }
+
+        // 4. LightGallery
+        function initLightGallery(){
+            var $gallery = $("#lightgallery .swiper-wrapper");
+            if ($gallery.data('lightGallery')) {
+                $gallery.data('lightGallery').destroy(true);
+            }
+            $gallery.lightGallery({
+                selector: '.item-image-product',
+                thumbnail: true,
+                download: false
+            });
+        }
+
+        // Helper: Thêm ảnh vào HTML
+        function appendImage(url, thumbnails) {
+            if(url.indexOf('http') == -1) url = 'https:' + url;
+            var thumbUrl = Haravan.resizeImage(url, 'grande');
+            
+            thumbnails.append('<a class="item-image-product swiper-slide" href="' + url + '" title="Click để xem"><img src="' + thumbUrl + '" alt="' + (products.title || 'Product Image') + '" class="img-fluid center-block rounded-2"></a>');
+        }
+
+        // 5. Hiển thị tất cả ảnh (Fallback)
+        function noswatchImages() {
+            var thumbnails = $(".wolf-product-slide-image .swiper-wrapper");
+            thumbnails.hide().empty();
+            
+            if (products.images && products.images.length > 0) {
+                products.images.forEach(function(image) {
+                    // SỬA LỖI 1: Lấy đúng url dù là String hay Object
+                    var url = (typeof image === 'string') ? image : image.src;
+                    if(url) appendImage(url, thumbnails);
+                });
+            }
+            thumbnails.fadeIn(50);
+            updateSwiperAndClasses();
+            initLightGallery();
+        }
+
+        // 6. Logic Lọc ảnh theo TÊN FILE (Fix lỗi substring)
+        function initImages() {
+            var thumbnails = $(".wolf-product-slide-image .swiper-wrapper");
+            
+            $(document).on('click', '.swatch-element.color', function() {
+                var $this = $(this);
+                $('.swatch-element.color').removeClass('active');
+                $this.addClass('active');
+
+                var color_name = $this.data("value");
+                if(!color_name) return;
+                
+                // Convert tên màu sang slug (VD: "Nâu" -> "nau")
+                var colorSlug = wolf_convertVietnamese(color_name);
+                
+                thumbnails.hide().empty();
+
+                // Regex: Tìm tên file chứa slug màu (VD: -nau.jpg, _nau-1.jpg)
+                var colorRegex = new RegExp('(^|-|_)' + colorSlug + '(-|_|[0-9]*\\.jpg|$)', 'i');
+                var foundImages = false;
+
+                if (products.images && products.images.length > 0) {
+                    products.images.forEach(function(image) {
+                        // SỬA LỖI 2: Kiểm tra typeof để tránh lỗi undefined
+                        var url = (typeof image === 'string') ? image : image.src;
+                        
+                        if (!url) return; 
+
+                        // Lấy tên file
+                        var filename = url.substring(url.lastIndexOf('/')+1);
+
+                        // So khớp tên file với màu
+                        if (colorRegex.test(filename)) {
+                            appendImage(url, thumbnails);
+                            foundImages = true;
+                        }
+                    });
+                }
+
+                if (!foundImages) {
+                    noswatchImages();
+                } else {
+                    thumbnails.fadeIn(50);
+                    updateSwiperAndClasses();
+                    initLightGallery();
+                }
+            });
+
+            // Tự động click màu đầu tiên
+            setTimeout(function(){
+                var $firstColor = $('.swatch-element.color input:checked').closest('.swatch-element');
+                if($firstColor.length === 0) {
+                     $firstColor = $('.swatch-element.color').first();
+                }
+                if($firstColor.length > 0) {
+                     $firstColor.trigger('click');
+                } else {
+                     noswatchImages();
+                }
+            }, 100);
+        }
+
+        // --- RUN ---
+        initSwiper();
+        initImages();
+
+        let resizeTimeout;
+        $(window).resize(function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                if ($(window).width() < 767) {
+                    initSwiper();
+                } else {
+                    destroySwiper();
+                }
+            }, 200);
+        });
+    });
+</script>
+{%- endif -%}

@@ -1,0 +1,7 @@
+{%- capture image1 -%}{%- include 'shortcode-render' render:'image1' -%}{%- endcapture -%}
+{%- capture link1 -%}{%- include 'shortcode-render' render:'link1' -%}{%- endcapture -%}
+<div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 order-md-1 order-lg-2">
+	<a href="{{ link1 }}" class="collection-header-image" title="{{ page_title }}">
+		<img width="{{ settings.collection_banner_width }}" height="{{ settings.collection_banner_height }}" src="{{ image1 }}" alt="{{ page_title }}" class="img-fluid rounded-4" loading="lazy" >
+	</a>
+</div>

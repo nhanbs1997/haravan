@@ -1,0 +1,55 @@
+<div class="wolf-breadcrumb pt-3 pb-3">
+	<div class="container">
+		<ul class="breadcrumb mb-0">					
+			<li class="home breadcrumb-item">
+				<a href="/" title="Trang chủ">Trang chủ</a>
+			</li>
+			{%- if template contains 'product' -%}
+			{%- if product.collections.size > 0 -%}
+			<li class="breadcrumb-item">
+				<a class="changeurl" href="{{ product.collections.first.url }}" title="{{ product.collections.first.title }}">{{ product.collections.first.title }}</a>						
+			</li>
+			{%- endif -%}
+			<li class="breadcrumb-item active" aria-current="page">{{ product.title }}<li>
+			{%- elsif template contains 'collection' and collection.handle -%}
+			{%- if current_tags -%}	
+			{%- capture url -%}/collections/{{ collection.handle }}{%- endcapture -%}
+			<li class="breadcrumb-item">						
+				<a href="{{ collection.url }}" title="{{ collection.title }}">{{ collection.title }}</a>												
+			</li>					
+			<li class="breadcrumb-item active" aria-current="page">{{ current_tags | join: ', ' }}</li>
+			{%- else -%}
+			<li class="breadcrumb-item active" aria-current="page">{%- if collection.title == 'Products' or collection.title == 'all' -%}Tất cả sản phẩm{%- else -%} {{ collection.title }}{%- endif -%}</li>
+			{%- endif -%}
+			{%- elsif template contains 'addresses' -%}
+			<li class="breadcrumb-item">
+				<a href="/account" title="Tài khoản">Tài khoản</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Địa chỉ khách hàng</li>
+			{%- elsif template contains 'order' -%}
+			<li class="breadcrumb-item">
+				<a href="/account" title="Tài khoản">Tài khoản</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Đơn hàng {{ order.name }}</li>
+			{%- elsif template == 'article' -%}
+			<li class="breadcrumb-item">
+				<a href="{{ blog.url }}" title="{{ blog.title }}">{{ blog.title }}</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">{{ article.title }}</li>
+			{%- elsif template == 'blog' -%}
+			{%- if current_tags -%}
+			<li class="breadcrumb-item">
+				<a href="{{ blog.url }}" title="{{ blog.title }}">{{ blog.title }}</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">{{current_tags}}</li>
+			{%- else -%}
+			<li class="breadcrumb-item active" aria-current="page">{{ blog.title }}</li>
+			{%- endif -%}
+			{%- elsif template contains 'search' -%}
+			<li class="breadcrumb-item active" aria-current="page">Tìm kiếm</li>
+			{%- else -%}
+			<li class="breadcrumb-item active" aria-current="page">{{ page_title }}</li>
+			{%- endif -%}
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,47 @@
+{%- include 'breadcrumb' -%}
+<h1 class="d-none">{{ page_title }}</h1>
+<div class="section wolf-page-customer mt-5 mb-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="wolf-account-content alert alert-light">
+					<h3 class="wolf-account-title d-flex justify-content-center mb-3">Đăng ký tài khoản</h3>
+					{%- form 'create_customer' -%}
+					{%- if form.errors.size > 0 -%}
+					<div class="form-signup mb-3 alert alert-danger">
+						{%- for field in form.errors -%}
+						<p>{{ form.errors.messages[field] }}<p/>
+						{%- endfor -%}
+					</div>
+					{%- endif -%}
+					<div class="form-signup clearfix mb-3 dark-mode-form">
+						<div class="mb-3">
+							<label class="form-label"><strong>Họ<span class="required">*</span></strong></label>
+							<input autocomplete="off" placeholder="Nhập Họ" type="text" class="form-control" value="" name="customer[last_name]" id="lastName" required data-validation-error-msg= "Không được để trống" data-validation="required" >
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><strong>Tên<span class="required">*</span></strong></label>
+							<input autocomplete="off" placeholder="Nhập Tên" type="text" class="form-control" value="" name="customer[first_name]" id="firstName" required data-validation-error-msg= "Không được để trống" data-validation="required" >
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><strong>Số điện thoại<span class="required">*</span></strong></label>
+							<input autocomplete="off" placeholder="Nhập Số điện thoại" type="tel" class="number-phone form-control" value="" name="customer[phone]" id="phone" required data-validation-error-msg= "Không được để trống" data-validation="required" >
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><strong>Email<span class="required">*</span></strong></label>
+							<input autocomplete="off" placeholder="Nhập Địa chỉ Email" type="email" class="form-control" data-validation="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$" data-validation-error-msg= "Email sai định dạng" value="" name="customer[email]" id="email" required="" >
+						</div>
+						<div class="mb-3">
+							<label class="form-label"><strong>Mật khẩu<span class="required">*</span></strong></label>
+							<input autocomplete="off" placeholder="Nhập Mật khẩu" type="password" class="form-control" value="" name="customer[password]" id="password" required data-validation-error-msg= "Không được để trống" data-validation="required" >
+						</div>
+						<div class="text-center mt-3">
+							<button type="submit" value="Đăng ký" class="btn btn-style wolf-btn-main rounded-3">Tạo tài khoản</button>
+						</div>
+					</div>
+					{%- endform -%}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

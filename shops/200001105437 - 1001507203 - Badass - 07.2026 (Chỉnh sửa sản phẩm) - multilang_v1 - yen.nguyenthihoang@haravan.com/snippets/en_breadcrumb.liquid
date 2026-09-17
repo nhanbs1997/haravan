@@ -1,0 +1,252 @@
+{%- capture _sep -%}<span class="breadcrumb__sep" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>{%- endcapture -%}
+
+<nav class="breadcrumb" aria-label="Breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+  <ol class="breadcrumb__list">
+
+    <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a href="/" class="breadcrumb__link" itemprop="item">
+        <span itemprop="name">Home</span>
+      </a>
+      <meta itemprop="position" content="1">
+    </li>
+
+    {%- if template contains 'collection' and collection.handle -%}
+
+      {%- assign _a = collection.handle -%}
+      {%- assign _c1 = '' -%}{%- assign _c1u = '' -%}
+      {%- assign _c2 = '' -%}{%- assign _c2u = '' -%}
+      {%- for link in linklists[settings.en_header_mainmenu].links -%}
+        {%- if link.object.handle == _a -%}
+          {%- assign _c1 = link.title -%}{%- assign _c1u = link.url -%}
+        {%- endif -%}
+        {%- for link2 in linklists[link.handle].links -%}
+          {%- if link2.object.handle == _a -%}
+            {%- assign _c1 = link.title -%}{%- assign _c1u = link.url -%}
+            {%- assign _c2 = link2.title -%}{%- assign _c2u = link2.url -%}
+          {%- endif -%}
+          {%- for link3 in linklists[link2.handle].links -%}
+            {%- if link3.object.handle == _a -%}
+              {%- assign _c1 = link.title -%}{%- assign _c1u = link.url -%}
+              {%- assign _c2 = link2.title -%}{%- assign _c2u = link2.url -%}
+            {%- endif -%}
+            {%- for link4 in linklists[link3.handle].links -%}
+              {%- if link4.object.handle == _a -%}
+                {%- assign _c1 = link.title -%}{%- assign _c1u = link.url -%}
+                {%- assign _c2 = link2.title -%}{%- assign _c2u = link2.url -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endfor -%}
+        {%- endfor -%}
+      {%- endfor -%}
+
+      {%- if _c1 != blank -%}
+        <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          {{ _sep }}
+          {%- if _c2 != blank and _c2u != _c1u -%}
+          <a href="{{ _c1u }}" class="breadcrumb__link" itemprop="item">
+            <span itemprop="name">{{ _c1 }}</span>
+          </a>
+          <meta itemprop="position" content="2">
+        </li>
+        <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          {{ _sep }}
+          <span itemprop="item" content="{{ shop.url }}{{ _c2u }}">
+            <span itemprop="name" aria-current="page">{{ _c2 }}</span>
+          </span>
+          <meta itemprop="position" content="3">
+        </li>
+          {%- else -%}
+          <span itemprop="item" content="{{ shop.url }}{{ _c1u }}">
+            <span itemprop="name" aria-current="page">{{ _c1 }}</span>
+          </span>
+          <meta itemprop="position" content="2">
+        </li>
+          {%- endif -%}
+      {%- else -%}
+        <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          {{ _sep }}
+          <a href="/collections" class="breadcrumb__link" itemprop="item">
+            <span itemprop="name">List</span>
+          </a>
+          <meta itemprop="position" content="2">
+        </li>
+        <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          {{ _sep }}
+          <span itemprop="item" content="{{ shop.url }}/collections/{{ collection.handle }}">
+            <span itemprop="name" aria-current="page">{% if collection.handle == 'all' %}All products{% else %}{{ collection.metafields.hrvmultilang_en.title | append: '' | default: collection.title }}{% endif %}</span>
+          </span>
+          <meta itemprop="position" content="3">
+        </li>
+      {%- endif -%}
+
+      {%- if current_tags -%}
+        <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          {{ _sep }}
+          <span itemprop="item" content="{{ shop.url }}/collections/{{ collection.handle }}/{{ current_tags | first | handleize }}">
+            <span itemprop="name" aria-current="page">{{ current_tags | first | capitalize }}</span>
+          </span>
+          <meta itemprop="position" content="4">
+        </li>
+      {%- endif -%}
+
+    {%- elsif template contains 'product' -%}
+
+      {%- if collection.url -%}
+      <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        {{ _sep }}
+        <a href="{{ shop.url }}/collections/{{ collection.handle }}" class="breadcrumb__link" itemprop="item">
+          <span itemprop="name">{{ collection.metafields.hrvmultilang_en.title | append: '' | default: collection.title }}</span>
+        </a>
+        <meta itemprop="position" content="2">
+      </li>
+      <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        {{ _sep }}
+        <span itemprop="item" content="{{ shop.url }}{{ product.url }}">
+          <span itemprop="name" aria-current="page">{{ product.metafields.hrvmultilang_en.title | append: '' | default: product.title }}</span>
+        </span>
+        <meta itemprop="position" content="3">
+      </li>
+      {%- else -%}
+      <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        {{ _sep }}
+        <span itemprop="item" content="{{ shop.url }}{{ product.url }}">
+          <span itemprop="name" aria-current="page">{{ product.metafields.hrvmultilang_en.title | append: '' | default: product.title }}</span>
+        </span>
+        <meta itemprop="position" content="2">
+      </li>
+      {%- endif -%}
+
+    {%- elsif template contains 'article' -%}
+
+      <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        {{ _sep }}
+        <a href="{{ blog.url }}" class="breadcrumb__link" itemprop="item">
+          <span itemprop="name">{{ blog.title }}</span>
+        </a>
+        <meta itemprop="position" content="2">
+      </li>
+      <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        {{ _sep }}
+        <span itemprop="item" content="{{ shop.url }}{{ article.url }}">
+          <span itemprop="name" aria-current="page">{{ article.title }}</span>
+        </span>
+        <meta itemprop="position" content="3">
+      </li>
+
+    {%- elsif template contains 'blog' -%}
+
+      {%- if current_tags -%}
+        <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          {{ _sep }}
+          <a href="{{ blog.url }}" class="breadcrumb__link" itemprop="item">
+            <span itemprop="name">{{ blog.title }}</span>
+          </a>
+          <meta itemprop="position" content="2">
+        </li>
+        <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          {{ _sep }}
+          <span itemprop="item" content="{{ shop.url }}/blogs/{{ blog.handle }}/tagged/{{ current_tags | first | handleize }}">
+            <span itemprop="name" aria-current="page">{{ current_tags | first | capitalize }}</span>
+          </span>
+          <meta itemprop="position" content="3">
+        </li>
+      {%- else -%}
+        <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          {{ _sep }}
+          <span itemprop="item" content="{{ shop.url }}{{ blog.url }}">
+            <span itemprop="name" aria-current="page">{{ blog.title }}</span>
+          </span>
+          <meta itemprop="position" content="2">
+        </li>
+      {%- endif -%}
+
+    {%- elsif template contains 'page' -%}
+
+      <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        {{ _sep }}
+        <span itemprop="item" content="{{ shop.url }}{{ page.url }}">
+          <span itemprop="name" aria-current="page">{{ page.metafields.hrvmultilang_en.title | append: '' | default: page.title }}</span>
+        </span>
+        <meta itemprop="position" content="2">
+      </li>
+
+    {%- elsif template contains 'search' -%}
+
+      <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        {{ _sep }}
+        <span itemprop="item" content="{{ shop.url }}/search?q={{ search.terms | strip_html | escape }}">
+          <span itemprop="name" aria-current="page">Search: "{{ search.terms | strip_html | escape }}"</span>
+        </span>
+        <meta itemprop="position" content="2">
+      </li>
+
+    {%- elsif template contains 'cart' -%}
+
+      <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        {{ _sep }}
+        <span itemprop="item" content="{{ shop.url }}/cart">
+          <span itemprop="name" aria-current="page">Count {{ cart.item_count }})</span>
+        </span>
+        <meta itemprop="position" content="2">
+      </li>
+
+    {%- elsif template contains 'list-collections' -%}
+
+      <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        {{ _sep }}
+        <span itemprop="item" content="{{ shop.url }}/collections">
+          <span itemprop="name" aria-current="page">List</span>
+        </span>
+        <meta itemprop="position" content="2">
+      </li>
+
+    {%- elsif template contains 'customers/account' -%}
+
+      <li class="breadcrumb__item breadcrumb__item--current">
+        {{ _sep }}
+        <span aria-current="page">Account</span>
+      </li>
+
+    {%- elsif template contains 'customers/register' -%}
+
+      <li class="breadcrumb__item"><a href="/account" class="breadcrumb__link">{{ _sep }}Account</a></li>
+      <li class="breadcrumb__item breadcrumb__item--current">{{ _sep }}<span aria-current="page">Register</span></li>
+
+    {%- elsif template contains 'customers/login' -%}
+
+      <li class="breadcrumb__item"><a href="/account" class="breadcrumb__link">{{ _sep }}Account</a></li>
+      <li class="breadcrumb__item breadcrumb__item--current">{{ _sep }}<span aria-current="page">Log in</span></li>
+
+    {%- elsif template contains 'customers/addresses' -%}
+
+      <li class="breadcrumb__item"><a href="/account" class="breadcrumb__link">{{ _sep }}Account</a></li>
+      <li class="breadcrumb__item breadcrumb__item--current">{{ _sep }}<span aria-current="page">Address</span></li>
+
+    {%- elsif template contains 'customers/order' -%}
+
+      <li class="breadcrumb__item"><a href="/account" class="breadcrumb__link">{{ _sep }}Account</a></li>
+      <li class="breadcrumb__item breadcrumb__item--current">{{ _sep }}<span aria-current="page">Order:  {{ order.name }}</span></li>
+
+    {%- elsif template contains '404' -%}
+
+      <li class="breadcrumb__item breadcrumb__item--current">
+        {{ _sep }}
+        <span aria-current="page">404 Error</span>
+      </li>
+
+    {%- else -%}
+
+      {%- unless page_title == blank -%}
+      <li class="breadcrumb__item breadcrumb__item--current" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        {{ _sep }}
+        <span itemprop="item" content="{{ canonical_url }}">
+          <span itemprop="name" aria-current="page">{{ page.metafields.hrvmultilang_en.title | append: '' | default: page.title }}</span>
+        </span>
+        <meta itemprop="position" content="2">
+      </li>
+      {%- endunless -%}
+
+    {%- endif -%}
+
+  </ol>
+</nav>

@@ -1,0 +1,107 @@
+<div class="col-md-12 col-xs-12 col-sm-12" id="layout-page">
+	<span class="header-search header-page clearfix">
+		<h1>Tìm kiếm</h1>
+	</span>
+
+	{% if search.performed %}
+	{% paginate search.results by 8 %}
+
+	{% if search.terms == "" %}
+	<div class="content-page" id="search">
+		<div class="col-md-12  col-xs-12 col-sm-12  expanded-message">
+			<div class="search-field">
+				<form class="search-page" action="/search">
+					<input type="submit" alt="Go" id="go"/>
+					<input type="text" name="q" class="search_box" placeholder="Tìm kiếm" value="{{search.terms}}"  />
+				</form>
+			</div>
+		</div> 
+	</div>
+	{% else %}
+
+	{% if search.results == empty %}
+	<div class="content-page" id="search">
+		<div class="col-md-12   col-xs-12 col-sm-12 expanded-message">
+			<h2>Không tìm thấy nội dung bạn yêu cầu</h2>
+			<span class="subtext">
+				Không tìm thấy  <strong>"{{ search.terms }}"</strong> . Vui lòng tìm kiếm với từ khóa khác.
+			</span>
+			<div class="search-field">
+				<form class="search-page" action="/search">
+					<input type="submit" alt="Go" id="go"/>
+          <input type="hidden" name="type" value="product" />
+					<input type="text" name="q" class="search_box" placeholder="Tìm kiếm" value="{{search.terms}}"  />
+				</form>
+			</div>
+		</div>
+	</div>
+	{% else %}
+
+	<div class="content-page" id="search">
+		<div class="col-md-12  col-xs-12 col-sm-12">
+			<span class="subtext">
+				Kết quả tìm kiếm cho  <strong>"{{ search.terms }}"</strong>.
+			</span>
+		</div>
+	</div>
+	<div class="results content-page content-product-list product-list">
+		<!-- Begin results -->
+		{% for product in search.results %}
+<div class="col-md-3 col-sm-6 col-xs-6 pro-loop">
+		{% include 'product-loop' with collection.handle %}
+</div>
+		{% endfor %}
+	</div>
+	<!-- End results -->
+
+  {% include 'pagination-default' %}
+
+  {% endif %}
+  {% endif %}
+
+  {% endpaginate %}
+
+  {% else %}
+
+  <div class="content-page" id="search">
+		<div class="col-md-12  col-xs-12 col-sm-12  expanded-message">
+			<div class="search-field">
+				<form class="search-page" action="/search">
+					<input type="submit" alt="Go" id="go"/>
+					<input type="text" name="q" class="search_box" placeholder="Tìm kiếm" value="{{search.terms}}"  />
+				</form>
+			</div>
+		</div>
+	</div>
+
+	{% endif %}
+	<!-- /#search -->
+
+	<style>
+    div#search {
+    float: left;
+    width: 100%;
+    outline: none;
+    }
+    .search-field {
+    width: 100%!important;
+    }
+    input#go {
+    width: 34px!important;
+    height: 34px!important;
+    float: right!important;
+    background: url(//hstatic.net/0/0/global/design/theme-default/icon-search.png) {{settings.shop_bg_color }} center no-repeat;
+    margin: 0px!important;
+    font-size: 0px;
+    position: relative!important;
+    top:0px!important;
+border-radius:0;
+    }
+    #search .search_box
+    {
+    width: calc(100% - 34px)!important;
+    float: left;
+    outline: none;
+    padding: 0px 0px 0px 10px;
+    }
+  </style>
