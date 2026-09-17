@@ -1036,6 +1036,7 @@ function Ensure-HaravanOrganizationLogin {
         [Parameter(Mandatory = $true)][string]$SourceUrl
     )
 
+    $loginAttempted = $false
     while ($true) {
         $loggedInOrgIds = @(Get-LoggedInOrganizationIds)
         if ($OrgId -in $loggedInOrgIds) {
@@ -1048,16 +1049,39 @@ function Ensure-HaravanOrganizationLogin {
             "Chưa thấy Organization {0} trong phiên Haravan hiện tại cho {1}." -f
                 $OrgId, $SourceUrl
         )
-        $answer = Read-Host (
-            "Nhấn Enter để mở Haravan login; đăng nhập đúng tài khoản quản lý org " +
-            "này rồi chờ kiểm tra lại. Nhập S để bỏ qua"
-        )
+        if ($loginAttempted) {
+            Write-Warning (
+                "CLI chưa lưu phiên cho Organization $OrgId. Bấm Đồng Ý trên web chưa đủ: " +
+                "callback phải hoàn tất và whoiam phải có đúng org. Kiểm tra tài khoản/shop đã cấp quyền."
+            )
+            $answer = Read-Host "Enter để kiểm tra lại phiên; L để đăng nhập lại; S để bỏ qua"
+        } else {
+            $answer = Read-Host "Enter để mở Haravan login; R để kiểm tra phiên đã đăng nhập; S để bỏ qua"
+        }
         if ($answer -match '^(?i:s|skip|no)$') {
             return $false
+        }
+        if ($answer -match '^(?i:r|retry)$' -or
+            ($loginAttempted -and $answer -notmatch '^(?i:l|login)$')) {
+            continue
+        }
+
+        # The session may have changed while the prompt was waiting.
+        if ($OrgId -in @(Get-LoggedInOrganizationIds)) {
+            Write-Host "Đã xác nhận đăng nhập Organization $OrgId." -ForegroundColor Green
+            return $true
         }
 
         Write-Host "Mở Haravan login..."
         Invoke-HaravanAt -WorkingDirectory $script:ProjectRoot "login"
+        $loginAttempted = $true
+        for ($attempt = 0; $attempt -lt 5; $attempt++) {
+            if ($OrgId -in @(Get-LoggedInOrganizationIds)) {
+                Write-Host "Đã xác nhận đăng nhập Organization $OrgId; tiếp tục tải theme." -ForegroundColor Green
+                return $true
+            }
+            if ($attempt -lt 4) { Start-Sleep -Seconds 2 }
+        }
     }
 }
 

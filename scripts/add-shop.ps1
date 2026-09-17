@@ -49,10 +49,10 @@ if ($hasExplicitSelection) {
         throw "OrgId hoặc ThemeId không hợp lệ: org=$OrgId, theme=$ThemeId"
     }
     if ($OrgId -notin $organizationIds) {
-        throw (
-            "Organization $OrgId chưa có trong phiên Haravan CLI. " +
-            "Hãy đăng nhập đúng Organization rồi chạy lại."
-        )
+        $loginSource = if ([string]::IsNullOrWhiteSpace($Url)) { "theme $ThemeId" } else { $Url }
+        if (-not (Ensure-HaravanOrganizationLogin -OrgId $OrgId -SourceUrl $loginSource)) {
+            throw "Đã bỏ qua đăng nhập Organization $OrgId; chưa tải theme."
+        }
     }
 
     $orgId = $OrgId
