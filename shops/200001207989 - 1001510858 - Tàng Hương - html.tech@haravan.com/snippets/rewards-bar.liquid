@@ -1,8 +1,8 @@
 {% assign total = cart.total_price  -%}
 {% assign total_amount = 0 -%}
-{% assign count_rewards = 0 -%}
 {% capture rewards %}
 {%for i in (1..3) -%}
+    {% assign count_rewards = 0 -%}
 	{% capture reward_enabled -%}rewards_{{i}}_enabled{% endcapture -%}
 	{% capture reward_title -%}rewards_{{i}}_title{% endcapture -%}
 	{% capture reward_amount -%}rewards_{{i}}_amount{% endcapture -%}

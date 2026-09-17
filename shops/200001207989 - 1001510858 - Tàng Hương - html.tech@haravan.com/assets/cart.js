@@ -70,11 +70,6 @@ class RewardsBar extends HTMLElement {
     this.classList.remove("opacity-0");
   }
   update(cartRewards) {
-    if (!cartRewards) {
-      this.innerHTML = "";
-      delete this.dataset.total;
-      return;
-    }
     this.dataset.total = cartRewards.dataset.total;
     this.innerHTML = cartRewards.innerHTML;
     this.init();
